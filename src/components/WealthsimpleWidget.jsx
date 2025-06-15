@@ -8,7 +8,7 @@ const WealthsimpleWidget = () => {
           window.ws('destroy');
           window.ws('init', window.wealthsimpleRedesignSettings);
         } catch (e) {
-          console.error('Wealthsimple widget error:', e);
+          console.error('Wealthsimple error:', e);
         }
       } else {
         setTimeout(initWealthsimple, 500);
@@ -33,7 +33,6 @@ const WealthsimpleWidget = () => {
         </p>
       </div>
 
-      {/* Widget Mount Point */}
       <div
         id="wealthsimple-widget"
         className="min-h-[300px] border rounded-lg bg-white shadow-sm mt-6 flex items-center justify-center"
@@ -41,7 +40,6 @@ const WealthsimpleWidget = () => {
         <div className="text-center text-gray-400">
           <div className="animate-spin h-10 w-10 border-b-2 border-blue-500 rounded-full mx-auto mb-3" />
           <p>Loading Wealthsimple investment tools...</p>
-          <p className="text-sm text-gray-300">If this doesn't load, please refresh the page.</p>
         </div>
       </div>
 
