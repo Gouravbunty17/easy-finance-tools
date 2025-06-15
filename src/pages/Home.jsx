@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiArrowRight, FiBarChart2, FiCpu, FiEdit } from 'react-icons/fi';
+import WealthsimpleWidget from '../components/WealthsimpleWidget'; // ✅ Import the widget
 
 // Reusable Feature Card Component
 const FeatureCard = ({ icon, title, description, link }) => (
@@ -62,6 +63,13 @@ const Home = () => {
               link="/blog"
             />
           </div>
+        </div>
+      </section>
+
+      {/* Wealthsimple Referral Widget Section */}
+      <section className="py-10 bg-blue-50 dark:bg-neutralDark">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <WealthsimpleWidget />
         </div>
       </section>
     </div>
