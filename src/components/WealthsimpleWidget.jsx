@@ -1,24 +1,61 @@
-// Inside src/components/WealthsimpleWidget.jsx
+import React, { useEffect } from 'react';
 
-return (
-  <div className="wealthsimple-container my-4">
-    <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded">
-      <p className="text-blue-700">
-        <strong>Special Offer:</strong> Use referral code <span className="font-mono bg-blue-100 px-2 py-1 rounded">R8F7ZW</span> when signing up for bonus rewards
+const WealthsimpleWidget = () => {
+  useEffect(() => {
+    const initWealthsimple = () => {
+      if (window.ws && typeof window.ws === 'function') {
+        try {
+          window.ws('destroy');
+          window.ws('init', window.wealthsimpleRedesignSettings);
+        } catch (e) {
+          console.error('Wealthsimple widget error:', e);
+        }
+      } else {
+        setTimeout(initWealthsimple, 500);
+      }
+    };
+
+    initWealthsimple();
+
+    return () => {
+      if (window.ws && typeof window.ws === 'function') {
+        window.ws('destroy');
+      }
+    };
+  }, []);
+
+  return (
+    <div className="max-w-4xl mx-auto my-12 px-4">
+      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-md text-blue-800">
+        <p>
+          💸 <strong>Special Offer:</strong> Use referral code{' '}
+          <span className="font-mono bg-white px-2 py-1 rounded border border-blue-300">R8F7ZW</span> to get $25 when you sign up.
+        </p>
+      </div>
+
+      {/* Widget Mount Point */}
+      <div
+        id="wealthsimple-widget"
+        className="min-h-[300px] border rounded-lg bg-white shadow-sm mt-6 flex items-center justify-center"
+      >
+        <div className="text-center text-gray-400">
+          <div className="animate-spin h-10 w-10 border-b-2 border-blue-500 rounded-full mx-auto mb-3" />
+          <p>Loading Wealthsimple investment tools...</p>
+          <p className="text-sm text-gray-300">If this doesn't load, please refresh the page.</p>
+        </div>
+      </div>
+
+      <p className="text-center text-sm mt-4 text-blue-600 underline">
+        <a
+          href="https://wealthsimple.com/invite/R8F7ZW"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Or click here to claim your $25 bonus →
+        </a>
       </p>
     </div>
+  );
+};
 
-    {/* ✅ Container with correct ID */}
-    <div id="wealthsimple-widget" className="min-h-[300px] border rounded-lg bg-gray-50">
-      <div className="text-center p-4">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-        <p className="text-gray-500">Loading Wealthsimple investment tools...</p>
-        <p className="text-sm text-gray-400 mt-2">If this doesn't load, please refresh the page</p>
-      </div>
-    </div>
-
-    <p className="text-sm text-gray-500 mt-3 text-center">
-      Powered by Wealthsimple • Sign up required • Fees may apply
-    </p>
-  </div>
-);
+export default WealthsimpleWidget;
