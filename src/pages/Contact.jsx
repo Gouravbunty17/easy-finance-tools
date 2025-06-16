@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
 
 const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState(null);
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
@@ -13,22 +11,20 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!captchaToken) {
-      alert('Please verify that you are not a robot.');
-      return;
-    }
 
     try {
+      // Wait for reCAPTCHA token
+      const token = await window.grecaptcha.enterprise.execute('6Lfq02ErAAAAACKsvPNiYQ5IktFs-fgD-RLPs1G5', { action: 'submit' });
+
       const response = await fetch('https://formspree.io/f/xkgbbqoa', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, 'g-recaptcha-response': captchaToken }),
+        body: JSON.stringify({ ...form, 'g-recaptcha-response': token }),
       });
 
       if (response.ok) {
         setSubmitted(true);
         setForm({ name: '', email: '', message: '' });
-        setCaptchaToken(null);
       } else {
         throw new Error('Failed to send message.');
       }
@@ -83,14 +79,6 @@ const Contact = () => {
               className="w-full px-4 py-2 border rounded bg-white dark:bg-neutral-800 dark:text-white"
             ></textarea>
           </label>
-
-          <div className="mb-4">
-            <ReCAPTCHA
-              sitekey="6LceGGIrAAAAAFSrTPeqBIYo52peqMEubhqIguu1"
-              onChange={(token) => setCaptchaToken(token)}
-              onExpired={() => setCaptchaToken(null)}
-            />
-          </div>
 
           {error && <p className="text-red-600 mb-4">{error}</p>}
 
