@@ -4,7 +4,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
-  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState(null);
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
@@ -13,7 +13,7 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!captchaVerified) {
+    if (!captchaToken) {
       alert('Please verify that you are not a robot.');
       return;
     }
@@ -22,12 +22,13 @@ const Contact = () => {
       const response = await fetch('https://formspree.io/f/xkgbbqoa', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, 'g-recaptcha-response': captchaToken }),
       });
 
       if (response.ok) {
         setSubmitted(true);
         setForm({ name: '', email: '', message: '' });
+        setCaptchaToken(null);
       } else {
         throw new Error('Failed to send message.');
       }
@@ -86,8 +87,8 @@ const Contact = () => {
           <div className="mb-4">
             <ReCAPTCHA
               sitekey="6LceGGIrAAAAAFSrTPeqBIYo52peqMEubhqIguu1"
-              onChange={() => setCaptchaVerified(true)}
-              onExpired={() => setCaptchaVerified(false)}
+              onChange={(token) => setCaptchaToken(token)}
+              onExpired={() => setCaptchaToken(null)}
             />
           </div>
 
