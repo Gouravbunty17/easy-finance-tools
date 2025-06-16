@@ -15,6 +15,22 @@ const Footer = () => (
           <NavLink to="/privacy" className="hover:text-secondary transition-colors">Privacy Policy</NavLink>
         </div>
       </div>
+
+      {/* AdSense Footer Ad */}
+      <div className="text-center mt-6">
+        <ins
+          className="adsbygoogle"
+          style={{ display: 'block' }}
+          data-ad-client="ca-pub-4262496331692202"
+          data-ad-slot="9876543210"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        ></ins>
+        <script>
+          {(adsbygoogle = window.adsbygoogle || []).push({})}
+        </script>
+      </div>
+
       <div className="border-t border-blue-800 mt-6 pt-4 text-center text-sm text-neutral-light">
         &copy; {new Date().getFullYear()} EasyFinanceTools — All rights reserved.
       </div>
