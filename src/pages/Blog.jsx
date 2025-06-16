@@ -1,46 +1,32 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { FiArrowRight } from 'react-icons/fi';
-
-const articles = [
-  {
-    title: 'Top 5 Tips to Start Budgeting Today',
-    summary: 'Learn how to set up your first budget, track expenses, and avoid common mistakes.',
-    date: 'June 2025',
-    link: '/blog/start-budgeting-tips'
-  },
-  {
-    title: 'How Dividend Investing Builds Wealth',
-    summary: 'Discover the power of compounding dividends and how to choose the right stocks.',
-    date: 'May 2025',
-    link: '/blog/dividend-investing-guide'
-  },
-  {
-    title: 'Beginner’s Guide to Canadian Taxes',
-    summary: 'Understand the basics of income tax, credits, and how to maximize your return.',
-    date: 'April 2025',
-    link: '/blog/canadian-tax-guide'
-  }
-];
+import AdBlock from '../components/AdBlock';
 
 const Blog = () => {
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-primary mb-8 text-center">Financial Literacy Blog</h1>
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {articles.map((article, index) => (
-          <div key={index} className="bg-white dark:bg-neutral-900 p-6 rounded-lg shadow-md hover:shadow-lg transition">
-            <p className="text-sm text-neutral-500 mb-1">{article.date}</p>
-            <h2 className="text-xl font-semibold text-primary mb-2">{article.title}</h2>
-            <p className="text-neutral-dark dark:text-neutral-300 mb-4">{article.summary}</p>
-            <NavLink
-              to={article.link}
-              className="inline-flex items-center font-medium text-secondary hover:text-primary"
-            >
-              Read More <FiArrowRight className="ml-2" />
-            </NavLink>
-          </div>
-        ))}
+    <div className="container mx-auto px-4 py-10">
+      <h1 className="text-4xl font-bold text-primary mb-6">Finance Blog</h1>
+
+      {/* Top Banner Ad */}
+      <div className="mb-8 text-center">
+        <AdBlock slot="3333333333" />
+      </div>
+
+      {/* Blog posts list (placeholder) */}
+      <div className="space-y-8">
+        <article className="bg-white shadow rounded p-6">
+          <h2 className="text-2xl font-bold mb-2">How to Start Budgeting in Canada</h2>
+          <p className="text-neutral-dark">Learn the basics of creating a personal budget using free tools and smart tips...</p>
+        </article>
+
+        <article className="bg-white shadow rounded p-6">
+          <h2 className="text-2xl font-bold mb-2">TFSA vs RRSP: What Should You Use?</h2>
+          <p className="text-neutral-dark">Compare the advantages of using TFSA vs RRSP for long-term tax-free growth in Canada...</p>
+        </article>
+      </div>
+
+      {/* Footer Ad */}
+      <div className="mt-12 text-center">
+        <AdBlock slot="4444444444" />
       </div>
     </div>
   );

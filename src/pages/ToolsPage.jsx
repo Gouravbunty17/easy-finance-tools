@@ -1,44 +1,57 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { FiDollarSign, FiClipboard, FiBarChart2 } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import { FiBarChart2, FiDollarSign, FiTrendingUp } from 'react-icons/fi';
 
-const ToolCard = ({ icon, title, description, link }) => (
-  <div className="bg-white dark:bg-neutral-900 p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300">
-    <div className="text-primary text-3xl mb-4">{icon}</div>
-    <h3 className="text-xl font-bold mb-2 text-primary">{title}</h3>
+const ToolCard = ({ title, description, link }) => (
+  <div className="bg-white dark:bg-neutral-900 p-6 rounded-lg shadow hover:shadow-lg transition-all">
+    <h3 className="text-xl font-bold text-primary mb-2">{title}</h3>
     <p className="text-neutral-dark dark:text-neutral-300 mb-4">{description}</p>
-    <NavLink
-      to={link}
-      className="inline-block text-sm font-semibold text-secondary hover:text-primary transition"
-    >
-      Try Tool →
-    </NavLink>
+    <Link to={link} className="text-secondary font-semibold hover:underline">
+      Try Tool
+    </Link>
   </div>
 );
 
 const ToolsPage = () => {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-center text-primary mb-10">Explore Our Financial Tools</h1>
-      <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <div className="max-w-6xl mx-auto px-4 py-16">
+      <h1 className="text-4xl font-bold text-primary mb-8 text-center">Explore Our Free Finance Tools</h1>
+      <p className="text-lg text-neutral-dark dark:text-neutral-300 mb-12 text-center">
+        Use these tools to manage your budget, track your investments, and grow your money smarter.
+      </p>
+
+      {/* Grid of Tools */}
+      <div className="grid md:grid-cols-3 gap-8">
         <ToolCard
-          icon={<FiDollarSign />}
           title="Dividend Calculator"
-          description="Calculate your monthly, quarterly, and annual dividend income."
+          description="Estimate your dividend income and reinvestment growth over time."
           link="/tools/dividend-calculator"
         />
         <ToolCard
-          icon={<FiClipboard />}
           title="Budget Tracker"
-          description="Track your income and expenses with our budgeting sheet."
+          description="Organize your monthly expenses and stay within your budget with ease."
           link="/tools/budget-tracker"
         />
         <ToolCard
-          icon={<FiBarChart2 />}
           title="Investment Tracker"
-          description="Monitor your holdings and see how your investments perform."
+          description="Track portfolio performance and monitor growth and dividends."
           link="/tools/investment-tracker"
         />
+      </div>
+
+      {/* AdSense Unit Below Tool Grid */}
+      <div className="w-full my-12 text-center">
+        <ins
+          className="adsbygoogle"
+          style={{ display: 'block', textAlign: 'center' }}
+          data-ad-client="ca-pub-4262496331692202"
+          data-ad-slot="1234567890"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        ></ins>
+        <script>
+          {(adsbygoogle = window.adsbygoogle || []).push({})}
+        </script>
       </div>
     </div>
   );

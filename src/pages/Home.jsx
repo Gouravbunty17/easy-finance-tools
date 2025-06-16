@@ -1,9 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiArrowRight, FiBarChart2, FiCpu, FiEdit } from 'react-icons/fi';
-import WealthsimpleWidget from '../components/WealthsimpleWidget'; // ✅ Import the widget
+import WealthsimpleWidget from '../components/WealthsimpleWidget';
 
-// Reusable Feature Card Component
 const FeatureCard = ({ icon, title, description, link }) => (
   <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
     <div className="text-secondary mb-4">{icon}</div>
@@ -25,7 +24,7 @@ const Home = () => {
             Smart Financial Tools for a Brighter Future
           </h1>
           <p className="text-lg md:text-xl text-neutral-dark max-w-3xl mx-auto mb-8">
-            Take control of your finances with our suite of free, easy-to-use calculators and tools. Make informed decisions and achieve your financial goals faster.
+            Take control of your finances with our suite of free, easy-to-use calculators and tools.
           </p>
           <NavLink
             to="/tools"
@@ -33,6 +32,19 @@ const Home = () => {
           >
             Explore Our Tools
           </NavLink>
+        </div>
+
+        {/* AdSense Banner Below Hero */}
+        <div className="text-center my-8">
+          <ins
+            className="adsbygoogle"
+            style={{ display: 'block' }}
+            data-ad-client="ca-pub-4262496331692202"
+            data-ad-slot="3333333333"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          ></ins>
+          <script dangerouslySetInnerHTML={{ __html: `(adsbygoogle = window.adsbygoogle || []).push({});` }} />
         </div>
       </section>
 
