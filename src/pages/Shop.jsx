@@ -1,6 +1,7 @@
-// /pages/Shop.jsx or Shop.js
+// /pages/Shop.jsx
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import bookCover from '../assets/budget-book-cover.jpg'; // Make sure this image exists in src/assets
 
 const ProductCard = ({ title, description, price, image, buyLink }) => (
   <div className="bg-white shadow-md rounded-lg overflow-hidden p-4 hover:shadow-xl transition">
@@ -14,7 +15,7 @@ const ProductCard = ({ title, description, price, image, buyLink }) => (
       rel="noopener noreferrer"
       className="bg-secondary text-white px-4 py-2 rounded hover:bg-primary transition"
     >
-      Buy Now
+      Buy Now on Amazon
     </a>
   </div>
 );
@@ -23,12 +24,12 @@ export default function Shop() {
   const products = [
     {
       title: "Easy Finance Tools – Budgeting Book",
-      description: "Feminine + minimalist A4 planner with templates for budgeting, saving, and more.",
+      description: "A clean, minimalist A4-sized planner for budgeting, saving, and tracking your financial goals.",
       price: "14.99",
-      image: "/images/budget-book-cover.jpg",
-      buyLink: "https://www.amazon.com/dp/YOUR-KDP-ID" // replace with your KDP/Lulu link
+      image: bookCover,
+      buyLink: "https://a.co/d/61iS1lQ"
     },
-    // Add more products here later...
+    // You can add more products below...
   ];
 
   return (
