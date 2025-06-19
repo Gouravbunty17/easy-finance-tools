@@ -1,7 +1,7 @@
 // /pages/Shop.jsx
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import bookCover from '../assets/budget-book-cover.jpg'; // Make sure this image exists in src/assets
+import bookCover from '../assets/budget-book-cover.png'; // Make sure this image exists in src/assets
 
 const ProductCard = ({ title, description, price, image, buyLink }) => (
   <div className="bg-white shadow-md rounded-lg overflow-hidden p-4 hover:shadow-xl transition">
