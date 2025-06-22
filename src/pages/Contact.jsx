@@ -1,59 +1,36 @@
-import React, { useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
+import { useRef } from 'react';
 
-const Contact = () => {
-  const form = useRef();
-  const [submitted, setSubmitted] = useState(false);
+export default function ContactForm() {
+  const formRef = useRef(null);
 
-  const sendEmail = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    // Use window.grecaptcha (not imported, it's global from index.html)
+    const token = window.grecaptcha && window.grecaptcha.getResponse();
+    if (!token) {
+      alert('Please complete the reCAPTCHA');
+      return;
+    }
+    // TODO: Send token with your form to your backend here!
+    alert('Form is ready to send!\nreCAPTCHA Token: ' + token);
 
-    emailjs.sendForm(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      form.current,
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-    )
-    .then(() => {
-      setSubmitted(true);
-    }, (error) => {
-      console.error(error.text);
-      alert("❌ Failed to send. Please try again.");
-    });
+    // Optionally reset reCAPTCHA
+    window.grecaptcha.reset();
   };
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-xl">
-      <h1 className="text-4xl font-bold text-primary mb-4">Contact Us</h1>
-      <p className="text-lg text-neutral-dark mb-6">Send us your questions, feedback, or just say hello.</p>
+    <form ref={formRef} onSubmit={handleSubmit}>
+      {/* Your form fields */}
+      <input name="name" placeholder="Your Name" />
+      <input name="email" placeholder="Your Email" />
+      <textarea name="message" placeholder="Your Message"></textarea>
 
-      {submitted ? (
-        <div className="text-green-600 text-lg font-medium">✅ Thank you! Your message was sent.</div>
-      ) : (
-        <form ref={form} onSubmit={sendEmail} className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium">Title</label>
-            <input type="text" name="title" required className="mt-1 w-full border rounded-md px-4 py-2 dark:bg-neutral-900" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium">Name</label>
-            <input type="text" name="name" required className="mt-1 w-full border rounded-md px-4 py-2 dark:bg-neutral-900" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium">Email</label>
-            <input type="email" name="email" required className="mt-1 w-full border rounded-md px-4 py-2 dark:bg-neutral-900" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium">Message</label>
-            <textarea name="message" rows="4" required className="mt-1 w-full border rounded-md px-4 py-2 dark:bg-neutral-900" />
-          </div>
-          <button type="submit" className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary-dark transition">
-            Send Message
-          </button>
-        </form>
-      )}
-    </div>
+      <div
+        className="g-recaptcha"
+        data-sitekey="6LexhGgrAAAAAFdExLBdBEXwEME3LktiuB-TX-AM"
+        style={{ margin: "20px 0" }}
+      ></div>
+      <button type="submit">Send</button>
+    </form>
   );
-};
-
-export default Contact;
+}
