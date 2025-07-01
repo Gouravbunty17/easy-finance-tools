@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiMenu, FiX, FiSun, FiMoon } from 'react-icons/fi';
+import useAdSense from '../hooks/useAdSense';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+
+  useAdSense(); // run safe adsense hook
 
   useEffect(() => {
     const html = document.documentElement;
@@ -115,9 +118,6 @@ const Header = () => {
           data-ad-format="auto"
           data-full-width-responsive="true"
         ></ins>
-        <script>
-          {(adsbygoogle = window.adsbygoogle || []).push({})}
-        </script>
       </div>
     </>
   );

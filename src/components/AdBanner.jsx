@@ -1,13 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import useAdSense from '../hooks/useAdSense';
 
 const AdBanner = () => {
-  useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error('AdSense error:', e);
-    }
-  }, []);
+  useAdSense(); // use the safe hook
 
   return (
     <div className="my-6 text-center">
