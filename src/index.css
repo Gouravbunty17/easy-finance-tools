@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,4 +7,10 @@
 
 body {
   font-family: 'Inter', sans-serif;
+}
+/* Fix form fields in dark mode */
+input,
+select,
+textarea {
+  @apply dark:bg-gray-800 dark:text-white dark:border-gray-600;
 }
