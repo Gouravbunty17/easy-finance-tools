@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import ToolsPage from './pages/ToolsPage';
 import CalculatorsPage from './pages/CalculatorsPage';
 import Blog from './pages/Blog';
+import WeeklyDividendETFs from "./pages/blog/weekly-dividend-etfs";
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Shop from './pages/Shop'; // ✅ NEW Shop import
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/tools" element={<ToolsPage />} />
           <Route path="/calculators" element={<CalculatorsPage />} />
           <Route path="/blog" element={<Blog />} />
+	  <Route path="/blog/weekly-dividend-etfs" element={<WeeklyDividendETFs />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/shop" element={<Shop />} /> {/* ✅ NEW Route */}

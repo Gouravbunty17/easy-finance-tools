@@ -1,6 +1,6 @@
 import React from "react";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import useAdSense from "../../hooks/useAdSense";
 
 export default function WeeklyDividendETFs() {
@@ -92,7 +92,8 @@ export default function WeeklyDividendETFs() {
 
         <h2>Should You Invest?</h2>
         <p>
-          Weekly dividend ETFs may be ideal for retirees, income-focused investors, or those wanting frequent payouts, but they come with risks and higher fees. Research them carefully to see if they align with your income strategy.
+          Weekly dividend ETFs may be ideal for retirees, income-focused investors, or those wanting frequent payouts,
+          but they come with higher risks and fees. Always research carefully to see if they fit your financial goals.
         </p>
 
         {/* Bottom Ad */}
@@ -114,7 +115,7 @@ export default function WeeklyDividendETFs() {
       </article>
 
       <Link
-        href="/blog"
+        to="/blog"
         className="inline-block mt-8 text-primary dark:text-accent underline"
       >
         ← Back to Blog
