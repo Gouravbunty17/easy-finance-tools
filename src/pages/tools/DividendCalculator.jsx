@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
-import useAdSense from "../../../hooks/useAdSense";
+import useAdSense from "../../hooks/useAdSense";
 import {
   Chart as ChartJS,
   LineElement,
