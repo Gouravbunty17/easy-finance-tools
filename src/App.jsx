@@ -13,7 +13,7 @@ import WeeklyDividendETFs from "./pages/blog/weekly-dividend-etfs";
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Shop from './pages/Shop'; // ✅ NEW Shop import
-
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 // Tools
 import DividendCalculator from './pages/tools/DividendCalculator';
@@ -37,6 +37,7 @@ export default function App() {
           <Route path="/tools/dividend-calculator" element={<DividendCalculator />} />
           <Route path="/tools/budget-tracker" element={<BudgetTracker />} />
           <Route path="/tools/investment-tracker" element={<InvestmentTracker />} />
+	  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 	         </Routes>
       </main>
       <Footer />
