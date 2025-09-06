@@ -1,41 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Easy Finance Tools</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3KQXRRRQFK"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-3KQXRRRQFK');
-  </script>
+    <title>EasyFinanceTools - Free Dividend, TFSA, RRSP & Budget Calculators</title>
+    <meta
+      name="description"
+      content="Use EasyFinanceTools to plan dividends, TFSA, RRSP, and track budgets with free privacy-focused calculators."
+    />
+    <meta
+      name="keywords"
+      content="dividend calculator, budget tracker, TFSA calculator, RRSP calculator, investment tools"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://easyfinancetools.com/" />
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4262496331692202"
-    crossorigin="anonymous"></script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3KQXRRRQFK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3KQXRRRQFK');
+    </script>
 
-<!-- Google reCAPTCHA -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- Google AdSense -->
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4262496331692202"
+      crossorigin="anonymous"
+    ></script>
+    <meta name="google-adsense-account" content="ca-pub-4262496331692202" />
 
-  <!-- Wealthsimple Widget Configuration -->
-  <script>
-    window.wealthsimpleRedesignSettings = {
-      theme: 'light',
-      container: '#wealthsimple-widget',
-      referralCode: 'R8F7ZW'
-    };
-  </script>
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-  <!-- ✅ Correct Wealthsimple Embed Script -->
-  <script src="https://embed.wealthsimple.com/redesign/embed.js" defer></script>
-</head>
+    <!-- Wealthsimple Widget -->
+    <script>
+      window.wealthsimpleRedesignSettings = {
+        theme: 'light',
+        container: '#wealthsimple-widget',
+        referralCode: 'R8F7ZW'
+      };
+    </script>
+    <script src="https://embed.wealthsimple.com/redesign/embed.js" defer></script>
 
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
-</body>
+    <!-- Organization Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "EasyFinanceTools",
+      "url": "https://easyfinancetools.com",
+      "logo": "https://easyfinancetools.com/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "contact@easyfinancetools.com",
+        "contactType": "Customer Support"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/easyfinancetools",
+        "https://twitter.com/easyfinancetools"
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
