@@ -51,33 +51,27 @@ export default function StockPage() {
     if (!t) return;
     setQuote(null);
     setAi('');
+
+    // Fetch price data (may be blocked by CORS on some networks)
     fetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols=' + t)
       .then(r => r.json())
       .then(d => {
         const q = d?.quoteResponse?.result?.[0];
-        if (q?.regularMarketPrice) {
-          setQuote(q);
-          doAI(q);
-        }
+        if (q?.regularMarketPrice) setQuote(q);
       })
       .catch(() => {});
+
+    // Always run AI summary — independent of Yahoo Finance
+    doAI(t);
   }, [t]);
 
-  const doAI = async (q) => {
+  const doAI = async (ticker) => {
     setAiLoad(true);
     try {
       const r = await fetch('/api/ai-summary', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ticker: t,
-          name: q.shortName || t,
-          price: q.regularMarketPrice,
-          change: q.regularMarketChangePercent?.toFixed(2),
-          marketCap: 'N/A',
-          pe: 'N/A',
-          sector: 'N/A',
-        }),
+        body: JSON.stringify({ ticker }),
       });
       const j = await r.json();
       if (j.summary) setAi(j.summary);
@@ -259,7 +253,7 @@ export default function StockPage() {
             </div>
           </div>
 
-          {/* AI Summary */}
+          {/* AI Summary — always shown while ticker is active */}
           {(aiLoad || ai) && (
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-750 rounded-2xl p-6 mb-6 border border-blue-100 dark:border-gray-600">
               <div className="flex items-center gap-2 mb-3">

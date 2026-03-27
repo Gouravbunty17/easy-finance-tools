@@ -45,6 +45,10 @@ module.exports = async function handler(req, res) {
   const { ticker, name, price, change, marketCap, pe, sector } = req.body || {};
   if (!ticker) return res.status(400).json({ error: 'Ticker required' });
 
+  const displayName = name || ticker;
+  const priceInfo = price ? `Current price: $${price}${change ? ` (${Number(change) >= 0 ? '+' : ''}${change}% today)` : ''}.` : '';
+  const extraInfo = [marketCap && marketCap !== 'N/A' ? `Market cap: ${marketCap}` : '', pe && pe !== 'N/A' ? `P/E: ${pe}` : '', sector && sector !== 'N/A' ? `Sector: ${sector}` : ''].filter(Boolean).join('. ');
+
   try {
     const data = await postJSON(
       'https://api.anthropic.com/v1/messages',
@@ -54,12 +58,11 @@ module.exports = async function handler(req, res) {
       },
       {
         model: 'claude-haiku-4-5',
-        max_tokens: 220,
+        max_tokens: 250,
         messages: [{
           role: 'user',
-          content: `Write a 3-sentence plain-English analysis of ${name} (${ticker}).
-Price: $${price} (${Number(change) >= 0 ? '+' : ''}${change}% today). Market cap: ${marketCap}. P/E: ${pe}. Sector: ${sector}.
-Cover: what the company does, what today's price movement might signal, and one key metric investors watch.
+          content: `Write a 3-sentence plain-English overview of ${displayName} (${ticker}) for retail investors. ${priceInfo} ${extraInfo}
+Cover: what the company does, its main business model, and one key thing investors typically watch.
 Be factual and neutral. No "I" statements. No financial advice disclaimer.`,
         }],
       }
