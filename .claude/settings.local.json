@@ -1,19 +1,18 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run:*)",
-      "Bash(git init:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git rm:*)",
-      "Bash(git remote:*)",
-      "Bash(git branch:*)",
-      "Bash(git push:*)",
-      "Bash(git pull:*)",
-      "Read(//Users/gouravbunty/easy-finance-tools/src/**)",
-      "Read(//Users/gouravbunty/easy-finance-tools/src/pages/**)",
-      "Bash(node -e \":*)",
-      "Bash(python3 -c \":*)"
+      "Bash(npm:*)",
+      "Bash(git:*)",
+      "Bash(node:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(wc:*)",
+      "Bash(pwd:*)",
+      "Read(**)",
+      "Write(**)",
+      "Edit(**)",
+      "Skill(update-config)",
+      "Skill(update-config:*)"
     ]
   }
 }
