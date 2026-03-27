@@ -15,6 +15,7 @@ import BudgetTracker from './pages/tools/BudgetTracker';
 import InvestmentTracker from './pages/tools/InvestmentTracker';
 import FHSACalculator from './pages/tools/FHSACalculator';
 import MortgageCalculator from './pages/tools/MortgageCalculator';
+import RentVsBuyCalculator from './pages/tools/RentVsBuyCalculator';
 import StockPage from './pages/stocks/StockPage';
 
 export default function App() {
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="/tools/investment-tracker" element={<InvestmentTracker />} />
           <Route path="/tools/fhsa-calculator" element={<FHSACalculator />} />
           <Route path="/tools/mortgage-calculator" element={<MortgageCalculator />} />
+          <Route path="/tools/rent-vs-buy" element={<RentVsBuyCalculator />} />
           <Route path="/stocks" element={<StockPage />} />
           <Route path="/stocks/:ticker" element={<StockPage />} />
         </Routes>
