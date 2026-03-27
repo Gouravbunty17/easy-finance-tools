@@ -17,6 +17,7 @@ import FHSACalculator from './pages/tools/FHSACalculator';
 import MortgageCalculator from './pages/tools/MortgageCalculator';
 import RentVsBuyCalculator from './pages/tools/RentVsBuyCalculator';
 import CapitalGainsTaxCalculator from './pages/tools/CapitalGainsTaxCalculator';
+import CPPOASEstimator from './pages/tools/CPPOASEstimator';
 import StockPage from './pages/stocks/StockPage';
 
 export default function App() {
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="/tools/mortgage-calculator" element={<MortgageCalculator />} />
           <Route path="/tools/rent-vs-buy" element={<RentVsBuyCalculator />} />
           <Route path="/tools/capital-gains-tax" element={<CapitalGainsTaxCalculator />} />
+          <Route path="/tools/cpp-oas-estimator" element={<CPPOASEstimator />} />
           <Route path="/stocks" element={<StockPage />} />
           <Route path="/stocks/:ticker" element={<StockPage />} />
         </Routes>
