@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   const { ticker } = req.query;
@@ -15,35 +15,18 @@ export default async function handler(req, res) {
   };
 
   try {
-    // Step 1: Get a session cookie from Yahoo Finance
-    let cookie = '';
-    try {
-      const sessionRes = await fetch('https://finance.yahoo.com/quote/' + t, { headers });
-      const setCookie = sessionRes.headers.get('set-cookie');
-      if (setCookie) {
-        cookie = setCookie.split(';')[0];
-      }
-    } catch {
-      // continue without cookie
-    }
-
-    const fetchHeaders = cookie
-      ? { ...headers, Cookie: cookie }
-      : headers;
-
-    // Step 2: Fetch price, stats, and news in parallel
     const [chartRes, summaryRes, newsRes] = await Promise.all([
       fetch(
         `https://query2.finance.yahoo.com/v8/finance/chart/${t}?interval=1d&range=1y`,
-        { headers: fetchHeaders }
+        { headers }
       ),
       fetch(
         `https://query2.finance.yahoo.com/v11/finance/quoteSummary/${t}?modules=price%2CsummaryDetail%2CdefaultKeyStatistics%2CassetProfile`,
-        { headers: fetchHeaders }
+        { headers }
       ),
       fetch(
         `https://query1.finance.yahoo.com/v1/finance/search?q=${t}&newsCount=5&quotesCount=0&enableFuzzyQuery=false`,
-        { headers: fetchHeaders }
+        { headers }
       ),
     ]);
 
@@ -63,4 +46,4 @@ export default async function handler(req, res) {
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch stock data: ' + err.message });
   }
-}
+};

@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   if (req.method !== 'POST') return res.status(405).end();
 
@@ -36,4 +36,4 @@ Be factual and neutral. No "I" statements. No financial advice disclaimer.`,
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-}
+};
