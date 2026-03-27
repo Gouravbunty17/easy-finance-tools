@@ -42,9 +42,13 @@ export default function StockPage() {
   const { ticker } = useParams();
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSug, setShowSug] = useState(false);
   const [quote, setQuote] = useState(null);
   const [ai, setAi] = useState('');
   const [aiLoad, setAiLoad] = useState(false);
+  const searchRef = useRef(null);
+  const debounceRef = useRef(null);
   const t = ticker?.toUpperCase();
 
   useEffect(() => {
@@ -79,11 +83,46 @@ export default function StockPage() {
     setAiLoad(false);
   };
 
+  // Live search suggestions from Yahoo Finance
+  const handleSearchInput = (val) => {
+    setSearch(val);
+    clearTimeout(debounceRef.current);
+    if (!val.trim()) { setSuggestions([]); setShowSug(false); return; }
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const r = await fetch(
+          `https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(val)}&quotesCount=7&newsCount=0&listsCount=0`
+        );
+        const d = await r.json();
+        const results = (d?.quotes || [])
+          .filter(q => q.symbol && q.quoteType !== 'OPTION')
+          .slice(0, 7)
+          .map(q => ({ symbol: q.symbol, name: q.shortname || q.longname || q.symbol, type: q.quoteType, exchange: q.exchange }));
+        setSuggestions(results);
+        setShowSug(results.length > 0);
+      } catch { setSuggestions([]); setShowSug(false); }
+    }, 250);
+  };
+
+  const handleSelectSuggestion = (symbol) => {
+    setSearch('');
+    setSuggestions([]);
+    setShowSug(false);
+    navigate('/stocks/' + symbol.toUpperCase());
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     const s = search.trim().toUpperCase();
-    if (s) { navigate('/stocks/' + s); setSearch(''); }
+    if (s) { navigate('/stocks/' + s); setSearch(''); setSuggestions([]); setShowSug(false); }
   };
+
+  // Close suggestions on outside click
+  useEffect(() => {
+    const handler = (e) => { if (searchRef.current && !searchRef.current.contains(e.target)) setShowSug(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
   const up = (quote?.regularMarketChangePercent ?? 0) >= 0;
   const sym = quote?.currency === 'CAD' ? 'C$' : '$';
@@ -108,18 +147,37 @@ export default function StockPage() {
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-white text-2xl font-bold mb-1">Stock Analysis</h1>
           <p className="text-blue-200 text-sm mb-5">Live charts · Technical analysis · Financials · News</p>
-          <form onSubmit={handleSearch} className="flex gap-3 max-w-md mx-auto">
-            <input
-              type="text" value={search}
-              onChange={e => setSearch(e.target.value.toUpperCase())}
-              placeholder="AAPL, SHOP, TD, NVDA..."
-              className="flex-1 px-4 py-3 rounded-xl text-gray-900 font-semibold outline-none focus:ring-2 focus:ring-accent"
-            />
-            <button type="submit"
-              className="bg-accent text-primary font-bold px-6 py-3 rounded-xl hover:bg-yellow-400 transition whitespace-nowrap">
-              Search
-            </button>
-          </form>
+          <div ref={searchRef} className="relative max-w-md mx-auto">
+            <form onSubmit={handleSearch} className="flex gap-3">
+              <input
+                type="text" value={search}
+                onChange={e => handleSearchInput(e.target.value)}
+                onFocus={() => suggestions.length > 0 && setShowSug(true)}
+                placeholder="Apple, AAPL, Shopify, TD..."
+                className="flex-1 px-4 py-3 rounded-xl text-gray-900 font-semibold outline-none focus:ring-2 focus:ring-accent"
+                autoComplete="off"
+              />
+              <button type="submit"
+                className="bg-accent text-primary font-bold px-6 py-3 rounded-xl hover:bg-yellow-400 transition whitespace-nowrap">
+                Search
+              </button>
+            </form>
+            {/* Autocomplete dropdown */}
+            {showSug && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 overflow-hidden">
+                {suggestions.map((s) => (
+                  <button key={s.symbol} onMouseDown={() => handleSelectSuggestion(s.symbol)}
+                    className="w-full flex items-center justify-between px-4 py-3 hover:bg-blue-50 transition text-left border-b border-gray-50 last:border-0">
+                    <div>
+                      <span className="font-bold text-primary text-sm">{s.symbol}</span>
+                      <span className="text-gray-500 text-sm ml-2 truncate max-w-[180px] inline-block align-bottom">{s.name}</span>
+                    </div>
+                    <span className="text-xs text-gray-400 shrink-0 ml-2">{s.exchange}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
