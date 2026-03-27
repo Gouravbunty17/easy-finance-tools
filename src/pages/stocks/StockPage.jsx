@@ -325,6 +325,24 @@ export default function StockPage() {
                   {up ? '+' : ''}{quote.regularMarketChange?.toFixed(2)} ({up ? '+' : ''}{quote.regularMarketChangePercent?.toFixed(2)}%)
                 </p>
                 <p className="text-xs text-gray-400 mt-0.5">Today · {quote.currency}</p>
+                {!isCrypto && (
+                  <div className="mt-2 flex sm:justify-end gap-3 flex-wrap">
+                    {quote.trailingAnnualDividendYield > 0 ? (
+                      <>
+                        <span className="inline-flex items-center gap-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold px-3 py-1 rounded-full border border-green-200 dark:border-green-700">
+                          💵 Yield: {(quote.trailingAnnualDividendYield * 100).toFixed(2)}%
+                        </span>
+                        <span className="inline-flex items-center gap-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 text-xs font-bold px-3 py-1 rounded-full border border-blue-200 dark:border-blue-700">
+                          📅 {sym}{quote.trailingAnnualDividendRate?.toFixed(4)}/yr
+                        </span>
+                      </>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 bg-gray-50 dark:bg-gray-700 text-gray-400 text-xs px-3 py-1 rounded-full border border-gray-200 dark:border-gray-600">
+                        No dividend
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           ) : (
