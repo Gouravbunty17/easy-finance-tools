@@ -47,9 +47,25 @@ const POPULAR_ETFS = [
   { t: 'XEQT.TO', n: 'iShares CA', f: '🇨🇦' },
 ];
 
+// Map bare crypto tickers → Yahoo Finance symbol
+const CRYPTO_MAP = {
+  BTC: 'BTC-USD', ETH: 'ETH-USD', SOL: 'SOL-USD', XRP: 'XRP-USD',
+  DOGE: 'DOGE-USD', ADA: 'ADA-USD', AVAX: 'AVAX-USD', DOT: 'DOT-USD',
+  MATIC: 'MATIC-USD', SHIB: 'SHIB-USD', LTC: 'LTC-USD', LINK: 'LINK-USD',
+  UNI: 'UNI-USD', ATOM: 'ATOM-USD', XLM: 'XLM-USD', BCH: 'BCH-USD',
+  NEAR: 'NEAR-USD', ICP: 'ICP-USD', APT: 'APT-USD', ARB: 'ARB-USD',
+  OP: 'OP-USD', INJ: 'INJ-USD', SUI: 'SUI-USD', TRX: 'TRX-USD',
+};
+
 // Convert Yahoo Finance symbol to TradingView symbol
 function toTVSymbol(ticker, quote) {
   if (!ticker) return '';
+
+  // If quote says it's crypto, use BINANCE format regardless of ticker format
+  if (quote?.quoteType === 'CRYPTOCURRENCY') {
+    const base = ticker.replace(/-USD$/, '').replace(/-USDT$/, '');
+    return `BINANCE:${base}USDT`;
+  }
 
   // Crypto: BTC-USD → BINANCE:BTCUSDT
   if (ticker.endsWith('-USD') || ticker.endsWith('-USDT')) {
@@ -104,6 +120,13 @@ export default function StockPage() {
   // Fetch price + AI on ticker change
   useEffect(() => {
     if (!t) return;
+
+    // Auto-redirect bare crypto tickers: BTC → BTC-USD
+    if (CRYPTO_MAP[t]) {
+      navigate('/stocks/' + CRYPTO_MAP[t], { replace: true });
+      return;
+    }
+
     setQuote(null);
     setAi('');
     // Fetch via server-side proxy (avoids CORS), fallback to direct
