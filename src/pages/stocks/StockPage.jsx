@@ -106,13 +106,16 @@ export default function StockPage() {
     if (!t) return;
     setQuote(null);
     setAi('');
-    fetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols=' + t)
+    // Fetch via server-side proxy (avoids CORS), fallback to direct
+    fetch(`/api/quote?symbol=${encodeURIComponent(t)}`)
       .then(r => r.json())
-      .then(d => {
-        const q = d?.quoteResponse?.result?.[0];
-        if (q?.regularMarketPrice) setQuote(q);
-      })
-      .catch(() => {});
+      .then(d => { if (d?.quote?.regularMarketPrice) setQuote(d.quote); })
+      .catch(() => {
+        fetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols=' + t)
+          .then(r => r.json())
+          .then(d => { const q = d?.quoteResponse?.result?.[0]; if (q?.regularMarketPrice) setQuote(q); })
+          .catch(() => {});
+      });
     doAI(t);
   }, [t]);
 
@@ -137,19 +140,9 @@ export default function StockPage() {
     if (!val.trim()) { setSuggestions([]); setShowSug(false); return; }
     debounceRef.current = setTimeout(async () => {
       try {
-        const r = await fetch(
-          `https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(val)}&quotesCount=8&newsCount=0&listsCount=0`
-        );
+        const r = await fetch(`/api/search?q=${encodeURIComponent(val)}`);
         const d = await r.json();
-        const results = (d?.quotes || [])
-          .filter(q => q.symbol && q.quoteType !== 'OPTION' && q.quoteType !== 'FUTURE')
-          .slice(0, 8)
-          .map(q => ({
-            symbol: q.symbol,
-            name: q.shortname || q.longname || q.symbol,
-            type: q.quoteType || 'EQUITY',
-            exchange: q.exchange,
-          }));
+        const results = d.results || [];
         setSuggestions(results);
         setShowSug(results.length > 0);
       } catch { setSuggestions([]); setShowSug(false); }
