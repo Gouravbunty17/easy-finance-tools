@@ -334,6 +334,36 @@ export default function StockPage() {
             </div>
           )}
 
+          {/* Key Stats */}
+          {quote && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-6">
+              {[
+                { label: 'Market Cap',       value: quote.marketCap ? (quote.marketCap >= 1e12 ? `${sym}${(quote.marketCap/1e12).toFixed(2)}T` : quote.marketCap >= 1e9 ? `${sym}${(quote.marketCap/1e9).toFixed(2)}B` : `${sym}${(quote.marketCap/1e6).toFixed(0)}M`) : '—' },
+                { label: '52W High',         value: quote.fiftyTwoWeekHigh ? `${sym}${quote.fiftyTwoWeekHigh.toFixed(2)}` : '—' },
+                { label: '52W Low',          value: quote.fiftyTwoWeekLow  ? `${sym}${quote.fiftyTwoWeekLow.toFixed(2)}`  : '—' },
+                { label: 'Volume',           value: quote.regularMarketVolume ? quote.regularMarketVolume.toLocaleString() : '—' },
+                { label: 'Avg Volume',       value: quote.averageDailyVolume3Month ? quote.averageDailyVolume3Month.toLocaleString() : '—' },
+                { label: 'P/E Ratio',        value: quote.trailingPE ? quote.trailingPE.toFixed(2) : '—' },
+                { label: 'EPS (TTM)',        value: quote.epsTrailingTwelveMonths ? `${sym}${quote.epsTrailingTwelveMonths.toFixed(2)}` : '—' },
+                { label: 'Day Range',        value: quote.regularMarketDayLow && quote.regularMarketDayHigh ? `${sym}${quote.regularMarketDayLow.toFixed(2)} – ${sym}${quote.regularMarketDayHigh.toFixed(2)}` : '—' },
+                ...(!isCrypto ? [
+                  { label: 'Dividend / Share', value: quote.trailingAnnualDividendRate ? `${sym}${quote.trailingAnnualDividendRate.toFixed(4)}` : 'None' },
+                  { label: 'Dividend Yield',   value: quote.trailingAnnualDividendYield ? `${(quote.trailingAnnualDividendYield * 100).toFixed(2)}%` : 'None' },
+                  { label: 'Ex-Div Date',      value: quote.exDividendDate ? new Date(quote.exDividendDate * 1000).toLocaleDateString('en-CA', { year:'numeric', month:'short', day:'numeric' }) : '—' },
+                  { label: 'Payout Ratio',     value: quote.payoutRatio ? `${(quote.payoutRatio * 100).toFixed(1)}%` : '—' },
+                ] : [
+                  { label: 'Circulating Supply', value: quote.circulatingSupply ? Number(quote.circulatingSupply).toLocaleString() : '—' },
+                  { label: 'Start of Day',        value: quote.regularMarketOpen ? `${sym}${quote.regularMarketOpen.toFixed(2)}` : '—' },
+                ]),
+              ].map(({ label, value }) => (
+                <div key={label} className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3">
+                  <p className="text-xs text-gray-400 mb-1">{label}</p>
+                  <p className="font-bold text-primary dark:text-white text-sm">{value}</p>
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* Chart */}
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow overflow-hidden mb-6">
             <div className="px-4 pt-4 pb-1">
