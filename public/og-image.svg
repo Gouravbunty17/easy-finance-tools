@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#003366"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#grad)"/>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#003366;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00A8E8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Chart bars decoration -->
+  <rect x="900" y="300" width="60" height="200" rx="8" fill="white" opacity="0.1"/>
+  <rect x="980" y="220" width="60" height="280" rx="8" fill="white" opacity="0.15"/>
+  <rect x="1060" y="150" width="60" height="350" rx="8" fill="white" opacity="0.2"/>
+  
+  <!-- Maple leaf -->
+  <text x="100" y="280" font-size="120" opacity="0.15">🍁</text>
+  
+  <!-- Main text -->
+  <text x="100" y="260" font-family="Arial" font-weight="900" font-size="72" fill="white">EasyFinanceTools</text>
+  <text x="100" y="330" font-family="Arial" font-weight="400" font-size="36" fill="#00A8E8">Free Canadian Financial Calculators</text>
+  
+  <!-- Features -->
+  <text x="100" y="420" font-family="Arial" font-size="28" fill="white" opacity="0.9">✅ TFSA Calculator  ✅ RRSP Calculator</text>
+  <text x="100" y="465" font-family="Arial" font-size="28" fill="white" opacity="0.9">✅ Dividend Calculator  ✅ Budget Tracker</text>
+  
+  <!-- URL -->
+  <text x="100" y="555" font-family="Arial" font-size="24" fill="#FFD700">easyfinancetools.com</text>
+  
+  <!-- Flag -->
+  <text x="1050" y="580" font-size="48">🇨🇦</text>
+</svg>
