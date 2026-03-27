@@ -75,22 +75,33 @@ function toTVSymbol(ticker, quote) {
 
   // ETF / Stock: use exchange prefix from Yahoo Finance quote
   const exchangeMap = {
-    NMS: 'NASDAQ', NGM: 'NASDAQ', NCM: 'NASDAQ',
-    NYQ: 'NYSE', AMX: 'AMEX',
-    TSX: 'TSX', NEO: 'NEO', TOR: 'TSX',
+    // NASDAQ variants
+    NMS: 'NASDAQ', NGM: 'NASDAQ', NCM: 'NASDAQ', NIM: 'NASDAQ',
+    // NYSE variants
+    NYQ: 'NYSE', NYS: 'NYSE',
+    // NYSE Arca (ETFs like SPY, QQQ, YMAX) → TradingView calls it AMEX
+    PCX: 'AMEX', AMX: 'AMEX', ASE: 'AMEX',
+    // Canadian
+    TSX: 'TSX', TOR: 'TSX', NEO: 'NEO', CNQ: 'TSXV',
+    // Other
+    BTS: 'AMEX', OBB: 'OTC', PNK: 'OTC',
   };
   if (quote) {
     const raw = quote.fullExchangeName || '';
     const mapped =
       exchangeMap[quote.exchange] ||
-      (raw.includes('Nasdaq') ? 'NASDAQ' :
-       raw.includes('NYSE')   ? 'NYSE'   :
-       raw.includes('Toronto')? 'TSX'    : 'NASDAQ');
-    return `${mapped}:${ticker}`;
+      (raw.includes('Nasdaq')     ? 'NASDAQ' :
+       raw.includes('Arca')       ? 'AMEX'   :   // NYSE Arca ETFs
+       raw.includes('NYSE')       ? 'NYSE'   :
+       raw.includes('Toronto')    ? 'TSX'    :
+       raw.includes('OTC')        ? 'OTC'    : 'NASDAQ');
+    // TSX stocks often have .TO suffix in Yahoo — strip it for TradingView
+    const cleanTicker = ticker.replace(/\.TO$/, '');
+    return `${mapped}:${cleanTicker}`;
   }
-  // Before quote loads — best-effort fallback
+  // Before quote loads — best-effort fallback (don't assume NASDAQ)
   if (ticker.includes('.TO')) return `TSX:${ticker.replace('.TO', '')}`;
-  return `NASDAQ:${ticker}`;
+  return ticker; // Let TradingView resolve by ticker only — avoids wrong-exchange errors
 }
 
 // Type badge colours
@@ -191,6 +202,9 @@ export default function StockPage() {
   }, []);
 
   const up  = (quote?.regularMarketChangePercent ?? 0) >= 0;
+  // Only render widgets once we have the correct exchange from the quote
+  // This prevents TradingView from getting a wrong-exchange symbol like NASDAQ:YMAX
+  const widgetReady = !!quote || !t;
   const sym = isCrypto ? '$' : (quote?.currency === 'CAD' ? 'C$' : '$');
 
   return (
@@ -364,7 +378,14 @@ export default function StockPage() {
           ) : (
             <div className="mb-6">
               <h2 className="text-3xl font-bold text-primary dark:text-accent">{t}</h2>
-              <p className="text-gray-400 text-sm mt-1">Loading chart…</p>
+              <p className="text-gray-400 text-sm mt-1">Loading data…</p>
+            </div>
+          )}
+
+          {/* Widget loading skeleton — shown while waiting for correct exchange info */}
+          {!widgetReady && (
+            <div className="space-y-4 mb-6">
+              <Sk cls="w-full rounded-2xl" style={{height: 620}} />
             </div>
           )}
 
@@ -398,8 +419,8 @@ export default function StockPage() {
             </div>
           )}
 
-          {/* Chart */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow overflow-hidden mb-6">
+          {/* Chart + all widgets — only render once we have the correct exchange */}
+          {widgetReady && <div className="bg-white dark:bg-gray-900 rounded-2xl shadow overflow-hidden mb-6">
             <div className="px-4 pt-4 pb-1">
               <h3 className="font-bold text-primary dark:text-accent">📈 Price Chart</h3>
             </div>
@@ -416,12 +437,12 @@ export default function StockPage() {
                 support_host: 'https://www.tradingview.com',
               })}
             />
-          </div>
+          </div>}
 
           <AdSlot slot="2345678901" format="auto" />
 
           {/* Technical Analysis + Company/Crypto Profile */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          {widgetReady && <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden">
               <div className="px-4 pt-4 pb-1">
                 <h3 className="font-bold text-primary dark:text-accent">🎯 Technical Analysis</h3>
@@ -454,7 +475,7 @@ export default function StockPage() {
                 })}
               />
             </div>
-          </div>
+          </div>}
 
           {/* AI Summary */}
           {(aiLoad || ai) && (
@@ -473,7 +494,7 @@ export default function StockPage() {
           )}
 
           {/* Financials — stocks & ETFs only, not crypto */}
-          {!isCrypto && (
+          {widgetReady && !isCrypto && (
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden mb-6">
               <div className="px-4 pt-4 pb-1">
                 <h3 className="font-bold text-primary dark:text-accent">💰 Financials</h3>
@@ -493,7 +514,7 @@ export default function StockPage() {
           )}
 
           {/* News */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden mb-6">
+          {widgetReady && <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden mb-6">
             <div className="px-4 pt-4 pb-1">
               <h3 className="font-bold text-primary dark:text-accent">📰 Latest News</h3>
               <p className="text-xs text-gray-400">Real-time news feed</p>
@@ -509,7 +530,7 @@ export default function StockPage() {
                 width: '100%', height: 500, locale: 'en',
               })}
             />
-          </div>
+          </div>}
 
           <AdSlot slot="3456789012" format="auto" />
 
