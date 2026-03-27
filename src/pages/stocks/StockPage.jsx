@@ -94,6 +94,13 @@ export default function StockPage() {
   const up = (quote?.regularMarketChangePercent ?? 0) >= 0;
   const sym = quote?.currency === 'CAD' ? 'C$' : '$';
 
+  // Build full TradingView symbol with exchange prefix (once quote loads)
+  const exchangeMap = { NMS: 'NASDAQ', NGM: 'NASDAQ', NCM: 'NASDAQ', NYQ: 'NYSE', TSX: 'TSX', NEO: 'NEO', AMX: 'AMEX' };
+  const rawExchange = quote?.fullExchangeName || quote?.exchange || '';
+  const tvExchange = exchangeMap[quote?.exchange] || (rawExchange.includes('Nasdaq') ? 'NASDAQ' : rawExchange.includes('NYSE') ? 'NYSE' : rawExchange.includes('Toronto') ? 'TSX' : 'NASDAQ');
+  // Before quote loads fall back to NASDAQ:TICKER (works for most US stocks)
+  const tvSymbol = quote ? `${tvExchange}:${t}` : `NASDAQ:${t}`;
+
   return (
     <div className="min-h-screen">
       <SEO
@@ -200,12 +207,12 @@ export default function StockPage() {
               <h3 className="font-bold text-primary dark:text-accent">📈 Price Chart</h3>
             </div>
             <TVWidget
-              id={'chart-' + t}
+              id={'chart-' + tvSymbol}
               height={620}
               scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
               configFn={(dark) => ({
                 autosize: false, width: '100%', height: 620,
-                symbol: t, interval: 'D',
+                symbol: tvSymbol, interval: 'D',
                 timezone: 'America/Toronto', theme: dark ? 'dark' : 'light',
                 style: '1', locale: 'en', hide_top_toolbar: false,
                 hide_legend: false, save_image: true,
@@ -224,12 +231,12 @@ export default function StockPage() {
                 <p className="text-xs text-gray-400">Buy / Sell / Neutral signals</p>
               </div>
               <TVWidget
-                id={'tech-' + t}
+                id={'tech-' + tvSymbol}
                 height={425}
                 scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js"
                 configFn={(dark) => ({
                   interval: '1D', width: '100%', isTransparent: false,
-                  height: 425, symbol: t, showIntervalTabs: true,
+                  height: 425, symbol: tvSymbol, showIntervalTabs: true,
                   locale: 'en', colorTheme: dark ? 'dark' : 'light',
                 })}
               />
@@ -240,11 +247,11 @@ export default function StockPage() {
                 <p className="text-xs text-gray-400">Business overview & key info</p>
               </div>
               <TVWidget
-                id={'profile-' + t}
+                id={'profile-' + tvSymbol}
                 height={425}
                 scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js"
                 configFn={(dark) => ({
-                  width: '100%', height: 425, symbol: t,
+                  width: '100%', height: 425, symbol: tvSymbol,
                   colorTheme: dark ? 'dark' : 'light',
                   isTransparent: false, locale: 'en',
                 })}
@@ -275,11 +282,11 @@ export default function StockPage() {
               <p className="text-xs text-gray-400">Income statement, balance sheet & cash flow</p>
             </div>
             <TVWidget
-              id={'fin-' + t}
+              id={'fin-' + tvSymbol}
               height={450}
               scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-financials.js"
               configFn={(dark) => ({
-                symbol: t, colorTheme: dark ? 'dark' : 'light',
+                symbol: tvSymbol, colorTheme: dark ? 'dark' : 'light',
                 isTransparent: false, largeChartUrl: '',
                 displayMode: 'regular', width: '100%', height: 450, locale: 'en',
               })}
@@ -293,14 +300,14 @@ export default function StockPage() {
               <p className="text-xs text-gray-400">Real-time news feed</p>
             </div>
             <TVWidget
-              id={'news-' + t}
-              height={450}
+              id={'news-' + tvSymbol}
+              height={500}
               scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
               configFn={(dark) => ({
-                feedMode: 'symbol', symbol: t,
+                feedMode: 'symbol', symbol: tvSymbol,
                 colorTheme: dark ? 'dark' : 'light',
                 isTransparent: false, displayMode: 'regular',
-                width: '100%', height: 450, locale: 'en',
+                width: '100%', height: 500, locale: 'en',
               })}
             />
           </div>
