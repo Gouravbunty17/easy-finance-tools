@@ -201,10 +201,11 @@ export default function StockPage() {
             </div>
             <TVWidget
               id={'chart-' + t}
-              height={500}
+              height={620}
               scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
               configFn={(dark) => ({
-                autosize: true, symbol: t, interval: 'D',
+                autosize: false, width: '100%', height: 620,
+                symbol: t, interval: 'D',
                 timezone: 'America/Toronto', theme: dark ? 'dark' : 'light',
                 style: '1', locale: 'en', hide_top_toolbar: false,
                 hide_legend: false, save_image: true,
