@@ -11,7 +11,9 @@
       "Bash(git push:*)",
       "Bash(git pull:*)",
       "Read(//Users/gouravbunty/easy-finance-tools/src/**)",
-      "Read(//Users/gouravbunty/easy-finance-tools/src/pages/**)"
+      "Read(//Users/gouravbunty/easy-finance-tools/src/pages/**)",
+      "Bash(node -e \":*)",
+      "Bash(python3 -c \":*)"
     ]
   }
 }
