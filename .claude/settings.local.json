@@ -9,7 +9,9 @@
       "Bash(git remote:*)",
       "Bash(git branch:*)",
       "Bash(git push:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Read(//Users/gouravbunty/easy-finance-tools/src/**)",
+      "Read(//Users/gouravbunty/easy-finance-tools/src/pages/**)"
     ]
   }
 }

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const tools = [
   { icon: "💰", title: "TFSA Calculator", desc: "Calculate your Tax-Free Savings Account growth with 2026 limits.", link: "/tools/tfsa-calculator", badge: "Most Popular", color: "border-blue-200 hover:border-blue-400" },
   { icon: "📈", title: "RRSP Calculator", desc: "Find out your tax refund and how much your RRSP will grow.", link: "/tools/rrsp-calculator", badge: "2026 Updated", color: "border-green-200 hover:border-green-400" },
+  { icon: "🏠", title: "FHSA Calculator", desc: "Plan your First Home Savings Account — deductible contributions, tax-free withdrawals.", link: "/tools/fhsa-calculator", badge: "New!", color: "border-orange-200 hover:border-orange-400" },
   { icon: "💵", title: "Dividend Calculator", desc: "Plan your passive income with DRIP reinvestment growth.", link: "/tools/dividend-calculator", badge: null, color: "border-yellow-200 hover:border-yellow-400" },
   { icon: "📊", title: "Budget Tracker", desc: "Track your income and expenses. Build a healthier budget.", link: "/tools/budget-tracker", badge: null, color: "border-purple-200 hover:border-purple-400" },
   { icon: "📉", title: "Investment Tracker", desc: "Monitor your stocks, ETFs, and overall portfolio performance.", link: "/tools/investment-tracker", badge: "Coming Soon", color: "border-gray-200 opacity-70" },
