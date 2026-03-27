@@ -6,6 +6,7 @@ import AdSlot from './AdSlot';
 
 const navLinks = [
   { name: 'Tools', path: '/tools' },
+  { name: 'Stocks', path: '/stocks' },
   { name: 'Blog', path: '/blog' },
   { name: 'About', path: '/about' },
 ];
