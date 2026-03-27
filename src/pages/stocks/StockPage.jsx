@@ -25,38 +25,87 @@ function Sk({ cls }) {
   return <div className={'animate-pulse bg-gray-200 dark:bg-gray-700 rounded ' + cls} />;
 }
 
-const POPULAR = [
-  { t: 'AAPL', n: 'Apple',      f: '🇺🇸' },
-  { t: 'NVDA', n: 'Nvidia',     f: '🇺🇸' },
-  { t: 'MSFT', n: 'Microsoft',  f: '🇺🇸' },
-  { t: 'TSLA', n: 'Tesla',      f: '🇺🇸' },
-  { t: 'AMZN', n: 'Amazon',     f: '🇺🇸' },
-  { t: 'SHOP', n: 'Shopify',    f: '🇨🇦' },
-  { t: 'TD',   n: 'TD Bank',    f: '🇨🇦' },
-  { t: 'RY',   n: 'Royal Bank', f: '🇨🇦' },
-  { t: 'BNS',  n: 'Scotiabank', f: '🇨🇦' },
-  { t: 'ENB',  n: 'Enbridge',   f: '🇨🇦' },
+const POPULAR_STOCKS = [
+  { t: 'AAPL',  n: 'Apple',      f: '🇺🇸' },
+  { t: 'NVDA',  n: 'Nvidia',     f: '🇺🇸' },
+  { t: 'TSLA',  n: 'Tesla',      f: '🇺🇸' },
+  { t: 'SHOP',  n: 'Shopify',    f: '🇨🇦' },
+  { t: 'RY',    n: 'Royal Bank', f: '🇨🇦' },
+  { t: 'TD',    n: 'TD Bank',    f: '🇨🇦' },
 ];
+
+const POPULAR_CRYPTO = [
+  { t: 'BTC-USD', n: 'Bitcoin',  f: '₿' },
+  { t: 'ETH-USD', n: 'Ethereum', f: 'Ξ' },
+  { t: 'SOL-USD', n: 'Solana',   f: '◎' },
+  { t: 'XRP-USD', n: 'XRP',      f: '✕' },
+];
+
+const POPULAR_ETFS = [
+  { t: 'SPY',  n: 'S&P 500',    f: '📊' },
+  { t: 'QQQ',  n: 'NASDAQ 100', f: '📊' },
+  { t: 'XEQT.TO', n: 'iShares CA', f: '🇨🇦' },
+];
+
+// Convert Yahoo Finance symbol to TradingView symbol
+function toTVSymbol(ticker, quote) {
+  if (!ticker) return '';
+
+  // Crypto: BTC-USD → BINANCE:BTCUSDT
+  if (ticker.endsWith('-USD') || ticker.endsWith('-USDT')) {
+    const base = ticker.replace(/-USD$/, '').replace(/-USDT$/, '');
+    return `BINANCE:${base}USDT`;
+  }
+
+  // ETF / Stock: use exchange prefix from Yahoo Finance quote
+  const exchangeMap = {
+    NMS: 'NASDAQ', NGM: 'NASDAQ', NCM: 'NASDAQ',
+    NYQ: 'NYSE', AMX: 'AMEX',
+    TSX: 'TSX', NEO: 'NEO', TOR: 'TSX',
+  };
+  if (quote) {
+    const raw = quote.fullExchangeName || '';
+    const mapped =
+      exchangeMap[quote.exchange] ||
+      (raw.includes('Nasdaq') ? 'NASDAQ' :
+       raw.includes('NYSE')   ? 'NYSE'   :
+       raw.includes('Toronto')? 'TSX'    : 'NASDAQ');
+    return `${mapped}:${ticker}`;
+  }
+  // Before quote loads — best-effort fallback
+  if (ticker.includes('.TO')) return `TSX:${ticker.replace('.TO', '')}`;
+  return `NASDAQ:${ticker}`;
+}
+
+// Type badge colours
+const TYPE_BADGE = {
+  CRYPTOCURRENCY: { label: 'Crypto', cls: 'bg-orange-100 text-orange-600' },
+  ETF:            { label: 'ETF',    cls: 'bg-purple-100 text-purple-600' },
+  EQUITY:         { label: 'Stock',  cls: 'bg-blue-100 text-blue-600'    },
+  MUTUALFUND:     { label: 'Fund',   cls: 'bg-green-100 text-green-600'  },
+};
 
 export default function StockPage() {
   const { ticker } = useParams();
-  const navigate = useNavigate();
-  const [search, setSearch] = useState('');
+  const navigate   = useNavigate();
+  const [search, setSearch]         = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const [showSug, setShowSug] = useState(false);
-  const [quote, setQuote] = useState(null);
-  const [ai, setAi] = useState('');
-  const [aiLoad, setAiLoad] = useState(false);
-  const searchRef = useRef(null);
+  const [showSug, setShowSug]       = useState(false);
+  const [quote, setQuote]           = useState(null);
+  const [ai, setAi]                 = useState('');
+  const [aiLoad, setAiLoad]         = useState(false);
+  const searchRef  = useRef(null);
   const debounceRef = useRef(null);
-  const t = ticker?.toUpperCase();
 
+  const t = ticker?.toUpperCase();
+  const isCrypto = !!(t && (t.endsWith('-USD') || t.endsWith('-USDT')));
+  const tvSymbol = toTVSymbol(t, quote);
+
+  // Fetch price + AI on ticker change
   useEffect(() => {
     if (!t) return;
     setQuote(null);
     setAi('');
-
-    // Fetch price data (may be blocked by CORS on some networks)
     fetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols=' + t)
       .then(r => r.json())
       .then(d => {
@@ -64,8 +113,6 @@ export default function StockPage() {
         if (q?.regularMarketPrice) setQuote(q);
       })
       .catch(() => {});
-
-    // Always run AI summary — independent of Yahoo Finance
     doAI(t);
   }, [t]);
 
@@ -83,7 +130,7 @@ export default function StockPage() {
     setAiLoad(false);
   };
 
-  // Live search suggestions from Yahoo Finance
+  // Live autocomplete
   const handleSearchInput = (val) => {
     setSearch(val);
     clearTimeout(debounceRef.current);
@@ -91,13 +138,18 @@ export default function StockPage() {
     debounceRef.current = setTimeout(async () => {
       try {
         const r = await fetch(
-          `https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(val)}&quotesCount=7&newsCount=0&listsCount=0`
+          `https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(val)}&quotesCount=8&newsCount=0&listsCount=0`
         );
         const d = await r.json();
         const results = (d?.quotes || [])
-          .filter(q => q.symbol && q.quoteType !== 'OPTION')
-          .slice(0, 7)
-          .map(q => ({ symbol: q.symbol, name: q.shortname || q.longname || q.symbol, type: q.quoteType, exchange: q.exchange }));
+          .filter(q => q.symbol && q.quoteType !== 'OPTION' && q.quoteType !== 'FUTURE')
+          .slice(0, 8)
+          .map(q => ({
+            symbol: q.symbol,
+            name: q.shortname || q.longname || q.symbol,
+            type: q.quoteType || 'EQUITY',
+            exchange: q.exchange,
+          }));
         setSuggestions(results);
         setShowSug(results.length > 0);
       } catch { setSuggestions([]); setShowSug(false); }
@@ -105,10 +157,8 @@ export default function StockPage() {
   };
 
   const handleSelectSuggestion = (symbol) => {
-    setSearch('');
-    setSuggestions([]);
-    setShowSug(false);
-    navigate('/stocks/' + symbol.toUpperCase());
+    setSearch(''); setSuggestions([]); setShowSug(false);
+    navigate('/stocks/' + symbol);
   };
 
   const handleSearch = (e) => {
@@ -117,35 +167,28 @@ export default function StockPage() {
     if (s) { navigate('/stocks/' + s); setSearch(''); setSuggestions([]); setShowSug(false); }
   };
 
-  // Close suggestions on outside click
+  // Close dropdown on outside click
   useEffect(() => {
-    const handler = (e) => { if (searchRef.current && !searchRef.current.contains(e.target)) setShowSug(false); };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    const h = (e) => { if (searchRef.current && !searchRef.current.contains(e.target)) setShowSug(false); };
+    document.addEventListener('mousedown', h);
+    return () => document.removeEventListener('mousedown', h);
   }, []);
 
-  const up = (quote?.regularMarketChangePercent ?? 0) >= 0;
-  const sym = quote?.currency === 'CAD' ? 'C$' : '$';
-
-  // Build full TradingView symbol with exchange prefix (once quote loads)
-  const exchangeMap = { NMS: 'NASDAQ', NGM: 'NASDAQ', NCM: 'NASDAQ', NYQ: 'NYSE', TSX: 'TSX', NEO: 'NEO', AMX: 'AMEX' };
-  const rawExchange = quote?.fullExchangeName || quote?.exchange || '';
-  const tvExchange = exchangeMap[quote?.exchange] || (rawExchange.includes('Nasdaq') ? 'NASDAQ' : rawExchange.includes('NYSE') ? 'NYSE' : rawExchange.includes('Toronto') ? 'TSX' : 'NASDAQ');
-  // Before quote loads fall back to NASDAQ:TICKER (works for most US stocks)
-  const tvSymbol = quote ? `${tvExchange}:${t}` : `NASDAQ:${t}`;
+  const up  = (quote?.regularMarketChangePercent ?? 0) >= 0;
+  const sym = isCrypto ? '$' : (quote?.currency === 'CAD' ? 'C$' : '$');
 
   return (
     <div className="min-h-screen">
       <SEO
-        title={t ? t + ' Stock Chart, Technical Analysis & News' : 'Stock Analysis — Charts, Technicals & News'}
-        description={t ? 'Live ' + t + ' chart, technical analysis, financials and news. Free on EasyFinanceTools.' : 'Free stock analysis for US and Canadian stocks.'}
-        canonical={t ? 'https://easyfinancetools.com/stocks/' + t : 'https://easyfinancetools.com/stocks'}
+        title={t ? `${t} Chart, Analysis & News — Stocks, ETFs & Crypto` : 'Stock, ETF & Crypto Analysis — Charts, Technicals & News'}
+        description={t ? `Live ${t} chart, technical analysis, and news. Free on EasyFinanceTools.` : 'Free analysis for US and Canadian stocks, ETFs, and crypto.'}
+        canonical={t ? `https://easyfinancetools.com/stocks/${t}` : 'https://easyfinancetools.com/stocks'}
       />
 
       {/* Search hero */}
       <div className="bg-gradient-to-br from-primary to-secondary py-8 px-4">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-white text-2xl font-bold mb-1">Stock Analysis</h1>
+          <h1 className="text-white text-2xl font-bold mb-1">Stocks, ETFs & Crypto</h1>
           <p className="text-blue-200 text-sm mb-5">Live charts · Technical analysis · Financials · News</p>
           <div ref={searchRef} className="relative max-w-md mx-auto">
             <form onSubmit={handleSearch} className="flex gap-3">
@@ -153,7 +196,7 @@ export default function StockPage() {
                 type="text" value={search}
                 onChange={e => handleSearchInput(e.target.value)}
                 onFocus={() => suggestions.length > 0 && setShowSug(true)}
-                placeholder="Apple, AAPL, Shopify, TD..."
+                placeholder="Apple, AAPL, Bitcoin, BTC, SPY..."
                 className="flex-1 px-4 py-3 rounded-xl text-gray-900 font-semibold outline-none focus:ring-2 focus:ring-accent"
                 autoComplete="off"
               />
@@ -162,44 +205,83 @@ export default function StockPage() {
                 Search
               </button>
             </form>
+
             {/* Autocomplete dropdown */}
             {showSug && (
               <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 overflow-hidden">
-                {suggestions.map((s) => (
-                  <button key={s.symbol} onMouseDown={() => handleSelectSuggestion(s.symbol)}
-                    className="w-full flex items-center justify-between px-4 py-3 hover:bg-blue-50 transition text-left border-b border-gray-50 last:border-0">
-                    <div>
-                      <span className="font-bold text-primary text-sm">{s.symbol}</span>
-                      <span className="text-gray-500 text-sm ml-2 truncate max-w-[180px] inline-block align-bottom">{s.name}</span>
-                    </div>
-                    <span className="text-xs text-gray-400 shrink-0 ml-2">{s.exchange}</span>
-                  </button>
-                ))}
+                {suggestions.map((s) => {
+                  const badge = TYPE_BADGE[s.type] || TYPE_BADGE.EQUITY;
+                  return (
+                    <button key={s.symbol} onMouseDown={() => handleSelectSuggestion(s.symbol)}
+                      className="w-full flex items-center justify-between px-4 py-3 hover:bg-blue-50 transition text-left border-b border-gray-50 last:border-0">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="font-bold text-primary text-sm shrink-0">{s.symbol}</span>
+                        <span className="text-gray-500 text-sm truncate">{s.name}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 shrink-0 ml-2">
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${badge.cls}`}>{badge.label}</span>
+                        <span className="text-xs text-gray-400">{s.exchange}</span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>
         </div>
       </div>
 
-      {/* Landing — no ticker */}
+      {/* Landing page */}
       {!t && (
-        <div className="max-w-5xl mx-auto px-4 py-16 text-center">
-          <div className="text-6xl mb-4">📈</div>
-          <h2 className="text-2xl font-bold text-primary dark:text-accent mb-3">Search any stock above</h2>
-          <p className="text-gray-500 mb-10 max-w-md mx-auto">
-            US and Canadian stocks — NYSE, NASDAQ, TSX. Charts, technical analysis, financials and news. Free.
-          </p>
-          <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-4">Popular</p>
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {POPULAR.map(s => (
-              <button key={s.t} onClick={() => navigate('/stocks/' + s.t)}
-                className="bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 px-5 py-2.5 rounded-xl hover:border-secondary hover:text-secondary transition text-sm">
-                <span className="mr-1">{s.f}</span>
-                <span className="font-bold">{s.t}</span>
-                <span className="text-gray-400 ml-1 text-xs">{s.n}</span>
-              </button>
-            ))}
+        <div className="max-w-5xl mx-auto px-4 py-12">
+          <div className="text-center mb-10">
+            <div className="text-6xl mb-4">📈</div>
+            <h2 className="text-2xl font-bold text-primary dark:text-accent mb-3">Search any stock, ETF, or crypto</h2>
+            <p className="text-gray-500 max-w-md mx-auto">NYSE · NASDAQ · TSX · Bitcoin · Ethereum · SPY · QQQ. All free.</p>
           </div>
+
+          {/* Popular Stocks */}
+          <div className="mb-8">
+            <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">🇺🇸🇨🇦 Popular Stocks</p>
+            <div className="flex flex-wrap gap-2">
+              {POPULAR_STOCKS.map(s => (
+                <button key={s.t} onClick={() => navigate('/stocks/' + s.t)}
+                  className="bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 px-4 py-2 rounded-xl hover:border-blue-400 hover:text-blue-600 transition text-sm">
+                  <span className="mr-1">{s.f}</span><span className="font-bold">{s.t}</span>
+                  <span className="text-gray-400 ml-1 text-xs">{s.n}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Popular Crypto */}
+          <div className="mb-8">
+            <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">🪙 Popular Crypto</p>
+            <div className="flex flex-wrap gap-2">
+              {POPULAR_CRYPTO.map(s => (
+                <button key={s.t} onClick={() => navigate('/stocks/' + s.t)}
+                  className="bg-white dark:bg-gray-800 border-2 border-orange-100 dark:border-gray-700 px-4 py-2 rounded-xl hover:border-orange-400 hover:text-orange-600 transition text-sm">
+                  <span className="mr-1">{s.f}</span><span className="font-bold">{s.t.replace('-USD','')}</span>
+                  <span className="text-gray-400 ml-1 text-xs">{s.n}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Popular ETFs */}
+          <div className="mb-10">
+            <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">📊 Popular ETFs</p>
+            <div className="flex flex-wrap gap-2">
+              {POPULAR_ETFS.map(s => (
+                <button key={s.t} onClick={() => navigate('/stocks/' + s.t)}
+                  className="bg-white dark:bg-gray-800 border-2 border-purple-100 dark:border-gray-700 px-4 py-2 rounded-xl hover:border-purple-400 hover:text-purple-600 transition text-sm">
+                  <span className="mr-1">{s.f}</span><span className="font-bold">{s.t}</span>
+                  <span className="text-gray-400 ml-1 text-xs">{s.n}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
             {[
               ['📊', 'Interactive Chart',  '1D to all-time'],
@@ -227,19 +309,18 @@ export default function StockPage() {
               <div>
                 <div className="flex items-center gap-2 flex-wrap mb-1">
                   <h2 className="text-2xl font-bold text-primary dark:text-white">{t}</h2>
-                  {quote.fullExchangeName && (
-                    <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-500 px-2 py-0.5 rounded font-medium">
-                      {quote.fullExchangeName}
-                    </span>
+                  {isCrypto && <span className="text-xs bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full font-bold">Crypto</span>}
+                  {!isCrypto && quote.fullExchangeName && (
+                    <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-500 px-2 py-0.5 rounded font-medium">{quote.fullExchangeName}</span>
                   )}
                   <span className={'text-xs px-2 py-0.5 rounded-full font-bold ' + (up ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600')}>
-                    {up ? '▲ Bullish' : '▼ Bearish'}
+                    {up ? '▲' : '▼'} {up ? 'Up' : 'Down'} today
                   </span>
                 </div>
                 <p className="text-gray-500 text-sm">{quote.shortName}</p>
               </div>
               <div className="sm:text-right">
-                <p className="text-3xl font-bold text-primary dark:text-white">{sym}{quote.regularMarketPrice?.toFixed(2)}</p>
+                <p className="text-3xl font-bold text-primary dark:text-white">{sym}{quote.regularMarketPrice?.toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: isCrypto && quote.regularMarketPrice > 1000 ? 0 : 2 })}</p>
                 <p className={'text-lg font-semibold ' + (up ? 'text-green-600' : 'text-red-500')}>
                   {up ? '+' : ''}{quote.regularMarketChange?.toFixed(2)} ({up ? '+' : ''}{quote.regularMarketChangePercent?.toFixed(2)}%)
                 </p>
@@ -275,7 +356,7 @@ export default function StockPage() {
 
           <AdSlot slot="2345678901" format="auto" />
 
-          {/* Technical Analysis + Company Profile */}
+          {/* Technical Analysis + Company/Crypto Profile */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden">
               <div className="px-4 pt-4 pb-1">
@@ -295,8 +376,8 @@ export default function StockPage() {
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden">
               <div className="px-4 pt-4 pb-1">
-                <h3 className="font-bold text-primary dark:text-accent">🏢 Company Profile</h3>
-                <p className="text-xs text-gray-400">Business overview & key info</p>
+                <h3 className="font-bold text-primary dark:text-accent">{isCrypto ? '🪙 Crypto Profile' : '🏢 Company Profile'}</h3>
+                <p className="text-xs text-gray-400">{isCrypto ? 'Token info & key metrics' : 'Business overview & key info'}</p>
               </div>
               <TVWidget
                 id={'profile-' + tvSymbol}
@@ -311,7 +392,7 @@ export default function StockPage() {
             </div>
           </div>
 
-          {/* AI Summary — always shown while ticker is active */}
+          {/* AI Summary */}
           {(aiLoad || ai) && (
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-750 rounded-2xl p-6 mb-6 border border-blue-100 dark:border-gray-600">
               <div className="flex items-center gap-2 mb-3">
@@ -327,23 +408,25 @@ export default function StockPage() {
             </div>
           )}
 
-          {/* Financials */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden mb-6">
-            <div className="px-4 pt-4 pb-1">
-              <h3 className="font-bold text-primary dark:text-accent">💰 Financials</h3>
-              <p className="text-xs text-gray-400">Income statement, balance sheet & cash flow</p>
+          {/* Financials — stocks & ETFs only, not crypto */}
+          {!isCrypto && (
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden mb-6">
+              <div className="px-4 pt-4 pb-1">
+                <h3 className="font-bold text-primary dark:text-accent">💰 Financials</h3>
+                <p className="text-xs text-gray-400">Income statement, balance sheet & cash flow</p>
+              </div>
+              <TVWidget
+                id={'fin-' + tvSymbol}
+                height={450}
+                scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-financials.js"
+                configFn={(dark) => ({
+                  symbol: tvSymbol, colorTheme: dark ? 'dark' : 'light',
+                  isTransparent: false, largeChartUrl: '',
+                  displayMode: 'regular', width: '100%', height: 450, locale: 'en',
+                })}
+              />
             </div>
-            <TVWidget
-              id={'fin-' + tvSymbol}
-              height={450}
-              scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-financials.js"
-              configFn={(dark) => ({
-                symbol: tvSymbol, colorTheme: dark ? 'dark' : 'light',
-                isTransparent: false, largeChartUrl: '',
-                displayMode: 'regular', width: '100%', height: 450, locale: 'en',
-              })}
-            />
-          </div>
+          )}
 
           {/* News */}
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden mb-6">
@@ -368,14 +451,17 @@ export default function StockPage() {
 
           {/* Related */}
           <div className="mt-6">
-            <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">Explore other stocks</p>
+            <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">Explore more</p>
             <div className="flex flex-wrap gap-2">
-              {POPULAR.filter(s => s.t !== t).map(s => (
-                <button key={s.t} onClick={() => navigate('/stocks/' + s.t)}
-                  className="text-sm bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-primary dark:text-white px-4 py-1.5 rounded-lg font-bold hover:bg-secondary hover:text-white hover:border-secondary transition">
-                  {s.f} {s.t}
-                </button>
-              ))}
+              {[...POPULAR_STOCKS, ...POPULAR_CRYPTO, ...POPULAR_ETFS]
+                .filter(s => s.t !== t && s.t !== ticker)
+                .slice(0, 10)
+                .map(s => (
+                  <button key={s.t} onClick={() => navigate('/stocks/' + s.t)}
+                    className="text-sm bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-primary dark:text-white px-4 py-1.5 rounded-lg font-bold hover:bg-secondary hover:text-white hover:border-secondary transition">
+                    {s.f} {s.t.replace('-USD', '')}
+                  </button>
+                ))}
             </div>
           </div>
 
