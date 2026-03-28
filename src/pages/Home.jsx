@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import CountUp from "../components/CountUp";
 import FinancialTip from "../components/FinancialTip";
+import ReferralSection from "../components/ReferralSection";
 
 const tools = [
   { icon: "💰", title: "TFSA Calculator", desc: "See how much your tax-free savings can grow over time.", link: "/tools/tfsa-calculator", badge: "Most Popular" },
@@ -102,6 +103,11 @@ export default function Home() {
             View All Tools →
           </Link>
         </div>
+      </section>
+
+      {/* Wealthsimple Referral */}
+      <section className="max-w-5xl mx-auto px-4">
+        <ReferralSection />
       </section>
 
       {/* Why Us */}

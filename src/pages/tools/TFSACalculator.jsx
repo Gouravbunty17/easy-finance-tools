@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import SEO from "../../components/SEO";
 import AdSlot from "../../components/AdSlot";
+import ReferralSection from "../../components/ReferralSection";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS, LineElement, CategoryScale,
@@ -211,6 +212,8 @@ export default function TFSACalculator() {
               Your total lifetime contribution room is approximately <strong className="text-green-600">${result.contributionRoom.toLocaleString()}</strong>.
             </p>
           </div>
+
+          <ReferralSection />
         </div>
       )}
     </section>
