@@ -20,6 +20,7 @@ import RentVsBuyCalculator from './pages/tools/RentVsBuyCalculator';
 import CapitalGainsTaxCalculator from './pages/tools/CapitalGainsTaxCalculator';
 import CPPOASEstimator from './pages/tools/CPPOASEstimator';
 import StockPage from './pages/stocks/StockPage';
+import WeeklyDividendETFs from './pages/blog/weekly-dividend-etfs';
 
 export default function App() {
   return (
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/tools/rent-vs-buy" element={<RentVsBuyCalculator />} />
           <Route path="/tools/capital-gains-tax" element={<CapitalGainsTaxCalculator />} />
           <Route path="/tools/cpp-oas-estimator" element={<CPPOASEstimator />} />
+          <Route path="/blog/weekly-dividend-etfs" element={<WeeklyDividendETFs />} />
           <Route path="/stocks" element={<StockPage />} />
           <Route path="/stocks/:ticker" element={<StockPage />} />
         </Routes>

@@ -7,116 +7,254 @@ export default function WeeklyDividendETFs() {
   useAdSense();
 
   return (
-    <section className="max-w-4xl mx-auto px-4 py-12">
-      <div className="mb-6">
-        <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
-          <CalendarIcon className="w-4 h-4 mr-2" />
-          <time>2025-06-30</time>
-          <span className="mx-2">|</span>
-          <TagIcon className="w-4 h-4 mr-2" />
-          Dividend Investing
+    <section className="max-w-3xl mx-auto px-4 py-12">
+      {/* Header */}
+      <div className="mb-8">
+        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
+          <CalendarIcon className="w-4 h-4" />
+          <time>June 30, 2025</time>
+          <span>·</span>
+          <TagIcon className="w-4 h-4" />
+          <span>Dividend Investing</span>
+          <span>·</span>
+          <span>8 min read</span>
         </div>
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-4">
+        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-4 leading-tight">
           What Are Weekly Dividend ETFs, and How Do They Work?
         </h1>
-        <p className="text-gray-700 dark:text-gray-300 mb-4">
-          Are you tired of waiting three months for a dividend paycheck? Imagine getting paid every single week — just like a regular salary — through your investments. Weekly dividend ETFs are growing in popularity because they offer a way to collect consistent, frequent income from the stock market.
+        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+          Are you tired of waiting three months for a dividend paycheck? Imagine getting paid every single week — just like a regular salary — through your investments. Weekly dividend ETFs are growing in popularity among income investors, retirees, and Canadians looking for consistent cash flow. In this guide, we break down exactly how they work, who they're for, and what to watch out for.
         </p>
       </div>
 
       {/* Top Ad */}
-      <div className="my-8 text-center border border-gray-300 rounded p-4 bg-gray-50 dark:bg-gray-800">
+      <div className="my-8">
         <ins
-          className="adsbygoogle"
+          className="adsbygoogle block"
           style={{ display: "block" }}
           data-ad-client="ca-pub-4262496331692202"
           data-ad-slot="1234567890"
           data-ad-format="auto"
           data-full-width-responsive="true"
-        ></ins>
+        />
       </div>
 
-      <article className="prose prose-neutral dark:prose-invert">
-        <h2>What is a Dividend ETF?</h2>
+      <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+
+        {/* Section 1 */}
+        <h2>What Is a Dividend ETF?</h2>
         <p>
-          A dividend ETF is a basket of stocks that pays out dividends. Instead of owning each stock, you can buy a dividend ETF for diversification, easier management, and steady income. Traditional dividend ETFs usually pay monthly or quarterly.
+          A dividend ETF (Exchange-Traded Fund) is a fund that holds a basket of dividend-paying stocks and passes the income on to investors. Instead of buying individual stocks like Royal Bank or Enbridge, you buy one ETF that gives you exposure to dozens — sometimes hundreds — of dividend payers at once.
+        </p>
+        <p>
+          The main appeal is simplicity and diversification. You get a steady stream of income without having to research, buy, and manage individual companies. Traditional dividend ETFs like <strong>VDY</strong> (Vanguard FTSE Canadian High Dividend Yield ETF) or <strong>XDV</strong> (iShares Canadian Select Dividend ETF) typically pay out monthly or quarterly.
         </p>
 
-        <h2>What is a Weekly Dividend ETF?</h2>
+        {/* Section 2 */}
+        <h2>What Makes Weekly Dividend ETFs Different?</h2>
         <p>
-          Weekly dividend ETFs go a step further by paying distributions every week. They often combine dividend stocks with options strategies like covered calls to support the weekly payout schedule.
+          Weekly dividend ETFs take this concept one step further — they pay distributions every single week. Instead of waiting 30 or 90 days for your next payment, money hits your account every 7 days.
+        </p>
+        <p>
+          This sounds incredible on paper, but there's a catch: most stocks and underlying assets don't naturally generate enough income to pay out weekly. So these funds typically use <strong>options strategies</strong> — specifically covered calls — to generate the extra income needed to sustain weekly payouts.
         </p>
 
-        <h2>How Weekly Dividend ETFs Work</h2>
-        <ul>
-          <li><strong>Dividend Stocks:</strong> Provide a steady base yield.</li>
-          <li><strong>Options Premiums:</strong> Collected weekly from selling calls.</li>
-          <li><strong>Weekly Pooling:</strong> Distribute the total to investors each week.</li>
-        </ul>
+        {/* Section 3 */}
+        <h2>How Weekly Dividend ETFs Actually Work</h2>
         <p>
-          Because option contracts can roll over weekly, these funds can maintain a consistent cash flow to unit holders.
+          To understand weekly dividend ETFs, you need to understand two income sources working together:
         </p>
 
-        {/* Mid-article Ad */}
-        <div className="my-8 text-center border border-gray-300 rounded p-4 bg-gray-50 dark:bg-gray-800">
+        <h3>1. Dividend Income from Stocks</h3>
+        <p>
+          The ETF holds a portfolio of dividend-paying stocks. These companies pay dividends quarterly or monthly, which gets pooled into the fund. This forms the base layer of income.
+        </p>
+
+        <h3>2. Options Premiums (Covered Calls)</h3>
+        <p>
+          Here's where it gets interesting. The fund managers sell <strong>covered call options</strong> on the stocks they hold. A covered call means you own the stock and sell someone the right to buy it from you at a set price (the "strike price") before a certain date.
+        </p>
+        <p>
+          The buyer of that option pays you a <strong>premium</strong> upfront. That premium becomes additional income for the fund — income that can be distributed to investors weekly.
+        </p>
+        <p>
+          Think of it like renting out your car. You still own the car (the stock), but you collect rent (the option premium) every week. The downside: if the car's value goes up a lot, the renter can buy it at the old price, capping your upside.
+        </p>
+
+        <h3>3. Weekly Distribution Pool</h3>
+        <p>
+          Every week, the fund calculates the total income collected from dividends and options premiums, then distributes it pro-rata to unit holders. If you hold 1,000 units and the fund distributes $0.10/unit, you receive $100 that week.
+        </p>
+
+        {/* Mid Ad */}
+        <div className="my-8 not-prose">
           <ins
-            className="adsbygoogle"
+            className="adsbygoogle block"
             style={{ display: "block" }}
             data-ad-client="ca-pub-4262496331692202"
             data-ad-slot="9876543210"
             data-ad-format="auto"
             data-full-width-responsive="true"
-          ></ins>
+          />
         </div>
 
+        {/* Section 4 */}
         <h2>Benefits of Weekly Dividend ETFs</h2>
-        <ul>
-          <li>✅ Consistent weekly cash flow</li>
-          <li>✅ Easier budgeting for bills and expenses</li>
-          <li>✅ Faster compounding if you reinvest</li>
-        </ul>
 
-        <h2>Risks of Weekly Dividend ETFs</h2>
-        <ul>
-          <li>⚠️ Higher management fees</li>
-          <li>⚠️ Limited price growth due to covered calls</li>
-          <li>⚠️ Complex tax reporting</li>
-        </ul>
-
-        <h2>Popular Examples</h2>
-        <ul>
-          <li>✅ YieldMax TSLY (Tesla Option Income ETF)</li>
-          <li>✅ Defiance Nasdaq 100 Enhanced Options Income ETF</li>
-          <li>✅ Roundhill S&P 500 Covered Call ETF</li>
-        </ul>
-
-        <h2>Should You Invest?</h2>
+        <h3>Consistent Weekly Cash Flow</h3>
         <p>
-          Weekly dividend ETFs may be ideal for retirees, income-focused investors, or those wanting frequent payouts,
-          but they come with higher risks and fees. Always research carefully to see if they fit your financial goals.
+          For retirees or anyone living off investment income, weekly payouts align better with real-world expenses like rent, groceries, and utility bills. You don't have to budget around quarterly payouts or keep large cash reserves.
         </p>
 
+        <h3>Faster Compounding if You Reinvest</h3>
+        <p>
+          If you enroll in a DRIP (Dividend Reinvestment Plan), your weekly distributions buy more units of the ETF every week. More frequent reinvestment means your money compounds faster compared to quarterly reinvestment — though the difference over short periods is modest.
+        </p>
+
+        <h3>Psychological Comfort</h3>
+        <p>
+          There's something motivating about seeing money deposited into your account every week. It makes passive income feel real and tangible, which helps investors stay the course during market downturns.
+        </p>
+
+        <h3>Diversification</h3>
+        <p>
+          Like any ETF, weekly dividend ETFs give you exposure to many stocks at once. You're not dependent on one company's dividend being maintained.
+        </p>
+
+        {/* Section 5 */}
+        <h2>Risks and Drawbacks to Know</h2>
+
+        <h3>Capped Upside Growth</h3>
+        <p>
+          This is the biggest trade-off. Because the fund sells covered calls on its holdings, it gives up some of the upside when stocks rise sharply. If the market rallies 20%, a covered call ETF might only capture 8–12% of that gain. You're trading growth potential for income.
+        </p>
+
+        <h3>High Management Expense Ratios (MERs)</h3>
+        <p>
+          Options strategies require active management, and that costs money. Many weekly dividend ETFs carry MERs of 0.60%–1.00% or more, compared to 0.10%–0.25% for simple index ETFs. Over 20 years, that fee difference compounds significantly against you.
+        </p>
+
+        <h3>Return of Capital Risk</h3>
+        <p>
+          Some weekly payouts include <strong>return of capital (ROC)</strong> — meaning the fund is giving back a portion of your own invested money, not earned income. This reduces your adjusted cost base and can result in a tax surprise later. Always check a fund's distribution breakdown.
+        </p>
+
+        <h3>Yield Can Be Misleading</h3>
+        <p>
+          A fund advertising a 15–20% annual yield sounds extraordinary. But if the underlying assets aren't generating that income naturally, the fund may be paying out more than it earns — depleting your principal over time. Look at the fund's <strong>total return</strong>, not just its distribution yield.
+        </p>
+
+        <h3>Complex Tax Treatment</h3>
+        <p>
+          Weekly distributions in a non-registered (taxable) account can create complicated tax reporting. Dividends, capital gains, foreign income, and return of capital are all taxed differently. Holding these ETFs inside a TFSA or RRSP simplifies this significantly.
+        </p>
+
+        {/* Section 6 */}
+        <h2>Popular Weekly Dividend ETF Examples</h2>
+        <p>
+          Here are some well-known weekly dividend ETFs available to Canadian and US investors:
+        </p>
+
+        <div className="not-prose overflow-x-auto my-6">
+          <table className="w-full text-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+            <thead className="bg-gray-100 dark:bg-gray-800 text-left">
+              <tr>
+                <th className="px-4 py-3 font-semibold">ETF</th>
+                <th className="px-4 py-3 font-semibold">Strategy</th>
+                <th className="px-4 py-3 font-semibold">Market</th>
+                <th className="px-4 py-3 font-semibold">Approx. Yield</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+              {[
+                ["TSLY (YieldMax)", "Covered calls on TSLA", "US", "~40–60%*"],
+                ["XYLD (Global X)", "Covered calls on S&P 500", "US", "~10–12%"],
+                ["QYLD (Global X)", "Covered calls on Nasdaq 100", "US", "~11–14%"],
+                ["RYLD (Global X)", "Covered calls on Russell 2000", "US", "~12–15%"],
+                ["HDIV (Hamilton ETFs)", "Multi-asset covered call", "Canada", "~7–10%"],
+              ].map(([etf, strategy, market, yield_]) => (
+                <tr key={etf} className="bg-white dark:bg-gray-900">
+                  <td className="px-4 py-3 font-medium">{etf}</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{strategy}</td>
+                  <td className="px-4 py-3">{market}</td>
+                  <td className="px-4 py-3 text-green-600 font-semibold">{yield_}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="text-xs text-gray-400 mt-2">*High yields often include return of capital. Always verify distribution composition before investing.</p>
+        </div>
+
+        {/* Section 7 */}
+        <h2>Weekly Dividend ETFs in a Canadian Context</h2>
+        <p>
+          Canadian investors have a few important considerations:
+        </p>
+        <ul>
+          <li><strong>TFSA:</strong> Ideal for holding these ETFs. All distributions are received tax-free, and you avoid the complexity of tracking return of capital for tax purposes.</li>
+          <li><strong>RRSP:</strong> Also good, but be aware that US-listed ETFs held in an RRSP are exempt from US withholding tax on dividends under the Canada-US tax treaty — a significant advantage.</li>
+          <li><strong>Non-registered accounts:</strong> You'll need to track the character of each distribution (eligible dividends, non-eligible dividends, ROC, foreign income) for your tax return.</li>
+          <li><strong>Currency:</strong> Many popular weekly dividend ETFs are US-listed (paying in USD). Factor in currency conversion costs and exchange rate risk.</li>
+        </ul>
+
+        {/* Section 8 */}
+        <h2>Who Should Consider Weekly Dividend ETFs?</h2>
+        <p>Weekly dividend ETFs tend to be a better fit for:</p>
+        <ul>
+          <li>✅ <strong>Retirees</strong> who want regular income to cover living expenses</li>
+          <li>✅ <strong>Income-focused investors</strong> who prioritize cash flow over capital appreciation</li>
+          <li>✅ <strong>Conservative investors</strong> who want lower volatility through the covered call buffer</li>
+          <li>✅ <strong>TFSA/RRSP holders</strong> looking to maximize tax-sheltered income</li>
+        </ul>
+        <p>They are generally <strong>not ideal</strong> for:</p>
+        <ul>
+          <li>❌ Young investors with a long time horizon who should prioritize growth</li>
+          <li>❌ Investors expecting to match market returns — covered calls limit upside</li>
+          <li>❌ Those who don't understand return of capital and yield sustainability</li>
+        </ul>
+
         {/* Bottom Ad */}
-        <div className="my-8 text-center border border-gray-300 rounded p-4 bg-gray-50 dark:bg-gray-800">
+        <div className="my-8 not-prose">
           <ins
-            className="adsbygoogle"
+            className="adsbygoogle block"
             style={{ display: "block" }}
             data-ad-client="ca-pub-4262496331692202"
             data-ad-slot="1122334455"
             data-ad-format="auto"
             data-full-width-responsive="true"
-          ></ins>
+          />
         </div>
 
-        <h2>Disclaimer</h2>
-        <p className="text-xs italic">
-          This post is for educational purposes only. Please consult a qualified advisor before investing.
+        {/* Section 9 */}
+        <h2>Key Questions to Ask Before Investing</h2>
+        <ol>
+          <li><strong>What is the fund's total return</strong>, not just distribution yield?</li>
+          <li><strong>How much of the distribution is return of capital</strong> vs. earned income?</li>
+          <li><strong>What is the MER</strong>, and how does it affect long-term returns?</li>
+          <li><strong>Is the fund's NAV (Net Asset Value) declining</strong> over time? A shrinking NAV signals the fund may be paying out more than it earns.</li>
+          <li><strong>Which account type</strong> will you hold it in? TFSA and RRSP offer major tax advantages.</li>
+        </ol>
+
+        {/* Conclusion */}
+        <h2>Final Thoughts</h2>
+        <p>
+          Weekly dividend ETFs can be a genuinely useful tool for income-focused investors — especially retirees who want predictable, frequent cash flow. The key is understanding the trade-offs: you're exchanging some long-term growth potential for regular income, and you need to look beyond the headline yield to understand what you're actually receiving.
         </p>
+        <p>
+          Before investing, use our <Link to="/tools/dividend-calculator" className="text-primary underline">Dividend Calculator</Link> to model how weekly or monthly payouts could build your passive income over time. And if you're a Canadian investor, make sure to review the <Link to="/tools/tfsa-calculator" className="text-primary underline">TFSA Calculator</Link> to see how much more your income could compound tax-free.
+        </p>
+
+        {/* Disclaimer */}
+        <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mt-8 not-prose">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            <strong>Disclaimer:</strong> This article is for educational and informational purposes only and does not constitute financial or investment advice. Always consult a qualified financial advisor before making investment decisions. Past performance is not indicative of future results.
+          </p>
+        </div>
       </article>
 
       <Link
         to="/blog"
-        className="inline-block mt-8 text-primary dark:text-accent underline"
+        className="inline-block mt-10 text-primary dark:text-accent font-semibold hover:underline"
       >
         ← Back to Blog
       </Link>

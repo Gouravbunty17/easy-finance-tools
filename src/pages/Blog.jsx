@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 // Blog posts
 const posts = [
@@ -92,12 +93,12 @@ export default function Blog() {
                   {post.title}
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300">{post.excerpt}</p>
-                <a
-                  href={`/blog/${post.slug}`}
+                <Link
+                  to={`/blog/${post.slug}`}
                   className="inline-block mt-3 text-primary dark:text-accent underline hover:text-secondary"
                 >
                   Read More →
-                </a>
+                </Link>
               </div>
             ))
           )}
