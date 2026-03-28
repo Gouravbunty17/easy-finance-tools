@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import CountUp from "../components/CountUp";
+import FinancialTip from "../components/FinancialTip";
 
 const tools = [
   { icon: "💰", title: "TFSA Calculator", desc: "See how much your tax-free savings can grow over time.", link: "/tools/tfsa-calculator", badge: "Most Popular" },
@@ -12,15 +14,16 @@ const tools = [
 ];
 
 const stats = [
-  { value: "100%", label: "Free Forever" },
-  { value: "0", label: "Sign-ups Required" },
-  { value: "🇨🇦", label: "Canadian-Focused" },
-  { value: "2026", label: "Rates Updated" },
+  { to: 10, suffix: "+", label: "Free Tools" },
+  { to: 100, suffix: "%", label: "Free Forever" },
+  { to: 0, suffix: "", label: "Sign-ups Required" },
+  { to: 2026, suffix: "", from: 2020, label: "Rates Updated" },
 ];
 
 export default function Home() {
   return (
     <div className="min-h-screen">
+      <SEO />
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary to-secondary text-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
@@ -44,20 +47,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Animated Stats */}
       <section className="bg-white dark:bg-gray-900 border-b dark:border-gray-800">
         <div className="max-w-4xl mx-auto px-4 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {stats.map(s => (
             <div key={s.label}>
-              <div className="text-3xl font-bold text-primary dark:text-accent">{s.value}</div>
+              <div className="text-3xl font-bold text-primary dark:text-accent">
+                <CountUp to={s.to} from={s.from ?? 0} suffix={s.suffix} />
+              </div>
               <div className="text-sm text-gray-500 mt-1">{s.label}</div>
             </div>
           ))}
         </div>
       </section>
 
+      {/* Financial Tip of the Day */}
+      <section className="max-w-5xl mx-auto px-4 pt-10">
+        <FinancialTip />
+      </section>
+
       {/* Tools Grid */}
-      <section className="max-w-5xl mx-auto px-4 py-16">
+      <section className="max-w-5xl mx-auto px-4 py-12">
         <h2 className="text-3xl font-bold text-center mb-4 text-primary dark:text-accent">
           Our Free Calculators
         </h2>

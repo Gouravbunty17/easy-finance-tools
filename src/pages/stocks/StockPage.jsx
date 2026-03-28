@@ -121,8 +121,25 @@ export default function StockPage() {
   const [quote, setQuote]           = useState(null);
   const [ai, setAi]                 = useState('');
   const [aiLoad, setAiLoad]         = useState(false);
+  const [watchlist, setWatchlist]   = useState(() => {
+    try { return JSON.parse(localStorage.getItem('watchlist') || '[]'); } catch { return []; }
+  });
   const searchRef  = useRef(null);
   const debounceRef = useRef(null);
+
+  useEffect(() => {
+    localStorage.setItem('watchlist', JSON.stringify(watchlist));
+  }, [watchlist]);
+
+  const toggleWatch = (sym, name) => {
+    setWatchlist(prev =>
+      prev.some(w => w.t === sym)
+        ? prev.filter(w => w.t !== sym)
+        : [...prev, { t: sym, n: name || sym }]
+    );
+  };
+
+  const isWatched = watchlist.some(w => w.t === t);
 
   const t = ticker?.toUpperCase();
   const isCrypto = !!(t && (t.endsWith('-USD') || t.endsWith('-USDT')));
@@ -270,6 +287,27 @@ export default function StockPage() {
             <p className="text-gray-500 max-w-md mx-auto">NYSE · NASDAQ · TSX · Bitcoin · Ethereum · SPY · QQQ. All free.</p>
           </div>
 
+          {/* Watchlist */}
+          {watchlist.length > 0 && (
+            <div className="mb-8">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide">⭐ Your Watchlist</p>
+                <button onClick={() => setWatchlist([])} className="text-xs text-gray-400 hover:text-red-500 transition">Clear all</button>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {watchlist.map(w => (
+                  <div key={w.t} className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-200 dark:border-yellow-800 rounded-xl pl-3 pr-1 py-1.5">
+                    <button onClick={() => navigate('/stocks/' + w.t)} className="text-sm font-bold text-primary dark:text-yellow-300 hover:underline">
+                      {w.t}
+                    </button>
+                    <span className="text-gray-400 text-xs ml-1 hidden sm:inline">{w.n}</span>
+                    <button onClick={() => toggleWatch(w.t)} className="ml-1 p-1 text-gray-300 hover:text-red-400 transition text-xs">✕</button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Popular Stocks */}
           <div className="mb-8">
             <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">🇺🇸🇨🇦 Popular Stocks</p>
@@ -339,6 +377,13 @@ export default function StockPage() {
               <div>
                 <div className="flex items-center gap-2 flex-wrap mb-1">
                   <h2 className="text-2xl font-bold text-primary dark:text-white">{t}</h2>
+                  <button
+                    onClick={() => toggleWatch(t, quote.shortName)}
+                    title={isWatched ? "Remove from watchlist" : "Add to watchlist"}
+                    className={`text-xl transition-transform hover:scale-110 ${isWatched ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-400'}`}
+                  >
+                    {isWatched ? '★' : '☆'}
+                  </button>
                   {isCrypto && <span className="text-xs bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full font-bold">Crypto</span>}
                   {!isCrypto && quote.fullExchangeName && (
                     <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-500 px-2 py-0.5 rounded font-medium">{quote.fullExchangeName}</span>

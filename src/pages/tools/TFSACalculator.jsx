@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import SEO from "../../components/SEO";
 import AdSlot from "../../components/AdSlot";
 import { Line } from "react-chartjs-2";
@@ -16,48 +17,76 @@ const TFSA_LIMITS = {
 };
 const TOTAL_ROOM = Object.values(TFSA_LIMITS).reduce((a,b) => a+b, 0);
 
+function computeResult(birthYear, currentSavings, monthlyContrib, returnRate, years) {
+  const eligibleSince = Math.max(2009, birthYear + 18);
+  let contributionRoom = 0;
+  for (let y = eligibleSince; y <= 2026; y++) {
+    contributionRoom += TFSA_LIMITS[y] || 7000;
+  }
+  const r = returnRate / 100 / 12;
+  let projections = [];
+  let balance = currentSavings;
+  for (let i = 1; i <= years; i++) {
+    for (let m = 0; m < 12; m++) {
+      balance = balance * (1 + r) + monthlyContrib;
+    }
+    projections.push({ year: i, value: Math.round(balance) });
+  }
+  const totalContributed = currentSavings + monthlyContrib * 12 * years;
+  const totalGrowth = balance - totalContributed;
+  return {
+    age: 2026 - birthYear,
+    contributionRoom,
+    yearsEligible: 2026 - eligibleSince,
+    projections,
+    finalValue: Math.round(balance),
+    totalContributed: Math.round(totalContributed),
+    totalGrowth: Math.round(totalGrowth),
+    taxSaved: Math.round(totalGrowth * 0.33),
+  };
+}
+
 export default function TFSACalculator() {
+  const [searchParams] = useSearchParams();
   const [birthYear, setBirthYear] = useState(1990);
   const [currentSavings, setCurrentSavings] = useState(0);
   const [monthlyContrib, setMonthlyContrib] = useState(500);
   const [returnRate, setReturnRate] = useState(7);
   const [years, setYears] = useState(20);
   const [result, setResult] = useState(null);
+  const [copied, setCopied] = useState(false);
+
+  // Pre-fill from URL params and auto-calculate
+  useEffect(() => {
+    const by = searchParams.get("by");
+    const cs = searchParams.get("cs");
+    const mc = searchParams.get("mc");
+    const rr = searchParams.get("rr");
+    const yr = searchParams.get("yr");
+    if (!by) return;
+    const byv = parseInt(by) || 1990;
+    const csv = parseFloat(cs) || 0;
+    const mcv = parseFloat(mc) || 500;
+    const rrv = parseFloat(rr) || 7;
+    const yrv = parseInt(yr) || 20;
+    setBirthYear(byv);
+    setCurrentSavings(csv);
+    setMonthlyContrib(mcv);
+    setReturnRate(rrv);
+    setYears(yrv);
+    setResult(computeResult(byv, csv, mcv, rrv, yrv));
+  }, []);
 
   const calculate = () => {
-    const age = 2026 - birthYear;
-    const eligibleSince = Math.max(2009, birthYear + 18);
-    const yearsEligible = 2026 - eligibleSince;
-    let contributionRoom = 0;
-    for (let y = eligibleSince; y <= 2026; y++) {
-      contributionRoom += TFSA_LIMITS[y] || 7000;
-    }
+    setResult(computeResult(birthYear, currentSavings, monthlyContrib, returnRate, years));
+  };
 
-    const r = returnRate / 100 / 12;
-    const n = years * 12;
-    let projections = [];
-    let balance = currentSavings;
-
-    for (let i = 1; i <= years; i++) {
-      for (let m = 0; m < 12; m++) {
-        balance = balance * (1 + r) + monthlyContrib;
-      }
-      projections.push({ year: i, value: Math.round(balance) });
-    }
-
-    const totalContributed = currentSavings + monthlyContrib * 12 * years;
-    const totalGrowth = balance - totalContributed;
-
-    setResult({
-      age,
-      contributionRoom,
-      yearsEligible,
-      projections,
-      finalValue: Math.round(balance),
-      totalContributed: Math.round(totalContributed),
-      totalGrowth: Math.round(totalGrowth),
-      taxSaved: Math.round(totalGrowth * 0.33),
-    });
+  const copyShareLink = () => {
+    const url = new URL(window.location.href);
+    url.search = `?by=${birthYear}&cs=${currentSavings}&mc=${monthlyContrib}&rr=${returnRate}&yr=${years}`;
+    navigator.clipboard.writeText(url.toString());
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   return (
@@ -125,7 +154,8 @@ export default function TFSACalculator() {
 
       {result && (
         <div className="mt-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          {/* Result Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             {[
               { label: "Final TFSA Value", value: `$${result.finalValue.toLocaleString()}`, color: "bg-green-50 border-green-200 text-green-800" },
               { label: "Total Contributed", value: `$${result.totalContributed.toLocaleString()}`, color: "bg-blue-50 border-blue-200 text-blue-800" },
@@ -137,6 +167,20 @@ export default function TFSACalculator() {
                 <p className="text-2xl font-bold mt-1">{card.value}</p>
               </div>
             ))}
+          </div>
+
+          {/* Share button */}
+          <div className="flex justify-end mb-6">
+            <button
+              onClick={copyShareLink}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all border-2 ${
+                copied
+                  ? "bg-green-50 border-green-300 text-green-700"
+                  : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-primary hover:text-primary"
+              }`}
+            >
+              {copied ? "✅ Link Copied!" : "🔗 Share My Results"}
+            </button>
           </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow mb-8">
