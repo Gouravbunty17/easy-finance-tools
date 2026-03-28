@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import SEO from "../../components/SEO";
 import AdSlot from "../../components/AdSlot";
+import FAQ from "../../components/FAQ";
+
+const RRSP_FAQS = [
+  { q: "What is the RRSP contribution limit for 2026?", a: "The 2026 RRSP contribution limit is 18% of your 2025 earned income, up to a maximum of $32,490. Any unused room from previous years also carries forward. Check your most recent Notice of Assessment from the CRA for your exact limit." },
+  { q: "When is the RRSP contribution deadline for 2026?", a: "The RRSP contribution deadline for the 2025 tax year is March 1, 2026. Contributions made between January 1 and March 1, 2026 can be applied to either your 2025 or 2026 tax return." },
+  { q: "How does an RRSP reduce my taxes?", a: "RRSP contributions are deducted from your taxable income. If you contribute $10,000 and your marginal tax rate is 33%, you receive approximately $3,300 back as a tax refund. This makes the RRSP most valuable for higher-income earners." },
+  { q: "When should I choose RRSP over TFSA?", a: "Choose RRSP if your income is over $80,000/year, you expect lower income in retirement, or you want to use the Home Buyers' Plan. For incomes under $50,000, the TFSA is usually better since the tax deduction is less valuable at lower marginal rates." },
+  { q: "Can I withdraw from my RRSP early?", a: "Yes, but withdrawals are added to your income and taxed at your marginal rate. Your financial institution also withholds tax at source (10% for up to $5,000, 20% for $5,001–$15,000, 30% for over $15,000). Early withdrawals also permanently destroy that contribution room." },
+  { q: "What happens to my RRSP at age 71?", a: "You must close your RRSP by December 31 of the year you turn 71. Your options are to convert it to a RRIF (most common), purchase an annuity, or withdraw the full balance as cash (and pay tax on all of it in that year)." },
+];
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS, BarElement, CategoryScale,
@@ -175,6 +185,7 @@ export default function RRSPCalculator() {
           </div>
         </div>
       )}
+      <FAQ items={RRSP_FAQS} />
     </section>
   );
 }

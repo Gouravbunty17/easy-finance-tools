@@ -21,6 +21,10 @@ import CapitalGainsTaxCalculator from './pages/tools/CapitalGainsTaxCalculator';
 import CPPOASEstimator from './pages/tools/CPPOASEstimator';
 import StockPage from './pages/stocks/StockPage';
 import WeeklyDividendETFs from './pages/blog/weekly-dividend-etfs';
+import TFSAvsRRSP from './pages/blog/tfsa-vs-rrsp-2026';
+import HowMuchTFSARoom from './pages/blog/how-much-tfsa-room-2026';
+import BestETFsForTFSA from './pages/blog/best-etfs-for-tfsa-canada-2026';
+import HowToUseFHSA from './pages/blog/how-to-use-fhsa-canada';
 
 export default function App() {
   return (
@@ -46,6 +50,10 @@ export default function App() {
           <Route path="/tools/capital-gains-tax" element={<CapitalGainsTaxCalculator />} />
           <Route path="/tools/cpp-oas-estimator" element={<CPPOASEstimator />} />
           <Route path="/blog/weekly-dividend-etfs" element={<WeeklyDividendETFs />} />
+          <Route path="/blog/tfsa-vs-rrsp-2026" element={<TFSAvsRRSP />} />
+          <Route path="/blog/how-much-tfsa-room-2026" element={<HowMuchTFSARoom />} />
+          <Route path="/blog/best-etfs-for-tfsa-canada-2026" element={<BestETFsForTFSA />} />
+          <Route path="/blog/how-to-use-fhsa-canada" element={<HowToUseFHSA />} />
           <Route path="/stocks" element={<StockPage />} />
           <Route path="/stocks/:ticker" element={<StockPage />} />
         </Routes>

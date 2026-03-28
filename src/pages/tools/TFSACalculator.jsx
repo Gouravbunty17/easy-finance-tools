@@ -3,6 +3,16 @@ import { useSearchParams } from "react-router-dom";
 import SEO from "../../components/SEO";
 import AdSlot from "../../components/AdSlot";
 import ReferralSection from "../../components/ReferralSection";
+import FAQ from "../../components/FAQ";
+
+const TFSA_FAQS = [
+  { q: "How much TFSA room do I have in 2026?", a: "If you were 18+ and a Canadian resident since 2009 and have never contributed, you have $95,000 in total TFSA room in 2026. The 2026 annual limit is $7,000. Your personal room depends on your age and prior contributions — check CRA My Account for your exact figure." },
+  { q: "What is the TFSA contribution limit for 2026?", a: "The TFSA annual contribution limit for 2026 is $7,000, unchanged from 2024 and 2025. The cumulative lifetime limit since 2009 is $95,000 for those eligible from the start." },
+  { q: "Can I withdraw from my TFSA and re-contribute?", a: "Yes — TFSA withdrawals are added back to your contribution room on January 1 of the following year. If you withdraw $10,000 in 2026, you can re-contribute that $10,000 starting January 1, 2027 (plus that year's new annual limit)." },
+  { q: "What happens if I over-contribute to my TFSA?", a: "Over-contributions are penalized at 1% per month on the excess amount until it's withdrawn. Always verify your available room through CRA My Account before making large contributions." },
+  { q: "What can I invest in inside a TFSA?", a: "A TFSA can hold cash, GICs, stocks, ETFs, mutual funds, and bonds — virtually any eligible investment. You cannot hold US-listed crypto directly, shares in a company you control, or certain other prohibited investments." },
+  { q: "Is TFSA income taxed?", a: "No. All investment income — dividends, capital gains, interest — earned inside a TFSA is completely tax-free. Withdrawals are also tax-free at any time for any reason." },
+];
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS, LineElement, CategoryScale,
@@ -216,6 +226,8 @@ export default function TFSACalculator() {
           <ReferralSection />
         </div>
       )}
+
+      <FAQ items={TFSA_FAQS} />
     </section>
   );
 }

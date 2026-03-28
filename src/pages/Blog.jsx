@@ -4,11 +4,39 @@ import { Link } from "react-router-dom";
 // Blog posts
 const posts = [
   {
+    slug: "tfsa-vs-rrsp-2026",
+    title: "TFSA vs RRSP: Which Is Better in 2026?",
+    date: "2026-03-28",
+    category: "TFSA & RRSP",
+    excerpt: "The #1 question in Canadian finance answered. Learn exactly when to choose a TFSA, when the RRSP wins, and how to use both together to maximize your savings.",
+  },
+  {
+    slug: "how-much-tfsa-room-2026",
+    title: "How Much TFSA Room Do I Have in 2026?",
+    date: "2026-03-28",
+    category: "TFSA",
+    excerpt: "Full year-by-year TFSA contribution limit table, cumulative totals by birth year, how to check your room via CRA My Account, and common mistakes to avoid.",
+  },
+  {
+    slug: "best-etfs-for-tfsa-canada-2026",
+    title: "Best ETFs for Your TFSA in Canada (2026)",
+    date: "2026-03-28",
+    category: "Investing",
+    excerpt: "XEQT, VEQT, VDY, ZSP and more — the top ETFs to hold in your Canadian TFSA for growth, dividends, and simplicity. Plus what NOT to put in your TFSA.",
+  },
+  {
+    slug: "how-to-use-fhsa-canada",
+    title: "How to Use the FHSA in Canada (2026 Guide)",
+    date: "2026-03-28",
+    category: "FHSA",
+    excerpt: "Complete FHSA guide: eligibility, $8,000/year contribution limit, tax-free withdrawals, carry-forward rules, and how to stack it with the RRSP Home Buyers' Plan.",
+  },
+  {
     slug: "weekly-dividend-etfs",
     title: "What Are Weekly Dividend ETFs, and How Do They Work?",
     date: "2025-06-30",
     category: "Dividends",
-    excerpt: "Learn how weekly dividend ETFs pay out weekly cash flow, their benefits, and their risks.",
+    excerpt: "Learn how weekly dividend ETFs pay out weekly cash flow, their benefits, risks, and whether they belong in your portfolio.",
   },
 ];
 
