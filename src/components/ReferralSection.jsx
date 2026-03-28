@@ -35,12 +35,16 @@ export default function ReferralSection() {
 
           {/* Text */}
           <div className="flex-1 text-center sm:text-left">
+            <div className="inline-flex items-center gap-2 bg-[#00b2a9]/10 text-[#00b2a9] text-xs font-bold px-3 py-1 rounded-full mb-2">
+              🎁 Limited Offer
+            </div>
             <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-1">
-              Start investing with Wealthsimple 🇨🇦
+              Get <span className="text-[#00b2a9]">$25 free</span> with Wealthsimple 🇨🇦
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Canada's #1 investing app. Get a <strong className="text-[#00b2a9]">cash bonus</strong> when you sign up and fund your account using our referral code.
+              Sign up for Canada's #1 investing app and deposit just <strong>$100</strong> to claim your <strong className="text-[#00b2a9]">$25 cash bonus</strong>. Use our referral code at signup.
             </p>
+            <p className="text-xs text-gray-400 mt-1.5">✅ No fee to open &nbsp;·&nbsp; ✅ Takes 5 minutes &nbsp;·&nbsp; ✅ Bonus paid within days</p>
           </div>
 
           {/* Code + CTA */}
