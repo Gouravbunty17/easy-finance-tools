@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Logo({ size = "md" }) {
   const sizes = {
-    sm: { icon: 32, textMain: 16, textSub: 7 },
+    sm: { icon: 40, textMain: 20, textSub: 8 },
     md: { icon: 40, textMain: 20, textSub: 8 },
     lg: { icon: 52, textMain: 26, textSub: 10 },
   };
