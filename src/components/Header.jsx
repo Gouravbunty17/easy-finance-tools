@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FiMenu, FiX, FiSun, FiMoon } from 'react-icons/fi';
+import { FiMenu, FiX, FiSun, FiMoon, FiSearch } from 'react-icons/fi';
 import Logo from './Logo';
 import AdSlot from './AdSlot';
 
@@ -58,6 +58,15 @@ export default function Header() {
                 className="text-sm bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition font-semibold">
                 Contact
               </NavLink>
+              <button
+                onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true }))}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition text-xs"
+                title="Quick search (Ctrl+K)"
+              >
+                <FiSearch size={13} />
+                <span className="hidden lg:inline">Search</span>
+                <kbd className="hidden lg:inline bg-white dark:bg-gray-700 px-1 rounded text-[10px]">⌘K</kbd>
+              </button>
               <button onClick={() => setIsDark(!isDark)}
                 className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
                 {isDark ? <FiSun size={16} /> : <FiMoon size={16} />}

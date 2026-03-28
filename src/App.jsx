@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import CommandPalette from './components/CommandPalette';
 import Home from './pages/Home';
 import ToolsPage from './pages/ToolsPage';
 import Blog from './pages/Blog';
@@ -23,6 +24,7 @@ import StockPage from './pages/stocks/StockPage';
 export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-900 dark:bg-gray-950 dark:text-white">
+      <CommandPalette />
       <Header />
       <main className="flex-grow">
         <Routes>

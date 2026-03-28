@@ -5,8 +5,10 @@ import SEO from "../components/SEO";
 const tools = [
   { icon: "💰", title: "TFSA Calculator", desc: "See how much your tax-free savings can grow over time.", link: "/tools/tfsa-calculator", badge: "Most Popular" },
   { icon: "📈", title: "RRSP Calculator", desc: "Calculate your tax refund and retirement savings growth.", link: "/tools/rrsp-calculator", badge: "2026 Updated" },
-  { icon: "💵", title: "Dividend Calculator", desc: "Plan your passive income with DRIP reinvestment projections.", link: "/tools/dividend-calculator", badge: null },
-  { icon: "📊", title: "Budget Tracker", desc: "Track income vs expenses and stay on top of your finances.", link: "/tools/budget-tracker", badge: null },
+  { icon: "🏠", title: "FHSA Calculator", desc: "First Home Savings Account — deductible contributions, tax-free withdrawals.", link: "/tools/fhsa-calculator", badge: "New!" },
+  { icon: "🏡", title: "Mortgage Calculator", desc: "Real Canadian mortgage payments with CMHC insurance and land transfer tax.", link: "/tools/mortgage-calculator", badge: "New!" },
+  { icon: "📊", title: "Capital Gains Tax", desc: "Calculate capital gains tax on stocks, crypto, and real estate.", link: "/tools/capital-gains-tax", badge: "New!" },
+  { icon: "🇨🇦", title: "CPP & OAS Estimator", desc: "Estimate your government retirement income and best age to collect.", link: "/tools/cpp-oas-estimator", badge: "New!" },
 ];
 
 const stats = [
@@ -55,14 +57,14 @@ export default function Home() {
       </section>
 
       {/* Tools Grid */}
-      <section className="max-w-4xl mx-auto px-4 py-16">
+      <section className="max-w-5xl mx-auto px-4 py-16">
         <h2 className="text-3xl font-bold text-center mb-4 text-primary dark:text-accent">
           Our Free Calculators
         </h2>
         <p className="text-center text-gray-500 mb-12">
           Click any tool below — no signup needed, results in seconds.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {tools.map(tool => (
             <Link key={tool.title} to={tool.link}
               className="group bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 rounded-2xl p-6 hover:border-secondary hover:shadow-lg transition-all">
@@ -83,6 +85,12 @@ export default function Home() {
               </div>
             </Link>
           ))}
+        </div>
+        <div className="text-center mt-10">
+          <Link to="/tools"
+            className="inline-block border-2 border-primary text-primary font-semibold px-8 py-3 rounded-xl hover:bg-primary hover:text-white transition">
+            View All Tools →
+          </Link>
         </div>
       </section>
 
