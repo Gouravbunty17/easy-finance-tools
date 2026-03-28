@@ -139,9 +139,8 @@ export default function StockPage() {
     );
   };
 
-  const isWatched = watchlist.some(w => w.t === t);
-
   const t = ticker?.toUpperCase();
+  const isWatched = watchlist.some(w => w.t === t);
   const isCrypto = !!(t && (t.endsWith('-USD') || t.endsWith('-USDT')));
   const tvSymbol = toTVSymbol(t, quote);
 
