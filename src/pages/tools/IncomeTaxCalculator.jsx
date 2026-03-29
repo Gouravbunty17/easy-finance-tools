@@ -317,10 +317,7 @@ export default function IncomeTaxCalculator() {
       </div>
 
       <div className="mt-12">
-        <FAQ
-          faqs={faqs}
-          title="Income Tax Calculator FAQ"
-        />
+        <FAQ items={faqs} />
       </div>
 
       <div className="mt-8 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4">
