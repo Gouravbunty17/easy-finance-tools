@@ -31,6 +31,7 @@ import CanadianTaxBrackets2026 from './pages/blog/canadian-tax-brackets-2026';
 import RRSPDeadline2026 from './pages/blog/rrsp-deadline-2026';
 import BestGICRatesCanada2026 from './pages/blog/best-gic-rates-canada-2026';
 import IncomeTaxCalculator from './pages/tools/IncomeTaxCalculator';
+import FIRECalculator from './pages/tools/FIRECalculator';
 
 export default function App() {
   return (
@@ -66,6 +67,7 @@ export default function App() {
           <Route path="/blog/rrsp-deadline-2026" element={<RRSPDeadline2026 />} />
           <Route path="/blog/best-gic-rates-canada-2026" element={<BestGICRatesCanada2026 />} />
           <Route path="/tools/income-tax-calculator" element={<IncomeTaxCalculator />} />
+          <Route path="/tools/fire-calculator" element={<FIRECalculator />} />
           <Route path="/stocks" element={<StockPage />} />
           <Route path="/stocks/:ticker" element={<StockPage />} />
         </Routes>

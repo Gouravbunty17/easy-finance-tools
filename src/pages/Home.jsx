@@ -12,7 +12,9 @@ const tools = [
   { icon: "🏠", title: "FHSA Calculator", desc: "First Home Savings Account — deductible contributions, tax-free withdrawals.", link: "/tools/fhsa-calculator", badge: "New!" },
   { icon: "🏡", title: "Mortgage Calculator", desc: "Real Canadian mortgage payments with CMHC insurance and land transfer tax.", link: "/tools/mortgage-calculator", badge: "New!" },
   { icon: "📊", title: "Capital Gains Tax", desc: "Calculate capital gains tax on stocks, crypto, and real estate.", link: "/tools/capital-gains-tax", badge: "New!" },
-  { icon: "🇨🇦", title: "CPP & OAS Estimator", desc: "Estimate your government retirement income and best age to collect.", link: "/tools/cpp-oas-estimator", badge: "New!" },
+  { icon: "🇨🇦", title: "CPP & OAS Estimator", desc: "Estimate your government retirement income and best age to collect.", link: "/tools/cpp-oas-estimator", badge: null },
+  { icon: "🔥", title: "FIRE Calculator", desc: "Find your Financial Independence number and earliest retirement date.", link: "/tools/fire-calculator", badge: "New!" },
+  { icon: "📊", title: "Net Worth Calculator", desc: "Track all your assets and liabilities with projection charts.", link: "/tools/investment-tracker", badge: "New!" },
 ];
 
 const recentPosts = [
@@ -25,7 +27,7 @@ const recentPosts = [
 ];
 
 const stats = [
-  { to: 10, suffix: "+", label: "Free Tools" },
+  { to: 12, suffix: "+", label: "Free Tools" },
   { to: 100, suffix: "%", label: "Free Forever" },
   { to: 0, suffix: "", label: "Sign-ups Required" },
   { to: 2026, suffix: "", from: 2020, label: "Rates Updated" },

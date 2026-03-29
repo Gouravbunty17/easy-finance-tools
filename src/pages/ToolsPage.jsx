@@ -12,7 +12,8 @@ const tools = [
   { icon: "🇨🇦", title: "CPP & OAS Estimator", desc: "Estimate your government retirement income and find the best age to start collecting.", link: "/tools/cpp-oas-estimator", badge: "New!", category: "Retirement", color: "border-red-200 hover:border-red-400" },
   { icon: "💵", title: "Dividend Calculator", desc: "Plan your passive income with DRIP reinvestment growth.", link: "/tools/dividend-calculator", badge: null, category: "Investing", color: "border-yellow-200 hover:border-yellow-400" },
   { icon: "📊", title: "Budget Tracker", desc: "Track your income and expenses. Build a healthier budget.", link: "/tools/budget-tracker", badge: null, category: "Budget", color: "border-purple-200 hover:border-purple-400" },
-  { icon: "📉", title: "Investment Tracker", desc: "Monitor your stocks, ETFs, and overall portfolio performance.", link: "/tools/investment-tracker", badge: "Coming Soon", category: "Investing", color: "border-gray-200 opacity-70" },
+  { icon: "📊", title: "Net Worth Calculator", desc: "Track all your assets and liabilities. See your real net worth with projection charts.", link: "/tools/investment-tracker", badge: "Updated!", category: "Investing", color: "border-cyan-200 hover:border-cyan-400" },
+  { icon: "🔥", title: "FIRE Calculator", desc: "Find your Financial Independence number, retirement date, and safe withdrawal strategy.", link: "/tools/fire-calculator", badge: "New!", category: "Retirement", color: "border-orange-200 hover:border-orange-400" },
 ];
 
 const categories = ["All", "Savings", "Real Estate", "Tax", "Retirement", "Investing", "Budget"];
