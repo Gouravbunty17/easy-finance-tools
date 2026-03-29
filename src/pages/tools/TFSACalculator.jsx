@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import SEO from "../../components/SEO";
 import AdSlot from "../../components/AdSlot";
@@ -57,6 +57,41 @@ function computeResult(birthYear, currentSavings, monthlyContrib, returnRate, ye
   };
 }
 
+function SliderInput({ label, value, min, max, step, onChange, prefix = "", suffix = "", helpText }) {
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-1">
+        <label className="text-sm font-semibold">{label}</label>
+        <span className="text-primary dark:text-accent font-bold text-sm">{prefix}{value.toLocaleString()}{suffix}</span>
+      </div>
+      <input type="range" min={min} max={max} step={step} value={value}
+        onChange={e => onChange(Number(e.target.value))}
+        className="w-full h-2 rounded-lg accent-primary cursor-pointer" />
+      <div className="flex justify-between text-xs text-gray-400 mt-0.5">
+        <span>{prefix}{Number(min).toLocaleString()}{suffix}</span>
+        <span>{prefix}{Number(max).toLocaleString()}{suffix}</span>
+      </div>
+      {helpText && <p className="text-xs text-gray-500 mt-1">{helpText}</p>}
+    </div>
+  );
+}
+
+function computeTaxableAccount(currentSavings, monthlyContrib, returnRate, years, marginalRate) {
+  const r = returnRate / 100 / 12;
+  const taxRate = marginalRate / 100;
+  let balance = currentSavings;
+  const projections = [];
+  for (let i = 1; i <= years; i++) {
+    for (let m = 0; m < 12; m++) {
+      const interest = balance * r;
+      const afterTaxInterest = interest * (1 - taxRate);
+      balance = balance + afterTaxInterest + monthlyContrib;
+    }
+    projections.push({ year: i, value: Math.round(balance) });
+  }
+  return { finalValue: Math.round(balance), projections };
+}
+
 export default function TFSACalculator() {
   const [searchParams] = useSearchParams();
   const [birthYear, setBirthYear] = useState(1990);
@@ -64,33 +99,33 @@ export default function TFSACalculator() {
   const [monthlyContrib, setMonthlyContrib] = useState(500);
   const [returnRate, setReturnRate] = useState(7);
   const [years, setYears] = useState(20);
-  const [result, setResult] = useState(null);
+  const [marginalRate, setMarginalRate] = useState(33);
+  const [showTable, setShowTable] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  // Pre-fill from URL params and auto-calculate
+  // Pre-fill from URL params
   useEffect(() => {
     const by = searchParams.get("by");
-    const cs = searchParams.get("cs");
-    const mc = searchParams.get("mc");
-    const rr = searchParams.get("rr");
-    const yr = searchParams.get("yr");
     if (!by) return;
-    const byv = parseInt(by) || 1990;
-    const csv = parseFloat(cs) || 0;
-    const mcv = parseFloat(mc) || 500;
-    const rrv = parseFloat(rr) || 7;
-    const yrv = parseInt(yr) || 20;
-    setBirthYear(byv);
-    setCurrentSavings(csv);
-    setMonthlyContrib(mcv);
-    setReturnRate(rrv);
-    setYears(yrv);
-    setResult(computeResult(byv, csv, mcv, rrv, yrv));
+    setBirthYear(parseInt(by) || 1990);
+    setCurrentSavings(parseFloat(searchParams.get("cs")) || 0);
+    setMonthlyContrib(parseFloat(searchParams.get("mc")) || 500);
+    setReturnRate(parseFloat(searchParams.get("rr")) || 7);
+    setYears(parseInt(searchParams.get("yr")) || 20);
   }, []);
 
-  const calculate = () => {
-    setResult(computeResult(birthYear, currentSavings, monthlyContrib, returnRate, years));
-  };
+  // Live calculation
+  const result = useMemo(() =>
+    computeResult(birthYear, currentSavings, monthlyContrib, returnRate, years),
+    [birthYear, currentSavings, monthlyContrib, returnRate, years]
+  );
+
+  const taxable = useMemo(() =>
+    computeTaxableAccount(currentSavings, monthlyContrib, returnRate, years, marginalRate),
+    [currentSavings, monthlyContrib, returnRate, years, marginalRate]
+  );
+
+  const tfsaAdvantage = result.finalValue - taxable.finalValue;
 
   const copyShareLink = () => {
     const url = new URL(window.location.href);
@@ -100,133 +135,169 @@ export default function TFSACalculator() {
     setTimeout(() => setCopied(false), 2500);
   };
 
+  const monthlyToMax = Math.max(0, Math.round((7000 / 12 - monthlyContrib)));
+
   return (
-    <section className="max-w-4xl mx-auto px-4 py-12">
-      <SEO title="TFSA Calculator 2026 — Free Canadian Tool" description="Calculate your TFSA contribution room and tax-free growth. Free Canadian calculator updated for 2026 limits. No signup required." />
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-primary dark:text-accent mb-2">
-          🇨🇦 TFSA Calculator
-        </h1>
+    <section className="max-w-5xl mx-auto px-4 py-12">
+      <SEO
+        title="TFSA Calculator 2026 — Free Canadian Tool"
+        description="Calculate your TFSA contribution room and tax-free growth. Compare TFSA vs taxable account. Free Canadian calculator updated for 2026 limits. No signup required."
+        canonical="https://easyfinancetools.com/tools/tfsa-calculator"
+      />
+      <div className="mb-6">
+        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-2">TFSA Calculator 2026</h1>
         <p className="text-gray-600 dark:text-gray-300">
-          See how much your Tax-Free Savings Account can grow — all gains are 100% tax-free!
+          Calculate your tax-free growth and see how much more you earn vs a taxable account. Results update live.
         </p>
       </div>
 
-      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 mb-8">
+      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 mb-6">
         <p className="text-sm text-blue-800 dark:text-blue-300">
-          💡 <strong>2026 TFSA Limit:</strong> $7,000 &nbsp;|&nbsp;
-          <strong>Lifetime Room (since 2009):</strong> ${TOTAL_ROOM.toLocaleString()}
+          💡 <strong>2026 TFSA Limit:</strong> $7,000/year &nbsp;|&nbsp;
+          <strong>Lifetime Room (since 2009):</strong> ${TOTAL_ROOM.toLocaleString()} &nbsp;|&nbsp;
+          <strong>Your room since age 18:</strong> ${result.contributionRoom.toLocaleString()}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div>
-          <label className="block text-sm font-semibold mb-1">Your Birth Year</label>
-          <input type="number" value={birthYear}
-            onChange={e => setBirthYear(parseInt(e.target.value))}
-            className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none"
-          />
-          <p className="text-xs text-gray-500 mt-1">Must be 18+ to open a TFSA</p>
-        </div>
-        <div>
-          <label className="block text-sm font-semibold mb-1">Current TFSA Balance ($)</label>
-          <input type="number" value={currentSavings}
-            onChange={e => setCurrentSavings(parseFloat(e.target.value))}
-            className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-semibold mb-1">Monthly Contribution ($)</label>
-          <input type="number" value={monthlyContrib}
-            onChange={e => setMonthlyContrib(parseFloat(e.target.value))}
-            className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-semibold mb-1">Expected Annual Return (%)</label>
-          <input type="number" value={returnRate}
-            onChange={e => setReturnRate(parseFloat(e.target.value))}
-            className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-semibold mb-1">Investment Horizon (Years)</label>
-          <input type="number" value={years}
-            onChange={e => setYears(parseInt(e.target.value))}
-            className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none"
-          />
-        </div>
-      </div>
+      <div className="grid md:grid-cols-2 gap-8">
+        {/* Sliders */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 space-y-6">
+          <h2 className="font-bold text-lg text-primary dark:text-accent">Your Details</h2>
 
-      <button onClick={calculate}
-        className="w-full bg-primary text-white py-4 rounded-xl text-lg font-bold hover:bg-secondary transition-colors">
-        Calculate My TFSA Growth 🚀
-      </button>
+          <SliderInput label="Birth Year" value={birthYear} min={1950} max={2006} step={1}
+            onChange={setBirthYear} helpText={`Age: ${2026 - birthYear} · TFSA eligible since: ${Math.max(2009, birthYear + 18)}`} />
 
-      {result && (
-        <div className="mt-10">
-          {/* Result Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <SliderInput label="Current TFSA Balance" value={currentSavings} min={0} max={200000} step={1000}
+            onChange={setCurrentSavings} prefix="$" />
+
+          <SliderInput label="Monthly Contribution" value={monthlyContrib} min={0} max={2000} step={50}
+            onChange={setMonthlyContrib} prefix="$" suffix="/mo"
+            helpText={monthlyToMax > 0 ? `Contribute $${monthlyToMax} more/month to max your annual TFSA` : "✅ You're maxing your annual TFSA limit"} />
+
+          <SliderInput label="Expected Annual Return" value={returnRate} min={1} max={15} step={0.5}
+            onChange={setReturnRate} suffix="%"
+            helpText="Historical S&P 500: ~10% | XEQT/VEQT: ~8–9% | GIC/HISA: ~4%" />
+
+          <SliderInput label="Investment Horizon" value={years} min={1} max={40} step={1}
+            onChange={setYears} suffix=" years" />
+
+          <SliderInput label="Marginal Tax Rate (for comparison)" value={marginalRate} min={15} max={55} step={0.5}
+            onChange={setMarginalRate} suffix="%"
+            helpText="Used to calculate taxable account performance for comparison" />
+        </div>
+
+        {/* Live results */}
+        <div className="space-y-4">
+          {/* TFSA hero */}
+          <div className="bg-gradient-to-br from-primary to-secondary text-white rounded-2xl p-6 text-center shadow">
+            <p className="text-sm font-semibold opacity-80 mb-1">TFSA Value in {years} Years</p>
+            <p className="text-5xl font-bold">${result.finalValue.toLocaleString()}</p>
+            <div className="flex justify-center gap-4 mt-3 text-sm opacity-80">
+              <span>Contributed: ${result.totalContributed.toLocaleString()}</span>
+              <span>·</span>
+              <span>Growth: ${result.totalGrowth.toLocaleString()}</span>
+            </div>
+          </div>
+
+          {/* 4 cards */}
+          <div className="grid grid-cols-2 gap-3">
             {[
-              { label: "Final TFSA Value", value: `$${result.finalValue.toLocaleString()}`, color: "bg-green-50 border-green-200 text-green-800" },
-              { label: "Total Contributed", value: `$${result.totalContributed.toLocaleString()}`, color: "bg-blue-50 border-blue-200 text-blue-800" },
-              { label: "Tax-Free Growth", value: `$${result.totalGrowth.toLocaleString()}`, color: "bg-yellow-50 border-yellow-200 text-yellow-800" },
-              { label: "Tax Saved (~33%)", value: `$${result.taxSaved.toLocaleString()}`, color: "bg-purple-50 border-purple-200 text-purple-800" },
+              { label: "Tax-Free Growth",        value: `$${result.totalGrowth.toLocaleString()}`,    color: "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-300" },
+              { label: "TFSA vs Taxable Adv.",   value: `+$${tfsaAdvantage.toLocaleString()}`,        color: "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300" },
+              { label: "Tax Saved (est.)",        value: `$${result.taxSaved.toLocaleString()}`,       color: "bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800 text-purple-800 dark:text-purple-300" },
+              { label: "Contribution Room",       value: `$${result.contributionRoom.toLocaleString()}`,color: "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300" },
             ].map(card => (
               <div key={card.label} className={`border-2 rounded-xl p-4 ${card.color}`}>
                 <p className="text-xs font-semibold opacity-70">{card.label}</p>
-                <p className="text-2xl font-bold mt-1">{card.value}</p>
+                <p className="text-xl font-bold mt-1">{card.value}</p>
               </div>
             ))}
           </div>
 
-          {/* Share button */}
-          <div className="flex justify-end mb-6">
-            <button
-              onClick={copyShareLink}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all border-2 ${
-                copied
-                  ? "bg-green-50 border-green-300 text-green-700"
-                  : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-primary hover:text-primary"
-              }`}
-            >
-              {copied ? "✅ Link Copied!" : "🔗 Share My Results"}
-            </button>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow mb-8">
-            <h2 className="text-lg font-bold mb-4">📈 Growth Over {years} Years</h2>
+          {/* Chart: TFSA vs Taxable */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-5">
+            <h3 className="font-bold text-primary dark:text-accent mb-3">TFSA vs Taxable Account</h3>
             <Line data={{
-              labels: result.projections.map(p => `Year ${p.year}`),
-              datasets: [{
-                label: "TFSA Balance",
-                data: result.projections.map(p => p.value),
-                fill: true,
-                backgroundColor: "rgba(0,168,232,0.1)",
-                borderColor: "#00A8E8",
-                tension: 0.4,
-              }]
+              labels: result.projections.map(p => `Yr ${p.year}`),
+              datasets: [
+                {
+                  label: "TFSA (Tax-Free)",
+                  data: result.projections.map(p => p.value),
+                  fill: true,
+                  backgroundColor: "rgba(0,168,232,0.1)",
+                  borderColor: "#00A8E8",
+                  tension: 0.4,
+                  pointRadius: 2,
+                },
+                {
+                  label: `Taxable (${marginalRate}% tax)`,
+                  data: taxable.projections.map(p => p.value),
+                  fill: false,
+                  borderColor: "#ef4444",
+                  borderDash: [5, 5],
+                  tension: 0.4,
+                  pointRadius: 2,
+                },
+              ]
             }} options={{
               responsive: true,
-              plugins: { legend: { display: false } },
-              scales: {
-                y: { ticks: { callback: v => `$${(v/1000).toFixed(0)}k` } }
-              }
+              plugins: { legend: { position: "top" }, tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: $${ctx.raw.toLocaleString()}` } } },
+              scales: { y: { ticks: { callback: v => `$${(v/1000).toFixed(0)}k` } } }
             }} />
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6">
-            <h2 className="text-lg font-bold mb-4">Your TFSA Room</h2>
-            <p className="text-gray-700 dark:text-gray-300">
-              Based on your birth year ({birthYear}), you've been eligible for a TFSA since <strong>{Math.max(2009, birthYear + 18)}</strong>.
-              Your total lifetime contribution room is approximately <strong className="text-green-600">${result.contributionRoom.toLocaleString()}</strong>.
-            </p>
+          {/* Share */}
+          <div className="flex justify-end">
+            <button onClick={copyShareLink}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all border-2 ${
+                copied ? "bg-green-50 border-green-300 text-green-700" : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-primary hover:text-primary"
+              }`}>
+              {copied ? "✅ Link Copied!" : "🔗 Share My Results"}
+            </button>
           </div>
-
-          <ReferralSection />
         </div>
-      )}
+      </div>
 
+      {/* Year-by-Year Table toggle */}
+      <div className="mt-8 bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden">
+        <button onClick={() => setShowTable(t => !t)}
+          className="w-full flex items-center justify-between px-6 py-4 font-bold text-primary dark:text-accent text-left hover:bg-gray-50 dark:hover:bg-gray-750 transition">
+          <span>Year-by-Year Breakdown</span>
+          <span className="text-xl">{showTable ? "−" : "+"}</span>
+        </button>
+        {showTable && (
+          <div className="overflow-x-auto border-t dark:border-gray-700">
+            <table className="w-full text-sm">
+              <thead className="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  {["Year", "TFSA Balance", "Taxable Balance", "Advantage", "Total Contributed", "Total Growth"].map(h => (
+                    <th key={h} className="px-4 py-3 text-right first:text-left font-semibold">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                {result.projections.map((p, i) => {
+                  const tv = taxable.projections[i]?.value || 0;
+                  const contributed = currentSavings + monthlyContrib * 12 * p.year;
+                  const growth = p.value - contributed;
+                  return (
+                    <tr key={p.year} className={i % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50 dark:bg-gray-800"}>
+                      <td className="px-4 py-2 font-medium">Year {p.year}</td>
+                      <td className="px-4 py-2 text-right font-semibold text-primary dark:text-accent">${p.value.toLocaleString()}</td>
+                      <td className="px-4 py-2 text-right text-gray-600 dark:text-gray-400">${tv.toLocaleString()}</td>
+                      <td className="px-4 py-2 text-right text-green-600 dark:text-green-400 font-semibold">+${(p.value - tv).toLocaleString()}</td>
+                      <td className="px-4 py-2 text-right">${Math.round(contributed).toLocaleString()}</td>
+                      <td className="px-4 py-2 text-right">${Math.max(0, Math.round(growth)).toLocaleString()}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      <ReferralSection />
       <FAQ items={TFSA_FAQS} />
     </section>
   );
