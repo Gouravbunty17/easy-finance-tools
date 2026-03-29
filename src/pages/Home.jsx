@@ -126,7 +126,7 @@ export default function Home() {
       <section className="max-w-5xl mx-auto px-4 py-12">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl font-bold text-primary dark:text-accent">Latest Articles</h2>
-          <Link to="/blog" className="text-secondary font-semibold hover:underline text-sm">View all →</Link>
+          <Link to="/blog" className="text-secondary font-semibold hover:underline text-sm">View all articles →</Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {recentPosts.map(post => (

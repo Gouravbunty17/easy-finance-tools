@@ -68,6 +68,7 @@ export default function Header() {
                 <kbd className="hidden lg:inline bg-white dark:bg-gray-700 px-1 rounded text-[10px]">⌘K</kbd>
               </button>
               <button onClick={() => setIsDark(!isDark)}
+                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
                 className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
                 {isDark ? <FiSun size={16} /> : <FiMoon size={16} />}
               </button>
@@ -75,10 +76,15 @@ export default function Header() {
 
             {/* Mobile buttons */}
             <div className="md:hidden flex items-center gap-2">
-              <button onClick={() => setIsDark(!isDark)} className="p-2 text-gray-600 dark:text-white">
+              <button onClick={() => setIsDark(!isDark)}
+                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+                className="p-2 text-gray-600 dark:text-white">
                 {isDark ? <FiSun size={18} /> : <FiMoon size={18} />}
               </button>
-              <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-gray-600 dark:text-white">
+              <button onClick={() => setIsOpen(!isOpen)}
+                aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                aria-expanded={isOpen}
+                className="p-2 text-gray-600 dark:text-white">
                 {isOpen ? <FiX size={22} /> : <FiMenu size={22} />}
               </button>
             </div>

@@ -1,37 +1,52 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import CommandPalette from './components/CommandPalette';
+
+// Eagerly loaded — always needed on first paint
 import Home from './pages/Home';
-import ToolsPage from './pages/ToolsPage';
-import Blog from './pages/Blog';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import DividendCalculator from './pages/tools/DividendCalculator';
-import TFSACalculator from './pages/tools/TFSACalculator';
-import RRSPCalculator from './pages/tools/RRSPCalculator';
-import BudgetTracker from './pages/tools/BudgetTracker';
-import InvestmentTracker from './pages/tools/InvestmentTracker';
-import FHSACalculator from './pages/tools/FHSACalculator';
-import MortgageCalculator from './pages/tools/MortgageCalculator';
-import RentVsBuyCalculator from './pages/tools/RentVsBuyCalculator';
-import CapitalGainsTaxCalculator from './pages/tools/CapitalGainsTaxCalculator';
-import CPPOASEstimator from './pages/tools/CPPOASEstimator';
-import StockPage from './pages/stocks/StockPage';
-import WeeklyDividendETFs from './pages/blog/weekly-dividend-etfs';
-import TFSAvsRRSP from './pages/blog/tfsa-vs-rrsp-2026';
-import HowMuchTFSARoom from './pages/blog/how-much-tfsa-room-2026';
-import BestETFsForTFSA from './pages/blog/best-etfs-for-tfsa-canada-2026';
-import HowToUseFHSA from './pages/blog/how-to-use-fhsa-canada';
-import CPPPaymentDates2026 from './pages/blog/cpp-payment-dates-2026';
-import OASPaymentDates2026 from './pages/blog/oas-payment-dates-2026';
-import CanadianTaxBrackets2026 from './pages/blog/canadian-tax-brackets-2026';
-import RRSPDeadline2026 from './pages/blog/rrsp-deadline-2026';
-import BestGICRatesCanada2026 from './pages/blog/best-gic-rates-canada-2026';
-import IncomeTaxCalculator from './pages/tools/IncomeTaxCalculator';
-import FIRECalculator from './pages/tools/FIRECalculator';
+
+// Lazy-loaded route chunks — only downloaded when visited
+const ToolsPage               = lazy(() => import('./pages/ToolsPage'));
+const Blog                    = lazy(() => import('./pages/Blog'));
+const About                   = lazy(() => import('./pages/About'));
+const Contact                 = lazy(() => import('./pages/Contact'));
+const PrivacyPolicy           = lazy(() => import('./pages/PrivacyPolicy'));
+
+const DividendCalculator      = lazy(() => import('./pages/tools/DividendCalculator'));
+const TFSACalculator          = lazy(() => import('./pages/tools/TFSACalculator'));
+const RRSPCalculator          = lazy(() => import('./pages/tools/RRSPCalculator'));
+const BudgetTracker           = lazy(() => import('./pages/tools/BudgetTracker'));
+const InvestmentTracker       = lazy(() => import('./pages/tools/InvestmentTracker'));
+const FHSACalculator          = lazy(() => import('./pages/tools/FHSACalculator'));
+const MortgageCalculator      = lazy(() => import('./pages/tools/MortgageCalculator'));
+const RentVsBuyCalculator     = lazy(() => import('./pages/tools/RentVsBuyCalculator'));
+const CapitalGainsTaxCalculator = lazy(() => import('./pages/tools/CapitalGainsTaxCalculator'));
+const CPPOASEstimator         = lazy(() => import('./pages/tools/CPPOASEstimator'));
+const IncomeTaxCalculator     = lazy(() => import('./pages/tools/IncomeTaxCalculator'));
+const FIRECalculator          = lazy(() => import('./pages/tools/FIRECalculator'));
+
+const StockPage               = lazy(() => import('./pages/stocks/StockPage'));
+
+const WeeklyDividendETFs      = lazy(() => import('./pages/blog/weekly-dividend-etfs'));
+const TFSAvsRRSP              = lazy(() => import('./pages/blog/tfsa-vs-rrsp-2026'));
+const HowMuchTFSARoom         = lazy(() => import('./pages/blog/how-much-tfsa-room-2026'));
+const BestETFsForTFSA         = lazy(() => import('./pages/blog/best-etfs-for-tfsa-canada-2026'));
+const HowToUseFHSA            = lazy(() => import('./pages/blog/how-to-use-fhsa-canada'));
+const CPPPaymentDates2026     = lazy(() => import('./pages/blog/cpp-payment-dates-2026'));
+const OASPaymentDates2026     = lazy(() => import('./pages/blog/oas-payment-dates-2026'));
+const CanadianTaxBrackets2026 = lazy(() => import('./pages/blog/canadian-tax-brackets-2026'));
+const RRSPDeadline2026        = lazy(() => import('./pages/blog/rrsp-deadline-2026'));
+const BestGICRatesCanada2026  = lazy(() => import('./pages/blog/best-gic-rates-canada-2026'));
+
+function PageLoader() {
+  return (
+    <div className="min-h-[60vh] flex items-center justify-center">
+      <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" aria-label="Loading page" />
+    </div>
+  );
+}
 
 export default function App() {
   return (
@@ -39,38 +54,40 @@ export default function App() {
       <CommandPalette />
       <Header />
       <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/tools" element={<ToolsPage />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/tools/dividend-calculator" element={<DividendCalculator />} />
-          <Route path="/tools/tfsa-calculator" element={<TFSACalculator />} />
-          <Route path="/tools/rrsp-calculator" element={<RRSPCalculator />} />
-          <Route path="/tools/budget-tracker" element={<BudgetTracker />} />
-          <Route path="/tools/investment-tracker" element={<InvestmentTracker />} />
-          <Route path="/tools/fhsa-calculator" element={<FHSACalculator />} />
-          <Route path="/tools/mortgage-calculator" element={<MortgageCalculator />} />
-          <Route path="/tools/rent-vs-buy" element={<RentVsBuyCalculator />} />
-          <Route path="/tools/capital-gains-tax" element={<CapitalGainsTaxCalculator />} />
-          <Route path="/tools/cpp-oas-estimator" element={<CPPOASEstimator />} />
-          <Route path="/blog/weekly-dividend-etfs" element={<WeeklyDividendETFs />} />
-          <Route path="/blog/tfsa-vs-rrsp-2026" element={<TFSAvsRRSP />} />
-          <Route path="/blog/how-much-tfsa-room-2026" element={<HowMuchTFSARoom />} />
-          <Route path="/blog/best-etfs-for-tfsa-canada-2026" element={<BestETFsForTFSA />} />
-          <Route path="/blog/how-to-use-fhsa-canada" element={<HowToUseFHSA />} />
-          <Route path="/blog/cpp-payment-dates-2026" element={<CPPPaymentDates2026 />} />
-          <Route path="/blog/oas-payment-dates-2026" element={<OASPaymentDates2026 />} />
-          <Route path="/blog/canadian-tax-brackets-2026" element={<CanadianTaxBrackets2026 />} />
-          <Route path="/blog/rrsp-deadline-2026" element={<RRSPDeadline2026 />} />
-          <Route path="/blog/best-gic-rates-canada-2026" element={<BestGICRatesCanada2026 />} />
-          <Route path="/tools/income-tax-calculator" element={<IncomeTaxCalculator />} />
-          <Route path="/tools/fire-calculator" element={<FIRECalculator />} />
-          <Route path="/stocks" element={<StockPage />} />
-          <Route path="/stocks/:ticker" element={<StockPage />} />
-        </Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/tools" element={<ToolsPage />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/tools/dividend-calculator" element={<DividendCalculator />} />
+            <Route path="/tools/tfsa-calculator" element={<TFSACalculator />} />
+            <Route path="/tools/rrsp-calculator" element={<RRSPCalculator />} />
+            <Route path="/tools/budget-tracker" element={<BudgetTracker />} />
+            <Route path="/tools/investment-tracker" element={<InvestmentTracker />} />
+            <Route path="/tools/fhsa-calculator" element={<FHSACalculator />} />
+            <Route path="/tools/mortgage-calculator" element={<MortgageCalculator />} />
+            <Route path="/tools/rent-vs-buy" element={<RentVsBuyCalculator />} />
+            <Route path="/tools/capital-gains-tax" element={<CapitalGainsTaxCalculator />} />
+            <Route path="/tools/cpp-oas-estimator" element={<CPPOASEstimator />} />
+            <Route path="/tools/income-tax-calculator" element={<IncomeTaxCalculator />} />
+            <Route path="/tools/fire-calculator" element={<FIRECalculator />} />
+            <Route path="/stocks" element={<StockPage />} />
+            <Route path="/stocks/:ticker" element={<StockPage />} />
+            <Route path="/blog/weekly-dividend-etfs" element={<WeeklyDividendETFs />} />
+            <Route path="/blog/tfsa-vs-rrsp-2026" element={<TFSAvsRRSP />} />
+            <Route path="/blog/how-much-tfsa-room-2026" element={<HowMuchTFSARoom />} />
+            <Route path="/blog/best-etfs-for-tfsa-canada-2026" element={<BestETFsForTFSA />} />
+            <Route path="/blog/how-to-use-fhsa-canada" element={<HowToUseFHSA />} />
+            <Route path="/blog/cpp-payment-dates-2026" element={<CPPPaymentDates2026 />} />
+            <Route path="/blog/oas-payment-dates-2026" element={<OASPaymentDates2026 />} />
+            <Route path="/blog/canadian-tax-brackets-2026" element={<CanadianTaxBrackets2026 />} />
+            <Route path="/blog/rrsp-deadline-2026" element={<RRSPDeadline2026 />} />
+            <Route path="/blog/best-gic-rates-canada-2026" element={<BestGICRatesCanada2026 />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>
