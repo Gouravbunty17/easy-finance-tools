@@ -25,6 +25,12 @@ import TFSAvsRRSP from './pages/blog/tfsa-vs-rrsp-2026';
 import HowMuchTFSARoom from './pages/blog/how-much-tfsa-room-2026';
 import BestETFsForTFSA from './pages/blog/best-etfs-for-tfsa-canada-2026';
 import HowToUseFHSA from './pages/blog/how-to-use-fhsa-canada';
+import CPPPaymentDates2026 from './pages/blog/cpp-payment-dates-2026';
+import OASPaymentDates2026 from './pages/blog/oas-payment-dates-2026';
+import CanadianTaxBrackets2026 from './pages/blog/canadian-tax-brackets-2026';
+import RRSPDeadline2026 from './pages/blog/rrsp-deadline-2026';
+import BestGICRatesCanada2026 from './pages/blog/best-gic-rates-canada-2026';
+import IncomeTaxCalculator from './pages/tools/IncomeTaxCalculator';
 
 export default function App() {
   return (
@@ -54,6 +60,12 @@ export default function App() {
           <Route path="/blog/how-much-tfsa-room-2026" element={<HowMuchTFSARoom />} />
           <Route path="/blog/best-etfs-for-tfsa-canada-2026" element={<BestETFsForTFSA />} />
           <Route path="/blog/how-to-use-fhsa-canada" element={<HowToUseFHSA />} />
+          <Route path="/blog/cpp-payment-dates-2026" element={<CPPPaymentDates2026 />} />
+          <Route path="/blog/oas-payment-dates-2026" element={<OASPaymentDates2026 />} />
+          <Route path="/blog/canadian-tax-brackets-2026" element={<CanadianTaxBrackets2026 />} />
+          <Route path="/blog/rrsp-deadline-2026" element={<RRSPDeadline2026 />} />
+          <Route path="/blog/best-gic-rates-canada-2026" element={<BestGICRatesCanada2026 />} />
+          <Route path="/tools/income-tax-calculator" element={<IncomeTaxCalculator />} />
           <Route path="/stocks" element={<StockPage />} />
           <Route path="/stocks/:ticker" element={<StockPage />} />
         </Routes>

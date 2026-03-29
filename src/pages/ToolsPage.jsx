@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 
 const tools = [
+  { icon: "🧾", title: "Income Tax Calculator", desc: "Calculate your exact take-home pay, federal + provincial tax, CPP, and EI for all provinces.", link: "/tools/income-tax-calculator", badge: "New!", category: "Tax", color: "border-indigo-200 hover:border-indigo-400" },
   { icon: "💰", title: "TFSA Calculator", desc: "Calculate your Tax-Free Savings Account growth with 2026 limits.", link: "/tools/tfsa-calculator", badge: "Most Popular", category: "Savings", color: "border-blue-200 hover:border-blue-400" },
   { icon: "📈", title: "RRSP Calculator", desc: "Find out your tax refund and how much your RRSP will grow.", link: "/tools/rrsp-calculator", badge: "2026 Updated", category: "Savings", color: "border-green-200 hover:border-green-400" },
   { icon: "🏠", title: "FHSA Calculator", desc: "Plan your First Home Savings Account — deductible contributions, tax-free withdrawals.", link: "/tools/fhsa-calculator", badge: "New!", category: "Savings", color: "border-orange-200 hover:border-orange-400" },

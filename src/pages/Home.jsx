@@ -6,12 +6,22 @@ import FinancialTip from "../components/FinancialTip";
 import ReferralSection from "../components/ReferralSection";
 
 const tools = [
+  { icon: "🧾", title: "Income Tax Calculator", desc: "Calculate your exact take-home pay, federal + provincial tax, CPP, and EI for 2026.", link: "/tools/income-tax-calculator", badge: "New!" },
   { icon: "💰", title: "TFSA Calculator", desc: "See how much your tax-free savings can grow over time.", link: "/tools/tfsa-calculator", badge: "Most Popular" },
   { icon: "📈", title: "RRSP Calculator", desc: "Calculate your tax refund and retirement savings growth.", link: "/tools/rrsp-calculator", badge: "2026 Updated" },
   { icon: "🏠", title: "FHSA Calculator", desc: "First Home Savings Account — deductible contributions, tax-free withdrawals.", link: "/tools/fhsa-calculator", badge: "New!" },
   { icon: "🏡", title: "Mortgage Calculator", desc: "Real Canadian mortgage payments with CMHC insurance and land transfer tax.", link: "/tools/mortgage-calculator", badge: "New!" },
   { icon: "📊", title: "Capital Gains Tax", desc: "Calculate capital gains tax on stocks, crypto, and real estate.", link: "/tools/capital-gains-tax", badge: "New!" },
   { icon: "🇨🇦", title: "CPP & OAS Estimator", desc: "Estimate your government retirement income and best age to collect.", link: "/tools/cpp-oas-estimator", badge: "New!" },
+];
+
+const recentPosts = [
+  { slug: "cpp-payment-dates-2026",       title: "CPP Payment Dates 2026", category: "Retirement" },
+  { slug: "canadian-tax-brackets-2026",   title: "Canadian Tax Brackets 2026", category: "Tax" },
+  { slug: "rrsp-deadline-2026",           title: "RRSP Deadline 2026", category: "RRSP" },
+  { slug: "oas-payment-dates-2026",       title: "OAS Payment Dates 2026", category: "Retirement" },
+  { slug: "best-gic-rates-canada-2026",   title: "Best GIC Rates Canada (March 2026)", category: "Savings" },
+  { slug: "tfsa-vs-rrsp-2026",            title: "TFSA vs RRSP: Which Is Better?", category: "TFSA & RRSP" },
 ];
 
 const stats = [
@@ -108,6 +118,31 @@ export default function Home() {
       {/* Wealthsimple Referral */}
       <section className="max-w-5xl mx-auto px-4">
         <ReferralSection />
+      </section>
+
+      {/* Recent Blog Posts */}
+      <section className="max-w-5xl mx-auto px-4 py-12">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-3xl font-bold text-primary dark:text-accent">Latest Articles</h2>
+          <Link to="/blog" className="text-secondary font-semibold hover:underline text-sm">View all →</Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {recentPosts.map(post => (
+            <Link
+              key={post.slug}
+              to={`/blog/${post.slug}`}
+              className="block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-5 hover:shadow-lg hover:border-secondary transition-all group"
+            >
+              <span className="text-xs font-semibold bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full">
+                {post.category}
+              </span>
+              <h3 className="font-bold text-gray-800 dark:text-white mt-3 mb-2 group-hover:text-secondary transition leading-snug">
+                {post.title}
+              </h3>
+              <span className="text-xs text-secondary font-semibold">Read article →</span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* Why Us */}
