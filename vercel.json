@@ -2,9 +2,14 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
-    {
-      "source": "/((?!.*\\.[a-zA-Z0-9]+$).*)",
-      "destination": "/index.html"
-    }
+    { "source": "/tools",                          "destination": "/index.html" },
+    { "source": "/tools/:path*",                   "destination": "/index.html" },
+    { "source": "/blog",                           "destination": "/index.html" },
+    { "source": "/blog/:path*",                    "destination": "/index.html" },
+    { "source": "/stocks",                         "destination": "/index.html" },
+    { "source": "/stocks/:path*",                  "destination": "/index.html" },
+    { "source": "/about",                          "destination": "/index.html" },
+    { "source": "/contact",                        "destination": "/index.html" },
+    { "source": "/privacy-policy",                 "destination": "/index.html" }
   ]
 }
