@@ -65,7 +65,7 @@ export default function CalculatorsPage() {
           className="adsbygoogle"
           style={{ display: "block" }}
           data-ad-client="ca-pub-4262496331692202"
-          data-ad-slot="9988776655"
+          data-ad-slot="3078879111"
           data-ad-format="auto"
           data-full-width-responsive="true"
         ></ins>

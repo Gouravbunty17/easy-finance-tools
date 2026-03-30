@@ -32,7 +32,7 @@ export default function Header() {
     <>
       {/* Top AdSense Banner */}
       <div className="w-full bg-gray-50 dark:bg-gray-900 border-b dark:border-gray-800 text-center min-h-[60px] flex items-center justify-center">
-        <AdSlot slot="1234567890" format="horizontal" />
+        <AdSlot slot="1901528811" format="horizontal" />
       </div>
 
       <header className="bg-white dark:bg-gray-950 shadow-sm sticky top-0 z-50 border-b border-gray-100 dark:border-gray-800">

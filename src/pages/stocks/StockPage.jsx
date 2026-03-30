@@ -363,7 +363,7 @@ export default function StockPage() {
             />
           </div>
 
-          <AdSlot slot="2345678901" format="auto" />
+          <AdSlot slot="1901528811" format="auto" />
 
           {/* ── Technical Analysis + Profile ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -454,7 +454,7 @@ export default function StockPage() {
             />
           </div>
 
-          <AdSlot slot="3456789012" format="auto" />
+          <AdSlot slot="3078879111" format="auto" />
 
           {/* ── Related symbols ── */}
           <div className="mt-6">

@@ -166,7 +166,7 @@ export default function Blog() {
         {/* Top Ad */}
         <div className="mb-8 flex justify-center">
           <AdsenseSlot
-            slot="5385703475"
+            slot="1901528811"
             style={{ display: "block", minHeight: 90, width: "100%" }}
           />
         </div>
@@ -251,7 +251,7 @@ export default function Blog() {
         {/* Sidebar Ad */}
         <div className="mt-8 flex justify-center">
           <AdsenseSlot
-            slot="2290193432"
+            slot="3078879111"
             style={{ display: "block", minHeight: 250, width: "100%" }}
           />
         </div>

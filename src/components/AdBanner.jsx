@@ -15,7 +15,7 @@ export default function AdBanner() {
         className="adsbygoogle"
         style={{ display: "block" }}
         data-ad-client="ca-pub-4262496331692202"
-        data-ad-slot="7131660144"
+        data-ad-slot="1901528811"
         data-ad-format="auto"
         data-full-width-responsive="true"
       ></ins>
