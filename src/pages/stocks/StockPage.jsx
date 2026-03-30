@@ -156,16 +156,11 @@ export default function StockPage() {
 
     setQuote(null);
     setAi('');
-    // Fetch via server-side proxy (avoids CORS), fallback to direct
+    // Fetch via server-side proxy (avoids CORS)
     fetch(`/api/quote?symbol=${encodeURIComponent(t)}`)
       .then(r => r.json())
       .then(d => { if (d?.quote?.regularMarketPrice) setQuote(d.quote); })
-      .catch(() => {
-        fetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols=' + t)
-          .then(r => r.json())
-          .then(d => { const q = d?.quoteResponse?.result?.[0]; if (q?.regularMarketPrice) setQuote(q); })
-          .catch(() => {});
-      });
+      .catch(() => {});
     doAI(t);
   }, [t]);
 

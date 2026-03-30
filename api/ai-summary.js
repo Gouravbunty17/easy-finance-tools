@@ -1,5 +1,8 @@
 const https = require('https');
 
+// Tell Vercel to parse the JSON body automatically
+module.exports.config = { api: { bodyParser: { sizeLimit: '256kb' } } };
+
 function postJSON(url, headers, body) {
   return new Promise((resolve, reject) => {
     const u = new URL(url);
@@ -57,7 +60,7 @@ module.exports = async function handler(req, res) {
         'anthropic-version': '2023-06-01',
       },
       {
-        model: 'claude-haiku-4-5',
+        model: 'claude-3-5-haiku-20241022',
         max_tokens: 250,
         messages: [{
           role: 'user',
