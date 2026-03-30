@@ -1,8 +1,5 @@
 const https = require('https');
 
-// Tell Vercel to parse the JSON body automatically
-module.exports.config = { api: { bodyParser: { sizeLimit: '256kb' } } };
-
 function postJSON(url, headers, body) {
   return new Promise((resolve, reject) => {
     const u = new URL(url);
@@ -34,23 +31,41 @@ function postJSON(url, headers, body) {
   });
 }
 
-module.exports = async function handler(req, res) {
+async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
+  // Handle CORS preflight
   if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).end();
+
+  // Only POST is meaningful — but return 200 with error JSON (not 405)
+  // so the browser doesn't treat it as a hard failure
+  if (req.method !== 'POST') {
+    return res.status(200).json({ error: 'POST required', summary: '' });
+  }
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) return res.status(503).json({ error: 'AI summary not configured' });
+  if (!apiKey) return res.status(200).json({ error: 'AI summary not configured', summary: '' });
 
-  const { ticker, name, price, change, marketCap, pe, sector } = req.body || {};
-  if (!ticker) return res.status(400).json({ error: 'Ticker required' });
+  // Parse body — Vercel auto-parses JSON, but guard against plain string body
+  let body = req.body;
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch { body = {}; }
+  }
+
+  const { ticker, name, price, change, marketCap, pe, sector } = body || {};
+  if (!ticker) return res.status(200).json({ error: 'Ticker required', summary: '' });
 
   const displayName = name || ticker;
-  const priceInfo = price ? `Current price: $${price}${change ? ` (${Number(change) >= 0 ? '+' : ''}${change}% today)` : ''}.` : '';
-  const extraInfo = [marketCap && marketCap !== 'N/A' ? `Market cap: ${marketCap}` : '', pe && pe !== 'N/A' ? `P/E: ${pe}` : '', sector && sector !== 'N/A' ? `Sector: ${sector}` : ''].filter(Boolean).join('. ');
+  const priceInfo = price
+    ? `Current price: $${price}${change ? ` (${Number(change) >= 0 ? '+' : ''}${change}% today)` : ''}.`
+    : '';
+  const extraInfo = [
+    marketCap && marketCap !== 'N/A' ? `Market cap: ${marketCap}` : '',
+    pe && pe !== 'N/A' ? `P/E: ${pe}` : '',
+    sector && sector !== 'N/A' ? `Sector: ${sector}` : '',
+  ].filter(Boolean).join('. ');
 
   try {
     const data = await postJSON(
@@ -72,8 +87,12 @@ Be factual and neutral. No "I" statements. No financial advice disclaimer.`,
     );
 
     const summary = data?.content?.[0]?.text || '';
-    res.json({ summary });
+    return res.json({ summary });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(200).json({ error: err.message, summary: '' });
   }
-};
+}
+
+// Config MUST be set on the exported function reference, not before it
+module.exports = handler;
+module.exports.config = { api: { bodyParser: { sizeLimit: '256kb' } } };
