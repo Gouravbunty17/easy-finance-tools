@@ -2,35 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
+import BlogHero from "../../components/BlogHero";
 
 export default function BestETFsForTFSA() {
   return (
-    <section className="max-w-3xl mx-auto px-4 py-12">
+    <div>
       <SEO
         title="Best ETFs for TFSA Canada 2026 — Top Picks for Tax-Free Growth"
         description="The best ETFs to hold in your Canadian TFSA in 2026. XEQT, VEQT, ZSP, VDY and more — ranked by strategy with pros and cons. Free Canadian investing guide."
         canonical="https://easyfinancetools.com/blog/best-etfs-for-tfsa-canada-2026"
       />
-
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <CalendarIcon className="w-4 h-4" />
-          <time>March 28, 2026</time>
-          <span>·</span>
-          <TagIcon className="w-4 h-4" />
-          <span>ETFs · TFSA · Investing</span>
-          <span>·</span>
-          <span>9 min read</span>
-        </div>
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-4 leading-tight">
-          Best ETFs for Your TFSA in Canada (2026)
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-          Your TFSA is your most tax-efficient account — every dollar of growth is yours to keep. Choosing the right ETFs inside it can mean the difference between good returns and exceptional ones. Here are the best ETFs for Canadian TFSA investors in 2026.
-        </p>
-      </div>
-
-      <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+      <BlogHero
+        icon="📊"
+        category="Investing · TFSA"
+        title="Best ETFs for Your TFSA in Canada (2026)"
+        date="March 28, 2026"
+        readTime="9 min read"
+        gradient="from-indigo-500 to-violet-700"
+      />
+      <section className="max-w-3xl mx-auto px-4 py-12">
+        <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <h2>Why ETFs Are Ideal for a TFSA</h2>
         <p>
@@ -154,6 +145,7 @@ export default function BestETFsForTFSA() {
       <Link to="/blog" className="inline-block mt-10 text-primary dark:text-accent font-semibold hover:underline">
         ← Back to Blog
       </Link>
-    </section>
+      </section>
+    </div>
   );
 }

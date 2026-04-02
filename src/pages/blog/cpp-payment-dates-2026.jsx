@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
+import BlogHero from "../../components/BlogHero";
 
 const payments = [
   { month: "January",   date: "January 29, 2026",   amount: "Varies" },
@@ -20,32 +21,22 @@ const payments = [
 
 export default function CPPPaymentDates2026() {
   return (
-    <section className="max-w-3xl mx-auto px-4 py-12">
+    <div>
       <SEO
         title="CPP Payment Dates 2026: Complete Schedule + Maximum Amounts"
         description="All 12 CPP payment dates for 2026, maximum monthly amounts, how to sign up for direct deposit, and when to start collecting CPP at 60, 65, or 70."
         canonical="https://easyfinancetools.com/blog/cpp-payment-dates-2026"
       />
-
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <CalendarIcon className="w-4 h-4" />
-          <time>March 29, 2026</time>
-          <span>·</span>
-          <TagIcon className="w-4 h-4" />
-          <span>CPP · Retirement</span>
-          <span>·</span>
-          <span>7 min read</span>
-        </div>
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-4 leading-tight">
-          CPP Payment Dates 2026: Complete Schedule + Maximum Amounts
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-          The Canada Pension Plan (CPP) pays out 12 times a year, always on a fixed schedule. Here are every CPP payment date for 2026, the current maximum amounts, and everything you need to know about your retirement income.
-        </p>
-      </div>
-
-      <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+      <BlogHero
+        icon="🇨🇦"
+        category="Retirement · CPP"
+        title="CPP Payment Dates 2026: Complete Schedule + Maximum Amounts"
+        date="March 29, 2026"
+        readTime="7 min read"
+        gradient="from-purple-500 to-purple-700"
+      />
+      <section className="max-w-3xl mx-auto px-4 py-12">
+        <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <h2>CPP Payment Dates 2026 — Full Schedule</h2>
         <p>
@@ -221,6 +212,7 @@ export default function CPPPaymentDates2026() {
       <Link to="/blog" className="inline-block mt-8 text-primary dark:text-accent font-semibold hover:underline">
         ← Back to Blog
       </Link>
-    </section>
+      </section>
+    </div>
   );
 }

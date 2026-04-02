@@ -1,8 +1,66 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+// Category → gradient + icon mapping
+const categoryStyle = {
+  "Retirement":  { gradient: "from-purple-500 to-purple-700",  icon: "🇨🇦" },
+  "Tax":         { gradient: "from-orange-500 to-red-600",      icon: "🧾" },
+  "RRSP":        { gradient: "from-green-500 to-emerald-700",   icon: "📈" },
+  "Savings":     { gradient: "from-teal-500 to-cyan-700",       icon: "🏦" },
+  "TFSA & RRSP": { gradient: "from-blue-500 to-indigo-700",     icon: "💰" },
+  "TFSA":        { gradient: "from-blue-400 to-blue-700",       icon: "💰" },
+  "Investing":   { gradient: "from-indigo-500 to-violet-700",   icon: "📊" },
+  "FHSA":        { gradient: "from-emerald-500 to-teal-700",    icon: "🏠" },
+  "Dividends":   { gradient: "from-yellow-500 to-amber-600",    icon: "💵" },
+  "Real Estate": { gradient: "from-rose-500 to-red-700",        icon: "🏡" },
+  "Budget":      { gradient: "from-slate-500 to-gray-700",      icon: "📋" },
+  "Beginners":   { gradient: "from-sky-500 to-blue-700",        icon: "🎓" },
+};
+
 // Blog posts
 const posts = [
+  // New posts (April 2026)
+  {
+    slug: "how-to-invest-in-canada-beginners-2026",
+    title: "How to Invest in Canada: Complete Beginner's Guide (2026)",
+    date: "2026-04-02",
+    category: "Beginners",
+    readTime: "12 min",
+    excerpt: "Step-by-step guide to investing in Canada for the first time — what accounts to open, which ETFs to buy, how much to start with, and the biggest mistakes to avoid.",
+  },
+  {
+    slug: "best-hisa-canada-2026",
+    title: "Best High-Interest Savings Accounts in Canada (2026)",
+    date: "2026-04-02",
+    category: "Savings",
+    readTime: "8 min",
+    excerpt: "Compare the top HISA rates in Canada for 2026 — EQ Bank, Oaken, Simplii, and more. Learn where to park your emergency fund or short-term savings to earn the most interest.",
+  },
+  {
+    slug: "emergency-fund-canada",
+    title: "How to Build an Emergency Fund in Canada (Step-by-Step)",
+    date: "2026-04-02",
+    category: "Savings",
+    readTime: "7 min",
+    excerpt: "How much you really need in your emergency fund, the best accounts to keep it in, and a practical month-by-month plan to build one from scratch.",
+  },
+  {
+    slug: "pay-off-mortgage-faster-canada",
+    title: "7 Ways to Pay Off Your Mortgage Faster in Canada",
+    date: "2026-04-02",
+    category: "Real Estate",
+    readTime: "9 min",
+    excerpt: "Practical, lender-approved strategies to shave years off your Canadian mortgage and save tens of thousands in interest — without refinancing.",
+  },
+  {
+    slug: "canada-child-benefit-2026",
+    title: "Canada Child Benefit (CCB) 2026 — Amounts, Dates & How to Apply",
+    date: "2026-04-02",
+    category: "Tax",
+    readTime: "8 min",
+    excerpt: "Everything about the Canada Child Benefit in 2026: monthly payment amounts by income and age, all 12 payment dates, how to maximize your CCB, and eligibility rules.",
+  },
+  // Existing posts
   {
     slug: "cpp-payment-dates-2026",
     title: "CPP Payment Dates 2026: Complete Schedule + Maximum Amounts",
@@ -118,7 +176,7 @@ function AdsenseSlot({ slot, style = {}, className = "" }) {
   );
 }
 
-const categories = ["All", "Retirement", "Tax", "RRSP", "TFSA & RRSP", "TFSA", "FHSA", "Savings", "Investing", "Dividends"];
+const categories = ["All", "Beginners", "Savings", "Real Estate", "Tax", "Retirement", "RRSP", "TFSA & RRSP", "TFSA", "FHSA", "Investing", "Dividends", "Budget"];
 
 export default function Blog() {
   const [search, setSearch] = useState("");
@@ -171,32 +229,49 @@ export default function Blog() {
           />
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-5">
           {filteredPosts.length === 0 ? (
             <div className="text-gray-600 dark:text-gray-400">No blog posts found.</div>
           ) : (
-            filteredPosts.map((post) => (
-              <div key={post.slug} className="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-lg transition p-6">
-                <div className="flex items-center flex-wrap gap-2 text-sm text-gray-500 dark:text-gray-400 mb-1">
-                  <span>{post.date}</span>
-                  <span>·</span>
-                  <span className="px-2 py-1 bg-primary text-white rounded text-xs">
-                    {post.category}
-                  </span>
-                  {post.readTime && <span>{post.readTime} read</span>}
-                </div>
-                <h2 className="text-2xl font-semibold mb-1 text-primary dark:text-accent">
-                  {post.title}
-                </h2>
-                <p className="text-gray-600 dark:text-gray-300">{post.excerpt}</p>
+            filteredPosts.map((post) => {
+              const style = categoryStyle[post.category] || { gradient: "from-blue-500 to-indigo-700", icon: "📄" };
+              return (
                 <Link
+                  key={post.slug}
                   to={`/blog/${post.slug}`}
-                  className="inline-block mt-3 text-primary dark:text-accent underline hover:text-secondary"
+                  className="block bg-white dark:bg-gray-800 rounded-2xl shadow hover:shadow-xl transition-all overflow-hidden group border border-gray-100 dark:border-gray-700"
                 >
-                  Read More →
+                  <div className="flex flex-col sm:flex-row">
+                    {/* Thumbnail banner */}
+                    <div className={`bg-gradient-to-br ${style.gradient} flex items-center justify-center sm:w-36 sm:flex-shrink-0 h-28 sm:h-auto relative overflow-hidden`}>
+                      <div
+                        className="absolute inset-0 opacity-10"
+                        style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "18px 18px" }}
+                      />
+                      <span className="text-5xl relative drop-shadow-md select-none">{style.icon}</span>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-5 flex-1">
+                      <div className="flex items-center flex-wrap gap-2 text-xs text-gray-400 dark:text-gray-500 mb-2">
+                        <span className={`bg-gradient-to-r ${style.gradient} text-white px-2.5 py-0.5 rounded-full font-semibold`}>
+                          {post.category}
+                        </span>
+                        <span>{post.date}</span>
+                        {post.readTime && <><span>·</span><span>⏱ {post.readTime}</span></>}
+                      </div>
+                      <h2 className="text-lg font-bold text-gray-800 dark:text-white group-hover:text-primary dark:group-hover:text-accent transition leading-snug mb-1">
+                        {post.title}
+                      </h2>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm line-clamp-2">{post.excerpt}</p>
+                      <span className="inline-block mt-3 text-sm font-semibold text-primary dark:text-accent group-hover:underline">
+                        Read article →
+                      </span>
+                    </div>
+                  </div>
                 </Link>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
       </div>

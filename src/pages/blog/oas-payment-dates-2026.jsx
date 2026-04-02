@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
+import BlogHero from "../../components/BlogHero";
 
 const payments = [
   { month: "January",   date: "January 29, 2026" },
@@ -20,32 +21,22 @@ const payments = [
 
 export default function OASPaymentDates2026() {
   return (
-    <section className="max-w-3xl mx-auto px-4 py-12">
+    <div>
       <SEO
         title="OAS Payment Dates 2026: Full Schedule, Amounts & Increases"
         description="Complete OAS payment dates for 2026, current OAS amounts for ages 65–74 and 75+, the OAS clawback threshold, GIS amounts, and how to maximize your OAS."
         canonical="https://easyfinancetools.com/blog/oas-payment-dates-2026"
       />
-
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <CalendarIcon className="w-4 h-4" />
-          <time>March 29, 2026</time>
-          <span>·</span>
-          <TagIcon className="w-4 h-4" />
-          <span>OAS · Retirement</span>
-          <span>·</span>
-          <span>6 min read</span>
-        </div>
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-4 leading-tight">
-          OAS Payment Dates 2026: Full Schedule, Amounts & Increases
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-          Old Age Security (OAS) is Canada's largest pension program, paying monthly to nearly every Canadian over 65. Here is the complete 2026 OAS payment schedule, current benefit amounts, the 2026 clawback threshold, and strategies to maximize your OAS.
-        </p>
-      </div>
-
-      <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+      <BlogHero
+        icon="🏛️"
+        category="Retirement · OAS"
+        title="OAS Payment Dates 2026: Full Schedule, Amounts & Increases"
+        date="March 29, 2026"
+        readTime="6 min read"
+        gradient="from-purple-600 to-indigo-700"
+      />
+      <section className="max-w-3xl mx-auto px-4 py-12">
+        <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <h2>OAS Payment Dates 2026 — Full Schedule</h2>
         <p>
@@ -206,6 +197,7 @@ export default function OASPaymentDates2026() {
       <Link to="/blog" className="inline-block mt-8 text-primary dark:text-accent font-semibold hover:underline">
         ← Back to Blog
       </Link>
-    </section>
+      </section>
+    </div>
   );
 }

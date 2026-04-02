@@ -2,44 +2,35 @@ import React from "react";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import useAdSense from "../../hooks/useAdSense";
+import BlogHero from "../../components/BlogHero";
 
 export default function WeeklyDividendETFs() {
   useAdSense();
 
   return (
-    <section className="max-w-3xl mx-auto px-4 py-12">
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <CalendarIcon className="w-4 h-4" />
-          <time>June 30, 2025</time>
-          <span>·</span>
-          <TagIcon className="w-4 h-4" />
-          <span>Dividend Investing</span>
-          <span>·</span>
-          <span>8 min read</span>
+    <div>
+      <BlogHero
+        icon="💵"
+        category="Investing · Dividends"
+        title="What Are Weekly Dividend ETFs, and How Do They Work?"
+        date="June 30, 2025"
+        readTime="8 min read"
+        gradient="from-yellow-500 to-amber-600"
+      />
+      <section className="max-w-3xl mx-auto px-4 py-12">
+        {/* Top Ad */}
+        <div className="my-8">
+          <ins
+            className="adsbygoogle block"
+            style={{ display: "block" }}
+            data-ad-client="ca-pub-4262496331692202"
+            data-ad-slot="1901528811"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          />
         </div>
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-4 leading-tight">
-          What Are Weekly Dividend ETFs, and How Do They Work?
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-          Are you tired of waiting three months for a dividend paycheck? Imagine getting paid every single week — just like a regular salary — through your investments. Weekly dividend ETFs are growing in popularity among income investors, retirees, and Canadians looking for consistent cash flow. In this guide, we break down exactly how they work, who they're for, and what to watch out for.
-        </p>
-      </div>
 
-      {/* Top Ad */}
-      <div className="my-8">
-        <ins
-          className="adsbygoogle block"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-4262496331692202"
-          data-ad-slot="1901528811"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        />
-      </div>
-
-      <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+        <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         {/* Section 1 */}
         <h2>What Is a Dividend ETF?</h2>
@@ -258,6 +249,7 @@ export default function WeeklyDividendETFs() {
       >
         ← Back to Blog
       </Link>
-    </section>
+      </section>
+    </div>
   );
 }

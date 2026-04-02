@@ -2,35 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
+import BlogHero from "../../components/BlogHero";
 
 export default function HowToUseFHSA() {
   return (
-    <section className="max-w-3xl mx-auto px-4 py-12">
+    <div>
       <SEO
         title="How to Use the FHSA in Canada (2026) — First Home Savings Account Guide"
         description="Complete guide to the FHSA in 2026. Eligibility, contribution limits, tax deductions, withdrawals, and how to combine it with the RRSP Home Buyers' Plan."
         canonical="https://easyfinancetools.com/blog/how-to-use-fhsa-canada"
       />
-
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <CalendarIcon className="w-4 h-4" />
-          <time>March 28, 2026</time>
-          <span>·</span>
-          <TagIcon className="w-4 h-4" />
-          <span>FHSA · First Home · Savings</span>
-          <span>·</span>
-          <span>8 min read</span>
-        </div>
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-4 leading-tight">
-          How to Use the FHSA in Canada (2026 Guide)
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-          The First Home Savings Account (FHSA) is the most powerful new savings tool introduced in Canada in decades. It combines the best of the RRSP (tax-deductible contributions) and the TFSA (tax-free withdrawals) — specifically for first-time home buyers. Here's everything you need to know.
-        </p>
-      </div>
-
-      <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+      <BlogHero
+        icon="🏠"
+        category="FHSA · Savings"
+        title="How to Use the FHSA in Canada (2026 Guide)"
+        date="March 28, 2026"
+        readTime="8 min read"
+        gradient="from-emerald-500 to-teal-700"
+      />
+      <section className="max-w-3xl mx-auto px-4 py-12">
+        <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <h2>What Is the FHSA?</h2>
         <p>
@@ -191,6 +182,7 @@ export default function HowToUseFHSA() {
       <Link to="/blog" className="inline-block mt-10 text-primary dark:text-accent font-semibold hover:underline">
         ← Back to Blog
       </Link>
-    </section>
+      </section>
+    </div>
   );
 }

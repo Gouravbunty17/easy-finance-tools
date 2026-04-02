@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
+import BlogHero from "../../components/BlogHero";
 
 const gicRates = [
   { institution: "EQ Bank",           term: "1-year GIC",  rate: "4.00%", type: "Non-redeemable", insured: "CDIC" },
@@ -18,38 +19,28 @@ const gicRates = [
 
 export default function BestGICRatesCanada2026() {
   return (
-    <section className="max-w-3xl mx-auto px-4 py-12">
+    <div>
       <SEO
         title="Best GIC Rates in Canada (March 2026) — Top Rates Compared"
         description="Compare the best GIC rates in Canada for March 2026. 1-year, 2-year, and 5-year GIC rates from EQ Bank, Oaken, credit unions, and big banks. Updated monthly."
         canonical="https://easyfinancetools.com/blog/best-gic-rates-canada-2026"
       />
-
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <CalendarIcon className="w-4 h-4" />
-          <time>March 29, 2026</time>
-          <span>·</span>
-          <TagIcon className="w-4 h-4" />
-          <span>GIC · Savings</span>
-          <span>·</span>
-          <span>7 min read</span>
+      <BlogHero
+        icon="🏦"
+        category="Savings · GIC"
+        title="Best GIC Rates in Canada (March 2026)"
+        date="March 29, 2026"
+        readTime="7 min read"
+        gradient="from-teal-500 to-cyan-700"
+      />
+      <section className="max-w-3xl mx-auto px-4 py-12">
+        <div className="not-prose bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-8">
+          <p className="text-sm text-amber-800 dark:text-amber-300">
+            <strong>Last updated:</strong> March 29, 2026. GIC rates change frequently. Always verify directly with the institution before purchasing.
+          </p>
         </div>
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-4 leading-tight">
-          Best GIC Rates in Canada (March 2026)
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-          Guaranteed Investment Certificates (GICs) are back as a legitimate savings strategy after years of near-zero rates. Here are the best GIC rates available in Canada right now, compared across terms and institution types.
-        </p>
-      </div>
 
-      <div className="not-prose bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-8">
-        <p className="text-sm text-amber-800 dark:text-amber-300">
-          <strong>Last updated:</strong> March 29, 2026. GIC rates change frequently. Always verify directly with the institution before purchasing.
-        </p>
-      </div>
-
-      <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+        <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <h2>Best 1-Year GIC Rates in Canada (March 2026)</h2>
 
@@ -231,6 +222,7 @@ export default function BestGICRatesCanada2026() {
       <Link to="/blog" className="inline-block mt-8 text-primary dark:text-accent font-semibold hover:underline">
         ← Back to Blog
       </Link>
-    </section>
+      </section>
+    </div>
   );
 }

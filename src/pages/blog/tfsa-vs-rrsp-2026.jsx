@@ -2,35 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
+import BlogHero from "../../components/BlogHero";
 
 export default function TFSAvsRRSP() {
   return (
-    <section className="max-w-3xl mx-auto px-4 py-12">
+    <div>
       <SEO
         title="TFSA vs RRSP: Which Is Better in 2026? — Complete Canadian Guide"
         description="TFSA vs RRSP compared side-by-side for 2026. Learn which account saves you more tax, when to choose each, and how to use both together. Free Canadian guide."
         canonical="https://easyfinancetools.com/blog/tfsa-vs-rrsp-2026"
       />
-
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <CalendarIcon className="w-4 h-4" />
-          <time>March 28, 2026</time>
-          <span>·</span>
-          <TagIcon className="w-4 h-4" />
-          <span>TFSA · RRSP</span>
-          <span>·</span>
-          <span>10 min read</span>
-        </div>
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-4 leading-tight">
-          TFSA vs RRSP: Which Is Better in 2026?
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-          The TFSA vs RRSP debate is the #1 question in Canadian personal finance. The honest answer: both are powerful, but the right one depends on your income, tax bracket, and goals. This guide breaks it all down so you can make the right call for 2026.
-        </p>
-      </div>
-
-      <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+      <BlogHero
+        icon="⚖️"
+        category="TFSA · RRSP"
+        title="TFSA vs RRSP: Which Is Better in 2026?"
+        date="March 28, 2026"
+        readTime="10 min read"
+        gradient="from-blue-500 to-indigo-700"
+      />
+      <section className="max-w-3xl mx-auto px-4 py-12">
+        <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <h2>The Key Difference in One Sentence</h2>
         <p>
@@ -144,6 +135,7 @@ export default function TFSAvsRRSP() {
       <Link to="/blog" className="inline-block mt-10 text-primary dark:text-accent font-semibold hover:underline">
         ← Back to Blog
       </Link>
-    </section>
+      </section>
+    </div>
   );
 }

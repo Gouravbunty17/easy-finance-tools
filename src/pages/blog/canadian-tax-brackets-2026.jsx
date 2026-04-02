@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
+import BlogHero from "../../components/BlogHero";
 
 const federalBrackets = [
   { range: "$0 – $57,375",           rate: "15%",   tax: "$0 – $8,606" },
@@ -29,32 +30,22 @@ const provincialRates = [
 
 export default function CanadianTaxBrackets2026() {
   return (
-    <section className="max-w-3xl mx-auto px-4 py-12">
+    <div>
       <SEO
         title="Canadian Tax Brackets 2026: Federal & All Provincial Rates"
         description="Complete 2026 Canadian income tax brackets — federal rates, all provincial/territorial rates, marginal vs effective tax rate explained, and how to pay less tax legally."
         canonical="https://easyfinancetools.com/blog/canadian-tax-brackets-2026"
       />
-
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <CalendarIcon className="w-4 h-4" />
-          <time>March 29, 2026</time>
-          <span>·</span>
-          <TagIcon className="w-4 h-4" />
-          <span>Tax · Income</span>
-          <span>·</span>
-          <span>8 min read</span>
-        </div>
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-4 leading-tight">
-          Canadian Tax Brackets 2026: Federal & All Provincial Rates
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-          Your 2026 Canadian income tax is calculated in layers — federal brackets first, then your province adds its own. This guide covers every bracket, explains marginal vs effective tax rate, and shows you legal strategies to reduce what you owe.
-        </p>
-      </div>
-
-      <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+      <BlogHero
+        icon="🧾"
+        category="Tax · Income"
+        title="Canadian Tax Brackets 2026: Federal & All Provincial Rates"
+        date="March 29, 2026"
+        readTime="8 min read"
+        gradient="from-orange-500 to-red-600"
+      />
+      <section className="max-w-3xl mx-auto px-4 py-12">
+        <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <h2>2026 Federal Income Tax Brackets</h2>
         <p>
@@ -251,6 +242,7 @@ export default function CanadianTaxBrackets2026() {
       <Link to="/blog" className="inline-block mt-8 text-primary dark:text-accent font-semibold hover:underline">
         ← Back to Blog
       </Link>
-    </section>
+      </section>
+    </div>
   );
 }

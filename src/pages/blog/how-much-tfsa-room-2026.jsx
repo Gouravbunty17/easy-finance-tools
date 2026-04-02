@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
+import BlogHero from "../../components/BlogHero";
 
 const LIMITS = [
   [2009, 5000], [2010, 5000], [2011, 5000], [2012, 5000], [2013, 5500],
@@ -17,32 +18,22 @@ export default function HowMuchTFSARoom() {
   }, []);
 
   return (
-    <section className="max-w-3xl mx-auto px-4 py-12">
+    <div>
       <SEO
         title="How Much TFSA Room Do I Have in 2026? — Full Contribution Limit Table"
         description="Find out exactly how much TFSA contribution room you have in 2026. Full year-by-year limit table, cumulative totals, and how to check via CRA My Account."
         canonical="https://easyfinancetools.com/blog/how-much-tfsa-room-2026"
       />
-
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <CalendarIcon className="w-4 h-4" />
-          <time>March 28, 2026</time>
-          <span>·</span>
-          <TagIcon className="w-4 h-4" />
-          <span>TFSA</span>
-          <span>·</span>
-          <span>6 min read</span>
-        </div>
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-4 leading-tight">
-          How Much TFSA Room Do I Have in 2026?
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-          If you were 18 or older and a Canadian resident in 2009, you have accumulated up to <strong>$95,000</strong> in total TFSA contribution room by 2026. Here's exactly how it breaks down — and how to find your personal limit.
-        </p>
-      </div>
-
-      <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+      <BlogHero
+        icon="💰"
+        category="TFSA · Savings"
+        title="How Much TFSA Room Do I Have in 2026?"
+        date="March 28, 2026"
+        readTime="6 min read"
+        gradient="from-blue-400 to-blue-700"
+      />
+      <section className="max-w-3xl mx-auto px-4 py-12">
+        <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <h2>Your 2026 TFSA Contribution Room</h2>
         <p>
@@ -177,6 +168,7 @@ export default function HowMuchTFSARoom() {
       <Link to="/blog" className="inline-block mt-10 text-primary dark:text-accent font-semibold hover:underline">
         ← Back to Blog
       </Link>
-    </section>
+      </section>
+    </div>
   );
 }

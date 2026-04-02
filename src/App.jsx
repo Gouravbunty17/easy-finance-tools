@@ -28,8 +28,17 @@ const IncomeTaxCalculator     = lazy(() => import('./pages/tools/IncomeTaxCalcul
 const FIRECalculator          = lazy(() => import('./pages/tools/FIRECalculator'));
 
 const StockPage               = lazy(() => import('./pages/stocks/StockPage'));
+const GICCalculator           = lazy(() => import('./pages/tools/GICCalculator'));
+const DebtPayoffCalculator    = lazy(() => import('./pages/tools/DebtPayoffCalculator'));
+const SavingsGoalCalculator   = lazy(() => import('./pages/tools/SavingsGoalCalculator'));
+const NetPayCalculator        = lazy(() => import('./pages/tools/NetPayCalculator'));
 
 const WeeklyDividendETFs      = lazy(() => import('./pages/blog/weekly-dividend-etfs'));
+const HowToInvestBeginners    = lazy(() => import('./pages/blog/how-to-invest-in-canada-beginners-2026'));
+const BestHISACanada2026      = lazy(() => import('./pages/blog/best-hisa-canada-2026'));
+const EmergencyFundCanada     = lazy(() => import('./pages/blog/emergency-fund-canada'));
+const PayOffMortgageFaster    = lazy(() => import('./pages/blog/pay-off-mortgage-faster-canada'));
+const CanadaChildBenefit2026  = lazy(() => import('./pages/blog/canada-child-benefit-2026'));
 const TFSAvsRRSP              = lazy(() => import('./pages/blog/tfsa-vs-rrsp-2026'));
 const HowMuchTFSARoom         = lazy(() => import('./pages/blog/how-much-tfsa-room-2026'));
 const BestETFsForTFSA         = lazy(() => import('./pages/blog/best-etfs-for-tfsa-canada-2026'));
@@ -76,6 +85,10 @@ export default function App() {
             <Route path="/tools/fire-calculator" element={<FIRECalculator />} />
             <Route path="/stocks" element={<StockPage />} />
             <Route path="/stocks/:ticker" element={<StockPage />} />
+            <Route path="/tools/gic-calculator" element={<GICCalculator />} />
+            <Route path="/tools/debt-payoff" element={<DebtPayoffCalculator />} />
+            <Route path="/tools/savings-goal" element={<SavingsGoalCalculator />} />
+            <Route path="/tools/net-pay-calculator" element={<NetPayCalculator />} />
             <Route path="/blog/weekly-dividend-etfs" element={<WeeklyDividendETFs />} />
             <Route path="/blog/tfsa-vs-rrsp-2026" element={<TFSAvsRRSP />} />
             <Route path="/blog/how-much-tfsa-room-2026" element={<HowMuchTFSARoom />} />
@@ -86,6 +99,11 @@ export default function App() {
             <Route path="/blog/canadian-tax-brackets-2026" element={<CanadianTaxBrackets2026 />} />
             <Route path="/blog/rrsp-deadline-2026" element={<RRSPDeadline2026 />} />
             <Route path="/blog/best-gic-rates-canada-2026" element={<BestGICRatesCanada2026 />} />
+            <Route path="/blog/how-to-invest-in-canada-beginners-2026" element={<HowToInvestBeginners />} />
+            <Route path="/blog/best-hisa-canada-2026" element={<BestHISACanada2026 />} />
+            <Route path="/blog/emergency-fund-canada" element={<EmergencyFundCanada />} />
+            <Route path="/blog/pay-off-mortgage-faster-canada" element={<PayOffMortgageFaster />} />
+            <Route path="/blog/canada-child-benefit-2026" element={<CanadaChildBenefit2026 />} />
           </Routes>
         </Suspense>
       </main>

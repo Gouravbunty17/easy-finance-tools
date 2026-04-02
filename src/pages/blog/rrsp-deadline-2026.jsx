@@ -2,35 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
+import BlogHero from "../../components/BlogHero";
 
 export default function RRSPDeadline2026() {
   return (
-    <section className="max-w-3xl mx-auto px-4 py-12">
+    <div>
       <SEO
         title="RRSP Deadline 2026: Contribution Deadline, Limits & Tax Refund Tips"
         description="The 2026 RRSP contribution deadline is March 2, 2026. Learn the 2026 RRSP limit, how to maximize your tax refund, and whether to contribute in 2025 or 2026."
         canonical="https://easyfinancetools.com/blog/rrsp-deadline-2026"
       />
-
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <CalendarIcon className="w-4 h-4" />
-          <time>March 29, 2026</time>
-          <span>·</span>
-          <TagIcon className="w-4 h-4" />
-          <span>RRSP · Tax</span>
-          <span>·</span>
-          <span>7 min read</span>
-        </div>
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-4 leading-tight">
-          RRSP Deadline 2026: Contribution Deadline, Limits & Tax Refund Tips
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-          The RRSP deadline is the most important date on the Canadian tax calendar. Here's everything you need to know: the 2026 deadline, your contribution limit, how to calculate your tax refund, and the smartest last-minute strategies.
-        </p>
-      </div>
-
-      <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+      <BlogHero
+        icon="📈"
+        category="RRSP · Tax"
+        title="RRSP Deadline 2026: Contribution Deadline, Limits & Tax Refund Tips"
+        date="March 29, 2026"
+        readTime="7 min read"
+        gradient="from-green-500 to-emerald-700"
+      />
+      <section className="max-w-3xl mx-auto px-4 py-12">
+        <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <div className="not-prose bg-primary text-white rounded-xl p-6 my-6 text-center">
           <p className="text-sm font-semibold uppercase tracking-wide opacity-80 mb-1">2026 RRSP Contribution Deadline</p>
@@ -199,6 +190,7 @@ export default function RRSPDeadline2026() {
       <Link to="/blog" className="inline-block mt-8 text-primary dark:text-accent font-semibold hover:underline">
         ← Back to Blog
       </Link>
-    </section>
+      </section>
+    </div>
   );
 }
