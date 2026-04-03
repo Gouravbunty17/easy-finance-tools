@@ -63,11 +63,160 @@ const POPULAR_ETFS = [
   { t: "XEQT.TO", n: "iShares Core Equity ETF", market: "Canada ETF" },
 ];
 
+const SYMBOL_METADATA = {
+  AAPL: {
+    name: "Apple",
+    type: "stock",
+    exchange: "NASDAQ",
+    description: "Track Apple stock with live chart, news, technical analysis, and company profile.",
+  },
+  NVDA: {
+    name: "Nvidia",
+    type: "stock",
+    exchange: "NASDAQ",
+    description: "Track Nvidia stock with live chart, news, technical analysis, and company profile.",
+  },
+  TSLA: {
+    name: "Tesla",
+    type: "stock",
+    exchange: "NASDAQ",
+    description: "Track Tesla stock with live chart, news, technical analysis, and company profile.",
+  },
+  SHOP: {
+    name: "Shopify",
+    type: "stock",
+    exchange: "TSX",
+    description: "Track Shopify stock with live chart, news, technical analysis, and company profile.",
+  },
+  RY: {
+    name: "Royal Bank of Canada",
+    type: "stock",
+    exchange: "TSX",
+    description: "Track Royal Bank stock with live chart, news, technical analysis, and company profile.",
+  },
+  TD: {
+    name: "TD Bank",
+    type: "stock",
+    exchange: "TSX",
+    description: "Track TD Bank stock with live chart, news, technical analysis, and company profile.",
+  },
+  SPY: {
+    name: "SPDR S&P 500 ETF Trust",
+    type: "ETF",
+    exchange: "NYSE Arca",
+    description: "Track SPY with live chart, ETF news, technical analysis, and profile data.",
+  },
+  QQQ: {
+    name: "Invesco QQQ Trust",
+    type: "ETF",
+    exchange: "NASDAQ",
+    description: "Track QQQ with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "XEQT.TO": {
+    name: "iShares Core Equity ETF Portfolio",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track XEQT with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "VEQT.TO": {
+    name: "Vanguard All-Equity ETF Portfolio",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track VEQT with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "XGRO.TO": {
+    name: "iShares Core Growth ETF Portfolio",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track XGRO with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "VGRO.TO": {
+    name: "Vanguard Growth ETF Portfolio",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track VGRO with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "XBAL.TO": {
+    name: "iShares Core Balanced ETF Portfolio",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track XBAL with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "VFV.TO": {
+    name: "Vanguard S&P 500 Index ETF",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track VFV with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "ZSP.TO": {
+    name: "BMO S&P 500 Index ETF",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track ZSP with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "XIU.TO": {
+    name: "iShares S&P/TSX 60 ETF",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track XIU with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "VDY.TO": {
+    name: "Vanguard FTSE Canadian High Dividend Yield ETF",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track VDY with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "XDV.TO": {
+    name: "iShares Canadian Select Dividend ETF",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track XDV with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "ZWB.TO": {
+    name: "BMO Covered Call Canadian Banks ETF",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track ZWB with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "CASH.TO": {
+    name: "Global X High Interest Savings ETF",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track CASH with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "CSAV.TO": {
+    name: "CI High Interest Savings ETF",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track CSAV with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "HDIV.TO": {
+    name: "Hamilton Enhanced Multi-Sector Covered Call ETF",
+    type: "ETF",
+    exchange: "TSX",
+    description: "Track HDIV with live chart, ETF news, technical analysis, and profile data.",
+  },
+  "BTC-USD": {
+    name: "Bitcoin",
+    type: "crypto",
+    exchange: "Crypto",
+    description: "Track Bitcoin with live chart, news, technical analysis, and market profile.",
+  },
+  "ETH-USD": {
+    name: "Ethereum",
+    type: "crypto",
+    exchange: "Crypto",
+    description: "Track Ethereum with live chart, news, technical analysis, and market profile.",
+  },
+};
+
 const TSX_TICKERS = new Set([
   "RY", "TD", "ENB", "CNR", "CP", "BNS", "MFC", "SU", "BMO", "ABX",
   "CM", "CNQ", "TRP", "PPL", "FTS", "POW", "IFC", "T", "BCE", "SHOP",
   "RCI", "MG", "L", "EMA", "KEY", "AEM", "PKI", "GWO", "WN", "ATD",
   "CVE", "IMO", "NTR", "WPM", "BHC", "CAR", "CTC", "MRU", "EMP",
+  "XEQT", "VEQT", "XGRO", "VGRO", "XBAL", "VFV", "ZSP", "XIU",
+  "VDY", "XDV", "ZWB", "CASH", "CSAV", "HDIV", "ZCN", "XIC", "VCN",
 ]);
 
 const CRYPTO_MAP = {
@@ -148,6 +297,23 @@ function SymbolChip({ item, onClick }) {
   );
 }
 
+function getTickerMeta(currentTicker, tvSymbol, isCrypto) {
+  const known = currentTicker ? SYMBOL_METADATA[currentTicker] : null;
+  const displayName = known?.name || currentTicker || "Market";
+  const assetLabel = known?.type || (isCrypto ? "crypto" : "stock");
+  const exchangeLabel = known?.exchange || (tvSymbol?.startsWith("TSX:") ? "TSX" : "market");
+
+  return {
+    displayName,
+    assetLabel,
+    exchangeLabel,
+    pageTitle: known
+      ? `${known.name} (${currentTicker}) ${known.type === "ETF" ? "ETF" : known.type === "crypto" ? "Price" : "Stock"} Chart, News and Analysis`
+      : `${currentTicker} ${isCrypto ? "Price" : "Stock"} Chart, News and Analysis`,
+    description: known?.description || `Live ${currentTicker} chart, technical analysis, financials, and latest news on EasyFinanceTools.`,
+  };
+}
+
 export default function StockPage() {
   const { ticker } = useParams();
   const navigate = useNavigate();
@@ -177,6 +343,7 @@ export default function StockPage() {
     currentTicker && (currentTicker.endsWith("-USD") || currentTicker.endsWith("-USDT"))
   );
   const tvSymbol = toTVSymbol(currentTicker);
+  const tickerMeta = getTickerMeta(currentTicker, tvSymbol, isCrypto);
 
   const toggleWatch = (symbol, name) => {
     setWatchlist((prev) =>
@@ -279,12 +446,12 @@ export default function StockPage() {
       <SEO
         title={
           currentTicker
-            ? `${currentTicker} Stock Chart and Analysis`
+            ? tickerMeta.pageTitle
             : "Stock, ETF and Crypto Charts"
         }
         description={
           currentTicker
-            ? `Live ${currentTicker} chart, technical analysis, financials, and latest news on EasyFinanceTools.`
+            ? tickerMeta.description
             : "Free live charts, technical analysis, financials, and news for US and Canadian stocks, ETFs, and crypto."
         }
         canonical={
@@ -293,6 +460,52 @@ export default function StockPage() {
             : "https://easyfinancetools.com/stocks"
         }
       />
+      {currentTicker && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebPage",
+                  name: tickerMeta.pageTitle,
+                  description: tickerMeta.description,
+                  url: `https://easyfinancetools.com/stocks/${currentTicker}`,
+                  about: {
+                    "@type": tickerMeta.assetLabel === "crypto" ? "Thing" : "Corporation",
+                    name: tickerMeta.displayName,
+                    tickerSymbol: currentTicker,
+                  },
+                },
+                {
+                  "@type": "BreadcrumbList",
+                  itemListElement: [
+                    {
+                      "@type": "ListItem",
+                      position: 1,
+                      name: "Home",
+                      item: "https://easyfinancetools.com/",
+                    },
+                    {
+                      "@type": "ListItem",
+                      position: 2,
+                      name: "Stocks",
+                      item: "https://easyfinancetools.com/stocks",
+                    },
+                    {
+                      "@type": "ListItem",
+                      position: 3,
+                      name: `${tickerMeta.displayName} (${currentTicker})`,
+                      item: `https://easyfinancetools.com/stocks/${currentTicker}`,
+                    },
+                  ],
+                },
+              ],
+            }),
+          }}
+        />
+      )}
 
       <div className="bg-gradient-to-br from-primary to-secondary px-4 py-10">
         <div className="mx-auto max-w-5xl text-center">
@@ -452,7 +665,9 @@ export default function StockPage() {
       {currentTicker && (
         <div className="mx-auto max-w-5xl px-4 py-6">
           <div className="mb-6 flex flex-wrap items-center gap-3">
-            <h2 className="text-3xl font-bold text-primary dark:text-white">{currentTicker}</h2>
+            <h2 className="text-3xl font-bold text-primary dark:text-white">
+              {tickerMeta.displayName} {currentTicker !== tickerMeta.displayName ? `(${currentTicker})` : ""}
+            </h2>
             <button
               onClick={() => toggleWatch(currentTicker, currentTicker)}
               aria-label={isWatched ? "Remove from watchlist" : "Add to watchlist"}
@@ -465,9 +680,17 @@ export default function StockPage() {
               {isWatched ? "Saved" : "Save to watchlist"}
             </button>
             <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-              {isCrypto ? "Crypto" : tvSymbol.startsWith("TSX:") ? "TSX" : "Market"}
+              {tickerMeta.assetLabel === "ETF"
+                ? `ETF • ${tickerMeta.exchangeLabel}`
+                : tickerMeta.assetLabel === "crypto"
+                  ? "Crypto"
+                  : tickerMeta.exchangeLabel}
             </span>
           </div>
+
+          <p className="mb-6 max-w-3xl text-sm leading-7 text-gray-600 dark:text-gray-300">
+            {tickerMeta.description}
+          </p>
 
           <div className="mb-6 grid gap-4 md:grid-cols-3">
             <QuickTile title="Chart and history" subtitle="Daily chart with longer-range context" />
@@ -644,6 +867,35 @@ export default function StockPage() {
                   />
                 ))}
             </div>
+          </div>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {[
+              {
+                title: "Best ETFs for TFSA",
+                body: "Compare common Canadian ETF choices like XEQT, VEQT, XGRO, and dividend-focused options.",
+                href: "/blog/best-etfs-for-tfsa-canada-2026",
+              },
+              {
+                title: "Dividend calculator",
+                body: "Model income and DRIP scenarios if you are researching dividend ETFs or dividend stocks.",
+                href: "/tools/dividend-calculator",
+              },
+              {
+                title: "Beginner investing guide",
+                body: "See where a stock or ETF fits inside a TFSA, RRSP, or a simple long-term plan.",
+                href: "/blog/how-to-invest-in-canada-beginners-2026",
+              },
+            ].map((item) => (
+              <button
+                key={item.title}
+                onClick={() => navigate(item.href)}
+                className="rounded-2xl border border-gray-100 bg-white p-5 text-left transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+              >
+                <p className="text-lg font-bold text-primary dark:text-accent">{item.title}</p>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{item.body}</p>
+              </button>
+            ))}
           </div>
         </div>
       )}

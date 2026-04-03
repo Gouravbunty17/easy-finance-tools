@@ -70,6 +70,10 @@ export default function BestGICRatesCanada2026() {
         </div>
 
         <p>
+          If you want to compare these fixed-rate options against exchange-traded cash products, inspect <Link to="/stocks/CASH.TO" className="text-primary underline">CASH</Link> and <Link to="/stocks/CSAV.TO" className="text-primary underline">CSAV</Link> in the stock section.
+        </p>
+
+        <p>
           <strong>Key finding:</strong> The big 5 banks (TD, RBC, BMO, Scotiabank, CIBC) consistently offer the lowest GIC rates. Online banks like EQ Bank and credit unions like Steinbach and Achieva offer 50–100 basis points more — while still being fully insured.
         </p>
 
@@ -197,6 +201,10 @@ export default function BestGICRatesCanada2026() {
             Use the TFSA Calculator →
           </Link>
         </div>
+
+        <p>
+          Those ticker pages are helpful if you are weighing a GIC against a savings ETF for short-term cash management.
+        </p>
 
         <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mt-8 not-prose">
           <p className="text-xs text-gray-500 dark:text-gray-400">

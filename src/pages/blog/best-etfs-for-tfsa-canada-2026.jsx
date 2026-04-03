@@ -74,6 +74,23 @@ export default function BestETFsForTFSA() {
           <strong>Our pick for most Canadians: XEQT or VEQT.</strong> If you're under 50 with a long time horizon, 100% equities maximizes long-term growth. Both track global markets and are nearly identical — pick whichever your broker offers commission-free.
         </p>
 
+        <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
+          {[
+            { label: "Open XEQT chart", href: "/stocks/XEQT.TO" },
+            { label: "Open VEQT chart", href: "/stocks/VEQT.TO" },
+            { label: "Open XGRO chart", href: "/stocks/XGRO.TO" },
+            { label: "Open VGRO chart", href: "/stocks/VGRO.TO" },
+          ].map((item) => (
+            <Link
+              key={item.label}
+              to={item.href}
+              className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-gray-700 dark:bg-gray-900 dark:text-accent"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+
         <h2>Best Canadian Equity ETFs for TFSA</h2>
         <p>
           Want Canadian exposure specifically? These ETFs focus on TSX-listed companies:
@@ -97,6 +114,10 @@ export default function BestETFsForTFSA() {
           Use our <Link to="/tools/dividend-calculator" className="text-primary underline">Dividend Calculator</Link> to model what a dividend ETF position could generate annually.
         </p>
 
+        <p>
+          For charting and recent headlines, compare <Link to="/stocks/VDY.TO" className="text-primary underline">VDY</Link>, <Link to="/stocks/XDV.TO" className="text-primary underline">XDV</Link>, and <Link to="/stocks/ZWB.TO" className="text-primary underline">ZWB</Link> in the stock section.
+        </p>
+
         <h2>Best US Equity ETFs for TFSA</h2>
         <p>
           You can hold US-listed ETFs in a TFSA, but there's an important catch: <strong>the US withholds 15% tax on dividends</strong> from US-listed ETFs held in a TFSA (the Canada-US tax treaty exemption only applies to RRSPs, not TFSAs). For growth ETFs with minimal dividends, this doesn't matter much. For dividend-heavy US ETFs, use the Canadian-listed equivalent instead.
@@ -106,6 +127,10 @@ export default function BestETFsForTFSA() {
           <li><strong>ZSP (BMO S&P 500 Index ETF)</strong> — tracks S&P 500, 0.09% MER, unhedged (better for long-term)</li>
           <li><strong>XIU (iShares S&P/TSX 60)</strong> — Canada's most traded ETF, blue-chip Canadian exposure, 0.18% MER</li>
         </ul>
+
+        <p>
+          You can also open <Link to="/stocks/VFV.TO" className="text-primary underline">VFV</Link>, <Link to="/stocks/ZSP.TO" className="text-primary underline">ZSP</Link>, and <Link to="/stocks/XIU.TO" className="text-primary underline">XIU</Link> if you want to inspect the symbols directly.
+        </p>
 
         <h2>What NOT to Put in Your TFSA</h2>
         <p>

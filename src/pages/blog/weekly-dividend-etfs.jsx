@@ -41,6 +41,10 @@ export default function WeeklyDividendETFs() {
           The main appeal is simplicity and diversification. You get a steady stream of income without having to research, buy, and manage individual companies. Traditional dividend ETFs like <strong>VDY</strong> (Vanguard FTSE Canadian High Dividend Yield ETF) or <strong>XDV</strong> (iShares Canadian Select Dividend ETF) typically pay out monthly or quarterly.
         </p>
 
+        <p>
+          If you want to inspect those ETFs directly, open the stock pages for <Link to="/stocks/VDY.TO" className="text-primary underline">VDY</Link> and <Link to="/stocks/XDV.TO" className="text-primary underline">XDV</Link> to compare charts and recent headlines.
+        </p>
+
         {/* Section 2 */}
         <h2>What Makes Weekly Dividend ETFs Different?</h2>
         <p>
@@ -176,6 +180,23 @@ export default function WeeklyDividendETFs() {
           <p className="text-xs text-gray-400 mt-2">*High yields often include return of capital. Always verify distribution composition before investing.</p>
         </div>
 
+        <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
+          {[
+            { label: "Open HDIV chart", href: "/stocks/HDIV.TO" },
+            { label: "Open QQQ chart", href: "/stocks/QQQ" },
+            { label: "Open SPY chart", href: "/stocks/SPY" },
+            { label: "Open Tesla chart", href: "/stocks/TSLA" },
+          ].map((item) => (
+            <Link
+              key={item.label}
+              to={item.href}
+              className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-gray-700 dark:bg-gray-900 dark:text-accent"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+
         {/* Section 7 */}
         <h2>Weekly Dividend ETFs in a Canadian Context</h2>
         <p>
@@ -233,6 +254,10 @@ export default function WeeklyDividendETFs() {
         </p>
         <p>
           Before investing, use our <Link to="/tools/dividend-calculator" className="text-primary underline">Dividend Calculator</Link> to model how weekly or monthly payouts could build your passive income over time. And if you're a Canadian investor, make sure to review the <Link to="/tools/tfsa-calculator" className="text-primary underline">TFSA Calculator</Link> to see how much more your income could compound tax-free.
+        </p>
+
+        <p>
+          For broader ETF context, you can also review our <Link to="/blog/best-etfs-for-tfsa-canada-2026" className="text-primary underline">best ETFs for TFSA guide</Link> and then jump into the relevant ticker pages from there.
         </p>
 
         {/* Disclaimer */}

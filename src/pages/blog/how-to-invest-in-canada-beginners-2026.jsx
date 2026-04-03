@@ -106,6 +106,23 @@ export default function HowToInvestBeginners2026() {
             For many Canadians, a single diversified ETF is enough. These funds hold many companies across regions and sectors, which helps reduce the risk of concentrating everything in one stock or one country.
           </p>
 
+          <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
+            {[
+              { label: "Open XEQT chart", href: "/stocks/XEQT.TO" },
+              { label: "Open VEQT chart", href: "/stocks/VEQT.TO" },
+              { label: "Open XGRO chart", href: "/stocks/XGRO.TO" },
+              { label: "Open XBAL chart", href: "/stocks/XBAL.TO" },
+            ].map((item) => (
+              <Link
+                key={item.label}
+                to={item.href}
+                className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-gray-700 dark:bg-gray-900 dark:text-accent"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
           <div className="not-prose overflow-x-auto my-6">
             <table className="w-full overflow-hidden rounded-xl border border-gray-200 text-sm dark:border-gray-700">
               <thead className="bg-primary text-left text-white">
@@ -227,6 +244,10 @@ export default function HowToInvestBeginners2026() {
               Dividend Calculator
             </Link>
           </div>
+
+          <p>
+            If you want to inspect ETF charts before deciding, start with <Link to="/stocks/XEQT.TO" className="text-primary underline">XEQT</Link>, <Link to="/stocks/VEQT.TO" className="text-primary underline">VEQT</Link>, or <Link to="/stocks/XGRO.TO" className="text-primary underline">XGRO</Link> in the stock section.
+          </p>
 
           <MethodologyPanel
             title="What this beginner guide assumes"
