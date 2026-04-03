@@ -444,12 +444,13 @@ export default function StockPage() {
             <TVWidget
               id={'news-' + tvSymbol}
               height={500}
-              scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-news.js"
+              scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
               configFn={(dark) => ({
                 feedMode: 'symbol',
                 symbol: tvSymbol,
                 colorTheme: dark ? 'dark' : 'light',
                 isTransparent: false,
+                displayMode: 'regular',
                 width: '100%',
                 height: 500,
                 locale: 'en',
