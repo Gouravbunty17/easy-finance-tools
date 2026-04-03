@@ -1,28 +1,34 @@
 import React, { useState } from "react";
 import SEO from "../../components/SEO";
+import FAQ from "../../components/FAQ";
+import MethodologyPanel from "../../components/MethodologyPanel";
+import ToolPageSchema from "../../components/ToolPageSchema";
 import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS, BarElement, CategoryScale,
-  LinearScale, Tooltip, Legend
-} from "chart.js";
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-// Combined federal + provincial marginal rates by province
+const FAQS = [
+  { q: "What is the inclusion rate?", a: "In this calculator, gains up to $250,000 use a 50% inclusion rate, while the amount above that threshold uses a higher inclusion rate. This page is a planning estimate and should be verified against current CRA guidance." },
+  { q: "What if I have a capital loss?", a: "A capital loss does not create capital gains tax in the year of the loss. It may be usable against capital gains subject to the applicable tax rules." },
+  { q: "Does a TFSA avoid capital gains tax?", a: "Qualified gains inside a TFSA are generally tax-free, which is why the calculator shows $0 tax when the TFSA toggle is enabled." },
+  { q: "Does this handle every capital gains rule?", a: "No. It simplifies many details, especially around business shares, rental property, crypto recordkeeping, and loss carry rules." },
+];
+
 const TAX_BRACKETS = {
-  AB: [[0,57375,25],[57375,114750,30.5],[114750,177922,36],[177922,253414,44],[253414,Infinity,48]],
-  BC: [[0,45654,20.06],[45654,91310,28.7],[91310,104835,31.0],[104835,127299,38.7],[127299,172602,43.7],[172602,240716,46.2],[240716,Infinity,53.5]],
-  ON: [[0,51446,20.05],[51446,102894,29.65],[102894,150000,33.89],[150000,220000,43.41],[220000,Infinity,53.53]],
-  QC: [[0,51780,27.53],[51780,103545,37.12],[103545,126000,45.71],[126000,Infinity,53.31]],
-  MB: [[0,36842,25.8],[36842,79625,37.9],[79625,Infinity,50.4]],
-  SK: [[0,49720,25],[49720,142058,33],[142058,Infinity,47]],
-  NS: [[0,29590,23.79],[29590,59180,37.17],[59180,93000,43.5],[93000,150000,50.0],[150000,Infinity,54.0]],
-  NB: [[0,47715,27.16],[47715,95431,37.52],[95431,176756,46.84],[176756,Infinity,53.3]],
-  NL: [[0,43198,23.7],[43198,86395,33.95],[86395,154244,44.5],[154244,Infinity,51.3]],
-  PE: [[0,32656,24.8],[32656,64313,37.3],[64313,105000,42.0],[105000,Infinity,47.37]],
-  NT: [[0,50597,20.9],[50597,101198,30.6],[101198,164525,39],[164525,Infinity,47]],
-  NU: [[0,53268,19],[53268,106537,28],[106537,173205,35],[173205,Infinity,45]],
-  YT: [[0,55867,21.4],[55867,111733,29.5],[111733,154906,36.9],[154906,500000,42.0],[500000,Infinity,48]],
+  AB: [[0, 57375, 25], [57375, 114750, 30.5], [114750, 177922, 36], [177922, 253414, 44], [253414, Infinity, 48]],
+  BC: [[0, 45654, 20.06], [45654, 91310, 28.7], [91310, 104835, 31.0], [104835, 127299, 38.7], [127299, 172602, 43.7], [172602, 240716, 46.2], [240716, Infinity, 53.5]],
+  ON: [[0, 51446, 20.05], [51446, 102894, 29.65], [102894, 150000, 33.89], [150000, 220000, 43.41], [220000, Infinity, 53.53]],
+  QC: [[0, 51780, 27.53], [51780, 103545, 37.12], [103545, 126000, 45.71], [126000, Infinity, 53.31]],
+  MB: [[0, 36842, 25.8], [36842, 79625, 37.9], [79625, Infinity, 50.4]],
+  SK: [[0, 49720, 25], [49720, 142058, 33], [142058, Infinity, 47]],
+  NS: [[0, 29590, 23.79], [29590, 59180, 37.17], [59180, 93000, 43.5], [93000, 150000, 50.0], [150000, Infinity, 54.0]],
+  NB: [[0, 47715, 27.16], [47715, 95431, 37.52], [95431, 176756, 46.84], [176756, Infinity, 53.3]],
+  NL: [[0, 43198, 23.7], [43198, 86395, 33.95], [86395, 154244, 44.5], [154244, Infinity, 51.3]],
+  PE: [[0, 32656, 24.8], [32656, 64313, 37.3], [64313, 105000, 42.0], [105000, Infinity, 47.37]],
+  NT: [[0, 50597, 20.9], [50597, 101198, 30.6], [101198, 164525, 39], [164525, Infinity, 47]],
+  NU: [[0, 53268, 19], [53268, 106537, 28], [106537, 173205, 35], [173205, Infinity, 45]],
+  YT: [[0, 55867, 21.4], [55867, 111733, 29.5], [111733, 154906, 36.9], [154906, 500000, 42.0], [500000, Infinity, 48]],
 };
 
 function getMarginalRate(province, income) {
@@ -33,56 +39,48 @@ function getMarginalRate(province, income) {
   return 0.43;
 }
 
-// Canadian capital gains inclusion rates (2024 federal budget rules)
-// - First $250,000 of annual gains: 50% inclusion
-// - Above $250,000: 66.67% inclusion
 function calcTax(gain, income, province) {
   if (gain <= 0) return { taxableGain: 0, taxOwed: 0, inclusionRate: 0.5 };
   const marginalRate = getMarginalRate(province, income);
-  let taxOwed = 0;
-  let taxableGain = 0;
-
   if (gain <= 250000) {
-    taxableGain = gain * 0.5;
-    taxOwed = taxableGain * marginalRate;
-    return { taxableGain: Math.round(taxableGain), taxOwed: Math.round(taxOwed), inclusionRate: 0.5 };
-  } else {
-    const first = 250000 * 0.5;
-    const rest = (gain - 250000) * (2 / 3);
-    taxableGain = first + rest;
-    taxOwed = taxableGain * marginalRate;
-    const blendedInclusion = taxableGain / gain;
-    return { taxableGain: Math.round(taxableGain), taxOwed: Math.round(taxOwed), inclusionRate: blendedInclusion };
+    const taxableGain = gain * 0.5;
+    return { taxableGain: Math.round(taxableGain), taxOwed: Math.round(taxableGain * marginalRate), inclusionRate: 0.5 };
   }
+  const first = 250000 * 0.5;
+  const rest = (gain - 250000) * (2 / 3);
+  const taxableGain = first + rest;
+  return {
+    taxableGain: Math.round(taxableGain),
+    taxOwed: Math.round(taxableGain * marginalRate),
+    inclusionRate: taxableGain / gain,
+  };
 }
 
 const ASSET_TYPES = [
-  { value: "stocks", label: "📈 Stocks / ETFs / Mutual Funds" },
-  { value: "crypto", label: "₿ Cryptocurrency" },
-  { value: "rental", label: "🏠 Rental / Investment Property" },
-  { value: "business", label: "🏢 Small Business Shares (QSBC)" },
-  { value: "other", label: "📦 Other Capital Property" },
+  { value: "stocks", label: "Stocks / ETFs / Mutual Funds" },
+  { value: "crypto", label: "Cryptocurrency" },
+  { value: "rental", label: "Rental / Investment Property" },
+  { value: "business", label: "Small Business Shares (QSBC)" },
+  { value: "other", label: "Other Capital Property" },
 ];
 
 const PROVINCES = [
-  ["AB","Alberta"],["BC","British Columbia"],["MB","Manitoba"],["NB","New Brunswick"],
-  ["NL","Newfoundland"],["NS","Nova Scotia"],["NT","Northwest Territories"],
-  ["NU","Nunavut"],["ON","Ontario"],["PE","PEI"],["QC","Quebec"],
-  ["SK","Saskatchewan"],["YT","Yukon"],
+  ["AB", "Alberta"], ["BC", "British Columbia"], ["MB", "Manitoba"], ["NB", "New Brunswick"],
+  ["NL", "Newfoundland and Labrador"], ["NS", "Nova Scotia"], ["NT", "Northwest Territories"],
+  ["NU", "Nunavut"], ["ON", "Ontario"], ["PE", "Prince Edward Island"], ["QC", "Quebec"],
+  ["SK", "Saskatchewan"], ["YT", "Yukon"],
 ];
 
-// Lifetime Capital Gains Exemption (LCGE) 2026 estimate
 const LCGE_LIMIT = 1250000;
 
 export default function CapitalGainsTaxCalculator() {
   const [assetType, setAssetType] = useState("stocks");
   const [purchasePrice, setPurchasePrice] = useState(50000);
   const [salePrice, setSalePrice] = useState(100000);
-  const [expenses, setExpenses] = useState(500); // trading fees, legal fees
+  const [expenses, setExpenses] = useState(500);
   const [province, setProvince] = useState("ON");
   const [income, setIncome] = useState(80000);
   const [inTFSA, setInTFSA] = useState(false);
-  const [isHalf2024, setIsHalf2024] = useState(false); // pre June 25, 2024 rule
   const [result, setResult] = useState(null);
 
   const calculate = () => {
@@ -94,21 +92,15 @@ export default function CapitalGainsTaxCalculator() {
       return;
     }
 
-    // QSBC gets Lifetime Capital Gains Exemption
     const isQSBC = assetType === "business";
     const exemptionApplied = isQSBC ? Math.min(gain, LCGE_LIMIT) : 0;
     const taxableCapitalGain = Math.max(0, gain - exemptionApplied);
-
     const marginalRate = getMarginalRate(province, income);
     const { taxableGain, taxOwed, inclusionRate } = calcTax(taxableCapitalGain, income, province);
-
     const afterTaxProceeds = salePrice - taxOwed;
     const effectiveRate = gain > 0 ? (taxOwed / gain) * 100 : 0;
+    const tfsaSaving = taxOwed;
 
-    // Compare: what if this was in a TFSA
-    const tfsaSaving = taxOwed; // you'd pay $0 in TFSA
-
-    // Scenarios: what if you sold in pieces over multiple years
     const splitYears = gain > 250000 ? 2 : null;
     let splitTax = null;
     if (splitYears) {
@@ -144,286 +136,182 @@ export default function CapitalGainsTaxCalculator() {
   const gainPct = purchasePrice > 0 ? ((gain / purchasePrice) * 100).toFixed(1) : 0;
 
   return (
-    <section className="max-w-4xl mx-auto px-4 py-12">
+    <section className="mx-auto max-w-5xl px-4 py-12">
       <SEO
-        title="Canadian Capital Gains Tax Calculator 2026 — Stocks, Crypto, Real Estate"
-        description="Calculate capital gains tax in Canada for stocks, crypto, real estate, and more. Updated for 2026 with the new 2/3 inclusion rate on gains over $250K."
+        title="Canadian Capital Gains Tax Calculator 2026 - Stocks, Crypto, Real Estate"
+        description="Calculate estimated capital gains tax in Canada for stocks, crypto, real estate, and other capital property."
+        canonical="https://easyfinancetools.com/tools/capital-gains-tax"
+      />
+      <ToolPageSchema
+        name="Canadian Capital Gains Tax Calculator 2026"
+        description="Capital gains tax calculator for Canadian planning across stocks, crypto, rental property, and other capital assets."
+        canonical="https://easyfinancetools.com/tools/capital-gains-tax"
+        category="FinanceApplication"
       />
 
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-primary dark:text-accent mb-2">
-          📊 Capital Gains Tax Calculator
-        </h1>
-        <p className="text-gray-600 dark:text-gray-300">
-          Calculate exactly how much tax you owe on your Canadian capital gains — stocks, crypto, real estate, or small business shares.
+        <h1 className="mb-2 text-3xl font-bold text-primary dark:text-accent">Capital Gains Tax Calculator</h1>
+        <p className="max-w-3xl text-gray-600 dark:text-gray-300">
+          Estimate the taxable portion of a gain, approximate tax owed, and after-tax proceeds.
         </p>
       </div>
 
-      {/* 2024 rule banner */}
-      <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4 mb-8">
+      <div className="mb-8 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/20">
         <p className="text-sm text-amber-800 dark:text-amber-300">
-          ⚠️ <strong>2024 Rule Change:</strong> Since June 25, 2024, gains over <strong>$250,000/year</strong> are taxed at a <strong>2/3 inclusion rate</strong> (up from 1/2). Gains under $250K still use the 50% inclusion rate. This calculator applies both rates automatically.
+          <strong>Important:</strong> This calculator applies a simplified two-tier inclusion-rate model for planning. Confirm current tax rules and timing with CRA guidance or a qualified tax professional before filing or selling.
         </p>
       </div>
 
-      {/* Inputs */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div className="md:col-span-2">
-          <label className="block text-sm font-semibold mb-1">Asset Type</label>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            {ASSET_TYPES.map(a => (
-              <button key={a.value} onClick={() => setAssetType(a.value)}
-                className={`p-3 rounded-xl border-2 text-sm font-medium text-left transition-colors ${assetType === a.value ? "border-secondary bg-blue-50 dark:bg-blue-900/20 text-primary dark:text-blue-300" : "border-gray-200 dark:border-gray-600 hover:border-gray-400"}`}>
-                {a.label}
-              </button>
-            ))}
+      <div className="mb-8 grid gap-4 md:grid-cols-3">
+        {[
+          { label: "Current gain or loss", value: `${gain >= 0 ? "+" : "-"}${fmtCurrency(Math.abs(gain))}`, sub: `${gainPct}% vs purchase price` },
+          { label: "Province", value: PROVINCES.find(([code]) => code === province)?.[1] || province, sub: "used for marginal-rate estimate" },
+          { label: "TFSA toggle", value: inTFSA ? "Enabled" : "Off", sub: inTFSA ? "tax modeled as $0" : "taxable scenario" },
+        ].map((card) => (
+          <div key={card.label} className="surface-card p-5">
+            <div className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">{card.label}</div>
+            <div className="mt-2 text-3xl font-bold text-primary dark:text-accent">{card.value}</div>
+            <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">{card.sub}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid gap-8 md:grid-cols-[0.95fr_1.05fr]">
+        <div className="space-y-5">
+          <div className="surface-card p-5">
+            <h2 className="mb-3 font-bold text-primary dark:text-accent">Asset Type</h2>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {ASSET_TYPES.map((item) => (
+                <button key={item.value} onClick={() => setAssetType(item.value)} className={`rounded-xl border-2 p-3 text-left text-sm font-medium transition-colors ${assetType === item.value ? "border-secondary bg-blue-50 text-primary dark:bg-blue-900/20 dark:text-blue-300" : "border-gray-200 hover:border-gray-400 dark:border-gray-600"}`}>
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="surface-card p-5 space-y-4">
+            <div>
+              <label className="mb-1 block text-sm font-semibold">Purchase Price / ACB ($)</label>
+              <input type="number" value={purchasePrice} onChange={(e) => setPurchasePrice(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+              <p className="mt-1 text-xs text-gray-500">Adjusted cost base: what you originally paid, including adjustments where relevant.</p>
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-semibold">Sale Price ($)</label>
+              <input type="number" value={salePrice} onChange={(e) => setSalePrice(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-semibold">Selling Expenses ($)</label>
+              <input type="number" value={expenses} onChange={(e) => setExpenses(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-semibold">Annual Income ($)</label>
+              <input type="number" value={income} onChange={(e) => setIncome(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+            </div>
+            <div>
+              <label className="mb-1 block text-sm font-semibold">Province</label>
+              <select value={province} onChange={(e) => setProvince(e.target.value)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800">
+                {PROVINCES.map(([value, label]) => (
+                  <option key={value} value={value}>{label}</option>
+                ))}
+              </select>
+            </div>
+            <div className="rounded-xl border border-gray-200 bg-slate-50 p-4 dark:border-gray-700 dark:bg-slate-900/60">
+              <div className="flex items-start gap-3">
+                <input type="checkbox" id="inTFSA" checked={inTFSA} onChange={(e) => setInTFSA(e.target.checked)} className="mt-0.5 h-5 w-5 accent-blue-600" />
+                <label htmlFor="inTFSA" className="cursor-pointer text-sm font-semibold">
+                  Held in a TFSA
+                  <p className="mt-1 text-xs font-normal text-gray-500">Qualified gains inside a TFSA are modeled as tax-free on this page.</p>
+                </label>
+              </div>
+            </div>
+            <button onClick={calculate} className="w-full rounded-xl bg-primary py-4 text-lg font-bold text-white transition-colors hover:bg-secondary">
+              Calculate My Capital Gains Tax
+            </button>
           </div>
         </div>
 
-        <div>
-          <label className="block text-sm font-semibold mb-1">Purchase Price / ACB ($)</label>
-          <input type="number" value={purchasePrice} onChange={e => setPurchasePrice(parseFloat(e.target.value))}
-            className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
-          <p className="text-xs text-gray-500 mt-1">Adjusted Cost Base — total amount you paid</p>
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold mb-1">Sale Price ($)</label>
-          <input type="number" value={salePrice} onChange={e => setSalePrice(parseFloat(e.target.value))}
-            className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold mb-1">Selling Expenses ($)</label>
-          <input type="number" value={expenses} onChange={e => setExpenses(parseFloat(e.target.value))}
-            className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
-          <p className="text-xs text-gray-500 mt-1">Commissions, legal fees, real estate agent fees</p>
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold mb-1">Annual Income ($)</label>
-          <input type="number" value={income} onChange={e => setIncome(parseFloat(e.target.value))}
-            className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
-          <p className="text-xs text-gray-500 mt-1">Your income before this sale — determines your marginal rate</p>
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold mb-1">Province</label>
-          <select value={province} onChange={e => setProvince(e.target.value)}
-            className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none">
-            {PROVINCES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
-          </select>
-        </div>
-
-        <div className="flex items-start gap-3 md:col-span-2">
-          <input type="checkbox" id="inTFSA" checked={inTFSA} onChange={e => setInTFSA(e.target.checked)}
-            className="w-5 h-5 mt-0.5 accent-blue-600" />
-          <label htmlFor="inTFSA" className="text-sm font-semibold cursor-pointer">
-            This asset is held in a <strong>TFSA</strong> (Tax-Free Savings Account)
-            <p className="font-normal text-gray-500 mt-0.5">All gains in a TFSA are 100% tax-free — no capital gains tax applies</p>
-          </label>
-        </div>
-      </div>
-
-      {/* Live gain preview */}
-      {!inTFSA && (
-        <div className={`rounded-xl p-4 mb-6 border-2 ${gain >= 0 ? "bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800" : "bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800"}`}>
-          <p className={`text-sm font-semibold ${gain >= 0 ? "text-green-700 dark:text-green-300" : "text-red-700 dark:text-red-300"}`}>
-            {gain >= 0 ? "📈" : "📉"} Capital {gain >= 0 ? "Gain" : "Loss"}:
-            <strong className="text-lg ml-2">${Math.abs(gain).toLocaleString()}</strong>
-            <span className="ml-2 opacity-70">({gain >= 0 ? "+" : ""}{gainPct}%)</span>
-          </p>
-        </div>
-      )}
-
-      <button onClick={calculate}
-        className="w-full bg-primary text-white py-4 rounded-xl text-lg font-bold hover:bg-secondary transition-colors">
-        Calculate My Capital Gains Tax 📊
-      </button>
-
-      {result && (
-        <div className="mt-10">
-
-          {/* TFSA result */}
-          {result.tfsa ? (
-            <div className="bg-gradient-to-r from-green-600 to-green-800 text-white rounded-2xl p-8 text-center">
-              <p className="text-5xl mb-4">🎉</p>
-              <h2 className="text-2xl font-bold mb-2">$0 in Capital Gains Tax</h2>
-              <p className="opacity-90">
-                Your gain of <strong>${Math.abs(result.gain).toLocaleString()}</strong> is completely tax-free inside a TFSA.
-                You keep 100% of your profits.
+        <div className="space-y-4">
+          {!result && (
+            <div className={`rounded-2xl border-2 p-5 ${gain >= 0 ? "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20" : "border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/20"}`}>
+              <p className={`text-sm font-semibold ${gain >= 0 ? "text-green-700 dark:text-green-300" : "text-red-700 dark:text-red-300"}`}>
+                Current preview: {gain >= 0 ? "capital gain" : "capital loss"} of <strong className="ml-1 text-lg">{fmtCurrency(Math.abs(gain))}</strong>
               </p>
             </div>
-          ) : result.loss ? (
-            /* Capital loss result */
-            <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-2xl p-8 text-center mb-8">
-              <p className="text-4xl mb-3">📉</p>
-              <h2 className="text-2xl font-bold mb-2">Capital Loss — You Owe $0 Tax</h2>
-              <p className="opacity-90 max-w-xl mx-auto">
-                Your loss of <strong>${Math.abs(result.gain).toLocaleString()}</strong> can be used to offset capital gains from this year, or carried back 3 years / forward indefinitely.
-              </p>
+          )}
+
+          {result?.tfsa ? (
+            <div className="rounded-2xl bg-gradient-to-r from-green-600 to-green-800 p-8 text-center text-white">
+              <h2 className="text-2xl font-bold">$0 in Capital Gains Tax</h2>
+              <p className="mt-3 text-green-100">This scenario is modeled as a TFSA holding, so the gain of <strong>{fmtCurrency(Math.abs(result.gain))}</strong> is shown as tax-free.</p>
             </div>
-          ) : (
+          ) : result?.loss ? (
+            <div className="rounded-2xl bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-center text-white">
+              <h2 className="text-2xl font-bold">Capital Loss - No Capital Gains Tax Owed</h2>
+              <p className="mt-3 text-blue-100">This scenario shows a loss of <strong>{fmtCurrency(Math.abs(result.gain))}</strong>. Loss use rules can be more complex than this planning page models.</p>
+            </div>
+          ) : result ? (
             <>
-              {/* Main result hero */}
-              <div className="bg-gradient-to-r from-red-500 to-red-700 text-white rounded-2xl p-8 mb-8 text-center">
-                <p className="text-red-200 text-sm font-semibold mb-1">Estimated Tax Owed</p>
-                <p className="text-5xl font-bold mb-2">${result.taxOwed.toLocaleString()}</p>
-                <p className="text-red-200 text-sm">
-                  on a ${result.gain.toLocaleString()} gain · {result.effectiveRate}% effective rate · {result.marginalRate}% marginal rate
-                </p>
+              <div className="rounded-2xl bg-gradient-to-r from-red-500 to-red-700 p-8 text-center text-white">
+                <p className="text-sm font-semibold uppercase tracking-wide text-red-100">Estimated Tax Owed</p>
+                <p className="mt-2 text-5xl font-bold">{fmtCurrency(result.taxOwed)}</p>
+                <p className="mt-2 text-sm text-red-100">on a gain of {fmtCurrency(result.gain)} with an estimated effective rate of {result.effectiveRate}%</p>
               </div>
 
-              {/* Result cards */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              <div className="grid grid-cols-2 gap-3">
                 {[
-                  { label: "Capital Gain", value: `$${result.gain.toLocaleString()}`, color: "bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-300" },
-                  { label: "Taxable Portion", value: `$${result.taxableGain.toLocaleString()}`, color: "bg-yellow-50 border-yellow-200 text-yellow-800 dark:bg-yellow-900/20 dark:border-yellow-800 dark:text-yellow-300" },
-                  { label: "Tax Owed", value: `$${result.taxOwed.toLocaleString()}`, color: "bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-300" },
-                  { label: "After-Tax Proceeds", value: `$${result.afterTaxProceeds.toLocaleString()}`, color: "bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-300" },
-                ].map(card => (
-                  <div key={card.label} className={`border-2 rounded-xl p-4 ${card.color}`}>
-                    <p className="text-xs font-semibold opacity-70">{card.label}</p>
-                    <p className="text-2xl font-bold mt-1">{card.value}</p>
+                  { label: "Capital gain", value: fmtCurrency(result.gain) },
+                  { label: "Taxable portion", value: fmtCurrency(result.taxableGain) },
+                  { label: "After-tax proceeds", value: fmtCurrency(result.afterTaxProceeds) },
+                  { label: "Marginal tax rate", value: `${result.marginalRate}%` },
+                ].map((item) => (
+                  <div key={item.label} className="surface-card p-4">
+                    <div className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">{item.label}</div>
+                    <div className="mt-2 text-2xl font-bold text-primary dark:text-accent">{item.value}</div>
                   </div>
                 ))}
               </div>
 
-              {/* Tax breakdown bar chart */}
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow mb-8">
-                <h2 className="text-lg font-bold mb-4">📊 Where Your Money Goes</h2>
-                <Bar data={{
-                  labels: ["Your Proceeds Breakdown"],
-                  datasets: [
-                    {
-                      label: "Tax Owed",
-                      data: [result.taxOwed],
-                      backgroundColor: "rgba(239,68,68,0.8)",
-                    },
-                    {
-                      label: "Original Investment",
-                      data: [result.purchasePrice + result.expenses],
-                      backgroundColor: "rgba(156,163,175,0.6)",
-                    },
-                    {
-                      label: "After-Tax Profit",
-                      data: [result.gain - result.taxOwed],
-                      backgroundColor: "rgba(34,197,94,0.8)",
-                    },
-                  ]
-                }} options={{
-                  indexAxis: "y",
-                  responsive: true,
-                  scales: { x: { stacked: true, ticks: { callback: v => `$${(v/1000).toFixed(0)}k` } }, y: { stacked: true } },
-                  plugins: { legend: { position: "top" } }
-                }} />
+              <div className="surface-card p-6">
+                <h2 className="mb-4 text-lg font-bold text-primary dark:text-accent">Proceeds Breakdown</h2>
+                <Bar data={{ labels: ["Scenario"], datasets: [{ label: "Tax Owed", data: [result.taxOwed], backgroundColor: "rgba(239,68,68,0.8)" }, { label: "Original Investment", data: [result.purchasePrice + result.expenses], backgroundColor: "rgba(156,163,175,0.6)" }, { label: "After-Tax Profit", data: [result.gain - result.taxOwed], backgroundColor: "rgba(34,197,94,0.8)" }] }} options={{ indexAxis: "y", responsive: true, scales: { x: { stacked: true, ticks: { callback: (v) => `$${(v / 1000).toFixed(0)}k` } }, y: { stacked: true } }, plugins: { legend: { position: "top" } } }} />
               </div>
 
-              {/* How it's calculated */}
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-8">
-                <h2 className="text-lg font-bold mb-4">🧮 How It's Calculated</h2>
-                <div className="space-y-2 text-sm font-mono">
-                  {[
-                    ["Sale Price", `$${result.salePrice.toLocaleString()}`],
-                    ["− Purchase Price (ACB)", `$${result.purchasePrice.toLocaleString()}`],
-                    ["− Selling Expenses", `$${result.expenses.toLocaleString()}`],
-                    ["= Capital Gain", `$${result.gain.toLocaleString()}`],
-                    ...(result.isQSBC && result.exemptionApplied > 0 ? [["− LCGE Exemption", `$${result.exemptionApplied.toLocaleString()}`]] : []),
-                    [`× Inclusion Rate (${result.gain > 250000 ? "blended 50%/66.7%" : "50%"})`, `$${result.taxableGain.toLocaleString()} taxable`],
-                    [`× Marginal Rate (${result.marginalRate}%)`, `$${result.taxOwed.toLocaleString()} tax`],
-                  ].map(([label, value]) => (
-                    <div key={label} className={`flex justify-between py-1.5 border-b dark:border-gray-700 ${label.startsWith("=") || label.startsWith("×") ? "font-bold text-primary dark:text-blue-300" : "text-gray-700 dark:text-gray-300"}`}>
-                      <span>{label}</span>
-                      <span>{value}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="surface-card p-5">
+                <h2 className="mb-3 text-lg font-bold text-primary dark:text-accent">Planning Notes</h2>
+                <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                  <li>If this asset were held in a <strong>TFSA</strong>, the modeled tax saved would be about <strong>{fmtCurrency(result.tfsaSaving)}</strong>.</li>
+                  {result.splitYears && result.splitSaving && <li>Spreading a large sale across multiple years could reduce tax in some cases. This simplified model estimates a difference of about <strong>{fmtCurrency(result.splitSaving)}</strong>.</li>}
+                  {result.isQSBC && <li>This scenario applies a simplified <strong>LCGE</strong> adjustment of up to {fmtCurrency(LCGE_LIMIT)} for qualifying business shares.</li>}
+                  <li>Crypto, rental property, and business-share sales can involve additional reporting or separate tax issues not shown here.</li>
+                </ul>
               </div>
-
-              {/* LCGE explainer for QSBC */}
-              {result.isQSBC && (
-                <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-xl p-5 mb-8">
-                  <h2 className="font-bold text-purple-800 dark:text-purple-300 mb-2">🏢 Lifetime Capital Gains Exemption (LCGE)</h2>
-                  <p className="text-sm text-purple-900 dark:text-purple-200">
-                    Qualifying Small Business Corporation (QSBC) shares may be eligible for the <strong>Lifetime Capital Gains Exemption of ~${LCGE_LIMIT.toLocaleString()}</strong>.
-                    {result.exemptionApplied > 0
-                      ? ` In this calculation, $${result.exemptionApplied.toLocaleString()} of your gain is sheltered by the LCGE.`
-                      : " Consult a tax professional to confirm eligibility — your shares must meet CRA's QSBC criteria."
-                    }
-                  </p>
-                </div>
-              )}
-
-              {/* Tax saving tips */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                {/* TFSA comparison */}
-                <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-5">
-                  <h3 className="font-bold text-green-800 dark:text-green-300 mb-2">💡 If This Was in a TFSA</h3>
-                  <p className="text-sm text-green-900 dark:text-green-200">
-                    You'd save <strong className="text-2xl">${result.tfsaSaving.toLocaleString()}</strong> in tax — paying $0 instead of ${result.taxOwed.toLocaleString()}.
-                    Consider holding growth assets in your TFSA going forward.
-                  </p>
-                </div>
-
-                {/* Split sale tip for large gains */}
-                {result.splitYears && result.splitTax && (
-                  <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5">
-                    <h3 className="font-bold text-blue-800 dark:text-blue-300 mb-2">📅 Split the Sale Over 2 Years</h3>
-                    <p className="text-sm text-blue-900 dark:text-blue-200">
-                      Your gain exceeds $250K, so part is taxed at 66.7%. Selling half this year and half next year
-                      could save you approximately <strong className="text-xl">${result.splitSaving?.toLocaleString()}</strong> in tax.
-                    </p>
-                  </div>
-                )}
-
-                {/* RRSP offset tip */}
-                <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-5">
-                  <h3 className="font-bold text-yellow-800 dark:text-yellow-300 mb-2">📋 RRSP Contribution Tip</h3>
-                  <p className="text-sm text-yellow-900 dark:text-yellow-200">
-                    An RRSP contribution of <strong>${result.taxableGain.toLocaleString()}</strong> this year would offset your taxable capital gain entirely — reducing your tax bill to ~$0.
-                    Only works if you have enough RRSP room.
-                  </p>
-                </div>
-
-                {/* Capital loss harvesting */}
-                <div className="bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl p-5">
-                  <h3 className="font-bold dark:text-gray-200 mb-2">🔁 Tax-Loss Harvesting</h3>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">
-                    Do you have any investments sitting at a <strong>loss</strong>? Selling them before year-end locks in a capital loss that offsets your ${result.gain.toLocaleString()} gain — potentially saving <strong>${result.taxOwed.toLocaleString()}</strong> in tax.
-                  </p>
-                </div>
-              </div>
-
-              {/* Crypto note */}
-              {assetType === "crypto" && (
-                <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl p-5 mb-8">
-                  <h2 className="font-bold text-orange-800 dark:text-orange-300 mb-2">₿ Crypto Tax Notes (Canada)</h2>
-                  <ul className="text-sm text-orange-900 dark:text-orange-200 space-y-1">
-                    <li>✅ Crypto is taxed as a capital gain when sold, traded, or used to buy goods</li>
-                    <li>✅ Trading one crypto for another is a <strong>taxable event</strong></li>
-                    <li>✅ Mining income is taxed as <strong>business income</strong>, not capital gains</li>
-                    <li>✅ You must report crypto on your T1 return — CRA actively audits crypto</li>
-                    <li>✅ Keep records of every transaction including the date, amount in CAD, and exchange used</li>
-                  </ul>
-                </div>
-              )}
-
-              {/* Rental property note */}
-              {assetType === "rental" && (
-                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5 mb-8">
-                  <h2 className="font-bold text-blue-800 dark:text-blue-300 mb-2">🏠 Rental Property Capital Gains Notes</h2>
-                  <ul className="text-sm text-blue-900 dark:text-blue-200 space-y-1">
-                    <li>✅ You may also owe <strong>recaptured CCA</strong> (depreciation) — this is taxed as income, not capital gains</li>
-                    <li>✅ Principal residence exemption does <strong>not</strong> apply to rental properties</li>
-                    <li>✅ If you converted your home to a rental, you may have a deemed disposition at the time of conversion</li>
-                    <li>✅ Consult a tax professional — rental property dispositions are complex</li>
-                  </ul>
-                </div>
-              )}
             </>
-          )}
+          ) : null}
         </div>
-      )}
+      </div>
+
+      <MethodologyPanel
+        title="How this capital gains calculator works"
+        summary="This page estimates the gain after transaction costs, applies a simplified inclusion-rate model, and then multiplies the taxable portion by an estimated combined marginal tax rate for the selected province."
+        assumptions={[
+          "The income entered is used only to estimate a marginal tax rate for planning.",
+          "Gains up to $250,000 use a 50% inclusion rate in this model, while gains above that threshold use a blended higher inclusion rate.",
+          "QSBC, rental property, crypto, and loss-use rules are simplified materially.",
+          "This calculator does not replace tax filing software or professional advice.",
+        ]}
+        sources={[
+          { label: "CRA: Capital gains", href: "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/t4037/capital-gains.html" },
+        ]}
+        note="Educational estimate only. Verify current tax rules and your asset-specific treatment before filing or selling."
+      />
+
+      <div className="mt-12">
+        <FAQ items={FAQS} />
+      </div>
     </section>
   );
+}
+
+function fmtCurrency(value) {
+  return new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 }).format(value);
 }
