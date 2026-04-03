@@ -7,7 +7,7 @@ export default function SEO({ title, description, canonical, type = "website" })
     const desc =
       description ||
       "Free Canadian financial calculators for TFSA, RRSP, dividends, taxes, mortgages, and budgeting. No sign-up required. Privacy-first. Updated for 2026.";
-    const url = canonical || window.location.href;
+    const url = canonical || `${window.location.origin}${window.location.pathname}`;
 
     document.title = fullTitle;
 
@@ -33,6 +33,7 @@ export default function SEO({ title, description, canonical, type = "website" })
     setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", fullTitle);
     setMeta("twitter:description", desc);
+    setMeta("twitter:image", "https://easyfinancetools.com/og-image.svg");
 
     let canonicalEl = document.querySelector("link[rel='canonical']");
     if (!canonicalEl) {

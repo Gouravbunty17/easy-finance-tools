@@ -7,6 +7,7 @@ import ReferralSection from "../components/ReferralSection";
 
 const tools = [
   { title: "Income Tax Calculator", desc: "Calculate federal + provincial tax, CPP, EI, and take-home pay for 2026.", link: "/tools/income-tax-calculator", badge: "Most Popular" },
+  { title: "Compound Interest Calculator", desc: "Project long-term growth with monthly contributions, fee drag, and inflation.", link: "/tools/compound-interest-calculator", badge: "High Demand" },
   { title: "Pay Stub Calculator", desc: "See your estimated net pay per paycheque from salary or hourly income.", link: "/tools/net-pay-calculator", badge: "New" },
   { title: "TFSA Calculator", desc: "Model tax-free growth and estimate contribution-room context.", link: "/tools/tfsa-calculator", badge: null },
   { title: "GIC Calculator", desc: "Project maturity value and compare short-term guaranteed savings options.", link: "/tools/gic-calculator", badge: "New" },
@@ -59,13 +60,13 @@ export default function Home() {
             TFSA, RRSP, income tax, mortgage, debt payoff, and savings tools for real Canadian decisions. No sign-up required. Clear assumptions. Fast, browser-based results.
           </p>
 
-          <div className="mx-auto mb-10 grid max-w-3xl gap-3 rounded-3xl border border-white/15 bg-white/10 p-3 backdrop-blur sm:grid-cols-[1fr_auto_auto]">
-            <Link to="/tools/income-tax-calculator" className="rounded-2xl bg-white/10 px-4 py-4 text-left transition hover:bg-white/15">
-              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">Popular start</div>
-              <div className="mt-1 text-lg font-bold">Income Tax Calculator</div>
+        <div className="mx-auto mb-10 grid max-w-3xl gap-3 rounded-3xl border border-white/15 bg-white/10 p-3 backdrop-blur sm:grid-cols-[1fr_auto_auto]">
+            <Link to="/tools/compound-interest-calculator" className="rounded-2xl bg-white/10 px-4 py-4 text-left transition hover:bg-white/15">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">High-demand search</div>
+              <div className="mt-1 text-lg font-bold">Compound Interest Calculator</div>
             </Link>
-            <Link to="/tools/tfsa-calculator" className="rounded-2xl bg-white px-6 py-4 text-lg font-bold text-primary transition hover:bg-blue-50">
-              Open TFSA
+            <Link to="/tools/income-tax-calculator" className="rounded-2xl bg-white px-6 py-4 text-lg font-bold text-primary transition hover:bg-blue-50">
+              Open tax calculator
             </Link>
             <Link to="/tools" className="rounded-2xl border border-white/30 px-6 py-4 text-lg font-bold text-white transition hover:bg-white/10">
               Explore tools
@@ -156,7 +157,7 @@ export default function Home() {
         <div className="grid gap-4 md:grid-cols-3">
           {[
             { title: "Tax and paycheques", body: "Income tax and pay stub tools answer one of the highest-intent questions on the site.", href: "/tools/income-tax-calculator" },
-            { title: "Savings and registered accounts", body: "Use TFSA, RRSP, and FHSA tools together instead of in isolation.", href: "/tools/tfsa-calculator" },
+            { title: "Savings and compounding", body: "Use compound interest, TFSA, RRSP, and FHSA tools together instead of in isolation.", href: "/tools/compound-interest-calculator" },
             { title: "Borrowing and housing", body: "Mortgage, rent-vs-buy, and debt payoff tools work best when paired with scenario planning.", href: "/tools/mortgage-calculator" },
           ].map((cluster) => (
             <Link key={cluster.title} to={cluster.href} className="surface-card p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md">
@@ -169,6 +170,38 @@ export default function Home() {
 
       <section className="mx-auto max-w-5xl px-4">
         <ReferralSection />
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 py-6">
+        <div className="surface-soft p-5">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Popular calculator searches</h2>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                Start with the highest-intent pages users usually look for first, then move into related comparisons.
+              </p>
+            </div>
+            <Link to="/tools" className="text-sm font-semibold text-secondary hover:underline">
+              Browse all calculators
+            </Link>
+          </div>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
+              { title: "Income Tax Calculator", href: "/tools/income-tax-calculator" },
+              { title: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
+              { title: "TFSA Calculator", href: "/tools/tfsa-calculator" },
+            ].map((item) => (
+              <Link
+                key={item.title}
+                to={item.href}
+                className="rounded-2xl border border-slate-200 bg-white px-4 py-4 text-sm font-semibold text-primary transition hover:-translate-y-0.5 hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+              >
+                {item.title}
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-12">

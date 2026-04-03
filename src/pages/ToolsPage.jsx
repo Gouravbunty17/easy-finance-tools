@@ -4,6 +4,7 @@ import SEO from "../components/SEO";
 
 const tools = [
   { title: "Income Tax Calculator", desc: "Calculate your exact take-home pay, federal + provincial tax, CPP, and EI for all provinces.", link: "/tools/income-tax-calculator", badge: "New", category: "Tax", color: "border-indigo-200 hover:border-indigo-400" },
+  { title: "Compound Interest Calculator", desc: "Project long-term growth in CAD with monthly contributions, fees, and inflation.", link: "/tools/compound-interest-calculator", badge: "High Demand", category: "Investing", color: "border-blue-200 hover:border-blue-400" },
   { title: "TFSA Calculator", desc: "Calculate your Tax-Free Savings Account growth with 2026 limits.", link: "/tools/tfsa-calculator", badge: "Most Popular", category: "Savings", color: "border-blue-200 hover:border-blue-400" },
   { title: "RRSP Calculator", desc: "Estimate your tax refund and project long-term registered-account growth.", link: "/tools/rrsp-calculator", badge: "2026 Updated", category: "Savings", color: "border-green-200 hover:border-green-400" },
   { title: "FHSA Calculator", desc: "Plan your First Home Savings Account with deductible contributions and tax-free withdrawals.", link: "/tools/fhsa-calculator", badge: "New", category: "Savings", color: "border-orange-200 hover:border-orange-400" },
@@ -71,6 +72,20 @@ export default function ToolsPage() {
           <p className="font-semibold text-primary dark:text-accent">Built for Canada</p>
           <p className="mt-1">Tax, housing, retirement, and savings workflows for Canadian users.</p>
         </div>
+      </div>
+
+      <div className="mt-6 grid gap-3 md:grid-cols-4">
+        {[
+          { label: "Most searched", title: "Compound interest", href: "/tools/compound-interest-calculator" },
+          { label: "Tax", title: "Income tax", href: "/tools/income-tax-calculator" },
+          { label: "Real estate", title: "Mortgage", href: "/tools/mortgage-calculator" },
+          { label: "Registered accounts", title: "TFSA", href: "/tools/tfsa-calculator" },
+        ].map((item) => (
+          <Link key={item.title} to={item.href} className="surface-card p-4 transition hover:-translate-y-0.5 hover:shadow-md">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{item.label}</p>
+            <p className="mt-2 text-lg font-bold text-primary dark:text-accent">{item.title} calculator</p>
+          </Link>
+        ))}
       </div>
 
       <div className="surface-card mb-6 mt-8 p-3">
@@ -147,7 +162,7 @@ export default function ToolsPage() {
       <div className="mt-12 grid gap-4 md:grid-cols-3">
         {[
           { title: "Start with tax", body: "Income tax and pay stub tools answer one of the highest-intent questions on the site.", href: "/tools/income-tax-calculator" },
-          { title: "Plan registered accounts", body: "Use TFSA, RRSP, and FHSA tools together instead of in isolation.", href: "/tools/tfsa-calculator" },
+          { title: "Model compound growth", body: "Start with compound interest, then compare TFSA, RRSP, and FHSA account choices.", href: "/tools/compound-interest-calculator" },
           { title: "Compare debt and housing", body: "Mortgage, rent-vs-buy, and debt payoff tools work best when paired with scenario planning.", href: "/tools/mortgage-calculator" },
         ].map((item) => (
           <Link key={item.title} to={item.href} className="surface-card p-5 transition hover:-translate-y-0.5 hover:shadow-md">

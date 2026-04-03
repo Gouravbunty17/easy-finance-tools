@@ -26,6 +26,7 @@ const CapitalGainsTaxCalculator = lazy(() => import('./pages/tools/CapitalGainsT
 const CPPOASEstimator         = lazy(() => import('./pages/tools/CPPOASEstimator'));
 const IncomeTaxCalculator     = lazy(() => import('./pages/tools/IncomeTaxCalculator'));
 const FIRECalculator          = lazy(() => import('./pages/tools/FIRECalculator'));
+const CompoundInterestCalculator = lazy(() => import('./pages/tools/CompoundInterestCalculator'));
 
 const StockPage               = lazy(() => import('./pages/stocks/StockPage'));
 const GICCalculator           = lazy(() => import('./pages/tools/GICCalculator'));
@@ -83,6 +84,7 @@ export default function App() {
             <Route path="/tools/cpp-oas-estimator" element={<CPPOASEstimator />} />
             <Route path="/tools/income-tax-calculator" element={<IncomeTaxCalculator />} />
             <Route path="/tools/fire-calculator" element={<FIRECalculator />} />
+            <Route path="/tools/compound-interest-calculator" element={<CompoundInterestCalculator />} />
             <Route path="/stocks" element={<StockPage />} />
             <Route path="/stocks/:ticker" element={<StockPage />} />
             <Route path="/tools/gic-calculator" element={<GICCalculator />} />
