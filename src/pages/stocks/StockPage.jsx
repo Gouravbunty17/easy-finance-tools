@@ -347,6 +347,8 @@ export default function StockPage() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [aiSummary, setAiSummary] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
+  const [newsItems, setNewsItems] = useState([]);
+  const [newsLoading, setNewsLoading] = useState(false);
   const [watchlist, setWatchlist] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem("watchlist") || "[]");
@@ -387,6 +389,7 @@ export default function StockPage() {
 
     setAiSummary("");
     fetchAiSummary(currentTicker);
+    fetchNews(currentTicker);
   }, [currentTicker, navigate]);
 
   const fetchAiSummary = async (symbol) => {
@@ -410,6 +413,26 @@ export default function StockPage() {
       // Optional enhancement only.
     }
     setAiLoading(false);
+  };
+
+  const fetchNews = async (symbol) => {
+    setNewsLoading(true);
+    setNewsItems([]);
+    try {
+      const response = await fetch(`/api/stock?ticker=${encodeURIComponent(symbol)}`);
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        setNewsLoading(false);
+        return;
+      }
+
+      const data = await response.json();
+      const items = Array.isArray(data?.news) ? data.news : [];
+      setNewsItems(items.slice(0, 8));
+    } catch {
+      // Optional enhancement only.
+    }
+    setNewsLoading(false);
   };
 
   const handleSearchInput = (value) => {
@@ -858,21 +881,48 @@ export default function StockPage() {
             <div className="px-4 pb-1 pt-4">
               <h3 className="font-bold text-primary dark:text-accent">Latest news</h3>
             </div>
-            <TVWidget
-              id={`news-${tvSymbol}`}
-              height={500}
-              scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
-              configFn={(dark) => ({
-                feedMode: "symbol",
-                symbol: tvSymbol,
-                colorTheme: dark ? "dark" : "light",
-                isTransparent: false,
-                displayMode: "regular",
-                width: "100%",
-                height: 500,
-                locale: "en",
-              })}
-            />
+            <div className="px-4 pb-5 pt-3">
+              {newsLoading ? (
+                <div className="space-y-3">
+                  <SkeletonLine cls="h-5 w-full" />
+                  <SkeletonLine cls="h-5 w-11/12" />
+                  <SkeletonLine cls="h-5 w-4/5" />
+                  <SkeletonLine cls="h-5 w-10/12" />
+                </div>
+              ) : newsItems.length > 0 ? (
+                <div className="grid gap-3">
+                  {newsItems.map((item, index) => {
+                    const href = item.link || item.url || "#";
+                    const publisher =
+                      item.publisher ||
+                      item.providerPublishTimeSource ||
+                      item.source ||
+                      "Finance news";
+                    return (
+                      <a
+                        key={`${href}-${index}`}
+                        href={href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="rounded-xl border border-gray-100 bg-slate-50 p-4 transition hover:border-secondary hover:bg-white hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+                      >
+                        <p className="text-base font-semibold text-primary dark:text-accent">
+                          {item.title || "Read the latest story"}
+                        </p>
+                        <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                          <span>{publisher}</span>
+                          {item.providerPublishTime && <span>• {formatNewsDate(item.providerPublishTime)}</span>}
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="rounded-xl border border-dashed border-gray-200 bg-slate-50 p-5 text-sm text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
+                  No recent headlines were available for this symbol right now. Try another ticker or check back later.
+                </div>
+              )}
+            </div>
           </div>
 
           <AdSlot slot="3078879111" format="auto" />
@@ -926,4 +976,16 @@ export default function StockPage() {
       )}
     </div>
   );
+}
+
+function formatNewsDate(unixSeconds) {
+  try {
+    return new Date(unixSeconds * 1000).toLocaleDateString("en-CA", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  } catch {
+    return "";
+  }
 }
