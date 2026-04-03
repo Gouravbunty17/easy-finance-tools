@@ -339,6 +339,35 @@ function getTickerMeta(currentTicker, tvSymbol, isCrypto) {
   };
 }
 
+function normalizeAssetLabel(quoteType, fallbackLabel, isCrypto) {
+  if (isCrypto) return "crypto";
+
+  const type = String(quoteType || "").toUpperCase();
+  if (type === "ETF") return "ETF";
+  if (["MUTUALFUND", "MUTUAL FUND", "CLOSED_END_FUND"].includes(type)) return "fund";
+  if (type === "CRYPTOCURRENCY") return "crypto";
+
+  return fallbackLabel;
+}
+
+const FUND_FALLBACK_RESOURCES = [
+  {
+    title: "Best ETFs for a TFSA",
+    body: "See common Canadian ETF choices, diversification tradeoffs, and what to hold inside a registered account.",
+    href: "/blog/best-etfs-for-tfsa-canada-2026",
+  },
+  {
+    title: "Weekly dividend ETFs",
+    body: "Understand how high-yield and covered-call ETFs work before relying on payout-heavy products.",
+    href: "/blog/weekly-dividend-etfs",
+  },
+  {
+    title: "Dividend calculator",
+    body: "Model income and reinvestment scenarios if you are comparing yield-focused funds.",
+    href: "/tools/dividend-calculator",
+  },
+];
+
 export default function StockPage() {
   const { ticker } = useParams();
   const navigate = useNavigate();
@@ -349,6 +378,8 @@ export default function StockPage() {
   const [aiLoading, setAiLoading] = useState(false);
   const [newsItems, setNewsItems] = useState([]);
   const [newsLoading, setNewsLoading] = useState(false);
+  const [stockData, setStockData] = useState(null);
+  const [stockLoading, setStockLoading] = useState(false);
   const [watchlist, setWatchlist] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem("watchlist") || "[]");
@@ -371,6 +402,8 @@ export default function StockPage() {
   );
   const tvSymbol = toTVSymbol(currentTicker);
   const tickerMeta = getTickerMeta(currentTicker, tvSymbol, isCrypto);
+  const assetLabel = normalizeAssetLabel(stockData?.quoteType, tickerMeta.assetLabel, isCrypto);
+  const isFundLike = assetLabel === "ETF" || assetLabel === "fund";
 
   const toggleWatch = (symbol, name) => {
     setWatchlist((prev) =>
@@ -389,7 +422,7 @@ export default function StockPage() {
 
     setAiSummary("");
     fetchAiSummary(currentTicker);
-    fetchNews(currentTicker);
+    fetchStockData(currentTicker);
   }, [currentTicker, navigate]);
 
   const fetchAiSummary = async (symbol) => {
@@ -415,8 +448,10 @@ export default function StockPage() {
     setAiLoading(false);
   };
 
-  const fetchNews = async (symbol) => {
+  const fetchStockData = async (symbol) => {
+    setStockLoading(true);
     setNewsLoading(true);
+    setStockData(null);
     setNewsItems([]);
     try {
       const response = await fetch(`/api/stock?ticker=${encodeURIComponent(symbol)}`);
@@ -427,11 +462,13 @@ export default function StockPage() {
       }
 
       const data = await response.json();
+      setStockData(data?.stock || null);
       const items = Array.isArray(data?.news) ? data.news : [];
       setNewsItems(items.slice(0, 8));
     } catch {
       // Optional enhancement only.
     }
+    setStockLoading(false);
     setNewsLoading(false);
   };
 
@@ -478,6 +515,8 @@ export default function StockPage() {
     setShowSuggestions(false);
   };
 
+  const showTradingViewFinancials = !isCrypto && !isFundLike;
+
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -521,7 +560,7 @@ export default function StockPage() {
                   description: tickerMeta.description,
                   url: `https://easyfinancetools.com/stocks/${currentTicker}`,
                   about: {
-                    "@type": tickerMeta.assetLabel === "crypto" ? "Thing" : "Corporation",
+                    "@type": assetLabel === "crypto" ? "Thing" : isFundLike ? "InvestmentFund" : "Corporation",
                     name: tickerMeta.displayName,
                     tickerSymbol: currentTicker,
                   },
@@ -728,9 +767,11 @@ export default function StockPage() {
               {isWatched ? "Saved" : "Save to watchlist"}
             </button>
             <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-              {tickerMeta.assetLabel === "ETF"
+              {assetLabel === "ETF"
                 ? `ETF • ${tickerMeta.exchangeLabel}`
-                : tickerMeta.assetLabel === "crypto"
+                : assetLabel === "fund"
+                  ? `Fund • ${tickerMeta.exchangeLabel}`
+                  : assetLabel === "crypto"
                   ? "Crypto"
                   : tickerMeta.exchangeLabel}
             </span>
@@ -813,7 +854,7 @@ export default function StockPage() {
             <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
               <div className="px-4 pb-1 pt-4">
                 <h3 className="font-bold text-primary dark:text-accent">
-                  {isCrypto ? "Crypto profile" : "Company profile"}
+                  {isCrypto ? "Crypto profile" : isFundLike ? "Fund profile" : "Company profile"}
                 </h3>
               </div>
               <TVWidget
@@ -853,7 +894,39 @@ export default function StockPage() {
             </div>
           )}
 
-          {!isCrypto && (
+          {stockData && (
+            <div className="mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+              <div className="px-4 pb-1 pt-4">
+                <h3 className="font-bold text-primary dark:text-accent">
+                  {isFundLike ? "Fund snapshot" : "Key metrics"}
+                </h3>
+                <p className="text-xs text-gray-400">
+                  {isFundLike
+                    ? "Live quote data and basic fund information"
+                    : "Price, valuation, and trading metrics"}
+                </p>
+              </div>
+              <div className="grid gap-3 px-4 pb-5 pt-3 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  { label: "Price", value: stockData.price ? `${stockData.price} ${stockData.currency || ""}`.trim() : "N/A" },
+                  { label: "Change", value: stockData.changePct !== undefined && stockData.changePct !== null ? `${Number(stockData.changePct).toFixed(2)}%` : "N/A" },
+                  { label: "Day range", value: stockData.dayLow && stockData.dayHigh ? `${stockData.dayLow} - ${stockData.dayHigh}` : "N/A" },
+                  { label: "52-week range", value: stockData.weekLow52 && stockData.weekHigh52 ? `${stockData.weekLow52} - ${stockData.weekHigh52}` : "N/A" },
+                  { label: "Volume", value: stockData.volume || "N/A" },
+                  { label: "Avg volume", value: stockData.avgVolume || "N/A" },
+                  { label: "Market cap", value: stockData.marketCap || "N/A" },
+                  { label: "Dividend yield", value: stockData.dividendYield || "N/A" },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-900">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{item.label}</p>
+                    <p className="mt-2 text-lg font-bold text-primary dark:text-accent">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {showTradingViewFinancials ? (
             <div className="mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
               <div className="px-4 pb-1 pt-4">
                 <h3 className="font-bold text-primary dark:text-accent">Financials</h3>
@@ -875,7 +948,19 @@ export default function StockPage() {
                 })}
               />
             </div>
-          )}
+          ) : !isCrypto ? (
+            <div className="mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+              <div className="px-4 pb-1 pt-4">
+                <h3 className="font-bold text-primary dark:text-accent">Fund details</h3>
+                <p className="text-xs text-gray-400">This symbol behaves more like a fund or ETF than an operating company</p>
+              </div>
+              <div className="px-4 pb-5 pt-3">
+                <div className="rounded-xl border border-dashed border-gray-200 bg-slate-50 p-5 text-sm text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
+                  Traditional company financial statements are often limited or unavailable for ETFs, closed-end funds, and covered-call products. Use the chart, profile, key metrics, and news blocks above to review this symbol instead.
+                </div>
+              </div>
+            </div>
+          ) : null}
 
           <div className="mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
             <div className="px-4 pb-1 pt-4">
@@ -919,7 +1004,27 @@ export default function StockPage() {
                 </div>
               ) : (
                 <div className="rounded-xl border border-dashed border-gray-200 bg-slate-50 p-5 text-sm text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                  No recent headlines were available for this symbol right now. Try another ticker or check back later.
+                  {isFundLike ? (
+                    <div>
+                      <p className="mb-4">
+                        No recent fund-specific headlines were available right now. We tried both the ticker and fund name, so this usually means the live feed is sparse for this ETF.
+                      </p>
+                      <div className="grid gap-3 md:grid-cols-3">
+                        {FUND_FALLBACK_RESOURCES.map((item) => (
+                          <button
+                            key={item.title}
+                            onClick={() => navigate(item.href)}
+                            className="rounded-xl border border-gray-200 bg-white p-4 text-left transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-800"
+                          >
+                            <p className="text-sm font-semibold text-primary dark:text-accent">{item.title}</p>
+                            <p className="mt-2 text-xs leading-6 text-gray-500 dark:text-gray-400">{item.body}</p>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    "No recent headlines were available for this symbol right now. Try another ticker or check back later."
+                  )}
                 </div>
               )}
             </div>
