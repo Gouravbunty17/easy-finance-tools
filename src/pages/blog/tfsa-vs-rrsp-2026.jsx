@@ -46,7 +46,7 @@ export default function TFSAvsRRSP() {
             <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
               {[
                 ["2026 Contribution Limit", "$7,000/year", "18% of prev. year income"],
-                ["Lifetime Room (since 2009)", "$95,000", "Based on income history"],
+                ["Cumulative TFSA Room in 2026", "$109,000", "If eligible since 2009 and never contributed"],
                 ["Tax Deduction on Contribution", "❌ No", "✅ Yes"],
                 ["Tax on Withdrawals", "❌ Never", "✅ Yes (as income)"],
                 ["Withdrawals Add Back Room", "✅ Next year", "❌ No"],

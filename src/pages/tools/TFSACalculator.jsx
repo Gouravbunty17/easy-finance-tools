@@ -20,8 +20,8 @@ import ToolPageSchema from "../../components/ToolPageSchema";
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
 const TFSA_FAQS = [
-  { q: "How much TFSA room do I have in 2026?", a: "If you were 18 or older and a Canadian resident since 2009 and have never contributed, you have $95,000 in total TFSA room in 2026. Your personal room depends on your age and prior contributions, withdrawals, and residency history." },
-  { q: "What is the TFSA contribution limit for 2026?", a: "The TFSA annual contribution limit for 2026 is $7,000. The cumulative lifetime limit since 2009 is $95,000 for someone eligible from the start." },
+  { q: "How much TFSA room do I have in 2026?", a: "If you were 18 or older and a Canadian resident since 2009 and have never contributed, you have $109,000 in cumulative TFSA room in 2026. Your personal room depends on your age, residency history, prior contributions, and prior withdrawals." },
+  { q: "What is the TFSA contribution limit for 2026?", a: "The TFSA annual contribution limit for 2026 is $7,000. The cumulative total since 2009 is $109,000 for someone eligible from the beginning and who has never contributed." },
   { q: "Can I withdraw from my TFSA and re-contribute?", a: "Yes. TFSA withdrawals are added back to your contribution room on January 1 of the following year. If you withdraw $10,000 in 2026, you usually regain that $10,000 of room on January 1, 2027, plus the new annual limit." },
   { q: "What happens if I over-contribute to my TFSA?", a: "Over-contributions are generally penalized at 1% per month on the excess amount until the excess is removed. Always verify your available room through CRA My Account before making a large contribution." },
   { q: "Is TFSA income taxed?", a: "No. Interest, dividends, and capital gains earned inside a TFSA are not taxed, and withdrawals are also tax-free." },

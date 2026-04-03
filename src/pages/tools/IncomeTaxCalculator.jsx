@@ -23,11 +23,11 @@ const PROVINCES = [
 
 const FEDERAL = {
   brackets: [
-    { min: 0, max: 57375, rate: 0.15 },
-    { min: 57375, max: 114750, rate: 0.205 },
-    { min: 114750, max: 158519, rate: 0.26 },
-    { min: 158519, max: 220000, rate: 0.29 },
-    { min: 220000, max: Infinity, rate: 0.33 },
+    { min: 0, max: 58523, rate: 0.14 },
+    { min: 58523, max: 117045, rate: 0.205 },
+    { min: 117045, max: 181440, rate: 0.26 },
+    { min: 181440, max: 258482, rate: 0.29 },
+    { min: 258482, max: Infinity, rate: 0.33 },
   ],
   basicPersonal: 16129,
 };
@@ -192,7 +192,7 @@ export default function IncomeTaxCalculator() {
           </div>
 
           <div className="pt-2 border-t dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400">
-            <p>Using estimated 2026 tax brackets and standard payroll assumptions. Results are approximate.</p>
+            <p>Using 2026 federal payroll guidance plus simplified provincial and payroll assumptions. Results are approximate.</p>
           </div>
         </div>
 
@@ -277,7 +277,7 @@ export default function IncomeTaxCalculator() {
         title="How this tax calculator works"
         summary="This calculator estimates income tax using 2026 federal and provincial bracket assumptions, then adds CPP and EI payroll deductions to show approximate take-home pay. It is designed for directional planning, not tax filing."
         assumptions={[
-          "Federal and provincial brackets are estimated for 2026 and may differ from final published figures.",
+          "The federal 2026 bracket assumptions reflect CRA payroll guidance published for January 1, 2026, including a 14% lowest federal rate. Provincial handling here remains simplified.",
           "CPP and EI are modeled using standard payroll assumptions and maximums rather than employer-specific payroll systems.",
           "This page does not include every tax credit, deduction, benefit, or employment nuance that may appear on a real return or pay stub.",
           "RRSP contributions are treated as reducing taxable income before income tax is calculated.",

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
+import MethodologyPanel from "../../components/MethodologyPanel";
 
 const LIMITS = [
   [2009, 5000], [2010, 5000], [2011, 5000], [2012, 5000], [2013, 5500],
@@ -11,163 +11,177 @@ const LIMITS = [
   [2024, 7000], [2025, 7000], [2026, 7000],
 ];
 
-export default function HowMuchTFSARoom() {
-  const cumulative = LIMITS.reduce((acc, [yr, amt]) => {
-    const prev = acc.length ? acc[acc.length - 1].total : 0;
-    return [...acc, { year: yr, limit: amt, total: prev + amt }];
-  }, []);
+const cumulative = LIMITS.reduce((acc, [year, amount]) => {
+  const prev = acc.length ? acc[acc.length - 1].total : 0;
+  acc.push({ year, limit: amount, total: prev + amount });
+  return acc;
+}, []);
 
+const roomByBirthYear = [
+  "1991 or earlier",
+  "1992",
+  "1993",
+  "1994",
+  "1995",
+  "1996",
+  "1997",
+  "1998",
+  "1999",
+  "2000",
+  "2001",
+  "2002",
+  "2003",
+  "2004",
+  "2005",
+  "2006",
+  "2007",
+  "2008",
+].map((label, index) => {
+  const eligibleYear = 2009 + index;
+  const total = LIMITS.filter(([year]) => year >= eligibleYear).reduce((sum, [, amount]) => sum + amount, 0);
+  return { label, eligibleYear, total };
+});
+
+export default function HowMuchTFSARoom() {
   return (
     <div>
       <SEO
-        title="How Much TFSA Room Do I Have in 2026? — Full Contribution Limit Table"
-        description="Find out exactly how much TFSA contribution room you have in 2026. Full year-by-year limit table, cumulative totals, and how to check via CRA My Account."
+        title="How Much TFSA Room Do I Have in 2026? - Full Contribution Limit Table"
+        description="Find out how much TFSA contribution room you may have in 2026. See the full year-by-year limit table, cumulative totals, and how to verify your exact number through CRA My Account."
         canonical="https://easyfinancetools.com/blog/how-much-tfsa-room-2026"
       />
+
       <BlogHero
-        icon="💰"
-        category="TFSA · Savings"
+        icon="TFSA"
+        category="TFSA and Savings"
         title="How Much TFSA Room Do I Have in 2026?"
-        date="March 28, 2026"
+        date="April 3, 2026"
         readTime="6 min read"
         gradient="from-blue-400 to-blue-700"
       />
+
       <section className="max-w-3xl mx-auto px-4 py-12">
         <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
-
-        <h2>Your 2026 TFSA Contribution Room</h2>
-        <p>
-          The 2026 annual TFSA limit is <strong>$7,000</strong>. If you have never contributed to a TFSA and were eligible since 2009, your total accumulated room is <strong>$95,000</strong>.
-        </p>
-        <p>
-          Your personal room depends on three things:
-        </p>
-        <ol>
-          <li>The year you turned 18 (you accumulate room starting that year)</li>
-          <li>Whether you were a Canadian resident each year</li>
-          <li>Any previous contributions and withdrawals</li>
-        </ol>
-
-        <h2>TFSA Annual Limits — Year by Year</h2>
-
-        <div className="not-prose overflow-x-auto my-6">
-          <table className="w-full text-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
-            <thead className="bg-gray-100 dark:bg-gray-800 text-left">
-              <tr>
-                <th className="px-4 py-3 font-semibold">Year</th>
-                <th className="px-4 py-3 font-semibold">Annual Limit</th>
-                <th className="px-4 py-3 font-semibold text-green-600">Cumulative Total</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-              {cumulative.map(({ year, limit, total }) => (
-                <tr key={year} className={`${year === 2026 ? 'bg-blue-50 dark:bg-blue-900/20 font-bold' : 'bg-white dark:bg-gray-900'}`}>
-                  <td className="px-4 py-2.5">{year}{year === 2026 ? ' ← Current' : ''}</td>
-                  <td className="px-4 py-2.5">${limit.toLocaleString()}</td>
-                  <td className="px-4 py-2.5 text-green-700 dark:text-green-400 font-semibold">${total.toLocaleString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <h2>How to Find Your Exact TFSA Room</h2>
-        <p>The most accurate way is through the <strong>CRA My Account</strong> portal:</p>
-        <ol>
-          <li>Go to <strong>canada.ca/my-cra-account</strong></li>
-          <li>Log in with your CRA credentials or bank login</li>
-          <li>Navigate to <strong>TFSA → Contribution Room</strong></li>
-          <li>Your available room as of January 1, 2026 will be displayed</li>
-        </ol>
-        <p>
-          <strong>Note:</strong> CRA's figure may lag by a year because financial institutions report contributions in the spring. Withdrawals made in 2025 won't restore room until January 1, 2026.
-        </p>
-
-        <h2>How TFSA Room Accumulates</h2>
-        <p>Your available room is calculated as:</p>
-        <div className="not-prose bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 my-4 font-mono text-sm text-blue-900 dark:text-blue-200">
-          Available Room = Annual Limit + Unused Room from Prior Years + Withdrawals from Prior Year − Contributions Made This Year
-        </div>
-        <p>
-          This means if you withdrew $10,000 from your TFSA in 2025, that $10,000 is added back to your room on January 1, 2026 — in addition to the new $7,000 for 2026.
-        </p>
-
-        <h2>TFSA Room by Birth Year (If Never Contributed)</h2>
-        <div className="not-prose overflow-x-auto my-6">
-          <table className="w-full text-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
-            <thead className="bg-gray-100 dark:bg-gray-800 text-left">
-              <tr>
-                <th className="px-4 py-3 font-semibold">Birth Year</th>
-                <th className="px-4 py-3 font-semibold">Eligible Since</th>
-                <th className="px-4 py-3 font-semibold text-green-600">Total Room in 2026</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-              {[
-                ["1991 or earlier", "2009", "$95,000"],
-                ["1992", "2010", "$90,000"],
-                ["1993", "2011", "$85,000"],
-                ["1994", "2012", "$80,000"],
-                ["1995", "2013", "$74,500"],
-                ["1996", "2014", "$69,000"],
-                ["1997", "2015", "$63,500"],
-                ["1998", "2016", "$53,500"],
-                ["1999", "2017", "$48,000"],
-                ["2000", "2018", "$42,500"],
-                ["2001", "2019", "$37,000"],
-                ["2002", "2020", "$31,000"],
-                ["2003", "2021", "$25,000"],
-                ["2004", "2022", "$19,000"],
-                ["2005", "2023", "$13,000"],
-                ["2006", "2024", "$6,500"],  // wait, 2024+2025+2026 = 7000+7000+7000 = 21000. Let me recalculate.
-                // Actually let me not hardcode these wrong. I'll remove this section or fix it.
-              ].slice(0, 10).map(([by, es, tr]) => (
-                <tr key={by} className="bg-white dark:bg-gray-900">
-                  <td className="px-4 py-2.5">{by}</td>
-                  <td className="px-4 py-2.5">{es}</td>
-                  <td className="px-4 py-2.5 text-green-700 dark:text-green-400 font-semibold">{tr}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="text-xs text-gray-400 mt-2">Assumes never contributed and was a Canadian resident every year.</p>
-        </div>
-
-        <h2>Common TFSA Mistakes to Avoid</h2>
-
-        <h3>1. Over-Contributing</h3>
-        <p>
-          If you contribute more than your available room, the CRA charges a <strong>1% penalty per month</strong> on the excess amount until it's withdrawn. Many Canadians accidentally over-contribute by re-contributing withdrawals in the same calendar year.
-        </p>
-        <p>
-          <strong>Example:</strong> You withdraw $10,000 in July 2026, then re-contribute $10,000 in October 2026. Even though the money came out, you can't re-contribute it until January 1, 2027. Doing so results in a $100/month penalty until the excess is removed.
-        </p>
-
-        <h3>2. Contributing While Non-Resident</h3>
-        <p>
-          If you live outside Canada, you don't accumulate TFSA room and any contributions made while a non-resident are penalized 1%/month. Your room "pauses" while you're away and resumes when you return.
-        </p>
-
-        <h3>3. Holding Ineligible Investments</h3>
-        <p>
-          Not everything can go inside a TFSA. Prohibited investments include shares in a company you control, certain debt obligations, and cryptocurrency held directly (though crypto ETFs are fine).
-        </p>
-
-        <h2>Calculate Your TFSA Growth</h2>
-        <p>
-          Now that you know your room, use our <Link to="/tools/tfsa-calculator" className="text-primary underline">free TFSA Calculator</Link> to see how much your savings can grow tax-free over time.
-        </p>
-
-        <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mt-8 not-prose">
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            <strong>Disclaimer:</strong> Contribution limits are set by the federal government and subject to change. Always verify your personal room through CRA My Account before contributing.
+          <h2>Your 2026 TFSA contribution room</h2>
+          <p>
+            The 2026 annual TFSA dollar limit is <strong>$7,000</strong>. If you were eligible for a TFSA from 2009 onward and have never contributed, your cumulative room in 2026 is <strong>$109,000</strong>.
           </p>
-        </div>
-      </article>
+          <p>Your personal room depends on three things:</p>
+          <ol>
+            <li>The year you first became eligible to accumulate room</li>
+            <li>Whether you were a Canadian resident during those years</li>
+            <li>Your prior contributions and prior withdrawals</li>
+          </ol>
 
-      <Link to="/blog" className="inline-block mt-10 text-primary dark:text-accent font-semibold hover:underline">
-        ← Back to Blog
-      </Link>
+          <h2>TFSA annual limits by year</h2>
+
+          <div className="not-prose overflow-x-auto my-6">
+            <table className="w-full text-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+              <thead className="bg-gray-100 dark:bg-gray-800 text-left">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Year</th>
+                  <th className="px-4 py-3 font-semibold">Annual Limit</th>
+                  <th className="px-4 py-3 font-semibold text-green-600">Cumulative Total</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                {cumulative.map(({ year, limit, total }) => (
+                  <tr key={year} className={year === 2026 ? "bg-blue-50 dark:bg-blue-900/20 font-bold" : "bg-white dark:bg-gray-900"}>
+                    <td className="px-4 py-2.5">{year}{year === 2026 ? " <- Current" : ""}</td>
+                    <td className="px-4 py-2.5">${limit.toLocaleString()}</td>
+                    <td className="px-4 py-2.5 text-green-700 dark:text-green-400 font-semibold">${total.toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <h2>How to find your exact TFSA room</h2>
+          <p>The most reliable place to confirm your personal room is <strong>CRA My Account</strong>:</p>
+          <ol>
+            <li>Go to <strong>canada.ca/my-cra-account</strong></li>
+            <li>Sign in with your CRA credentials or participating bank login</li>
+            <li>Open the TFSA section and review your contribution room</li>
+            <li>Compare that figure against your recent contributions and withdrawals</li>
+          </ol>
+          <p>
+            CRA records for the prior calendar year are typically updated by spring, so if you made very recent contributions or withdrawals, confirm that the records have been processed before relying on the number.
+          </p>
+
+          <h2>How TFSA room accumulates</h2>
+          <p>Your available room is generally:</p>
+          <div className="not-prose bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 my-4 font-mono text-sm text-blue-900 dark:text-blue-200">
+            Available room = new annual limit + unused room from prior years + prior-year withdrawals - current-year contributions
+          </div>
+          <p>
+            If you withdrew $10,000 in 2025, that $10,000 is normally added back on January 1, 2026, along with the new annual limit for 2026.
+          </p>
+
+          <h2>TFSA room by birth year in 2026 if you never contributed</h2>
+          <div className="not-prose overflow-x-auto my-6">
+            <table className="w-full text-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+              <thead className="bg-gray-100 dark:bg-gray-800 text-left">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Birth Year</th>
+                  <th className="px-4 py-3 font-semibold">Eligible Since</th>
+                  <th className="px-4 py-3 font-semibold text-green-600">Total Room in 2026</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                {roomByBirthYear.map(({ label, eligibleYear, total }) => (
+                  <tr key={label} className="bg-white dark:bg-gray-900">
+                    <td className="px-4 py-2.5">{label}</td>
+                    <td className="px-4 py-2.5">{eligibleYear}</td>
+                    <td className="px-4 py-2.5 text-green-700 dark:text-green-400 font-semibold">${total.toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="text-xs text-gray-400 mt-2">
+              Assumes continuous Canadian residency from the first eligible year and no prior contributions.
+            </p>
+          </div>
+
+          <h2>Common TFSA mistakes to avoid</h2>
+
+          <h3>1. Re-contributing a withdrawal too early</h3>
+          <p>
+            Many over-contributions happen because someone withdraws money and then puts it back in the same calendar year without having extra unused room. The withdrawal is usually only restored on January 1 of the following year.
+          </p>
+
+          <h3>2. Assuming CRA is always real-time</h3>
+          <p>
+            CRA figures are valuable, but they can lag if institutions have not yet reported your latest transactions. Use CRA as your baseline, then reconcile it against your own records.
+          </p>
+
+          <h3>3. Contributing while non-resident</h3>
+          <p>
+            You generally do not accumulate new TFSA room while a non-resident of Canada, and contributions made while non-resident can trigger penalties.
+          </p>
+
+          <h2>Next step</h2>
+          <p>
+            Once you know your available room, run the <Link to="/tools/tfsa-calculator" className="text-primary underline">TFSA calculator</Link> to estimate future tax-free growth, then compare it with the <Link to="/tools/rrsp-calculator" className="text-primary underline">RRSP calculator</Link> if you are deciding between accounts.
+          </p>
+        </article>
+
+        <MethodologyPanel
+          title="How this article was checked"
+          summary="This guide uses CRA contribution-room guidance and the published TFSA annual dollar limits in force through 2026. Birth-year totals assume the person was a Canadian resident every year from their first eligible year onward and has never contributed."
+          assumptions={[
+            "Totals assume continuous Canadian residency from the first eligible year.",
+            "Totals assume no prior contributions and no prior withdrawals.",
+            "Actual CRA room can differ if prior-year records have not yet been fully processed.",
+          ]}
+          sources={[
+            { label: "CRA: Calculate your TFSA contribution room", href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/contributing/calculate-room.html" },
+            { label: "CRA: Before you contribute to a TFSA", href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/contributing/before.html" },
+          ]}
+        />
+
+        <Link to="/blog" className="inline-block mt-10 text-primary dark:text-accent font-semibold hover:underline">
+          Back to Blog
+        </Link>
       </section>
     </div>
   );

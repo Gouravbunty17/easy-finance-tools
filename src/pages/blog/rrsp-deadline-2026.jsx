@@ -54,7 +54,7 @@ export default function RRSPDeadline2026() {
                 ["2023", "18% of 2022 earned income", "$30,780"],
                 ["2024", "18% of 2023 earned income", "$31,560"],
                 ["2025", "18% of 2024 earned income", "$32,490"],
-                ["2026", "18% of 2025 earned income", "$33,810 (estimated)"],
+                ["2026", "18% of 2025 earned income", "$33,810"],
               ].map(([year, pct, max]) => (
                 <tr key={year} className={year === "2025" ? "bg-blue-50 dark:bg-blue-900/20 font-semibold" : "bg-white dark:bg-gray-900"}>
                   <td className="px-4 py-3">{year}</td>

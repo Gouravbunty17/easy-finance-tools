@@ -19,7 +19,7 @@ import ToolPageSchema from "../../components/ToolPageSchema";
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
 const RRSP_FAQS = [
-  { q: "What is the RRSP contribution limit for 2026?", a: "The 2026 RRSP contribution limit is 18% of your 2025 earned income, up to a maximum of $32,490. Unused room from prior years can usually carry forward. Check your CRA Notice of Assessment for your exact number." },
+  { q: "What is the RRSP contribution limit for 2026?", a: "The 2026 RRSP contribution limit is 18% of your 2025 earned income, up to a maximum of $33,810. Unused room from prior years can usually carry forward. Check your CRA Notice of Assessment for your exact number." },
   { q: "When is the RRSP contribution deadline for 2026?", a: "The deadline for contributions that can be deducted against the 2025 tax year is March 2, 2026." },
   { q: "How does an RRSP reduce my taxes?", a: "RRSP contributions reduce taxable income. A $10,000 contribution saves tax at your marginal rate, so a person at a 33% marginal rate would save about $3,300." },
   { q: "What is a spousal RRSP?", a: "A spousal RRSP lets one partner claim the deduction while building retirement assets in the other partner's name. It is commonly used for retirement income splitting." },
@@ -154,7 +154,7 @@ export default function RRSPCalculator() {
       rrifRows.push({ age, withdrawal: Math.round(withdrawal), tax: Math.round(tax), netWithdrawal: Math.round(withdrawal - tax), balance: Math.round(rrifBalance) });
     }
 
-    const maxContrib = Math.min(income * 0.18, 32490);
+    const maxContrib = Math.min(income * 0.18, 33810);
 
     return {
       marginalRate: Math.round(marginalRate * 100),
@@ -198,7 +198,7 @@ export default function RRSPCalculator() {
 
       <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 mb-6">
         <p className="text-sm text-green-800 dark:text-green-300">
-          <strong>2026 RRSP limit:</strong> 18% of 2025 earned income up to <strong>$32,490</strong> &nbsp;|&nbsp;
+          <strong>2026 RRSP limit:</strong> 18% of 2025 earned income up to <strong>$33,810</strong> &nbsp;|&nbsp;
           <strong>Your estimated annual limit:</strong> {fmt(results.maxContrib)} &nbsp;|&nbsp;
           <strong>Deduction deadline:</strong> March 2, 2026
         </p>
@@ -218,7 +218,7 @@ export default function RRSPCalculator() {
             <h2 className="font-bold text-primary dark:text-accent">Growth inputs</h2>
 
             <SliderInput label="Annual Income" value={income} min={30000} max={300000} step={1000} onChange={setIncome} prefix="$" helpText={`Estimated marginal rate: ${results.marginalRate}%. Estimated annual RRSP limit: ${fmt(results.maxContrib)}.`} />
-            <SliderInput label="Annual RRSP Contribution" value={contribution} min={0} max={32490} step={500} onChange={setContribution} prefix="$" helpText={isOverContrib ? `This exceeds the annual estimate of ${fmt(results.maxContrib)}. Check CRA for carryforward room before relying on this number.` : `Estimated tax refund this year: ${fmt(results.taxRefund)}.`} />
+            <SliderInput label="Annual RRSP Contribution" value={contribution} min={0} max={33810} step={500} onChange={setContribution} prefix="$" helpText={isOverContrib ? `This exceeds the annual estimate of ${fmt(results.maxContrib)}. Check CRA for carryforward room before relying on this number.` : `Estimated tax refund this year: ${fmt(results.taxRefund)}.`} />
             <SliderInput label="Current RRSP Balance" value={currentBalance} min={0} max={500000} step={5000} onChange={setCurrentBalance} prefix="$" />
             <SliderInput label="Expected Annual Return" value={returnRate} min={1} max={12} step={0.5} onChange={setReturnRate} suffix="%" />
             <SliderInput label="Years Until Retirement" value={years} min={1} max={40} step={1} onChange={setYears} suffix=" years" helpText={`Projected retirement year: ${retirementYear}. Estimated balance at retirement: ${fmt(results.finalValue)}.`} />
@@ -370,7 +370,7 @@ export default function RRSPCalculator() {
       <MethodologyPanel
         summary="This calculator estimates RRSP tax refunds using province-level marginal rates and models growth using a constant annual return with evenly spaced contributions. It is helpful for planning, not for replacing your CRA records or tax filing details."
         assumptions={[
-          "Annual RRSP room is estimated as 18% of income capped at $32,490 for 2026 and does not include your personal carryforward room unless you confirm it separately.",
+          "Annual RRSP room is estimated as 18% of income capped at $33,810 for 2026 and does not include your personal carryforward room unless you confirm it separately.",
           "Refund estimates use a simplified combined marginal-rate approach rather than a full return-level tax model.",
           "Growth assumes a constant annual return and even monthly reinvestment through time.",
           "RRIF projections use published minimum-withdrawal percentages and a simplified retirement tax-rate estimate.",
