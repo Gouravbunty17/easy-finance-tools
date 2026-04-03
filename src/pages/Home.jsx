@@ -42,37 +42,60 @@ export default function Home() {
         canonical="https://easyfinancetools.com/"
       />
 
-      <section className="bg-gradient-to-br from-primary to-secondary text-white py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <span className="bg-white/20 text-white text-sm px-4 py-1 rounded-full mb-6 inline-block">
-            Built for Canadians
-          </span>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-            Free Canadian Finance Calculators
-          </h1>
-          <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-[#0a4c89] to-secondary px-4 py-20 text-white">
+        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: "radial-gradient(circle at top left, white 1px, transparent 1px)", backgroundSize: "26px 26px" }} />
+        <div className="absolute -right-16 top-8 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
+        <div className="absolute -left-20 bottom-0 h-52 w-52 rounded-full bg-accent/20 blur-3xl" />
+
+        <div className="relative mx-auto max-w-5xl text-center">
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">
+            <span className="rounded-full bg-white/15 px-4 py-1.5">Built for Canadians</span>
+            <span className="rounded-full bg-white/15 px-4 py-1.5">No sign-up</span>
+            <span className="rounded-full bg-white/15 px-4 py-1.5">Methodology shown</span>
+          </div>
+
+          <h1 className="mb-6 text-4xl font-bold leading-tight md:text-6xl">Free Canadian Finance Calculators</h1>
+          <p className="mx-auto mb-10 max-w-3xl text-lg text-blue-100 md:text-xl">
             TFSA, RRSP, income tax, mortgage, debt payoff, and savings tools for real Canadian decisions. No sign-up required. Clear assumptions. Fast, browser-based results.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/tools" className="bg-white text-primary font-bold px-8 py-4 rounded-xl hover:bg-blue-50 transition text-lg">
+
+          <div className="mx-auto mb-10 grid max-w-3xl gap-3 rounded-3xl border border-white/15 bg-white/10 p-3 backdrop-blur sm:grid-cols-[1fr_auto_auto]">
+            <Link to="/tools/income-tax-calculator" className="rounded-2xl bg-white/10 px-4 py-4 text-left transition hover:bg-white/15">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">Popular start</div>
+              <div className="mt-1 text-lg font-bold">Income Tax Calculator</div>
+            </Link>
+            <Link to="/tools/tfsa-calculator" className="rounded-2xl bg-white px-6 py-4 text-lg font-bold text-primary transition hover:bg-blue-50">
+              Open TFSA
+            </Link>
+            <Link to="/tools" className="rounded-2xl border border-white/30 px-6 py-4 text-lg font-bold text-white transition hover:bg-white/10">
               Explore tools
             </Link>
-            <Link to="/about" className="border-2 border-white text-white font-bold px-8 py-4 rounded-xl hover:bg-white/10 transition text-lg">
-              Methodology and trust
-            </Link>
+          </div>
+
+          <div className="grid gap-3 text-left md:grid-cols-3">
+            {[
+              { title: "Search by decision", body: "Tax, mortgage, debt, savings, and retirement flows are grouped by outcome, not just by formula." },
+              { title: "Check assumptions fast", body: "Important pages link out to methodology and sources so results are easier to sanity-check." },
+              { title: "Move to the next tool", body: "Start with one calculation, then compare against the next account or planning path." },
+            ].map((item) => (
+              <div key={item.title} className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
+                <p className="font-semibold text-white">{item.title}</p>
+                <p className="mt-1 text-sm text-blue-100">{item.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="border-b bg-slate-50 dark:bg-gray-900 dark:border-gray-800">
-        <div className="max-w-5xl mx-auto grid gap-4 px-4 py-6 md:grid-cols-4">
+      <section className="border-b bg-slate-50 dark:border-gray-800 dark:bg-gray-900">
+        <div className="mx-auto grid max-w-5xl gap-4 px-4 py-6 md:grid-cols-4">
           {[
             { title: "No sign-up", body: "Open a calculator and get results immediately." },
             { title: "Privacy-first", body: "Inputs stay in your browser unless a feature says otherwise." },
             { title: "Methodology shown", body: "Important calculators explain assumptions and sources." },
             { title: "Updated for 2026", body: "Rates, limits, and dated guides are reviewed throughout the year." },
           ].map((item) => (
-            <div key={item.title} className="rounded-2xl bg-white p-4 shadow-sm dark:bg-gray-800">
+            <div key={item.title} className="surface-card p-4">
               <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
               <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{item.body}</p>
             </div>
@@ -80,73 +103,63 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white dark:bg-gray-900 border-b dark:border-gray-800">
-        <div className="max-w-4xl mx-auto px-4 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <section className="border-b bg-white dark:border-gray-800 dark:bg-gray-900">
+        <div className="mx-auto grid max-w-4xl grid-cols-2 gap-6 px-4 py-8 text-center md:grid-cols-4">
           {stats.map((item) => (
             <div key={item.label}>
               <div className="text-3xl font-bold text-primary dark:text-accent">
                 <CountUp to={item.to} from={item.from ?? 0} suffix={item.suffix} />
               </div>
-              <div className="text-sm text-gray-500 mt-1">{item.label}</div>
+              <div className="mt-1 text-sm text-gray-500">{item.label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-4 pt-10">
+      <section className="mx-auto max-w-5xl px-4 pt-10">
         <FinancialTip />
       </section>
 
-      <section className="max-w-5xl mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold text-center mb-4 text-primary dark:text-accent">
-          Our Free Calculators
-        </h2>
-        <p className="text-center text-gray-500 mb-12">
-          Start with the outcome you need, then move into related guides and next-step tools.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="mx-auto max-w-5xl px-4 py-12">
+        <h2 className="mb-4 text-center text-3xl font-bold text-primary dark:text-accent">Our Free Calculators</h2>
+        <p className="mb-12 text-center text-gray-500">Start with the outcome you need, then move into related guides and next-step tools.</p>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {tools.map((tool) => (
             <Link
               key={tool.title}
               to={tool.link}
-              className="group bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 rounded-2xl p-6 hover:border-secondary hover:shadow-lg transition-all"
+              className="group surface-card border-2 p-6 transition-all hover:-translate-y-1 hover:border-secondary hover:shadow-xl"
             >
-              <div className="flex items-start justify-between mb-4">
-                <span className="text-lg font-semibold text-secondary">{tool.title.split(" ")[0]}</span>
-                {tool.badge && (
-                  <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-semibold">
-                    {tool.badge}
-                  </span>
-                )}
+              <div className="mb-4 flex items-start justify-between gap-3">
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-secondary dark:bg-slate-800">
+                  {tool.title.split(" ")[0]}
+                </span>
+                {tool.badge && <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-semibold text-green-700">{tool.badge}</span>}
               </div>
-              <h3 className="text-xl font-bold mb-2 text-primary dark:text-white group-hover:text-secondary transition">
-                {tool.title}
-              </h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">{tool.desc}</p>
-              <div className="mt-4 text-secondary font-semibold text-sm">
-                Open calculator
+              <h3 className="mb-2 text-xl font-bold text-primary transition group-hover:text-secondary dark:text-white">{tool.title}</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">{tool.desc}</p>
+              <div className="mt-5 flex items-center justify-between text-sm font-semibold text-secondary">
+                <span>Open calculator</span>
+                <span className="transition-transform group-hover:translate-x-1">More</span>
               </div>
             </Link>
           ))}
         </div>
-        <div className="text-center mt-10">
-          <Link
-            to="/tools"
-            className="inline-block border-2 border-primary text-primary font-semibold px-8 py-3 rounded-xl hover:bg-primary hover:text-white transition"
-          >
+        <div className="mt-10 text-center">
+          <Link to="/tools" className="inline-block rounded-xl border-2 border-primary px-8 py-3 font-semibold text-primary transition hover:bg-primary hover:text-white">
             View all tools
           </Link>
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-4 pb-8">
+      <section className="mx-auto max-w-5xl px-4 pb-8">
         <div className="grid gap-4 md:grid-cols-3">
           {[
             { title: "Tax and paycheques", body: "Income tax and pay stub tools answer one of the highest-intent questions on the site.", href: "/tools/income-tax-calculator" },
             { title: "Savings and registered accounts", body: "Use TFSA, RRSP, and FHSA tools together instead of in isolation.", href: "/tools/tfsa-calculator" },
             { title: "Borrowing and housing", body: "Mortgage, rent-vs-buy, and debt payoff tools work best when paired with scenario planning.", href: "/tools/mortgage-calculator" },
           ].map((cluster) => (
-            <Link key={cluster.title} to={cluster.href} className="rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-secondary hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
+            <Link key={cluster.title} to={cluster.href} className="surface-card p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md">
               <h3 className="text-lg font-bold text-primary dark:text-accent">{cluster.title}</h3>
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{cluster.body}</p>
             </Link>
@@ -154,62 +167,57 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-4">
+      <section className="mx-auto max-w-5xl px-4">
         <ReferralSection />
       </section>
 
-      <section className="max-w-5xl mx-auto px-4 py-12">
-        <div className="flex items-center justify-between mb-8">
+      <section className="mx-auto max-w-5xl px-4 py-12">
+        <div className="mb-8 flex items-center justify-between">
           <h2 className="text-3xl font-bold text-primary dark:text-accent">Latest Articles</h2>
-          <Link to="/blog" className="text-secondary font-semibold hover:underline text-sm">View all articles</Link>
+          <Link to="/blog" className="text-sm font-semibold text-secondary hover:underline">
+            View all articles
+          </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {recentPosts.map((post) => (
             <Link
               key={post.slug}
               to={`/blog/${post.slug}`}
-              className="block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-5 hover:shadow-lg hover:border-secondary transition-all group"
+              className="group block rounded-2xl border border-gray-100 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-secondary hover:shadow-lg dark:border-gray-700 dark:bg-gray-800"
             >
-              <span className="text-xs font-semibold bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full">
+              <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
                 {post.category}
               </span>
-              <h3 className="font-bold text-gray-800 dark:text-white mt-3 mb-2 group-hover:text-secondary transition leading-snug">
-                {post.title}
-              </h3>
-              <span className="text-xs text-secondary font-semibold">Read article</span>
+              <h3 className="mb-2 mt-3 font-bold leading-snug text-gray-800 transition group-hover:text-secondary dark:text-white">{post.title}</h3>
+              <span className="text-xs font-semibold text-secondary">Read article</span>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="bg-gray-50 dark:bg-gray-900 py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-12 text-primary dark:text-accent">Why EasyFinanceTools?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section className="bg-gray-50 px-4 py-16 dark:bg-gray-900">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="mb-12 text-3xl font-bold text-primary dark:text-accent">Why EasyFinanceTools?</h2>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {[
               { icon: "Private", title: "100% Private", desc: "We never store your financial data. Everything runs in your browser unless a feature explicitly says otherwise." },
               { icon: "Clear", title: "Clear methodology", desc: "Key calculators should show assumptions, update dates, and source links so users can sanity-check the output." },
               { icon: "Canada", title: "Made for Canada", desc: "Built around Canadian tax brackets, registered-account limits, and local planning questions." },
             ].map((item) => (
-              <div key={item.title} className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
-                <div className="text-lg font-semibold mb-4 text-secondary">{item.icon}</div>
-                <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                <p className="text-gray-500 text-sm">{item.desc}</p>
+              <div key={item.title} className="surface-card p-6">
+                <div className="mb-4 text-lg font-semibold text-secondary">{item.icon}</div>
+                <h3 className="mb-2 text-lg font-bold">{item.title}</h3>
+                <p className="text-sm text-gray-500">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-primary text-white py-16 px-4 text-center">
-        <h2 className="text-3xl font-bold mb-4">Ready to Take Control of Your Finances?</h2>
-        <p className="text-blue-100 mb-8">
-          Start with the TFSA calculator, then compare it against RRSP and tax tools once you have a baseline.
-        </p>
-        <Link
-          to="/tools/tfsa-calculator"
-          className="bg-accent text-primary font-bold px-10 py-4 rounded-xl hover:bg-yellow-400 transition text-lg inline-block"
-        >
+      <section className="bg-primary px-4 py-16 text-center text-white">
+        <h2 className="mb-4 text-3xl font-bold">Ready to Take Control of Your Finances?</h2>
+        <p className="mb-8 text-blue-100">Start with the TFSA calculator, then compare it against RRSP and tax tools once you have a baseline.</p>
+        <Link to="/tools/tfsa-calculator" className="inline-block rounded-xl bg-accent px-10 py-4 text-lg font-bold text-primary transition hover:bg-yellow-400">
           Open TFSA calculator
         </Link>
       </section>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const REFERRAL_CODE = "R8F7ZW";
 const REFERRAL_URL = `https://wealthsimple.com/invite/${REFERRAL_CODE}`;
@@ -10,10 +10,10 @@ export default function ReferralSection() {
     navigator.clipboard.writeText(REFERRAL_CODE).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'referral_copy', {
-          event_category: 'Referral',
-          event_label: 'Wealthsimple Code Copied',
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "referral_copy", {
+          event_category: "Referral",
+          event_label: "Wealthsimple Code Copied",
         });
       }
     });
@@ -21,66 +21,60 @@ export default function ReferralSection() {
 
   return (
     <section className="my-10">
-      {/* Affiliate disclosure */}
-      <p className="text-xs text-gray-400 text-center mb-3">
-        ⓘ Affiliate disclosure: We may earn a referral bonus if you sign up using our code. This never affects our recommendations.
+      <p className="mb-3 text-center text-xs text-gray-400">
+        Affiliate disclosure: We may earn a referral bonus if you sign up using this code. This does not change how we explain or rank tools.
       </p>
 
-      <div className="bg-gradient-to-br from-[#00b2a9]/10 to-[#003366]/10 dark:from-[#00b2a9]/5 dark:to-[#003366]/5 border border-[#00b2a9]/30 dark:border-[#00b2a9]/20 rounded-2xl p-6">
-        <div className="flex flex-col sm:flex-row items-center gap-6">
-          {/* Logo / brand mark */}
-          <div className="shrink-0 w-14 h-14 bg-black rounded-2xl flex items-center justify-center shadow-md">
-            <span className="text-white font-black text-lg tracking-tight">WS</span>
+      <div className="rounded-2xl border border-[#00b2a9]/30 bg-gradient-to-br from-[#00b2a9]/10 to-[#003366]/10 p-6 dark:border-[#00b2a9]/20 dark:from-[#00b2a9]/5 dark:to-[#003366]/5">
+        <div className="flex flex-col items-center gap-6 sm:flex-row">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-black shadow-md">
+            <span className="text-lg font-black tracking-tight text-white">WS</span>
           </div>
 
-          {/* Text */}
           <div className="flex-1 text-center sm:text-left">
-            <div className="inline-flex items-center gap-2 bg-[#00b2a9]/10 text-[#00b2a9] text-xs font-bold px-3 py-1 rounded-full mb-2">
-              🎁 Limited Offer
+            <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-[#00b2a9]/10 px-3 py-1 text-xs font-bold text-[#00b2a9]">
+              Limited Offer
             </div>
-            <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-1">
-              Get <span className="text-[#00b2a9]">$25 free</span> with Wealthsimple 🇨🇦
+            <h3 className="mb-1 text-lg font-bold text-gray-900 dark:text-white">
+              Get <span className="text-[#00b2a9]">$25 free</span> with Wealthsimple
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Sign up for Canada's #1 investing app and deposit just <strong>$100</strong> to claim your <strong className="text-[#00b2a9]">$25 cash bonus</strong>. Use our referral code at signup.
+              Sign up and deposit just <strong>$100</strong> to claim a <strong className="text-[#00b2a9]">$25 cash bonus</strong>. Use the referral code below at signup.
             </p>
-            <p className="text-xs text-gray-400 mt-1.5">✅ No fee to open &nbsp;·&nbsp; ✅ Takes 5 minutes &nbsp;·&nbsp; ✅ Bonus paid within days</p>
+            <p className="mt-1.5 text-xs text-gray-400">No fee to open | Takes about 5 minutes | Bonus usually arrives within days</p>
           </div>
 
-          {/* Code + CTA */}
-          <div className="flex flex-col items-center gap-2 shrink-0">
+          <div className="flex shrink-0 flex-col items-center gap-2">
             <div className="flex items-center gap-2">
-              <div className="bg-white dark:bg-gray-800 border-2 border-[#00b2a9]/40 rounded-lg px-4 py-2">
-                <span className="text-xs text-gray-400 block leading-none mb-0.5">Referral code</span>
-                <span className="font-mono font-bold text-lg text-gray-900 dark:text-white tracking-widest">{REFERRAL_CODE}</span>
+              <div className="rounded-lg border-2 border-[#00b2a9]/40 bg-white px-4 py-2 dark:bg-gray-800">
+                <span className="mb-0.5 block text-xs leading-none text-gray-400">Referral code</span>
+                <span className="font-mono text-lg font-bold tracking-widest text-gray-900 dark:text-white">{REFERRAL_CODE}</span>
               </div>
               <button
                 onClick={copyCode}
-                aria-label={copied ? 'Referral code copied' : 'Copy referral code'}
-                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all ${
-                  copied
-                    ? 'bg-green-500 text-white'
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
+                aria-label={copied ? "Referral code copied" : "Copy referral code"}
+                className={`rounded-lg px-3 py-2 text-sm font-semibold transition-all ${
+                  copied ? "bg-green-500 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                 }`}
               >
-                {copied ? '✅' : '📋'}
+                {copied ? "Copied" : "Copy"}
               </button>
             </div>
             <a
               href={REFERRAL_URL}
               target="_blank"
               rel="noopener noreferrer sponsored"
-              className="w-full text-center bg-black text-white text-sm font-bold px-5 py-2.5 rounded-xl hover:bg-gray-800 transition"
+              className="w-full rounded-xl bg-black px-5 py-2.5 text-center text-sm font-bold text-white transition hover:bg-gray-800"
               onClick={() => {
-                if (typeof window.gtag === 'function') {
-                  window.gtag('event', 'referral_click', {
-                    event_category: 'Referral',
-                    event_label: 'Wealthsimple Sign Up Click',
+                if (typeof window.gtag === "function") {
+                  window.gtag("event", "referral_click", {
+                    event_category: "Referral",
+                    event_label: "Wealthsimple Sign Up Click",
                   });
                 }
               }}
             >
-              Sign Up & Claim Bonus →
+              Sign Up and Claim Bonus
             </a>
           </div>
         </div>

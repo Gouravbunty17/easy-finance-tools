@@ -1,113 +1,138 @@
-import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import { FiMenu, FiX, FiSun, FiMoon, FiSearch } from 'react-icons/fi';
-import Logo from './Logo';
-import AdSlot from './AdSlot';
+import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { FiMenu, FiX, FiSun, FiMoon, FiSearch } from "react-icons/fi";
+import Logo from "./Logo";
+import AdSlot from "./AdSlot";
 
 const navLinks = [
-  { name: 'Tools', path: '/tools' },
-  { name: 'Stocks', path: '/stocks' },
-  { name: 'Blog', path: '/blog' },
-  { name: 'About', path: '/about' },
+  { name: "Tools", path: "/tools" },
+  { name: "Stocks", path: "/stocks" },
+  { name: "Blog", path: "/blog" },
+  { name: "About", path: "/about" },
 ];
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem('theme') === 'dark';
-  });
+  const [isDark, setIsDark] = useState(() => localStorage.getItem("theme") === "dark");
 
   useEffect(() => {
     const html = document.documentElement;
     if (isDark) {
-      html.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
+      html.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     } else {
-      html.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+      html.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
   }, [isDark]);
 
+  const openSearch = () => {
+    window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true, bubbles: true }));
+  };
+
   return (
     <>
-      {/* Top AdSense Banner */}
-      <div className="w-full bg-gray-50 dark:bg-gray-900 border-b dark:border-gray-800 text-center min-h-[60px] flex items-center justify-center">
+      <div className="flex min-h-[60px] w-full items-center justify-center border-b bg-gray-50 text-center dark:border-gray-800 dark:bg-gray-900">
         <AdSlot slot="1901528811" format="horizontal" />
       </div>
 
-      <header className="bg-white dark:bg-gray-950 shadow-sm sticky top-0 z-50 border-b border-gray-100 dark:border-gray-800">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16">
-
-            {/* Logo */}
+      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-950/95">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="flex h-16 items-center justify-between">
             <Logo size="sm" />
 
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-6">
-              {navLinks.map(link => (
-                <NavLink key={link.name} to={link.path}
+            <nav className="hidden items-center gap-6 md:flex">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.name}
+                  to={link.path}
                   className={({ isActive }) =>
                     `text-sm font-semibold transition-colors ${
-                      isActive ? 'text-secondary' : 'text-gray-600 dark:text-gray-300 hover:text-secondary'
+                      isActive ? "text-secondary" : "text-gray-600 hover:text-secondary dark:text-gray-300"
                     }`
-                  }>
+                  }
+                >
                   {link.name}
                 </NavLink>
               ))}
-              <NavLink to="/contact"
-                className="text-sm bg-secondary text-white px-4 py-2 rounded-lg hover:bg-primary transition font-semibold">
-                Contact
-              </NavLink>
+
               <button
-                onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true }))}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition text-xs"
+                onClick={openSearch}
+                className="focus-ring flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5 text-xs text-gray-500 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
                 title="Quick search (Ctrl+K)"
               >
                 <FiSearch size={13} />
                 <span className="hidden lg:inline">Search</span>
-                <kbd className="hidden lg:inline bg-white dark:bg-gray-700 px-1 rounded text-[10px]">⌘K</kbd>
+                <kbd className="hidden rounded bg-white px-1 text-[10px] dark:bg-gray-700 lg:inline">Ctrl+K</kbd>
               </button>
-              <button onClick={() => setIsDark(!isDark)}
-                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+
+              <NavLink to="/contact" className="rounded-lg bg-secondary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary">
+                Contact
+              </NavLink>
+
+              <button
+                onClick={() => setIsDark(!isDark)}
+                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                className="focus-ring rounded-lg bg-gray-100 p-2 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+              >
                 {isDark ? <FiSun size={16} /> : <FiMoon size={16} />}
               </button>
             </nav>
 
-            {/* Mobile buttons */}
-            <div className="md:hidden flex items-center gap-2">
-              <button onClick={() => setIsDark(!isDark)}
-                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-                className="p-2 text-gray-600 dark:text-white">
+            <div className="flex items-center gap-2 md:hidden">
+              <button
+                onClick={openSearch}
+                aria-label="Open search"
+                className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
+              >
+                <FiSearch size={18} />
+              </button>
+              <button
+                onClick={() => setIsDark(!isDark)}
+                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
+              >
                 {isDark ? <FiSun size={18} /> : <FiMoon size={18} />}
               </button>
-              <button onClick={() => setIsOpen(!isOpen)}
-                aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
                 aria-expanded={isOpen}
-                className="p-2 text-gray-600 dark:text-white">
+                className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
+              >
                 {isOpen ? <FiX size={22} /> : <FiMenu size={22} />}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile menu */}
         {isOpen && (
-          <div className="md:hidden bg-white dark:bg-gray-950 border-t dark:border-gray-800 px-4 py-4">
+          <div className="border-t bg-white px-4 py-4 dark:border-gray-800 dark:bg-gray-950 md:hidden">
             <nav className="flex flex-col gap-3">
-              {navLinks.map(link => (
-                <NavLink key={link.name} to={link.path}
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.name}
+                  to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
-                    `py-2 px-3 rounded-lg text-sm font-semibold ${
-                      isActive ? 'bg-blue-50 text-secondary' : 'text-gray-600 dark:text-gray-300'
+                    `rounded-lg px-3 py-2 text-sm font-semibold ${
+                      isActive ? "bg-blue-50 text-secondary" : "text-gray-600 dark:text-gray-300"
                     }`
-                  }>
+                  }
+                >
                   {link.name}
                 </NavLink>
               ))}
-              <NavLink to="/contact" onClick={() => setIsOpen(false)}
-                className="py-2 px-3 bg-secondary text-white rounded-lg text-sm font-semibold text-center">
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  openSearch();
+                }}
+                className="rounded-lg border border-gray-200 px-3 py-2 text-left text-sm font-semibold text-gray-600 dark:border-gray-700 dark:text-gray-300"
+              >
+                Search tools and guides
+              </button>
+              <NavLink to="/contact" onClick={() => setIsOpen(false)} className="rounded-lg bg-secondary px-3 py-2 text-center text-sm font-semibold text-white">
                 Contact
               </NavLink>
             </nav>
