@@ -1,228 +1,351 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import SEO from '../../components/SEO';
-import AdSlot from '../../components/AdSlot';
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import SEO from "../../components/SEO";
+import AdSlot from "../../components/AdSlot";
 
-/* ─── TradingView widget loader ─── */
 function TVWidget({ id, scriptSrc, configFn, height }) {
   const ref = useRef(null);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    el.innerHTML = '';
-    const isDark = document.documentElement.classList.contains('dark');
-    const container = document.createElement('div');
-    container.className = 'tradingview-widget-container__widget';
-    const script = document.createElement('script');
+
+    el.innerHTML = "";
+    const isDark = document.documentElement.classList.contains("dark");
+    const container = document.createElement("div");
+    container.className = "tradingview-widget-container__widget";
+
+    const script = document.createElement("script");
     script.src = scriptSrc;
     script.async = true;
     script.innerHTML = JSON.stringify(configFn(isDark));
+
     el.appendChild(container);
     el.appendChild(script);
-    return () => { if (el) el.innerHTML = ''; };
-  }, [id]);
-  return <div ref={ref} className="tradingview-widget-container w-full overflow-hidden" style={{ minHeight: height }} />;
+
+    return () => {
+      if (el) el.innerHTML = "";
+    };
+  }, [configFn, id, scriptSrc]);
+
+  return (
+    <div
+      ref={ref}
+      className="tradingview-widget-container w-full overflow-hidden"
+      style={{ minHeight: height }}
+    />
+  );
 }
 
-function Sk({ cls }) {
-  return <div className={'animate-pulse bg-gray-200 dark:bg-gray-700 rounded ' + cls} />;
+function SkeletonLine({ cls }) {
+  return <div className={`animate-pulse rounded bg-gray-200 dark:bg-gray-700 ${cls}`} />;
 }
 
-/* ─── Popular lists ─── */
 const POPULAR_STOCKS = [
-  { t: 'AAPL',  n: 'Apple',      f: '🇺🇸' },
-  { t: 'NVDA',  n: 'Nvidia',     f: '🇺🇸' },
-  { t: 'TSLA',  n: 'Tesla',      f: '🇺🇸' },
-  { t: 'SHOP',  n: 'Shopify',    f: '🇨🇦' },
-  { t: 'RY',    n: 'Royal Bank', f: '🇨🇦' },
-  { t: 'TD',    n: 'TD Bank',    f: '🇨🇦' },
-];
-const POPULAR_CRYPTO = [
-  { t: 'BTC-USD', n: 'Bitcoin',  f: '₿' },
-  { t: 'ETH-USD', n: 'Ethereum', f: 'Ξ' },
-  { t: 'SOL-USD', n: 'Solana',   f: '◎' },
-  { t: 'XRP-USD', n: 'XRP',      f: '✕' },
-];
-const POPULAR_ETFS = [
-  { t: 'SPY',     n: 'S&P 500',    f: '📊' },
-  { t: 'QQQ',     n: 'NASDAQ 100', f: '📊' },
-  { t: 'XEQT.TO', n: 'iShares CA', f: '🇨🇦' },
+  { t: "AAPL", n: "Apple", market: "US" },
+  { t: "NVDA", n: "Nvidia", market: "US" },
+  { t: "TSLA", n: "Tesla", market: "US" },
+  { t: "SHOP", n: "Shopify", market: "Canada" },
+  { t: "RY", n: "Royal Bank", market: "Canada" },
+  { t: "TD", n: "TD Bank", market: "Canada" },
 ];
 
-/* ─── Known Canadian TSX stocks (no .TO suffix from user) ─── */
+const POPULAR_CRYPTO = [
+  { t: "BTC-USD", n: "Bitcoin", market: "Crypto" },
+  { t: "ETH-USD", n: "Ethereum", market: "Crypto" },
+  { t: "SOL-USD", n: "Solana", market: "Crypto" },
+  { t: "XRP-USD", n: "XRP", market: "Crypto" },
+];
+
+const POPULAR_ETFS = [
+  { t: "SPY", n: "S&P 500", market: "ETF" },
+  { t: "QQQ", n: "NASDAQ 100", market: "ETF" },
+  { t: "XEQT.TO", n: "iShares Core Equity ETF", market: "Canada ETF" },
+];
+
 const TSX_TICKERS = new Set([
-  'RY','TD','ENB','CNR','CP','BNS','MFC','SU','BMO','ABX',
-  'CM','CNQ','TRP','PPL','FTS','POW','IFC','T','BCE','SHOP',
-  'RCI','MG','L','EMA','KEY','AEM','PKI','GWO','WN','ATD',
-  'CVE','IMO','NTR','WPM','BHC','CAR','CTC','MRU','EMP',
+  "RY", "TD", "ENB", "CNR", "CP", "BNS", "MFC", "SU", "BMO", "ABX",
+  "CM", "CNQ", "TRP", "PPL", "FTS", "POW", "IFC", "T", "BCE", "SHOP",
+  "RCI", "MG", "L", "EMA", "KEY", "AEM", "PKI", "GWO", "WN", "ATD",
+  "CVE", "IMO", "NTR", "WPM", "BHC", "CAR", "CTC", "MRU", "EMP",
 ]);
 
-/* ─── Crypto short codes ─── */
 const CRYPTO_MAP = {
-  BTC:'BTC-USD',ETH:'ETH-USD',SOL:'SOL-USD',XRP:'XRP-USD',
-  DOGE:'DOGE-USD',ADA:'ADA-USD',AVAX:'AVAX-USD',DOT:'DOT-USD',
-  MATIC:'MATIC-USD',SHIB:'SHIB-USD',LTC:'LTC-USD',LINK:'LINK-USD',
-  UNI:'UNI-USD',ATOM:'ATOM-USD',XLM:'XLM-USD',BCH:'BCH-USD',
-  NEAR:'NEAR-USD',ICP:'ICP-USD',APT:'APT-USD',ARB:'ARB-USD',
-  OP:'OP-USD',SUI:'SUI-USD',TRX:'TRX-USD',INJ:'INJ-USD',
+  BTC: "BTC-USD",
+  ETH: "ETH-USD",
+  SOL: "SOL-USD",
+  XRP: "XRP-USD",
+  DOGE: "DOGE-USD",
+  ADA: "ADA-USD",
+  AVAX: "AVAX-USD",
+  DOT: "DOT-USD",
+  MATIC: "MATIC-USD",
+  SHIB: "SHIB-USD",
+  LTC: "LTC-USD",
+  LINK: "LINK-USD",
+  UNI: "UNI-USD",
+  ATOM: "ATOM-USD",
+  XLM: "XLM-USD",
+  BCH: "BCH-USD",
+  NEAR: "NEAR-USD",
+  ICP: "ICP-USD",
+  APT: "APT-USD",
+  ARB: "ARB-USD",
+  OP: "OP-USD",
+  SUI: "SUI-USD",
+  TRX: "TRX-USD",
+  INJ: "INJ-USD",
 };
 
-/* ─── Resolve ticker → TradingView symbol (no API needed) ─── */
 function toTVSymbol(ticker) {
-  if (!ticker) return '';
-  // Crypto: BTC-USD → BINANCE:BTCUSDT
-  if (ticker.endsWith('-USD') || ticker.endsWith('-USDT')) {
-    const base = ticker.replace(/-USD$/, '').replace(/-USDT$/, '');
+  if (!ticker) return "";
+  if (ticker.endsWith("-USD") || ticker.endsWith("-USDT")) {
+    const base = ticker.replace(/-USD$/, "").replace(/-USDT$/, "");
     return `BINANCE:${base}USDT`;
   }
-  // Canadian .TO suffix
-  if (ticker.endsWith('.TO')) return `TSX:${ticker.replace(/\.TO$/, '')}`;
-  // Known Canadian
+  if (ticker.endsWith(".TO")) return `TSX:${ticker.replace(/\.TO$/, "")}`;
   if (TSX_TICKERS.has(ticker)) return `TSX:${ticker}`;
-  // Default — TradingView resolves most US tickers automatically
   return ticker;
 }
 
 const TYPE_BADGE = {
-  CRYPTOCURRENCY: { label: 'Crypto', cls: 'bg-orange-100 text-orange-600' },
-  ETF:            { label: 'ETF',    cls: 'bg-purple-100 text-purple-600' },
-  EQUITY:         { label: 'Stock',  cls: 'bg-blue-100 text-blue-600'    },
-  MUTUALFUND:     { label: 'Fund',   cls: 'bg-green-100 text-green-600'  },
+  CRYPTOCURRENCY: { label: "Crypto", cls: "bg-orange-100 text-orange-700" },
+  ETF: { label: "ETF", cls: "bg-purple-100 text-purple-700" },
+  EQUITY: { label: "Stock", cls: "bg-blue-100 text-blue-700" },
+  MUTUALFUND: { label: "Fund", cls: "bg-green-100 text-green-700" },
 };
 
+const LANDING_FEATURES = [
+  ["Interactive chart", "Track 1D to max history"],
+  ["Technical analysis", "View quick buy, sell, and neutral signals"],
+  ["Company or crypto profile", "See the business or asset overview"],
+  ["Latest news", "Read symbol-specific headlines in one place"],
+];
+
+function QuickTile({ title, subtitle }) {
+  return (
+    <div className="rounded-2xl border border-gray-100 bg-white p-4 text-center dark:border-gray-700 dark:bg-gray-800">
+      <p className="text-sm font-bold text-primary dark:text-white">{title}</p>
+      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{subtitle}</p>
+    </div>
+  );
+}
+
+function SymbolChip({ item, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className="rounded-xl border-2 border-gray-100 bg-white px-4 py-2 text-left text-sm transition hover:border-blue-400 hover:text-blue-600 dark:border-gray-700 dark:bg-gray-800"
+    >
+      <div className="flex items-center gap-2">
+        <span className="font-bold">{item.t.replace("-USD", "")}</span>
+        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600 dark:bg-slate-700 dark:text-slate-200">
+          {item.market}
+        </span>
+      </div>
+      <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">{item.n}</div>
+    </button>
+  );
+}
+
 export default function StockPage() {
-  const { ticker }  = useParams();
-  const navigate    = useNavigate();
-  const [search, setSearch]             = useState('');
-  const [suggestions, setSuggestions]   = useState([]);
-  const [showSug, setShowSug]           = useState(false);
-  const [ai, setAi]                     = useState('');
-  const [aiLoad, setAiLoad]             = useState(false);
-  const [watchlist, setWatchlist]       = useState(() => {
-    try { return JSON.parse(localStorage.getItem('watchlist') || '[]'); } catch { return []; }
+  const { ticker } = useParams();
+  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [aiSummary, setAiSummary] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [watchlist, setWatchlist] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("watchlist") || "[]");
+    } catch {
+      return [];
+    }
   });
-  const searchRef   = useRef(null);
+
+  const searchRef = useRef(null);
   const debounceRef = useRef(null);
 
   useEffect(() => {
-    localStorage.setItem('watchlist', JSON.stringify(watchlist));
+    localStorage.setItem("watchlist", JSON.stringify(watchlist));
   }, [watchlist]);
 
-  const toggleWatch = (sym, name) => {
-    setWatchlist(prev =>
-      prev.some(w => w.t === sym)
-        ? prev.filter(w => w.t !== sym)
-        : [...prev, { t: sym, n: name || sym }]
+  const currentTicker = ticker?.toUpperCase();
+  const isWatched = watchlist.some((item) => item.t === currentTicker);
+  const isCrypto = Boolean(
+    currentTicker && (currentTicker.endsWith("-USD") || currentTicker.endsWith("-USDT"))
+  );
+  const tvSymbol = toTVSymbol(currentTicker);
+
+  const toggleWatch = (symbol, name) => {
+    setWatchlist((prev) =>
+      prev.some((item) => item.t === symbol)
+        ? prev.filter((item) => item.t !== symbol)
+        : [...prev, { t: symbol, n: name || symbol }]
     );
   };
 
-  const t          = ticker?.toUpperCase();
-  const isWatched  = watchlist.some(w => w.t === t);
-  const isCrypto   = !!(t && (t.endsWith('-USD') || t.endsWith('-USDT')));
-  const tvSymbol   = toTVSymbol(t);
-
-  /* ─── Auto-redirect bare crypto tickers ─── */
   useEffect(() => {
-    if (!t) return;
-    if (CRYPTO_MAP[t]) { navigate('/stocks/' + CRYPTO_MAP[t], { replace: true }); return; }
-    setAi('');
-    doAI(t);
-  }, [t]);
+    if (!currentTicker) return;
+    if (CRYPTO_MAP[currentTicker]) {
+      navigate(`/stocks/${CRYPTO_MAP[currentTicker]}`, { replace: true });
+      return;
+    }
 
-  /* ─── AI Summary (silent fail — optional enhancement) ─── */
-  const doAI = async (sym) => {
-    setAiLoad(true);
+    setAiSummary("");
+    fetchAiSummary(currentTicker);
+  }, [currentTicker, navigate]);
+
+  const fetchAiSummary = async (symbol) => {
+    setAiLoading(true);
     try {
-      const r = await fetch('/api/ai-summary', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ticker: sym }),
+      const response = await fetch("/api/ai-summary", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ticker: symbol }),
       });
-      // Guard: if response is HTML (routing broken) just bail
-      const ct = r.headers.get('content-type') || '';
-      if (!ct.includes('application/json')) { setAiLoad(false); return; }
-      const j = await r.json();
-      if (j?.summary) setAi(j.summary);
-    } catch { /* silent */ }
-    setAiLoad(false);
+
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        setAiLoading(false);
+        return;
+      }
+
+      const data = await response.json();
+      if (data?.summary) setAiSummary(data.summary);
+    } catch {
+      // Optional enhancement only.
+    }
+    setAiLoading(false);
   };
 
-  /* ─── Autocomplete (silent fail — nice-to-have) ─── */
-  const handleSearchInput = (val) => {
-    setSearch(val);
+  const handleSearchInput = (value) => {
+    setSearch(value);
     clearTimeout(debounceRef.current);
-    if (!val.trim()) { setSuggestions([]); setShowSug(false); return; }
+
+    if (!value.trim()) {
+      setSuggestions([]);
+      setShowSuggestions(false);
+      return;
+    }
+
     debounceRef.current = setTimeout(async () => {
       try {
-        const r = await fetch(`/api/search?q=${encodeURIComponent(val)}`);
-        const ct = r.headers.get('content-type') || '';
-        if (!ct.includes('application/json')) return; // routing broken — skip
-        const d = await r.json();
-        setSuggestions(d.results || []);
-        setShowSug((d.results || []).length > 0);
-      } catch { /* silent */ }
+        const response = await fetch(`/api/search?q=${encodeURIComponent(value)}`);
+        const contentType = response.headers.get("content-type") || "";
+        if (!contentType.includes("application/json")) return;
+
+        const data = await response.json();
+        const results = data.results || [];
+        setSuggestions(results);
+        setShowSuggestions(results.length > 0);
+      } catch {
+        // Optional enhancement only.
+      }
     }, 280);
   };
 
   const handleSelectSuggestion = (symbol) => {
-    setSearch(''); setSuggestions([]); setShowSug(false);
-    navigate('/stocks/' + symbol);
+    setSearch("");
+    setSuggestions([]);
+    setShowSuggestions(false);
+    navigate(`/stocks/${symbol}`);
   };
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const s = search.trim().toUpperCase();
-    if (s) { navigate('/stocks/' + s); setSearch(''); setSuggestions([]); setShowSug(false); }
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    const value = search.trim().toUpperCase();
+    if (!value) return;
+    navigate(`/stocks/${value}`);
+    setSearch("");
+    setSuggestions([]);
+    setShowSuggestions(false);
   };
 
   useEffect(() => {
-    const h = (e) => { if (searchRef.current && !searchRef.current.contains(e.target)) setShowSug(false); };
-    document.addEventListener('mousedown', h);
-    return () => document.removeEventListener('mousedown', h);
+    const handleOutsideClick = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
   return (
     <div className="min-h-screen">
       <SEO
-        title={t ? `${t} Stock Chart & Analysis — EasyFinanceTools` : 'Stock, ETF & Crypto Charts — EasyFinanceTools'}
-        description={t ? `Live ${t} chart, technical analysis, financials and news. Free on EasyFinanceTools.` : 'Free live charts, technical analysis and news for US & Canadian stocks, ETFs and crypto.'}
-        canonical={t ? `https://easyfinancetools.com/stocks/${t}` : 'https://easyfinancetools.com/stocks'}
+        title={
+          currentTicker
+            ? `${currentTicker} Stock Chart and Analysis`
+            : "Stock, ETF and Crypto Charts"
+        }
+        description={
+          currentTicker
+            ? `Live ${currentTicker} chart, technical analysis, financials, and latest news on EasyFinanceTools.`
+            : "Free live charts, technical analysis, financials, and news for US and Canadian stocks, ETFs, and crypto."
+        }
+        canonical={
+          currentTicker
+            ? `https://easyfinancetools.com/stocks/${currentTicker}`
+            : "https://easyfinancetools.com/stocks"
+        }
       />
 
-      {/* ── Search hero ── */}
-      <div className="bg-gradient-to-br from-primary to-secondary py-8 px-4">
-        <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-white text-2xl font-bold mb-1">Stocks, ETFs &amp; Crypto</h1>
-          <p className="text-blue-200 text-sm mb-5">Live charts · Technical analysis · Financials · News</p>
-          <div ref={searchRef} className="relative max-w-md mx-auto">
+      <div className="bg-gradient-to-br from-primary to-secondary px-4 py-10">
+        <div className="mx-auto max-w-5xl text-center">
+          <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">
+            US and Canadian markets
+          </div>
+          <h1 className="mb-2 text-3xl font-bold text-white md:text-4xl">Stocks, ETFs and Crypto</h1>
+          <p className="mb-6 text-sm text-blue-100 md:text-base">
+            Live charts, technical analysis, financials, company profiles, and symbol-specific news.
+          </p>
+
+          <div ref={searchRef} className="relative mx-auto max-w-xl">
             <form onSubmit={handleSearch} className="flex gap-3">
               <input
-                type="text" value={search}
-                onChange={e => handleSearchInput(e.target.value)}
-                onFocus={() => suggestions.length > 0 && setShowSug(true)}
-                placeholder="Apple, AAPL, Bitcoin, BTC, SPY…"
-                className="flex-1 px-4 py-3 rounded-xl text-gray-900 font-semibold outline-none focus:ring-2 focus:ring-accent"
+                type="text"
+                value={search}
+                onChange={(event) => handleSearchInput(event.target.value)}
+                onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                placeholder="Search Apple, AAPL, Bitcoin, BTC, SPY"
+                className="flex-1 rounded-xl px-4 py-3 font-semibold text-gray-900 outline-none focus:ring-2 focus:ring-accent"
                 autoComplete="off"
                 aria-label="Search stocks, ETFs, or crypto"
               />
-              <button type="submit" aria-label="Search"
-                className="bg-accent text-primary font-bold px-6 py-3 rounded-xl hover:bg-yellow-400 transition whitespace-nowrap">
+              <button
+                type="submit"
+                aria-label="Search"
+                className="whitespace-nowrap rounded-xl bg-accent px-6 py-3 font-bold text-primary transition hover:bg-yellow-400"
+              >
                 Search
               </button>
             </form>
-            {showSug && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 overflow-hidden">
-                {suggestions.map((s) => {
-                  const badge = TYPE_BADGE[s.type] || TYPE_BADGE.EQUITY;
+
+            {showSuggestions && (
+              <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-2xl">
+                {suggestions.map((item) => {
+                  const badge = TYPE_BADGE[item.type] || TYPE_BADGE.EQUITY;
                   return (
-                    <button key={s.symbol} onMouseDown={() => handleSelectSuggestion(s.symbol)}
-                      className="w-full flex items-center justify-between px-4 py-3 hover:bg-blue-50 transition text-left border-b border-gray-50 last:border-0">
-                      <div className="flex items-center gap-2 min-w-0">
-                        <span className="font-bold text-primary text-sm shrink-0">{s.symbol}</span>
-                        <span className="text-gray-500 text-sm truncate">{s.name}</span>
+                    <button
+                      key={item.symbol}
+                      onMouseDown={() => handleSelectSuggestion(item.symbol)}
+                      className="flex w-full items-center justify-between border-b border-gray-50 px-4 py-3 text-left transition last:border-0 hover:bg-blue-50"
+                    >
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="shrink-0 text-sm font-bold text-primary">{item.symbol}</span>
+                          <span className="truncate text-sm text-gray-500">{item.name}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-1.5 shrink-0 ml-2">
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${badge.cls}`}>{badge.label}</span>
-                        <span className="text-xs text-gray-400">{s.exchange}</span>
+                      <div className="ml-2 flex shrink-0 items-center gap-1.5">
+                        <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${badge.cls}`}>
+                          {badge.label}
+                        </span>
+                        <span className="text-xs text-gray-400">{item.exchange}</span>
                       </div>
                     </button>
                   );
@@ -233,27 +356,52 @@ export default function StockPage() {
         </div>
       </div>
 
-      {/* ── Landing (no ticker) ── */}
-      {!t && (
-        <div className="max-w-5xl mx-auto px-4 py-12">
-          <div className="text-center mb-10">
-            <div className="text-6xl mb-4">📈</div>
-            <h2 className="text-2xl font-bold text-primary dark:text-accent mb-3">Search any stock, ETF, or crypto</h2>
-            <p className="text-gray-500 max-w-md mx-auto">NYSE · NASDAQ · TSX · Bitcoin · Ethereum · SPY · QQQ. All free.</p>
+      {!currentTicker && (
+        <div className="mx-auto max-w-5xl px-4 py-12">
+          <div className="mb-10 text-center">
+            <h2 className="mb-3 text-2xl font-bold text-primary dark:text-accent">
+              Search any stock, ETF, or crypto
+            </h2>
+            <p className="mx-auto max-w-2xl text-gray-500 dark:text-gray-400">
+              Follow US stocks, TSX names, major ETFs, and top crypto assets from one page.
+            </p>
           </div>
 
           {watchlist.length > 0 && (
             <div className="mb-8">
-              <div className="flex items-center justify-between mb-3">
-                <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide">⭐ Your Watchlist</p>
-                <button onClick={() => setWatchlist([])} className="text-xs text-gray-400 hover:text-red-500 transition">Clear all</button>
+              <div className="mb-3 flex items-center justify-between">
+                <p className="text-sm font-semibold uppercase tracking-wide text-gray-400">
+                  Your watchlist
+                </p>
+                <button
+                  onClick={() => setWatchlist([])}
+                  className="text-xs text-gray-400 transition hover:text-red-500"
+                >
+                  Clear all
+                </button>
               </div>
               <div className="flex flex-wrap gap-2">
-                {watchlist.map(w => (
-                  <div key={w.t} className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-200 dark:border-yellow-800 rounded-xl pl-3 pr-1 py-1.5">
-                    <button onClick={() => navigate('/stocks/' + w.t)} className="text-sm font-bold text-primary dark:text-yellow-300 hover:underline">{w.t}</button>
-                    <span className="text-gray-400 text-xs ml-1 hidden sm:inline">{w.n}</span>
-                    <button onClick={() => toggleWatch(w.t)} aria-label={`Remove ${w.t} from watchlist`} className="ml-1 p-1 text-gray-300 hover:text-red-400 transition text-xs">✕</button>
+                {watchlist.map((item) => (
+                  <div
+                    key={item.t}
+                    className="flex items-center gap-2 rounded-xl border-2 border-yellow-200 bg-yellow-50 pl-3 pr-2 py-1.5 dark:border-yellow-800 dark:bg-yellow-900/20"
+                  >
+                    <button
+                      onClick={() => navigate(`/stocks/${item.t}`)}
+                      className="text-sm font-bold text-primary hover:underline dark:text-yellow-300"
+                    >
+                      {item.t}
+                    </button>
+                    <span className="hidden text-xs text-gray-500 sm:inline dark:text-gray-400">
+                      {item.n}
+                    </span>
+                    <button
+                      onClick={() => toggleWatch(item.t)}
+                      aria-label={`Remove ${item.t} from watchlist`}
+                      className="text-xs text-gray-400 transition hover:text-red-400"
+                    >
+                      Remove
+                    </button>
                   </div>
                 ))}
               </div>
@@ -261,218 +409,239 @@ export default function StockPage() {
           )}
 
           <div className="mb-8">
-            <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">🇺🇸🇨🇦 Popular Stocks</p>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-400">
+              Popular stocks
+            </p>
             <div className="flex flex-wrap gap-2">
-              {POPULAR_STOCKS.map(s => (
-                <button key={s.t} onClick={() => navigate('/stocks/' + s.t)}
-                  className="bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 px-4 py-2 rounded-xl hover:border-blue-400 hover:text-blue-600 transition text-sm">
-                  <span className="mr-1">{s.f}</span><span className="font-bold">{s.t}</span>
-                  <span className="text-gray-400 ml-1 text-xs">{s.n}</span>
-                </button>
+              {POPULAR_STOCKS.map((item) => (
+                <SymbolChip key={item.t} item={item} onClick={() => navigate(`/stocks/${item.t}`)} />
               ))}
             </div>
           </div>
 
           <div className="mb-8">
-            <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">🪙 Popular Crypto</p>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-400">
+              Popular crypto
+            </p>
             <div className="flex flex-wrap gap-2">
-              {POPULAR_CRYPTO.map(s => (
-                <button key={s.t} onClick={() => navigate('/stocks/' + s.t)}
-                  className="bg-white dark:bg-gray-800 border-2 border-orange-100 dark:border-gray-700 px-4 py-2 rounded-xl hover:border-orange-400 hover:text-orange-600 transition text-sm">
-                  <span className="mr-1">{s.f}</span><span className="font-bold">{s.t.replace('-USD','')}</span>
-                  <span className="text-gray-400 ml-1 text-xs">{s.n}</span>
-                </button>
+              {POPULAR_CRYPTO.map((item) => (
+                <SymbolChip key={item.t} item={item} onClick={() => navigate(`/stocks/${item.t}`)} />
               ))}
             </div>
           </div>
 
           <div className="mb-10">
-            <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">📊 Popular ETFs</p>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-400">
+              Popular ETFs
+            </p>
             <div className="flex flex-wrap gap-2">
-              {POPULAR_ETFS.map(s => (
-                <button key={s.t} onClick={() => navigate('/stocks/' + s.t)}
-                  className="bg-white dark:bg-gray-800 border-2 border-purple-100 dark:border-gray-700 px-4 py-2 rounded-xl hover:border-purple-400 hover:text-purple-600 transition text-sm">
-                  <span className="mr-1">{s.f}</span><span className="font-bold">{s.t}</span>
-                  <span className="text-gray-400 ml-1 text-xs">{s.n}</span>
-                </button>
+              {POPULAR_ETFS.map((item) => (
+                <SymbolChip key={item.t} item={item} onClick={() => navigate(`/stocks/${item.t}`)} />
               ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-            {[['📊','Interactive Chart','1D to all-time'],['🎯','Technical Analysis','Buy/Sell signals'],['🏢','Company Profile','Business overview'],['📰','Latest News','Real-time feed']].map(([ic,lb,sb]) => (
-              <div key={lb} className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl p-4 text-center">
-                <div className="text-2xl mb-2">{ic}</div>
-                <p className="font-bold text-sm text-primary dark:text-white">{lb}</p>
-                <p className="text-xs text-gray-400 mt-1">{sb}</p>
-              </div>
+          <div className="grid max-w-4xl gap-4 md:grid-cols-4">
+            {LANDING_FEATURES.map(([title, subtitle]) => (
+              <QuickTile key={title} title={title} subtitle={subtitle} />
             ))}
           </div>
         </div>
       )}
 
-      {/* ── Ticker page ── */}
-      {t && (
-        <div className="max-w-5xl mx-auto px-4 py-6">
-
-          {/* Ticker header with watchlist */}
-          <div className="flex items-center gap-3 mb-4">
-            <h2 className="text-2xl font-bold text-primary dark:text-white">{t}</h2>
+      {currentTicker && (
+        <div className="mx-auto max-w-5xl px-4 py-6">
+          <div className="mb-6 flex flex-wrap items-center gap-3">
+            <h2 className="text-3xl font-bold text-primary dark:text-white">{currentTicker}</h2>
             <button
-              onClick={() => toggleWatch(t, t)}
-              aria-label={isWatched ? 'Remove from watchlist' : 'Add to watchlist'}
-              className={`text-2xl transition-transform hover:scale-110 ${isWatched ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-400'}`}
+              onClick={() => toggleWatch(currentTicker, currentTicker)}
+              aria-label={isWatched ? "Remove from watchlist" : "Add to watchlist"}
+              className={`rounded-full px-3 py-1 text-sm font-semibold transition ${
+                isWatched
+                  ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
+                  : "bg-slate-100 text-slate-600 hover:bg-yellow-100 hover:text-yellow-700 dark:bg-slate-800 dark:text-slate-300"
+              }`}
             >
-              {isWatched ? '★' : '☆'}
+              {isWatched ? "Saved" : "Save to watchlist"}
             </button>
-            {isCrypto && <span className="text-xs bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full font-bold">Crypto</span>}
+            <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+              {isCrypto ? "Crypto" : tvSymbol.startsWith("TSX:") ? "TSX" : "Market"}
+            </span>
           </div>
 
-          {/* ── TradingView Symbol Info widget (live price + stats, no API needed) ── */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden mb-4">
+          <div className="mb-6 grid gap-4 md:grid-cols-3">
+            <QuickTile title="Chart and history" subtitle="Daily chart with longer-range context" />
+            <QuickTile title="Technical view" subtitle="Quick buy, sell, and neutral signals" />
+            <QuickTile title="News and profile" subtitle="Company details and recent headlines" />
+          </div>
+
+          <div className="mb-4 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
             <TVWidget
-              id={'info-' + tvSymbol}
+              id={`info-${tvSymbol}`}
               height={180}
               scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js"
               configFn={(dark) => ({
                 symbol: tvSymbol,
-                width: '100%',
-                locale: 'en',
-                colorTheme: dark ? 'dark' : 'light',
+                width: "100%",
+                locale: "en",
+                colorTheme: dark ? "dark" : "light",
                 isTransparent: false,
               })}
             />
           </div>
 
-          {/* ── Advanced Chart ── */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow overflow-hidden mb-6">
-            <div className="px-4 pt-4 pb-1">
-              <h3 className="font-bold text-primary dark:text-accent">📈 Price Chart</h3>
+          <div className="mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-900">
+            <div className="px-4 pb-1 pt-4">
+              <h3 className="font-bold text-primary dark:text-accent">Price chart</h3>
             </div>
             <TVWidget
-              id={'chart-' + tvSymbol}
+              id={`chart-${tvSymbol}`}
               height={620}
               scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
               configFn={(dark) => ({
-                autosize: false, width: '100%', height: 620,
-                symbol: tvSymbol, interval: 'D',
-                timezone: 'America/Toronto', theme: dark ? 'dark' : 'light',
-                style: '1', locale: 'en', save_image: true,
-                support_host: 'https://www.tradingview.com',
+                autosize: false,
+                width: "100%",
+                height: 620,
+                symbol: tvSymbol,
+                interval: "D",
+                timezone: "America/Toronto",
+                theme: dark ? "dark" : "light",
+                style: "1",
+                locale: "en",
+                save_image: true,
+                support_host: "https://www.tradingview.com",
               })}
             />
           </div>
 
           <AdSlot slot="1901528811" format="auto" />
 
-          {/* ── Technical Analysis + Profile ── */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden">
-              <div className="px-4 pt-4 pb-1">
-                <h3 className="font-bold text-primary dark:text-accent">🎯 Technical Analysis</h3>
-                <p className="text-xs text-gray-400">Buy / Sell / Neutral signals</p>
+          <div className="mb-6 grid gap-6 md:grid-cols-2">
+            <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+              <div className="px-4 pb-1 pt-4">
+                <h3 className="font-bold text-primary dark:text-accent">Technical analysis</h3>
+                <p className="text-xs text-gray-400">Buy, sell, and neutral signals</p>
               </div>
               <TVWidget
-                id={'tech-' + tvSymbol}
+                id={`tech-${tvSymbol}`}
                 height={425}
                 scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js"
                 configFn={(dark) => ({
-                  interval: '1D', width: '100%', isTransparent: false,
-                  height: 425, symbol: tvSymbol, showIntervalTabs: true,
-                  locale: 'en', colorTheme: dark ? 'dark' : 'light',
+                  interval: "1D",
+                  width: "100%",
+                  isTransparent: false,
+                  height: 425,
+                  symbol: tvSymbol,
+                  showIntervalTabs: true,
+                  locale: "en",
+                  colorTheme: dark ? "dark" : "light",
                 })}
               />
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden">
-              <div className="px-4 pt-4 pb-1">
-                <h3 className="font-bold text-primary dark:text-accent">{isCrypto ? '🪙 Crypto Profile' : '🏢 Company Profile'}</h3>
+
+            <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+              <div className="px-4 pb-1 pt-4">
+                <h3 className="font-bold text-primary dark:text-accent">
+                  {isCrypto ? "Crypto profile" : "Company profile"}
+                </h3>
               </div>
               <TVWidget
-                id={'profile-' + tvSymbol}
+                id={`profile-${tvSymbol}`}
                 height={425}
                 scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js"
                 configFn={(dark) => ({
-                  width: '100%', height: 425, symbol: tvSymbol,
-                  colorTheme: dark ? 'dark' : 'light',
-                  isTransparent: false, locale: 'en',
+                  width: "100%",
+                  height: 425,
+                  symbol: tvSymbol,
+                  colorTheme: dark ? "dark" : "light",
+                  isTransparent: false,
+                  locale: "en",
                 })}
               />
             </div>
           </div>
 
-          {/* ── AI Summary (shown only when loaded) ── */}
-          {(aiLoad || ai) && (
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-750 rounded-2xl p-6 mb-6 border border-blue-100 dark:border-gray-600">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-xl">🤖</span>
-                <h3 className="text-lg font-bold text-primary dark:text-white">AI Summary</h3>
-                <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded">Claude AI</span>
+          {(aiLoading || aiSummary) && (
+            <div className="mb-6 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 p-6 dark:border-gray-600 dark:from-gray-800 dark:to-slate-800">
+              <div className="mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-primary dark:text-white">AI summary</h3>
+                <span className="rounded bg-blue-100 px-2 py-0.5 text-xs text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                  Experimental
+                </span>
               </div>
-              {aiLoad
-                ? <div className="space-y-2"><Sk cls="h-4 w-full" /><Sk cls="h-4 w-11/12" /><Sk cls="h-4 w-4/5" /></div>
-                : <p className="text-gray-700 dark:text-gray-200 leading-relaxed">{ai}</p>
-              }
-              <p className="text-xs text-gray-400 mt-4">For informational purposes only. Not financial advice.</p>
+              {aiLoading ? (
+                <div className="space-y-2">
+                  <SkeletonLine cls="h-4 w-full" />
+                  <SkeletonLine cls="h-4 w-11/12" />
+                  <SkeletonLine cls="h-4 w-4/5" />
+                </div>
+              ) : (
+                <p className="leading-relaxed text-gray-700 dark:text-gray-200">{aiSummary}</p>
+              )}
+              <p className="mt-4 text-xs text-gray-400">For informational purposes only. Not financial advice.</p>
             </div>
           )}
 
-          {/* ── Financials (stocks/ETFs only) ── */}
           {!isCrypto && (
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden mb-6">
-              <div className="px-4 pt-4 pb-1">
-                <h3 className="font-bold text-primary dark:text-accent">💰 Financials</h3>
-                <p className="text-xs text-gray-400">Income statement, balance sheet &amp; cash flow</p>
+            <div className="mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+              <div className="px-4 pb-1 pt-4">
+                <h3 className="font-bold text-primary dark:text-accent">Financials</h3>
+                <p className="text-xs text-gray-400">Income statement, balance sheet, and cash flow</p>
               </div>
               <TVWidget
-                id={'fin-' + tvSymbol}
+                id={`fin-${tvSymbol}`}
                 height={450}
                 scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-financials.js"
                 configFn={(dark) => ({
-                  symbol: tvSymbol, colorTheme: dark ? 'dark' : 'light',
-                  isTransparent: false, largeChartUrl: '',
-                  displayMode: 'regular', width: '100%', height: 450, locale: 'en',
+                  symbol: tvSymbol,
+                  colorTheme: dark ? "dark" : "light",
+                  isTransparent: false,
+                  largeChartUrl: "",
+                  displayMode: "regular",
+                  width: "100%",
+                  height: 450,
+                  locale: "en",
                 })}
               />
             </div>
           )}
 
-          {/* ── News ── */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden mb-6">
-            <div className="px-4 pt-4 pb-1">
-              <h3 className="font-bold text-primary dark:text-accent">📰 Latest News</h3>
+          <div className="mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+            <div className="px-4 pb-1 pt-4">
+              <h3 className="font-bold text-primary dark:text-accent">Latest news</h3>
             </div>
             <TVWidget
-              id={'news-' + tvSymbol}
+              id={`news-${tvSymbol}`}
               height={500}
               scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
               configFn={(dark) => ({
-                feedMode: 'symbol',
+                feedMode: "symbol",
                 symbol: tvSymbol,
-                colorTheme: dark ? 'dark' : 'light',
+                colorTheme: dark ? "dark" : "light",
                 isTransparent: false,
-                displayMode: 'regular',
-                width: '100%',
+                displayMode: "regular",
+                width: "100%",
                 height: 500,
-                locale: 'en',
+                locale: "en",
               })}
             />
           </div>
 
           <AdSlot slot="3078879111" format="auto" />
 
-          {/* ── Related symbols ── */}
           <div className="mt-6">
-            <p className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">
-              {isCrypto ? '🪙 Related Crypto' : '🇨🇦🇺🇸 Popular Stocks'}
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-400">
+              {isCrypto ? "Related crypto" : "Popular stocks"}
             </p>
             <div className="flex flex-wrap gap-2">
               {(isCrypto ? POPULAR_CRYPTO : POPULAR_STOCKS)
-                .filter(s => s.t !== t)
-                .map(s => (
-                  <button key={s.t} onClick={() => navigate('/stocks/' + s.t)}
-                    className="bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 px-4 py-2 rounded-xl hover:border-blue-400 transition text-sm font-bold text-primary dark:text-white">
-                    {s.f} {s.t.replace('-USD','')}
-                  </button>
+                .filter((item) => item.t !== currentTicker)
+                .map((item) => (
+                  <SymbolChip
+                    key={item.t}
+                    item={item}
+                    onClick={() => navigate(`/stocks/${item.t}`)}
+                  />
                 ))}
             </div>
           </div>
