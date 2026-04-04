@@ -376,6 +376,31 @@ export default function RRSPCalculator() {
         )}
       </div>
 
+      <section className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-xl font-bold text-primary dark:text-accent">How to use this RRSP calculator</h2>
+          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+            This RRSP calculator is most useful when you are answering three questions at the same time: how much tax refund a contribution may create, how much the account could grow over time, and whether the RRSP should beat a TFSA for your next dollar. Many Canadians look only at the refund and stop there. The better use is to compare the refund, the long-term tax shelter, and the contribution habit together.
+          </p>
+          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+            Start with your province and income, then test a few contribution levels instead of relying on one number. If your contribution jumps your refund meaningfully and you are in a stronger marginal bracket, the RRSP often gets more attractive. If the deduction is weaker and flexibility matters more, the TFSA may still deserve the next dollar first.
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-xl font-bold text-primary dark:text-accent">What this page helps you decide</h2>
+          <ul className="mt-3 space-y-3 text-sm text-slate-600 dark:text-slate-300">
+            <li>Whether a larger RRSP contribution meaningfully improves your tax refund.</li>
+            <li>Whether reinvesting the refund materially changes the long-term result.</li>
+            <li>Whether a spousal RRSP may help smooth retirement income later on.</li>
+            <li>How a rough RRIF drawdown could affect future taxable retirement income.</li>
+          </ul>
+          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+            For most users, the next best comparison is not another RRSP page. It is checking the TFSA tradeoff and the income-tax baseline alongside this result.
+          </p>
+        </div>
+      </section>
+
       <MethodologyPanel
         summary="This calculator estimates RRSP tax refunds using province-level marginal rates and models growth using a constant annual return with evenly spaced contributions. It is helpful for planning, not for replacing your CRA records or tax filing details."
         assumptions={[

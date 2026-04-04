@@ -458,6 +458,31 @@ export default function MortgageCalculator() {
         </div>
       )}
 
+      <section className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-xl font-bold text-primary dark:text-accent">How to use this mortgage calculator</h2>
+          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+            This Canadian mortgage calculator is best used to test realistic buying scenarios, not just to chase the biggest home price a lender might allow. Small changes to rate, amortization, down payment, and payment frequency can shift the long-term cost of ownership by tens of thousands of dollars. That is why the most useful way to use the page is to run two or three scenarios side by side instead of trusting the first result.
+          </p>
+          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+            Try one conservative scenario, one stretch scenario, and one version with accelerated bi-weekly payments. If the stretch version only works on paper when everything goes right, it is usually not the right target. This page is built to help you sanity-check the payment, cash needed to close, and longer-term interest cost before you go deeper with a lender or broker.
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-xl font-bold text-primary dark:text-accent">What Canadians usually miss</h2>
+          <ul className="mt-3 space-y-3 text-sm text-slate-600 dark:text-slate-300">
+            <li>CMHC insurance can materially increase the financed balance when the down payment is under 20%.</li>
+            <li>Closing costs and land transfer tax can change the real cash needed more than people expect.</li>
+            <li>Accelerated bi-weekly payments can reduce amortization even when the payment difference feels modest.</li>
+            <li>The payment is only one part of the decision. Rent-vs-buy and down-payment strategy still matter.</li>
+          </ul>
+          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+            If you are still deciding whether ownership fits your budget at all, the best next step is usually the rent-vs-buy calculator, not a larger mortgage amount.
+          </p>
+        </div>
+      </section>
+
       <MethodologyPanel
         title="How this mortgage calculator works"
         summary="This calculator estimates mortgage payments using a semi-annual compounding conversion, then layers in CMHC insurance and simplified provincial land transfer tax rules for planning purposes."

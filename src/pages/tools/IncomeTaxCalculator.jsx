@@ -282,6 +282,31 @@ export default function IncomeTaxCalculator() {
         </div>
       )}
 
+      <section className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-xl font-bold text-primary dark:text-accent">How to use this income tax calculator</h2>
+          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+            This Canadian income tax calculator is designed for planning questions like “What is my estimated take-home pay?”, “How much does province matter?”, and “What could an RRSP contribution do to my tax result?” It is most helpful when you use it to compare scenarios rather than to treat one number as exact payroll output.
+          </p>
+          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+            Start with gross income and province, then test what happens when you add an RRSP contribution or toggle self-employment. That gives you a faster way to understand take-home pay, effective rate, and marginal rate than reading bracket tables alone. It also makes the next decision clearer: whether to move into RRSP planning, TFSA planning, or paycheque budgeting.
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="text-xl font-bold text-primary dark:text-accent">What this calculator does not include</h2>
+          <ul className="mt-3 space-y-3 text-sm text-slate-600 dark:text-slate-300">
+            <li>Every personal credit, deduction, and benefit that may apply on a full tax return.</li>
+            <li>Employer-specific payroll quirks, taxable benefits, or unusual compensation setups.</li>
+            <li>Province-specific details that go beyond the simplified planning model on this page.</li>
+            <li>Full self-employment tax and business-expense treatment.</li>
+          </ul>
+          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+            That limitation is normal for a fast planning tool. The point is to understand directionally how income, province, and RRSP deductions affect the result before you move into filing or professional advice.
+          </p>
+        </div>
+      </section>
+
       <MethodologyPanel
         title="How this tax calculator works"
         summary="This calculator estimates income tax using 2026 federal and provincial bracket assumptions, then adds CPP and EI payroll deductions to show approximate take-home pay. It is designed for directional planning, not tax filing."
