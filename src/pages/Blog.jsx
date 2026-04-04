@@ -19,6 +19,14 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "best-rrsp-accounts-canada",
+    title: "Best RRSP Accounts in Canada (2026)",
+    date: "2026-04-04",
+    category: "Investing",
+    readTime: "11 min",
+    excerpt: "A practical shortlist of the best RRSP accounts in Canada, including simple beginner options and more hands-on self-directed platforms.",
+  },
+  {
     slug: "best-tfsa-brokers-canada",
     title: "Best TFSA Brokers in Canada (2026)",
     date: "2026-04-04",
