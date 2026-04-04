@@ -135,6 +135,24 @@ export default function BestTFSABrokersCanada() {
             </TrackedLink>
           </div>
 
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-800 dark:bg-blue-900/20">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-300">Best for beginners</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Wealthsimple</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">Usually the easiest first TFSA broker if your plan is broad ETFs, simple automation, and low-friction account use.</p>
+            </div>
+            <div className="rounded-2xl border border-slate-300 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/40">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 dark:text-slate-300">Best for DIY control</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Questrade</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">Usually the stronger fit if you want a more hands-on self-directed TFSA setup and do not mind a heavier workflow.</p>
+            </div>
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-900/20">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Best if account choice is unclear</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use the TFSA and RRSP tools first</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">If you are still debating TFSA versus RRSP, the broker ranking is less important than getting the account priority right.</p>
+            </div>
+          </div>
+
           <h2>The short list</h2>
           <ul>
             <li><strong>Wealthsimple</strong> is often the easiest first TFSA broker for beginners.</li>

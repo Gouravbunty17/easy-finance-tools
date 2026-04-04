@@ -135,6 +135,24 @@ export default function BestInvestingAppsCanada() {
             </TrackedLink>
           </div>
 
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-5 dark:border-indigo-800 dark:bg-indigo-900/20">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">Best for beginners</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Wealthsimple</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">Usually the easiest investing app if you want a simple first account, broad ETFs, and low-friction long-term behavior.</p>
+            </div>
+            <div className="rounded-2xl border border-slate-300 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/40">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 dark:text-slate-300">Best for DIY control</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Questrade</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">Usually the stronger fit if you want a more self-directed investing setup and can trade simplicity for more control.</p>
+            </div>
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-900/20">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Best if account choice is unclear</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Start with TFSA, RRSP, or compound math</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">If you do not know which account or savings plan matters most yet, solve that before picking an investing app.</p>
+            </div>
+          </div>
+
           <h2>The short list</h2>
           <ul>
             <li><strong>Wealthsimple</strong> is often the easiest investing app for true beginners.</li>

@@ -135,6 +135,24 @@ export default function BestRRSPAccountsCanada() {
             </TrackedLink>
           </div>
 
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-green-200 bg-green-50 p-5 dark:border-green-800 dark:bg-green-900/20">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-green-700 dark:text-green-300">Best for beginners</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Wealthsimple</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">Usually the easier RRSP choice if you want recurring ETF contributions without a more complicated brokerage workflow.</p>
+            </div>
+            <div className="rounded-2xl border border-slate-300 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/40">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 dark:text-slate-300">Best for DIY control</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Questrade</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">Usually the stronger fit if you want a more manual RRSP setup and are comfortable managing more of the workflow yourself.</p>
+            </div>
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-900/20">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Best if account choice is unclear</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Check the deduction first</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">If you are not sure the RRSP should get the next contribution, use the RRSP and income tax calculators before comparing providers.</p>
+            </div>
+          </div>
+
           <h2>The short list</h2>
           <ul>
             <li><strong>Wealthsimple</strong> is often the easiest RRSP account for beginners who want a clean start.</li>

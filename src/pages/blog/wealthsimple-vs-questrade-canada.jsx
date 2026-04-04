@@ -120,6 +120,24 @@ export default function WealthsimpleVsQuestradeCanada() {
             </TrackedLink>
           </div>
 
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-sky-200 bg-sky-50 p-5 dark:border-sky-800 dark:bg-sky-900/20">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-700 dark:text-sky-300">Best for beginners</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Wealthsimple</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">Usually the better fit if you want the cleanest path to opening a first TFSA, RRSP, or FHSA and buying simple ETFs.</p>
+            </div>
+            <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-5 dark:border-indigo-800 dark:bg-indigo-900/20">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">Best for DIY control</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Questrade</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">Usually the stronger fit if you already know you want a more self-directed workflow and more manual investing control.</p>
+            </div>
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-900/20">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Best if account choice is unclear</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Start with TFSA or RRSP math</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">If you still do not know which account gets the next dollar, solve that first and treat the broker decision as second-order.</p>
+            </div>
+          </div>
+
           <h2>The short version</h2>
           <ul>
             <li><strong>Choose Wealthsimple</strong> if you want the easiest possible path to opening a TFSA, RRSP, or FHSA and buying simple ETFs with minimal friction.</li>

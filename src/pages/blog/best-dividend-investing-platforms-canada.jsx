@@ -134,6 +134,24 @@ export default function BestDividendInvestingPlatformsCanada() {
             </TrackedLink>
           </div>
 
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-yellow-200 bg-yellow-50 p-5 dark:border-yellow-800 dark:bg-yellow-900/20">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-yellow-700 dark:text-yellow-300">Best for beginners</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Wealthsimple</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">Usually the easier fit if your dividend plan is really a simple ETF portfolio and you want the least friction getting started.</p>
+            </div>
+            <div className="rounded-2xl border border-slate-300 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/40">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-700 dark:text-slate-300">Best for DIY control</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Questrade</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">Usually the stronger fit if you want more direct control over dividend stocks, dividend ETFs, and a self-directed brokerage workflow.</p>
+            </div>
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-900/20">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Best if account choice is unclear</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Model income and account fit first</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">If you have not decided on the dividend strategy or whether TFSA/RRSP use matters more, solve that before picking the platform.</p>
+            </div>
+          </div>
+
           <h2>The short list</h2>
           <ul>
             <li><strong>Questrade</strong> is often the stronger fit for DIY dividend investors who want more brokerage control.</li>
