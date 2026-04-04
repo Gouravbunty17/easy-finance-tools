@@ -4,6 +4,9 @@ import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import TrackedLink from "../../components/TrackedLink";
+import OutboundTrackedLink from "../../components/OutboundTrackedLink";
+
+const WEALTHSIMPLE_REFERRAL_URL = "https://wealthsimple.com/invite/R8F7ZW";
 
 const appChoices = [
   {
@@ -69,6 +72,27 @@ export default function BestInvestingAppsCanada() {
             <li><strong>National Bank Direct Brokerage</strong> can make sense if you want a more bank-oriented investing setup.</li>
             <li><strong>Qtrade</strong> is worth considering if you prefer a more traditional investing workflow with app support.</li>
           </ul>
+
+          <div className="not-prose my-6 flex flex-wrap gap-3 rounded-2xl border border-indigo-200 bg-indigo-50 p-5 dark:border-indigo-800 dark:bg-indigo-900/20">
+            <OutboundTrackedLink
+              href={WEALTHSIMPLE_REFERRAL_URL}
+              offerName="wealthsimple"
+              trackingParams={{ placement: "best_investing_apps", cta_label: "see_wealthsimple_bonus" }}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="inline-block rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-secondary"
+            >
+              See Wealthsimple bonus
+            </OutboundTrackedLink>
+            <TrackedLink
+              articleSlug="best-investing-apps-canada"
+              ctaLabel="compare_wealthsimple_vs_questrade"
+              to="/blog/wealthsimple-vs-questrade-canada"
+              className="inline-block rounded-xl border-2 border-primary px-5 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white"
+            >
+              Wealthsimple vs Questrade
+            </TrackedLink>
+          </div>
 
           <h2>What actually matters in an investing app</h2>
           <p>

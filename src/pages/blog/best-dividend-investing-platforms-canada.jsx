@@ -3,6 +3,9 @@ import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import TrackedLink from "../../components/TrackedLink";
+import OutboundTrackedLink from "../../components/OutboundTrackedLink";
+
+const WEALTHSIMPLE_REFERRAL_URL = "https://wealthsimple.com/invite/R8F7ZW";
 
 const platformChoices = [
   {
@@ -68,6 +71,27 @@ export default function BestDividendInvestingPlatformsCanada() {
             <li><strong>National Bank Direct Brokerage</strong> can work well if you want a more bank-linked investing setup.</li>
             <li><strong>Qtrade</strong> is worth considering if you prefer a more traditional brokerage workflow.</li>
           </ul>
+
+          <div className="not-prose my-6 flex flex-wrap gap-3 rounded-2xl border border-yellow-200 bg-yellow-50 p-5 dark:border-yellow-800 dark:bg-yellow-900/20">
+            <OutboundTrackedLink
+              href={WEALTHSIMPLE_REFERRAL_URL}
+              offerName="wealthsimple"
+              trackingParams={{ placement: "best_dividend_platforms", cta_label: "see_wealthsimple_bonus" }}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="inline-block rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-secondary"
+            >
+              See Wealthsimple bonus
+            </OutboundTrackedLink>
+            <TrackedLink
+              articleSlug="best-dividend-investing-platforms-canada"
+              ctaLabel="compare_best_investing_apps"
+              to="/blog/best-investing-apps-canada"
+              className="inline-block rounded-xl border-2 border-primary px-5 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white"
+            >
+              Compare investing apps
+            </TrackedLink>
+          </div>
 
           <h2>What matters most for dividend investors</h2>
           <p>

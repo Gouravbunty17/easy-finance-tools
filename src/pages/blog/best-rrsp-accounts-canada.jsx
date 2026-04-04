@@ -4,6 +4,9 @@ import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import TrackedLink from "../../components/TrackedLink";
+import OutboundTrackedLink from "../../components/OutboundTrackedLink";
+
+const WEALTHSIMPLE_REFERRAL_URL = "https://wealthsimple.com/invite/R8F7ZW";
 
 const accountChoices = [
   {
@@ -69,6 +72,27 @@ export default function BestRRSPAccountsCanada() {
             <li><strong>National Bank Direct Brokerage</strong> can work well for Canadians who want a more traditional brokerage setup.</li>
             <li><strong>Qtrade</strong> is worth a look if you want a classic investing workflow with research support.</li>
           </ul>
+
+          <div className="not-prose my-6 flex flex-wrap gap-3 rounded-2xl border border-green-200 bg-green-50 p-5 dark:border-green-800 dark:bg-green-900/20">
+            <OutboundTrackedLink
+              href={WEALTHSIMPLE_REFERRAL_URL}
+              offerName="wealthsimple"
+              trackingParams={{ placement: "best_rrsp_accounts", cta_label: "see_wealthsimple_bonus" }}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="inline-block rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-secondary"
+            >
+              See Wealthsimple bonus
+            </OutboundTrackedLink>
+            <TrackedLink
+              articleSlug="best-rrsp-accounts-canada"
+              ctaLabel="compare_wealthsimple_vs_questrade"
+              to="/blog/wealthsimple-vs-questrade-canada"
+              className="inline-block rounded-xl border-2 border-primary px-5 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white"
+            >
+              Wealthsimple vs Questrade
+            </TrackedLink>
+          </div>
 
           <h2>What matters most in an RRSP account</h2>
           <p>
