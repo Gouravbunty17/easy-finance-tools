@@ -54,6 +54,7 @@ const BestGICRatesCanada2026  = lazy(() => import('./pages/blog/best-gic-rates-c
 const WealthsimpleVsQuestradeCanada = lazy(() => import('./pages/blog/wealthsimple-vs-questrade-canada'));
 const BestTFSABrokersCanada = lazy(() => import('./pages/blog/best-tfsa-brokers-canada'));
 const BestRRSPAccountsCanada = lazy(() => import('./pages/blog/best-rrsp-accounts-canada'));
+const BestInvestingAppsCanada = lazy(() => import('./pages/blog/best-investing-apps-canada'));
 
 function PageLoader() {
   return (
@@ -111,6 +112,7 @@ export default function App() {
             <Route path="/blog/wealthsimple-vs-questrade-canada" element={<WealthsimpleVsQuestradeCanada />} />
             <Route path="/blog/best-tfsa-brokers-canada" element={<BestTFSABrokersCanada />} />
             <Route path="/blog/best-rrsp-accounts-canada" element={<BestRRSPAccountsCanada />} />
+            <Route path="/blog/best-investing-apps-canada" element={<BestInvestingAppsCanada />} />
             <Route path="/blog/how-to-invest-in-canada-beginners-2026" element={<HowToInvestBeginners />} />
             <Route path="/blog/best-hisa-canada-2026" element={<BestHISACanada2026 />} />
             <Route path="/blog/emergency-fund-canada" element={<EmergencyFundCanada />} />

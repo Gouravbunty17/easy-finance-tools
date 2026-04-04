@@ -19,6 +19,14 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "best-investing-apps-canada",
+    title: "Best Investing Apps in Canada (2026)",
+    date: "2026-04-04",
+    category: "Investing",
+    readTime: "11 min",
+    excerpt: "A practical shortlist of the best investing apps in Canada, including simple beginner options and more self-directed app-based platforms.",
+  },
+  {
     slug: "best-rrsp-accounts-canada",
     title: "Best RRSP Accounts in Canada (2026)",
     date: "2026-04-04",
