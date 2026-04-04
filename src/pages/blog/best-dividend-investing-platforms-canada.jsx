@@ -101,6 +101,39 @@ export default function BestDividendInvestingPlatformsCanada() {
             The best dividend investing platform in Canada is not the one with the flashiest app. It is the one that makes it easier to hold quality dividend stocks or dividend ETFs in the right account, keep contributing, and reinvest without turning income investing into constant trading.
           </p>
 
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <TrackedLink
+              articleSlug="best-dividend-investing-platforms-canada"
+              ctaLabel="intro_decision_block_dividend"
+              to="/tools/dividend-calculator"
+              className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-amber-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300">Model the income first</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use the dividend calculator before picking the platform</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">A dividend platform choice makes more sense after you know the yield, reinvestment, and growth scenario you actually want.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="best-dividend-investing-platforms-canada"
+              ctaLabel="intro_decision_block_tfsa"
+              to="/tools/tfsa-calculator"
+              className="rounded-2xl border border-emerald-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-emerald-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-300">Check the account fit</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use TFSA math if the dividends are for long-term growth</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">A tax-sheltered account often matters more than the platform brand for long-term Canadian dividend investors.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="best-dividend-investing-platforms-canada"
+              ctaLabel="intro_decision_block_compound_interest"
+              to="/tools/compound-interest-calculator"
+              className="rounded-2xl border border-sky-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-sky-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-300">Compare total growth</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use compound interest if you want a neutral baseline</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">It helps separate platform choice from the bigger question of total return, fees, and contribution behavior.</p>
+            </TrackedLink>
+          </div>
+
           <h2>The short list</h2>
           <ul>
             <li><strong>Questrade</strong> is often the stronger fit for DIY dividend investors who want more brokerage control.</li>
@@ -246,39 +279,6 @@ export default function BestDividendInvestingPlatformsCanada() {
               className="inline-block rounded-xl border-2 border-primary px-5 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white"
             >
               RRSP Calculator
-            </TrackedLink>
-          </div>
-
-          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
-            <TrackedLink
-              articleSlug="best-dividend-investing-platforms-canada"
-              ctaLabel="decision_block_dividend"
-              to="/tools/dividend-calculator"
-              className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-amber-800 dark:bg-gray-900"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300">Model the income first</p>
-              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use the dividend calculator before picking the platform</p>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">A dividend platform choice makes more sense after you know the yield, reinvestment, and growth scenario you actually want.</p>
-            </TrackedLink>
-            <TrackedLink
-              articleSlug="best-dividend-investing-platforms-canada"
-              ctaLabel="decision_block_tfsa"
-              to="/tools/tfsa-calculator"
-              className="rounded-2xl border border-emerald-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-emerald-800 dark:bg-gray-900"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-300">Check the account fit</p>
-              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use TFSA math if the dividends are for long-term growth</p>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">A tax-sheltered account often matters more than the platform brand for long-term Canadian dividend investors.</p>
-            </TrackedLink>
-            <TrackedLink
-              articleSlug="best-dividend-investing-platforms-canada"
-              ctaLabel="decision_block_compound_interest"
-              to="/tools/compound-interest-calculator"
-              className="rounded-2xl border border-sky-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-sky-800 dark:bg-gray-900"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-300">Compare total growth</p>
-              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use compound interest if you want a neutral baseline</p>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">It helps separate platform choice from the bigger question of total return, fees, and contribution behavior.</p>
             </TrackedLink>
           </div>
 

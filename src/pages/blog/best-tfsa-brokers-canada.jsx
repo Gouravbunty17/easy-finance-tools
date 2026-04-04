@@ -102,6 +102,39 @@ export default function BestTFSABrokersCanada() {
             The best TFSA broker in Canada is not the one with the loudest marketing. It is the one that helps you use your TFSA room well, buy the right investments consistently, and avoid unnecessary complexity. For many Canadians, that means a broker that makes broad ETF investing easy rather than one that adds more features than they will actually use.
           </p>
 
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <TrackedLink
+              articleSlug="best-tfsa-brokers-canada"
+              ctaLabel="intro_decision_block_tfsa"
+              to="/tools/tfsa-calculator"
+              className="rounded-2xl border border-emerald-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-emerald-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-300">Check room first</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use the TFSA calculator if room is still unclear</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">The best broker is not much help if you over-contribute or misjudge how much room you actually have.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="best-tfsa-brokers-canada"
+              ctaLabel="intro_decision_block_rrsp"
+              to="/tools/rrsp-calculator"
+              className="rounded-2xl border border-indigo-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-indigo-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300">Compare the account choice</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use RRSP math if the TFSA is not automatic</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">A broker comparison is more useful after you know whether TFSA or RRSP should get the next dollar.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="best-tfsa-brokers-canada"
+              ctaLabel="intro_decision_block_compound_interest"
+              to="/tools/compound-interest-calculator"
+              className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-amber-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300">Model the growth target</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use compound interest to size the plan</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Start with the monthly contribution target, then choose the broker that makes staying consistent easiest.</p>
+            </TrackedLink>
+          </div>
+
           <h2>The short list</h2>
           <ul>
             <li><strong>Wealthsimple</strong> is often the easiest first TFSA broker for beginners.</li>
@@ -247,39 +280,6 @@ export default function BestTFSABrokersCanada() {
               className="inline-block rounded-xl border-2 border-primary px-5 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white"
             >
               Compound Interest Calculator
-            </TrackedLink>
-          </div>
-
-          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
-            <TrackedLink
-              articleSlug="best-tfsa-brokers-canada"
-              ctaLabel="decision_block_tfsa"
-              to="/tools/tfsa-calculator"
-              className="rounded-2xl border border-emerald-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-emerald-800 dark:bg-gray-900"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-300">Check room first</p>
-              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use the TFSA calculator if room is still unclear</p>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">The best broker is not much help if you over-contribute or misjudge how much room you actually have.</p>
-            </TrackedLink>
-            <TrackedLink
-              articleSlug="best-tfsa-brokers-canada"
-              ctaLabel="decision_block_rrsp"
-              to="/tools/rrsp-calculator"
-              className="rounded-2xl border border-indigo-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-indigo-800 dark:bg-gray-900"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300">Compare the account choice</p>
-              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use RRSP math if the TFSA is not automatic</p>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">A broker comparison is more useful after you know whether TFSA or RRSP should get the next dollar.</p>
-            </TrackedLink>
-            <TrackedLink
-              articleSlug="best-tfsa-brokers-canada"
-              ctaLabel="decision_block_compound_interest"
-              to="/tools/compound-interest-calculator"
-              className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-amber-800 dark:bg-gray-900"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300">Model the growth target</p>
-              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use compound interest to size the plan</p>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Start with the monthly contribution target, then choose the broker that makes staying consistent easiest.</p>
             </TrackedLink>
           </div>
 

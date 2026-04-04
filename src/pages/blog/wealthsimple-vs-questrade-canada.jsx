@@ -87,6 +87,39 @@ export default function WealthsimpleVsQuestradeCanada() {
             If you are choosing between Wealthsimple and Questrade, the real question is not which platform is universally better. It is which one fits the way you actually invest. For many Canadians, Wealthsimple wins on simplicity and speed. Questrade tends to win when you want more manual control and a more traditional self-directed workflow.
           </p>
 
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <TrackedLink
+              articleSlug="wealthsimple-vs-questrade-canada"
+              ctaLabel="intro_decision_block_tfsa"
+              to="/tools/tfsa-calculator"
+              className="rounded-2xl border border-sky-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-sky-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-300">Start with TFSA math</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">If this is your first investing account</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Check contribution room and tax-free growth first, then choose the broker that makes the workflow easiest.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="wealthsimple-vs-questrade-canada"
+              ctaLabel="intro_decision_block_rrsp"
+              to="/tools/rrsp-calculator"
+              className="rounded-2xl border border-indigo-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-indigo-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300">Start with RRSP math</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">If the tax deduction matters most</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Estimate the refund impact first so the platform choice comes after the account strategy.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="wealthsimple-vs-questrade-canada"
+              ctaLabel="intro_decision_block_compound_interest"
+              to="/tools/compound-interest-calculator"
+              className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-amber-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300">Start with the growth plan</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">If you want to compare long-term outcomes</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Model the contribution schedule and fee drag first, then compare which platform best fits that plan.</p>
+            </TrackedLink>
+          </div>
+
           <h2>The short version</h2>
           <ul>
             <li><strong>Choose Wealthsimple</strong> if you want the easiest possible path to opening a TFSA, RRSP, or FHSA and buying simple ETFs with minimal friction.</li>
@@ -227,39 +260,6 @@ export default function WealthsimpleVsQuestradeCanada() {
               className="inline-block rounded-xl border-2 border-primary px-5 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white"
             >
               FHSA Calculator
-            </TrackedLink>
-          </div>
-
-          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
-            <TrackedLink
-              articleSlug="wealthsimple-vs-questrade-canada"
-              ctaLabel="decision_block_tfsa"
-              to="/tools/tfsa-calculator"
-              className="rounded-2xl border border-sky-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-sky-800 dark:bg-gray-900"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-300">Start with TFSA math</p>
-              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">If this is your first investing account</p>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Check contribution room and tax-free growth first, then choose the broker that makes the workflow easiest.</p>
-            </TrackedLink>
-            <TrackedLink
-              articleSlug="wealthsimple-vs-questrade-canada"
-              ctaLabel="decision_block_rrsp"
-              to="/tools/rrsp-calculator"
-              className="rounded-2xl border border-indigo-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-indigo-800 dark:bg-gray-900"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300">Start with RRSP math</p>
-              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">If the tax deduction matters most</p>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Estimate the refund impact first so the platform choice comes after the account strategy.</p>
-            </TrackedLink>
-            <TrackedLink
-              articleSlug="wealthsimple-vs-questrade-canada"
-              ctaLabel="decision_block_compound_interest"
-              to="/tools/compound-interest-calculator"
-              className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-amber-800 dark:bg-gray-900"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300">Start with the growth plan</p>
-              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">If you want to compare long-term outcomes</p>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Model the contribution schedule and fee drag first, then compare which platform best fits that plan.</p>
             </TrackedLink>
           </div>
 
