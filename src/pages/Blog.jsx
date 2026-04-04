@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
 
 const categoryStyle = {
   Retirement: { gradient: "from-purple-500 to-purple-700", icon: "CA" },
@@ -196,6 +196,14 @@ const categories = [
   "Budget",
 ];
 
+const featuredComparisonSlugs = [
+  "wealthsimple-vs-questrade-canada",
+  "best-tfsa-brokers-canada",
+  "best-rrsp-accounts-canada",
+  "best-investing-apps-canada",
+  "best-dividend-investing-platforms-canada",
+];
+
 export default function Blog() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
@@ -212,6 +220,16 @@ export default function Blog() {
       return matchesSearch && matchesCategory;
     });
   }, [activeCategory, search]);
+
+  const featuredPosts = useMemo(
+    () => filteredPosts.filter((post) => featuredComparisonSlugs.includes(post.slug)),
+    [filteredPosts]
+  );
+
+  const regularPosts = useMemo(
+    () => filteredPosts.filter((post) => !featuredComparisonSlugs.includes(post.slug)),
+    [filteredPosts]
+  );
 
   return (
     <div className="min-h-screen">
@@ -267,21 +285,57 @@ export default function Blog() {
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div className="space-y-5">
+            {featuredPosts.length > 0 && (
+              <div className="surface-soft p-5">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Highest-intent comparisons</p>
+                    <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Best pages to choose an investing platform</h2>
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                      Start here if you are deciding where to open a TFSA, RRSP, or beginner investing account.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-5 grid gap-4 md:grid-cols-2">
+                  {featuredPosts.map((post) => (
+                    <SurfaceTrackedLink
+                      key={post.slug}
+                      to={`/blog/${post.slug}`}
+                      eventName="blog_index_cta_click"
+                      ctaLabel={`featured_comparison_${post.slug}`}
+                      trackingParams={{ section: "featured_comparisons", destination_type: "article", article_slug: post.slug }}
+                      className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md dark:border-slate-700 dark:bg-slate-900"
+                    >
+                      <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+                        Comparison
+                      </span>
+                      <h3 className="mt-3 text-lg font-bold text-primary dark:text-accent">{post.title}</h3>
+                      <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{post.excerpt}</p>
+                      <span className="mt-4 inline-block text-sm font-semibold text-secondary">Open comparison</span>
+                    </SurfaceTrackedLink>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {filteredPosts.length === 0 ? (
               <div className="surface-card p-8 text-center text-slate-500 dark:text-slate-300">
                 No blog posts matched that search yet.
               </div>
             ) : (
-              filteredPosts.map((post) => {
+              regularPosts.map((post) => {
                 const style = categoryStyle[post.category] || {
                   gradient: "from-blue-500 to-indigo-700",
                   icon: "Read",
                 };
 
                 return (
-                  <Link
+                  <SurfaceTrackedLink
                     key={post.slug}
                     to={`/blog/${post.slug}`}
+                    eventName="blog_index_cta_click"
+                    ctaLabel={`article_card_${post.slug}`}
+                    trackingParams={{ section: "article_list", destination_type: "article", article_slug: post.slug }}
                     className="group block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-lg dark:border-slate-700 dark:bg-gray-900"
                   >
                     <div className="flex flex-col sm:flex-row">
@@ -309,13 +363,36 @@ export default function Blog() {
                         </span>
                       </div>
                     </div>
-                  </Link>
+                  </SurfaceTrackedLink>
                 );
               })
             )}
           </div>
 
           <aside className="space-y-5">
+            <div className="surface-soft p-5">
+              <h3 className="text-lg font-bold text-primary dark:text-accent">Start with comparisons</h3>
+              <div className="mt-3 grid gap-3">
+                {[
+                  { label: "Wealthsimple vs Questrade", href: "/blog/wealthsimple-vs-questrade-canada" },
+                  { label: "Best TFSA Brokers", href: "/blog/best-tfsa-brokers-canada" },
+                  { label: "Best RRSP Accounts", href: "/blog/best-rrsp-accounts-canada" },
+                  { label: "Best Investing Apps", href: "/blog/best-investing-apps-canada" },
+                ].map((item) => (
+                  <SurfaceTrackedLink
+                    key={item.href}
+                    to={item.href}
+                    eventName="blog_index_cta_click"
+                    ctaLabel={`sidebar_comparison_${item.label.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
+                    trackingParams={{ section: "sidebar_comparisons", destination_type: "article" }}
+                    className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                  >
+                    {item.label}
+                  </SurfaceTrackedLink>
+                ))}
+              </div>
+            </div>
+
             <div className="surface-soft p-5">
               <h3 className="text-lg font-bold text-primary dark:text-accent">Popular topics</h3>
               <div className="mt-3 grid gap-2">
@@ -340,13 +417,16 @@ export default function Blog() {
                   { label: "RRSP Calculator", href: "/tools/rrsp-calculator" },
                   { label: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
                 ].map((tool) => (
-                  <Link
+                  <SurfaceTrackedLink
                     key={tool.href}
                     to={tool.href}
+                    eventName="blog_index_cta_click"
+                    ctaLabel={`sidebar_tool_${tool.label.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
+                    trackingParams={{ section: "sidebar_tools", destination_type: "tool" }}
                     className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                   >
                     {tool.label}
-                  </Link>
+                  </SurfaceTrackedLink>
                 ))}
               </div>
             </div>
