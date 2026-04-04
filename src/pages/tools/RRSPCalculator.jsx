@@ -430,6 +430,31 @@ export default function RRSPCalculator() {
         </SurfaceTrackedLink>
       </section>
 
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Compare providers next</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">If the RRSP looks worthwhile, compare where to open it</h2>
+        <p className="mt-2 max-w-3xl text-sm text-slate-600 dark:text-slate-300">
+          Once the deduction and long-term growth look meaningful, move into provider comparisons. The RRSP should win the contribution decision before the platform wins the comparison.
+        </p>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <SurfaceTrackedLink to="/blog/best-rrsp-accounts-canada" eventName="tool_result_cta_click" ctaLabel="compare_providers_best_rrsp_accounts" trackingParams={{ tool_name: "rrsp_calculator", section: "compare_providers_next", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-800">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-green-700 dark:text-green-300">Best for shortlist</p>
+            <h3 className="mt-2 text-lg font-bold text-primary dark:text-accent">Best RRSP accounts</h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Use the shortlist if you want a fast account pick once the RRSP math is clear.</p>
+          </SurfaceTrackedLink>
+          <SurfaceTrackedLink to="/blog/wealthsimple-vs-questrade-canada" eventName="tool_result_cta_click" ctaLabel="compare_providers_rrsp_wealthsimple_vs_questrade" trackingParams={{ tool_name: "rrsp_calculator", section: "compare_providers_next", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-800">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">Best for head-to-head</p>
+            <h3 className="mt-2 text-lg font-bold text-primary dark:text-accent">Wealthsimple vs Questrade</h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Use the main broker comparison if those are your likely RRSP providers.</p>
+          </SurfaceTrackedLink>
+          <SurfaceTrackedLink to="/blog/best-investing-apps-canada" eventName="tool_result_cta_click" ctaLabel="compare_providers_rrsp_best_investing_apps" trackingParams={{ tool_name: "rrsp_calculator", section: "compare_providers_next", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-800">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Best if still broad</p>
+            <h3 className="mt-2 text-lg font-bold text-primary dark:text-accent">Best investing apps</h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Use the wider app comparison if you are still picking the provider category itself.</p>
+          </SurfaceTrackedLink>
+        </div>
+      </section>
+
       <FAQ items={RRSP_FAQS} />
     </section>
   );

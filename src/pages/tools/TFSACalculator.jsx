@@ -525,6 +525,35 @@ export default function TFSACalculator() {
         </SurfaceTrackedLink>
       </section>
 
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Compare providers next</p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">If the TFSA math looks strong, compare where to open it</h2>
+            <p className="mt-2 max-w-3xl text-sm text-slate-600 dark:text-slate-300">
+              Once you know the TFSA should get the next dollar, move into broker comparisons and shortlist pages. The account choice comes first. The provider choice comes next.
+            </p>
+          </div>
+        </div>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <SurfaceTrackedLink to="/blog/best-tfsa-brokers-canada" eventName="tool_result_cta_click" ctaLabel="compare_providers_best_tfsa_brokers" trackingParams={{ tool_name: "tfsa_calculator", section: "compare_providers_next", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-800">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-300">Best for shortlist</p>
+            <h3 className="mt-2 text-lg font-bold text-primary dark:text-accent">Best TFSA brokers</h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Start with the simplest shortlist if you want the fastest provider decision.</p>
+          </SurfaceTrackedLink>
+          <SurfaceTrackedLink to="/blog/wealthsimple-vs-questrade-canada" eventName="tool_result_cta_click" ctaLabel="compare_providers_wealthsimple_vs_questrade" trackingParams={{ tool_name: "tfsa_calculator", section: "compare_providers_next", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-800">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">Best for head-to-head</p>
+            <h3 className="mt-2 text-lg font-bold text-primary dark:text-accent">Wealthsimple vs Questrade</h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Use the beginner-vs-DIY comparison if those are your two main options.</p>
+          </SurfaceTrackedLink>
+          <SurfaceTrackedLink to="/blog/best-investing-apps-canada" eventName="tool_result_cta_click" ctaLabel="compare_providers_best_investing_apps" trackingParams={{ tool_name: "tfsa_calculator", section: "compare_providers_next", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-800">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Best if still broad</p>
+            <h3 className="mt-2 text-lg font-bold text-primary dark:text-accent">Best investing apps</h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Use the broader app guide if you still have not narrowed the provider category.</p>
+          </SurfaceTrackedLink>
+        </div>
+      </section>
+
       <ReferralSection />
       <FAQ items={TFSA_FAQS} />
     </section>
