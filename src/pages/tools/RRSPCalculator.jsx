@@ -16,6 +16,7 @@ import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
+import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -390,18 +391,18 @@ export default function RRSPCalculator() {
       />
 
       <section className="mt-10 grid gap-4 md:grid-cols-3">
-        <Link to="/blog/rrsp-deadline-2026" className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
+        <SurfaceTrackedLink to="/blog/rrsp-deadline-2026" eventName="tool_result_cta_click" ctaLabel="rrsp_deadline_guide" trackingParams={{ tool_name: "rrsp_calculator", section: "next_steps", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
           <h2 className="text-lg font-bold text-primary dark:text-accent">RRSP deadline guide</h2>
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Review the deduction deadline, contribution rules, and refund timing.</p>
-        </Link>
-        <Link to="/blog/tfsa-vs-rrsp-2026" className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
+        </SurfaceTrackedLink>
+        <SurfaceTrackedLink to="/blog/tfsa-vs-rrsp-2026" eventName="tool_result_cta_click" ctaLabel="rrsp_vs_tfsa_guide" trackingParams={{ tool_name: "rrsp_calculator", section: "next_steps", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
           <h2 className="text-lg font-bold text-primary dark:text-accent">RRSP vs TFSA</h2>
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Compare deduction-first and tax-free-first strategies before you contribute.</p>
-        </Link>
-        <Link to="/tools/income-tax-calculator" className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
+        </SurfaceTrackedLink>
+        <SurfaceTrackedLink to="/tools/income-tax-calculator" eventName="tool_result_cta_click" ctaLabel="next_tool_income_tax" trackingParams={{ tool_name: "rrsp_calculator", section: "next_steps", destination_type: "tool" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
           <h2 className="text-lg font-bold text-primary dark:text-accent">Next tool: income tax</h2>
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Check your take-home pay and tax bracket before choosing a contribution size.</p>
-        </Link>
+        </SurfaceTrackedLink>
       </section>
 
       <FAQ items={RRSP_FAQS} />

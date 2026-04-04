@@ -17,6 +17,7 @@ import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
+import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -478,18 +479,18 @@ export default function TFSACalculator() {
       />
 
       <section className="mt-10 grid gap-4 md:grid-cols-3">
-        <Link to="/blog/how-much-tfsa-room-2026" className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
+        <SurfaceTrackedLink to="/blog/how-much-tfsa-room-2026" eventName="tool_result_cta_click" ctaLabel="tfsa_room_guide" trackingParams={{ tool_name: "tfsa_calculator", section: "next_steps", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
           <h2 className="text-lg font-bold text-primary dark:text-accent">TFSA room guide</h2>
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Read the year-by-year rules and the most common contribution-room mistakes.</p>
-        </Link>
-        <Link to="/blog/tfsa-vs-rrsp-2026" className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
+        </SurfaceTrackedLink>
+        <SurfaceTrackedLink to="/blog/tfsa-vs-rrsp-2026" eventName="tool_result_cta_click" ctaLabel="tfsa_vs_rrsp_guide" trackingParams={{ tool_name: "tfsa_calculator", section: "next_steps", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
           <h2 className="text-lg font-bold text-primary dark:text-accent">TFSA vs RRSP</h2>
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Compare the tax-free route against the tax-deduction route before you contribute.</p>
-        </Link>
-        <Link to="/tools/rrsp-calculator" className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
+        </SurfaceTrackedLink>
+        <SurfaceTrackedLink to="/tools/rrsp-calculator" eventName="tool_result_cta_click" ctaLabel="next_tool_rrsp" trackingParams={{ tool_name: "tfsa_calculator", section: "next_steps", destination_type: "tool" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
           <h2 className="text-lg font-bold text-primary dark:text-accent">Next tool: RRSP</h2>
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Model the refund side of the decision once you have a TFSA baseline.</p>
-        </Link>
+        </SurfaceTrackedLink>
       </section>
 
       <ReferralSection />

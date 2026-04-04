@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { trackReferralAction } from "../lib/analytics";
 
 const REFERRAL_CODE = "R8F7ZW";
 const REFERRAL_URL = `https://wealthsimple.com/invite/${REFERRAL_CODE}`;
@@ -10,12 +11,11 @@ export default function ReferralSection() {
     navigator.clipboard.writeText(REFERRAL_CODE).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
-      if (typeof window.gtag === "function") {
-        window.gtag("event", "referral_copy", {
-          event_category: "Referral",
-          event_label: "Wealthsimple Code Copied",
-        });
-      }
+      trackReferralAction("copy", {
+        offer_name: "wealthsimple",
+        placement: "referral_section",
+        cta_label: "copy_referral_code",
+      });
     });
   };
 
@@ -66,12 +66,12 @@ export default function ReferralSection() {
               rel="noopener noreferrer sponsored"
               className="w-full rounded-xl bg-black px-5 py-2.5 text-center text-sm font-bold text-white transition hover:bg-gray-800"
               onClick={() => {
-                if (typeof window.gtag === "function") {
-                  window.gtag("event", "referral_click", {
-                    event_category: "Referral",
-                    event_label: "Wealthsimple Sign Up Click",
-                  });
-                }
+                trackReferralAction("click", {
+                  offer_name: "wealthsimple",
+                  placement: "referral_section",
+                  cta_label: "sign_up_and_claim_bonus",
+                  destination: REFERRAL_URL,
+                });
               }}
             >
               Sign Up and Claim Bonus

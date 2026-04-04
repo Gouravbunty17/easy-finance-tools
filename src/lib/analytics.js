@@ -48,3 +48,19 @@ export function trackHomepageCta(ctaLabel, destination, params = {}) {
 export function trackToolsHubCta(ctaLabel, destination, params = {}) {
   trackSurfaceCta("tools_hub_cta_click", ctaLabel, destination, params);
 }
+
+export function trackToolResultCta(ctaLabel, destination, params = {}) {
+  trackSurfaceCta("tool_result_cta_click", ctaLabel, destination, params);
+}
+
+export function trackAffiliateClick(offerName, destination, params = {}) {
+  trackEvent("affiliate_cta_click", {
+    offer_name: offerName,
+    destination,
+    ...params,
+  });
+}
+
+export function trackReferralAction(action, params = {}) {
+  trackEvent(action === "copy" ? "referral_copy" : "referral_click", params);
+}

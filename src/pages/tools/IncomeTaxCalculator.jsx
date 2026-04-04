@@ -5,6 +5,7 @@ import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
+import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 
 const PROVINCES = [
   { code: "AB", name: "Alberta" },
@@ -276,7 +277,7 @@ export default function IncomeTaxCalculator() {
           <p className="font-bold text-blue-800 dark:text-blue-300 mb-1">RRSP deduction opportunity</p>
           <p className="text-sm text-blue-700 dark:text-blue-400">
             At this income level, a $10,000 RRSP contribution could save roughly <strong>{fmt(Math.round(10000 * results.marginalCombined))}</strong> in tax.
-            <Link to="/tools/rrsp-calculator" className="underline font-semibold ml-1">Open the RRSP calculator</Link>
+            <SurfaceTrackedLink to="/tools/rrsp-calculator" eventName="tool_result_cta_click" ctaLabel="rrsp_opportunity_banner" trackingParams={{ tool_name: "income_tax_calculator", section: "opportunity_banner", destination_type: "tool" }} className="underline font-semibold ml-1">Open the RRSP calculator</SurfaceTrackedLink>
           </p>
         </div>
       )}
@@ -297,18 +298,18 @@ export default function IncomeTaxCalculator() {
       />
 
       <div className="mt-10 grid sm:grid-cols-3 gap-4">
-        <Link to="/tools/rrsp-calculator" className="block p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-md transition text-center">
+        <SurfaceTrackedLink to="/tools/rrsp-calculator" eventName="tool_result_cta_click" ctaLabel="result_card_rrsp_calculator" trackingParams={{ tool_name: "income_tax_calculator", section: "next_steps", destination_type: "tool" }} className="block p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-md transition text-center">
           <p className="font-semibold text-primary dark:text-accent mt-2">RRSP Calculator</p>
           <p className="text-xs text-gray-500 mt-1">See how deductions affect refunds and long-term growth</p>
-        </Link>
-        <Link to="/tools/tfsa-calculator" className="block p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-md transition text-center">
+        </SurfaceTrackedLink>
+        <SurfaceTrackedLink to="/tools/tfsa-calculator" eventName="tool_result_cta_click" ctaLabel="result_card_tfsa_calculator" trackingParams={{ tool_name: "income_tax_calculator", section: "next_steps", destination_type: "tool" }} className="block p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-md transition text-center">
           <p className="font-semibold text-primary dark:text-accent mt-2">TFSA Calculator</p>
           <p className="text-xs text-gray-500 mt-1">Compare tax-free growth against taxable investing</p>
-        </Link>
-        <Link to="/blog/canadian-tax-brackets-2026" className="block p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-md transition text-center">
+        </SurfaceTrackedLink>
+        <SurfaceTrackedLink to="/blog/canadian-tax-brackets-2026" eventName="tool_result_cta_click" ctaLabel="result_card_tax_brackets_guide" trackingParams={{ tool_name: "income_tax_calculator", section: "next_steps", destination_type: "article" }} className="block p-4 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-md transition text-center">
           <p className="font-semibold text-primary dark:text-accent mt-2">2026 Tax Brackets</p>
           <p className="text-xs text-gray-500 mt-1">Read the bracket guide alongside the calculator</p>
-        </Link>
+        </SurfaceTrackedLink>
       </div>
 
       <div className="mt-12">

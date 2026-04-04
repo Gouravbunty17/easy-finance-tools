@@ -5,6 +5,7 @@ import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
+import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 import { Line, Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -493,14 +494,17 @@ export default function MortgageCalculator() {
             href: "/methodology",
           },
         ].map((item) => (
-          <Link
+          <SurfaceTrackedLink
             key={item.href}
             to={item.href}
+            eventName="tool_result_cta_click"
+            ctaLabel={item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}
+            trackingParams={{ tool_name: "mortgage_calculator", section: "next_steps", destination_type: item.href.startsWith("/tools/") ? "tool" : "article" }}
             className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900"
           >
             <p className="text-lg font-bold text-primary dark:text-accent">{item.title}</p>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
-          </Link>
+          </SurfaceTrackedLink>
         ))}
       </div>
 
