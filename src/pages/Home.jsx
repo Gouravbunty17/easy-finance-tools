@@ -202,6 +202,48 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-5xl px-4 pb-10">
+        <div className="surface-soft p-5">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Popular broker comparisons</h2>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                If you are choosing where to open an account, start with these high-intent comparison and shortlist pages.
+              </p>
+            </div>
+            <SurfaceTrackedLink
+              to="/blog"
+              eventName="homepage_cta_click"
+              ctaLabel="broker_comparisons_view_all_articles"
+              trackingParams={{ section: "broker_comparisons", destination_type: "hub" }}
+              className="text-sm font-semibold text-secondary hover:underline"
+            >
+              Browse all guides
+            </SurfaceTrackedLink>
+          </div>
+          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {[
+              { title: "Wealthsimple vs Questrade", href: "/blog/wealthsimple-vs-questrade-canada", note: "Beginner vs DIY investing" },
+              { title: "Best TFSA Brokers", href: "/blog/best-tfsa-brokers-canada", note: "Best fit for registered investing" },
+              { title: "Best RRSP Accounts", href: "/blog/best-rrsp-accounts-canada", note: "Compare deduction-focused account options" },
+              { title: "Best Investing Apps", href: "/blog/best-investing-apps-canada", note: "Simple shortlist for Canadians" },
+            ].map((item) => (
+              <SurfaceTrackedLink
+                key={item.title}
+                to={item.href}
+                eventName="homepage_cta_click"
+                ctaLabel={`broker_comparison_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
+                trackingParams={{ section: "broker_comparisons", destination_type: "article" }}
+                className="rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900"
+              >
+                <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.note}</p>
+              </SurfaceTrackedLink>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-5xl px-4">
         <ReferralSection />
       </section>
