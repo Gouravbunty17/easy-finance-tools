@@ -35,6 +35,43 @@ const accountChoices = [
   },
 ];
 
+const rrspComparisonRows = [
+  {
+    label: "Best for",
+    wealthsimple: "Simple recurring RRSP investing",
+    questrade: "Hands-on self-directed RRSPs",
+    nbdb: "Bank-linked brokerage users",
+    qtrade: "Traditional brokerage workflow",
+  },
+  {
+    label: "Beginner friendliness",
+    wealthsimple: "High",
+    questrade: "Medium",
+    nbdb: "Medium",
+    qtrade: "Medium",
+  },
+  {
+    label: "Best use case",
+    wealthsimple: "Straightforward ETF retirement plan",
+    questrade: "More manual control inside the RRSP",
+    nbdb: "Existing big-bank customers",
+    qtrade: "Users who want more research structure",
+  },
+];
+
+const rrspDecisionCards = [
+  {
+    title: "Choose Wealthsimple if...",
+    tone: "bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800",
+    body: "you mainly want an RRSP that is easy to fund, easy to manage, and suited to a simple ETF strategy.",
+  },
+  {
+    title: "Choose Questrade if...",
+    tone: "bg-slate-50 border-slate-200 dark:bg-slate-900/40 dark:border-slate-700",
+    body: "you care more about control and self-directed flexibility than the cleanest beginner experience.",
+  },
+];
+
 export default function BestRRSPAccountsCanada() {
   return (
     <div>
@@ -92,6 +129,40 @@ export default function BestRRSPAccountsCanada() {
             >
               Wealthsimple vs Questrade
             </TrackedLink>
+          </div>
+
+          <div className="not-prose my-6 overflow-x-auto">
+            <table className="w-full overflow-hidden rounded-xl border border-gray-200 text-sm dark:border-gray-700">
+              <thead className="bg-gray-100 text-left dark:bg-gray-800">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Factor</th>
+                  <th className="px-4 py-3 font-semibold text-green-700 dark:text-green-300">Wealthsimple</th>
+                  <th className="px-4 py-3 font-semibold">Questrade</th>
+                  <th className="px-4 py-3 font-semibold">NBDB</th>
+                  <th className="px-4 py-3 font-semibold">Qtrade</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                {rrspComparisonRows.map((row) => (
+                  <tr key={row.label} className="bg-white dark:bg-gray-900">
+                    <td className="px-4 py-3 font-medium text-gray-700 dark:text-gray-300">{row.label}</td>
+                    <td className="px-4 py-3">{row.wealthsimple}</td>
+                    <td className="px-4 py-3">{row.questrade}</td>
+                    <td className="px-4 py-3">{row.nbdb}</td>
+                    <td className="px-4 py-3">{row.qtrade}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="not-prose my-6 grid gap-4 md:grid-cols-2">
+            {rrspDecisionCards.map((card) => (
+              <div key={card.title} className={`rounded-2xl border p-5 ${card.tone}`}>
+                <p className="text-lg font-bold text-primary dark:text-accent">{card.title}</p>
+                <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">{card.body}</p>
+              </div>
+            ))}
           </div>
 
           <h2>What matters most in an RRSP account</h2>

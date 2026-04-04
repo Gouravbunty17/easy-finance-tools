@@ -35,6 +35,43 @@ const appChoices = [
   },
 ];
 
+const appComparisonRows = [
+  {
+    label: "Best for",
+    wealthsimple: "True beginners and simple ETF investing",
+    questrade: "DIY investors who want more control",
+    nbdb: "Bank-linked self-directed investing",
+    qtrade: "Traditional brokerage users who want more structure",
+  },
+  {
+    label: "Ease of use",
+    wealthsimple: "Very easy",
+    questrade: "Moderate",
+    nbdb: "Moderate",
+    qtrade: "Moderate",
+  },
+  {
+    label: "Best account fit",
+    wealthsimple: "TFSA, RRSP, FHSA for simple long-term use",
+    questrade: "Broader self-directed account workflows",
+    nbdb: "Banking ecosystem investors",
+    qtrade: "Research-oriented self-directed users",
+  },
+];
+
+const recommendationCards = [
+  {
+    title: "Best for most beginners",
+    body: "Wealthsimple is usually the cleanest starting point if you want the least friction and the simplest path into long-term ETF investing.",
+    tone: "bg-indigo-50 border-indigo-200 dark:bg-indigo-900/20 dark:border-indigo-800",
+  },
+  {
+    title: "Best for more control",
+    body: "Questrade usually makes more sense once you know you want a more self-directed investing setup and do not mind a heavier workflow.",
+    tone: "bg-slate-50 border-slate-200 dark:bg-slate-900/40 dark:border-slate-700",
+  },
+];
+
 export default function BestInvestingAppsCanada() {
   return (
     <div>
@@ -92,6 +129,40 @@ export default function BestInvestingAppsCanada() {
             >
               Wealthsimple vs Questrade
             </TrackedLink>
+          </div>
+
+          <div className="not-prose my-6 overflow-x-auto">
+            <table className="w-full overflow-hidden rounded-xl border border-gray-200 text-sm dark:border-gray-700">
+              <thead className="bg-gray-100 text-left dark:bg-gray-800">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Factor</th>
+                  <th className="px-4 py-3 font-semibold text-indigo-700 dark:text-indigo-300">Wealthsimple</th>
+                  <th className="px-4 py-3 font-semibold">Questrade</th>
+                  <th className="px-4 py-3 font-semibold">NBDB</th>
+                  <th className="px-4 py-3 font-semibold">Qtrade</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                {appComparisonRows.map((row) => (
+                  <tr key={row.label} className="bg-white dark:bg-gray-900">
+                    <td className="px-4 py-3 font-medium text-gray-700 dark:text-gray-300">{row.label}</td>
+                    <td className="px-4 py-3">{row.wealthsimple}</td>
+                    <td className="px-4 py-3">{row.questrade}</td>
+                    <td className="px-4 py-3">{row.nbdb}</td>
+                    <td className="px-4 py-3">{row.qtrade}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="not-prose my-6 grid gap-4 md:grid-cols-2">
+            {recommendationCards.map((card) => (
+              <div key={card.title} className={`rounded-2xl border p-5 ${card.tone}`}>
+                <p className="text-lg font-bold text-primary dark:text-accent">{card.title}</p>
+                <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">{card.body}</p>
+              </div>
+            ))}
           </div>
 
           <h2>What actually matters in an investing app</h2>

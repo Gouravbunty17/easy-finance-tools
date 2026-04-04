@@ -36,6 +36,27 @@ const comparisonRows = [
   },
 ];
 
+const quickDecisionCards = [
+  {
+    title: "Choose Wealthsimple if...",
+    tone: "bg-sky-50 border-sky-200 text-sky-900 dark:bg-sky-900/20 dark:border-sky-800 dark:text-sky-100",
+    points: [
+      "you want the simplest first investing account",
+      "you mainly plan to buy a few broad ETFs",
+      "you care more about ease than advanced controls",
+    ],
+  },
+  {
+    title: "Choose Questrade if...",
+    tone: "bg-indigo-50 border-indigo-200 text-indigo-900 dark:bg-indigo-900/20 dark:border-indigo-800 dark:text-indigo-100",
+    points: [
+      "you already know you want a self-directed workflow",
+      "you want more account and order flexibility",
+      "you are comfortable with a less beginner-focused interface",
+    ],
+  },
+];
+
 export default function WealthsimpleVsQuestradeCanada() {
   return (
     <div>
@@ -114,6 +135,19 @@ export default function WealthsimpleVsQuestradeCanada() {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          <div className="not-prose my-6 grid gap-4 md:grid-cols-2">
+            {quickDecisionCards.map((card) => (
+              <div key={card.title} className={`rounded-2xl border p-5 ${card.tone}`}>
+                <p className="text-lg font-bold">{card.title}</p>
+                <ul className="mt-3 space-y-2 text-sm">
+                  {card.points.map((point) => (
+                    <li key={point}>- {point}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
 
           <h2>Wealthsimple: where it usually wins</h2>

@@ -34,6 +34,43 @@ const platformChoices = [
   },
 ];
 
+const dividendComparisonRows = [
+  {
+    label: "Best for",
+    questrade: "DIY dividend stock and ETF investors",
+    wealthsimple: "Simple dividend ETF setup for beginners",
+    nbdb: "Bank-linked dividend investing",
+    qtrade: "Traditional brokerage experience",
+  },
+  {
+    label: "Beginner friendliness",
+    questrade: "Medium",
+    wealthsimple: "High",
+    nbdb: "Medium",
+    qtrade: "Medium",
+  },
+  {
+    label: "Best strategy fit",
+    questrade: "More hands-on stock and ETF selection",
+    wealthsimple: "Simple ETF-first dividend plan",
+    nbdb: "Existing bank ecosystem users",
+    qtrade: "Research-oriented income investors",
+  },
+];
+
+const dividendDecisionCards = [
+  {
+    title: "Choose Wealthsimple if...",
+    tone: "bg-yellow-50 border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800",
+    body: "your dividend plan is mostly a simple ETF portfolio and you want the least friction getting started.",
+  },
+  {
+    title: "Choose Questrade if...",
+    tone: "bg-slate-50 border-slate-200 dark:bg-slate-900/40 dark:border-slate-700",
+    body: "you want more self-directed control over the dividend stocks or ETFs you hold and how you manage them.",
+  },
+];
+
 export default function BestDividendInvestingPlatformsCanada() {
   return (
     <div>
@@ -91,6 +128,40 @@ export default function BestDividendInvestingPlatformsCanada() {
             >
               Compare investing apps
             </TrackedLink>
+          </div>
+
+          <div className="not-prose my-6 overflow-x-auto">
+            <table className="w-full overflow-hidden rounded-xl border border-gray-200 text-sm dark:border-gray-700">
+              <thead className="bg-gray-100 text-left dark:bg-gray-800">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Factor</th>
+                  <th className="px-4 py-3 font-semibold">Questrade</th>
+                  <th className="px-4 py-3 font-semibold text-yellow-700 dark:text-yellow-300">Wealthsimple</th>
+                  <th className="px-4 py-3 font-semibold">NBDB</th>
+                  <th className="px-4 py-3 font-semibold">Qtrade</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                {dividendComparisonRows.map((row) => (
+                  <tr key={row.label} className="bg-white dark:bg-gray-900">
+                    <td className="px-4 py-3 font-medium text-gray-700 dark:text-gray-300">{row.label}</td>
+                    <td className="px-4 py-3">{row.questrade}</td>
+                    <td className="px-4 py-3">{row.wealthsimple}</td>
+                    <td className="px-4 py-3">{row.nbdb}</td>
+                    <td className="px-4 py-3">{row.qtrade}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="not-prose my-6 grid gap-4 md:grid-cols-2">
+            {dividendDecisionCards.map((card) => (
+              <div key={card.title} className={`rounded-2xl border p-5 ${card.tone}`}>
+                <p className="text-lg font-bold text-primary dark:text-accent">{card.title}</p>
+                <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">{card.body}</p>
+              </div>
+            ))}
           </div>
 
           <h2>What matters most for dividend investors</h2>
