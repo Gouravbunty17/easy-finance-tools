@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import TrackedLink from "../../components/TrackedLink";
 
 export default function TFSAvsRRSP() {
   return (
@@ -102,9 +103,9 @@ export default function TFSAvsRRSP() {
             The best account choice depends on your province, income, available room, and whether you value immediate flexibility over upfront tax savings.
           </p>
           <ul>
-            <li><Link to="/tools/tfsa-calculator" className="text-primary underline">TFSA Calculator</Link> for growth and room planning.</li>
-            <li><Link to="/tools/rrsp-calculator" className="text-primary underline">RRSP Calculator</Link> for refund estimates and contribution planning.</li>
-            <li><Link to="/tools/income-tax-calculator" className="text-primary underline">Income Tax Calculator</Link> for rough marginal-rate context.</li>
+            <li><TrackedLink articleSlug="tfsa-vs-rrsp-2026" ctaLabel="tfsa_calculator_inline" to="/tools/tfsa-calculator" className="text-primary underline">TFSA Calculator</TrackedLink> for growth and room planning.</li>
+            <li><TrackedLink articleSlug="tfsa-vs-rrsp-2026" ctaLabel="rrsp_calculator_inline" to="/tools/rrsp-calculator" className="text-primary underline">RRSP Calculator</TrackedLink> for refund estimates and contribution planning.</li>
+            <li><TrackedLink articleSlug="tfsa-vs-rrsp-2026" ctaLabel="income_tax_calculator_inline" to="/tools/income-tax-calculator" className="text-primary underline">Income Tax Calculator</TrackedLink> for rough marginal-rate context.</li>
           </ul>
 
           <MethodologyPanel
@@ -139,14 +140,16 @@ export default function TFSAvsRRSP() {
                 href: "/methodology",
               },
             ].map((item) => (
-              <Link
+              <TrackedLink
                 key={item.href}
+                articleSlug="tfsa-vs-rrsp-2026"
+                ctaLabel={item.title}
                 to={item.href}
                 className="rounded-xl border border-gray-200 bg-white p-4 transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-900"
               >
                 <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
                 <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{item.body}</p>
-              </Link>
+              </TrackedLink>
             ))}
           </div>
 

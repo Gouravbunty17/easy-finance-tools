@@ -4,6 +4,7 @@ import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
+import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 import { Line, Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -105,10 +106,23 @@ export default function MortgageCalculator() {
   const [province, setProvince] = useState("ON");
   const [firstTime, setFirstTime] = useState(false);
   const [result, setResult] = useState(null);
+  const [hasTrackedStart, setHasTrackedStart] = useState(false);
+
+  const trackStartOnce = () => {
+    if (hasTrackedStart) return;
+    trackToolStart("mortgage_calculator", { entry_point: "input_interaction" });
+    setHasTrackedStart(true);
+  };
 
   const downPct = homePrice > 0 ? ((downPayment / homePrice) * 100).toFixed(1) : 0;
 
   const calculate = () => {
+    trackToolCalculate("mortgage_calculator", {
+      action: "calculate",
+      province,
+      frequency,
+      first_time_buyer: firstTime,
+    });
     const principal = homePrice - downPayment;
     if (principal <= 0 || downPayment / homePrice < 0.05) {
       alert("Enter a valid down payment. This calculator expects at least 5% down for planning purposes.");
@@ -233,7 +247,7 @@ export default function MortgageCalculator() {
           <input
             type="number"
             value={homePrice}
-            onChange={(e) => setHomePrice(parseFloat(e.target.value))}
+            onChange={(e) => { trackStartOnce(); setHomePrice(parseFloat(e.target.value)); }}
             className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
           />
         </div>
@@ -248,7 +262,7 @@ export default function MortgageCalculator() {
           <input
             type="number"
             value={downPayment}
-            onChange={(e) => setDownPayment(parseFloat(e.target.value))}
+            onChange={(e) => { trackStartOnce(); setDownPayment(parseFloat(e.target.value)); }}
             className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
           />
           <p className="mt-1 text-xs text-gray-500">
@@ -262,7 +276,7 @@ export default function MortgageCalculator() {
             type="number"
             step="0.05"
             value={rate}
-            onChange={(e) => setRate(parseFloat(e.target.value))}
+            onChange={(e) => { trackStartOnce(); setRate(parseFloat(e.target.value)); }}
             className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
           />
           <p className="mt-1 text-xs text-gray-500">Uses a semi-annual compounding conversion for mortgage math.</p>
@@ -272,7 +286,7 @@ export default function MortgageCalculator() {
           <label className="mb-1 block text-sm font-semibold">Amortization Period (Years)</label>
           <select
             value={amort}
-            onChange={(e) => setAmort(parseInt(e.target.value))}
+            onChange={(e) => { trackStartOnce(); setAmort(parseInt(e.target.value)); }}
             className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
           >
             {[5, 10, 15, 20, 25, 30].map((years) => (
@@ -287,7 +301,7 @@ export default function MortgageCalculator() {
           <label className="mb-1 block text-sm font-semibold">Payment Frequency</label>
           <select
             value={frequency}
-            onChange={(e) => setFrequency(e.target.value)}
+            onChange={(e) => { trackStartOnce(); setFrequency(e.target.value); }}
             className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
           >
             <option value="monthly">Monthly</option>
@@ -302,7 +316,7 @@ export default function MortgageCalculator() {
           <label className="mb-1 block text-sm font-semibold">Province</label>
           <select
             value={province}
-            onChange={(e) => setProvince(e.target.value)}
+            onChange={(e) => { trackStartOnce(); setProvince(e.target.value); }}
             className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
           >
             {PROVINCES.map(([value, label]) => (
@@ -318,7 +332,7 @@ export default function MortgageCalculator() {
             type="checkbox"
             id="firstTime"
             checked={firstTime}
-            onChange={(e) => setFirstTime(e.target.checked)}
+            onChange={(e) => { trackStartOnce(); setFirstTime(e.target.checked); }}
             className="h-5 w-5 accent-blue-600"
           />
           <label htmlFor="firstTime" className="cursor-pointer text-sm font-semibold">

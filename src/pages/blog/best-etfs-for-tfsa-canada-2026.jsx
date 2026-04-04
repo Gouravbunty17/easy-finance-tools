@@ -4,6 +4,7 @@ import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import TrackedLink from "../../components/TrackedLink";
 
 export default function BestETFsForTFSA() {
   return (
@@ -82,13 +83,15 @@ export default function BestETFsForTFSA() {
             { label: "Open XGRO chart", href: "/stocks/XGRO.TO" },
             { label: "Open VGRO chart", href: "/stocks/VGRO.TO" },
           ].map((item) => (
-            <Link
+            <TrackedLink
               key={item.label}
+              articleSlug="best-etfs-for-tfsa-canada-2026"
+              ctaLabel={item.label}
               to={item.href}
               className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-gray-700 dark:bg-gray-900 dark:text-accent"
             >
               {item.label}
-            </Link>
+            </TrackedLink>
           ))}
         </div>
 
@@ -112,7 +115,7 @@ export default function BestETFsForTFSA() {
           <li><strong>ZWB (BMO Covered Call Canadian Banks)</strong> — ~6–7% yield via covered calls on big 6 banks. Higher income but capped upside.</li>
         </ul>
         <p>
-          Use our <Link to="/tools/dividend-calculator" className="text-primary underline">Dividend Calculator</Link> to model what a dividend ETF position could generate annually.
+          Use our <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="dividend_calculator_inline" to="/tools/dividend-calculator" className="text-primary underline">Dividend Calculator</TrackedLink> to model what a dividend ETF position could generate annually.
         </p>
 
         <p>
@@ -158,7 +161,7 @@ export default function BestETFsForTFSA() {
 
         <h2>Calculate Your TFSA Growth</h2>
         <p>
-          Use our <Link to="/tools/tfsa-calculator" className="text-primary underline">TFSA Calculator</Link> to see exactly how much your ETF investments could grow tax-free over your investment horizon.
+          Use our <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="tfsa_calculator_inline" to="/tools/tfsa-calculator" className="text-primary underline">TFSA Calculator</TrackedLink> to see exactly how much your ETF investments could grow tax-free over your investment horizon.
         </p>
 
         <MethodologyPanel
@@ -195,14 +198,16 @@ export default function BestETFsForTFSA() {
               href: "/terms",
             },
           ].map((item) => (
-            <Link
+            <TrackedLink
               key={item.href}
+              articleSlug="best-etfs-for-tfsa-canada-2026"
+              ctaLabel={item.title}
               to={item.href}
               className="rounded-xl border border-gray-200 bg-white p-4 text-sm transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-900"
             >
               <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
               <p className="mt-2 text-gray-600 dark:text-gray-400">{item.body}</p>
-            </Link>
+            </TrackedLink>
           ))}
         </div>
 

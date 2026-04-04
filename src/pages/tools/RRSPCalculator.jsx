@@ -15,6 +15,7 @@ import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
+import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -117,6 +118,13 @@ export default function RRSPCalculator() {
   const [retirementIncome, setRetirementIncome] = useState(40000);
   const [showRRIF, setShowRRIF] = useState(false);
   const [showTable, setShowTable] = useState(false);
+  const [hasTrackedStart, setHasTrackedStart] = useState(false);
+
+  const trackStartOnce = () => {
+    if (hasTrackedStart) return;
+    trackToolStart("rrsp_calculator", { entry_point: "input_interaction" });
+    setHasTrackedStart(true);
+  };
 
   const results = useMemo(() => {
     const marginalRate = getMarginalRate(province, income);
@@ -208,7 +216,7 @@ export default function RRSPCalculator() {
         <div className="space-y-5">
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-5">
             <h2 className="font-bold text-primary dark:text-accent mb-1">Province</h2>
-            <select value={province} onChange={(e) => setProvince(e.target.value)} className="w-full px-3 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl dark:bg-gray-900 focus:border-secondary outline-none mt-2">
+            <select value={province} onChange={(e) => { trackStartOnce(); setProvince(e.target.value); }} className="w-full px-3 py-2.5 border-2 border-gray-200 dark:border-gray-600 rounded-xl dark:bg-gray-900 focus:border-secondary outline-none mt-2">
               {PROVINCES.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
             </select>
             <p className="text-xs text-gray-500 mt-2">Province affects your estimated marginal tax rate and refund value.</p>
@@ -217,11 +225,11 @@ export default function RRSPCalculator() {
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-5 space-y-5">
             <h2 className="font-bold text-primary dark:text-accent">Growth inputs</h2>
 
-            <SliderInput label="Annual Income" value={income} min={30000} max={300000} step={1000} onChange={setIncome} prefix="$" helpText={`Estimated marginal rate: ${results.marginalRate}%. Estimated annual RRSP limit: ${fmt(results.maxContrib)}.`} />
-            <SliderInput label="Annual RRSP Contribution" value={contribution} min={0} max={33810} step={500} onChange={setContribution} prefix="$" helpText={isOverContrib ? `This exceeds the annual estimate of ${fmt(results.maxContrib)}. Check CRA for carryforward room before relying on this number.` : `Estimated tax refund this year: ${fmt(results.taxRefund)}.`} />
-            <SliderInput label="Current RRSP Balance" value={currentBalance} min={0} max={500000} step={5000} onChange={setCurrentBalance} prefix="$" />
-            <SliderInput label="Expected Annual Return" value={returnRate} min={1} max={12} step={0.5} onChange={setReturnRate} suffix="%" />
-            <SliderInput label="Years Until Retirement" value={years} min={1} max={40} step={1} onChange={setYears} suffix=" years" helpText={`Projected retirement year: ${retirementYear}. Estimated balance at retirement: ${fmt(results.finalValue)}.`} />
+            <SliderInput label="Annual Income" value={income} min={30000} max={300000} step={1000} onChange={(value) => { trackStartOnce(); setIncome(value); }} prefix="$" helpText={`Estimated marginal rate: ${results.marginalRate}%. Estimated annual RRSP limit: ${fmt(results.maxContrib)}.`} />
+            <SliderInput label="Annual RRSP Contribution" value={contribution} min={0} max={33810} step={500} onChange={(value) => { trackStartOnce(); setContribution(value); trackToolCalculate("rrsp_calculator", { action: "contribution_change" }); }} prefix="$" helpText={isOverContrib ? `This exceeds the annual estimate of ${fmt(results.maxContrib)}. Check CRA for carryforward room before relying on this number.` : `Estimated tax refund this year: ${fmt(results.taxRefund)}.`} />
+            <SliderInput label="Current RRSP Balance" value={currentBalance} min={0} max={500000} step={5000} onChange={(value) => { trackStartOnce(); setCurrentBalance(value); }} prefix="$" />
+            <SliderInput label="Expected Annual Return" value={returnRate} min={1} max={12} step={0.5} onChange={(value) => { trackStartOnce(); setReturnRate(value); }} suffix="%" />
+            <SliderInput label="Years Until Retirement" value={years} min={1} max={40} step={1} onChange={(value) => { trackStartOnce(); setYears(value); }} suffix=" years" helpText={`Projected retirement year: ${retirementYear}. Estimated balance at retirement: ${fmt(results.finalValue)}.`} />
           </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-5 space-y-4">
@@ -245,7 +253,7 @@ export default function RRSPCalculator() {
 
             {spousal && (
               <div className="pl-8">
-                <SliderInput label="Spouse's Retirement Income" value={spouseIncome} min={0} max={150000} step={1000} onChange={setSpouseIncome} prefix="$" helpText={`Estimated spouse marginal rate: ${results.spouseMarginalRate}%.`} />
+                <SliderInput label="Spouse's Retirement Income" value={spouseIncome} min={0} max={150000} step={1000} onChange={(value) => { trackStartOnce(); setSpouseIncome(value); }} prefix="$" helpText={`Estimated spouse marginal rate: ${results.spouseMarginalRate}%.`} />
               </div>
             )}
           </div>
@@ -253,8 +261,8 @@ export default function RRSPCalculator() {
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-5 space-y-4">
             <h2 className="font-bold text-primary dark:text-accent">RRIF drawdown inputs</h2>
             <p className="text-xs text-gray-500">Preview how minimum RRIF withdrawals may affect future taxable income.</p>
-            <SliderInput label="Retirement Age" value={retirementAge} min={55} max={71} step={1} onChange={setRetirementAge} suffix=" years old" />
-            <SliderInput label="Other Retirement Income" value={retirementIncome} min={0} max={150000} step={1000} onChange={setRetirementIncome} prefix="$" suffix="/yr" helpText={`Estimated withdrawal tax rate at this income: ${results.withdrawRate}%.`} />
+            <SliderInput label="Retirement Age" value={retirementAge} min={55} max={71} step={1} onChange={(value) => { trackStartOnce(); setRetirementAge(value); }} suffix=" years old" />
+            <SliderInput label="Other Retirement Income" value={retirementIncome} min={0} max={150000} step={1000} onChange={(value) => { trackStartOnce(); setRetirementIncome(value); }} prefix="$" suffix="/yr" helpText={`Estimated withdrawal tax rate at this income: ${results.withdrawRate}%.`} />
           </div>
         </div>
 

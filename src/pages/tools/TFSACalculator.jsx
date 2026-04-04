@@ -16,6 +16,7 @@ import ReferralSection from "../../components/ReferralSection";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
+import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -150,6 +151,7 @@ export default function TFSACalculator() {
   const [showTable, setShowTable] = useState(false);
   const [copied, setCopied] = useState(false);
   const [summaryCopied, setSummaryCopied] = useState(false);
+  const [hasTrackedStart, setHasTrackedStart] = useState(false);
 
   useEffect(() => {
     const by = searchParams.get("by");
@@ -188,6 +190,12 @@ export default function TFSACalculator() {
     navigator.clipboard.writeText(summary);
     setSummaryCopied(true);
     setTimeout(() => setSummaryCopied(false), 2500);
+  };
+
+  const trackStartOnce = () => {
+    if (hasTrackedStart) return;
+    trackToolStart("tfsa_calculator", { entry_point: "input_interaction" });
+    setHasTrackedStart(true);
   };
 
   return (
@@ -229,7 +237,10 @@ export default function TFSACalculator() {
             min={1950}
             max={2008}
             step={1}
-            onChange={setBirthYear}
+            onChange={(value) => {
+              trackStartOnce();
+              setBirthYear(value);
+            }}
             helpText={`Age: ${2026 - birthYear}. Estimated TFSA eligibility since: ${result.eligibleSince}.`}
           />
 
@@ -239,7 +250,10 @@ export default function TFSACalculator() {
             min={0}
             max={200000}
             step={1000}
-            onChange={setCurrentSavings}
+            onChange={(value) => {
+              trackStartOnce();
+              setCurrentSavings(value);
+            }}
             prefix="$"
           />
 
@@ -249,7 +263,11 @@ export default function TFSACalculator() {
             min={0}
             max={2000}
             step={50}
-            onChange={setMonthlyContrib}
+            onChange={(value) => {
+              trackStartOnce();
+              setMonthlyContrib(value);
+              trackToolCalculate("tfsa_calculator", { action: "monthly_contribution_change" });
+            }}
             prefix="$"
             suffix="/mo"
             helpText={
@@ -265,7 +283,10 @@ export default function TFSACalculator() {
             min={1}
             max={15}
             step={0.5}
-            onChange={setReturnRate}
+            onChange={(value) => {
+              trackStartOnce();
+              setReturnRate(value);
+            }}
             suffix="%"
             helpText="If you are unsure, try a conservative starting point such as 5% before testing other scenarios."
           />
@@ -276,7 +297,10 @@ export default function TFSACalculator() {
             min={1}
             max={40}
             step={1}
-            onChange={setYears}
+            onChange={(value) => {
+              trackStartOnce();
+              setYears(value);
+            }}
             suffix=" years"
           />
 
@@ -286,7 +310,10 @@ export default function TFSACalculator() {
             min={15}
             max={55}
             step={0.5}
-            onChange={setMarginalRate}
+            onChange={(value) => {
+              trackStartOnce();
+              setMarginalRate(value);
+            }}
             suffix="%"
             helpText="Used only to compare against a simple taxable-account scenario."
           />
@@ -366,7 +393,10 @@ export default function TFSACalculator() {
 
           <div className="flex flex-wrap justify-end gap-3">
             <button
-              onClick={copySummary}
+              onClick={() => {
+                trackToolCalculate("tfsa_calculator", { action: "copy_summary" });
+                copySummary();
+              }}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all border-2 ${
                 summaryCopied
                   ? "bg-green-50 border-green-300 text-green-700"
@@ -376,7 +406,10 @@ export default function TFSACalculator() {
               {summaryCopied ? "Summary copied" : "Copy summary"}
             </button>
             <button
-              onClick={copyShareLink}
+              onClick={() => {
+                trackToolCalculate("tfsa_calculator", { action: "copy_share_link" });
+                copyShareLink();
+              }}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all border-2 ${
                 copied
                   ? "bg-green-50 border-green-300 text-green-700"

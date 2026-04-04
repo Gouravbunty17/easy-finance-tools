@@ -15,6 +15,7 @@ import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
+import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -58,8 +59,20 @@ export default function DividendCalculator() {
   const [inTFSA, setInTFSA] = useState(true);
   const [taxRate, setTaxRate] = useState(29.65);
   const [additionalMonthly, setAdditionalMonthly] = useState(200);
+  const [hasTrackedStart, setHasTrackedStart] = useState(false);
+
+  const trackStartOnce = () => {
+    if (hasTrackedStart) return;
+    trackToolStart("dividend_calculator", { entry_point: "input_interaction" });
+    setHasTrackedStart(true);
+  };
 
   const applyPreset = (idx) => {
+    trackStartOnce();
+    trackToolCalculate("dividend_calculator", {
+      action: "preset_select",
+      preset_name: PRESET_STOCKS[idx]?.ticker || "custom",
+    });
     setPreset(idx);
     const presetData = PRESET_STOCKS[idx];
     setStockPrice(presetData.price);
@@ -216,52 +229,52 @@ export default function DividendCalculator() {
               <label className="mb-1 block text-sm font-medium">Initial Investment ($)</label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 font-semibold text-gray-500">$</span>
-                <input type="number" value={investment} onChange={(e) => setInvestment(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-xl border-2 border-gray-200 py-3 pl-8 pr-4 text-lg font-semibold dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" value={investment} onChange={(e) => { trackStartOnce(); setInvestment(parseFloat(e.target.value) || 0); trackToolCalculate("dividend_calculator", { action: "investment_change" }); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 py-3 pl-8 pr-4 text-lg font-semibold dark:border-gray-600 dark:bg-gray-900" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="mb-1 block text-sm font-medium">Share Price ($)</label>
-                <input type="number" step="0.01" value={stockPrice} onChange={(e) => setStockPrice(parseFloat(e.target.value) || 1)} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" step="0.01" value={stockPrice} onChange={(e) => { trackStartOnce(); setStockPrice(parseFloat(e.target.value) || 1); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium">Dividend Yield (%)</label>
-                <input type="number" step="0.1" value={divYield} onChange={(e) => setDivYield(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" step="0.1" value={divYield} onChange={(e) => { trackStartOnce(); setDivYield(parseFloat(e.target.value) || 0); trackToolCalculate("dividend_calculator", { action: "yield_change" }); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium">Dividend Growth (%)</label>
-                <input type="number" step="0.5" value={divGrowth} onChange={(e) => setDivGrowth(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" step="0.5" value={divGrowth} onChange={(e) => { trackStartOnce(); setDivGrowth(parseFloat(e.target.value) || 0); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium">Price Growth (%)</label>
-                <input type="number" step="0.5" value={priceGrowth} onChange={(e) => setPriceGrowth(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" step="0.5" value={priceGrowth} onChange={(e) => { trackStartOnce(); setPriceGrowth(parseFloat(e.target.value) || 0); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="mb-1 block text-sm font-medium">Additional Monthly ($)</label>
-                <input type="number" value={additionalMonthly} onChange={(e) => setAdditionalMonthly(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" value={additionalMonthly} onChange={(e) => { trackStartOnce(); setAdditionalMonthly(parseFloat(e.target.value) || 0); trackToolCalculate("dividend_calculator", { action: "additional_monthly_change" }); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium">Horizon (Years)</label>
-                <input type="number" min={1} max={50} value={years} onChange={(e) => setYears(parseInt(e.target.value) || 10)} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" min={1} max={50} value={years} onChange={(e) => { trackStartOnce(); setYears(parseInt(e.target.value) || 10); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
               </div>
             </div>
             <div className="rounded-xl border border-gray-200 bg-slate-50 p-4 dark:border-gray-700 dark:bg-slate-900/60">
               <div className="flex items-center gap-3">
-                <input type="checkbox" id="drip" checked={drip} onChange={(e) => setDrip(e.target.checked)} className="h-5 w-5 accent-primary" />
+                <input type="checkbox" id="drip" checked={drip} onChange={(e) => { trackStartOnce(); setDrip(e.target.checked); trackToolCalculate("dividend_calculator", { action: "drip_toggle", enabled: e.target.checked }); }} className="h-5 w-5 accent-primary" />
                 <label htmlFor="drip" className="cursor-pointer text-sm font-medium">Enable DRIP reinvestment</label>
               </div>
             </div>
             <div className="rounded-xl border border-gray-200 bg-slate-50 p-4 dark:border-gray-700 dark:bg-slate-900/60">
               <div className="flex items-center gap-3">
-                <input type="checkbox" id="inTFSA" checked={inTFSA} onChange={(e) => setInTFSA(e.target.checked)} className="h-5 w-5 accent-primary" />
+                <input type="checkbox" id="inTFSA" checked={inTFSA} onChange={(e) => { trackStartOnce(); setInTFSA(e.target.checked); trackToolCalculate("dividend_calculator", { action: "account_toggle", account_type: e.target.checked ? "tfsa" : "non_registered" }); }} className="h-5 w-5 accent-primary" />
                 <label htmlFor="inTFSA" className="cursor-pointer text-sm font-medium">Held in a TFSA</label>
               </div>
               {!inTFSA && (
                 <div className="mt-3">
                   <label className="mb-1 block text-sm font-medium">Marginal Tax Rate (%)</label>
-                  <input type="number" value={taxRate} onChange={(e) => setTaxRate(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                  <input type="number" value={taxRate} onChange={(e) => { trackStartOnce(); setTaxRate(parseFloat(e.target.value) || 0); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
                 </div>
               )}
             </div>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import TrackedLink from "../../components/TrackedLink";
 
 export default function HowToInvestBeginners2026() {
   return (
@@ -234,15 +235,15 @@ export default function HowToInvestBeginners2026() {
           <h2>Run your own numbers</h2>
           <p>Use the calculators below to model your account choices and contribution plan.</p>
           <div className="not-prose my-4 flex flex-wrap gap-3">
-            <Link to="/tools/tfsa-calculator" className="inline-block rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-secondary">
+            <TrackedLink articleSlug="how-to-invest-in-canada-beginners-2026" ctaLabel="tfsa_calculator_primary_cta" to="/tools/tfsa-calculator" className="inline-block rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-secondary">
               TFSA Calculator
-            </Link>
-            <Link to="/tools/rrsp-calculator" className="inline-block rounded-xl border-2 border-primary px-5 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white">
+            </TrackedLink>
+            <TrackedLink articleSlug="how-to-invest-in-canada-beginners-2026" ctaLabel="rrsp_calculator_primary_cta" to="/tools/rrsp-calculator" className="inline-block rounded-xl border-2 border-primary px-5 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white">
               RRSP Calculator
-            </Link>
-            <Link to="/tools/dividend-calculator" className="inline-block rounded-xl border-2 border-primary px-5 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white">
+            </TrackedLink>
+            <TrackedLink articleSlug="how-to-invest-in-canada-beginners-2026" ctaLabel="dividend_calculator_primary_cta" to="/tools/dividend-calculator" className="inline-block rounded-xl border-2 border-primary px-5 py-3 text-sm font-bold text-primary transition hover:bg-primary hover:text-white">
               Dividend Calculator
-            </Link>
+            </TrackedLink>
           </div>
 
           <p>
@@ -281,14 +282,16 @@ export default function HowToInvestBeginners2026() {
                 href: "/terms",
               },
             ].map((item) => (
-              <Link
+              <TrackedLink
                 key={item.href}
+                articleSlug="how-to-invest-in-canada-beginners-2026"
+                ctaLabel={item.title}
                 to={item.href}
                 className="rounded-xl border border-gray-200 bg-white p-4 transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-900"
               >
                 <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
                 <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{item.body}</p>
-              </Link>
+              </TrackedLink>
             ))}
           </div>
 
@@ -302,22 +305,22 @@ export default function HowToInvestBeginners2026() {
         <div className="mt-10 border-t pt-8 dark:border-gray-700">
           <h3 className="mb-4 text-lg font-bold text-primary dark:text-accent">Related articles and tools</h3>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Link to="/blog/tfsa-vs-rrsp-2026" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
+            <TrackedLink articleSlug="how-to-invest-in-canada-beginners-2026" ctaLabel="related_tfsa_vs_rrsp" to="/blog/tfsa-vs-rrsp-2026" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
               <span className="text-sm text-gray-500">TFSA and RRSP</span>
               <p className="mt-1 font-semibold text-primary dark:text-accent">TFSA vs RRSP: Which account is better?</p>
-            </Link>
-            <Link to="/blog/how-much-tfsa-room-2026" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
+            </TrackedLink>
+            <TrackedLink articleSlug="how-to-invest-in-canada-beginners-2026" ctaLabel="related_tfsa_room" to="/blog/how-much-tfsa-room-2026" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
               <span className="text-sm text-gray-500">TFSA rules</span>
               <p className="mt-1 font-semibold text-primary dark:text-accent">How much TFSA room do you have in 2026?</p>
-            </Link>
-            <Link to="/methodology" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
+            </TrackedLink>
+            <TrackedLink articleSlug="how-to-invest-in-canada-beginners-2026" ctaLabel="related_methodology" to="/methodology" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
               <span className="text-sm text-gray-500">Trust</span>
               <p className="mt-1 font-semibold text-primary dark:text-accent">Methodology and Sources</p>
-            </Link>
-            <Link to="/terms" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
+            </TrackedLink>
+            <TrackedLink articleSlug="how-to-invest-in-canada-beginners-2026" ctaLabel="related_terms" to="/terms" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
               <span className="text-sm text-gray-500">Disclosure</span>
               <p className="mt-1 font-semibold text-primary dark:text-accent">Terms and Disclaimer</p>
-            </Link>
+            </TrackedLink>
           </div>
         </div>
 

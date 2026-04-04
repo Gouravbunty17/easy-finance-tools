@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import useAdSense from "../../hooks/useAdSense";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import TrackedLink from "../../components/TrackedLink";
 
 export default function WeeklyDividendETFs() {
   useAdSense();
@@ -254,7 +255,7 @@ export default function WeeklyDividendETFs() {
           Weekly dividend ETFs can be a genuinely useful tool for income-focused investors — especially retirees who want predictable, frequent cash flow. The key is understanding the trade-offs: you're exchanging some long-term growth potential for regular income, and you need to look beyond the headline yield to understand what you're actually receiving.
         </p>
         <p>
-          Before investing, use our <Link to="/tools/dividend-calculator" className="text-primary underline">Dividend Calculator</Link> to model how weekly or monthly payouts could build your passive income over time. And if you're a Canadian investor, make sure to review the <Link to="/tools/tfsa-calculator" className="text-primary underline">TFSA Calculator</Link> to see how much more your income could compound tax-free.
+          Before investing, use our <TrackedLink articleSlug="weekly-dividend-etfs" ctaLabel="dividend_calculator_inline" to="/tools/dividend-calculator" className="text-primary underline">Dividend Calculator</TrackedLink> to model how weekly or monthly payouts could build your passive income over time. And if you're a Canadian investor, make sure to review the <TrackedLink articleSlug="weekly-dividend-etfs" ctaLabel="tfsa_calculator_inline" to="/tools/tfsa-calculator" className="text-primary underline">TFSA Calculator</TrackedLink> to see how much more your income could compound tax-free.
         </p>
 
         <p>
@@ -295,14 +296,16 @@ export default function WeeklyDividendETFs() {
               href: "/terms",
             },
           ].map((item) => (
-            <Link
+            <TrackedLink
               key={item.href}
+              articleSlug="weekly-dividend-etfs"
+              ctaLabel={item.title}
               to={item.href}
               className="rounded-xl border border-gray-200 bg-white p-4 transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-900"
             >
               <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
               <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{item.body}</p>
-            </Link>
+            </TrackedLink>
           ))}
         </div>
 

@@ -4,6 +4,7 @@ import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
+import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 
 const PROVINCES = [
   { code: "AB", name: "Alberta" },
@@ -97,6 +98,13 @@ export default function IncomeTaxCalculator() {
   const [province, setProvince] = useState("ON");
   const [rrsp, setRrsp] = useState(0);
   const [selfEmployed, setSelfEmployed] = useState(false);
+  const [hasTrackedStart, setHasTrackedStart] = useState(false);
+
+  const trackStartOnce = () => {
+    if (hasTrackedStart) return;
+    trackToolStart("income_tax_calculator", { entry_point: "input_interaction" });
+    setHasTrackedStart(true);
+  };
 
   const results = useMemo(() => {
     const taxableIncome = Math.max(0, income - rrsp);
@@ -165,14 +173,14 @@ export default function IncomeTaxCalculator() {
             <label className="block text-sm font-medium mb-1">Annual Employment Income</label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">$</span>
-              <input type="number" className="w-full pl-8 pr-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600 text-lg font-semibold" value={income} onChange={(e) => setIncome(Number(e.target.value) || 0)} min={0} max={2000000} />
+              <input type="number" className="w-full pl-8 pr-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600 text-lg font-semibold" value={income} onChange={(e) => { trackStartOnce(); setIncome(Number(e.target.value) || 0); trackToolCalculate("income_tax_calculator", { action: "income_change" }); }} min={0} max={2000000} />
             </div>
             <p className="text-xs text-gray-500 mt-2">Use annual gross employment income before tax. If you are just testing, try your salary before bonuses.</p>
           </div>
 
           <div>
             <label className="block text-sm font-medium mb-1">Province or Territory</label>
-            <select className="w-full px-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600" value={province} onChange={(e) => setProvince(e.target.value)}>
+            <select className="w-full px-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600" value={province} onChange={(e) => { trackStartOnce(); setProvince(e.target.value); }}>
               {PROVINCES.map((item) => <option key={item.code} value={item.code}>{item.name}</option>)}
             </select>
           </div>
@@ -181,13 +189,13 @@ export default function IncomeTaxCalculator() {
             <label className="block text-sm font-medium mb-1">RRSP Contribution</label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">$</span>
-              <input type="number" className="w-full pl-8 pr-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600" value={rrsp} onChange={(e) => setRrsp(Number(e.target.value) || 0)} min={0} />
+              <input type="number" className="w-full pl-8 pr-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600" value={rrsp} onChange={(e) => { trackStartOnce(); setRrsp(Number(e.target.value) || 0); trackToolCalculate("income_tax_calculator", { action: "rrsp_change" }); }} min={0} />
             </div>
             <p className="text-xs text-gray-500 mt-2">Each RRSP dollar reduces taxable income before income tax is calculated.</p>
           </div>
 
           <div className="flex items-center gap-3">
-            <input type="checkbox" id="selfEmployed" checked={selfEmployed} onChange={(e) => setSelfEmployed(e.target.checked)} className="w-5 h-5 accent-primary" />
+            <input type="checkbox" id="selfEmployed" checked={selfEmployed} onChange={(e) => { trackStartOnce(); setSelfEmployed(e.target.checked); trackToolCalculate("income_tax_calculator", { action: "self_employed_toggle", enabled: e.target.checked }); }} className="w-5 h-5 accent-primary" />
             <label htmlFor="selfEmployed" className="text-sm font-medium cursor-pointer">Self-employed estimate (no EI, double CPP)</label>
           </div>
 
