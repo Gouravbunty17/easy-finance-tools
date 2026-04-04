@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
@@ -23,6 +24,7 @@ const FAQS = [
   { q: "Does this page include CMHC insurance?", a: "Yes. If the down payment is under 20%, the calculator estimates CMHC insurance and adds it to the financed mortgage amount." },
   { q: "Does this calculator include land transfer tax?", a: "Yes. It includes simplified provincial land transfer tax handling and a basic first-time buyer rebate adjustment where applicable." },
   { q: "Are the closing costs exact?", a: "No. Legal fees, inspections, and tax handling vary by lender, lawyer, municipality, and transaction. This page is for planning, not a binding quote." },
+  { q: "Should I trust this page more than my lender quote?", a: "No. Use this tool to compare scenarios before you speak to a lender or broker. Your actual approved payment, qualification amount, and closing costs depend on underwriting, product choice, and lender-specific rules." },
 ];
 
 function getMonthlyRate(annualRate) {
@@ -193,6 +195,36 @@ export default function MortgageCalculator() {
         <p className="text-gray-600 dark:text-gray-300">
           Estimate your mortgage payment with <strong>CMHC insurance</strong> and <strong>land transfer tax</strong> using a Canadian semi-annual compounding approach.
         </p>
+      </div>
+
+      <div className="mb-8 grid gap-4 md:grid-cols-4">
+        {[
+          { title: "Last updated", body: "April 3, 2026" },
+          { title: "Methodology", body: "Canadian semi-annual compounding, simplified CMHC tiers, and provincial land transfer tax logic." },
+          { title: "Best for", body: "Scenario planning before you compare lender quotes, down payments, or payment frequencies." },
+          { title: "Reminder", body: "Use official lender, insurer, and lawyer documents before making an offer." },
+        ].map((item) => (
+          <div key={item.title} className="surface-card p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">{item.title}</p>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mb-8 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+        <h2 className="text-lg font-bold text-primary dark:text-accent">Assumptions at a glance</h2>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          {[
+            "Uses a semi-annual compounding conversion before monthly payment math, which is standard for many Canadian mortgage comparisons.",
+            "Adds estimated CMHC insurance to the financed balance when down payment is below 20%.",
+            "Uses simplified provincial land transfer tax rules and does not model every rebate, municipal surcharge, or exception.",
+            "Shows directional closing costs to help with planning, not a binding legal or lender quote.",
+          ].map((item) => (
+            <div key={item} className="rounded-xl bg-white px-4 py-3 text-sm text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+              {item}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -414,11 +446,13 @@ export default function MortgageCalculator() {
       <MethodologyPanel
         title="How this mortgage calculator works"
         summary="This calculator estimates mortgage payments using a semi-annual compounding conversion, then layers in CMHC insurance and simplified provincial land transfer tax rules for planning purposes."
+        updated="April 3, 2026"
         assumptions={[
           "The annual rate entered is converted using a semi-annual compounding approach before monthly payment calculations are made.",
           "CMHC insurance is estimated using simplified premium tiers based on the loan-to-value ratio.",
           "Provincial land transfer tax handling is simplified and may not capture every rebate, municipal surcharge, or local variation.",
           "Closing costs shown here are directional planning figures, not a lender or lawyer quote.",
+          "Qualification rules, stress test outcomes, and lender product pricing are not modeled directly on this page.",
         ]}
         sources={[
           { label: "Government of Canada: Mortgage loan insurance", href: "https://www.canada.ca/en/financial-consumer-agency/services/mortgages/down-payment.html" },
@@ -426,6 +460,35 @@ export default function MortgageCalculator() {
         ]}
         note="Educational estimate only. Verify payment quotes, qualification rules, and closing costs with your lender, broker, and lawyer before making an offer."
       />
+
+      <div className="mt-8 grid gap-4 md:grid-cols-3">
+        {[
+          {
+            title: "Pay off your mortgage faster",
+            body: "See strategies for accelerated bi-weekly payments, lump sums, and renewal planning.",
+            href: "/blog/pay-off-mortgage-faster-canada",
+          },
+          {
+            title: "Rent vs buy calculator",
+            body: "Compare ownership costs against renting before you commit to a mortgage payment target.",
+            href: "/tools/rent-vs-buy",
+          },
+          {
+            title: "Methodology and sources",
+            body: "Review how EasyFinanceTools handles assumptions, updates, privacy, and disclosures.",
+            href: "/methodology",
+          },
+        ].map((item) => (
+          <Link
+            key={item.href}
+            to={item.href}
+            className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900"
+          >
+            <p className="text-lg font-bold text-primary dark:text-accent">{item.title}</p>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
+          </Link>
+        ))}
+      </div>
 
       <FAQ items={FAQS} />
     </section>

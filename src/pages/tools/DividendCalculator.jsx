@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -22,6 +23,7 @@ const FAQS = [
   { q: "What is yield on cost?", a: "Yield on cost compares annual dividend income to the amount you originally invested, not the current market value. It is a planning metric, not a tax filing number." },
   { q: "Should dividend stocks go in a TFSA?", a: "Often yes for Canadian investors, because qualified growth and withdrawals are tax-free. The right account still depends on asset type, foreign withholding, and your broader plan." },
   { q: "Is a higher yield always better?", a: "No. A high yield can reflect risk, a falling share price, or an unsustainable payout. Yield needs to be considered alongside dividend growth and business quality." },
+  { q: "Does this calculator know whether the dividend is safe?", a: "No. It projects income using the assumptions you enter. It does not analyze payout ratio, debt, earnings quality, or whether a dividend may be cut." },
 ];
 
 const PRESET_STOCKS = [
@@ -142,6 +144,36 @@ export default function DividendCalculator() {
         <p className="max-w-3xl text-gray-600 dark:text-gray-300">
           Project dividend income, DRIP reinvestment, portfolio value, and yield on cost over time.
         </p>
+      </div>
+
+      <div className="mb-8 grid gap-4 md:grid-cols-4">
+        {[
+          { title: "Last updated", body: "April 3, 2026" },
+          { title: "Methodology", body: "Projects yield, dividend growth, price growth, optional DRIP, and a simplified tax drag assumption." },
+          { title: "Best for", body: "Comparing scenarios, account location, contribution pace, and long-term income targets." },
+          { title: "Reminder", body: "This page models outcomes from assumptions you enter. It does not judge dividend safety or valuation." },
+        ].map((item) => (
+          <div key={item.title} className="surface-card p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">{item.title}</p>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mb-8 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+        <h2 className="text-lg font-bold text-primary dark:text-accent">Assumptions at a glance</h2>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          {[
+            "Dividend yield, dividend growth, and price growth are treated as steady planning inputs, even though real markets move unevenly.",
+            "If DRIP is enabled, after-tax dividends are reinvested at the projected share price instead of paid out in cash.",
+            "Non-registered tax handling is simplified and does not model every provincial dividend credit detail, account type, or foreign withholding rule.",
+            "The calculator does not test whether a dividend is sustainable, likely to grow, or at risk of being cut.",
+          ].map((item) => (
+            <div key={item} className="rounded-xl bg-white px-4 py-3 text-sm text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+              {item}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="mb-8 grid gap-4 md:grid-cols-3">
@@ -304,17 +336,49 @@ export default function DividendCalculator() {
       <MethodologyPanel
         title="How this dividend calculator works"
         summary="This calculator projects price growth, dividend growth, optional DRIP reinvestment, and estimated tax drag to show how dividend income and portfolio value could evolve over time."
+        updated="April 3, 2026"
         assumptions={[
           "Dividend yield, price growth, and dividend growth are held constant in the projection.",
           "If DRIP is enabled, after-tax dividends are used to buy additional shares at the projected price.",
           "Tax handling for non-registered holdings is simplified and does not model every provincial detail.",
           "This page is for scenario planning and does not assess dividend sustainability or business risk.",
+          "Foreign withholding tax, payout interruptions, and special dividends are not modeled separately.",
         ]}
         sources={[
           { label: "CRA: Tax-Free Savings Account", href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account.html" },
+          { label: "Government of Canada: Eligible dividends and taxable income", href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/employers-guide/statutory-deductions-taxable-benefits/eligible-dividends.html" },
         ]}
         note="Educational estimate only. Dividend safety, valuation, and actual tax treatment should be checked before making investment decisions."
       />
+
+      <div className="mt-8 grid gap-4 md:grid-cols-3">
+        {[
+          {
+            title: "Best ETFs for a TFSA",
+            body: "Compare broad-market and dividend ETF choices if you are deciding where income assets fit inside a registered account.",
+            href: "/blog/best-etfs-for-tfsa-canada-2026",
+          },
+          {
+            title: "Weekly dividend ETFs",
+            body: "Read the guide before relying on payout-heavy or covered-call funds as an income strategy.",
+            href: "/blog/weekly-dividend-etfs",
+          },
+          {
+            title: "Methodology and sources",
+            body: "Review trust, privacy, disclosure, and source-handling standards across the site.",
+            href: "/methodology",
+          },
+        ].map((item) => (
+          <Link
+            key={item.href}
+            to={item.href}
+            className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900"
+          >
+            <p className="text-lg font-bold text-primary dark:text-accent">{item.title}</p>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
+          </Link>
+        ))}
+      </div>
 
       <div className="mt-12">
         <FAQ items={FAQS} />
