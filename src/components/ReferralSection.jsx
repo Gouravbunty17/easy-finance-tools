@@ -4,7 +4,18 @@ import { trackReferralAction } from "../lib/analytics";
 const REFERRAL_CODE = "R8F7ZW";
 const REFERRAL_URL = `https://wealthsimple.com/invite/${REFERRAL_CODE}`;
 
-export default function ReferralSection() {
+export default function ReferralSection({
+  placement = "referral_section",
+  disclosure = "Affiliate disclosure: We may earn a referral bonus if you sign up using this code. This does not change how we explain or rank tools.",
+  badge = "Limited Offer",
+  title = "Get $25 free with Wealthsimple",
+  highlight = "$25 free",
+  description = "Sign up and deposit just $100 to claim a $25 cash bonus. Use the referral code below at signup.",
+  details = "No fee to open | Takes about 5 minutes | Bonus usually arrives within days",
+  fitHeading = "Why this may fit",
+  fitPoints = [],
+  buttonLabel = "Sign Up and Claim Bonus",
+}) {
   const [copied, setCopied] = useState(false);
 
   const copyCode = () => {
@@ -13,7 +24,7 @@ export default function ReferralSection() {
       setTimeout(() => setCopied(false), 3000);
       trackReferralAction("copy", {
         offer_name: "wealthsimple",
-        placement: "referral_section",
+        placement,
         cta_label: "copy_referral_code",
       });
     });
@@ -22,7 +33,7 @@ export default function ReferralSection() {
   return (
     <section className="my-10">
       <p className="mb-3 text-center text-xs text-gray-400">
-        Affiliate disclosure: We may earn a referral bonus if you sign up using this code. This does not change how we explain or rank tools.
+        {disclosure}
       </p>
 
       <div className="rounded-2xl border border-[#00b2a9]/30 bg-gradient-to-br from-[#00b2a9]/10 to-[#003366]/10 p-6 dark:border-[#00b2a9]/20 dark:from-[#00b2a9]/5 dark:to-[#003366]/5">
@@ -33,15 +44,33 @@ export default function ReferralSection() {
 
           <div className="flex-1 text-center sm:text-left">
             <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-[#00b2a9]/10 px-3 py-1 text-xs font-bold text-[#00b2a9]">
-              Limited Offer
+              {badge}
             </div>
             <h3 className="mb-1 text-lg font-bold text-gray-900 dark:text-white">
-              Get <span className="text-[#00b2a9]">$25 free</span> with Wealthsimple
+              {title.includes(highlight) ? (
+                <>
+                  {title.split(highlight)[0]}
+                  <span className="text-[#00b2a9]">{highlight}</span>
+                  {title.split(highlight)[1]}
+                </>
+              ) : (
+                title
+              )}
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Sign up and deposit just <strong>$100</strong> to claim a <strong className="text-[#00b2a9]">$25 cash bonus</strong>. Use the referral code below at signup.
+              {description}
             </p>
-            <p className="mt-1.5 text-xs text-gray-400">No fee to open | Takes about 5 minutes | Bonus usually arrives within days</p>
+            {fitPoints.length > 0 && (
+              <div className="mt-3 rounded-xl bg-white/70 p-3 dark:bg-slate-900/40">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{fitHeading}</p>
+                <ul className="mt-2 space-y-1.5 text-sm text-slate-600 dark:text-slate-300">
+                  {fitPoints.map((point) => (
+                    <li key={point}>- {point}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <p className="mt-1.5 text-xs text-gray-400">{details}</p>
           </div>
 
           <div className="flex shrink-0 flex-col items-center gap-2">
@@ -68,13 +97,13 @@ export default function ReferralSection() {
               onClick={() => {
                 trackReferralAction("click", {
                   offer_name: "wealthsimple",
-                  placement: "referral_section",
+                  placement,
                   cta_label: "sign_up_and_claim_bonus",
                   destination: REFERRAL_URL,
                 });
               }}
             >
-              Sign Up and Claim Bonus
+              {buttonLabel}
             </a>
           </div>
         </div>

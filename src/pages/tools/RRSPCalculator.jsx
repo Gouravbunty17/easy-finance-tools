@@ -455,6 +455,23 @@ export default function RRSPCalculator() {
         </div>
       </section>
 
+      <ReferralSection
+        placement="rrsp_calculator_referral"
+        badge="RRSP-friendly offer"
+        title="Get $25 free with Wealthsimple"
+        highlight="$25 free"
+        description="If the RRSP math looks strong and you want a simple long-term account setup, this offer can be a reasonable next step after you compare providers and confirm the deduction still makes sense."
+        fitHeading="Why this may fit after the RRSP math"
+        fitPoints={[
+          "You want an RRSP that is easy to fund and keep contributing to.",
+          "Your plan is long-term ETF investing rather than a more manual brokerage workflow.",
+          "You have already checked the refund impact and account priority first.",
+        ]}
+        details="Use the referral code at signup | Keep comparing RRSP account details and transfer rules before choosing"
+        disclosure="Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change how we explain RRSP deductions, tax assumptions, or provider comparisons."
+        buttonLabel="Open RRSP Offer"
+      />
+
       <FAQ items={RRSP_FAQS} />
     </section>
   );

@@ -280,7 +280,15 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4">
-        <ReferralSection />
+        <ReferralSection
+          placement="homepage_referral"
+          fitHeading="Why this may fit"
+          fitPoints={[
+            "You want a simple beginner-friendly investing app after choosing TFSA, RRSP, or FHSA math first.",
+            "You mainly plan to buy broad ETFs and contribute regularly.",
+            "You still plan to compare provider guides before making the final choice.",
+          ]}
+        />
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-6">

@@ -554,7 +554,22 @@ export default function TFSACalculator() {
         </div>
       </section>
 
-      <ReferralSection />
+      <ReferralSection
+        placement="tfsa_calculator_referral"
+        badge="TFSA-friendly offer"
+        title="Get $25 free with Wealthsimple"
+        highlight="$25 free"
+        description="If you want a simple place to open a TFSA and start with broad ETF investing, this offer can be a reasonable next step after you verify your room and account priority."
+        fitHeading="Why this may fit after the TFSA math"
+        fitPoints={[
+          "You want a simple first TFSA setup rather than a heavier brokerage workflow.",
+          "Your plan is broad ETFs and recurring contributions, not complex trading.",
+          "You have already checked that the TFSA should get the next contribution.",
+        ]}
+        details="Use the referral code at signup | No fee to open | Keep comparing provider details before you decide"
+        disclosure="Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change how we explain TFSA contribution room, account priority, or provider comparisons."
+        buttonLabel="Open TFSA Offer"
+      />
       <FAQ items={TFSA_FAQS} />
     </section>
   );
