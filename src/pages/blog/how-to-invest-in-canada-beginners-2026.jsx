@@ -263,6 +263,35 @@ export default function HowToInvestBeginners2026() {
             ]}
           />
 
+          <div className="not-prose mt-8 grid gap-4 md:grid-cols-3">
+            {[
+              {
+                title: "Best ETFs for a TFSA",
+                body: "Move from account setup into a practical ETF shortlist for Canadian investors.",
+                href: "/blog/best-etfs-for-tfsa-canada-2026",
+              },
+              {
+                title: "Methodology and sources",
+                body: "See how calculator assumptions, update dates, and disclosures are handled sitewide.",
+                href: "/methodology",
+              },
+              {
+                title: "Terms and disclaimer",
+                body: "Review the educational-use boundaries before relying on planning examples.",
+                href: "/terms",
+              },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className="rounded-xl border border-gray-200 bg-white p-4 transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-900"
+              >
+                <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{item.body}</p>
+              </Link>
+            ))}
+          </div>
+
           <div className="not-prose mt-8 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
             <p className="text-xs text-gray-500 dark:text-gray-400">
               <strong>Disclaimer:</strong> Educational content only. This page does not replace personalized financial advice, brokerage disclosures, or CRA records.
@@ -280,6 +309,14 @@ export default function HowToInvestBeginners2026() {
             <Link to="/blog/how-much-tfsa-room-2026" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
               <span className="text-sm text-gray-500">TFSA rules</span>
               <p className="mt-1 font-semibold text-primary dark:text-accent">How much TFSA room do you have in 2026?</p>
+            </Link>
+            <Link to="/methodology" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
+              <span className="text-sm text-gray-500">Trust</span>
+              <p className="mt-1 font-semibold text-primary dark:text-accent">Methodology and Sources</p>
+            </Link>
+            <Link to="/terms" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
+              <span className="text-sm text-gray-500">Disclosure</span>
+              <p className="mt-1 font-semibold text-primary dark:text-accent">Terms and Disclaimer</p>
             </Link>
           </div>
         </div>

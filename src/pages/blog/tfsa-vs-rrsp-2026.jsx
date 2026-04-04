@@ -121,6 +121,35 @@ export default function TFSAvsRRSP() {
             ]}
           />
 
+          <div className="not-prose mt-8 grid gap-4 md:grid-cols-3">
+            {[
+              {
+                title: "TFSA calculator",
+                body: "Estimate contribution room and long-term tax-free growth before contributing.",
+                href: "/tools/tfsa-calculator",
+              },
+              {
+                title: "RRSP calculator",
+                body: "Compare refund impact and contribution scenarios instead of guessing from income alone.",
+                href: "/tools/rrsp-calculator",
+              },
+              {
+                title: "Methodology and sources",
+                body: "Review assumptions, disclosures, and privacy standards across the site.",
+                href: "/methodology",
+              },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className="rounded-xl border border-gray-200 bg-white p-4 transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-900"
+              >
+                <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{item.body}</p>
+              </Link>
+            ))}
+          </div>
+
           <div className="not-prose mt-8 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
             <p className="text-xs text-gray-500 dark:text-gray-400">
               <strong>Disclaimer:</strong> Educational content only. Tax rules, contribution room, and planning decisions should be checked against your CRA records and personal situation.

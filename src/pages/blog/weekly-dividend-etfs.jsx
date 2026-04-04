@@ -3,6 +3,7 @@ import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import useAdSense from "../../hooks/useAdSense";
 import BlogHero from "../../components/BlogHero";
+import MethodologyPanel from "../../components/MethodologyPanel";
 
 export default function WeeklyDividendETFs() {
   useAdSense();
@@ -259,6 +260,51 @@ export default function WeeklyDividendETFs() {
         <p>
           For broader ETF context, you can also review our <Link to="/blog/best-etfs-for-tfsa-canada-2026" className="text-primary underline">best ETFs for TFSA guide</Link> and then jump into the relevant ticker pages from there.
         </p>
+
+        <MethodologyPanel
+          title="How to use this weekly dividend ETF guide"
+          summary="This article explains how payout-heavy and covered-call ETFs work, why weekly distributions can look attractive, and where the main tradeoffs usually show up for Canadian investors."
+          updated="April 3, 2026"
+          assumptions={[
+            "Yield ranges are directional examples and can change quickly as payout policies, option income, and market prices move.",
+            "Covered-call strategy descriptions are simplified to help readers understand the tradeoff between higher cash flow and capped upside.",
+            "Tax treatment comments are educational and do not replace account-specific tax reporting or professional advice.",
+          ]}
+          sources={[
+            { label: "Methodology and Sources", href: "https://easyfinancetools.com/methodology" },
+            { label: "CRA: TFSA overview", href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account.html" },
+          ]}
+          note="Educational guide only. High-yield ETF structures, return of capital, and distribution sustainability should be checked before investing."
+        />
+
+        <div className="not-prose mt-8 grid gap-4 md:grid-cols-3">
+          {[
+            {
+              title: "Dividend calculator",
+              body: "Model DRIP, payout assumptions, and projected income over time.",
+              href: "/tools/dividend-calculator",
+            },
+            {
+              title: "Best ETFs for a TFSA",
+              body: "Compare income-focused funds against simpler broad-market ETF options.",
+              href: "/blog/best-etfs-for-tfsa-canada-2026",
+            },
+            {
+              title: "Terms and disclaimer",
+              body: "Review the site’s educational-use and disclosure standards before relying on yield examples.",
+              href: "/terms",
+            },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              className="rounded-xl border border-gray-200 bg-white p-4 transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-900"
+            >
+              <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{item.body}</p>
+            </Link>
+          ))}
+        </div>
 
         {/* Disclaimer */}
         <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mt-8 not-prose">

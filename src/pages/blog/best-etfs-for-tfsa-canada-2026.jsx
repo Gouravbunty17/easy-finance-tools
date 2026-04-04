@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
+import MethodologyPanel from "../../components/MethodologyPanel";
 
 export default function BestETFsForTFSA() {
   return (
@@ -159,6 +160,51 @@ export default function BestETFsForTFSA() {
         <p>
           Use our <Link to="/tools/tfsa-calculator" className="text-primary underline">TFSA Calculator</Link> to see exactly how much your ETF investments could grow tax-free over your investment horizon.
         </p>
+
+        <MethodologyPanel
+          title="How to use this ETF guide"
+          summary="This page is a practical comparison guide for Canadian TFSA investors. It highlights common ETF structures, broad fee ranges, and planning tradeoffs rather than giving personalized recommendations."
+          updated="April 3, 2026"
+          assumptions={[
+            "ETF examples and use cases are educational snapshots and may change as fund mandates, fees, or distributions change.",
+            "MER and yield references are directional planning figures and should be verified on the provider's facts page before investing.",
+            "Account-location comments simplify withholding tax, distribution, and suitability issues and do not replace personalized tax advice.",
+          ]}
+          sources={[
+            { label: "CRA: Tax-Free Savings Account", href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account.html" },
+            { label: "Methodology and Sources", href: "https://easyfinancetools.com/methodology" },
+          ]}
+          note="Educational guide only. ETF suitability, fees, and distribution treatment should be checked before investing."
+        />
+
+        <div className="not-prose mt-8 grid gap-4 md:grid-cols-3">
+          {[
+            {
+              title: "TFSA calculator",
+              body: "Project account growth and room usage before you choose an ETF mix.",
+              href: "/tools/tfsa-calculator",
+            },
+            {
+              title: "Dividend calculator",
+              body: "Model dividend ETF income, DRIP scenarios, and long-term yield on cost.",
+              href: "/tools/dividend-calculator",
+            },
+            {
+              title: "Terms and disclaimer",
+              body: "Review educational-use limits before relying on any comparison or ETF mention.",
+              href: "/terms",
+            },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              className="rounded-xl border border-gray-200 bg-white p-4 text-sm transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-900"
+            >
+              <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
+              <p className="mt-2 text-gray-600 dark:text-gray-400">{item.body}</p>
+            </Link>
+          ))}
+        </div>
 
         <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mt-8 not-prose">
           <p className="text-xs text-gray-500 dark:text-gray-400">

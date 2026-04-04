@@ -166,6 +166,14 @@ export default function PayOffMortgageFasterCanada() {
               <span className="text-sm text-gray-500">FHSA</span>
               <p className="font-semibold text-primary dark:text-accent mt-1">How to Use the FHSA in Canada</p>
             </Link>
+            <Link to="/methodology" className="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
+              <span className="text-sm text-gray-500">Trust</span>
+              <p className="font-semibold text-primary dark:text-accent mt-1">Methodology and Sources</p>
+            </Link>
+            <Link to="/terms" className="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
+              <span className="text-sm text-gray-500">Disclosure</span>
+              <p className="font-semibold text-primary dark:text-accent mt-1">Terms and Disclaimer</p>
+            </Link>
           </div>
         </div>
         <Link to="/blog" className="inline-block mt-8 text-primary dark:text-accent font-semibold hover:underline">← Back to Blog</Link>
