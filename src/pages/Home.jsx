@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import CountUp from "../components/CountUp";
 import FinancialTip from "../components/FinancialTip";
 import ReferralSection from "../components/ReferralSection";
+import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
 
 const tools = [
   { title: "Income Tax Calculator", desc: "Calculate federal + provincial tax, CPP, EI, and take-home pay for 2026.", link: "/tools/income-tax-calculator", badge: "Most Popular" },
@@ -61,16 +61,34 @@ export default function Home() {
           </p>
 
         <div className="mx-auto mb-10 grid max-w-3xl gap-3 rounded-3xl border border-white/15 bg-white/10 p-3 backdrop-blur sm:grid-cols-[1fr_auto_auto]">
-            <Link to="/tools/compound-interest-calculator" className="rounded-2xl bg-white/10 px-4 py-4 text-left transition hover:bg-white/15">
+            <SurfaceTrackedLink
+              to="/tools/compound-interest-calculator"
+              eventName="homepage_cta_click"
+              ctaLabel="hero_compound_interest_card"
+              trackingParams={{ section: "hero", destination_type: "tool" }}
+              className="rounded-2xl bg-white/10 px-4 py-4 text-left transition hover:bg-white/15"
+            >
               <div className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">High-demand search</div>
               <div className="mt-1 text-lg font-bold">Compound Interest Calculator</div>
-            </Link>
-            <Link to="/tools/income-tax-calculator" className="rounded-2xl bg-white px-6 py-4 text-lg font-bold text-primary transition hover:bg-blue-50">
+            </SurfaceTrackedLink>
+            <SurfaceTrackedLink
+              to="/tools/income-tax-calculator"
+              eventName="homepage_cta_click"
+              ctaLabel="hero_open_tax_calculator"
+              trackingParams={{ section: "hero", destination_type: "tool" }}
+              className="rounded-2xl bg-white px-6 py-4 text-lg font-bold text-primary transition hover:bg-blue-50"
+            >
               Open tax calculator
-            </Link>
-            <Link to="/tools" className="rounded-2xl border border-white/30 px-6 py-4 text-lg font-bold text-white transition hover:bg-white/10">
+            </SurfaceTrackedLink>
+            <SurfaceTrackedLink
+              to="/tools"
+              eventName="homepage_cta_click"
+              ctaLabel="hero_explore_tools"
+              trackingParams={{ section: "hero", destination_type: "hub" }}
+              className="rounded-2xl border border-white/30 px-6 py-4 text-lg font-bold text-white transition hover:bg-white/10"
+            >
               Explore tools
-            </Link>
+            </SurfaceTrackedLink>
           </div>
 
           <div className="grid gap-3 text-left md:grid-cols-3">
@@ -126,9 +144,12 @@ export default function Home() {
         <p className="mb-12 text-center text-gray-500">Start with the outcome you need, then move into related guides and next-step tools.</p>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {tools.map((tool) => (
-            <Link
+            <SurfaceTrackedLink
               key={tool.title}
               to={tool.link}
+              eventName="homepage_cta_click"
+              ctaLabel={`calculator_card_${tool.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
+              trackingParams={{ section: "calculator_grid", destination_type: "tool", tool_title: tool.title }}
               className="group surface-card border-2 p-6 transition-all hover:-translate-y-1 hover:border-secondary hover:shadow-xl"
             >
               <div className="mb-4 flex items-start justify-between gap-3">
@@ -143,13 +164,19 @@ export default function Home() {
                 <span>Open calculator</span>
                 <span className="transition-transform group-hover:translate-x-1">More</span>
               </div>
-            </Link>
+            </SurfaceTrackedLink>
           ))}
         </div>
         <div className="mt-10 text-center">
-          <Link to="/tools" className="inline-block rounded-xl border-2 border-primary px-8 py-3 font-semibold text-primary transition hover:bg-primary hover:text-white">
+          <SurfaceTrackedLink
+            to="/tools"
+            eventName="homepage_cta_click"
+            ctaLabel="calculator_grid_view_all_tools"
+            trackingParams={{ section: "calculator_grid", destination_type: "hub" }}
+            className="inline-block rounded-xl border-2 border-primary px-8 py-3 font-semibold text-primary transition hover:bg-primary hover:text-white"
+          >
             View all tools
-          </Link>
+          </SurfaceTrackedLink>
         </div>
       </section>
 
@@ -160,10 +187,17 @@ export default function Home() {
             { title: "Savings and compounding", body: "Use compound interest, TFSA, RRSP, and FHSA tools together instead of in isolation.", href: "/tools/compound-interest-calculator" },
             { title: "Borrowing and housing", body: "Mortgage, rent-vs-buy, and debt payoff tools work best when paired with scenario planning.", href: "/tools/mortgage-calculator" },
           ].map((cluster) => (
-            <Link key={cluster.title} to={cluster.href} className="surface-card p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md">
+            <SurfaceTrackedLink
+              key={cluster.title}
+              to={cluster.href}
+              eventName="homepage_cta_click"
+              ctaLabel={`cluster_card_${cluster.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
+              trackingParams={{ section: "cluster_cards", destination_type: "tool" }}
+              className="surface-card p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md"
+            >
               <h3 className="text-lg font-bold text-primary dark:text-accent">{cluster.title}</h3>
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{cluster.body}</p>
-            </Link>
+            </SurfaceTrackedLink>
           ))}
         </div>
       </section>
@@ -181,9 +215,15 @@ export default function Home() {
                 Start with the highest-intent pages users usually look for first, then move into related comparisons.
               </p>
             </div>
-            <Link to="/tools" className="text-sm font-semibold text-secondary hover:underline">
+            <SurfaceTrackedLink
+              to="/tools"
+              eventName="homepage_cta_click"
+              ctaLabel="popular_searches_browse_all"
+              trackingParams={{ section: "popular_searches", destination_type: "hub" }}
+              className="text-sm font-semibold text-secondary hover:underline"
+            >
               Browse all calculators
-            </Link>
+            </SurfaceTrackedLink>
           </div>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
@@ -192,13 +232,16 @@ export default function Home() {
               { title: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
               { title: "TFSA Calculator", href: "/tools/tfsa-calculator" },
             ].map((item) => (
-              <Link
+              <SurfaceTrackedLink
                 key={item.title}
                 to={item.href}
+                eventName="homepage_cta_click"
+                ctaLabel={`popular_search_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
+                trackingParams={{ section: "popular_searches", destination_type: "tool" }}
                 className="rounded-2xl border border-slate-200 bg-white px-4 py-4 text-sm font-semibold text-primary transition hover:-translate-y-0.5 hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
               >
                 {item.title}
-              </Link>
+              </SurfaceTrackedLink>
             ))}
           </div>
         </div>
@@ -207,15 +250,24 @@ export default function Home() {
       <section className="mx-auto max-w-5xl px-4 py-12">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-3xl font-bold text-primary dark:text-accent">Latest Articles</h2>
-          <Link to="/blog" className="text-sm font-semibold text-secondary hover:underline">
+          <SurfaceTrackedLink
+            to="/blog"
+            eventName="homepage_cta_click"
+            ctaLabel="latest_articles_view_all"
+            trackingParams={{ section: "latest_articles", destination_type: "hub" }}
+            className="text-sm font-semibold text-secondary hover:underline"
+          >
             View all articles
-          </Link>
+          </SurfaceTrackedLink>
         </div>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {recentPosts.map((post) => (
-            <Link
+            <SurfaceTrackedLink
               key={post.slug}
               to={`/blog/${post.slug}`}
+              eventName="homepage_cta_click"
+              ctaLabel={`latest_article_${post.slug}`}
+              trackingParams={{ section: "latest_articles", destination_type: "article", article_slug: post.slug }}
               className="group block rounded-2xl border border-gray-100 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-secondary hover:shadow-lg dark:border-gray-700 dark:bg-gray-800"
             >
               <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
@@ -223,7 +275,7 @@ export default function Home() {
               </span>
               <h3 className="mb-2 mt-3 font-bold leading-snug text-gray-800 transition group-hover:text-secondary dark:text-white">{post.title}</h3>
               <span className="text-xs font-semibold text-secondary">Read article</span>
-            </Link>
+            </SurfaceTrackedLink>
           ))}
         </div>
       </section>
@@ -250,9 +302,15 @@ export default function Home() {
       <section className="bg-primary px-4 py-16 text-center text-white">
         <h2 className="mb-4 text-3xl font-bold">Ready to Take Control of Your Finances?</h2>
         <p className="mb-8 text-blue-100">Start with the TFSA calculator, then compare it against RRSP and tax tools once you have a baseline.</p>
-        <Link to="/tools/tfsa-calculator" className="inline-block rounded-xl bg-accent px-10 py-4 text-lg font-bold text-primary transition hover:bg-yellow-400">
+        <SurfaceTrackedLink
+          to="/tools/tfsa-calculator"
+          eventName="homepage_cta_click"
+          ctaLabel="final_cta_open_tfsa_calculator"
+          trackingParams={{ section: "final_cta", destination_type: "tool" }}
+          className="inline-block rounded-xl bg-accent px-10 py-4 text-lg font-bold text-primary transition hover:bg-yellow-400"
+        >
           Open TFSA calculator
-        </Link>
+        </SurfaceTrackedLink>
       </section>
     </div>
   );

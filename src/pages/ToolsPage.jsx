@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
 
 const tools = [
   { title: "Income Tax Calculator", desc: "Calculate your exact take-home pay, federal + provincial tax, CPP, and EI for all provinces.", link: "/tools/income-tax-calculator", badge: "New", category: "Tax", color: "border-indigo-200 hover:border-indigo-400" },
@@ -81,10 +81,17 @@ export default function ToolsPage() {
           { label: "Real estate", title: "Mortgage", href: "/tools/mortgage-calculator" },
           { label: "Registered accounts", title: "TFSA", href: "/tools/tfsa-calculator" },
         ].map((item) => (
-          <Link key={item.title} to={item.href} className="surface-card p-4 transition hover:-translate-y-0.5 hover:shadow-md">
+          <SurfaceTrackedLink
+            key={item.title}
+            to={item.href}
+            eventName="tools_hub_cta_click"
+            ctaLabel={`featured_card_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
+            trackingParams={{ section: "featured_cards", destination_type: "tool" }}
+            className="surface-card p-4 transition hover:-translate-y-0.5 hover:shadow-md"
+          >
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{item.label}</p>
             <p className="mt-2 text-lg font-bold text-primary dark:text-accent">{item.title} calculator</p>
-          </Link>
+          </SurfaceTrackedLink>
         ))}
       </div>
 
@@ -123,9 +130,19 @@ export default function ToolsPage() {
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {filtered.map((tool) => (
-            <Link
+            <SurfaceTrackedLink
               key={tool.title}
               to={tool.link}
+              eventName="tools_hub_cta_click"
+              ctaLabel={`tool_card_${tool.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
+              trackingParams={{
+                section: "tool_cards",
+                destination_type: "tool",
+                tool_title: tool.title,
+                tool_category: tool.category,
+                active_category: activeCategory,
+                search_query: search || "",
+              }}
               className={`group rounded-2xl border-2 bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-xl dark:bg-gray-800 ${tool.color}`}
             >
               <div className="mb-4 flex items-start justify-between gap-3">
@@ -138,7 +155,7 @@ export default function ToolsPage() {
                 <span>Open calculator and see results</span>
                 <span className="transition-transform group-hover:translate-x-1">More</span>
               </div>
-            </Link>
+            </SurfaceTrackedLink>
           ))}
         </div>
       ) : (
@@ -165,10 +182,17 @@ export default function ToolsPage() {
           { title: "Model compound growth", body: "Start with compound interest, then compare TFSA, RRSP, and FHSA account choices.", href: "/tools/compound-interest-calculator" },
           { title: "Compare debt and housing", body: "Mortgage, rent-vs-buy, and debt payoff tools work best when paired with scenario planning.", href: "/tools/mortgage-calculator" },
         ].map((item) => (
-          <Link key={item.title} to={item.href} className="surface-card p-5 transition hover:-translate-y-0.5 hover:shadow-md">
+          <SurfaceTrackedLink
+            key={item.title}
+            to={item.href}
+            eventName="tools_hub_cta_click"
+            ctaLabel={`cluster_card_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
+            trackingParams={{ section: "cluster_cards", destination_type: "tool" }}
+            className="surface-card p-5 transition hover:-translate-y-0.5 hover:shadow-md"
+          >
             <h2 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h2>
             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{item.body}</p>
-          </Link>
+          </SurfaceTrackedLink>
         ))}
       </div>
     </section>

@@ -10,6 +10,14 @@ export function trackEvent(eventName, params = {}) {
   window.dataLayer.push({ event: eventName, ...params });
 }
 
+export function trackSurfaceCta(eventName, ctaLabel, destination, params = {}) {
+  trackEvent(eventName, {
+    cta_label: ctaLabel,
+    destination,
+    ...params,
+  });
+}
+
 export function trackToolStart(toolName, params = {}) {
   trackEvent("tool_start", {
     tool_name: toolName,
@@ -31,4 +39,12 @@ export function trackArticleCta(articleSlug, ctaLabel, destination, params = {})
     destination,
     ...params,
   });
+}
+
+export function trackHomepageCta(ctaLabel, destination, params = {}) {
+  trackSurfaceCta("homepage_cta_click", ctaLabel, destination, params);
+}
+
+export function trackToolsHubCta(ctaLabel, destination, params = {}) {
+  trackSurfaceCta("tools_hub_cta_click", ctaLabel, destination, params);
 }
