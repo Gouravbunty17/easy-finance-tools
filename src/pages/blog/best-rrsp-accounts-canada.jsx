@@ -250,6 +250,39 @@ export default function BestRRSPAccountsCanada() {
             </TrackedLink>
           </div>
 
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <TrackedLink
+              articleSlug="best-rrsp-accounts-canada"
+              ctaLabel="decision_block_rrsp"
+              to="/tools/rrsp-calculator"
+              className="rounded-2xl border border-indigo-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-indigo-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300">Estimate the refund first</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use the RRSP calculator before choosing the provider</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">The strongest RRSP account depends on whether the contribution amount actually improves your tax and retirement plan.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="best-rrsp-accounts-canada"
+              ctaLabel="decision_block_income_tax"
+              to="/tools/income-tax-calculator"
+              className="rounded-2xl border border-sky-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-sky-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-300">Check your tax bracket</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use income tax math if deduction value is unclear</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Your marginal rate is a big part of the RRSP decision, so it helps to estimate take-home pay and refund impact first.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="best-rrsp-accounts-canada"
+              ctaLabel="decision_block_compound_interest"
+              to="/tools/compound-interest-calculator"
+              className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-amber-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300">Project the long-term growth</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use compound interest to set the retirement target</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Figure out the savings path first, then choose the RRSP account that best supports recurring contributions and low fees.</p>
+            </TrackedLink>
+          </div>
+
           <MethodologyPanel
             title="How this RRSP account guide should be used"
             summary="This page is a practical shortlist for Canadians comparing RRSP account options. It emphasizes account fit, contribution behavior, and long-term investing simplicity over feature overload."

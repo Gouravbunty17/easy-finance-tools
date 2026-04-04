@@ -250,6 +250,39 @@ export default function BestInvestingAppsCanada() {
             </TrackedLink>
           </div>
 
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <TrackedLink
+              articleSlug="best-investing-apps-canada"
+              ctaLabel="decision_block_tfsa"
+              to="/tools/tfsa-calculator"
+              className="rounded-2xl border border-emerald-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-emerald-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-300">Pick the account first</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use TFSA math for a first-account decision</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">If you are starting from scratch, the account choice usually matters more than the app branding.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="best-investing-apps-canada"
+              ctaLabel="decision_block_rrsp"
+              to="/tools/rrsp-calculator"
+              className="rounded-2xl border border-indigo-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-indigo-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300">Check the tax angle</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use RRSP math when the refund could change the plan</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">A stronger deduction today can matter more than tiny differences between investing apps.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="best-investing-apps-canada"
+              ctaLabel="decision_block_compound_interest"
+              to="/tools/compound-interest-calculator"
+              className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-amber-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300">Project the contribution plan</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use compound interest before choosing the app</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Model the monthly savings path and fee drag first, then pick the app that helps you stay consistent.</p>
+            </TrackedLink>
+          </div>
+
           <MethodologyPanel
             title="How this investing app guide should be used"
             summary="This page is a practical shortlist for Canadians comparing investing apps. It focuses on long-term investing behavior, account fit, and user experience rather than feature overload or short-term trading appeal."

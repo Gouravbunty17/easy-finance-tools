@@ -230,6 +230,39 @@ export default function WealthsimpleVsQuestradeCanada() {
             </TrackedLink>
           </div>
 
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <TrackedLink
+              articleSlug="wealthsimple-vs-questrade-canada"
+              ctaLabel="decision_block_tfsa"
+              to="/tools/tfsa-calculator"
+              className="rounded-2xl border border-sky-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-sky-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-300">Start with TFSA math</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">If this is your first investing account</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Check contribution room and tax-free growth first, then choose the broker that makes the workflow easiest.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="wealthsimple-vs-questrade-canada"
+              ctaLabel="decision_block_rrsp"
+              to="/tools/rrsp-calculator"
+              className="rounded-2xl border border-indigo-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-indigo-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-300">Start with RRSP math</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">If the tax deduction matters most</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Estimate the refund impact first so the platform choice comes after the account strategy.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="wealthsimple-vs-questrade-canada"
+              ctaLabel="decision_block_compound_interest"
+              to="/tools/compound-interest-calculator"
+              className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-amber-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300">Start with the growth plan</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">If you want to compare long-term outcomes</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Model the contribution schedule and fee drag first, then compare which platform best fits that plan.</p>
+            </TrackedLink>
+          </div>
+
           <MethodologyPanel
             title="How this comparison should be used"
             summary="This page is a practical framework for comparing two popular Canadian investing platforms. It is designed to help readers match platform style to investing behavior, not to declare a universal winner."

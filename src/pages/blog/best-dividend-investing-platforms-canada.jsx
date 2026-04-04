@@ -249,6 +249,39 @@ export default function BestDividendInvestingPlatformsCanada() {
             </TrackedLink>
           </div>
 
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <TrackedLink
+              articleSlug="best-dividend-investing-platforms-canada"
+              ctaLabel="decision_block_dividend"
+              to="/tools/dividend-calculator"
+              className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-amber-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-600 dark:text-amber-300">Model the income first</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use the dividend calculator before picking the platform</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">A dividend platform choice makes more sense after you know the yield, reinvestment, and growth scenario you actually want.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="best-dividend-investing-platforms-canada"
+              ctaLabel="decision_block_tfsa"
+              to="/tools/tfsa-calculator"
+              className="rounded-2xl border border-emerald-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-emerald-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-600 dark:text-emerald-300">Check the account fit</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use TFSA math if the dividends are for long-term growth</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">A tax-sheltered account often matters more than the platform brand for long-term Canadian dividend investors.</p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="best-dividend-investing-platforms-canada"
+              ctaLabel="decision_block_compound_interest"
+              to="/tools/compound-interest-calculator"
+              className="rounded-2xl border border-sky-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-sky-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-300">Compare total growth</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use compound interest if you want a neutral baseline</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">It helps separate platform choice from the bigger question of total return, fees, and contribution behavior.</p>
+            </TrackedLink>
+          </div>
+
           <MethodologyPanel
             title="How this dividend platform guide should be used"
             summary="This page is a practical shortlist for Canadians comparing platforms for dividend ETFs and dividend-stock investing. It focuses on account fit, long-term investing behavior, and overall usability rather than chasing the highest quoted yield."

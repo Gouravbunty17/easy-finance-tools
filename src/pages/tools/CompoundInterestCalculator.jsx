@@ -344,6 +344,38 @@ export default function CompoundInterestCalculator() {
         note="Educational estimate only. Real returns vary year to year, and taxes may apply depending on whether you invest inside a TFSA, RRSP, FHSA, or non-registered account."
       />
 
+      <section className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">How to use this compound interest calculator</p>
+          <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">Model the contribution plan before you choose the account</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            This page works best when you use it to answer a practical planning question, not just to generate the biggest possible future number. Start with
+            your current balance, realistic monthly contribution, and a conservative expected return. Then compare that baseline against a second scenario
+            with lower fees, higher contributions, or a longer timeline. That usually tells you more than moving the return slider to an optimistic number.
+          </p>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            For Canadians, the next step is usually deciding where this compounding should happen. A TFSA, RRSP, FHSA, or taxable account can lead to very
+            different after-tax outcomes even if the growth curve looks similar. Use this calculator to understand the savings engine first, then compare it
+            against account-specific tools before making the actual contribution decision.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">What this page helps you decide</p>
+          <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">Savings behavior usually matters more than a perfect return guess</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Many people overestimate what a perfect annual return will do and underestimate how much steady monthly contributions drive the result. This
+            calculator makes that tradeoff visible by separating contributed dollars, investment growth, and inflation-adjusted value. If a plan only works
+            under an aggressive return assumption, it is probably too fragile for real-world planning.
+          </p>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            It also helps you pressure-test fee drag. Even a small annual fee difference can remove a meaningful amount of wealth over a long horizon. If you
+            are comparing brokers, robo-advisors, or ETF options, use this page as the neutral planning baseline before provider marketing or sign-up bonuses
+            start shaping the decision.
+          </p>
+        </div>
+      </section>
+
       <section className="mt-10 grid gap-4 md:grid-cols-3">
         {[
           {
