@@ -208,7 +208,7 @@ export default function Home() {
             <div>
               <h2 className="text-2xl font-bold text-primary dark:text-accent">Popular broker comparisons</h2>
               <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                If you are choosing where to open an account, start with these high-intent comparison and shortlist pages.
+                If you are choosing where to open an account, do the calculator work first, then use these high-intent comparison pages to choose the provider.
               </p>
             </div>
             <SurfaceTrackedLink
@@ -220,6 +220,41 @@ export default function Home() {
             >
               Browse all guides
             </SurfaceTrackedLink>
+          </div>
+          <div className="mt-5 grid gap-3 md:grid-cols-3">
+            {[
+              {
+                title: "Start with TFSA math",
+                body: "Check contribution room and tax-free growth before comparing brokers.",
+                href: "/tools/tfsa-calculator",
+                cta: "comparison_module_tfsa_first",
+              },
+              {
+                title: "Start with RRSP math",
+                body: "Estimate the deduction and refund value before choosing an RRSP provider.",
+                href: "/tools/rrsp-calculator",
+                cta: "comparison_module_rrsp_first",
+              },
+              {
+                title: "Start with compound growth",
+                body: "Model the savings plan and fee drag first if you are still comparing platforms.",
+                href: "/tools/compound-interest-calculator",
+                cta: "comparison_module_compound_first",
+              },
+            ].map((item) => (
+              <SurfaceTrackedLink
+                key={item.title}
+                to={item.href}
+                eventName="homepage_cta_click"
+                ctaLabel={item.cta}
+                trackingParams={{ section: "broker_comparisons_decision_paths", destination_type: "tool" }}
+                className="rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Calculator-first path</p>
+                <p className="mt-2 font-semibold text-primary dark:text-accent">{item.title}</p>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
+              </SurfaceTrackedLink>
+            ))}
           </div>
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {[

@@ -478,6 +478,38 @@ export default function TFSACalculator() {
         ]}
       />
 
+      <section className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">How to use this TFSA calculator</p>
+          <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">Use it to decide what your next TFSA dollar should do</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            This page is most useful when you treat it as a planning tool instead of a final CRA confirmation screen. Start with a realistic current balance,
+            monthly contribution, and expected return. Then compare whether the projected tax-free growth is strong enough to justify prioritizing the TFSA
+            over your RRSP, FHSA, or a taxable investing account.
+          </p>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            The contribution-room estimate here is directional because personal room depends on your actual contribution and withdrawal history. The strongest
+            workflow is to use this page for scenario planning, then verify your official available room through CRA My Account before making a large deposit,
+            transfer, or catch-up contribution.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">What Canadians usually miss</p>
+          <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">The TFSA choice is about account priority, not just tax-free growth</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Many Canadians jump straight to choosing a broker or ETF before deciding whether the TFSA is the right account for the next contribution. For many
+            people it is, but not always. If your income makes an RRSP deduction especially valuable, or if you are saving for a first home through an FHSA,
+            the right next account can change even when the TFSA growth chart looks attractive.
+          </p>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Over-contribution risk also matters more than most people expect. A TFSA is powerful because growth, dividends, and withdrawals are tax-free, but
+            the account loses some of that simplicity if you are guessing on room. Use this calculator to model the upside, use the room guide to avoid common
+            mistakes, and compare it against the RRSP calculator when the account choice is still uncertain.
+          </p>
+        </div>
+      </section>
+
       <section className="mt-10 grid gap-4 md:grid-cols-3">
         <SurfaceTrackedLink to="/blog/how-much-tfsa-room-2026" eventName="tool_result_cta_click" ctaLabel="tfsa_room_guide" trackingParams={{ tool_name: "tfsa_calculator", section: "next_steps", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
           <h2 className="text-lg font-bold text-primary dark:text-accent">TFSA room guide</h2>
