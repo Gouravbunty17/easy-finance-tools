@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
+import TrackedLink from "../../components/TrackedLink";
 
 export default function HowToUseFHSA() {
   return (
@@ -169,8 +170,8 @@ export default function HowToUseFHSA() {
 
         <h2>Calculate Your FHSA Savings</h2>
         <p>
-          Use our free <Link to="/tools/fhsa-calculator" className="text-primary underline">FHSA Calculator</Link> to model how much you could save for your first home over time.
-        </p>
+          Use our free <TrackedLink articleSlug="how-to-use-fhsa-canada" ctaLabel="fhsa_calculator_inline" to="/tools/fhsa-calculator" className="text-primary underline">FHSA Calculator</TrackedLink> to model how much you could save for your first home over time.
+          </p>
 
         <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mt-8 not-prose">
           <p className="text-xs text-gray-500 dark:text-gray-400">

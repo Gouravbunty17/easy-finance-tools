@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import TrackedLink from "../../components/TrackedLink";
 
 const LIMITS = [
   [2009, 5000], [2010, 5000], [2011, 5000], [2012, 5000], [2013, 5500],
@@ -161,7 +162,7 @@ export default function HowMuchTFSARoom() {
 
           <h2>Next step</h2>
           <p>
-            Once you know your available room, run the <Link to="/tools/tfsa-calculator" className="text-primary underline">TFSA calculator</Link> to estimate future tax-free growth, then compare it with the <Link to="/tools/rrsp-calculator" className="text-primary underline">RRSP calculator</Link> if you are deciding between accounts.
+            Once you know your available room, run the <TrackedLink articleSlug="how-much-tfsa-room-2026" ctaLabel="tfsa_calculator_inline" to="/tools/tfsa-calculator" className="text-primary underline">TFSA calculator</TrackedLink> to estimate future tax-free growth, then compare it with the <TrackedLink articleSlug="how-much-tfsa-room-2026" ctaLabel="rrsp_calculator_inline" to="/tools/rrsp-calculator" className="text-primary underline">RRSP calculator</TrackedLink> if you are deciding between accounts.
           </p>
         </article>
 
