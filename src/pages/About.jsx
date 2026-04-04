@@ -93,6 +93,8 @@ export default function About() {
                 {[
                   { label: "Browse all tools", href: "/tools" },
                   { label: "Read the latest guides", href: "/blog" },
+                  { label: "See methodology and sources", href: "/methodology" },
+                  { label: "Read terms and disclaimer", href: "/terms" },
                   { label: "Send feedback", href: "/contact" },
                 ].map((item) => (
                   <Link

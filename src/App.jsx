@@ -12,7 +12,9 @@ const ToolsPage               = lazy(() => import('./pages/ToolsPage'));
 const Blog                    = lazy(() => import('./pages/Blog'));
 const About                   = lazy(() => import('./pages/About'));
 const Contact                 = lazy(() => import('./pages/Contact'));
+const Methodology             = lazy(() => import('./pages/Methodology'));
 const PrivacyPolicy           = lazy(() => import('./pages/PrivacyPolicy'));
+const Terms                   = lazy(() => import('./pages/Terms'));
 
 const DividendCalculator      = lazy(() => import('./pages/tools/DividendCalculator'));
 const TFSACalculator          = lazy(() => import('./pages/tools/TFSACalculator'));
@@ -71,7 +73,9 @@ export default function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/methodology" element={<Methodology />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<Terms />} />
             <Route path="/tools/dividend-calculator" element={<DividendCalculator />} />
             <Route path="/tools/tfsa-calculator" element={<TFSACalculator />} />
             <Route path="/tools/rrsp-calculator" element={<RRSPCalculator />} />

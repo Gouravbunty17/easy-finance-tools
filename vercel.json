@@ -28,6 +28,8 @@
     { "source": "/stocks/:path*",                  "destination": "/index.html" },
     { "source": "/about",                          "destination": "/index.html" },
     { "source": "/contact",                        "destination": "/index.html" },
-    { "source": "/privacy-policy",                 "destination": "/index.html" }
+    { "source": "/methodology",                    "destination": "/index.html" },
+    { "source": "/privacy-policy",                 "destination": "/index.html" },
+    { "source": "/terms",                          "destination": "/index.html" }
   ]
 }

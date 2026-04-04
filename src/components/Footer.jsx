@@ -27,6 +27,8 @@ export default function Footer() {
               <li><Link to="/about" className="hover:text-white">About</Link></li>
               <li><Link to="/blog" className="hover:text-white">Blog</Link></li>
               <li><Link to="/contact" className="hover:text-white">Contact</Link></li>
+              <li><Link to="/methodology" className="hover:text-white">Methodology</Link></li>
+              <li><Link to="/terms" className="hover:text-white">Terms and Disclaimer</Link></li>
               <li><Link to="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
             </ul>
           </div>
@@ -37,6 +39,14 @@ export default function Footer() {
           <p className="mt-2">
             Tool outputs are educational estimates based on current assumptions, published limits, and visible methodology on each calculator page. We do not store calculator inputs in our database. Some pages may contain ads or referral links, and any partner relationship should be disclosed on-page before a recommendation appears.
           </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <Link to="/methodology" className="rounded-lg border border-blue-700 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/10">
+              Read methodology
+            </Link>
+            <Link to="/terms" className="rounded-lg border border-blue-700 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/10">
+              Read terms
+            </Link>
+          </div>
         </div>
 
         <div className="border-t border-blue-800 pt-6 text-center text-blue-300 text-sm">
