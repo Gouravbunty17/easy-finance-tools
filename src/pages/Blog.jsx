@@ -19,6 +19,14 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "best-dividend-investing-platforms-canada",
+    title: "Best Dividend Investing Platforms in Canada (2026)",
+    date: "2026-04-04",
+    category: "Investing",
+    readTime: "10 min",
+    excerpt: "A practical shortlist of the best dividend investing platforms in Canada, including beginner-friendly and more self-directed options for TFSA and RRSP investors.",
+  },
+  {
     slug: "best-investing-apps-canada",
     title: "Best Investing Apps in Canada (2026)",
     date: "2026-04-04",
