@@ -51,6 +51,7 @@ const OASPaymentDates2026     = lazy(() => import('./pages/blog/oas-payment-date
 const CanadianTaxBrackets2026 = lazy(() => import('./pages/blog/canadian-tax-brackets-2026'));
 const RRSPDeadline2026        = lazy(() => import('./pages/blog/rrsp-deadline-2026'));
 const BestGICRatesCanada2026  = lazy(() => import('./pages/blog/best-gic-rates-canada-2026'));
+const WealthsimpleVsQuestradeCanada = lazy(() => import('./pages/blog/wealthsimple-vs-questrade-canada'));
 
 function PageLoader() {
   return (
@@ -105,6 +106,7 @@ export default function App() {
             <Route path="/blog/canadian-tax-brackets-2026" element={<CanadianTaxBrackets2026 />} />
             <Route path="/blog/rrsp-deadline-2026" element={<RRSPDeadline2026 />} />
             <Route path="/blog/best-gic-rates-canada-2026" element={<BestGICRatesCanada2026 />} />
+            <Route path="/blog/wealthsimple-vs-questrade-canada" element={<WealthsimpleVsQuestradeCanada />} />
             <Route path="/blog/how-to-invest-in-canada-beginners-2026" element={<HowToInvestBeginners />} />
             <Route path="/blog/best-hisa-canada-2026" element={<BestHISACanada2026 />} />
             <Route path="/blog/emergency-fund-canada" element={<EmergencyFundCanada />} />

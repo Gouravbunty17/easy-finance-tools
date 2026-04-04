@@ -19,6 +19,14 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "wealthsimple-vs-questrade-canada",
+    title: "Wealthsimple vs Questrade for Canadians (2026)",
+    date: "2026-04-03",
+    category: "Investing",
+    readTime: "11 min",
+    excerpt: "A practical comparison of Wealthsimple vs Questrade for TFSA, RRSP, FHSA, fees, ease of use, and beginner-friendliness.",
+  },
+  {
     slug: "how-to-invest-in-canada-beginners-2026",
     title: "How to Invest in Canada: Complete Beginner's Guide (2026)",
     date: "2026-04-02",
