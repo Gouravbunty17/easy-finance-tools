@@ -19,6 +19,14 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "best-tfsa-brokers-canada",
+    title: "Best TFSA Brokers in Canada (2026)",
+    date: "2026-04-04",
+    category: "Investing",
+    readTime: "11 min",
+    excerpt: "A practical shortlist of the best TFSA brokers in Canada, including beginner-friendly and more hands-on self-directed options.",
+  },
+  {
     slug: "wealthsimple-vs-questrade-canada",
     title: "Wealthsimple vs Questrade for Canadians (2026)",
     date: "2026-04-03",
