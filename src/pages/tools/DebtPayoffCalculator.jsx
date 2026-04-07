@@ -14,6 +14,7 @@ import {
   Legend,
   Filler,
 } from "chart.js";
+import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -27,7 +28,12 @@ const FAQS = [
 const fmt = (n) => n.toLocaleString("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 });
 
 function calcPayoff(debts, extraPayment, method) {
-  const sorted = [...debts.map((debt) => ({ ...debt, balance: debt.balance }))].sort((a, b) =>
+  const sorted = [...debts.map((debt) => ({
+    ...debt,
+    balance: asNumber(debt.balance),
+    rate: asNumber(debt.rate),
+    minPayment: asNumber(debt.minPayment),
+  }))].sort((a, b) =>
     method === "avalanche" ? b.rate - a.rate : a.balance - b.balance
   );
 
@@ -78,8 +84,8 @@ export default function DebtPayoffCalculator() {
   const other = method === "avalanche" ? snowball : avalanche;
   const noExtra = useMemo(() => calcPayoff(debts, 0, "avalanche"), [debts]);
 
-  const totalDebt = debts.reduce((sum, debt) => sum + debt.balance, 0);
-  const totalMinPayment = debts.reduce((sum, debt) => sum + debt.minPayment, 0);
+  const totalDebt = debts.reduce((sum, debt) => sum + asNumber(debt.balance), 0);
+  const totalMinPayment = debts.reduce((sum, debt) => sum + asNumber(debt.minPayment), 0);
 
   function addDebt() {
     setDebts((prev) => [...prev, { id: Date.now(), name: "New Debt", balance: 2000, rate: 10, minPayment: 50 }]);
@@ -136,7 +142,7 @@ export default function DebtPayoffCalculator() {
                 <input
                   type="number"
                   value={debt.balance}
-                  onChange={(e) => updateDebt(debt.id, "balance", Number(e.target.value))}
+                  onChange={(e) => updateDebt(debt.id, "balance", parseNumericInput(e.target.value))}
                   className="w-full rounded-lg border border-gray-200 p-2 text-sm focus:border-primary focus:outline-none dark:border-gray-600 dark:bg-gray-700"
                 />
               </div>
@@ -146,7 +152,7 @@ export default function DebtPayoffCalculator() {
                   type="number"
                   step="0.01"
                   value={debt.rate}
-                  onChange={(e) => updateDebt(debt.id, "rate", Number(e.target.value))}
+                  onChange={(e) => updateDebt(debt.id, "rate", parseNumericInput(e.target.value))}
                   className="w-full rounded-lg border border-gray-200 p-2 text-sm focus:border-primary focus:outline-none dark:border-gray-600 dark:bg-gray-700"
                 />
               </div>
@@ -156,7 +162,7 @@ export default function DebtPayoffCalculator() {
                   <input
                     type="number"
                     value={debt.minPayment}
-                    onChange={(e) => updateDebt(debt.id, "minPayment", Number(e.target.value))}
+                    onChange={(e) => updateDebt(debt.id, "minPayment", parseNumericInput(e.target.value))}
                     className="w-full rounded-lg border border-gray-200 p-2 text-sm focus:border-primary focus:outline-none dark:border-gray-600 dark:bg-gray-700"
                   />
                 </div>

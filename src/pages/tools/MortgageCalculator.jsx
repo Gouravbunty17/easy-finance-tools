@@ -6,6 +6,7 @@ import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
+import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 import { Line, Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -115,7 +116,10 @@ export default function MortgageCalculator() {
     setHasTrackedStart(true);
   };
 
-  const downPct = homePrice > 0 ? ((downPayment / homePrice) * 100).toFixed(1) : 0;
+  const homePriceValue = asNumber(homePrice);
+  const downPaymentValue = asNumber(downPayment);
+  const rateValue = asNumber(rate);
+  const downPct = homePriceValue > 0 ? ((downPaymentValue / homePriceValue) * 100).toFixed(1) : 0;
 
   const calculate = () => {
     trackToolCalculate("mortgage_calculator", {
@@ -124,16 +128,16 @@ export default function MortgageCalculator() {
       frequency,
       first_time_buyer: firstTime,
     });
-    const principal = homePrice - downPayment;
-    if (principal <= 0 || downPayment / homePrice < 0.05) {
+    const principal = homePriceValue - downPaymentValue;
+    if (principal <= 0 || downPaymentValue / homePriceValue < 0.05) {
       alert("Enter a valid down payment. This calculator expects at least 5% down for planning purposes.");
       return;
     }
 
-    const cmhc = getCMHC(principal, homePrice);
+    const cmhc = getCMHC(principal, homePriceValue);
     const insuredPrincipal = principal + cmhc;
     const months = amort * 12;
-    const monthlyPayment = calcPayment(insuredPrincipal, rate, months);
+    const monthlyPayment = calcPayment(insuredPrincipal, rateValue, months);
 
     let payment;
     let label;
@@ -151,7 +155,7 @@ export default function MortgageCalculator() {
       label = "Weekly";
     }
 
-    const monthlyRate = getMonthlyRate(rate);
+    const monthlyRate = getMonthlyRate(rateValue);
     let balance = insuredPrincipal;
     let totalInterest = 0;
     const yearlyData = [];
@@ -175,7 +179,7 @@ export default function MortgageCalculator() {
       });
     }
 
-    const ltt = getLTT(homePrice, province, firstTime);
+    const ltt = getLTT(homePriceValue, province, firstTime);
     const totalCost = insuredPrincipal + totalInterest;
 
     setResult({
@@ -248,7 +252,7 @@ export default function MortgageCalculator() {
           <input
             type="number"
             value={homePrice}
-            onChange={(e) => { trackStartOnce(); setHomePrice(parseFloat(e.target.value)); }}
+            onChange={(e) => { trackStartOnce(); setHomePrice(parseNumericInput(e.target.value)); }}
             className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
           />
         </div>
@@ -263,7 +267,7 @@ export default function MortgageCalculator() {
           <input
             type="number"
             value={downPayment}
-            onChange={(e) => { trackStartOnce(); setDownPayment(parseFloat(e.target.value)); }}
+            onChange={(e) => { trackStartOnce(); setDownPayment(parseNumericInput(e.target.value)); }}
             className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
           />
           <p className="mt-1 text-xs text-gray-500">
@@ -277,7 +281,7 @@ export default function MortgageCalculator() {
             type="number"
             step="0.05"
             value={rate}
-            onChange={(e) => { trackStartOnce(); setRate(parseFloat(e.target.value)); }}
+            onChange={(e) => { trackStartOnce(); setRate(parseNumericInput(e.target.value)); }}
             className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
           />
           <p className="mt-1 text-xs text-gray-500">Uses a semi-annual compounding conversion for mortgage math.</p>

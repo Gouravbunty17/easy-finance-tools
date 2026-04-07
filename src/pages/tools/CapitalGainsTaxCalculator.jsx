@@ -5,6 +5,7 @@ import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
+import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -82,22 +83,26 @@ export default function CapitalGainsTaxCalculator() {
   const [income, setIncome] = useState(80000);
   const [inTFSA, setInTFSA] = useState(false);
   const [result, setResult] = useState(null);
+  const purchasePriceValue = asNumber(purchasePrice);
+  const salePriceValue = asNumber(salePrice);
+  const expensesValue = asNumber(expenses);
+  const incomeValue = asNumber(income);
 
   const calculate = () => {
-    const gain = salePrice - purchasePrice - expenses;
+    const gain = salePriceValue - purchasePriceValue - expensesValue;
     const loss = gain < 0;
 
     if (inTFSA) {
-      setResult({ tfsa: true, gain, salePrice, purchasePrice, expenses });
+      setResult({ tfsa: true, gain, salePrice: salePriceValue, purchasePrice: purchasePriceValue, expenses: expensesValue });
       return;
     }
 
     const isQSBC = assetType === "business";
     const exemptionApplied = isQSBC ? Math.min(gain, LCGE_LIMIT) : 0;
     const taxableCapitalGain = Math.max(0, gain - exemptionApplied);
-    const marginalRate = getMarginalRate(province, income);
-    const { taxableGain, taxOwed, inclusionRate } = calcTax(taxableCapitalGain, income, province);
-    const afterTaxProceeds = salePrice - taxOwed;
+    const marginalRate = getMarginalRate(province, incomeValue);
+    const { taxableGain, taxOwed, inclusionRate } = calcTax(taxableCapitalGain, incomeValue, province);
+    const afterTaxProceeds = salePriceValue - taxOwed;
     const effectiveRate = gain > 0 ? (taxOwed / gain) * 100 : 0;
     const tfsaSaving = taxOwed;
 
@@ -105,7 +110,7 @@ export default function CapitalGainsTaxCalculator() {
     let splitTax = null;
     if (splitYears) {
       const halfGain = gain / 2;
-      const { taxOwed: t1 } = calcTax(halfGain, income, province);
+      const { taxOwed: t1 } = calcTax(halfGain, incomeValue, province);
       splitTax = t1 * 2;
     }
 
@@ -126,14 +131,14 @@ export default function CapitalGainsTaxCalculator() {
       splitYears,
       splitTax: splitTax ? Math.round(splitTax) : null,
       splitSaving: splitTax ? Math.round(taxOwed - splitTax) : null,
-      salePrice,
-      purchasePrice,
-      expenses,
+      salePrice: salePriceValue,
+      purchasePrice: purchasePriceValue,
+      expenses: expensesValue,
     });
   };
 
-  const gain = salePrice - purchasePrice - expenses;
-  const gainPct = purchasePrice > 0 ? ((gain / purchasePrice) * 100).toFixed(1) : 0;
+  const gain = salePriceValue - purchasePriceValue - expensesValue;
+  const gainPct = purchasePriceValue > 0 ? ((gain / purchasePriceValue) * 100).toFixed(1) : 0;
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-12">
@@ -192,20 +197,20 @@ export default function CapitalGainsTaxCalculator() {
           <div className="surface-card p-5 space-y-4">
             <div>
               <label className="mb-1 block text-sm font-semibold">Purchase Price / ACB ($)</label>
-              <input type="number" value={purchasePrice} onChange={(e) => setPurchasePrice(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+              <input type="number" value={purchasePrice} onChange={(e) => setPurchasePrice(parseNumericInput(e.target.value))} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
               <p className="mt-1 text-xs text-gray-500">Adjusted cost base: what you originally paid, including adjustments where relevant.</p>
             </div>
             <div>
               <label className="mb-1 block text-sm font-semibold">Sale Price ($)</label>
-              <input type="number" value={salePrice} onChange={(e) => setSalePrice(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+              <input type="number" value={salePrice} onChange={(e) => setSalePrice(parseNumericInput(e.target.value))} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-semibold">Selling Expenses ($)</label>
-              <input type="number" value={expenses} onChange={(e) => setExpenses(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+              <input type="number" value={expenses} onChange={(e) => setExpenses(parseNumericInput(e.target.value))} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-semibold">Annual Income ($)</label>
-              <input type="number" value={income} onChange={(e) => setIncome(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+              <input type="number" value={income} onChange={(e) => setIncome(parseNumericInput(e.target.value))} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-semibold">Province</label>

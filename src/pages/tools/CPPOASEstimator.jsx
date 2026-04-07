@@ -15,6 +15,7 @@ import {
   Legend,
   Filler,
 } from "chart.js";
+import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 ChartJS.register(BarElement, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -78,25 +79,30 @@ export default function CPPOASEstimator() {
   const [retirementIncome, setRetirementIncome] = useState(50000);
   const [maritalStatus, setMaritalStatus] = useState("single");
   const [result, setResult] = useState(null);
+  const currentAgeValue = asNumber(currentAge);
+  const yearsContribValue = asNumber(yearsContrib);
+  const avgIncomeValue = asNumber(avgIncome);
+  const yearsCanadaValue = asNumber(yearsCanada);
+  const retirementIncomeValue = asNumber(retirementIncome);
 
   const calculate = () => {
-    const futureYears = Math.max(0, retirementAge - currentAge);
-    const totalYears = Math.min(yearsContrib + futureYears, 39);
-    const totalYearsCA = Math.min(yearsCanada + futureYears, 40);
+    const futureYears = Math.max(0, retirementAge - currentAgeValue);
+    const totalYears = Math.min(yearsContribValue + futureYears, 39);
+    const totalYearsCA = Math.min(yearsCanadaValue + futureYears, 40);
 
-    const cpp = estimateCPP(totalYears, avgIncome, retirementAge);
+    const cpp = estimateCPP(totalYears, avgIncomeValue, retirementAge);
     const oas = estimateOAS(totalYearsCA, oasAge);
-    const { clawback, netOAS } = oasClawback(retirementIncome, oas.adjusted);
+    const { clawback, netOAS } = oasClawback(retirementIncomeValue, oas.adjusted);
     const gisThreshold = maritalStatus === "single" ? 22056 : 29136;
-    const gisEligible = retirementIncome < gisThreshold;
+    const gisEligible = retirementIncomeValue < gisThreshold;
     const gisAmount = gisEligible ? (maritalStatus === "single" ? GIS_SINGLE_MAX : GIS_COUPLE_MAX) : 0;
     const totalMonthly = cpp.adjusted + netOAS + gisAmount;
     const totalAnnual = totalMonthly * 12;
 
-    const scenarios = [60, 65, 67, 70].map((age) => ({ age, cpp: estimateCPP(totalYears, avgIncome, age).adjusted }));
-    const cppAt60 = estimateCPP(totalYears, avgIncome, 60).adjusted;
+    const scenarios = [60, 65, 67, 70].map((age) => ({ age, cpp: estimateCPP(totalYears, avgIncomeValue, age).adjusted }));
+    const cppAt60 = estimateCPP(totalYears, avgIncomeValue, 60).adjusted;
     const cppAt65 = cpp.totalAt65;
-    const cppAt70 = estimateCPP(totalYears, avgIncome, 70).adjusted;
+    const cppAt70 = estimateCPP(totalYears, avgIncomeValue, 70).adjusted;
     const breakEven60vs65 = cppAt65 - cppAt60 > 0 ? Math.round((cppAt60 * 60) / (cppAt65 - cppAt60)) : null;
     const breakEven65vs70 = cppAt70 - cppAt65 > 0 ? Math.round((cppAt65 * 60) / (cppAt70 - cppAt65)) : null;
 
@@ -172,7 +178,7 @@ export default function CPPOASEstimator() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="mb-1 block text-sm font-semibold">Current Age</label>
-              <input type="number" value={currentAge} min={18} max={70} onChange={(e) => setCurrentAge(parseInt(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+              <input type="number" value={currentAge} min={18} max={70} onChange={(e) => setCurrentAge(parseNumericInput(e.target.value, { integer: true }))} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-semibold">CPP Start Age</label>
@@ -182,15 +188,15 @@ export default function CPPOASEstimator() {
             </div>
             <div>
               <label className="mb-1 block text-sm font-semibold">CPP Contribution Years So Far</label>
-              <input type="number" value={yearsContrib} min={0} max={39} onChange={(e) => setYearsContrib(parseInt(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+              <input type="number" value={yearsContrib} min={0} max={39} onChange={(e) => setYearsContrib(parseNumericInput(e.target.value, { integer: true }))} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-semibold">Average Employment Income ($)</label>
-              <input type="number" value={avgIncome} onChange={(e) => setAvgIncome(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+              <input type="number" value={avgIncome} onChange={(e) => setAvgIncome(parseNumericInput(e.target.value))} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-semibold">Years in Canada After 18</label>
-              <input type="number" value={yearsCanada} min={0} max={47} onChange={(e) => setYearsCanada(parseInt(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+              <input type="number" value={yearsCanada} min={0} max={47} onChange={(e) => setYearsCanada(parseNumericInput(e.target.value, { integer: true }))} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-semibold">OAS Start Age</label>
@@ -200,7 +206,7 @@ export default function CPPOASEstimator() {
             </div>
             <div>
               <label className="mb-1 block text-sm font-semibold">Expected Retirement Income ($/yr)</label>
-              <input type="number" value={retirementIncome} onChange={(e) => setRetirementIncome(parseFloat(e.target.value) || 0)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
+              <input type="number" value={retirementIncome} onChange={(e) => setRetirementIncome(parseNumericInput(e.target.value))} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
             </div>
             <div>
               <label className="mb-1 block text-sm font-semibold">Marital Status</label>

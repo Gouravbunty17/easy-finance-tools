@@ -17,6 +17,7 @@ import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
+import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -68,6 +69,15 @@ export default function DividendCalculator() {
     setHasTrackedStart(true);
   };
 
+  const investmentValue = asNumber(investment);
+  const stockPriceValue = Math.max(asNumber(stockPrice, 1), 1);
+  const divYieldValue = asNumber(divYield);
+  const divGrowthValue = asNumber(divGrowth);
+  const priceGrowthValue = asNumber(priceGrowth);
+  const yearsValue = Math.max(asNumber(years, 10), 1);
+  const taxRateValue = asNumber(taxRate);
+  const additionalMonthlyValue = asNumber(additionalMonthly);
+
   const applyPreset = (idx) => {
     trackStartOnce();
     trackToolCalculate("dividend_calculator", {
@@ -83,30 +93,30 @@ export default function DividendCalculator() {
   };
 
   const results = useMemo(() => {
-    const initialShares = investment / stockPrice;
+    const initialShares = investmentValue / stockPriceValue;
     let shares = initialShares;
-    let currentPrice = stockPrice;
-    let currentYield = divYield / 100;
+    let currentPrice = stockPriceValue;
+    let currentYield = divYieldValue / 100;
     const rows = [];
     let totalDividendsReceived = 0;
     let totalAdditional = 0;
 
-    for (let year = 1; year <= years; year++) {
-      currentPrice *= 1 + priceGrowth / 100;
-      currentYield = (divYield / 100) * Math.pow(1 + divGrowth / 100, year - 1);
+    for (let year = 1; year <= yearsValue; year++) {
+      currentPrice *= 1 + priceGrowthValue / 100;
+      currentYield = (divYieldValue / 100) * Math.pow(1 + divGrowthValue / 100, year - 1);
       const annualDivPerShare = currentPrice * currentYield;
       const annualDividend = annualDivPerShare * shares;
-      const afterTaxDiv = inTFSA ? annualDividend : annualDividend * (1 - (taxRate / 100) * 0.5);
+      const afterTaxDiv = inTFSA ? annualDividend : annualDividend * (1 - (taxRateValue / 100) * 0.5);
 
       totalDividendsReceived += afterTaxDiv;
       if (drip) shares += afterTaxDiv / currentPrice;
 
-      const additionalShares = (additionalMonthly * 12) / currentPrice;
+      const additionalShares = (additionalMonthlyValue * 12) / currentPrice;
       shares += additionalShares;
-      totalAdditional += additionalMonthly * 12;
+      totalAdditional += additionalMonthlyValue * 12;
 
       const portfolioValue = shares * currentPrice;
-      const yieldOnCost = ((annualDivPerShare * shares) / (investment + totalAdditional)) * 100;
+      const yieldOnCost = ((annualDivPerShare * shares) / (investmentValue + totalAdditional)) * 100;
 
       rows.push({
         year,
@@ -121,7 +131,7 @@ export default function DividendCalculator() {
     }
 
     const final = rows[rows.length - 1];
-    const initialAnnualDiv = (investment / stockPrice) * stockPrice * (divYield / 100);
+    const initialAnnualDiv = (investmentValue / stockPriceValue) * stockPriceValue * (divYieldValue / 100);
 
     return {
       rows,
@@ -134,10 +144,10 @@ export default function DividendCalculator() {
       finalMonthlyDiv: final.monthlyDividend,
       finalYOC: final.yieldOnCost,
       totalDividendsReceived: final.totalDividends,
-      totalInvested: investment + totalAdditional,
-      totalReturn: final.portfolioValue + final.totalDividends - investment - totalAdditional,
+      totalInvested: investmentValue + totalAdditional,
+      totalReturn: final.portfolioValue + final.totalDividends - investmentValue - totalAdditional,
     };
-  }, [investment, stockPrice, divYield, divGrowth, priceGrowth, years, drip, inTFSA, taxRate, additionalMonthly]);
+  }, [investmentValue, stockPriceValue, divYieldValue, divGrowthValue, priceGrowthValue, yearsValue, drip, inTFSA, taxRateValue, additionalMonthlyValue]);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
@@ -193,7 +203,7 @@ export default function DividendCalculator() {
       <div className="mb-8 grid gap-4 md:grid-cols-3">
         {[
           { label: "Initial annual income", value: fmt(results.initialAnnualDiv), sub: "before future growth" },
-          { label: `Income in year ${years}`, value: fmt(results.finalAnnualDiv), sub: drip ? "with DRIP enabled" : "without DRIP reinvestment" },
+          { label: `Income in year ${yearsValue}`, value: fmt(results.finalAnnualDiv), sub: drip ? "with DRIP enabled" : "without DRIP reinvestment" },
           { label: "Projected yield on cost", value: `${results.finalYOC}%`, sub: "based on invested capital" },
         ].map((card) => (
           <div key={card.label} className="surface-card p-5">
@@ -230,35 +240,35 @@ export default function DividendCalculator() {
               <label className="mb-1 block text-sm font-medium">Initial Investment ($)</label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 font-semibold text-gray-500">$</span>
-                <input type="number" value={investment} onChange={(e) => { trackStartOnce(); setInvestment(parseFloat(e.target.value) || 0); trackToolCalculate("dividend_calculator", { action: "investment_change" }); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 py-3 pl-8 pr-4 text-lg font-semibold dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" value={investment} onChange={(e) => { trackStartOnce(); setInvestment(parseNumericInput(e.target.value)); trackToolCalculate("dividend_calculator", { action: "investment_change" }); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 py-3 pl-8 pr-4 text-lg font-semibold dark:border-gray-600 dark:bg-gray-900" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="mb-1 block text-sm font-medium">Share Price ($)</label>
-                <input type="number" step="0.01" value={stockPrice} onChange={(e) => { trackStartOnce(); setStockPrice(parseFloat(e.target.value) || 1); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" step="0.01" value={stockPrice} onChange={(e) => { trackStartOnce(); setStockPrice(parseNumericInput(e.target.value)); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium">Dividend Yield (%)</label>
-                <input type="number" step="0.1" value={divYield} onChange={(e) => { trackStartOnce(); setDivYield(parseFloat(e.target.value) || 0); trackToolCalculate("dividend_calculator", { action: "yield_change" }); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" step="0.1" value={divYield} onChange={(e) => { trackStartOnce(); setDivYield(parseNumericInput(e.target.value)); trackToolCalculate("dividend_calculator", { action: "yield_change" }); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium">Dividend Growth (%)</label>
-                <input type="number" step="0.5" value={divGrowth} onChange={(e) => { trackStartOnce(); setDivGrowth(parseFloat(e.target.value) || 0); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" step="0.5" value={divGrowth} onChange={(e) => { trackStartOnce(); setDivGrowth(parseNumericInput(e.target.value)); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium">Price Growth (%)</label>
-                <input type="number" step="0.5" value={priceGrowth} onChange={(e) => { trackStartOnce(); setPriceGrowth(parseFloat(e.target.value) || 0); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" step="0.5" value={priceGrowth} onChange={(e) => { trackStartOnce(); setPriceGrowth(parseNumericInput(e.target.value)); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="mb-1 block text-sm font-medium">Additional Monthly ($)</label>
-                <input type="number" value={additionalMonthly} onChange={(e) => { trackStartOnce(); setAdditionalMonthly(parseFloat(e.target.value) || 0); trackToolCalculate("dividend_calculator", { action: "additional_monthly_change" }); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" value={additionalMonthly} onChange={(e) => { trackStartOnce(); setAdditionalMonthly(parseNumericInput(e.target.value)); trackToolCalculate("dividend_calculator", { action: "additional_monthly_change" }); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium">Horizon (Years)</label>
-                <input type="number" min={1} max={50} value={years} onChange={(e) => { trackStartOnce(); setYears(parseInt(e.target.value) || 10); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                <input type="number" min={1} max={50} value={years} onChange={(e) => { trackStartOnce(); setYears(parseNumericInput(e.target.value, { integer: true })); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
               </div>
             </div>
             <div className="rounded-xl border border-gray-200 bg-slate-50 p-4 dark:border-gray-700 dark:bg-slate-900/60">
@@ -275,7 +285,7 @@ export default function DividendCalculator() {
               {!inTFSA && (
                 <div className="mt-3">
                   <label className="mb-1 block text-sm font-medium">Marginal Tax Rate (%)</label>
-                  <input type="number" value={taxRate} onChange={(e) => { trackStartOnce(); setTaxRate(parseFloat(e.target.value) || 0); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
+                  <input type="number" value={taxRate} onChange={(e) => { trackStartOnce(); setTaxRate(parseNumericInput(e.target.value)); }} className="focus-ring w-full rounded-xl border-2 border-gray-200 px-3 py-2.5 dark:border-gray-600 dark:bg-gray-900" />
                 </div>
               )}
             </div>
@@ -284,7 +294,7 @@ export default function DividendCalculator() {
 
         <div className="space-y-4">
           <div className="rounded-2xl bg-primary p-6 text-white">
-            <p className="text-sm font-semibold uppercase tracking-wide opacity-80">Projected Income After {years} Years</p>
+            <p className="text-sm font-semibold uppercase tracking-wide opacity-80">Projected Income After {yearsValue} Years</p>
             <p className="mt-2 text-5xl font-bold">{fmt(results.finalAnnualDiv)}</p>
             <p className="mt-2 text-sm text-blue-100">{fmt(results.finalMonthlyDiv)} per month with a projected portfolio value of {fmt(results.finalValue)}</p>
           </div>

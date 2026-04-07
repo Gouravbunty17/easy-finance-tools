@@ -6,6 +6,7 @@ import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
+import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 const PROVINCES = [
   { code: "AB", name: "Alberta" },
@@ -107,16 +108,19 @@ export default function IncomeTaxCalculator() {
     setHasTrackedStart(true);
   };
 
+  const incomeValue = asNumber(income);
+  const rrspValue = asNumber(rrsp);
+
   const results = useMemo(() => {
-    const taxableIncome = Math.max(0, income - rrsp);
+    const taxableIncome = Math.max(0, incomeValue - rrspValue);
     const prov = PROVINCIAL[province];
     const federalTax = calcTax(taxableIncome, FEDERAL.brackets, FEDERAL.basicPersonal);
     const provTax = calcTax(taxableIncome, prov.brackets, prov.basicPersonal);
-    const cpp = selfEmployed ? Math.min(calcCPP(income) * 2, 8068.2) : calcCPP(income);
-    const ei = selfEmployed ? 0 : calcEI(income);
+    const cpp = selfEmployed ? Math.min(calcCPP(incomeValue) * 2, 8068.2) : calcCPP(incomeValue);
+    const ei = selfEmployed ? 0 : calcEI(incomeValue);
     const totalDeductions = federalTax + provTax + cpp + ei;
-    const takeHome = income - totalDeductions;
-    const effectiveRate = income > 0 ? totalDeductions / income : 0;
+    const takeHome = incomeValue - totalDeductions;
+    const effectiveRate = incomeValue > 0 ? totalDeductions / incomeValue : 0;
 
     let marginalFederal = 0.15;
     for (const bracket of FEDERAL.brackets) {
@@ -141,7 +145,7 @@ export default function IncomeTaxCalculator() {
       marginalCombined: marginalFederal + marginalProv,
       taxableIncome,
     };
-  }, [income, province, rrsp, selfEmployed]);
+  }, [incomeValue, province, rrspValue, selfEmployed]);
 
   const provinceName = PROVINCES.find((p) => p.code === province)?.name || "Province";
 
@@ -174,7 +178,7 @@ export default function IncomeTaxCalculator() {
             <label className="block text-sm font-medium mb-1">Annual Employment Income</label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">$</span>
-              <input type="number" className="w-full pl-8 pr-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600 text-lg font-semibold" value={income} onChange={(e) => { trackStartOnce(); setIncome(Number(e.target.value) || 0); trackToolCalculate("income_tax_calculator", { action: "income_change" }); }} min={0} max={2000000} />
+              <input type="number" className="w-full pl-8 pr-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600 text-lg font-semibold" value={income} onChange={(e) => { trackStartOnce(); setIncome(parseNumericInput(e.target.value)); trackToolCalculate("income_tax_calculator", { action: "income_change" }); }} min={0} max={2000000} />
             </div>
             <p className="text-xs text-gray-500 mt-2">Use annual gross employment income before tax. If you are just testing, try your salary before bonuses.</p>
           </div>
@@ -190,7 +194,7 @@ export default function IncomeTaxCalculator() {
             <label className="block text-sm font-medium mb-1">RRSP Contribution</label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">$</span>
-              <input type="number" className="w-full pl-8 pr-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600" value={rrsp} onChange={(e) => { trackStartOnce(); setRrsp(Number(e.target.value) || 0); trackToolCalculate("income_tax_calculator", { action: "rrsp_change" }); }} min={0} />
+              <input type="number" className="w-full pl-8 pr-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600" value={rrsp} onChange={(e) => { trackStartOnce(); setRrsp(parseNumericInput(e.target.value)); trackToolCalculate("income_tax_calculator", { action: "rrsp_change" }); }} min={0} />
             </div>
             <p className="text-xs text-gray-500 mt-2">Each RRSP dollar reduces taxable income before income tax is calculated.</p>
           </div>
@@ -215,8 +219,8 @@ export default function IncomeTaxCalculator() {
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 space-y-3">
             <h3 className="font-bold text-lg text-primary dark:text-accent mb-3">Tax breakdown</h3>
             {[
-              { label: "Gross income", value: fmt(income), color: "text-gray-700 dark:text-gray-200" },
-              { label: "RRSP deduction", value: rrsp > 0 ? `-${fmt(rrsp)}` : "-", color: "text-green-600 dark:text-green-400" },
+              { label: "Gross income", value: fmt(incomeValue), color: "text-gray-700 dark:text-gray-200" },
+              { label: "RRSP deduction", value: rrspValue > 0 ? `-${fmt(rrspValue)}` : "-", color: "text-green-600 dark:text-green-400" },
               { label: "Taxable income", value: fmt(results.taxableIncome), color: "text-gray-700 dark:text-gray-200", bold: true },
               { label: "Federal income tax", value: `-${fmt(results.federalTax)}`, color: "text-red-600 dark:text-red-400" },
               { label: `${provinceName} tax`, value: `-${fmt(results.provTax)}`, color: "text-red-600 dark:text-red-400" },
@@ -264,7 +268,7 @@ export default function IncomeTaxCalculator() {
             <div key={item.label} className="flex items-center gap-3">
               <div className="w-32 text-sm text-right text-gray-600 dark:text-gray-400 shrink-0">{item.label}</div>
               <div className="flex-1 bg-gray-100 dark:bg-gray-700 rounded-full h-5 overflow-hidden">
-                <div className={`h-full ${item.color} rounded-full transition-all duration-500`} style={{ width: income > 0 ? `${(item.amount / income) * 100}%` : "0%" }} />
+                <div className={`h-full ${item.color} rounded-full transition-all duration-500`} style={{ width: incomeValue > 0 ? `${(item.amount / incomeValue) * 100}%` : "0%" }} />
               </div>
               <div className="w-24 text-sm font-semibold text-gray-700 dark:text-gray-300 shrink-0">{fmt(item.amount)}</div>
             </div>
@@ -272,7 +276,7 @@ export default function IncomeTaxCalculator() {
         </div>
       </div>
 
-      {rrsp === 0 && income > 50000 && (
+      {rrspValue === 0 && incomeValue > 50000 && (
         <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5">
           <p className="font-bold text-blue-800 dark:text-blue-300 mb-1">RRSP deduction opportunity</p>
           <p className="text-sm text-blue-700 dark:text-blue-400">

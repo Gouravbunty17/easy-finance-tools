@@ -5,6 +5,7 @@ import {
   Chart as ChartJS, LineElement, CategoryScale,
   LinearScale, PointElement, Tooltip, Legend, Filler
 } from "chart.js";
+import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -69,15 +70,26 @@ export default function RentVsBuyCalculator() {
   const [province, setProvince] = useState("ON");
   const [years, setYears] = useState(10);
   const [result, setResult] = useState(null);
+  const homePriceValue = asNumber(homePrice);
+  const downPaymentValue = asNumber(downPayment);
+  const mortgageRateValue = asNumber(mortgageRate);
+  const monthlyRentValue = asNumber(monthlyRent);
+  const rentIncreaseValue = asNumber(rentIncrease);
+  const homeAppreciationValue = asNumber(homeAppreciation);
+  const investReturnValue = asNumber(investReturn);
+  const propertyTaxValue = asNumber(propertyTax);
+  const maintenanceValue = asNumber(maintenance);
+  const condoFeesValue = asNumber(condoFees);
+  const yearsValue = Math.max(asNumber(years, 1), 1);
 
   const calculate = () => {
-    const principal = homePrice - downPayment + getCMHC(homePrice - downPayment, homePrice);
+    const principal = homePriceValue - downPaymentValue + getCMHC(homePriceValue - downPaymentValue, homePriceValue);
     const months = amort * 12;
-    const monthlyPayment = calcMonthlyPayment(principal, mortgageRate, months);
-    const ltt = getLTT(homePrice, province);
+    const monthlyPayment = calcMonthlyPayment(principal, mortgageRateValue, months);
+    const ltt = getLTT(homePriceValue, province);
     const closingCosts = ltt + 2000; // LTT + legal fees
 
-    const r = getMonthlyRate(mortgageRate);
+    const r = getMonthlyRate(mortgageRateValue);
     let mortgageBalance = principal;
 
     const buyData = [];
@@ -85,14 +97,14 @@ export default function RentVsBuyCalculator() {
     const buyNetWorth = [];
     const rentNetWorth = [];
 
-    let homeValue = homePrice;
-    let rentAmount = monthlyRent;
-    let totalBuyCost = downPayment + closingCosts;
+    let homeValue = homePriceValue;
+    let rentAmount = monthlyRentValue;
+    let totalBuyCost = downPaymentValue + closingCosts;
     let totalRentCost = 0;
-    let rentInvestment = downPayment + closingCosts; // renter invests the down payment
+    let rentInvestment = downPaymentValue + closingCosts; // renter invests the down payment
     let breakEvenYear = null;
 
-    for (let yr = 1; yr <= years; yr++) {
+    for (let yr = 1; yr <= yearsValue; yr++) {
       // --- BUYING ---
       let yearMortgage = 0;
       let yearInterest = 0;
@@ -105,25 +117,25 @@ export default function RentVsBuyCalculator() {
         yearMortgage += monthlyPayment;
         mortgageBalance = Math.max(0, mortgageBalance - princ);
       }
-      const yearPropertyTax = propertyTax;
-      const yearMaintenance = maintenance * 12;
-      const yearCondo = condoFees * 12;
+      const yearPropertyTax = propertyTaxValue;
+      const yearMaintenance = maintenanceValue * 12;
+      const yearCondo = condoFeesValue * 12;
       const yearBuyCost = yearMortgage + yearPropertyTax + yearMaintenance + yearCondo;
       totalBuyCost += yearBuyCost;
-      homeValue *= (1 + homeAppreciation / 100);
+      homeValue *= (1 + homeAppreciationValue / 100);
       const equity = homeValue - mortgageBalance;
-      const buyNetWorthVal = equity - totalBuyCost + downPayment + closingCosts; // simplified net worth
+      const buyNetWorthVal = equity - totalBuyCost + downPaymentValue + closingCosts; // simplified net worth
 
       // --- RENTING ---
       let yearRentCost = 0;
       for (let m = 0; m < 12; m++) {
         yearRentCost += rentAmount;
-        rentAmount *= (1 + rentIncrease / 100 / 12);
+        rentAmount *= (1 + rentIncreaseValue / 100 / 12);
       }
       totalRentCost += yearRentCost;
-      rentInvestment *= Math.pow(1 + investReturn / 100, 1);
-      const annualSavings = Math.max(0, (monthlyPayment + maintenance + condoFees + propertyTax / 12 - monthlyRent) * 12);
-      rentInvestment += annualSavings * Math.pow(1 + investReturn / 100, 0.5);
+      rentInvestment *= Math.pow(1 + investReturnValue / 100, 1);
+      const annualSavings = Math.max(0, (monthlyPayment + maintenanceValue + condoFeesValue + propertyTaxValue / 12 - monthlyRentValue) * 12);
+      rentInvestment += annualSavings * Math.pow(1 + investReturnValue / 100, 0.5);
 
       buyData.push(Math.round(totalBuyCost));
       rentData.push(Math.round(totalRentCost));
@@ -133,21 +145,21 @@ export default function RentVsBuyCalculator() {
       if (!breakEvenYear && equity > rentInvestment) breakEvenYear = yr;
     }
 
-    const finalBuyNetWorth = buyNetWorth[years - 1];
-    const finalRentNetWorth = rentNetWorth[years - 1];
+    const finalBuyNetWorth = buyNetWorth[yearsValue - 1];
+    const finalRentNetWorth = rentNetWorth[yearsValue - 1];
     const buyingWins = finalBuyNetWorth > finalRentNetWorth;
 
     setResult({
       monthlyPayment: Math.round(monthlyPayment),
       ltt: Math.round(ltt),
       closingCosts: Math.round(closingCosts),
-      totalBuyCost: buyData[years - 1],
-      totalRentCost: rentData[years - 1],
+      totalBuyCost: buyData[yearsValue - 1],
+      totalRentCost: rentData[yearsValue - 1],
       finalBuyNetWorth,
       finalRentNetWorth,
       buyingWins,
       breakEvenYear,
-      labels: Array.from({ length: years }, (_, i) => `Yr ${i + 1}`),
+      labels: Array.from({ length: yearsValue }, (_, i) => `Yr ${i + 1}`),
       buyData,
       rentData,
       buyNetWorth,
@@ -179,18 +191,18 @@ export default function RentVsBuyCalculator() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-semibold mb-1">Home Price ($)</label>
-              <input type="number" value={homePrice} onChange={e => setHomePrice(parseFloat(e.target.value))}
+              <input type="number" value={homePrice} onChange={e => setHomePrice(parseNumericInput(e.target.value))}
                 className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
             </div>
             <div>
               <label className="block text-sm font-semibold mb-1">Down Payment ($)</label>
-              <input type="number" value={downPayment} onChange={e => setDownPayment(parseFloat(e.target.value))}
+              <input type="number" value={downPayment} onChange={e => setDownPayment(parseNumericInput(e.target.value))}
                 className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
-              <p className="text-xs text-gray-500 mt-1">{homePrice > 0 ? ((downPayment/homePrice)*100).toFixed(1) : 0}% down</p>
+              <p className="text-xs text-gray-500 mt-1">{homePriceValue > 0 ? ((downPaymentValue / homePriceValue) * 100).toFixed(1) : 0}% down</p>
             </div>
             <div>
               <label className="block text-sm font-semibold mb-1">Mortgage Rate (%)</label>
-              <input type="number" step="0.05" value={mortgageRate} onChange={e => setMortgageRate(parseFloat(e.target.value))}
+              <input type="number" step="0.05" value={mortgageRate} onChange={e => setMortgageRate(parseNumericInput(e.target.value))}
                 className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
             </div>
             <div>
@@ -202,18 +214,18 @@ export default function RentVsBuyCalculator() {
             </div>
             <div>
               <label className="block text-sm font-semibold mb-1">Annual Property Tax ($)</label>
-              <input type="number" value={propertyTax} onChange={e => setPropertyTax(parseFloat(e.target.value))}
+              <input type="number" value={propertyTax} onChange={e => setPropertyTax(parseNumericInput(e.target.value))}
                 className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
             </div>
             <div>
               <label className="block text-sm font-semibold mb-1">Monthly Maintenance ($)</label>
-              <input type="number" value={maintenance} onChange={e => setMaintenance(parseFloat(e.target.value))}
+              <input type="number" value={maintenance} onChange={e => setMaintenance(parseNumericInput(e.target.value))}
                 className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
               <p className="text-xs text-gray-500 mt-1">Rule of thumb: 1% of home price/yr ÷ 12</p>
             </div>
             <div>
               <label className="block text-sm font-semibold mb-1">Monthly Condo Fees ($)</label>
-              <input type="number" value={condoFees} onChange={e => setCondoFees(parseFloat(e.target.value))}
+              <input type="number" value={condoFees} onChange={e => setCondoFees(parseNumericInput(e.target.value))}
                 className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
               <p className="text-xs text-gray-500 mt-1">Enter 0 if detached/semi-detached</p>
             </div>
@@ -227,18 +239,18 @@ export default function RentVsBuyCalculator() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold mb-1">Monthly Rent ($)</label>
-                <input type="number" value={monthlyRent} onChange={e => setMonthlyRent(parseFloat(e.target.value))}
+                <input type="number" value={monthlyRent} onChange={e => setMonthlyRent(parseNumericInput(e.target.value))}
                   className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-1">Annual Rent Increase (%)</label>
-                <input type="number" step="0.5" value={rentIncrease} onChange={e => setRentIncrease(parseFloat(e.target.value))}
+                <input type="number" step="0.5" value={rentIncrease} onChange={e => setRentIncrease(parseNumericInput(e.target.value))}
                   className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
                 <p className="text-xs text-gray-500 mt-1">Ontario rent control: ~2.5% guideline</p>
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-1">Investment Return on Savings (%)</label>
-                <input type="number" step="0.5" value={investReturn} onChange={e => setInvestReturn(parseFloat(e.target.value))}
+                <input type="number" step="0.5" value={investReturn} onChange={e => setInvestReturn(parseNumericInput(e.target.value))}
                   className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
                 <p className="text-xs text-gray-500 mt-1">Return on down payment if invested (e.g. XEQT ≈ 7-8%)</p>
               </div>
@@ -250,7 +262,7 @@ export default function RentVsBuyCalculator() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold mb-1">Annual Home Appreciation (%)</label>
-                <input type="number" step="0.5" value={homeAppreciation} onChange={e => setHomeAppreciation(parseFloat(e.target.value))}
+                <input type="number" step="0.5" value={homeAppreciation} onChange={e => setHomeAppreciation(parseNumericInput(e.target.value))}
                   className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
                 <p className="text-xs text-gray-500 mt-1">Canadian avg: 4-6% historically</p>
               </div>
@@ -263,7 +275,7 @@ export default function RentVsBuyCalculator() {
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-1">Years to Compare</label>
-                <input type="number" value={years} min={1} max={35} onChange={e => setYears(parseInt(e.target.value))}
+                <input type="number" value={years} min={1} max={35} onChange={e => setYears(parseNumericInput(e.target.value, { integer: true }))}
                   className="w-full p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg dark:bg-gray-800 focus:border-secondary outline-none" />
               </div>
             </div>

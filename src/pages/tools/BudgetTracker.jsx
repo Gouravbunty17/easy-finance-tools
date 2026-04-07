@@ -6,6 +6,7 @@ import {
 } from "chart.js";
 import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
+import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -42,14 +43,15 @@ export default function BudgetTracker() {
   const [newCat, setNewCat] = useState("");
   const [tab, setTab] = useState("budget");
 
-  const monthlyIncome = period === "monthly" ? income : period === "biweekly" ? income * 26 / 12 : income / 12;
+  const incomeValue = asNumber(income);
+  const monthlyIncome = period === "monthly" ? incomeValue : period === "biweekly" ? incomeValue * 26 / 12 : incomeValue / 12;
 
-  const totalExpenses = useMemo(() => categories.reduce((s, c) => s + (c.amount || 0), 0), [categories]);
+  const totalExpenses = useMemo(() => categories.reduce((s, c) => s + asNumber(c.amount), 0), [categories]);
   const remaining = monthlyIncome - totalExpenses;
   const savingsRate = monthlyIncome > 0 ? (remaining / monthlyIncome) * 100 : 0;
 
   const updateAmount = (id, val) => {
-    setCategories(cats => cats.map(c => c.id === id ? { ...c, amount: parseFloat(val) || 0 } : c));
+    setCategories(cats => cats.map(c => c.id === id ? { ...c, amount: parseNumericInput(val) } : c));
   };
 
   const addCategory = () => {
@@ -66,15 +68,15 @@ export default function BudgetTracker() {
   // 50/30/20 analysis
   const needs = ["housing", "food", "transport", "utilities", "healthcare"].reduce((s, id) => {
     const c = categories.find(c => c.id === id);
-    return s + (c?.amount || 0);
+    return s + asNumber(c?.amount);
   }, 0);
   const wants = ["entertainment", "dining", "subscriptions", "personal"].reduce((s, id) => {
     const c = categories.find(c => c.id === id);
-    return s + (c?.amount || 0);
+    return s + asNumber(c?.amount);
   }, 0);
   const savingsDebt = ["savings", "debt"].reduce((s, id) => {
     const c = categories.find(c => c.id === id);
-    return s + (c?.amount || 0);
+    return s + asNumber(c?.amount);
   }, 0) + Math.max(0, remaining);
 
   const needsPct  = monthlyIncome > 0 ? (needs / monthlyIncome * 100).toFixed(0) : 0;
@@ -86,11 +88,11 @@ export default function BudgetTracker() {
   const emergencyFund6mo = totalExpenses * 6;
 
   // Doughnut data
-  const nonZeroCats = categories.filter(c => c.amount > 0);
+  const nonZeroCats = categories.filter(c => asNumber(c.amount) > 0);
   const doughnutData = {
     labels: nonZeroCats.map(c => c.label),
     datasets: [{
-      data: nonZeroCats.map(c => c.amount),
+      data: nonZeroCats.map(c => asNumber(c.amount)),
       backgroundColor: nonZeroCats.map(c => c.color),
       borderWidth: 2,
       borderColor: "#fff",
@@ -141,7 +143,7 @@ export default function BudgetTracker() {
                 type="number"
                 className="w-full pl-8 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl dark:bg-gray-900 focus:border-secondary outline-none text-lg font-semibold"
                 value={income}
-                onChange={e => setIncome(parseFloat(e.target.value) || 0)}
+                onChange={e => setIncome(parseNumericInput(e.target.value))}
               />
             </div>
           </div>
@@ -210,7 +212,8 @@ export default function BudgetTracker() {
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                 {categories.map(cat => {
-                  const pct = monthlyIncome > 0 ? (cat.amount / monthlyIncome) * 100 : 0;
+                  const amountValue = asNumber(cat.amount);
+                  const pct = monthlyIncome > 0 ? (amountValue / monthlyIncome) * 100 : 0;
                   return (
                     <tr key={cat.id} className="hover:bg-gray-50 dark:hover:bg-gray-750">
                       <td className="px-4 py-3">
@@ -226,7 +229,7 @@ export default function BudgetTracker() {
                         />
                       </td>
                       <td className="px-4 py-3 text-right text-gray-600 dark:text-gray-400">{pct.toFixed(1)}%</td>
-                      <td className="px-4 py-3 text-right text-gray-600 dark:text-gray-400">{fmt(cat.amount * 12)}</td>
+                      <td className="px-4 py-3 text-right text-gray-600 dark:text-gray-400">{fmt(amountValue * 12)}</td>
                       <td className="px-4 py-3">
                         <div className="w-24 bg-gray-100 dark:bg-gray-700 rounded-full h-2 ml-auto">
                           <div className="h-2 rounded-full transition-all" style={{ width: `${Math.min(100, pct)}%`, backgroundColor: cat.color }} />
@@ -302,9 +305,9 @@ export default function BudgetTracker() {
             <h3 className="font-bold text-lg text-primary dark:text-accent mb-4">Top Expenses Ranked</h3>
             <Bar
               data={{
-                labels: [...categories].sort((a,b) => b.amount - a.amount).slice(0,8).map(c => c.label),
+                    labels: [...categories].sort((a,b) => asNumber(b.amount) - asNumber(a.amount)).slice(0,8).map(c => c.label),
                 datasets: [{
-                  data: [...categories].sort((a,b) => b.amount - a.amount).slice(0,8).map(c => c.amount),
+                        data: [...categories].sort((a,b) => asNumber(b.amount) - asNumber(a.amount)).slice(0,8).map(c => asNumber(c.amount)),
                   backgroundColor: [...categories].sort((a,b) => b.amount - a.amount).slice(0,8).map(c => c.color),
                   borderRadius: 6,
                 }]
