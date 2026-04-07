@@ -4,6 +4,32 @@ import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import TrackedLink from "../../components/TrackedLink";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import TLDRBox from "../../components/TLDRBox";
+import FAQSchema from "../../components/FAQSchema";
+import ArticleSchema from "../../components/ArticleSchema";
+
+const FAQS = [
+  {
+    q: "What are the best GIC rates in Canada right now?",
+    a: "As of early 2026, the best 1-year GIC rates in Canada range from 3.90% to 4.15%, available at online banks and credit unions such as EQ Bank (~4.00%), Oaken Financial (~4.10%), and Steinbach Credit Union (~4.15%). Major chartered banks typically offer far lower rates of 0.5–2%. Always verify current rates directly with each institution before purchasing.",
+  },
+  {
+    q: "Can I lose money on a GIC in Canada?",
+    a: "No, you cannot lose your principal on a GIC if the institution is CDIC-insured or covered by a provincial deposit guarantee scheme within the coverage limits. Your principal is guaranteed regardless of market conditions. Market-linked GICs protect your principal but may return 0% interest if the linked index performs poorly.",
+  },
+  {
+    q: "Should I hold a GIC in a TFSA or RRSP?",
+    a: "Yes — holding a GIC inside a TFSA is usually the best option if you have contribution room. GIC interest is fully taxable as income in a non-registered account, but tax-free inside a TFSA. Inside an RRSP, the interest is tax-deferred until withdrawal. Placing a GIC in a registered account can significantly improve your after-tax return.",
+  },
+  {
+    q: "What happens if a GIC matures and I do nothing?",
+    a: "Most institutions will automatically roll your GIC into the same term at the current rate, which may be higher or lower than your original rate. To avoid an unfavourable rollover, set a calendar reminder before your GIC matures and provide instructions to the institution about what to do with the funds at maturity.",
+  },
+  {
+    q: "What is a GIC ladder and how does it work?",
+    a: "A GIC ladder is a strategy where you split your savings across multiple GIC terms — for example, putting equal amounts in 1-year, 2-year, 3-year, 4-year, and 5-year GICs. Each year, one GIC matures and is reinvested into a new long-term GIC. This gives you regular access to a portion of your money while still earning competitive rates on longer-term GICs.",
+  },
+];
 
 const gicRates1Year = [
   { institution: "EQ Bank", rate: "4.00%", insured: "CDIC", notes: "No minimums, redeemable options available" },
@@ -56,6 +82,15 @@ export default function BestGICRatesCanada2026() {
         canonical="https://easyfinancetools.com/blog/best-gic-rates-canada-2026"
       />
 
+      <ArticleSchema
+        headline="Best GIC Rates in Canada 2026 — How to Compare & Where to Buy"
+        description="Compare the best GIC rates in Canada for 2026. Learn about terms, GIC types, CDIC coverage, and how to build a GIC ladder for steady returns."
+        url="https://easyfinancetools.com/blog/best-gic-rates-canada-2026"
+        datePublished="2026-03-29"
+        dateModified="2026-04-07"
+      />
+      <FAQSchema faqs={FAQS} />
+
       <BlogHero
         icon="GIC"
         category="Savings | GIC"
@@ -66,6 +101,16 @@ export default function BestGICRatesCanada2026() {
       />
 
       <section className="mx-auto max-w-3xl px-4 py-12">
+        <TLDRBox
+          headline="What are the best GIC rates in Canada for 2026?"
+          answer="The best 1-year GIC rates in Canada in 2026 are around 3.90%–4.15%, found at online banks and credit unions. Major chartered banks pay far less — often under 1%. Holding a GIC in a TFSA means the interest is completely tax-free."
+          points={[
+            "Top 1-year rate: ~4.15% at Steinbach CU, ~4.10% at Oaken Financial",
+            "EQ Bank (~4.00%) is widely used — CDIC insured, no minimums, online access",
+            "GICs held in a TFSA earn interest tax-free; non-registered GIC interest is fully taxable",
+            "GIC laddering across 1–5 year terms gives regular access while earning strong rates",
+          ]}
+        />
         <div className="not-prose mb-8 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/20">
           <p className="text-sm text-amber-800 dark:text-amber-300">
             <strong>Last updated:</strong> March 29, 2026. GIC rates are subject to change at any time without notice. Always verify the current rate directly with the institution before opening a GIC.

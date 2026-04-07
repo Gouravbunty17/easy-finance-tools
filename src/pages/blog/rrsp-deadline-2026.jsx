@@ -4,6 +4,32 @@ import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import TrackedLink from "../../components/TrackedLink";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import TLDRBox from "../../components/TLDRBox";
+import FAQSchema from "../../components/FAQSchema";
+import ArticleSchema from "../../components/ArticleSchema";
+
+const FAQS = [
+  {
+    q: "What is the RRSP deadline for 2026?",
+    a: "The 2026 RRSP contribution deadline is March 2, 2026. This is the last day to make a contribution that can be claimed as a deduction on your 2025 tax return. Contributions made between January 1 and March 2, 2026 can be applied to either your 2025 or 2026 return.",
+  },
+  {
+    q: "What is the RRSP contribution limit for 2025?",
+    a: "The RRSP contribution limit for the 2025 tax year is $32,490, based on 18% of your 2024 earned income up to that maximum. Any unused RRSP room from prior years carries forward and is added to your current year limit. Your exact available room is shown on your CRA Notice of Assessment.",
+  },
+  {
+    q: "Can I contribute to both my own RRSP and a spousal RRSP?",
+    a: "Yes. Your total RRSP room covers contributions to both your own RRSP and a spousal RRSP. The deduction always belongs to the contributing spouse. The combined contributions to both accounts cannot exceed your personal deduction limit.",
+  },
+  {
+    q: "What happens if I over-contribute to my RRSP?",
+    a: "CRA allows a lifetime over-contribution buffer of $2,000 beyond your deduction limit. If you exceed this buffer, you face a penalty of 1% per month on the excess amount. To resolve an over-contribution, file Form T1-OVP and either withdraw the excess or wait until new room opens in the next calendar year.",
+  },
+  {
+    q: "Should I claim my RRSP contribution on my 2025 or 2026 return?",
+    a: "Contributions made before March 2, 2026 can be applied to either your 2025 or 2026 return. Claim it on 2025 if that year had higher income and you want the refund sooner. Save it for 2026 if you expect materially higher income that year, since a higher marginal rate produces a larger refund.",
+  },
+];
 
 const rrspLimits = [
   { year: "2022", formula: "18% of 2021 earned income", max: "$29,210" },
@@ -29,6 +55,15 @@ export default function RRSPDeadline2026() {
         canonical="https://easyfinancetools.com/blog/rrsp-deadline-2026"
       />
 
+      <ArticleSchema
+        headline="RRSP Deadline 2026: Contribution Deadline, Limits & Tax Refund Guide"
+        description="The 2026 RRSP contribution deadline is March 2, 2026. Learn the 2025 and 2026 RRSP limits, how to estimate your tax refund, spousal RRSP rules, and contribution strategies."
+        url="https://easyfinancetools.com/blog/rrsp-deadline-2026"
+        datePublished="2026-03-29"
+        dateModified="2026-04-07"
+      />
+      <FAQSchema faqs={FAQS} />
+
       <BlogHero
         icon="RRSP"
         category="RRSP | Tax"
@@ -39,6 +74,16 @@ export default function RRSPDeadline2026() {
       />
 
       <section className="mx-auto max-w-3xl px-4 py-12">
+        <TLDRBox
+          headline="What is the RRSP deadline for 2026?"
+          answer="The 2026 RRSP contribution deadline is March 2, 2026 — the last day to contribute and claim the deduction on your 2025 tax return. The 2025 RRSP limit is $32,490 (18% of 2024 earned income), plus any unused room carried forward. Your exact room is on your CRA Notice of Assessment."
+          points={[
+            "Deadline: March 2, 2026 (contributions apply to the 2025 tax year)",
+            "2025 RRSP limit: $32,490 + any unused prior-year room",
+            "Contributions between Jan 1–Mar 2, 2026 can be claimed on either 2025 or 2026 return",
+            "RRSP deduction value = contribution × your combined marginal rate (federal + provincial)",
+          ]}
+        />
         <article className="prose prose-lg max-w-none prose-neutral dark:prose-invert">
 
           <div className="not-prose my-6 rounded-xl bg-primary p-6 text-center text-white">

@@ -1,0 +1,68 @@
+import React from "react";
+
+/**
+ * ArticleSchema — injects Article JSON-LD structured data.
+ *
+ * Used on blog posts and guides. Signals publication date, authorship,
+ * and content type to Google, Bing, and AI answer engines. Trust signals
+ * (author, datePublished, publisher) help AI tools cite the page properly.
+ *
+ * Props:
+ *   headline        — article title (string)
+ *   description     — short description / meta description (string)
+ *   url             — canonical URL (string)
+ *   datePublished   — ISO date string, e.g. "2026-03-29" (string)
+ *   dateModified    — ISO date string (string, defaults to datePublished)
+ *   authorName      — author display name (string, defaults to "EasyFinanceTools Editorial Team")
+ *   imageUrl        — og-image URL (string)
+ */
+export default function ArticleSchema({
+  headline,
+  description,
+  url,
+  datePublished,
+  dateModified,
+  authorName = "EasyFinanceTools Editorial Team",
+  imageUrl = "https://easyfinancetools.com/og-image.svg",
+}) {
+  if (!headline || !url) return null;
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    url,
+    datePublished,
+    dateModified: dateModified || datePublished,
+    author: {
+      "@type": "Organization",
+      name: authorName,
+      url: "https://easyfinancetools.com/about",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "EasyFinanceTools",
+      url: "https://easyfinancetools.com",
+      logo: {
+        "@type": "ImageObject",
+        url: imageUrl,
+      },
+    },
+    image: {
+      "@type": "ImageObject",
+      url: imageUrl,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}

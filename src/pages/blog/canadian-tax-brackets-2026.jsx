@@ -4,6 +4,32 @@ import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import TrackedLink from "../../components/TrackedLink";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import TLDRBox from "../../components/TLDRBox";
+import FAQSchema from "../../components/FAQSchema";
+import ArticleSchema from "../../components/ArticleSchema";
+
+const FAQS = [
+  {
+    q: "When does the 2026 tax year end?",
+    a: "The 2026 tax year runs from January 1 to December 31, 2026. Your 2026 return is filed in spring 2027, with a standard deadline of April 30, 2027 for most individuals. Self-employed individuals have until June 15, 2027 to file, but any balance owing is still due April 30.",
+  },
+  {
+    q: "What is the basic personal amount for 2026?",
+    a: "The federal basic personal amount (BPA) for 2026 is approximately $16,129. This is a non-refundable tax credit that reduces your federal tax by 15% of that amount, or roughly $2,419. It reduces your tax by the same dollar amount regardless of your income bracket.",
+  },
+  {
+    q: "How do I find my actual marginal tax rate in Canada?",
+    a: "Your marginal rate depends on your province of residence and your total taxable income. You can use the income tax calculator on EasyFinanceTools to estimate your combined marginal rate based on province and income inputs, or find province-specific tables on your provincial revenue authority's website.",
+  },
+  {
+    q: "Is there a way to reduce my taxable income in Canada?",
+    a: "Yes. The most common deductions include RRSP contributions, union dues, childcare expenses, moving expenses for employment purposes, and the home office deduction for eligible workers. RRSP contributions are the most powerful tool for most Canadians — they reduce taxable income dollar for dollar at your marginal rate.",
+  },
+  {
+    q: "What are the 2026 Canadian federal income tax brackets?",
+    a: "The 2026 federal brackets are: 15% on income up to $57,375; 20.5% on $57,375–$114,750; 26% on $114,750–$158,519; 29% on $158,519–$220,000; and 33% on income over $220,000. Each rate applies only to the income within that bracket, not your entire income.",
+  },
+];
 
 const federalBrackets = [
   { range: "$0 – $57,375", rate: "15%", on: "First $57,375" },
@@ -41,6 +67,15 @@ export default function CanadianTaxBrackets2026() {
         canonical="https://easyfinancetools.com/blog/canadian-tax-brackets-2026"
       />
 
+      <ArticleSchema
+        headline="Canadian Tax Brackets 2026: Federal & Provincial Rates Explained"
+        description="Complete guide to 2026 Canadian federal and provincial income tax brackets. Understand marginal vs effective rates, see worked examples, and use free calculators to estimate your tax."
+        url="https://easyfinancetools.com/blog/canadian-tax-brackets-2026"
+        datePublished="2026-03-29"
+        dateModified="2026-04-07"
+      />
+      <FAQSchema faqs={FAQS} />
+
       <BlogHero
         icon="Tax"
         category="Tax | Income"
@@ -51,6 +86,16 @@ export default function CanadianTaxBrackets2026() {
       />
 
       <section className="mx-auto max-w-3xl px-4 py-12">
+        <TLDRBox
+          headline="What are the Canadian tax brackets for 2026?"
+          answer="Canada uses a progressive income tax system — each bracket rate applies only to income within that range. Federal rates run from 15% on the first $57,375 up to 33% on income over $220,000. Provincial tax is added on top. Your effective (average) rate is always lower than your marginal (top bracket) rate."
+          points={[
+            "2026 federal bottom bracket: 15% on income up to $57,375",
+            "2026 federal top bracket: 33% on income over $220,000",
+            "Combined top rates (federal + provincial) range from ~47.5% (SK) to ~54.8% (NL)",
+            "RRSP contributions reduce taxable income at your marginal rate — the higher your bracket, the more valuable they are",
+          ]}
+        />
         <article className="prose prose-lg max-w-none prose-neutral dark:prose-invert">
 
           <p className="lead">

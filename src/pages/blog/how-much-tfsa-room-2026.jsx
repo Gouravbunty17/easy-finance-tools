@@ -4,6 +4,28 @@ import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import TrackedLink from "../../components/TrackedLink";
+import TLDRBox from "../../components/TLDRBox";
+import FAQSchema from "../../components/FAQSchema";
+import ArticleSchema from "../../components/ArticleSchema";
+
+const FAQS = [
+  {
+    q: "How much TFSA room do I have in 2026?",
+    a: "If you were born in 1991 or earlier and have been a Canadian resident since 2009 and never made any TFSA contributions, your 2026 total room is $109,000. The 2026 annual limit is $7,000. Your exact available room depends on prior contributions, withdrawals, and your year of eligibility — confirm it through CRA My Account or your latest Notice of Assessment.",
+  },
+  {
+    q: "What is the TFSA limit for 2026?",
+    a: "The TFSA annual contribution limit for 2026 is $7,000 — the same as 2024 and 2025. This amount is indexed to inflation in $500 increments, so it will increase when accumulated inflation pushes it to the next threshold.",
+  },
+  {
+    q: "Do TFSA withdrawals restore contribution room?",
+    a: "Yes. When you withdraw from a TFSA, the withdrawn amount is added back to your contribution room on January 1 of the following calendar year. You cannot re-contribute the same year unless you had unused room available at the time.",
+  },
+  {
+    q: "What happens if I over-contribute to my TFSA?",
+    a: "Over-contributions to a TFSA are subject to a 1% per month penalty tax on the excess amount. Unlike the RRSP, there is no $2,000 buffer — any amount over your available room is penalized immediately. If you over-contribute, withdraw the excess as soon as possible to minimize the penalty.",
+  },
+];
 
 const LIMITS = [
   [2009, 5000], [2010, 5000], [2011, 5000], [2012, 5000], [2013, 5500],
@@ -52,6 +74,15 @@ export default function HowMuchTFSARoom() {
         canonical="https://easyfinancetools.com/blog/how-much-tfsa-room-2026"
       />
 
+      <ArticleSchema
+        headline="How Much TFSA Room Do I Have in 2026?"
+        description="Find out how much TFSA contribution room you may have in 2026. See the full year-by-year limit table, cumulative totals, and how to verify your exact number through CRA My Account."
+        url="https://easyfinancetools.com/blog/how-much-tfsa-room-2026"
+        datePublished="2026-04-03"
+        dateModified="2026-04-07"
+      />
+      <FAQSchema faqs={FAQS} />
+
       <BlogHero
         icon="TFSA"
         category="TFSA and Savings"
@@ -62,6 +93,16 @@ export default function HowMuchTFSARoom() {
       />
 
       <section className="max-w-3xl mx-auto px-4 py-12">
+        <TLDRBox
+          headline="How much TFSA room do you have in 2026?"
+          answer="If you were born in 1991 or earlier and have been a Canadian resident since 2009 and never contributed, your total 2026 TFSA room is $109,000. The 2026 annual limit is $7,000. Your exact personal room depends on prior contributions and withdrawals — check CRA My Account for your precise number."
+          points={[
+            "2026 annual TFSA limit: $7,000",
+            "Maximum cumulative room (eligible since 2009, never contributed): $109,000",
+            "Withdrawals restore room — but only on January 1 of the following year",
+            "Over-contributions are penalized at 1% per month — no buffer like the RRSP",
+          ]}
+        />
         <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
           <h2>Your 2026 TFSA contribution room</h2>
           <p>
