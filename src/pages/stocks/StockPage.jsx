@@ -588,6 +588,137 @@ export default function StockPage() {
             </div>
           )}
 
+          <div className="mb-10 grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+              <SectionLabel>Featured collections</SectionLabel>
+              <div className="grid gap-4 md:grid-cols-3">
+                {[
+                  {
+                    title: "Canadian bank stocks",
+                    desc: "Track the Big Five and close peers from one collection page.",
+                    href: "/stocks/canadian-bank-stocks",
+                  },
+                  {
+                    title: "Canadian ETFs",
+                    desc: "Browse all-in-one ETFs, TSX favourites, and broad-market funds.",
+                    href: "/stocks/canadian-etfs",
+                  },
+                  {
+                    title: "Dividend ETFs",
+                    desc: "Explore income ETFs and covered-call ideas with deeper ticker pages.",
+                    href: "/stocks/dividend-etfs",
+                  },
+                ].map((item) => (
+                  <button
+                    key={item.title}
+                    onClick={() => navigate(item.href)}
+                    className="rounded-2xl border border-gray-200 bg-slate-50 p-5 text-left transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-md dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+                  >
+                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-secondary">Collection</p>
+                    <p className="mt-3 text-xl font-bold text-primary dark:text-accent">{item.title}</p>
+                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{item.desc}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-gray-100 bg-slate-50 p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
+              <SectionLabel>Compare popular pairs</SectionLabel>
+              <div className="space-y-3">
+                {COMPARISON_PRESETS.slice(0, 4).map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => navigate(`/stocks/compare?left=${encodeURIComponent(item.left)}&right=${encodeURIComponent(item.right)}`)}
+                    className="flex w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-4 text-left transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-800"
+                  >
+                    <div>
+                      <p className="font-semibold text-primary dark:text-accent">{item.label}</p>
+                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{item.blurb}</p>
+                    </div>
+                    <span className="text-xs font-semibold uppercase tracking-[0.16em] text-secondary">Open</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "Interactive chart", desc: "Daily to multi-year history with adjustable intervals" },
+              { title: "Technical analysis",desc: "Quick buy, sell, and neutral signals across timeframes" },
+              { title: "Company profile",   desc: "Business overview, sector, and key fundamentals" },
+              { title: "Latest news",       desc: "Symbol-specific headlines sourced in real time" },
+            ].map((f) => (
+              <div key={f.title} className="rounded-2xl border border-gray-100 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
+                <p className="font-bold text-primary dark:text-accent">{f.title}</p>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mb-10 space-y-8">
+            <CuratedTickerSection
+              title="Canadian stocks"
+              subtitle="TSX blue chips and high-interest names"
+              items={POPULAR_STOCKS_CA.slice(0, 10)}
+              onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
+              viewAllHref="/stocks/canadian-bank-stocks"
+              viewAllLabel="View Canadian bank stocks"
+            />
+            <CuratedTickerSection
+              title="Canadian ETFs"
+              subtitle="One-ticket ETFs, broad-market funds, and dividend ideas"
+              items={POPULAR_ETFS_CA.slice(0, 10)}
+              onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
+              viewAllHref="/stocks/canadian-etfs"
+              viewAllLabel="View Canadian ETFs"
+            />
+            <CuratedTickerSection
+              title="US leaders"
+              subtitle="Popular large-cap stocks and broad-market ETF shortcuts"
+              items={[...POPULAR_STOCKS_US.slice(0, 5), ...POPULAR_ETFS_US.slice(0, 3)]}
+              onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
+              viewAllHref="/stocks/compare"
+              viewAllLabel="Compare popular symbols"
+            />
+            <CuratedTickerSection
+              title="Crypto"
+              subtitle="Major crypto assets tracked inside the same research flow"
+              items={POPULAR_CRYPTO}
+              onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
+            />
+          </div>
+
+          <div className="rounded-2xl border border-gray-100 bg-slate-50 p-6 dark:border-gray-700 dark:bg-gray-900">
+            <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-sm font-bold text-primary dark:text-accent">Use a calculator alongside the chart</p>
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                  Move from market research into planning tools and Canada-specific guides.
+                </p>
+              </div>
+            </div>
+            <div className="grid gap-3 md:grid-cols-3">
+              {[
+                { title: "Dividend calculator",   desc: "Model income and DRIP for dividend stocks and ETFs.",   href: "/tools/dividend-calculator" },
+                { title: "Compound interest",      desc: "Project long-term ETF growth with monthly contributions.", href: "/tools/compound-interest-calculator" },
+                { title: "Best ETFs for TFSA",     desc: "Compare XEQT, VEQT, XGRO, VFV and other popular options.", href: "/blog/best-etfs-for-tfsa-canada-2026" },
+              ].map((item) => (
+                <button
+                  key={item.title}
+                  onClick={() => navigate(item.href)}
+                  className="rounded-xl border border-gray-200 bg-white p-4 text-left transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-800"
+                >
+                  <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
+                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{item.desc}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {false && (
+            <>
+
           {/* Canadian stocks */}
           <div className="mb-8">
             <SectionLabel>Popular Canadian stocks — TSX</SectionLabel>
@@ -712,6 +843,8 @@ export default function StockPage() {
               ))}
             </div>
           </div>
+            </>
+          )}
         </div>
       )}
 
@@ -1015,6 +1148,34 @@ function formatNewsDate(unixSeconds) {
 
 function scrollToSection(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function CuratedTickerSection({ title, subtitle, items, onSelect, viewAllHref, viewAllLabel }) {
+  const navigate = useNavigate();
+
+  return (
+    <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+      <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <SectionLabel>{title}</SectionLabel>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{subtitle}</p>
+        </div>
+        {viewAllHref && (
+          <button
+            onClick={() => navigate(viewAllHref)}
+            className="rounded-full border border-gray-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-secondary hover:text-primary dark:border-gray-700 dark:bg-gray-900 dark:text-slate-300"
+          >
+            {viewAllLabel || "View all"}
+          </button>
+        )}
+      </div>
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+        {items.map((item) => (
+          <SymbolChip key={item.t} item={item} onClick={() => onSelect(item.t)} />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function MoversPanel({ title, items, loading, emptyLabel, tone, onSelect, showVolume = false }) {
