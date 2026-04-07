@@ -580,35 +580,53 @@ export default function StockPage() {
             </div>
           </div>
 
-          <div className="mb-10 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-            <div className="mb-4 flex items-end justify-between gap-3">
+          <div className="mb-10 overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm dark:border-blue-900/50 dark:bg-gray-800">
+            <div className="border-b border-blue-100 bg-blue-50/70 px-6 py-5 dark:border-blue-900/40 dark:bg-blue-900/10">
+              <div className="mb-2 flex items-center gap-2">
+                <span className="inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
+                <span className="text-xs font-bold uppercase tracking-[0.22em] text-secondary">Live market news</span>
+              </div>
+              <div className="flex items-end justify-between gap-3">
               <div>
                 <SectionLabel>Top stories</SectionLabel>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
                   A quick market-news strip so the stocks hub feels live before users pick a ticker.
                 </p>
               </div>
             </div>
+            </div>
+            <div className="px-6 py-5">
             {topNewsLoading ? (
-              <div className="grid gap-4 md:grid-cols-3">
-                {[...Array(3)].map((_, index) => <SkeletonLine key={index} cls="h-28 w-full" />)}
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                {[...Array(4)].map((_, index) => <SkeletonLine key={index} cls="h-40 w-full" />)}
               </div>
             ) : topNews.length > 0 ? (
-              <div className="grid gap-4 md:grid-cols-3">
-                {topNews.slice(0, 3).map((item, index) => (
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                {topNews.slice(0, 4).map((item, index) => (
                   <a
                     key={`${item.link}-${index}`}
                     href={item.link}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-2xl border border-gray-200 bg-slate-50 p-4 transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-md dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+                    className="group overflow-hidden rounded-2xl border border-gray-200 bg-slate-50 transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-md dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-secondary">{item.publisher}</p>
-                        <p className="mt-3 text-base font-bold leading-7 text-primary dark:text-accent">{item.title}</p>
+                    {item.thumbnail ? (
+                      <div className="aspect-[16/9] overflow-hidden border-b border-gray-200 bg-slate-200 dark:border-gray-700 dark:bg-slate-800">
+                        <img
+                          src={item.thumbnail}
+                          alt={item.title}
+                          className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                          loading="lazy"
+                        />
                       </div>
-                      <span className="shrink-0 text-xs text-gray-400">{item.providerPublishTime ? formatNewsDate(item.providerPublishTime) : ""}</span>
+                    ) : null}
+                    <div className="p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary">{item.publisher}</p>
+                        <span className="shrink-0 text-xs text-gray-400">{item.providerPublishTime ? formatNewsDate(item.providerPublishTime) : ""}</span>
+                      </div>
+                      <p className="mt-3 line-clamp-4 text-base font-bold leading-7 text-primary dark:text-accent">{item.title}</p>
+                      <p className="mt-3 text-xs font-semibold text-secondary">Open story →</p>
                     </div>
                   </a>
                 ))}
@@ -618,6 +636,7 @@ export default function StockPage() {
                 Top stories are temporarily unavailable. Market movers above are still live.
               </div>
             )}
+            </div>
           </div>
 
           {/* Watchlist */}
