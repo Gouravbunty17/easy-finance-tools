@@ -13,6 +13,7 @@ const Blog                    = lazy(() => import('./pages/Blog'));
 const About                   = lazy(() => import('./pages/About'));
 const Contact                 = lazy(() => import('./pages/Contact'));
 const Methodology             = lazy(() => import('./pages/Methodology'));
+const EditorialStandards      = lazy(() => import('./pages/EditorialStandards'));
 const PrivacyPolicy           = lazy(() => import('./pages/PrivacyPolicy'));
 const Terms                   = lazy(() => import('./pages/Terms'));
 
@@ -79,6 +80,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/methodology" element={<Methodology />} />
+            <Route path="/editorial-standards" element={<EditorialStandards />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/tools/dividend-calculator" element={<DividendCalculator />} />

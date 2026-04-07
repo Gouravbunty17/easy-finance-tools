@@ -546,6 +546,7 @@ export default function StockPage() {
             ? `https://easyfinancetools.com/stocks/${currentTicker}`
             : "https://easyfinancetools.com/stocks"
         }
+        robots="noindex,follow,max-image-preview:large"
       />
       {currentTicker && (
         <script

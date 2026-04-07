@@ -7,6 +7,9 @@ export default function BlogHero({
   date,
   readTime,
   gradient = "from-primary to-secondary",
+  author = "EasyFinanceTools editorial team",
+  reviewer = "Reviewed against current Canadian source material",
+  standardsHref = "/editorial-standards",
 }) {
   return (
     <section className={`relative overflow-hidden bg-gradient-to-br ${gradient}`}>
@@ -35,6 +38,14 @@ export default function BlogHero({
               <span>{date}</span>
               <span className="h-1 w-1 rounded-full bg-white/40" />
               <span>{readTime}</span>
+            </div>
+
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
+              <span className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85">Written by {author}</span>
+              <span className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85">{reviewer}</span>
+              <a href={standardsHref} className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85 transition hover:bg-white/20">
+                Editorial standards
+              </a>
             </div>
           </div>
 

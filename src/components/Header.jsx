@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { FiMenu, FiX, FiSun, FiMoon, FiSearch } from "react-icons/fi";
 import Logo from "./Logo";
-import AdSlot from "./AdSlot";
 
 const navLinks = [
   { name: "Tools", path: "/tools" },
@@ -32,10 +31,6 @@ export default function Header() {
 
   return (
     <>
-      <div className="flex min-h-[60px] w-full items-center justify-center border-b bg-gray-50 text-center dark:border-gray-800 dark:bg-gray-900">
-        <AdSlot slot="1901528811" format="horizontal" />
-      </div>
-
       <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-950/95">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex h-16 items-center justify-between">

@@ -28,6 +28,7 @@ export default function Footer() {
               <li><Link to="/blog" className="hover:text-white">Blog</Link></li>
               <li><Link to="/contact" className="hover:text-white">Contact</Link></li>
               <li><Link to="/methodology" className="hover:text-white">Methodology</Link></li>
+              <li><Link to="/editorial-standards" className="hover:text-white">Editorial Standards</Link></li>
               <li><Link to="/terms" className="hover:text-white">Terms and Disclaimer</Link></li>
               <li><Link to="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
             </ul>
@@ -42,6 +43,9 @@ export default function Footer() {
           <div className="mt-4 flex flex-wrap gap-3">
             <Link to="/methodology" className="rounded-lg border border-blue-700 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/10">
               Read methodology
+            </Link>
+            <Link to="/editorial-standards" className="rounded-lg border border-blue-700 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/10">
+              Editorial standards
             </Link>
             <Link to="/terms" className="rounded-lg border border-blue-700 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/10">
               Read terms

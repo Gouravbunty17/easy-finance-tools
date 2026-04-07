@@ -149,6 +149,7 @@ export default function Methodology() {
               <div className="mt-3 grid gap-3">
                 {[
                   { label: "About EasyFinanceTools", href: "/about" },
+                  { label: "Editorial standards", href: "/editorial-standards" },
                   { label: "Terms and disclaimer", href: "/terms" },
                   { label: "Privacy policy", href: "/privacy-policy" },
                   { label: "Contact", href: "/contact" },

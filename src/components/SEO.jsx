@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function SEO({ title, description, canonical, type = "website" }) {
+export default function SEO({ title, description, canonical, type = "website", robots = "index,follow,max-image-preview:large" }) {
   React.useEffect(() => {
     const siteName = "EasyFinanceTools";
     const fullTitle = title ? `${title} | ${siteName}` : `${siteName} - Free Canadian Finance Calculators`;
@@ -23,7 +23,7 @@ export default function SEO({ title, description, canonical, type = "website" })
     };
 
     setMeta("description", desc);
-    setMeta("robots", "index,follow,max-image-preview:large");
+    setMeta("robots", robots);
     setMeta("og:title", fullTitle, true);
     setMeta("og:description", desc, true);
     setMeta("og:url", url, true);
@@ -42,7 +42,7 @@ export default function SEO({ title, description, canonical, type = "website" })
       document.head.appendChild(canonicalEl);
     }
     canonicalEl.setAttribute("href", url);
-  }, [title, description, canonical, type]);
+  }, [title, description, canonical, type, robots]);
 
   return null;
 }
