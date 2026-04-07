@@ -104,11 +104,6 @@ const POPULAR_CRYPTO = [
   { t: "DOGE-USD", n: "Dogecoin", market: "Crypto" },
 ];
 
-const MOVERS_UNIVERSE = [
-  ...POPULAR_STOCKS_CA.slice(0, 8),
-  ...POPULAR_STOCKS_US.slice(0, 6),
-  ...POPULAR_ETFS_CA.slice(0, 4),
-];
 
 // ─── Symbol metadata ─────────────────────────────────────────────────────────
 
@@ -364,34 +359,14 @@ export default function StockPage() {
   const fetchLandingMovers = async () => {
     setMoversLoading(true);
     try {
-      const results = await Promise.allSettled(
-        MOVERS_UNIVERSE.map(async (item) => {
-          const response = await fetch(`/api/quote?symbol=${encodeURIComponent(item.t)}`);
-          const contentType = response.headers.get("content-type") || "";
-          if (!contentType.includes("application/json")) return null;
-          const data = await response.json();
-          const quote = data?.quote;
-          if (!quote?.regularMarketPrice) return null;
-
-          return {
-            symbol: item.t,
-            name: item.n,
-            market: item.market,
-            price: Number(quote.regularMarketPrice || 0),
-            changePct: Number(quote.regularMarketChangePercent || 0),
-            volume: Number(quote.regularMarketVolume || 0),
-          };
-        })
-      );
-
-      const items = results
-        .filter((result) => result.status === "fulfilled" && result.value)
-        .map((result) => result.value);
-
+      const response = await fetch("/api/market-movers");
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) throw new Error("Invalid movers response");
+      const data = await response.json();
       setMarketMovers({
-        gainers: [...items].sort((a, b) => b.changePct - a.changePct).slice(0, 5),
-        losers: [...items].sort((a, b) => a.changePct - b.changePct).slice(0, 5),
-        active: [...items].sort((a, b) => b.volume - a.volume).slice(0, 5),
+        gainers: Array.isArray(data?.gainers) ? data.gainers : [],
+        losers: Array.isArray(data?.losers) ? data.losers : [],
+        active: Array.isArray(data?.active) ? data.active : [],
       });
     } catch {
       setMarketMovers({ gainers: [], losers: [], active: [] });
@@ -453,7 +428,7 @@ export default function StockPage() {
             ? `https://easyfinancetools.com/stocks/${currentTicker}`
             : "https://easyfinancetools.com/stocks"
         }
-        robots="noindex,follow,max-image-preview:large"
+        robots="index,follow,max-image-preview:large"
       />
 
       {currentTicker && (
