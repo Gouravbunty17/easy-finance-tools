@@ -252,6 +252,36 @@ export default function Blog() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
+        <div className="surface-soft mb-6 p-5">
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use this blog</p>
+              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Start with an original guide, then move into the matching calculator</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                These articles are written to explain Canadian-specific finance decisions in plain language, then send readers into the most relevant calculator or comparison page. That means the blog is not just a post archive. It is the explanatory layer that helps users understand TFSA, RRSP, tax, mortgage, savings, and investing decisions before relying on a number.
+              </p>
+            </div>
+            <div className="grid gap-3">
+              {[
+                { label: "Methodology and sources", href: "/methodology", cta: "blog_intro_methodology" },
+                { label: "Editorial standards", href: "/editorial-standards", cta: "blog_intro_editorial_standards" },
+                { label: "About EasyFinanceTools", href: "/about", cta: "blog_intro_about" },
+              ].map((item) => (
+                <SurfaceTrackedLink
+                  key={item.href}
+                  to={item.href}
+                  eventName="blog_index_cta_click"
+                  ctaLabel={item.cta}
+                  trackingParams={{ section: "blog_intro", destination_type: "trust_page" }}
+                  className="rounded-2xl border border-slate-200 bg-white px-4 py-4 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                >
+                  {item.label}
+                </SurfaceTrackedLink>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <div className="surface-card p-4">
           <div className="grid gap-3 md:grid-cols-[1fr_auto]">
             <input
@@ -370,6 +400,30 @@ export default function Blog() {
           </div>
 
           <aside className="space-y-5">
+            <div className="surface-card p-5">
+              <h3 className="text-lg font-bold text-primary dark:text-accent">Why these guides exist</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                The blog is meant to add context, examples, and Canadian-specific explanation around the calculators. Important pages should make it easier to understand a decision, not just click a button.
+              </p>
+              <div className="mt-4 grid gap-3">
+                {[
+                  { label: "Read methodology", href: "/methodology", cta: "sidebar_trust_methodology" },
+                  { label: "Read editorial standards", href: "/editorial-standards", cta: "sidebar_trust_editorial_standards" },
+                ].map((item) => (
+                  <SurfaceTrackedLink
+                    key={item.href}
+                    to={item.href}
+                    eventName="blog_index_cta_click"
+                    ctaLabel={item.cta}
+                    trackingParams={{ section: "sidebar_trust", destination_type: "trust_page" }}
+                    className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                  >
+                    {item.label}
+                  </SurfaceTrackedLink>
+                ))}
+              </div>
+            </div>
+
             <div className="surface-soft p-5">
               <h3 className="text-lg font-bold text-primary dark:text-accent">Start with comparisons</h3>
               <div className="mt-3 grid gap-3">

@@ -2,7 +2,6 @@ import React from "react";
 import SEO from "../components/SEO";
 import CountUp from "../components/CountUp";
 import FinancialTip from "../components/FinancialTip";
-import ReferralSection from "../components/ReferralSection";
 import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
 
 const tools = [
@@ -202,6 +201,38 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-5xl px-4 pb-8">
+        <div className="surface-soft p-6">
+          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Original Canadian finance content</p>
+              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the calculators with the guides, not as stand-alone formulas</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                EasyFinanceTools is built around practical Canadian decisions like TFSA vs RRSP, mortgage affordability, tax take-home pay, and savings tradeoffs. The strongest pages on the site pair calculator outputs with plain-language guides, published assumptions, and visible methodology so readers can sanity-check the result before acting on it.
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3 md:w-[340px] md:grid-cols-1">
+              {[
+                { label: "How we build calculators", href: "/methodology", cta: "editorial_intro_methodology" },
+                { label: "Editorial standards", href: "/editorial-standards", cta: "editorial_intro_standards" },
+                { label: "About EasyFinanceTools", href: "/about", cta: "editorial_intro_about" },
+              ].map((item) => (
+                <SurfaceTrackedLink
+                  key={item.href}
+                  to={item.href}
+                  eventName="homepage_cta_click"
+                  ctaLabel={item.cta}
+                  trackingParams={{ section: "editorial_intro", destination_type: "trust_page" }}
+                  className="rounded-2xl border border-slate-200 bg-white px-4 py-4 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                >
+                  {item.label}
+                </SurfaceTrackedLink>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-5xl px-4 pb-10">
         <div className="surface-soft p-5">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -279,18 +310,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4">
-        <ReferralSection
-          placement="homepage_referral"
-          fitHeading="Why this may fit"
-          fitPoints={[
-            "You want a simple beginner-friendly investing app after choosing TFSA, RRSP, or FHSA math first.",
-            "You mainly plan to buy broad ETFs and contribute regularly.",
-            "You still plan to compare provider guides before making the final choice.",
-          ]}
-        />
-      </section>
-
       <section className="mx-auto max-w-5xl px-4 py-6">
         <div className="surface-soft p-5">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -329,6 +348,43 @@ export default function Home() {
               </SurfaceTrackedLink>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 py-4">
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            {
+              title: "What makes a useful calculator page",
+              body: "The strongest tools explain assumptions, highlight major limitations, and point readers to the next question they should answer.",
+              href: "/methodology",
+              cta: "quality_card_methodology",
+            },
+            {
+              title: "How our articles are written",
+              body: "We publish Canadian-focused explainers, comparison pages, and calculator guides with visible dates and editorial standards.",
+              href: "/editorial-standards",
+              cta: "quality_card_editorial_standards",
+            },
+            {
+              title: "Why trust still matters in finance content",
+              body: "For tax, investing, and borrowing topics, the site is designed to make assumptions and tradeoffs easier to inspect before you act.",
+              href: "/about",
+              cta: "quality_card_about",
+            },
+          ].map((item) => (
+            <SurfaceTrackedLink
+              key={item.title}
+              to={item.href}
+              eventName="homepage_cta_click"
+              ctaLabel={item.cta}
+              trackingParams={{ section: "quality_cards", destination_type: "trust_page" }}
+              className="surface-card p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md"
+            >
+              <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
+            </SurfaceTrackedLink>
+          ))}
         </div>
       </section>
 
