@@ -102,7 +102,11 @@ export default function App() {
             <Route path="/stocks/canadian-bank-stocks" element={<StockCollectionPage collectionKey="canadian-bank-stocks" />} />
             <Route path="/stocks/canadian-etfs" element={<StockCollectionPage collectionKey="canadian-etfs" />} />
             <Route path="/stocks/dividend-etfs" element={<StockCollectionPage collectionKey="dividend-etfs" />} />
+            <Route path="/stocks/canadian-dividend-stocks" element={<StockCollectionPage collectionKey="canadian-dividend-stocks" />} />
+            <Route path="/stocks/covered-call-etfs" element={<StockCollectionPage collectionKey="covered-call-etfs" />} />
+            <Route path="/stocks/tsx-bank-stocks" element={<StockCollectionPage collectionKey="tsx-bank-stocks" />} />
             <Route path="/stocks/compare" element={<CompareStocksPage />} />
+            <Route path="/stocks/compare/:comparisonSlug" element={<CompareStocksPage />} />
             <Route path="/stocks/:ticker" element={<StockPage />} />
             <Route path="/tools/gic-calculator" element={<GICCalculator />} />
             <Route path="/tools/debt-payoff" element={<DebtPayoffCalculator />} />

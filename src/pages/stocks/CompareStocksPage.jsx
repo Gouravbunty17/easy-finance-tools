@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import SEO from "../../components/SEO";
-import { COMPARISON_PRESETS, getPresetComparison, shortTickerLabel } from "./stockCollections";
+import { COMPARISON_PRESETS, getPresetBySlug, getPresetComparison, makeComparisonSlug, shortTickerLabel } from "./stockCollections";
 
 function formatPrice(value) {
   const num = Number(value);
@@ -32,13 +32,16 @@ async function fetchQuote(symbol) {
 
 export default function CompareStocksPage() {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const left = searchParams.get("left") || "XEQT.TO";
-  const right = searchParams.get("right") || "VEQT.TO";
+  const { comparisonSlug } = useParams();
+  const [searchParams] = useSearchParams();
+  const slugPreset = comparisonSlug ? getPresetBySlug(comparisonSlug) : null;
+  const left = slugPreset?.left || searchParams.get("left") || "XEQT.TO";
+  const right = slugPreset?.right || searchParams.get("right") || "VEQT.TO";
   const [quotes, setQuotes] = useState({});
   const [loading, setLoading] = useState(true);
 
   const preset = useMemo(() => getPresetComparison(left, right), [left, right]);
+  const canonicalPath = preset ? `/stocks/compare/${makeComparisonSlug(preset.left, preset.right)}` : `/stocks/compare?left=${encodeURIComponent(left)}&right=${encodeURIComponent(right)}`;
 
   useEffect(() => {
     let cancelled = false;
@@ -67,7 +70,7 @@ export default function CompareStocksPage() {
       <SEO
         title={`${shortTickerLabel(left)} vs ${shortTickerLabel(right)} Comparison`}
         description={`Compare ${left} and ${right} with a quick price, change, range, and volume snapshot on EasyFinanceTools.`}
-        canonical={`${window.location.origin}/stocks/compare?left=${encodeURIComponent(left)}&right=${encodeURIComponent(right)}`}
+        canonical={`${window.location.origin}${canonicalPath}`}
       />
 
       <section className="bg-gradient-to-r from-[#123f73] via-[#15538f] to-[#0ea5e9] text-white">
@@ -89,7 +92,7 @@ export default function CompareStocksPage() {
           {COMPARISON_PRESETS.map((item) => (
             <button
               key={item.label}
-              onClick={() => setSearchParams({ left: item.left, right: item.right })}
+              onClick={() => navigate(`/stocks/compare/${makeComparisonSlug(item.left, item.right)}`)}
               className={`rounded-2xl border p-4 text-left transition hover:-translate-y-0.5 hover:shadow-md ${
                 item.left === left && item.right === right
                   ? "border-secondary bg-blue-50 shadow-sm dark:border-blue-400 dark:bg-slate-900"
@@ -133,7 +136,7 @@ export default function CompareStocksPage() {
             <p className="mt-3 text-xl font-bold text-primary dark:text-white">Browse Canadian ETFs</p>
           </button>
           <button
-            onClick={() => navigate("/stocks/canadian-bank-stocks")}
+            onClick={() => navigate("/stocks/tsx-bank-stocks")}
             className="rounded-2xl border border-gray-100 bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
           >
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-secondary">Bank stocks</p>

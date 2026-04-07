@@ -43,10 +43,52 @@
     <priority>0.77</priority>
   </url>
   <url>
+    <loc>https://easyfinancetools.com/stocks/canadian-dividend-stocks</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.76</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/covered-call-etfs</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/tsx-bank-stocks</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.77</priority>
+  </url>
+  <url>
     <loc>https://easyfinancetools.com/stocks/compare</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.76</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/compare/xeqt-vs-veqt</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/compare/ry-vs-td</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.74</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/compare/bns-vs-bmo</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.73</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/compare/vdy-vs-xdv</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.73</priority>
   </url>
   <url>
     <loc>https://easyfinancetools.com/stocks/AAPL</loc>

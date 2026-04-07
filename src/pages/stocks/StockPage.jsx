@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SEO from "../../components/SEO";
 import AdSlot from "../../components/AdSlot";
-import { COMPARISON_PRESETS } from "./stockCollections";
+import { COMPARISON_PRESETS, makeComparisonSlug } from "./stockCollections";
 
 function TVWidget({ id, scriptSrc, configFn, height }) {
   const ref = useRef(null);
@@ -276,6 +276,8 @@ export default function StockPage() {
   const [stockLoading, setStockLoading] = useState(false);
   const [marketMovers, setMarketMovers] = useState({ gainers: [], losers: [], active: [] });
   const [moversLoading, setMoversLoading] = useState(false);
+  const [topNews, setTopNews] = useState([]);
+  const [topNewsLoading, setTopNewsLoading] = useState(false);
   const [watchlist, setWatchlist] = useState(() => {
     try { return JSON.parse(localStorage.getItem("watchlist") || "[]"); } catch { return []; }
   });
@@ -320,6 +322,7 @@ export default function StockPage() {
   useEffect(() => {
     if (currentTicker) return;
     fetchLandingMovers();
+    fetchTopNews();
   }, [currentTicker]);
 
   const fetchAiSummary = async (symbol) => {
@@ -372,6 +375,20 @@ export default function StockPage() {
       setMarketMovers({ gainers: [], losers: [], active: [] });
     }
     setMoversLoading(false);
+  };
+
+  const fetchTopNews = async () => {
+    setTopNewsLoading(true);
+    try {
+      const response = await fetch("/api/top-news");
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) throw new Error("Invalid top news response");
+      const data = await response.json();
+      setTopNews(Array.isArray(data?.items) ? data.items : []);
+    } catch {
+      setTopNews([]);
+    }
+    setTopNewsLoading(false);
   };
 
   const handleSearchInput = (value) => {
@@ -563,6 +580,46 @@ export default function StockPage() {
             </div>
           </div>
 
+          <div className="mb-10 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+            <div className="mb-4 flex items-end justify-between gap-3">
+              <div>
+                <SectionLabel>Top stories</SectionLabel>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  A quick market-news strip so the stocks hub feels live before users pick a ticker.
+                </p>
+              </div>
+            </div>
+            {topNewsLoading ? (
+              <div className="grid gap-4 md:grid-cols-3">
+                {[...Array(3)].map((_, index) => <SkeletonLine key={index} cls="h-28 w-full" />)}
+              </div>
+            ) : topNews.length > 0 ? (
+              <div className="grid gap-4 md:grid-cols-3">
+                {topNews.slice(0, 3).map((item, index) => (
+                  <a
+                    key={`${item.link}-${index}`}
+                    href={item.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-2xl border border-gray-200 bg-slate-50 p-4 transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-md dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-secondary">{item.publisher}</p>
+                        <p className="mt-3 text-base font-bold leading-7 text-primary dark:text-accent">{item.title}</p>
+                      </div>
+                      <span className="shrink-0 text-xs text-gray-400">{item.providerPublishTime ? formatNewsDate(item.providerPublishTime) : ""}</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div className="rounded-xl border border-dashed border-gray-200 bg-slate-50 p-5 text-sm text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
+                Top stories are temporarily unavailable. Market movers above are still live.
+              </div>
+            )}
+          </div>
+
           {/* Watchlist */}
           {watchlist.length > 0 && (
             <div className="mb-8 rounded-2xl border border-yellow-200 bg-yellow-50 p-5 dark:border-yellow-800 dark:bg-yellow-900/20">
@@ -596,7 +653,7 @@ export default function StockPage() {
                   {
                     title: "Canadian bank stocks",
                     desc: "Track the Big Five and close peers from one collection page.",
-                    href: "/stocks/canadian-bank-stocks",
+                    href: "/stocks/tsx-bank-stocks",
                   },
                   {
                     title: "Canadian ETFs",
@@ -607,6 +664,16 @@ export default function StockPage() {
                     title: "Dividend ETFs",
                     desc: "Explore income ETFs and covered-call ideas with deeper ticker pages.",
                     href: "/stocks/dividend-etfs",
+                  },
+                  {
+                    title: "Covered-call ETFs",
+                    desc: "Focus on income-oriented yield-maximizer and covered-call ETF ideas.",
+                    href: "/stocks/covered-call-etfs",
+                  },
+                  {
+                    title: "Canadian dividend stocks",
+                    desc: "Browse established TSX dividend names across banks, telecom, and pipelines.",
+                    href: "/stocks/canadian-dividend-stocks",
                   },
                 ].map((item) => (
                   <button
@@ -628,7 +695,7 @@ export default function StockPage() {
                 {COMPARISON_PRESETS.slice(0, 4).map((item) => (
                   <button
                     key={item.label}
-                    onClick={() => navigate(`/stocks/compare?left=${encodeURIComponent(item.left)}&right=${encodeURIComponent(item.right)}`)}
+                    onClick={() => navigate(`/stocks/compare/${makeComparisonSlug(item.left, item.right)}`)}
                     className="flex w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-4 text-left transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-800"
                   >
                     <div>
@@ -662,8 +729,8 @@ export default function StockPage() {
               subtitle="TSX blue chips and high-interest names"
               items={POPULAR_STOCKS_CA.slice(0, 10)}
               onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
-              viewAllHref="/stocks/canadian-bank-stocks"
-              viewAllLabel="View Canadian bank stocks"
+              viewAllHref="/stocks/tsx-bank-stocks"
+              viewAllLabel="View TSX bank stocks"
             />
             <CuratedTickerSection
               title="Canadian ETFs"
@@ -678,8 +745,8 @@ export default function StockPage() {
               subtitle="Popular large-cap stocks and broad-market ETF shortcuts"
               items={[...POPULAR_STOCKS_US.slice(0, 5), ...POPULAR_ETFS_US.slice(0, 3)]}
               onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
-              viewAllHref="/stocks/compare"
-              viewAllLabel="Compare popular symbols"
+              viewAllHref="/stocks/compare/xeqt-vs-veqt"
+              viewAllLabel="Open compare pages"
             />
             <CuratedTickerSection
               title="Crypto"
@@ -900,7 +967,7 @@ export default function StockPage() {
             ))}
             {comparePreset && (
               <button
-                onClick={() => navigate(`/stocks/compare?left=${encodeURIComponent(comparePreset.left)}&right=${encodeURIComponent(comparePreset.right)}`)}
+                onClick={() => navigate(`/stocks/compare/${makeComparisonSlug(comparePreset.left, comparePreset.right)}`)}
                 className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
               >
                 Compare {comparePreset.left.replace(".TO", "")} vs {comparePreset.right.replace(".TO", "")}
@@ -1123,7 +1190,7 @@ export default function StockPage() {
             {[
               { title: "Best ETFs for TFSA",    body: "Compare XEQT, VEQT, XGRO, VFV, and dividend-focused options for registered accounts.", href: "/blog/best-etfs-for-tfsa-canada-2026" },
               comparePreset
-                ? { title: `Compare ${comparePreset.left.replace(".TO", "")} vs ${comparePreset.right.replace(".TO", "")}`, body: "Open the side-by-side comparison page to check price, range, and volume quickly.", href: `/stocks/compare?left=${encodeURIComponent(comparePreset.left)}&right=${encodeURIComponent(comparePreset.right)}` }
+                ? { title: `Compare ${comparePreset.left.replace(".TO", "")} vs ${comparePreset.right.replace(".TO", "")}`, body: "Open the side-by-side comparison page to check price, range, and volume quickly.", href: `/stocks/compare/${makeComparisonSlug(comparePreset.left, comparePreset.right)}` }
                 : { title: "Dividend calculator", body: "Model income and DRIP scenarios for dividend stocks and high-yield ETFs.", href: "/tools/dividend-calculator" },
               { title: "Beginner investing guide", body: "See where a stock or ETF fits inside a TFSA, RRSP, or a long-term plan.",           href: "/blog/how-to-invest-in-canada-beginners-2026" },
             ].map((item) => (
