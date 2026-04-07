@@ -103,6 +103,12 @@ const POPULAR_CRYPTO = [
   { t: "DOGE-USD", n: "Dogecoin", market: "Crypto" },
 ];
 
+const MOVERS_UNIVERSE = [
+  ...POPULAR_STOCKS_CA.slice(0, 8),
+  ...POPULAR_STOCKS_US.slice(0, 6),
+  ...POPULAR_ETFS_CA.slice(0, 4),
+];
+
 // ─── Symbol metadata ─────────────────────────────────────────────────────────
 
 const SYMBOL_METADATA = {
@@ -272,6 +278,8 @@ export default function StockPage() {
   const [newsLoading, setNewsLoading] = useState(false);
   const [stockData, setStockData] = useState(null);
   const [stockLoading, setStockLoading] = useState(false);
+  const [marketMovers, setMarketMovers] = useState({ gainers: [], losers: [], active: [] });
+  const [moversLoading, setMoversLoading] = useState(false);
   const [watchlist, setWatchlist] = useState(() => {
     try { return JSON.parse(localStorage.getItem("watchlist") || "[]"); } catch { return []; }
   });
@@ -310,6 +318,11 @@ export default function StockPage() {
     fetchStockData(currentTicker);
   }, [currentTicker, navigate]);
 
+  useEffect(() => {
+    if (currentTicker) return;
+    fetchLandingMovers();
+  }, [currentTicker]);
+
   const fetchAiSummary = async (symbol) => {
     setAiLoading(true);
     try {
@@ -342,6 +355,44 @@ export default function StockPage() {
     } catch { /* optional */ }
     setStockLoading(false);
     setNewsLoading(false);
+  };
+
+  const fetchLandingMovers = async () => {
+    setMoversLoading(true);
+    try {
+      const results = await Promise.allSettled(
+        MOVERS_UNIVERSE.map(async (item) => {
+          const response = await fetch(`/api/quote?symbol=${encodeURIComponent(item.t)}`);
+          const contentType = response.headers.get("content-type") || "";
+          if (!contentType.includes("application/json")) return null;
+          const data = await response.json();
+          const quote = data?.quote;
+          if (!quote?.regularMarketPrice) return null;
+
+          return {
+            symbol: item.t,
+            name: item.n,
+            market: item.market,
+            price: Number(quote.regularMarketPrice || 0),
+            changePct: Number(quote.regularMarketChangePercent || 0),
+            volume: Number(quote.regularMarketVolume || 0),
+          };
+        })
+      );
+
+      const items = results
+        .filter((result) => result.status === "fulfilled" && result.value)
+        .map((result) => result.value);
+
+      setMarketMovers({
+        gainers: [...items].sort((a, b) => b.changePct - a.changePct).slice(0, 5),
+        losers: [...items].sort((a, b) => a.changePct - b.changePct).slice(0, 5),
+        active: [...items].sort((a, b) => b.volume - a.volume).slice(0, 5),
+      });
+    } catch {
+      setMarketMovers({ gainers: [], losers: [], active: [] });
+    }
+    setMoversLoading(false);
   };
 
   const handleSearchInput = (value) => {
@@ -499,8 +550,39 @@ export default function StockPage() {
       </div>
 
       {/* ── Landing page (no ticker selected) ────────────────────────────── */}
-      {!currentTicker && (
+        {!currentTicker && (
         <div className="mx-auto max-w-5xl px-4 py-10">
+
+          <div className="mb-10">
+            <SectionLabel>Market movers</SectionLabel>
+            <div className="grid gap-4 lg:grid-cols-3">
+              <MoversPanel
+                title="Top gainers"
+                items={marketMovers.gainers}
+                loading={moversLoading}
+                emptyLabel="No gainers available right now."
+                tone="positive"
+                onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
+              />
+              <MoversPanel
+                title="Top losers"
+                items={marketMovers.losers}
+                loading={moversLoading}
+                emptyLabel="No losers available right now."
+                tone="negative"
+                onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
+              />
+              <MoversPanel
+                title="Most active"
+                items={marketMovers.active}
+                loading={moversLoading}
+                emptyLabel="No active symbols available right now."
+                tone="neutral"
+                showVolume
+                onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
+              />
+            </div>
+          </div>
 
           {/* Watchlist */}
           {watchlist.length > 0 && (
@@ -886,4 +968,76 @@ function formatNewsDate(unixSeconds) {
   try {
     return new Date(unixSeconds * 1000).toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" });
   } catch { return ""; }
+}
+
+function MoversPanel({ title, items, loading, emptyLabel, tone, onSelect, showVolume = false }) {
+  const toneClass =
+    tone === "positive"
+      ? "text-emerald-600"
+      : tone === "negative"
+        ? "text-red-600"
+        : "text-slate-600 dark:text-slate-300";
+
+  return (
+    <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+      <div className="mb-4 flex items-center justify-between">
+        <p className="text-lg font-bold text-primary dark:text-accent">{title}</p>
+        <span className={`text-xs font-semibold uppercase tracking-[0.18em] ${toneClass}`}>Live snapshot</span>
+      </div>
+
+      {loading ? (
+        <div className="space-y-3">
+          {[...Array(5)].map((_, index) => <SkeletonLine key={index} cls="h-10 w-full" />)}
+        </div>
+      ) : items.length > 0 ? (
+        <div className="space-y-2">
+          {items.map((item) => (
+            <button
+              key={item.symbol}
+              onClick={() => onSelect(item.symbol)}
+              className="flex w-full items-center justify-between rounded-xl border border-gray-100 bg-slate-50 px-4 py-3 text-left transition hover:border-secondary hover:bg-white dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+            >
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-primary dark:text-white">{item.symbol.replace(".TO", "").replace("-USD", "")}</span>
+                  <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-500 dark:bg-slate-700 dark:text-slate-300">
+                    {item.market}
+                  </span>
+                </div>
+                <div className="mt-1 truncate text-xs text-gray-500 dark:text-gray-400">{item.name}</div>
+              </div>
+              <div className="ml-3 text-right">
+                <div className="text-sm font-semibold text-slate-700 dark:text-slate-200">{formatMoverPrice(item.price)}</div>
+                <div className={`text-xs font-semibold ${showVolume ? "text-slate-500 dark:text-slate-400" : toneClass}`}>
+                  {showVolume ? formatVolume(item.volume) : formatChangePct(item.changePct)}
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="rounded-xl border border-dashed border-gray-200 bg-slate-50 p-4 text-sm text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
+          {emptyLabel}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function formatMoverPrice(value) {
+  if (value === undefined || value === null) return "N/A";
+  return Number(value).toLocaleString("en-CA", { maximumFractionDigits: 2 });
+}
+
+function formatChangePct(value) {
+  const num = Number(value || 0);
+  return `${num >= 0 ? "+" : ""}${num.toFixed(2)}%`;
+}
+
+function formatVolume(value) {
+  const num = Number(value || 0);
+  if (num >= 1e9) return `${(num / 1e9).toFixed(1)}B vol`;
+  if (num >= 1e6) return `${(num / 1e6).toFixed(1)}M vol`;
+  if (num >= 1e3) return `${(num / 1e3).toFixed(1)}K vol`;
+  return `${num} vol`;
 }
