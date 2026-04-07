@@ -18,8 +18,12 @@
       ]
     }
   ],
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "@vercel/node@5.3.24"
+    }
+  },
   "rewrites": [
-    { "source": "/api/:path*",                     "destination": "/api/:path*" },
     { "source": "/tools",                          "destination": "/index.html" },
     { "source": "/tools/:path*",                   "destination": "/index.html" },
     { "source": "/blog",                           "destination": "/index.html" },
