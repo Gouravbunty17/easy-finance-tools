@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SEO from "../../components/SEO";
 import AdSlot from "../../components/AdSlot";
+import { COMPARISON_PRESETS } from "./stockCollections";
 
 function TVWidget({ id, scriptSrc, configFn, height }) {
   const ref = useRef(null);
@@ -298,6 +299,9 @@ export default function StockPage() {
   const tickerMeta = getTickerMeta(currentTicker, tvSymbol, isCrypto);
   const assetLabel = normalizeAssetLabel(stockData?.quoteType, tickerMeta.assetLabel, isCrypto);
   const isFundLike = assetLabel === "ETF" || assetLabel === "fund";
+  const comparePreset = currentTicker
+    ? COMPARISON_PRESETS.find((preset) => preset.left === currentTicker || preset.right === currentTicker)
+    : null;
 
   const toggleWatch = (symbol, name) => {
     setWatchlist((prev) =>
@@ -696,6 +700,43 @@ export default function StockPage() {
               ))}
             </div>
           </div>
+
+          <div className="mb-10">
+            <SectionLabel>Collections and comparisons</SectionLabel>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {[
+                {
+                  title: "Canadian bank stocks",
+                  desc: "Track the Big Five banks and open deeper ticker pages from one list.",
+                  href: "/stocks/canadian-bank-stocks",
+                },
+                {
+                  title: "Canadian ETFs",
+                  desc: "Browse all-in-one ETFs, S&P 500 funds, and broad-market TSX favourites.",
+                  href: "/stocks/canadian-etfs",
+                },
+                {
+                  title: "Dividend ETFs",
+                  desc: "See dividend and covered-call ETF ideas in one dedicated collection.",
+                  href: "/stocks/dividend-etfs",
+                },
+                {
+                  title: "Compare symbols",
+                  desc: "Open side-by-side pages like XEQT vs VEQT or RY vs TD.",
+                  href: "/stocks/compare",
+                },
+              ].map((item) => (
+                <button
+                  key={item.title}
+                  onClick={() => navigate(item.href)}
+                  className="rounded-xl border border-gray-200 bg-white p-4 text-left transition hover:border-secondary hover:shadow-sm dark:border-gray-700 dark:bg-gray-800"
+                >
+                  <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
+                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{item.desc}</p>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       )}
 
@@ -734,8 +775,33 @@ export default function StockPage() {
             {tickerMeta.description}
           </p>
 
+          <div className="mb-6 flex flex-wrap gap-3">
+            {[
+              { id: "overview", label: "Overview" },
+              { id: "metrics", label: "Metrics" },
+              { id: "news", label: "News" },
+              { id: "profile", label: "Profile" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => scrollToSection(tab.id)}
+                className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-secondary hover:bg-blue-50 hover:text-primary dark:border-gray-700 dark:bg-gray-800 dark:text-slate-300 dark:hover:border-blue-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                {tab.label}
+              </button>
+            ))}
+            {comparePreset && (
+              <button
+                onClick={() => navigate(`/stocks/compare?left=${encodeURIComponent(comparePreset.left)}&right=${encodeURIComponent(comparePreset.right)}`)}
+                className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+              >
+                Compare {comparePreset.left.replace(".TO", "")} vs {comparePreset.right.replace(".TO", "")}
+              </button>
+            )}
+          </div>
+
           {/* Symbol info strip */}
-          <div className="mb-4 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+          <div id="overview" className="scroll-mt-28 mb-4 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
             <TVWidget
               id={`info-${tvSymbol}`}
               height={180}
@@ -765,7 +831,7 @@ export default function StockPage() {
           <AdSlot slot="1901528811" format="auto" />
 
           {/* Technical + Profile */}
-          <div className="mb-6 grid gap-6 md:grid-cols-2">
+          <div id="profile" className="scroll-mt-28 mb-6 grid gap-6 md:grid-cols-2">
             <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
               <div className="px-4 pb-1 pt-4">
                 <h3 className="font-bold text-primary dark:text-accent">Technical analysis</h3>
@@ -817,7 +883,7 @@ export default function StockPage() {
 
           {/* Key metrics */}
           {stockData && (
-            <div className="mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+            <div id="metrics" className="scroll-mt-28 mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
               <div className="px-4 pb-1 pt-4">
                 <h3 className="font-bold text-primary dark:text-accent">{isFundLike ? "Fund snapshot" : "Key metrics"}</h3>
                 <p className="text-xs text-gray-400">{isFundLike ? "Live quote data" : "Price, valuation, and trading metrics"}</p>
@@ -874,7 +940,7 @@ export default function StockPage() {
           ) : null}
 
           {/* News */}
-          <div className="mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+          <div id="news" className="scroll-mt-28 mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
             <div className="px-4 pb-1 pt-4">
               <h3 className="font-bold text-primary dark:text-accent">Latest news</h3>
               <p className="text-xs text-gray-400">Recent headlines for {currentTicker}</p>
@@ -948,7 +1014,9 @@ export default function StockPage() {
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {[
               { title: "Best ETFs for TFSA",    body: "Compare XEQT, VEQT, XGRO, VFV, and dividend-focused options for registered accounts.", href: "/blog/best-etfs-for-tfsa-canada-2026" },
-              { title: "Dividend calculator",   body: "Model income and DRIP scenarios for dividend stocks and high-yield ETFs.",              href: "/tools/dividend-calculator" },
+              comparePreset
+                ? { title: `Compare ${comparePreset.left.replace(".TO", "")} vs ${comparePreset.right.replace(".TO", "")}`, body: "Open the side-by-side comparison page to check price, range, and volume quickly.", href: `/stocks/compare?left=${encodeURIComponent(comparePreset.left)}&right=${encodeURIComponent(comparePreset.right)}` }
+                : { title: "Dividend calculator", body: "Model income and DRIP scenarios for dividend stocks and high-yield ETFs.", href: "/tools/dividend-calculator" },
               { title: "Beginner investing guide", body: "See where a stock or ETF fits inside a TFSA, RRSP, or a long-term plan.",           href: "/blog/how-to-invest-in-canada-beginners-2026" },
             ].map((item) => (
               <button key={item.title} onClick={() => navigate(item.href)}
@@ -968,6 +1036,10 @@ function formatNewsDate(unixSeconds) {
   try {
     return new Date(unixSeconds * 1000).toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric" });
   } catch { return ""; }
+}
+
+function scrollToSection(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function MoversPanel({ title, items, loading, emptyLabel, tone, onSelect, showVolume = false }) {

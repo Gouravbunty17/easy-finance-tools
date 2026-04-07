@@ -25,6 +25,30 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://easyfinancetools.com/stocks/canadian-bank-stocks</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/canadian-etfs</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/dividend-etfs</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.77</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/compare</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.76</priority>
+  </url>
+  <url>
     <loc>https://easyfinancetools.com/stocks/AAPL</loc>
     <lastmod>2026-04-03</lastmod>
     <changefreq>daily</changefreq>

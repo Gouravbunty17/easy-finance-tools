@@ -32,6 +32,8 @@ const FIRECalculator          = lazy(() => import('./pages/tools/FIRECalculator'
 const CompoundInterestCalculator = lazy(() => import('./pages/tools/CompoundInterestCalculator'));
 
 const StockPage               = lazy(() => import('./pages/stocks/StockPage'));
+const StockCollectionPage     = lazy(() => import('./pages/stocks/StockCollectionPage'));
+const CompareStocksPage       = lazy(() => import('./pages/stocks/CompareStocksPage'));
 const GICCalculator           = lazy(() => import('./pages/tools/GICCalculator'));
 const DebtPayoffCalculator    = lazy(() => import('./pages/tools/DebtPayoffCalculator'));
 const SavingsGoalCalculator   = lazy(() => import('./pages/tools/SavingsGoalCalculator'));
@@ -97,6 +99,10 @@ export default function App() {
             <Route path="/tools/fire-calculator" element={<FIRECalculator />} />
             <Route path="/tools/compound-interest-calculator" element={<CompoundInterestCalculator />} />
             <Route path="/stocks" element={<StockPage />} />
+            <Route path="/stocks/canadian-bank-stocks" element={<StockCollectionPage collectionKey="canadian-bank-stocks" />} />
+            <Route path="/stocks/canadian-etfs" element={<StockCollectionPage collectionKey="canadian-etfs" />} />
+            <Route path="/stocks/dividend-etfs" element={<StockCollectionPage collectionKey="dividend-etfs" />} />
+            <Route path="/stocks/compare" element={<CompareStocksPage />} />
             <Route path="/stocks/:ticker" element={<StockPage />} />
             <Route path="/tools/gic-calculator" element={<GICCalculator />} />
             <Route path="/tools/debt-payoff" element={<DebtPayoffCalculator />} />
