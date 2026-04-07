@@ -74,9 +74,25 @@ export default function ToolsPage() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-3 md:grid-cols-4">
+      <div className="mt-6 grid gap-3 lg:grid-cols-[1.35fr_repeat(3,minmax(0,1fr))]">
+        <SurfaceTrackedLink
+          to="/tools/compound-interest-calculator"
+          eventName="tools_hub_cta_click"
+          ctaLabel="featured_card_compound_interest_calculator"
+          trackingParams={{ section: "featured_cards", destination_type: "tool", emphasis: "primary" }}
+          className="rounded-2xl bg-gradient-to-br from-primary via-[#0a4c89] to-secondary p-5 text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-100">Most searched</p>
+          <h2 className="mt-3 text-3xl font-bold leading-tight">Compound Interest Calculator</h2>
+          <p className="mt-3 max-w-sm text-sm leading-6 text-blue-100">
+            Project long-term growth with monthly contributions, inflation, and fee drag in one place.
+          </p>
+          <div className="mt-5 inline-flex rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white">
+            Open featured calculator
+          </div>
+        </SurfaceTrackedLink>
+
         {[
-          { label: "Most searched", title: "Compound interest", href: "/tools/compound-interest-calculator" },
           { label: "Tax", title: "Income tax", href: "/tools/income-tax-calculator" },
           { label: "Real estate", title: "Mortgage", href: "/tools/mortgage-calculator" },
           { label: "Registered accounts", title: "TFSA", href: "/tools/tfsa-calculator" },
@@ -86,7 +102,7 @@ export default function ToolsPage() {
             to={item.href}
             eventName="tools_hub_cta_click"
             ctaLabel={`featured_card_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
-            trackingParams={{ section: "featured_cards", destination_type: "tool" }}
+            trackingParams={{ section: "featured_cards", destination_type: "tool", emphasis: "secondary" }}
             className="surface-card p-4 transition hover:-translate-y-0.5 hover:shadow-md"
           >
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{item.label}</p>
