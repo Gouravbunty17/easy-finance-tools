@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
+import TLDRBox from "../../components/TLDRBox";
+import FAQSchema from "../../components/FAQSchema";
+import ArticleSchema from "../../components/ArticleSchema";
 
 const payments = [
   { month: "January",   date: "January 29, 2026" },
@@ -19,6 +22,29 @@ const payments = [
   { month: "December",  date: "December 22, 2026" },
 ];
 
+const FAQS = [
+  {
+    q: "When are OAS payments made in 2026?",
+    a: "OAS payments in 2026 are made on the same monthly schedule as CPP, generally the third-to-last business day of each month. If you receive OAS by direct deposit, funds usually arrive on the payment date issued by Service Canada.",
+  },
+  {
+    q: "How much is OAS in 2026?",
+    a: "For early 2026, the maximum monthly OAS pension is about $727.67 for ages 65 to 74 and about $800.44 for ages 75 and older. Amounts can change during the year because OAS is adjusted quarterly for inflation.",
+  },
+  {
+    q: "What is the OAS clawback threshold in 2026?",
+    a: "The OAS recovery tax begins once your net income rises above the annual clawback threshold, which is estimated at roughly the low-$90,000 range for 2026. The exact threshold and full elimination level should always be verified against current Service Canada and CRA guidance.",
+  },
+  {
+    q: "Should I delay OAS to age 70?",
+    a: "Delaying OAS can increase the monthly amount by 0.6% per month up to age 70, for a maximum 36% increase. It may make sense if you are healthy, still working, or trying to coordinate OAS with RRSP withdrawals and tax planning.",
+  },
+  {
+    q: "Is OAS taxable income?",
+    a: "Yes. OAS is taxable income in Canada. It can also be partially or fully clawed back if your net income is high enough, which is why retirees often plan OAS alongside CPP, RRSP, RRIF, and TFSA withdrawals.",
+  },
+];
+
 export default function OASPaymentDates2026() {
   return (
     <div>
@@ -27,6 +53,14 @@ export default function OASPaymentDates2026() {
         description="Complete OAS payment dates for 2026, current OAS amounts for ages 65–74 and 75+, the OAS clawback threshold, GIS amounts, and how to maximize your OAS."
         canonical="https://easyfinancetools.com/blog/oas-payment-dates-2026"
       />
+      <ArticleSchema
+        headline="OAS Payment Dates 2026: Full Schedule, Amounts & Increases"
+        description="See the OAS payment schedule for 2026, current monthly amounts, GIS context, and the main clawback and deferral rules Canadians should know."
+        url="https://easyfinancetools.com/blog/oas-payment-dates-2026"
+        datePublished="2026-03-29"
+        dateModified="2026-04-07"
+      />
+      <FAQSchema faqs={FAQS} />
       <BlogHero
         icon="🏛️"
         category="Retirement · OAS"
@@ -36,6 +70,16 @@ export default function OASPaymentDates2026() {
         gradient="from-purple-600 to-indigo-700"
       />
       <section className="max-w-3xl mx-auto px-4 py-12">
+        <TLDRBox
+          headline="What are the OAS payment dates and amounts for 2026?"
+          answer="OAS payments in 2026 follow the same monthly schedule as CPP, usually landing on the third-to-last business day of each month. In early 2026, the maximum monthly OAS pension is about $727.67 for ages 65 to 74 and about $800.44 for ages 75 and older, with quarterly inflation adjustments and possible clawback for higher-income seniors."
+          points={[
+            "OAS is paid monthly on the same schedule as CPP",
+            "Ages 75+ receive the permanent 10% OAS increase",
+            "OAS is taxable and can be clawed back at higher income levels",
+            "Delaying OAS to 70 can increase the monthly amount by up to 36%",
+          ]}
+        />
         <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <h2>OAS Payment Dates 2026 — Full Schedule</h2>

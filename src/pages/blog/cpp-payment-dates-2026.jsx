@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
+import TLDRBox from "../../components/TLDRBox";
+import FAQSchema from "../../components/FAQSchema";
+import ArticleSchema from "../../components/ArticleSchema";
 
 const payments = [
   { month: "January",   date: "January 29, 2026",   amount: "Varies" },
@@ -19,6 +22,29 @@ const payments = [
   { month: "December",  date: "December 22, 2026",  amount: "Varies" },
 ];
 
+const FAQS = [
+  {
+    q: "When are CPP payments made in 2026?",
+    a: "CPP payments in 2026 are generally issued on the third-to-last business day of each month. If you use direct deposit, the money typically lands on the scheduled payment date shown by Service Canada.",
+  },
+  {
+    q: "What is the maximum CPP amount in 2026?",
+    a: "The maximum monthly CPP retirement pension at age 65 in 2026 is about $1,433, but most Canadians receive less because the maximum requires many years of contributions at or near the annual maximum pensionable earnings level.",
+  },
+  {
+    q: "Should I take CPP at 60, 65, or 70?",
+    a: "It depends on health, life expectancy, work status, and other retirement income. Starting early reduces monthly income permanently, while delaying to age 70 raises the monthly amount materially.",
+  },
+  {
+    q: "Is CPP taxable income?",
+    a: "Yes. CPP retirement payments are taxable income in Canada and are added to your other annual income. You can request voluntary tax withholding if you want to avoid a larger tax bill later.",
+  },
+  {
+    q: "How do I check my estimated CPP amount?",
+    a: "You can view your projected CPP benefit amounts inside My Service Canada Account by reviewing your Statement of Contributions. That estimate usually shows projected benefits at different starting ages such as 60, 65, and 70.",
+  },
+];
+
 export default function CPPPaymentDates2026() {
   return (
     <div>
@@ -27,6 +53,14 @@ export default function CPPPaymentDates2026() {
         description="All 12 CPP payment dates for 2026, maximum monthly amounts, how to sign up for direct deposit, and when to start collecting CPP at 60, 65, or 70."
         canonical="https://easyfinancetools.com/blog/cpp-payment-dates-2026"
       />
+      <ArticleSchema
+        headline="CPP Payment Dates 2026: Complete Schedule + Maximum Amounts"
+        description="See all CPP payment dates for 2026, key maximum amounts, and the main tradeoffs in starting CPP at age 60, 65, or 70."
+        url="https://easyfinancetools.com/blog/cpp-payment-dates-2026"
+        datePublished="2026-03-29"
+        dateModified="2026-04-07"
+      />
+      <FAQSchema faqs={FAQS} />
       <BlogHero
         icon="🇨🇦"
         category="Retirement · CPP"
@@ -36,6 +70,16 @@ export default function CPPPaymentDates2026() {
         gradient="from-purple-500 to-purple-700"
       />
       <section className="max-w-3xl mx-auto px-4 py-12">
+        <TLDRBox
+          headline="What are the CPP payment dates for 2026?"
+          answer="CPP payments in 2026 are made on the third-to-last business day of each month, with direct deposit usually arriving on that exact date. The maximum age-65 retirement pension is about $1,433 per month in 2026, but most Canadians receive less because the final amount depends on lifetime contributions and the age you start benefits."
+          points={[
+            "CPP is normally paid monthly on the third-to-last business day",
+            "Direct deposit is the fastest way to receive benefits",
+            "The maximum benefit is much higher than the average actual payment",
+            "Starting at 60, 65, or 70 changes your lifetime monthly amount",
+          ]}
+        />
         <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <h2>CPP Payment Dates 2026 — Full Schedule</h2>

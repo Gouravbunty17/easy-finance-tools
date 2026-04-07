@@ -4,6 +4,32 @@ import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import TrackedLink from "../../components/TrackedLink";
+import TLDRBox from "../../components/TLDRBox";
+import FAQSchema from "../../components/FAQSchema";
+import ArticleSchema from "../../components/ArticleSchema";
+
+const FAQS = [
+  {
+    q: "What is the FHSA in Canada?",
+    a: "The First Home Savings Account is a registered account for eligible first-time home buyers in Canada. Contributions are tax-deductible like an RRSP, and qualifying withdrawals for a home purchase are tax-free like a TFSA.",
+  },
+  {
+    q: "What is the FHSA contribution limit for 2026?",
+    a: "The annual FHSA contribution limit remains $8,000 per year, with a lifetime maximum of $40,000. You can also carry forward up to $8,000 of unused room, but only after the account has been opened.",
+  },
+  {
+    q: "Can I use both the FHSA and the RRSP Home Buyers' Plan?",
+    a: "Yes. Many eligible first-time buyers can use both the FHSA and the RRSP Home Buyers' Plan for the same qualifying home purchase. That combination can materially increase the total amount available for a down payment.",
+  },
+  {
+    q: "What happens if I never buy a home with my FHSA?",
+    a: "If you do not use the FHSA for a qualifying home purchase, you can usually transfer the balance to an RRSP or RRIF on a tax-deferred basis before the account must be closed. Withdrawing the money directly instead would generally make it taxable as income.",
+  },
+  {
+    q: "Should I open an FHSA even if I am not ready to buy yet?",
+    a: "Often yes, because unused FHSA room only begins to accumulate after the account is opened. Even opening the account early with a small deposit can start the clock on future carry-forward room.",
+  },
+];
 
 export default function HowToUseFHSA() {
   return (
@@ -13,6 +39,14 @@ export default function HowToUseFHSA() {
         description="Complete guide to the FHSA in 2026. Eligibility, contribution limits, tax deductions, withdrawals, and how to combine it with the RRSP Home Buyers' Plan."
         canonical="https://easyfinancetools.com/blog/how-to-use-fhsa-canada"
       />
+      <ArticleSchema
+        headline="How to Use the FHSA in Canada (2026 Guide)"
+        description="Learn how the FHSA works in Canada, who qualifies, the 2026 contribution limits, and how to combine it with the RRSP Home Buyers' Plan."
+        url="https://easyfinancetools.com/blog/how-to-use-fhsa-canada"
+        datePublished="2026-03-28"
+        dateModified="2026-04-07"
+      />
+      <FAQSchema faqs={FAQS} />
       <BlogHero
         icon="🏠"
         category="FHSA · Savings"
@@ -22,6 +56,16 @@ export default function HowToUseFHSA() {
         gradient="from-emerald-500 to-teal-700"
       />
       <section className="max-w-3xl mx-auto px-4 py-12">
+        <TLDRBox
+          headline="How does the FHSA work in Canada?"
+          answer="The FHSA is a first-home savings account that combines two major tax advantages: contributions are deductible like an RRSP, and qualifying home-purchase withdrawals are tax-free like a TFSA. In 2026, the annual limit is $8,000 and the lifetime cap is $40,000, with limited carry-forward room once the account is open."
+          points={[
+            "FHSA contributions can reduce taxable income",
+            "Qualifying home withdrawals are tax-free",
+            "Annual limit: $8,000; lifetime limit: $40,000",
+            "You can often combine the FHSA with the RRSP Home Buyers' Plan",
+          ]}
+        />
         <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <h2>What Is the FHSA?</h2>
