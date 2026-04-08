@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SEO from "../../components/SEO";
 import AdSlot from "../../components/AdSlot";
@@ -424,7 +424,7 @@ function normalizeAssetLabel(quoteType, fallbackLabel, isCrypto) {
   return fallbackLabel;
 }
 
-export default function StockPage() {
+export default function StockPage({ view = "overview" }) {
   const { ticker } = useParams();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
@@ -442,6 +442,8 @@ export default function StockPage() {
   const [macroRatesLoading, setMacroRatesLoading] = useState(false);
   const [topNews, setTopNews] = useState([]);
   const [topNewsLoading, setTopNewsLoading] = useState(false);
+  const [dividendData, setDividendData] = useState(null);
+  const [dividendLoading, setDividendLoading] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
   const [watchlist, setWatchlist] = useState(() => {
     try { return JSON.parse(localStorage.getItem("watchlist") || "[]"); } catch { return []; }
@@ -506,6 +508,20 @@ export default function StockPage() {
     : stockData?.dividendYield && stockData.dividendYield !== "N/A"
       ? "Dividend-paying stock"
       : "Low or no current dividend";
+  const isDividendView = view === "dividend";
+  const dividendSummary = dividendData?.summary || null;
+  const dividendHistory = dividendData?.history || [];
+  const latestDividendCards = useMemo(
+    () => [
+      { label: "Dividend yield", value: dividendSummary?.dividendYield || "N/A" },
+      { label: "Annual dividend", value: dividendSummary?.annualDividend || "N/A" },
+      { label: "Ex-dividend date", value: dividendSummary?.exDividendDate || "N/A" },
+      { label: "Payout frequency", value: dividendSummary?.payoutFrequency || "N/A" },
+      { label: "Payout ratio", value: dividendSummary?.payoutRatio || "N/A" },
+      { label: "Dividend growth", value: dividendSummary?.dividendGrowth || "N/A" },
+    ],
+    [dividendSummary]
+  );
 
   const toggleWatch = (symbol, name) => {
     setWatchlist((prev) =>
@@ -525,6 +541,14 @@ export default function StockPage() {
     fetchAiSummary(currentTicker);
     fetchStockData(currentTicker);
   }, [currentTicker, navigate]);
+
+  useEffect(() => {
+    if (!currentTicker || isCrypto || isMacroAsset) {
+      setDividendData(null);
+      return;
+    }
+    fetchDividendData(currentTicker);
+  }, [currentTicker, isCrypto, isMacroAsset]);
 
   useEffect(() => {
     if (currentTicker) return;
@@ -599,6 +623,20 @@ export default function StockPage() {
     setTopNewsLoading(false);
   };
 
+  const fetchDividendData = async (symbol) => {
+    setDividendLoading(true);
+    try {
+      const response = await fetch(`/api/dividend?ticker=${encodeURIComponent(symbol)}`);
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) throw new Error("Invalid dividend response");
+      const data = await response.json();
+      setDividendData(data || null);
+    } catch {
+      setDividendData(null);
+    }
+    setDividendLoading(false);
+  };
+
   const fetchMacroRates = async () => {
     setMacroRatesLoading(true);
     try {
@@ -662,12 +700,14 @@ export default function StockPage() {
         title={currentTicker ? tickerMeta.pageTitle : "Stocks, ETFs, Commodities and Currency Charts — Canada & US"}
         description={
           currentTicker
-            ? tickerMeta.description
+            ? isDividendView
+              ? `Dividend information, payout history, and dividend metrics for ${tickerMeta.displayName} (${currentTicker}).`
+              : tickerMeta.description
             : "Free live charts, technical analysis, and news for Canadian and US stocks, TSX ETFs, commodities, major currency pairs, and crypto. Track gold, silver, oil, USD/CAD, RY, XEQT, BTC and more."
         }
         canonical={
           currentTicker
-            ? `https://easyfinancetools.com/stocks/${currentTicker}`
+            ? `https://easyfinancetools.com/stocks/${currentTicker}${isDividendView ? "/dividend" : ""}`
             : "https://easyfinancetools.com/stocks"
         }
         robots="index,follow,max-image-preview:large"
@@ -682,9 +722,11 @@ export default function StockPage() {
               "@graph": [
                 {
                   "@type": "WebPage",
-                  name: tickerMeta.pageTitle,
-                  description: tickerMeta.description,
-                  url: `https://easyfinancetools.com/stocks/${currentTicker}`,
+                  name: isDividendView ? `${tickerMeta.displayName} Dividend Information` : tickerMeta.pageTitle,
+                  description: isDividendView
+                    ? `Dividend information, payout history, and dividend metrics for ${tickerMeta.displayName} (${currentTicker}).`
+                    : tickerMeta.description,
+                  url: `https://easyfinancetools.com/stocks/${currentTicker}${isDividendView ? "/dividend" : ""}`,
                   about: {
                     "@type": assetLabel === "crypto" || isMacroAsset ? "Thing" : isFundLike ? "InvestmentFund" : "Corporation",
                     name: tickerMeta.displayName,
@@ -697,6 +739,7 @@ export default function StockPage() {
                     { "@type": "ListItem", position: 1, name: "Home",   item: "https://easyfinancetools.com/" },
                     { "@type": "ListItem", position: 2, name: "Stocks", item: "https://easyfinancetools.com/stocks" },
                     { "@type": "ListItem", position: 3, name: `${tickerMeta.displayName} (${currentTicker})`, item: `https://easyfinancetools.com/stocks/${currentTicker}` },
+                    ...(isDividendView ? [{ "@type": "ListItem", position: 4, name: "Dividends", item: `https://easyfinancetools.com/stocks/${currentTicker}/dividend` }] : []),
                   ],
                 },
               ],
@@ -1242,14 +1285,29 @@ export default function StockPage() {
           <div className="mb-6 flex flex-wrap gap-3">
             {[
               { id: "overview", label: "Overview" },
+              ...(dividendSectionVisible ? [{ id: "dividends", label: "Dividends" }] : []),
               { id: "metrics", label: "Metrics" },
               { id: "news", label: "News" },
               { id: "profile", label: "Profile" },
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => scrollToSection(tab.id)}
-                className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-secondary hover:bg-blue-50 hover:text-primary dark:border-gray-700 dark:bg-gray-800 dark:text-slate-300 dark:hover:border-blue-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                onClick={() => {
+                  if (tab.id === "dividends") {
+                    navigate(`/stocks/${currentTicker}/dividend`);
+                    return;
+                  }
+                  if (isDividendView) {
+                    navigate(`/stocks/${currentTicker}`);
+                    return;
+                  }
+                  scrollToSection(tab.id);
+                }}
+                className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                  (tab.id === "dividends" && isDividendView)
+                    ? "border-secondary bg-blue-50 text-primary dark:border-blue-400 dark:bg-gray-700 dark:text-white"
+                    : "border-gray-200 bg-white text-slate-600 hover:border-secondary hover:bg-blue-50 hover:text-primary dark:border-gray-700 dark:bg-gray-800 dark:text-slate-300 dark:hover:border-blue-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                }`}
               >
                 {tab.label}
               </button>
@@ -1264,6 +1322,126 @@ export default function StockPage() {
             )}
           </div>
 
+          {isDividendView ? (
+            <div className="space-y-6">
+              <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800">
+                <div className="flex flex-wrap items-end justify-between gap-4">
+                  <div>
+                    <SectionLabel>Dividend information</SectionLabel>
+                    <h3 className="text-2xl font-bold text-primary dark:text-accent">{currentTicker} dividend information</h3>
+                    <p className="mt-2 max-w-3xl text-sm leading-7 text-gray-600 dark:text-gray-300">
+                      Review dividend yield, annual payout, ex-dividend timing, payout frequency, and recent dividend history for {tickerMeta.displayName}.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => navigate("/tools/dividend-calculator")}
+                    className="rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+                  >
+                    Open dividend calculator
+                  </button>
+                </div>
+
+                <div className="mt-6 grid gap-3 md:grid-cols-3 xl:grid-cols-6">
+                  {(dividendLoading ? [...Array(6)] : latestDividendCards).map((card, index) => (
+                    <div key={card?.label || index} className="rounded-xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-900">
+                      {dividendLoading ? (
+                        <>
+                          <SkeletonLine cls="h-3 w-24" />
+                          <SkeletonLine cls="mt-3 h-6 w-20" />
+                        </>
+                      ) : (
+                        <>
+                          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500">{card.label}</p>
+                          <p className="mt-2 text-lg font-bold text-primary dark:text-accent">{card.value}</p>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div id="dividends" className="scroll-mt-28 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+                <div className="flex flex-wrap items-center justify-between gap-3 px-4 pb-1 pt-4">
+                  <div>
+                    <h3 className="font-bold text-primary dark:text-accent">Dividend history</h3>
+                    <p className="text-xs text-gray-400">Recent payouts sorted from newest to oldest</p>
+                  </div>
+                  <button
+                    onClick={() => navigate(`/stocks/${currentTicker}`)}
+                    className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:border-secondary hover:text-primary dark:border-gray-700 dark:bg-gray-900 dark:text-slate-300"
+                  >
+                    Back to overview
+                  </button>
+                </div>
+
+                <div className="px-4 pb-5 pt-3">
+                  {dividendLoading ? (
+                    <div className="space-y-3">
+                      {[...Array(10)].map((_, index) => <SkeletonLine key={index} cls="h-10 w-full" />)}
+                    </div>
+                  ) : dividendHistory.length > 0 ? (
+                    <div className="overflow-x-auto">
+                      <table className="min-w-full text-sm">
+                        <thead className="bg-slate-50 dark:bg-gray-900">
+                          <tr>
+                            {["Ex-dividend date", "Cash amount"].map((header) => (
+                              <th key={header} className="px-4 py-3 text-left font-semibold text-gray-500 dark:text-gray-400">{header}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                          {dividendHistory.map((row) => (
+                            <tr key={`${row.exDate}-${row.cashAmount}`} className="bg-white dark:bg-gray-800">
+                              <td className="px-4 py-3 font-medium text-primary dark:text-accent">{row.exDate}</td>
+                              <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{row.cashAmount}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <div className="rounded-xl border border-dashed border-gray-200 bg-slate-50 p-5 text-sm text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
+                      No dividend history is available for this symbol right now. Try another stock or ETF, or go back to the main overview.
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-3">
+                {[
+                  {
+                    title: "Dividend calculator",
+                    body: "Model DRIP, yield-on-cost, and long-term income using this symbol as a starting point.",
+                    href: "/tools/dividend-calculator",
+                  },
+                  {
+                    title: isFundLike ? "Weekly dividend ETFs" : "Dividend investing platforms",
+                    body: isFundLike
+                      ? "Compare covered-call and payout-heavy ETFs before relying on headline yield alone."
+                      : "Compare platforms before you buy a dividend stock or ETF.",
+                    href: isFundLike ? "/blog/weekly-dividend-etfs" : "/blog/best-dividend-investing-platforms-canada",
+                  },
+                  {
+                    title: relatedComparisons[0]?.label || "Compare alternatives",
+                    body: "Open a side-by-side comparison to see whether another income option fits better.",
+                    href: relatedComparisons[0]
+                      ? `/stocks/compare/${makeComparisonSlug(relatedComparisons[0].left, relatedComparisons[0].right)}`
+                      : "/stocks/dividend-etfs",
+                  },
+                ].map((item) => (
+                  <button
+                    key={item.title}
+                    onClick={() => navigate(item.href)}
+                    className="rounded-2xl border border-gray-100 bg-white p-5 text-left transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+                  >
+                    <p className="text-lg font-bold text-primary dark:text-accent">{item.title}</p>
+                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{item.body}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+          <>
           <div className="mb-6 grid gap-6 xl:grid-cols-[minmax(0,1.55fr)_360px]">
             <div className="space-y-6">
               <div id="overview" className="scroll-mt-28 rounded-2xl border border-gray-100 bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800">
@@ -1706,6 +1884,8 @@ export default function StockPage() {
               </button>
             ))}
           </div>
+          </>
+          )}
         </div>
       )}
     </div>

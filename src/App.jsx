@@ -107,6 +107,7 @@ export default function App() {
             <Route path="/stocks/tsx-bank-stocks" element={<StockCollectionPage collectionKey="tsx-bank-stocks" />} />
             <Route path="/stocks/compare" element={<CompareStocksPage />} />
             <Route path="/stocks/compare/:comparisonSlug" element={<CompareStocksPage />} />
+            <Route path="/stocks/:ticker/dividend" element={<StockPage view="dividend" />} />
             <Route path="/stocks/:ticker" element={<StockPage />} />
             <Route path="/tools/gic-calculator" element={<GICCalculator />} />
             <Route path="/tools/debt-payoff" element={<DebtPayoffCalculator />} />
