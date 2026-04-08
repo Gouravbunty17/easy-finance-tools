@@ -83,10 +83,17 @@ module.exports = async function handler(req, res) {
     try {
       const chartUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=5d&includePrePost=false`;
       const { body } = await httpsRequest('GET', chartUrl, cookieHeader);
-      const meta = body?.chart?.result?.[0]?.meta;
+      const result = body?.chart?.result?.[0];
+      const meta = result?.meta;
+      const closes = result?.indicators?.quote?.[0]?.close || [];
 
       if (meta?.regularMarketPrice) {
-        const prev = meta.previousClose || meta.chartPreviousClose || meta.regularMarketPrice;
+        const lastValidClose = [...closes].reverse().find((value) => Number.isFinite(value));
+        const previousSessionClose = [...closes]
+          .slice(0, -1)
+          .reverse()
+          .find((value) => Number.isFinite(value));
+        const prev = previousSessionClose || meta.previousClose || lastValidClose || meta.chartPreviousClose || meta.regularMarketPrice;
         const change = meta.regularMarketPrice - prev;
         const changePct = prev ? (change / prev) * 100 : 0;
 
