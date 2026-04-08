@@ -468,6 +468,29 @@ export default function StockPage() {
     : null;
   const relatedComparisons = currentTicker ? getRelatedComparisons(currentTicker) : [];
   const alternativeSymbols = currentTicker ? getAlternativeSymbols(currentTicker, isCrypto, isFundLike, isCommodity, isForex) : [];
+  const quoteDirectionClass = Number(stockData?.changePct || 0) >= 0 ? "text-emerald-500" : "text-red-500";
+  const quickStats = stockData
+    ? [
+        { label: "Open", value: formatStatValue(stockData.open, stockData.currency, isForex) },
+        { label: "Prev close", value: formatStatValue(stockData.prevClose, stockData.currency, isForex) },
+        { label: "Day range", value: stockData.dayLow && stockData.dayHigh ? `${stockData.dayLow} - ${stockData.dayHigh}` : "N/A" },
+        { label: "52-week range", value: stockData.weekLow52 && stockData.weekHigh52 ? `${stockData.weekLow52} - ${stockData.weekHigh52}` : "N/A" },
+        { label: "Volume", value: stockData.volume || "N/A" },
+        { label: "Avg volume", value: stockData.avgVolume || "N/A" },
+        { label: isFundLike ? "AUM / size" : isMacroAsset ? "Market type" : "Market cap", value: isMacroAsset ? tickerMeta.exchangeLabel : stockData.marketCap || "N/A" },
+        { label: isFundLike ? "Yield" : isMacroAsset ? "Currency" : "Dividend yield", value: stockData.dividendYield || stockData.currency || "N/A" },
+      ]
+    : [];
+  const valuationStats = stockData
+    ? [
+        { label: "Trailing PE", value: stockData.trailingPE || "N/A" },
+        { label: "Forward PE", value: stockData.forwardPE || "N/A" },
+        { label: "EPS", value: stockData.eps || "N/A" },
+        { label: "Beta", value: stockData.beta || "N/A" },
+        { label: "Sector", value: stockData.sector || "N/A" },
+        { label: "Industry", value: stockData.industry || "N/A" },
+      ]
+    : [];
 
   const toggleWatch = (symbol, name) => {
     setWatchlist((prev) =>
@@ -1226,32 +1249,117 @@ export default function StockPage() {
             )}
           </div>
 
-          {/* Symbol info strip */}
-          <div id="overview" className="scroll-mt-28 mb-4 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
-            <TVWidget
-              id={`info-${tvSymbol}`}
-              height={180}
-              scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js"
-              configFn={(dark) => ({ symbol: tvSymbol, width: "100%", locale: "en", colorTheme: dark ? "dark" : "light", isTransparent: false })}
-            />
-          </div>
+          <div className="mb-6 grid gap-6 xl:grid-cols-[minmax(0,1.55fr)_360px]">
+            <div className="space-y-6">
+              <div id="overview" className="scroll-mt-28 rounded-2xl border border-gray-100 bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800">
+                <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+                  <div>
+                    <div className="mb-3 flex flex-wrap items-center gap-3">
+                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
+                        {assetLabel === "ETF" ? "ETF snapshot" : assetLabel === "crypto" ? "Crypto snapshot" : assetLabel === "commodity" ? "Commodity snapshot" : assetLabel === "forex" ? "Currency pair snapshot" : "Stock snapshot"}
+                      </p>
+                      <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500 dark:bg-slate-700 dark:text-slate-300">
+                        {tickerMeta.exchangeLabel}
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap items-end gap-4">
+                      <div>
+                        <p className="text-4xl font-bold text-primary dark:text-white">
+                          {stockData ? formatStatValue(stockData.price, stockData.currency, isForex) : "Loading..."}
+                        </p>
+                        <div className={`mt-2 flex items-center gap-2 text-sm font-semibold ${quoteDirectionClass}`}>
+                          <span>{stockData ? `${Number(stockData.change || 0) >= 0 ? "+" : ""}${Number(stockData.change || 0).toFixed(2)}` : "—"}</span>
+                          <span>{stockData ? `${Number(stockData.changePct || 0) >= 0 ? "+" : ""}${Number(stockData.changePct || 0).toFixed(2)}%` : ""}</span>
+                        </div>
+                      </div>
+                      <div className="grid flex-1 gap-3 sm:grid-cols-3">
+                        {quickStats.slice(0, 3).map((item) => (
+                          <div key={item.label} className="rounded-xl border border-gray-100 bg-slate-50 p-3 dark:border-gray-700 dark:bg-gray-900">
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500">{item.label}</p>
+                            <p className="mt-1 text-sm font-bold text-primary dark:text-accent">{item.value}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="mt-4 max-w-2xl text-sm leading-7 text-gray-600 dark:text-gray-300">
+                      {tickerMeta.description}
+                    </p>
+                  </div>
 
-          {/* Main chart */}
-          <div className="mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-900">
-            <div className="px-4 pb-1 pt-4">
-              <h3 className="font-bold text-primary dark:text-accent">Price chart</h3>
-              <p className="text-xs text-gray-400">Interactive — click to adjust interval or timeframe</p>
+                  <div className="rounded-2xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-900">
+                    <p className="mb-3 text-sm font-bold text-primary dark:text-accent">Key stats</p>
+                    <div className="space-y-2">
+                      {quickStats.slice(3, 8).map((item) => (
+                        <div key={item.label} className="flex items-center justify-between gap-3 border-b border-gray-200/70 py-2 text-sm last:border-0 dark:border-gray-700/70">
+                          <span className="text-gray-500 dark:text-gray-400">{item.label}</span>
+                          <span className="text-right font-semibold text-primary dark:text-white">{item.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-900">
+                <div className="px-4 pb-1 pt-4">
+                  <h3 className="font-bold text-primary dark:text-accent">Price chart</h3>
+                  <p className="text-xs text-gray-400">Interactive — click to adjust interval or timeframe</p>
+                </div>
+                <TVWidget
+                  id={`chart-${tvSymbol}`}
+                  height={620}
+                  scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
+                  configFn={(dark) => ({
+                    autosize: false, width: "100%", height: 620, symbol: tvSymbol,
+                    interval: "D", timezone: "America/Toronto", theme: dark ? "dark" : "light",
+                    style: "1", locale: "en", save_image: true, support_host: "https://www.tradingview.com",
+                  })}
+                />
+              </div>
             </div>
-            <TVWidget
-              id={`chart-${tvSymbol}`}
-              height={620}
-              scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
-              configFn={(dark) => ({
-                autosize: false, width: "100%", height: 620, symbol: tvSymbol,
-                interval: "D", timezone: "America/Toronto", theme: dark ? "dark" : "light",
-                style: "1", locale: "en", save_image: true, support_host: "https://www.tradingview.com",
-              })}
-            />
+
+            <div className="space-y-6 xl:sticky xl:top-24 xl:self-start">
+              <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+                <div className="px-4 pb-1 pt-4">
+                  <h3 className="font-bold text-primary dark:text-accent">Quote table</h3>
+                  <p className="text-xs text-gray-400">Quick values users expect above the fold</p>
+                </div>
+                <div className="px-4 pb-5 pt-3">
+                  <div className="space-y-2">
+                    {[...quickStats, ...valuationStats].map((item) => (
+                      <div key={item.label} className="flex items-center justify-between gap-3 border-b border-gray-200/70 py-2 text-sm last:border-0 dark:border-gray-700/70">
+                        <span className="text-gray-500 dark:text-gray-400">{item.label}</span>
+                        <span className="text-right font-semibold text-primary dark:text-white">{item.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+                <div className="px-4 pb-1 pt-4">
+                  <h3 className="font-bold text-primary dark:text-accent">Quick links</h3>
+                  <p className="text-xs text-gray-400">Comparison pages and nearby alternatives</p>
+                </div>
+                <div className="space-y-3 px-4 pb-5 pt-3">
+                  {(relatedComparisons.length > 0 ? relatedComparisons : COMPARISON_PRESETS.slice(0, 2)).map((preset) => (
+                    <button
+                      key={preset.label}
+                      onClick={() => navigate(`/stocks/compare/${makeComparisonSlug(preset.left, preset.right)}`)}
+                      className="w-full rounded-xl border border-gray-200 bg-slate-50 p-3 text-left transition hover:border-secondary hover:bg-white hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+                    >
+                      <p className="font-semibold text-primary dark:text-accent">{preset.label}</p>
+                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{preset.blurb}</p>
+                    </button>
+                  ))}
+                  <div className="grid grid-cols-2 gap-2 pt-1">
+                    {alternativeSymbols.slice(0, 4).map((item) => (
+                      <SymbolChip key={item.t} item={item} onClick={() => navigate(`/stocks/${item.t}`)} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <AdSlot slot="1901528811" format="auto" />
@@ -1416,12 +1524,27 @@ export default function StockPage() {
                         href={href}
                         target="_blank"
                         rel="noreferrer"
-                        className="rounded-xl border border-gray-100 bg-slate-50 p-4 transition hover:border-secondary hover:bg-white hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+                        className="grid gap-4 rounded-xl border border-gray-100 bg-slate-50 p-4 transition hover:border-secondary hover:bg-white hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800 md:grid-cols-[140px_minmax(0,1fr)]"
                       >
-                        <p className="font-semibold text-primary dark:text-accent">{item.title || "Read the latest story"}</p>
-                        <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                          <span>{publisher}</span>
-                          {item.providerPublishTime && <span>· {formatNewsDate(item.providerPublishTime)}</span>}
+                        {item.thumbnail ? (
+                          <div className="overflow-hidden rounded-xl border border-gray-200 bg-slate-200 dark:border-gray-700 dark:bg-slate-800">
+                            <img
+                              src={item.thumbnail}
+                              alt={item.title || publisher}
+                              className="h-full w-full object-cover"
+                              loading="lazy"
+                            />
+                          </div>
+                        ) : (
+                          <div className="hidden rounded-xl border border-dashed border-gray-200 bg-white md:block dark:border-gray-700 dark:bg-gray-800" />
+                        )}
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-secondary">
+                            <span>{publisher}</span>
+                            {item.providerPublishTime && <span className="normal-case tracking-normal text-gray-500 dark:text-gray-400">{formatNewsDate(item.providerPublishTime)}</span>}
+                          </div>
+                          <p className="mt-2 text-lg font-semibold leading-7 text-primary dark:text-accent">{item.title || "Read the latest story"}</p>
+                          <p className="mt-3 text-sm font-semibold text-secondary">Open story →</p>
                         </div>
                       </a>
                     );
@@ -1450,49 +1573,7 @@ export default function StockPage() {
 
           <AdSlot slot="3078879111" format="auto" />
 
-          <div className="mt-6 grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-              <div className="mb-4 flex items-end justify-between gap-3">
-                <div>
-                  <SectionLabel>Related compare links</SectionLabel>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Jump into the closest side-by-side research pages for this symbol.
-                  </p>
-                </div>
-              </div>
-              <div className="grid gap-3 md:grid-cols-2">
-                {(relatedComparisons.length > 0 ? relatedComparisons : COMPARISON_PRESETS.slice(0, 2)).map((preset) => (
-                  <button
-                    key={preset.label}
-                    onClick={() => navigate(`/stocks/compare/${makeComparisonSlug(preset.left, preset.right)}`)}
-                    className="rounded-2xl border border-gray-200 bg-slate-50 p-4 text-left transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
-                  >
-                    <p className="text-base font-bold text-primary dark:text-accent">{preset.label}</p>
-                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{preset.blurb}</p>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-              <div className="mb-4 flex items-end justify-between gap-3">
-                <div>
-                  <SectionLabel>{isFundLike ? "ETF alternatives" : isCrypto ? "Related crypto" : isCommodity ? "Commodity alternatives" : isForex ? "Currency alternatives" : "Stock alternatives"}</SectionLabel>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Nearby alternatives users often compare before opening another chart.
-                  </p>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                {alternativeSymbols.map((item) => (
-                  <SymbolChip key={item.t} item={item} onClick={() => navigate(`/stocks/${item.t}`)} />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Related articles */}
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
             {[
               { title: "Best ETFs for TFSA",    body: "Compare XEQT, VEQT, XGRO, VFV, and dividend-focused options for registered accounts.", href: "/blog/best-etfs-for-tfsa-canada-2026" },
               comparePreset
