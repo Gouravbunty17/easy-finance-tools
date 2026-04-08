@@ -442,6 +442,7 @@ export default function StockPage() {
   const [macroRatesLoading, setMacroRatesLoading] = useState(false);
   const [topNews, setTopNews] = useState([]);
   const [topNewsLoading, setTopNewsLoading] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
   const [watchlist, setWatchlist] = useState(() => {
     try { return JSON.parse(localStorage.getItem("watchlist") || "[]"); } catch { return []; }
   });
@@ -452,6 +453,13 @@ export default function StockPage() {
   useEffect(() => {
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
   }, [watchlist]);
+
+  useEffect(() => {
+    const updateMobileView = () => setIsMobileView(window.innerWidth < 768);
+    updateMobileView();
+    window.addEventListener("resize", updateMobileView);
+    return () => window.removeEventListener("resize", updateMobileView);
+  }, []);
 
   const currentTicker = ticker?.toUpperCase();
   const isWatched = watchlist.some((item) => item.t === currentTicker);
@@ -631,7 +639,7 @@ export default function StockPage() {
     setSearch(""); setSuggestions([]); setShowSuggestions(false);
   };
 
-  const showTradingViewFinancials = !isCrypto && !isFundLike && !isMacroAsset;
+  const showTradingViewFinancials = !isCrypto && !isFundLike && !isMacroAsset && !isMobileView;
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -1307,10 +1315,10 @@ export default function StockPage() {
                 </div>
                 <TVWidget
                   id={`chart-${tvSymbol}`}
-                  height={620}
+                  height={isMobileView ? 420 : 620}
                   scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
                   configFn={(dark) => ({
-                    autosize: false, width: "100%", height: 620, symbol: tvSymbol,
+                    autosize: false, width: "100%", height: isMobileView ? 420 : 620, symbol: tvSymbol,
                     interval: "D", timezone: "America/Toronto", theme: dark ? "dark" : "light",
                     style: "1", locale: "en", save_image: true, support_host: "https://www.tradingview.com",
                   })}
@@ -1366,60 +1374,100 @@ export default function StockPage() {
 
           {/* Technical + Profile */}
           <div id="profile" className="scroll-mt-28 mb-6 grid gap-6 md:grid-cols-2">
-            <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
-              <div className="px-4 pb-1 pt-4">
-                <h3 className="font-bold text-primary dark:text-accent">Technical analysis</h3>
-                <p className="text-xs text-gray-400">Buy, sell, and neutral signal summary</p>
-              </div>
-              <TVWidget
-                id={`tech-${tvSymbol}`}
-                height={425}
-                scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js"
-                configFn={(dark) => ({
-                  interval: "1D", width: "100%", isTransparent: false, height: 425,
-                  symbol: tvSymbol, showIntervalTabs: true, locale: "en", colorTheme: dark ? "dark" : "light",
-                })}
-              />
-            </div>
-
-            <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
-              <div className="px-4 pb-1 pt-4">
-                <h3 className="font-bold text-primary dark:text-accent">
-                  {isCrypto ? "Crypto profile" : isFundLike ? "Fund profile" : isCommodity ? "Commodity profile" : isForex ? "Currency pair profile" : "Company profile"}
-                </h3>
-              </div>
-              {isMacroAsset ? (
-                <div className="space-y-4 px-4 pb-5 pt-3 text-sm text-gray-600 dark:text-gray-300">
-                  <div className="rounded-xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-900">
-                    <p className="font-semibold text-primary dark:text-accent">
-                      {isCommodity ? "What to watch" : "Why this pair matters"}
-                    </p>
-                    <p className="mt-2 leading-7">{tickerMeta.description}</p>
+            {isMobileView ? (
+              <>
+                <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+                  <div className="px-4 pb-1 pt-4">
+                    <h3 className="font-bold text-primary dark:text-accent">Mobile summary</h3>
+                    <p className="text-xs text-gray-400">Lighter view for phones so the page loads reliably</p>
                   </div>
-                  <div className="grid gap-3 md:grid-cols-2">
-                    {[
-                      isCommodity
-                        ? "Commodity prices react to supply shocks, inventory moves, inflation expectations, and global growth data."
-                        : "Currency pairs move with central-bank decisions, inflation trends, rate expectations, and risk sentiment.",
-                      isCommodity
-                        ? "Use the chart and news together to separate one-day volatility from broader trend changes."
-                        : "Use the chart and news together to see whether a move is policy-driven, risk-driven, or commodity-linked.",
-                    ].map((point) => (
-                      <div key={point} className="rounded-xl border border-gray-100 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-                        {point}
+                  <div className="space-y-3 px-4 pb-5 pt-3 text-sm text-gray-600 dark:text-gray-300">
+                    <div className="rounded-xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-900">
+                      {tickerMeta.description}
+                    </div>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <div className="rounded-xl border border-gray-100 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+                        Open the chart above for the full price view and timeframe controls.
+                      </div>
+                      <div className="rounded-xl border border-gray-100 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+                        News and quote data stay below, but extra desktop widgets are trimmed on phones for stability.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+                  <div className="px-4 pb-1 pt-4">
+                    <h3 className="font-bold text-primary dark:text-accent">Quick stats</h3>
+                    <p className="text-xs text-gray-400">Key figures without the extra widget load</p>
+                  </div>
+                  <div className="grid gap-3 px-4 pb-5 pt-3 sm:grid-cols-2">
+                    {[...quickStats.slice(0, 6), ...valuationStats.slice(0, 2)].map((item) => (
+                      <div key={item.label} className="rounded-xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-900">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500">{item.label}</p>
+                        <p className="mt-1 text-sm font-bold text-primary dark:text-accent">{item.value}</p>
                       </div>
                     ))}
                   </div>
                 </div>
-              ) : (
-                <TVWidget
-                  id={`profile-${tvSymbol}`}
-                  height={425}
-                  scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js"
-                  configFn={(dark) => ({ width: "100%", height: 425, symbol: tvSymbol, colorTheme: dark ? "dark" : "light", isTransparent: false, locale: "en" })}
-                />
-              )}
-            </div>
+              </>
+            ) : (
+              <>
+                <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+                  <div className="px-4 pb-1 pt-4">
+                    <h3 className="font-bold text-primary dark:text-accent">Technical analysis</h3>
+                    <p className="text-xs text-gray-400">Buy, sell, and neutral signal summary</p>
+                  </div>
+                  <TVWidget
+                    id={`tech-${tvSymbol}`}
+                    height={425}
+                    scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js"
+                    configFn={(dark) => ({
+                      interval: "1D", width: "100%", isTransparent: false, height: 425,
+                      symbol: tvSymbol, showIntervalTabs: true, locale: "en", colorTheme: dark ? "dark" : "light",
+                    })}
+                  />
+                </div>
+
+                <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
+                  <div className="px-4 pb-1 pt-4">
+                    <h3 className="font-bold text-primary dark:text-accent">
+                      {isCrypto ? "Crypto profile" : isFundLike ? "Fund profile" : isCommodity ? "Commodity profile" : isForex ? "Currency pair profile" : "Company profile"}
+                    </h3>
+                  </div>
+                  {isMacroAsset ? (
+                    <div className="space-y-4 px-4 pb-5 pt-3 text-sm text-gray-600 dark:text-gray-300">
+                      <div className="rounded-xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-900">
+                        <p className="font-semibold text-primary dark:text-accent">
+                          {isCommodity ? "What to watch" : "Why this pair matters"}
+                        </p>
+                        <p className="mt-2 leading-7">{tickerMeta.description}</p>
+                      </div>
+                      <div className="grid gap-3 md:grid-cols-2">
+                        {[
+                          isCommodity
+                            ? "Commodity prices react to supply shocks, inventory moves, inflation expectations, and global growth data."
+                            : "Currency pairs move with central-bank decisions, inflation trends, rate expectations, and risk sentiment.",
+                          isCommodity
+                            ? "Use the chart and news together to separate one-day volatility from broader trend changes."
+                            : "Use the chart and news together to see whether a move is policy-driven, risk-driven, or commodity-linked.",
+                        ].map((point) => (
+                          <div key={point} className="rounded-xl border border-gray-100 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+                            {point}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <TVWidget
+                      id={`profile-${tvSymbol}`}
+                      height={425}
+                      scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js"
+                      configFn={(dark) => ({ width: "100%", height: 425, symbol: tvSymbol, colorTheme: dark ? "dark" : "light", isTransparent: false, locale: "en" })}
+                    />
+                  )}
+                </div>
+              </>
+            )}
           </div>
 
           {/* AI summary */}
