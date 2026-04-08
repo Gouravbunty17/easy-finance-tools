@@ -499,6 +499,13 @@ export default function StockPage() {
         { label: "Industry", value: stockData.industry || "N/A" },
       ]
     : [];
+  const dividendSectionVisible = !isCrypto && !isMacroAsset && Boolean(stockData);
+  const dividendLabel = stockData?.dividendYield && stockData.dividendYield !== "N/A" ? stockData.dividendYield : "No yield data";
+  const dividendProfileLabel = isFundLike
+    ? "ETF income profile"
+    : stockData?.dividendYield && stockData.dividendYield !== "N/A"
+      ? "Dividend-paying stock"
+      : "Low or no current dividend";
 
   const toggleWatch = (symbol, name) => {
     setWatchlist((prev) =>
@@ -1511,6 +1518,69 @@ export default function StockPage() {
                     <p className="mt-2 text-lg font-bold text-primary dark:text-accent">{item.value}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {dividendSectionVisible && (
+            <div className="mb-6 rounded-2xl border border-gray-100 bg-white p-5 shadow dark:border-gray-700 dark:bg-gray-800">
+              <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+                <div>
+                  <SectionLabel>Dividend section</SectionLabel>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    A faster income-focused read for dividend stocks and ETFs.
+                  </p>
+                </div>
+              </div>
+              <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+                <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+                  <div className="rounded-xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-900">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">Dividend yield</p>
+                    <p className="mt-2 text-2xl font-bold text-primary dark:text-accent">{dividendLabel}</p>
+                  </div>
+                  <div className="rounded-xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-900">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">Profile</p>
+                    <p className="mt-2 text-base font-bold text-primary dark:text-accent">{dividendProfileLabel}</p>
+                  </div>
+                  <div className="rounded-xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-900">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">Best next step</p>
+                    <p className="mt-2 text-sm font-semibold text-primary dark:text-accent">
+                      {isFundLike ? "Compare this ETF with other income funds." : "Model cash flow before relying on yield alone."}
+                    </p>
+                  </div>
+                </div>
+                <div className="grid gap-3 md:grid-cols-3">
+                  {[
+                    {
+                      title: "Dividend calculator",
+                      desc: "Model income and DRIP scenarios using this symbol as a starting point.",
+                      href: "/tools/dividend-calculator",
+                    },
+                    {
+                      title: isFundLike ? "Weekly dividend ETFs" : "Dividend investing platforms",
+                      desc: isFundLike
+                        ? "See how covered-call and high-yield ETFs differ before chasing payout size."
+                        : "Review platform choices if this stock is part of a dividend-income plan.",
+                      href: isFundLike ? "/blog/weekly-dividend-etfs" : "/blog/best-dividend-investing-platforms-canada",
+                    },
+                    {
+                      title: relatedComparisons[0]?.label || "Compare alternatives",
+                      desc: "Open a side-by-side page to see whether another income option fits better.",
+                      href: relatedComparisons[0]
+                        ? `/stocks/compare/${makeComparisonSlug(relatedComparisons[0].left, relatedComparisons[0].right)}`
+                        : "/stocks/dividend-etfs",
+                    },
+                  ].map((item) => (
+                    <button
+                      key={item.title}
+                      onClick={() => navigate(item.href)}
+                      className="rounded-xl border border-gray-200 bg-slate-50 p-4 text-left transition hover:border-secondary hover:bg-white hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+                    >
+                      <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
+                      <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{item.desc}</p>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           )}
