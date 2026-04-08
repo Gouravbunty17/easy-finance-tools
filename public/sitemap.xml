@@ -223,6 +223,36 @@
     <priority>0.69</priority>
   </url>
   <url>
+    <loc>https://easyfinancetools.com/stocks/GC=F</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/SI=F</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.68</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/CL=F</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.69</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/CAD=X</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.67</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/stocks/EURUSD=X</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.67</priority>
+  </url>
+  <url>
     <loc>https://easyfinancetools.com/about</loc>
     <lastmod>2026-04-03</lastmod>
     <changefreq>monthly</changefreq>

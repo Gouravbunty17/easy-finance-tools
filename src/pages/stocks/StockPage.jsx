@@ -104,6 +104,24 @@ const POPULAR_CRYPTO = [
   { t: "DOGE-USD", n: "Dogecoin", market: "Crypto" },
 ];
 
+const POPULAR_COMMODITIES = [
+  { t: "GC=F", n: "Gold futures", market: "Commodity", label: "Gold" },
+  { t: "SI=F", n: "Silver futures", market: "Commodity", label: "Silver" },
+  { t: "CL=F", n: "WTI crude oil", market: "Commodity", label: "WTI Oil" },
+  { t: "BZ=F", n: "Brent crude oil", market: "Commodity", label: "Brent" },
+  { t: "NG=F", n: "Natural gas", market: "Commodity", label: "Nat Gas" },
+  { t: "HG=F", n: "Copper futures", market: "Commodity", label: "Copper" },
+];
+
+const POPULAR_FOREX = [
+  { t: "CAD=X", n: "US dollar to Canadian dollar", market: "FX", label: "USD/CAD" },
+  { t: "EURUSD=X", n: "Euro to US dollar", market: "FX", label: "EUR/USD" },
+  { t: "GBPUSD=X", n: "British pound to US dollar", market: "FX", label: "GBP/USD" },
+  { t: "JPY=X", n: "US dollar to Japanese yen", market: "FX", label: "USD/JPY" },
+  { t: "AUDUSD=X", n: "Australian dollar to US dollar", market: "FX", label: "AUD/USD" },
+  { t: "CHF=X", n: "US dollar to Swiss franc", market: "FX", label: "USD/CHF" },
+];
+
 
 // ─── Symbol metadata ─────────────────────────────────────────────────────────
 
@@ -164,6 +182,18 @@ const SYMBOL_METADATA = {
   "XRP-USD":  { name: "XRP",       type: "crypto", exchange: "Crypto", tvSymbol: "BINANCE:XRPUSDT",  description: "Track XRP price with live chart, technical analysis, and news. The native asset of the XRP Ledger, primarily used for fast cross-border payments." },
   "BNB-USD":  { name: "BNB",       type: "crypto", exchange: "Crypto", tvSymbol: "BINANCE:BNBUSDT",  description: "Track BNB price with live chart, technical analysis, and news. The native token of BNB Chain, originally launched by the Binance exchange." },
   "DOGE-USD": { name: "Dogecoin",  type: "crypto", exchange: "Crypto", tvSymbol: "BINANCE:DOGEUSDT", description: "Track Dogecoin (DOGE) price with live chart, technical analysis, and news. One of the original meme coins with a large retail following." },
+  "GC=F": { name: "Gold", type: "commodity", exchange: "Commodity", tvSymbol: "TVC:GOLD", shortLabel: "Gold", description: "Track gold price with a live chart, technical analysis, and market headlines. Useful for watching safe-haven flows, inflation expectations, and commodity momentum." },
+  "SI=F": { name: "Silver", type: "commodity", exchange: "Commodity", tvSymbol: "TVC:SILVER", shortLabel: "Silver", description: "Track silver price with a live chart, technical analysis, and market headlines. Silver often moves with both precious-metals sentiment and industrial demand." },
+  "CL=F": { name: "WTI Crude Oil", type: "commodity", exchange: "Commodity", tvSymbol: "TVC:USOIL", shortLabel: "WTI Oil", description: "Track WTI crude oil with a live chart, technical analysis, and headlines. This is one of the most watched energy benchmarks for North American markets." },
+  "BZ=F": { name: "Brent Crude Oil", type: "commodity", exchange: "Commodity", tvSymbol: "TVC:UKOIL", shortLabel: "Brent", description: "Track Brent crude oil with a live chart, technical analysis, and headlines. Brent is a major global oil benchmark used across international energy markets." },
+  "NG=F": { name: "Natural Gas", type: "commodity", exchange: "Commodity", tvSymbol: "NYMEX:NG1!", shortLabel: "Nat Gas", description: "Track natural gas with a live chart, technical analysis, and headlines. Natural gas is a volatile energy commodity tied to weather, storage, and industrial demand." },
+  "HG=F": { name: "Copper", type: "commodity", exchange: "Commodity", tvSymbol: "COMEX:HG1!", shortLabel: "Copper", description: "Track copper with a live chart, technical analysis, and headlines. Copper is often watched as a global growth and industrial-demand barometer." },
+  "CAD=X": { name: "USD/CAD", type: "forex", exchange: "FX", tvSymbol: "FX:USDCAD", shortLabel: "USD/CAD", description: "Track USD/CAD with a live chart, technical analysis, and headlines. This pair is useful for Canadians watching the loonie against the US dollar." },
+  "EURUSD=X": { name: "EUR/USD", type: "forex", exchange: "FX", tvSymbol: "FX:EURUSD", shortLabel: "EUR/USD", description: "Track EUR/USD with a live chart, technical analysis, and headlines. This is the world's most traded currency pair." },
+  "GBPUSD=X": { name: "GBP/USD", type: "forex", exchange: "FX", tvSymbol: "FX:GBPUSD", shortLabel: "GBP/USD", description: "Track GBP/USD with a live chart, technical analysis, and headlines. This pair is closely watched for UK and US macro signals." },
+  "JPY=X": { name: "USD/JPY", type: "forex", exchange: "FX", tvSymbol: "FX:USDJPY", shortLabel: "USD/JPY", description: "Track USD/JPY with a live chart, technical analysis, and headlines. It is one of the most liquid and macro-sensitive FX pairs." },
+  "AUDUSD=X": { name: "AUD/USD", type: "forex", exchange: "FX", tvSymbol: "FX:AUDUSD", shortLabel: "AUD/USD", description: "Track AUD/USD with a live chart, technical analysis, and headlines. This pair often reflects commodity demand and broader risk appetite." },
+  "CHF=X": { name: "USD/CHF", type: "forex", exchange: "FX", tvSymbol: "FX:USDCHF", shortLabel: "USD/CHF", description: "Track USD/CHF with a live chart, technical analysis, and headlines. This pair is often watched during risk-off moves and central-bank shifts." },
 };
 
 // ─── TSX ticker set for symbol resolution ────────────────────────────────────
@@ -186,6 +216,42 @@ const CRYPTO_MAP = {
   ARB: "ARB-USD", OP: "OP-USD", SUI: "SUI-USD", TRX: "TRX-USD", INJ: "INJ-USD",
 };
 
+const SEARCH_SHORTCUT_MAP = {
+  GOLD: "GC=F",
+  SILVER: "SI=F",
+  OIL: "CL=F",
+  WTI: "CL=F",
+  BRENT: "BZ=F",
+  NATGAS: "NG=F",
+  NATURALGAS: "NG=F",
+  NATURAL_GAS: "NG=F",
+  COPPER: "HG=F",
+  USDCAD: "CAD=X",
+  "USD/CAD": "CAD=X",
+  EURUSD: "EURUSD=X",
+  "EUR/USD": "EURUSD=X",
+  GBPUSD: "GBPUSD=X",
+  "GBP/USD": "GBPUSD=X",
+  USDJPY: "JPY=X",
+  "USD/JPY": "JPY=X",
+  AUDUSD: "AUDUSD=X",
+  "AUD/USD": "AUDUSD=X",
+  USDCHF: "CHF=X",
+  "USD/CHF": "CHF=X",
+};
+
+function normalizeSearchTicker(value) {
+  const cleaned = String(value || "").trim().toUpperCase();
+  if (!cleaned) return "";
+  return SEARCH_SHORTCUT_MAP[cleaned] || SEARCH_SHORTCUT_MAP[cleaned.replace(/\s+/g, "")] || cleaned;
+}
+
+function shortSymbolLabel(symbol) {
+  const meta = SYMBOL_METADATA[symbol];
+  if (meta?.shortLabel) return meta.shortLabel;
+  return symbol.replace(".TO", "").replace("-USD", "");
+}
+
 function toTVSymbol(ticker) {
   if (!ticker) return "";
   if (SYMBOL_METADATA[ticker]?.tvSymbol) return SYMBOL_METADATA[ticker].tvSymbol;
@@ -203,6 +269,8 @@ const TYPE_BADGE = {
   ETF:            { label: "ETF",    cls: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400" },
   EQUITY:         { label: "Stock",  cls: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" },
   MUTUALFUND:     { label: "Fund",   cls: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" },
+  FUTURE:         { label: "Commodity", cls: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300" },
+  CURRENCY:       { label: "FX", cls: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300" },
 };
 
 const FUND_FALLBACK_RESOURCES = [
@@ -261,6 +329,18 @@ const RELATED_ALTERNATIVES_MAP = {
   "ETH-USD": ["BTC-USD", "SOL-USD", "BNB-USD", "XRP-USD"],
   "SOL-USD": ["ETH-USD", "BTC-USD", "XRP-USD", "BNB-USD"],
   "XRP-USD": ["BTC-USD", "ETH-USD", "SOL-USD", "BNB-USD"],
+  "GC=F": ["SI=F", "CL=F", "BZ=F", "HG=F"],
+  "SI=F": ["GC=F", "HG=F", "CL=F", "NG=F"],
+  "CL=F": ["BZ=F", "NG=F", "GC=F", "SI=F"],
+  "BZ=F": ["CL=F", "NG=F", "GC=F", "SI=F"],
+  "NG=F": ["CL=F", "BZ=F", "GC=F", "HG=F"],
+  "HG=F": ["GC=F", "SI=F", "CL=F", "BZ=F"],
+  "CAD=X": ["EURUSD=X", "GBPUSD=X", "JPY=X", "AUDUSD=X"],
+  "EURUSD=X": ["GBPUSD=X", "CAD=X", "JPY=X", "CHF=X"],
+  "GBPUSD=X": ["EURUSD=X", "CAD=X", "JPY=X", "CHF=X"],
+  "JPY=X": ["CAD=X", "EURUSD=X", "GBPUSD=X", "CHF=X"],
+  "AUDUSD=X": ["CAD=X", "EURUSD=X", "GBPUSD=X", "CL=F"],
+  "CHF=X": ["EURUSD=X", "GBPUSD=X", "JPY=X", "CAD=X"],
 };
 
 function SymbolChip({ item, onClick }) {
@@ -270,7 +350,7 @@ function SymbolChip({ item, onClick }) {
       className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-left text-sm transition hover:border-secondary hover:bg-blue-50 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:hover:border-blue-500 dark:hover:bg-gray-700"
     >
       <div className="flex items-center gap-2">
-        <span className="font-bold text-primary dark:text-white">{item.t.replace(".TO", "").replace("-USD", "")}</span>
+        <span className="font-bold text-primary dark:text-white">{item.label || shortSymbolLabel(item.t)}</span>
         <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-500 dark:bg-slate-700 dark:text-slate-300">
           {item.market}
         </span>
@@ -299,8 +379,8 @@ function getTickerMeta(currentTicker, tvSymbol, isCrypto) {
     assetLabel,
     exchangeLabel,
     pageTitle: known
-      ? `${known.name} (${currentTicker}) ${known.type === "ETF" ? "ETF" : known.type === "crypto" ? "Price" : "Stock"} Chart, News and Analysis`
-      : `${currentTicker} ${isCrypto ? "Price" : "Stock"} Chart, News and Analysis`,
+      ? `${known.name} (${currentTicker}) ${known.type === "ETF" ? "ETF" : known.type === "crypto" ? "Price" : known.type === "commodity" ? "Commodity Price" : known.type === "forex" ? "Currency Chart" : "Stock"} Chart, News and Analysis`
+      : `${currentTicker} ${isCrypto ? "Price" : "Chart"} News and Analysis`,
     description: known?.description || `Live ${currentTicker} chart, technical analysis, financials, and latest news on EasyFinanceTools.`,
   };
 }
@@ -318,14 +398,17 @@ function buildSymbolChipItem(symbol) {
     t: symbol,
     n: meta?.name || symbol,
     market: meta?.exchange || (symbol.endsWith(".TO") ? "TSX" : symbol.endsWith("-USD") ? "Crypto" : "Market"),
+    label: meta?.shortLabel,
   };
 }
 
-function getAlternativeSymbols(currentTicker, isCrypto, isFundLike) {
+function getAlternativeSymbols(currentTicker, isCrypto, isFundLike, isCommodity, isForex) {
   const mapped = RELATED_ALTERNATIVES_MAP[currentTicker];
   if (mapped?.length) return mapped.map(buildSymbolChipItem);
 
   if (isCrypto) return POPULAR_CRYPTO.filter((item) => item.t !== currentTicker).slice(0, 4);
+  if (isCommodity) return POPULAR_COMMODITIES.filter((item) => item.t !== currentTicker).slice(0, 4);
+  if (isForex) return POPULAR_FOREX.filter((item) => item.t !== currentTicker).slice(0, 4);
   if (isFundLike) return POPULAR_ETFS_CA.filter((item) => item.t !== currentTicker).slice(0, 4);
   return POPULAR_STOCKS_CA.filter((item) => item.t !== currentTicker).slice(0, 4);
 }
@@ -336,6 +419,8 @@ function normalizeAssetLabel(quoteType, fallbackLabel, isCrypto) {
   if (type === "ETF") return "ETF";
   if (["MUTUALFUND", "MUTUAL FUND", "CLOSED_END_FUND"].includes(type)) return "fund";
   if (type === "CRYPTOCURRENCY") return "crypto";
+  if (type === "FUTURE") return "commodity";
+  if (type === "CURRENCY") return "forex";
   return fallbackLabel;
 }
 
@@ -372,12 +457,15 @@ export default function StockPage() {
   const tvSymbol = toTVSymbol(currentTicker);
   const tickerMeta = getTickerMeta(currentTicker, tvSymbol, isCrypto);
   const assetLabel = normalizeAssetLabel(stockData?.quoteType, tickerMeta.assetLabel, isCrypto);
+  const isCommodity = assetLabel === "commodity";
+  const isForex = assetLabel === "forex";
+  const isMacroAsset = isCommodity || isForex;
   const isFundLike = assetLabel === "ETF" || assetLabel === "fund";
   const comparePreset = currentTicker
     ? COMPARISON_PRESETS.find((preset) => preset.left === currentTicker || preset.right === currentTicker)
     : null;
   const relatedComparisons = currentTicker ? getRelatedComparisons(currentTicker) : [];
-  const alternativeSymbols = currentTicker ? getAlternativeSymbols(currentTicker, isCrypto, isFundLike) : [];
+  const alternativeSymbols = currentTicker ? getAlternativeSymbols(currentTicker, isCrypto, isFundLike, isCommodity, isForex) : [];
 
   const toggleWatch = (symbol, name) => {
     setWatchlist((prev) =>
@@ -494,13 +582,13 @@ export default function StockPage() {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    const value = search.trim().toUpperCase();
+    const value = normalizeSearchTicker(search);
     if (!value) return;
     navigate(`/stocks/${value}`);
     setSearch(""); setSuggestions([]); setShowSuggestions(false);
   };
 
-  const showTradingViewFinancials = !isCrypto && !isFundLike;
+  const showTradingViewFinancials = !isCrypto && !isFundLike && !isMacroAsset;
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -513,11 +601,11 @@ export default function StockPage() {
   return (
     <div className="min-h-screen">
       <SEO
-        title={currentTicker ? tickerMeta.pageTitle : "Stock, ETF and Crypto Charts — Canada & US"}
+        title={currentTicker ? tickerMeta.pageTitle : "Stocks, ETFs, Commodities and Currency Charts — Canada & US"}
         description={
           currentTicker
             ? tickerMeta.description
-            : "Free live charts, technical analysis, financials, and news for Canadian and US stocks, TSX ETFs, and crypto. Track RY, TD, ENB, XEQT, VEQT, BTC and more."
+            : "Free live charts, technical analysis, and news for Canadian and US stocks, TSX ETFs, commodities, major currency pairs, and crypto. Track gold, silver, oil, USD/CAD, RY, XEQT, BTC and more."
         }
         canonical={
           currentTicker
@@ -540,7 +628,7 @@ export default function StockPage() {
                   description: tickerMeta.description,
                   url: `https://easyfinancetools.com/stocks/${currentTicker}`,
                   about: {
-                    "@type": assetLabel === "crypto" ? "Thing" : isFundLike ? "InvestmentFund" : "Corporation",
+                    "@type": assetLabel === "crypto" || isMacroAsset ? "Thing" : isFundLike ? "InvestmentFund" : "Corporation",
                     name: tickerMeta.displayName,
                     tickerSymbol: currentTicker,
                   },
@@ -566,12 +654,12 @@ export default function StockPage() {
             Canadian &amp; US markets
           </div>
           <h1 className="mb-2 text-3xl font-bold text-white md:text-4xl">
-            {currentTicker ? tickerMeta.displayName : "Stocks, ETFs & Crypto"}
+            {currentTicker ? tickerMeta.displayName : "Stocks, ETFs, Commodities & FX"}
           </h1>
           <p className="mb-6 text-sm text-blue-100 md:text-base">
             {currentTicker
               ? `Live chart, technical analysis, and news for ${currentTicker}`
-              : "Live charts, technical analysis, and news for TSX, US markets, and crypto."}
+              : "Live charts, technical analysis, and news for TSX, US markets, gold, silver, oil, major currency pairs, and crypto."}
           </p>
 
           <div ref={searchRef} className="relative mx-auto max-w-xl">
@@ -581,10 +669,10 @@ export default function StockPage() {
                 value={search}
                 onChange={(event) => handleSearchInput(event.target.value)}
                 onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-                placeholder="Search AAPL, RY, XEQT, Bitcoin, BTC…"
+                placeholder="Search AAPL, RY, XEQT, Gold, Oil, USD/CAD..."
                 className="flex-1 rounded-xl px-4 py-3 font-semibold text-gray-900 outline-none focus:ring-2 focus:ring-accent"
                 autoComplete="off"
-                aria-label="Search stocks, ETFs, or crypto"
+                aria-label="Search stocks, ETFs, commodities, currencies, or crypto"
               />
               <button
                 type="submit"
@@ -746,7 +834,7 @@ export default function StockPage() {
           <div className="mb-10 grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
             <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
               <SectionLabel>Featured collections</SectionLabel>
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
                 {[
                   {
                     title: "Canadian bank stocks",
@@ -772,6 +860,16 @@ export default function StockPage() {
                     title: "Canadian dividend stocks",
                     desc: "Browse established TSX dividend names across banks, telecom, and pipelines.",
                     href: "/stocks/canadian-dividend-stocks",
+                  },
+                  {
+                    title: "Commodities",
+                    desc: "Track gold, silver, WTI oil, Brent, natural gas, and copper from one market-watch section.",
+                    href: "/stocks/GC=F",
+                  },
+                  {
+                    title: "Currency charts",
+                    desc: "Open USD/CAD, EUR/USD, GBP/USD, and other major FX pairs quickly.",
+                    href: "/stocks/CAD=X",
                   },
                 ].map((item) => (
                   <button
@@ -845,6 +943,22 @@ export default function StockPage() {
               onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
               viewAllHref="/stocks/compare/xeqt-vs-veqt"
               viewAllLabel="Open compare pages"
+            />
+            <CuratedTickerSection
+              title="Commodities"
+              subtitle="Gold, silver, oil, natural gas, and copper inside the same research flow"
+              items={POPULAR_COMMODITIES}
+              onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
+              viewAllHref="/stocks/GC=F"
+              viewAllLabel="Open gold chart"
+            />
+            <CuratedTickerSection
+              title="Currency charts"
+              subtitle="Follow USD/CAD plus major FX pairs without leaving the same page pattern"
+              items={POPULAR_FOREX}
+              onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
+              viewAllHref="/stocks/CAD=X"
+              viewAllLabel="Open USD/CAD"
             />
             <CuratedTickerSection
               title="Crypto"
@@ -1040,6 +1154,8 @@ export default function StockPage() {
               {assetLabel === "ETF" ? `ETF · ${tickerMeta.exchangeLabel}`
                 : assetLabel === "fund" ? `Fund · ${tickerMeta.exchangeLabel}`
                 : assetLabel === "crypto" ? "Crypto"
+                : assetLabel === "commodity" ? "Commodity"
+                : assetLabel === "forex" ? "FX"
                 : tickerMeta.exchangeLabel}
             </span>
           </div>
@@ -1124,15 +1240,40 @@ export default function StockPage() {
             <div className="overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
               <div className="px-4 pb-1 pt-4">
                 <h3 className="font-bold text-primary dark:text-accent">
-                  {isCrypto ? "Crypto profile" : isFundLike ? "Fund profile" : "Company profile"}
+                  {isCrypto ? "Crypto profile" : isFundLike ? "Fund profile" : isCommodity ? "Commodity profile" : isForex ? "Currency pair profile" : "Company profile"}
                 </h3>
               </div>
-              <TVWidget
-                id={`profile-${tvSymbol}`}
-                height={425}
-                scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js"
-                configFn={(dark) => ({ width: "100%", height: 425, symbol: tvSymbol, colorTheme: dark ? "dark" : "light", isTransparent: false, locale: "en" })}
-              />
+              {isMacroAsset ? (
+                <div className="space-y-4 px-4 pb-5 pt-3 text-sm text-gray-600 dark:text-gray-300">
+                  <div className="rounded-xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-900">
+                    <p className="font-semibold text-primary dark:text-accent">
+                      {isCommodity ? "What to watch" : "Why this pair matters"}
+                    </p>
+                    <p className="mt-2 leading-7">{tickerMeta.description}</p>
+                  </div>
+                  <div className="grid gap-3 md:grid-cols-2">
+                    {[
+                      isCommodity
+                        ? "Commodity prices react to supply shocks, inventory moves, inflation expectations, and global growth data."
+                        : "Currency pairs move with central-bank decisions, inflation trends, rate expectations, and risk sentiment.",
+                      isCommodity
+                        ? "Use the chart and news together to separate one-day volatility from broader trend changes."
+                        : "Use the chart and news together to see whether a move is policy-driven, risk-driven, or commodity-linked.",
+                    ].map((point) => (
+                      <div key={point} className="rounded-xl border border-gray-100 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+                        {point}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <TVWidget
+                  id={`profile-${tvSymbol}`}
+                  height={425}
+                  scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js"
+                  configFn={(dark) => ({ width: "100%", height: 425, symbol: tvSymbol, colorTheme: dark ? "dark" : "light", isTransparent: false, locale: "en" })}
+                />
+              )}
             </div>
           </div>
 
@@ -1201,12 +1342,16 @@ export default function StockPage() {
           ) : !isCrypto ? (
             <div className="mb-6 overflow-hidden rounded-2xl bg-white shadow dark:bg-gray-800">
               <div className="px-4 pb-1 pt-4">
-                <h3 className="font-bold text-primary dark:text-accent">Fund details</h3>
-                <p className="text-xs text-gray-400">ETF and fund financial statements are not available in this view</p>
+                <h3 className="font-bold text-primary dark:text-accent">{isMacroAsset ? "Market details" : "Fund details"}</h3>
+                <p className="text-xs text-gray-400">
+                  {isMacroAsset ? "Financial statements are not applicable for commodity and currency charts" : "ETF and fund financial statements are not available in this view"}
+                </p>
               </div>
               <div className="px-4 pb-5 pt-3">
                 <div className="rounded-xl border border-dashed border-gray-200 bg-slate-50 p-5 text-sm text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                  Traditional income statements are generally not applicable for ETFs and covered-call products. Use the chart, profile, key metrics, and news sections above to research this symbol.
+                  {isMacroAsset
+                    ? "Commodity and FX charts do not have company-style financial statements. Use the chart, technical panel, key metrics, and latest headlines above to research this market."
+                    : "Traditional income statements are generally not applicable for ETFs and covered-call products. Use the chart, profile, key metrics, and news sections above to research this symbol."}
                 </div>
               </div>
             </div>
@@ -1295,7 +1440,7 @@ export default function StockPage() {
             <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
               <div className="mb-4 flex items-end justify-between gap-3">
                 <div>
-                  <SectionLabel>{isFundLike ? "ETF alternatives" : isCrypto ? "Related crypto" : "Stock alternatives"}</SectionLabel>
+                  <SectionLabel>{isFundLike ? "ETF alternatives" : isCrypto ? "Related crypto" : isCommodity ? "Commodity alternatives" : isForex ? "Currency alternatives" : "Stock alternatives"}</SectionLabel>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
                     Nearby alternatives users often compare before opening another chart.
                   </p>

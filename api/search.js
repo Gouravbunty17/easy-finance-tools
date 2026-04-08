@@ -40,7 +40,7 @@ module.exports = async function handler(req, res) {
     const { body } = await httpsGet(url);
 
     const results = (body?.quotes || [])
-      .filter(r => r.symbol && r.quoteType !== 'OPTION' && r.quoteType !== 'FUTURE' && r.quoteType !== 'INDEX')
+      .filter(r => r.symbol && r.quoteType !== 'OPTION' && r.quoteType !== 'INDEX')
       .slice(0, 8)
       .map(r => ({
         symbol: r.symbol,
