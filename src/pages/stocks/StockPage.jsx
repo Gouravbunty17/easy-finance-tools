@@ -1696,6 +1696,19 @@ function formatRateValue(value, market, currency) {
   return currency && market !== "FX" ? `${formatted} ${currency}` : formatted;
 }
 
+function formatStatValue(value, currency, isForex = false) {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return "N/A";
+
+  const digits = isForex ? 4 : numeric >= 1000 ? 0 : 2;
+  const formatted = numeric.toLocaleString("en-CA", {
+    minimumFractionDigits: isForex ? 4 : 0,
+    maximumFractionDigits: digits,
+  });
+
+  return currency && !isForex ? `${formatted} ${currency}` : formatted;
+}
+
 function MoversPanel({ title, items, loading, emptyLabel, tone, onSelect, showVolume = false }) {
   const toneClass =
     tone === "positive"
