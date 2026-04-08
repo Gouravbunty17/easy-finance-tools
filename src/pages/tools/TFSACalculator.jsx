@@ -12,12 +12,12 @@ import {
   Filler,
 } from "chart.js";
 import SEO from "../../components/SEO";
-import ReferralSection from "../../components/ReferralSection";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
+import ActionableNextSteps from "../../components/ActionableNextSteps";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -510,20 +510,55 @@ export default function TFSACalculator() {
         </div>
       </section>
 
-      <section className="mt-10 grid gap-4 md:grid-cols-3">
-        <SurfaceTrackedLink to="/blog/how-much-tfsa-room-2026" eventName="tool_result_cta_click" ctaLabel="tfsa_room_guide" trackingParams={{ tool_name: "tfsa_calculator", section: "next_steps", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
-          <h2 className="text-lg font-bold text-primary dark:text-accent">TFSA room guide</h2>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Read the year-by-year rules and the most common contribution-room mistakes.</p>
-        </SurfaceTrackedLink>
-        <SurfaceTrackedLink to="/blog/tfsa-vs-rrsp-2026" eventName="tool_result_cta_click" ctaLabel="tfsa_vs_rrsp_guide" trackingParams={{ tool_name: "tfsa_calculator", section: "next_steps", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
-          <h2 className="text-lg font-bold text-primary dark:text-accent">TFSA vs RRSP</h2>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Compare the tax-free route against the tax-deduction route before you contribute.</p>
-        </SurfaceTrackedLink>
-        <SurfaceTrackedLink to="/tools/rrsp-calculator" eventName="tool_result_cta_click" ctaLabel="next_tool_rrsp" trackingParams={{ tool_name: "tfsa_calculator", section: "next_steps", destination_type: "tool" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
-          <h2 className="text-lg font-bold text-primary dark:text-accent">Next tool: RRSP</h2>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Model the refund side of the decision once you have a TFSA baseline.</p>
-        </SurfaceTrackedLink>
-      </section>
+      <ActionableNextSteps
+        toolName="tfsa_calculator"
+        title="Turn the TFSA projection into a real account decision"
+        intro="Use the projected balance and room estimate to decide whether the TFSA should receive the next contribution, then compare providers only after the account priority is clear."
+        meaning={`A projected TFSA value of $${result.finalValue.toLocaleString()} in ${years} years is useful only if the TFSA is still the right home for the next dollar. Your directional room estimate is $${result.contributionRoom.toLocaleString()}, so verify CRA room before acting on a large deposit.`}
+        steps={[
+          "Review whether the TFSA still beats the RRSP for your next contribution.",
+          "Read the room rules before making a large deposit or re-contribution.",
+          "Compare providers only after you are confident the TFSA is the right account.",
+        ]}
+        actions={[
+          {
+            title: "Review TFSA room rules",
+            body: "Read the year-by-year contribution-room rules and avoid the common over-contribution mistakes.",
+            href: "/blog/how-much-tfsa-room-2026",
+            ctaLabel: "tfsa_room_guide",
+          },
+          {
+            title: "Compare TFSA vs RRSP",
+            body: "Check whether the tax-free route or the tax-deduction route should get the next contribution.",
+            href: "/blog/tfsa-vs-rrsp-2026",
+            ctaLabel: "tfsa_vs_rrsp_guide",
+          },
+          {
+            title: "Open RRSP calculator",
+            body: "Model the refund side of the decision once you have a TFSA baseline.",
+            href: "/tools/rrsp-calculator",
+            ctaLabel: "next_tool_rrsp",
+          },
+        ]}
+        referral={{
+          placement: "tfsa_calculator_referral",
+          badge: "TFSA-friendly offer",
+          title: "Get $25 free with Wealthsimple",
+          highlight: "$25 free",
+          description:
+            "If you want a simple place to open a TFSA and start with broad ETF investing, this can be a reasonable next step after you verify your room and confirm the TFSA should get the next contribution.",
+          fitHeading: "Why this may fit after the TFSA math",
+          fitPoints: [
+            "You want a simple first TFSA setup rather than a heavier brokerage workflow.",
+            "Your plan is broad ETFs and recurring contributions, not complex trading.",
+            "You have already checked that the TFSA should get the next contribution.",
+          ],
+          details: "Use the referral code at signup | No fee to open | Keep comparing provider details before you decide",
+          disclosure:
+            "Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change how we explain TFSA contribution room, account priority, or provider comparisons.",
+          buttonLabel: "Start with Wealthsimple",
+        }}
+      />
 
       <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
@@ -554,22 +589,6 @@ export default function TFSACalculator() {
         </div>
       </section>
 
-      <ReferralSection
-        placement="tfsa_calculator_referral"
-        badge="TFSA-friendly offer"
-        title="Get $25 free with Wealthsimple"
-        highlight="$25 free"
-        description="If you want a simple place to open a TFSA and start with broad ETF investing, this offer can be a reasonable next step after you verify your room and account priority."
-        fitHeading="Why this may fit after the TFSA math"
-        fitPoints={[
-          "You want a simple first TFSA setup rather than a heavier brokerage workflow.",
-          "Your plan is broad ETFs and recurring contributions, not complex trading.",
-          "You have already checked that the TFSA should get the next contribution.",
-        ]}
-        details="Use the referral code at signup | No fee to open | Keep comparing provider details before you decide"
-        disclosure="Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change how we explain TFSA contribution room, account priority, or provider comparisons."
-        buttonLabel="Open TFSA Offer"
-      />
       <FAQ items={TFSA_FAQS} />
     </section>
   );

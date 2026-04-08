@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -15,6 +14,7 @@ import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
+import ActionableNextSteps from "../../components/ActionableNextSteps";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 
@@ -415,20 +415,55 @@ export default function RRSPCalculator() {
         ]}
       />
 
-      <section className="mt-10 grid gap-4 md:grid-cols-3">
-        <SurfaceTrackedLink to="/blog/rrsp-deadline-2026" eventName="tool_result_cta_click" ctaLabel="rrsp_deadline_guide" trackingParams={{ tool_name: "rrsp_calculator", section: "next_steps", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
-          <h2 className="text-lg font-bold text-primary dark:text-accent">RRSP deadline guide</h2>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Review the deduction deadline, contribution rules, and refund timing.</p>
-        </SurfaceTrackedLink>
-        <SurfaceTrackedLink to="/blog/tfsa-vs-rrsp-2026" eventName="tool_result_cta_click" ctaLabel="rrsp_vs_tfsa_guide" trackingParams={{ tool_name: "rrsp_calculator", section: "next_steps", destination_type: "article" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
-          <h2 className="text-lg font-bold text-primary dark:text-accent">RRSP vs TFSA</h2>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Compare deduction-first and tax-free-first strategies before you contribute.</p>
-        </SurfaceTrackedLink>
-        <SurfaceTrackedLink to="/tools/income-tax-calculator" eventName="tool_result_cta_click" ctaLabel="next_tool_income_tax" trackingParams={{ tool_name: "rrsp_calculator", section: "next_steps", destination_type: "tool" }} className="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-gray-800">
-          <h2 className="text-lg font-bold text-primary dark:text-accent">Next tool: income tax</h2>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Check your take-home pay and tax bracket before choosing a contribution size.</p>
-        </SurfaceTrackedLink>
-      </section>
+      <ActionableNextSteps
+        toolName="rrsp_calculator"
+        title="Turn the refund estimate into a real contribution plan"
+        intro="The strongest RRSP workflow is to use the refund estimate, long-term growth, and tax-bracket context together. Once that looks strong, then compare where to open the account."
+        meaning={`An estimated refund of ${fmt(results.taxRefund)} and a projected balance of ${fmt(results.finalValue)} can justify the RRSP, but only if the deduction still beats the TFSA tradeoff for your income and timeline.`}
+        steps={[
+          "Pressure-test a few contribution levels instead of relying on one refund number.",
+          "Compare the RRSP result against the TFSA tradeoff before acting.",
+          "Once the RRSP still looks best, compare providers and open the account.",
+        ]}
+        actions={[
+          {
+            title: "Review the RRSP deadline",
+            body: "Check the deduction deadline, contribution rules, and refund timing before you contribute.",
+            href: "/blog/rrsp-deadline-2026",
+            ctaLabel: "rrsp_deadline_guide",
+          },
+          {
+            title: "Compare RRSP vs TFSA",
+            body: "Use the account-choice guide before treating the refund estimate as the whole decision.",
+            href: "/blog/tfsa-vs-rrsp-2026",
+            ctaLabel: "rrsp_vs_tfsa_guide",
+          },
+          {
+            title: "Open income tax calculator",
+            body: "Check your take-home pay and tax bracket before finalizing the contribution size.",
+            href: "/tools/income-tax-calculator",
+            ctaLabel: "next_tool_income_tax",
+          },
+        ]}
+        referral={{
+          placement: "rrsp_calculator_referral",
+          badge: "RRSP-friendly offer",
+          title: "Get $25 free with Wealthsimple",
+          highlight: "$25 free",
+          description:
+            "If the RRSP math looks strong and you want a simple long-term account setup, this can be a reasonable next step after you compare providers and confirm the deduction still makes sense.",
+          fitHeading: "Why this may fit after the RRSP math",
+          fitPoints: [
+            "You want an RRSP that is easy to fund and keep contributing to.",
+            "Your plan is long-term ETF investing rather than a more manual brokerage workflow.",
+            "You have already checked the refund impact and account priority first.",
+          ],
+          details: "Use the referral code at signup | Keep comparing RRSP account details and transfer rules before choosing",
+          disclosure:
+            "Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change how we explain RRSP deductions, tax assumptions, or provider comparisons.",
+          buttonLabel: "Start with Wealthsimple",
+        }}
+      />
 
       <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Compare providers next</p>
@@ -454,23 +489,6 @@ export default function RRSPCalculator() {
           </SurfaceTrackedLink>
         </div>
       </section>
-
-      <ReferralSection
-        placement="rrsp_calculator_referral"
-        badge="RRSP-friendly offer"
-        title="Get $25 free with Wealthsimple"
-        highlight="$25 free"
-        description="If the RRSP math looks strong and you want a simple long-term account setup, this offer can be a reasonable next step after you compare providers and confirm the deduction still makes sense."
-        fitHeading="Why this may fit after the RRSP math"
-        fitPoints={[
-          "You want an RRSP that is easy to fund and keep contributing to.",
-          "Your plan is long-term ETF investing rather than a more manual brokerage workflow.",
-          "You have already checked the refund impact and account priority first.",
-        ]}
-        details="Use the referral code at signup | Keep comparing RRSP account details and transfer rules before choosing"
-        disclosure="Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change how we explain RRSP deductions, tax assumptions, or provider comparisons."
-        buttonLabel="Open RRSP Offer"
-      />
 
       <FAQ items={RRSP_FAQS} />
     </section>

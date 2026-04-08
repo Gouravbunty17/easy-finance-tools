@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import {
   Chart as ChartJS,
   Filler,
@@ -15,6 +14,7 @@ import SEO from "../../components/SEO";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
+import ActionableNextSteps from "../../components/ActionableNextSteps";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -402,30 +402,55 @@ export default function CompoundInterestCalculator() {
         ))}
       </section>
 
-      <section className="mt-10 grid gap-4 md:grid-cols-3">
-        {[
+      <ActionableNextSteps
+        toolName="compound_interest_calculator"
+        title="Turn the growth curve into a real investing decision"
+        intro="This calculator is most useful when it becomes a decision tool, not just a projection. Use the compounding result to decide where the money should live and which provider fits the plan."
+        meaning={`${formatCurrency(Math.round(projection.endingBalance))} is the directional result of your current contribution pace, fee drag, and time horizon. The best next move is usually deciding whether that plan belongs in a TFSA, RRSP, or a more general savings workflow.`}
+        steps={[
+          "Compare the same contribution plan inside a TFSA or RRSP before you open an account.",
+          "Check whether the monthly amount is realistic enough to repeat consistently.",
+          "Only compare brokers or investing apps after the account type and fee sensitivity are clear.",
+        ]}
+        actions={[
           {
             title: "Open TFSA calculator",
             body: "See how tax-free growth changes the result once contribution room matters.",
             href: "/tools/tfsa-calculator",
+            ctaLabel: "open_tfsa_calculator",
           },
           {
             title: "Open RRSP calculator",
             body: "Compare compounding with the tax deduction and refund side of the decision.",
             href: "/tools/rrsp-calculator",
+            ctaLabel: "open_rrsp_calculator",
           },
           {
             title: "Open savings goal calculator",
             body: "Reverse the math and calculate the monthly amount needed to hit a target date.",
             href: "/tools/savings-goal",
+            ctaLabel: "open_savings_goal_calculator",
           },
-        ].map((item) => (
-          <Link key={item.title} to={item.href} className="surface-card p-5 transition hover:-translate-y-0.5 hover:shadow-md">
-            <h2 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h2>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
-          </Link>
-        ))}
-      </section>
+        ]}
+        referral={{
+          placement: "compound_interest_calculator_referral",
+          badge: "Beginner-friendly offer",
+          title: "Get $25 free with Wealthsimple",
+          highlight: "$25 free",
+          description:
+            "If the contribution plan looks realistic and you want a simple place to start investing, this can be a reasonable next step after you compare account types and providers.",
+          fitHeading: "Why this may fit after the growth plan",
+          fitPoints: [
+            "You want a simple account opening flow and recurring contributions.",
+            "Your plan is long-term ETF investing, not frequent trading.",
+            "You have already checked whether the TFSA or RRSP should be the account wrapper.",
+          ],
+          details: "Use the referral code at signup | Keep comparing fees, account types, and features before choosing",
+          disclosure:
+            "Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change how we explain compounding, fee drag, or account comparisons.",
+          buttonLabel: "Start with Wealthsimple",
+        }}
+      />
 
       <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Compare providers next</p>

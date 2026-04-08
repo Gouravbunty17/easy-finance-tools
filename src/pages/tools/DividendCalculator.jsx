@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -15,8 +14,8 @@ import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
+import ActionableNextSteps from "../../components/ActionableNextSteps";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
-import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
@@ -375,37 +374,55 @@ export default function DividendCalculator() {
         note="Educational estimate only. Dividend safety, valuation, and actual tax treatment should be checked before making investment decisions."
       />
 
-      <div className="mt-8 grid gap-4 md:grid-cols-3">
-        {[
+      <ActionableNextSteps
+        toolName="dividend_calculator"
+        title="Turn the income projection into a real portfolio move"
+        intro="Use the projected income, DRIP assumptions, and yield on cost to decide what kind of income strategy you actually want, then compare platforms or ETF ideas that fit it."
+        meaning={`A projected annual income of ${fmt(results.finalAnnualDiv)} in year ${yearsValue} looks strong only if the yield, growth rate, and account location are realistic. Treat the calculator as a scenario tool, then move into ETF choices and provider comparisons.`}
+        steps={[
+          "Decide whether you want diversified dividend ETFs or single-stock income exposure.",
+          "Check whether the holding should live in a TFSA or another account before acting.",
+          "Compare platforms only after the income strategy itself is clear.",
+        ]}
+        actions={[
           {
             title: "Best ETFs for a TFSA",
             body: "Compare broad-market and dividend ETF choices if you are deciding where income assets fit inside a registered account.",
             href: "/blog/best-etfs-for-tfsa-canada-2026",
+            ctaLabel: "best_etfs_for_a_tfsa",
           },
           {
             title: "Weekly dividend ETFs",
             body: "Read the guide before relying on payout-heavy or covered-call funds as an income strategy.",
             href: "/blog/weekly-dividend-etfs",
+            ctaLabel: "weekly_dividend_etfs",
           },
           {
-            title: "Methodology and sources",
-            body: "Review trust, privacy, disclosure, and source-handling standards across the site.",
-            href: "/methodology",
+            title: "Best dividend platforms",
+            body: "Compare Canadian investing platforms before you put the income plan into action.",
+            href: "/blog/best-dividend-investing-platforms-canada",
+            ctaLabel: "best_dividend_platforms",
           },
-        ].map((item) => (
-          <SurfaceTrackedLink
-            key={item.href}
-            to={item.href}
-            eventName="tool_result_cta_click"
-            ctaLabel={item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}
-            trackingParams={{ tool_name: "dividend_calculator", section: "next_steps", destination_type: item.href.startsWith("/tools/") ? "tool" : "article" }}
-            className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900"
-          >
-            <p className="text-lg font-bold text-primary dark:text-accent">{item.title}</p>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
-          </SurfaceTrackedLink>
-        ))}
-      </div>
+        ]}
+        referral={{
+          placement: "dividend_calculator_referral",
+          badge: "Income-investing offer",
+          title: "Get $25 free with Wealthsimple",
+          highlight: "$25 free",
+          description:
+            "If you want a simple way to buy dividend ETFs or Canadian dividend stocks, this can be a reasonable next step after you decide on the income strategy and account type.",
+          fitHeading: "Why this may fit after the dividend math",
+          fitPoints: [
+            "You want a simple investing workflow for ETFs or long-term dividend holdings.",
+            "Your plan is recurring contributions and DRIP-style reinvestment rather than active trading.",
+            "You have already checked whether the income strategy belongs in a TFSA or another account.",
+          ],
+          details: "Use the referral code at signup | Keep comparing fees, account features, and asset choices before deciding",
+          disclosure:
+            "Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change how we explain dividend assumptions, yield, or account-location tradeoffs.",
+          buttonLabel: "Start with Wealthsimple",
+        }}
+      />
 
       <div className="mt-12">
         <FAQ items={FAQS} />
