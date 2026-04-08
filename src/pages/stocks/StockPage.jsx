@@ -211,6 +211,58 @@ const FUND_FALLBACK_RESOURCES = [
   { title: "Dividend calculator",      body: "Model income and DRIP scenarios for dividend ETFs or stocks.", href: "/tools/dividend-calculator" },
 ];
 
+const RELATED_COMPARE_MAP = {
+  "XEQT.TO": ["XEQT vs VEQT", "XGRO vs VGRO", "VFV vs ZSP"],
+  "VEQT.TO": ["XEQT vs VEQT", "XGRO vs VGRO", "VFV vs ZSP"],
+  "XGRO.TO": ["XGRO vs VGRO", "XEQT vs VEQT", "VFV vs ZSP"],
+  "VGRO.TO": ["XGRO vs VGRO", "XEQT vs VEQT", "VFV vs ZSP"],
+  "VFV.TO": ["VFV vs ZSP", "XEQT vs VEQT", "VDY vs XDV"],
+  "ZSP.TO": ["VFV vs ZSP", "XEQT vs VEQT", "VDY vs XDV"],
+  RY: ["RY vs TD", "BNS vs BMO"],
+  TD: ["RY vs TD", "BNS vs BMO"],
+  BNS: ["BNS vs BMO", "RY vs TD"],
+  BMO: ["BNS vs BMO", "RY vs TD"],
+  "VDY.TO": ["VDY vs XDV", "XEQT vs VEQT"],
+  "XDV.TO": ["VDY vs XDV", "XEQT vs VEQT"],
+};
+
+const RELATED_ALTERNATIVES_MAP = {
+  "XEQT.TO": ["VEQT.TO", "XGRO.TO", "VGRO.TO", "VFV.TO"],
+  "VEQT.TO": ["XEQT.TO", "XGRO.TO", "VGRO.TO", "VFV.TO"],
+  "XGRO.TO": ["VGRO.TO", "XEQT.TO", "VEQT.TO", "XBAL.TO"],
+  "VGRO.TO": ["XGRO.TO", "XEQT.TO", "VEQT.TO", "XBAL.TO"],
+  "VFV.TO": ["ZSP.TO", "XIU.TO", "XEQT.TO", "VEQT.TO"],
+  "ZSP.TO": ["VFV.TO", "XIU.TO", "XEQT.TO", "VEQT.TO"],
+  "VDY.TO": ["XDV.TO", "ZWB.TO", "HDIV.TO", "XIU.TO"],
+  "XDV.TO": ["VDY.TO", "ZWB.TO", "HDIV.TO", "XIU.TO"],
+  "ZWB.TO": ["HDIV.TO", "VDY.TO", "XDV.TO", "BMO"],
+  "HDIV.TO": ["ZWB.TO", "VDY.TO", "XDV.TO", "CASH.TO"],
+  RY: ["TD", "BNS", "BMO", "CM"],
+  TD: ["RY", "BNS", "BMO", "CM"],
+  BNS: ["BMO", "RY", "TD", "CM"],
+  BMO: ["BNS", "RY", "TD", "CM"],
+  CM: ["RY", "TD", "BNS", "BMO"],
+  ENB: ["TRP", "SU", "CNQ", "BCE"],
+  TRP: ["ENB", "SU", "CNQ", "BCE"],
+  BCE: ["T", "ENB", "RY", "VDY.TO"],
+  T: ["BCE", "RY", "VDY.TO", "XDV.TO"],
+  AAPL: ["MSFT", "NVDA", "QQQ", "SPY"],
+  MSFT: ["AAPL", "NVDA", "QQQ", "SPY"],
+  NVDA: ["MSFT", "AAPL", "QQQ", "SPY"],
+  AMZN: ["GOOGL", "META", "QQQ", "SPY"],
+  GOOGL: ["AMZN", "META", "QQQ", "SPY"],
+  META: ["GOOGL", "AMZN", "QQQ", "SPY"],
+  TSLA: ["NVDA", "AAPL", "QQQ", "SPY"],
+  SPY: ["QQQ", "VOO", "VTI", "VFV.TO"],
+  QQQ: ["SPY", "VTI", "VOO", "VFV.TO"],
+  VTI: ["SPY", "VOO", "QQQ", "XEQT.TO"],
+  VOO: ["SPY", "VTI", "QQQ", "VFV.TO"],
+  "BTC-USD": ["ETH-USD", "SOL-USD", "BNB-USD", "XRP-USD"],
+  "ETH-USD": ["BTC-USD", "SOL-USD", "BNB-USD", "XRP-USD"],
+  "SOL-USD": ["ETH-USD", "BTC-USD", "XRP-USD", "BNB-USD"],
+  "XRP-USD": ["BTC-USD", "ETH-USD", "SOL-USD", "BNB-USD"],
+};
+
 function SymbolChip({ item, onClick }) {
   return (
     <button
@@ -251,6 +303,31 @@ function getTickerMeta(currentTicker, tvSymbol, isCrypto) {
       : `${currentTicker} ${isCrypto ? "Price" : "Stock"} Chart, News and Analysis`,
     description: known?.description || `Live ${currentTicker} chart, technical analysis, financials, and latest news on EasyFinanceTools.`,
   };
+}
+
+function getRelatedComparisons(currentTicker) {
+  const labels = RELATED_COMPARE_MAP[currentTicker] || [];
+  return labels
+    .map((label) => COMPARISON_PRESETS.find((preset) => preset.label === label))
+    .filter(Boolean);
+}
+
+function buildSymbolChipItem(symbol) {
+  const meta = SYMBOL_METADATA[symbol];
+  return {
+    t: symbol,
+    n: meta?.name || symbol,
+    market: meta?.exchange || (symbol.endsWith(".TO") ? "TSX" : symbol.endsWith("-USD") ? "Crypto" : "Market"),
+  };
+}
+
+function getAlternativeSymbols(currentTicker, isCrypto, isFundLike) {
+  const mapped = RELATED_ALTERNATIVES_MAP[currentTicker];
+  if (mapped?.length) return mapped.map(buildSymbolChipItem);
+
+  if (isCrypto) return POPULAR_CRYPTO.filter((item) => item.t !== currentTicker).slice(0, 4);
+  if (isFundLike) return POPULAR_ETFS_CA.filter((item) => item.t !== currentTicker).slice(0, 4);
+  return POPULAR_STOCKS_CA.filter((item) => item.t !== currentTicker).slice(0, 4);
 }
 
 function normalizeAssetLabel(quoteType, fallbackLabel, isCrypto) {
@@ -299,6 +376,8 @@ export default function StockPage() {
   const comparePreset = currentTicker
     ? COMPARISON_PRESETS.find((preset) => preset.left === currentTicker || preset.right === currentTicker)
     : null;
+  const relatedComparisons = currentTicker ? getRelatedComparisons(currentTicker) : [];
+  const alternativeSymbols = currentTicker ? getAlternativeSymbols(currentTicker, isCrypto, isFundLike) : [];
 
   const toggleWatch = (symbol, name) => {
     setWatchlist((prev) =>
@@ -1189,18 +1268,44 @@ export default function StockPage() {
 
           <AdSlot slot="3078879111" format="auto" />
 
-          {/* Related symbols */}
-          <div className="mt-6">
-            <SectionLabel>
-              {isCrypto ? "Popular crypto" : isFundLike ? "Popular Canadian ETFs" : "Popular Canadian stocks"}
-            </SectionLabel>
-            <div className="flex flex-wrap gap-2">
-              {(isCrypto ? POPULAR_CRYPTO : isFundLike ? POPULAR_ETFS_CA : POPULAR_STOCKS_CA)
-                .filter((item) => item.t !== currentTicker)
-                .slice(0, 10)
-                .map((item) => (
+          <div className="mt-6 grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+              <div className="mb-4 flex items-end justify-between gap-3">
+                <div>
+                  <SectionLabel>Related compare links</SectionLabel>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Jump into the closest side-by-side research pages for this symbol.
+                  </p>
+                </div>
+              </div>
+              <div className="grid gap-3 md:grid-cols-2">
+                {(relatedComparisons.length > 0 ? relatedComparisons : COMPARISON_PRESETS.slice(0, 2)).map((preset) => (
+                  <button
+                    key={preset.label}
+                    onClick={() => navigate(`/stocks/compare/${makeComparisonSlug(preset.left, preset.right)}`)}
+                    className="rounded-2xl border border-gray-200 bg-slate-50 p-4 text-left transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+                  >
+                    <p className="text-base font-bold text-primary dark:text-accent">{preset.label}</p>
+                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{preset.blurb}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+              <div className="mb-4 flex items-end justify-between gap-3">
+                <div>
+                  <SectionLabel>{isFundLike ? "ETF alternatives" : isCrypto ? "Related crypto" : "Stock alternatives"}</SectionLabel>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    Nearby alternatives users often compare before opening another chart.
+                  </p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {alternativeSymbols.map((item) => (
                   <SymbolChip key={item.t} item={item} onClick={() => navigate(`/stocks/${item.t}`)} />
                 ))}
+              </div>
             </div>
           </div>
 
