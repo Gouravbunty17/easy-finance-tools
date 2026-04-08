@@ -438,6 +438,8 @@ export default function StockPage() {
   const [stockLoading, setStockLoading] = useState(false);
   const [marketMovers, setMarketMovers] = useState({ gainers: [], losers: [], active: [] });
   const [moversLoading, setMoversLoading] = useState(false);
+  const [macroRates, setMacroRates] = useState({ commodities: [], currencies: [] });
+  const [macroRatesLoading, setMacroRatesLoading] = useState(false);
   const [topNews, setTopNews] = useState([]);
   const [topNewsLoading, setTopNewsLoading] = useState(false);
   const [watchlist, setWatchlist] = useState(() => {
@@ -489,6 +491,7 @@ export default function StockPage() {
   useEffect(() => {
     if (currentTicker) return;
     fetchLandingMovers();
+    fetchMacroRates();
     fetchTopNews();
   }, [currentTicker]);
 
@@ -556,6 +559,23 @@ export default function StockPage() {
       setTopNews([]);
     }
     setTopNewsLoading(false);
+  };
+
+  const fetchMacroRates = async () => {
+    setMacroRatesLoading(true);
+    try {
+      const response = await fetch("/api/macro-rates");
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) throw new Error("Invalid macro-rates response");
+      const data = await response.json();
+      setMacroRates({
+        commodities: Array.isArray(data?.commodities) ? data.commodities : [],
+        currencies: Array.isArray(data?.currencies) ? data.currencies : [],
+      });
+    } catch {
+      setMacroRates({ commodities: [], currencies: [] });
+    }
+    setMacroRatesLoading(false);
   };
 
   const handleSearchInput = (value) => {
@@ -745,6 +765,23 @@ export default function StockPage() {
                 onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
               />
             </div>
+          </div>
+
+          <div className="mb-10 grid gap-4 lg:grid-cols-2">
+            <RateCardSection
+              title="Top 5 commodities"
+              subtitle="Quick live prices for metals and energy benchmarks"
+              items={macroRates.commodities}
+              loading={macroRatesLoading}
+              onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
+            />
+            <RateCardSection
+              title="Top 5 currencies"
+              subtitle="Major FX pairs with current rate and day move"
+              items={macroRates.currencies}
+              loading={macroRatesLoading}
+              onSelect={(symbol) => navigate(`/stocks/${symbol}`)}
+            />
           </div>
 
           <div className="mb-10 overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm dark:border-blue-900/50 dark:bg-gray-800">
@@ -1512,6 +1549,70 @@ function CuratedTickerSection({ title, subtitle, items, onSelect, viewAllHref, v
       </div>
     </div>
   );
+}
+
+function RateCardSection({ title, subtitle, items, loading, onSelect }) {
+  return (
+    <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+      <div className="mb-4">
+        <SectionLabel>{title}</SectionLabel>
+        <p className="text-sm text-gray-500 dark:text-gray-400">{subtitle}</p>
+      </div>
+
+      {loading ? (
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+          {[...Array(5)].map((_, index) => (
+            <SkeletonLine key={index} cls="h-20 w-full" />
+          ))}
+        </div>
+      ) : items.length > 0 ? (
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+          {items.slice(0, 5).map((item) => {
+            const isPositive = Number(item.changePct || 0) >= 0;
+            return (
+              <button
+                key={item.symbol}
+                onClick={() => onSelect(item.symbol)}
+                className="rounded-2xl border border-gray-200 bg-slate-50 p-4 text-left transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">{item.market}</p>
+                    <p className="mt-1 text-lg font-bold text-primary dark:text-accent">{item.name}</p>
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{item.symbol}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-lg font-bold text-primary dark:text-white">
+                      {formatRateValue(item.price, item.market, item.currency)}
+                    </p>
+                    <p className={`mt-1 text-sm font-semibold ${isPositive ? "text-emerald-500" : "text-red-500"}`}>
+                      {isPositive ? "+" : ""}{Number(item.changePct || 0).toFixed(2)}%
+                    </p>
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="rounded-xl border border-dashed border-gray-200 bg-slate-50 p-5 text-sm text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
+          Live rates are temporarily unavailable. Try again in a moment.
+        </div>
+      )}
+    </div>
+  );
+}
+
+function formatRateValue(value, market, currency) {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return "N/A";
+  const digits = market === "FX" ? 4 : numeric < 100 ? 2 : 2;
+  const formatted = numeric.toLocaleString("en-CA", {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  });
+
+  return currency && market !== "FX" ? `${formatted} ${currency}` : formatted;
 }
 
 function MoversPanel({ title, items, loading, emptyLabel, tone, onSelect, showVolume = false }) {
