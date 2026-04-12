@@ -53,12 +53,12 @@ export default function Header() {
 
               <button
                 onClick={openSearch}
-                className="focus-ring flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5 text-xs text-gray-500 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+                className="focus-ring flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
                 title="Quick search (Ctrl+K)"
               >
                 <FiSearch size={13} />
                 <span className="hidden lg:inline">Search</span>
-                <kbd className="hidden rounded bg-white px-1 text-[10px] dark:bg-gray-700 lg:inline">Ctrl+K</kbd>
+                <kbd className="hidden rounded bg-white px-1 text-[11px] text-gray-700 dark:bg-gray-700 dark:text-gray-200 lg:inline">Ctrl+K</kbd>
               </button>
 
               <NavLink to="/contact" className="rounded-lg bg-secondary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary">

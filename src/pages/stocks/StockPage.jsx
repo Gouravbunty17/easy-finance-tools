@@ -360,11 +360,11 @@ function SymbolChip({ item, onClick }) {
   );
 }
 
-function SectionLabel({ children }) {
+function SectionLabel({ children, as: Tag = "h2" }) {
   return (
-    <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-gray-400 dark:text-gray-500">
+    <Tag className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-gray-500 dark:text-gray-300">
       {children}
-    </p>
+    </Tag>
   );
 }
 
@@ -802,7 +802,7 @@ export default function StockPage({ view = "overview" }) {
                       </div>
                       <div className="ml-2 flex shrink-0 items-center gap-1.5">
                         <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${badge.cls}`}>{badge.label}</span>
-                        <span className="text-xs text-gray-400">{item.exchange}</span>
+                        <span className="text-xs text-gray-600 dark:text-gray-300">{item.exchange}</span>
                       </div>
                     </button>
                   );
@@ -907,8 +907,8 @@ export default function StockPage({ view = "overview" }) {
                     ) : null}
                     <div className="p-4">
                       <div className="flex items-start justify-between gap-3">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary">{item.publisher}</p>
-                        <span className="shrink-0 text-xs text-gray-400">{item.providerPublishTime ? formatNewsDate(item.providerPublishTime) : ""}</span>
+                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-secondary">{item.publisher}</p>
+                        <span className="shrink-0 text-xs text-gray-500 dark:text-gray-300">{item.providerPublishTime ? formatNewsDate(item.providerPublishTime) : ""}</span>
                       </div>
                       <p className="mt-3 line-clamp-4 text-base font-bold leading-7 text-primary dark:text-accent">{item.title}</p>
                       <p className="mt-3 text-xs font-semibold text-secondary">Open story →</p>
@@ -929,7 +929,7 @@ export default function StockPage({ view = "overview" }) {
             <div className="mb-8 rounded-2xl border border-yellow-200 bg-yellow-50 p-5 dark:border-yellow-800 dark:bg-yellow-900/20">
               <div className="mb-3 flex items-center justify-between">
                 <p className="text-sm font-bold text-yellow-800 dark:text-yellow-300">Your watchlist</p>
-                <button onClick={() => setWatchlist([])} className="text-xs text-gray-400 transition hover:text-red-500">
+                <button onClick={() => setWatchlist([])} className="text-xs text-gray-600 transition hover:text-red-500 dark:text-gray-300">
                   Clear all
                 </button>
               </div>
@@ -940,7 +940,7 @@ export default function StockPage({ view = "overview" }) {
                       {item.t}
                     </button>
                     <span className="hidden text-xs text-gray-500 sm:inline dark:text-gray-400">{item.n}</span>
-                    <button onClick={() => toggleWatch(item.t)} aria-label={`Remove ${item.t}`} className="text-xs text-gray-400 transition hover:text-red-400">
+                    <button onClick={() => toggleWatch(item.t)} aria-label={`Remove ${item.t}`} className="text-xs text-gray-600 transition hover:text-red-400 dark:text-gray-300">
                       ✕
                     </button>
                   </div>
@@ -985,7 +985,7 @@ export default function StockPage({ view = "overview" }) {
                     onClick={() => navigate(item.href)}
                     className="rounded-2xl border border-gray-200 bg-slate-50 p-5 text-left transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-md dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
                   >
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">Collection</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Collection</p>
                     <p className="mt-3 text-lg font-bold leading-snug text-primary dark:text-accent">{item.title}</p>
                     <p className="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">{item.desc}</p>
                   </button>
@@ -1010,7 +1010,7 @@ export default function StockPage({ view = "overview" }) {
                     onClick={() => navigate(item.href)}
                     className="rounded-2xl border border-dashed border-gray-300 bg-slate-50/70 p-5 text-left transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-md dark:border-gray-700 dark:bg-gray-900/70 dark:hover:bg-gray-800"
                   >
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">Market watch</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Market watch</p>
                     <p className="mt-3 text-lg font-bold leading-snug text-primary dark:text-accent">{item.title}</p>
                     <p className="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">{item.desc}</p>
                   </button>
