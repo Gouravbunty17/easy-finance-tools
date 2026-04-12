@@ -949,10 +949,10 @@ export default function StockPage({ view = "overview" }) {
             </div>
           )}
 
-          <div className="mb-10 grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="mb-10 grid gap-5 xl:grid-cols-[1.08fr_0.92fr]">
             <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
               <SectionLabel>Featured collections</SectionLabel>
-              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+              <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
                 {[
                   {
                     title: "Canadian bank stocks",
@@ -978,7 +978,22 @@ export default function StockPage({ view = "overview" }) {
                     title: "Canadian dividend stocks",
                     desc: "Browse established TSX dividend names across banks, telecom, and pipelines.",
                     href: "/stocks/canadian-dividend-stocks",
-                  },
+                  }
+                ].map((item) => (
+                  <button
+                    key={item.title}
+                    onClick={() => navigate(item.href)}
+                    className="rounded-2xl border border-gray-200 bg-slate-50 p-5 text-left transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-md dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+                  >
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">Collection</p>
+                    <p className="mt-3 text-lg font-bold leading-snug text-primary dark:text-accent">{item.title}</p>
+                    <p className="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">{item.desc}</p>
+                  </button>
+                ))}
+              </div>
+
+              <div className="mt-4 grid gap-4 md:grid-cols-2">
+                {[
                   {
                     title: "Commodities",
                     desc: "Track gold, silver, WTI oil, Brent, natural gas, and copper from one market-watch section.",
@@ -993,11 +1008,11 @@ export default function StockPage({ view = "overview" }) {
                   <button
                     key={item.title}
                     onClick={() => navigate(item.href)}
-                    className="rounded-2xl border border-gray-200 bg-slate-50 p-5 text-left transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-md dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
+                    className="rounded-2xl border border-dashed border-gray-300 bg-slate-50/70 p-5 text-left transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-md dark:border-gray-700 dark:bg-gray-900/70 dark:hover:bg-gray-800"
                   >
-                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-secondary">Collection</p>
-                    <p className="mt-3 text-xl font-bold text-primary dark:text-accent">{item.title}</p>
-                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{item.desc}</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">Market watch</p>
+                    <p className="mt-3 text-lg font-bold leading-snug text-primary dark:text-accent">{item.title}</p>
+                    <p className="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">{item.desc}</p>
                   </button>
                 ))}
               </div>
