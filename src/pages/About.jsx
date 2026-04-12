@@ -4,7 +4,7 @@ import SEO from "../components/SEO";
 
 export default function About() {
   return (
-    <div className="min-h-screen">
+    <main className="min-h-screen" aria-labelledby="about-page-title">
       <SEO
         title="About EasyFinanceTools"
         description="Learn how EasyFinanceTools builds free Canadian finance calculators, reviews assumptions, and handles privacy, methodology, and disclosures."
@@ -13,11 +13,11 @@ export default function About() {
 
       <section className="border-b bg-gradient-to-br from-primary via-[#0a4c89] to-secondary px-4 py-16 text-white">
         <div className="mx-auto max-w-4xl text-center">
-          <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">
+          <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.18em] text-blue-50">
             About and methodology
           </div>
-          <h1 className="text-4xl font-bold md:text-5xl">About EasyFinanceTools</h1>
-          <p className="mx-auto mt-4 max-w-3xl text-lg text-blue-100">
+          <h1 id="about-page-title" className="text-4xl font-bold md:text-5xl">About EasyFinanceTools</h1>
+          <p className="mx-auto mt-4 max-w-3xl text-lg text-blue-50">
             A free, privacy-focused finance calculator platform built for Canadian savers, investors, and households who want faster answers with clearer assumptions.
           </p>
         </div>
@@ -111,6 +111,6 @@ export default function About() {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

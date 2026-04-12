@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export default function Logo({ size = "md" }) {
   const sizes = {
-    sm: { icon: 40, textMain: 20, textSub: 9 },
-    md: { icon: 40, textMain: 20, textSub: 9 },
-    lg: { icon: 52, textMain: 26, textSub: 10 },
+    sm: { icon: 40, textMain: 20, textSub: 10 },
+    md: { icon: 40, textMain: 20, textSub: 10 },
+    lg: { icon: 52, textMain: 26, textSub: 11 },
   };
   const s = sizes[size];
 
@@ -41,7 +41,7 @@ export default function Logo({ size = "md" }) {
             Tools
           </span>
         </div>
-        <span style={{ fontSize: s.textSub }} className="mt-0.5 font-medium uppercase tracking-[0.24em] text-gray-400">
+        <span style={{ fontSize: s.textSub }} className="mt-0.5 font-medium uppercase tracking-[0.22em] text-gray-600 dark:text-gray-300">
           Free Canadian Calculators
         </span>
       </div>
