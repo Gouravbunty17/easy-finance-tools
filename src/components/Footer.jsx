@@ -7,14 +7,14 @@ export default function Footer() {
       <div className="max-w-5xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
-            <h3 className="text-xl font-bold mb-3 text-accent">EasyFinanceTools</h3>
-            <p className="text-blue-200 text-sm">
+            <p className="text-xl font-bold mb-3 text-accent">EasyFinanceTools</p>
+            <p className="text-blue-100 text-sm">
               Free, private financial calculators for Canadians. No sign-up required.
             </p>
           </div>
           <div>
-            <h4 className="font-bold mb-3">Tools</h4>
-            <ul className="space-y-2 text-blue-200 text-sm">
+            <p className="font-bold mb-3 text-white">Tools</p>
+            <ul className="space-y-2 text-blue-100 text-sm">
               <li><Link to="/tools/tfsa-calculator" className="hover:text-white">TFSA Calculator</Link></li>
               <li><Link to="/tools/rrsp-calculator" className="hover:text-white">RRSP Calculator</Link></li>
               <li><Link to="/tools/dividend-calculator" className="hover:text-white">Dividend Calculator</Link></li>
@@ -22,8 +22,8 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-bold mb-3">Company</h4>
-            <ul className="space-y-2 text-blue-200 text-sm">
+            <p className="font-bold mb-3 text-white">Company</p>
+            <ul className="space-y-2 text-blue-100 text-sm">
               <li><Link to="/about" className="hover:text-white">About</Link></li>
               <li><Link to="/blog" className="hover:text-white">Blog</Link></li>
               <li><Link to="/contact" className="hover:text-white">Contact</Link></li>
@@ -41,19 +41,19 @@ export default function Footer() {
             Tool outputs are educational estimates based on current assumptions, published limits, and visible methodology on each calculator page. We do not store calculator inputs in our database. Some pages may contain ads or referral links, and any partner relationship should be disclosed on-page before a recommendation appears.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
-            <Link to="/methodology" className="rounded-lg border border-blue-700 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/10">
+            <Link to="/methodology" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
               Read methodology
             </Link>
-            <Link to="/editorial-standards" className="rounded-lg border border-blue-700 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/10">
+            <Link to="/editorial-standards" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
               Editorial standards
             </Link>
-            <Link to="/terms" className="rounded-lg border border-blue-700 px-3 py-2 text-xs font-semibold text-white transition hover:bg-white/10">
+            <Link to="/terms" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
               Read terms
             </Link>
           </div>
         </div>
 
-        <div className="border-t border-blue-800 pt-6 text-center text-blue-300 text-sm">
+        <div className="border-t border-blue-800 pt-6 text-center text-blue-100 text-sm">
           <p>&copy; {new Date().getFullYear()} EasyFinanceTools. All rights reserved. Not financial advice.</p>
           <p className="mt-1">Built in Canada for Canadian savers, investors, and households.</p>
         </div>
