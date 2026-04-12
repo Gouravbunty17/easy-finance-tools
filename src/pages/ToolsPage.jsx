@@ -44,7 +44,7 @@ export default function ToolsPage() {
   }, [search, activeCategory]);
 
   return (
-    <section>
+    <main aria-labelledby="tools-page-title">
       <SEO
         title="Free Canadian Finance Tools"
         description="Browse free Canadian finance calculators for tax, TFSA, RRSP, mortgage, debt payoff, paycheques, investing, and savings goals."
@@ -53,11 +53,11 @@ export default function ToolsPage() {
 
       <div className="bg-gradient-to-br from-primary to-secondary px-4 py-16 text-white">
         <div className="mx-auto max-w-5xl text-center">
-          <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">
+          <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.18em] text-blue-50">
             Search by goal or category
           </div>
-          <h1 className="mb-4 text-4xl font-bold md:text-5xl">Free Canadian Finance Tools</h1>
-          <p className="mx-auto max-w-3xl text-lg text-blue-100">
+          <h1 id="tools-page-title" className="mb-4 text-4xl font-bold md:text-5xl">Free Canadian Finance Tools</h1>
+          <p className="mx-auto max-w-3xl text-lg text-blue-50">
             Search by goal, compare scenarios, and move into related guides without leaving the site.
           </p>
         </div>
@@ -92,9 +92,9 @@ export default function ToolsPage() {
             trackingParams={{ section: "featured_cards", destination_type: "tool", emphasis: "primary" }}
             className="rounded-2xl bg-gradient-to-br from-primary via-[#0a4c89] to-secondary p-5 text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-100">Most searched</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-50">Most searched</p>
             <h2 className="mt-3 text-3xl font-bold leading-tight">Compound Interest Calculator</h2>
-            <p className="mt-3 max-w-sm text-sm leading-6 text-blue-100">
+            <p className="mt-3 max-w-sm text-sm leading-6 text-blue-50">
               Project long-term growth with monthly contributions, inflation, and fee drag in one place.
             </p>
             <div className="mt-5 inline-flex rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white">
@@ -115,8 +115,8 @@ export default function ToolsPage() {
               trackingParams={{ section: "featured_cards", destination_type: "tool", emphasis: "secondary" }}
               className="surface-card p-4 transition hover:-translate-y-0.5 hover:shadow-md"
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{item.label}</p>
-              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">{item.title} calculator</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-600 dark:text-slate-300">{item.label}</p>
+              <h3 className="mt-2 text-lg font-bold text-primary dark:text-accent">{item.title} calculator</h3>
             </SurfaceTrackedLink>
           ))}
         </div>
@@ -173,10 +173,10 @@ export default function ToolsPage() {
               >
                 <div className="mb-4 flex items-start justify-between gap-3">
                   <span className="text-sm font-semibold uppercase tracking-wide text-secondary">{tool.category}</span>
-                  {tool.badge && <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">{tool.badge}</span>}
+                  {tool.badge && <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">{tool.badge}</span>}
                 </div>
                 <h2 className="mb-2 text-xl font-bold text-primary dark:text-white">{tool.title}</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{tool.desc}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-300">{tool.desc}</p>
                 <div className="mt-5 flex items-center justify-between text-sm font-semibold text-secondary">
                   <span>Open calculator and see results</span>
                   <span className="transition-transform group-hover:translate-x-1">More</span>
@@ -185,7 +185,7 @@ export default function ToolsPage() {
             ))}
           </div>
         ) : (
-          <div className="py-16 text-center text-gray-400">
+          <div className="py-16 text-center text-gray-600 dark:text-gray-300">
             <div className="mb-4 text-sm font-black uppercase tracking-[0.3em] text-secondary">No Match</div>
             <p className="text-lg">
               No tools found for "<span className="font-semibold">{search}</span>"
@@ -217,11 +217,11 @@ export default function ToolsPage() {
               className="surface-card p-5 transition hover:-translate-y-0.5 hover:shadow-md"
             >
               <h2 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h2>
-              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{item.body}</p>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">{item.body}</p>
             </SurfaceTrackedLink>
           ))}
         </div>
       </div>
-    </section>
+    </main>
   );
 }
