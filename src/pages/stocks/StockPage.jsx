@@ -869,13 +869,13 @@ export default function StockPage({ view = "overview" }) {
             <div className="border-b border-blue-100 bg-blue-50/70 px-6 py-5 dark:border-blue-900/40 dark:bg-blue-900/10">
               <div className="mb-2 flex items-center gap-2">
                 <span className="inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
-                <span className="text-xs font-bold uppercase tracking-[0.22em] text-secondary">Live market news</span>
+                <span className="text-xs font-bold uppercase tracking-[0.22em] text-secondary">Live stock market news</span>
               </div>
               <div className="flex items-end justify-between gap-3">
               <div>
-                <SectionLabel>Top stories</SectionLabel>
+                <SectionLabel>Stock market headlines</SectionLabel>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                  A quick market-news strip so the stocks hub feels live before users pick a ticker.
+                  A quick stock-market news strip focused on equities, indices, earnings, and major market moves.
                 </p>
               </div>
             </div>
@@ -918,7 +918,7 @@ export default function StockPage({ view = "overview" }) {
               </div>
             ) : (
               <div className="rounded-xl border border-dashed border-gray-200 bg-slate-50 p-5 text-sm text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400">
-                Top stories are temporarily unavailable. Market movers above are still live.
+                Stock market headlines are temporarily unavailable. Market movers above are still live.
               </div>
             )}
             </div>

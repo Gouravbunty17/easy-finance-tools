@@ -1,11 +1,30 @@
 const https = require("https");
 
 const NEWS_QUERIES = [
-  "AAPL",
-  "NVDA",
-  "TSX",
-  "XEQT",
-  "market news",
+  "stock market",
+  "dow jones",
+  "s&p 500",
+  "nasdaq",
+  "tsx composite",
+  "market movers",
+];
+
+const STOCK_NEWS_KEYWORDS = [
+  "stock market",
+  "stocks",
+  "shares",
+  "dow",
+  "dow jones",
+  "s&p",
+  "nasdaq",
+  "tsx",
+  "market",
+  "wall street",
+  "futures",
+  "earnings",
+  "investors",
+  "equities",
+  "etf",
 ];
 
 function fetchJSON(url) {
@@ -58,6 +77,21 @@ function dedupeNews(items) {
   });
 }
 
+function isStockMarketStory(item) {
+  const haystack = [
+    item?.title,
+    item?.summary,
+    item?.publisher,
+    item?.link,
+    item?.url,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return STOCK_NEWS_KEYWORDS.some((keyword) => haystack.includes(keyword));
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
@@ -75,6 +109,7 @@ module.exports = async function handler(req, res) {
     const items = dedupeNews(
       results.flatMap((result) => (Array.isArray(result.news) ? result.news : []))
     )
+      .filter(isStockMarketStory)
       .sort((a, b) => (b.providerPublishTime || 0) - (a.providerPublishTime || 0))
       .slice(0, 6)
       .map((item) => ({
