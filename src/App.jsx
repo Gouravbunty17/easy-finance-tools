@@ -35,6 +35,7 @@ const GstHstCalculator        = lazy(() => import('./pages/tools/GstHstCalculato
 const SalaryToHourlyCalculator = lazy(() => import('./pages/tools/SalaryToHourlyCalculator'));
 const CadUsdConverter         = lazy(() => import('./pages/tools/CadUsdConverter'));
 const InflationCalculator     = lazy(() => import('./pages/tools/InflationCalculator'));
+const MortgageAffordabilityCalculator = lazy(() => import('./pages/tools/MortgageAffordabilityCalculator'));
 
 const StockPage               = lazy(() => import('./pages/stocks/StockPage'));
 const StockCollectionPage     = lazy(() => import('./pages/stocks/StockCollectionPage'));
@@ -108,6 +109,7 @@ export default function App() {
             <Route path="/tools/salary-to-hourly-calculator" element={<SalaryToHourlyCalculator />} />
             <Route path="/tools/cad-usd-converter" element={<CadUsdConverter />} />
             <Route path="/tools/inflation-calculator" element={<InflationCalculator />} />
+            <Route path="/tools/mortgage-affordability-calculator" element={<MortgageAffordabilityCalculator />} />
             <Route path="/stocks" element={<StockPage />} />
             <Route path="/stocks/canadian-bank-stocks" element={<StockCollectionPage collectionKey="canadian-bank-stocks" />} />
             <Route path="/stocks/canadian-etfs" element={<StockCollectionPage collectionKey="canadian-etfs" />} />
