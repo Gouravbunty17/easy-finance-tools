@@ -1,34 +1,23 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import SEO from "../../components/SEO";
-import FAQ from "../../components/FAQ";
-import MethodologyPanel from "../../components/MethodologyPanel";
-import ToolPageSchema from "../../components/ToolPageSchema";
-import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
-import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
+import React, { useMemo, useState } from "react";
+import CalculatorLayout, { ResultCard, fmtCAD, fmtNum } from "../../components/CalculatorLayout";
+import NumberInput from "../../components/NumberInput";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
-import { Line, Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  LineElement,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Tooltip,
-  Legend,
-  Filler,
-} from "chart.js";
 
-ChartJS.register(LineElement, BarElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
-
-const FAQS = [
-  { q: "Does this mortgage calculator use Canadian compounding rules?", a: "Yes. It converts the quoted annual rate using a semi-annual compounding approach before calculating monthly payments, which is the convention commonly used for Canadian fixed-rate mortgage math." },
-  { q: "Does this page include CMHC insurance?", a: "Yes. If the down payment is under 20%, the calculator estimates CMHC insurance and adds it to the financed mortgage amount." },
-  { q: "Does this calculator include land transfer tax?", a: "Yes. It includes simplified provincial land transfer tax handling and a basic first-time buyer rebate adjustment where applicable." },
-  { q: "Are the closing costs exact?", a: "No. Legal fees, inspections, and tax handling vary by lender, lawyer, municipality, and transaction. This page is for planning, not a binding quote." },
-  { q: "Should I trust this page more than my lender quote?", a: "No. Use this tool to compare scenarios before you speak to a lender or broker. Your actual approved payment, qualification amount, and closing costs depend on underwriting, product choice, and lender-specific rules." },
-];
+const PROVINCES = {
+  AB: { label: "Alberta", landTransferTaxRate: 0 },
+  BC: { label: "British Columbia", landTransferTaxRate: 0.018 },
+  MB: { label: "Manitoba", landTransferTaxRate: 0.015 },
+  NB: { label: "New Brunswick", landTransferTaxRate: 0.01 },
+  NL: { label: "Newfoundland and Labrador", landTransferTaxRate: 0 },
+  NS: { label: "Nova Scotia", landTransferTaxRate: 0.015 },
+  NT: { label: "Northwest Territories", landTransferTaxRate: 0 },
+  NU: { label: "Nunavut", landTransferTaxRate: 0 },
+  ON: { label: "Ontario", landTransferTaxRate: 0.015 },
+  PE: { label: "Prince Edward Island", landTransferTaxRate: 0.01 },
+  QC: { label: "Quebec", landTransferTaxRate: 0.01 },
+  SK: { label: "Saskatchewan", landTransferTaxRate: 0 },
+  YT: { label: "Yukon", landTransferTaxRate: 0 },
+};
 
 function getMonthlyRate(annualRate) {
   return Math.pow(1 + annualRate / 200, 1 / 6) - 1;
@@ -48,496 +37,125 @@ function getCMHC(principal, homePrice) {
   return principal * 0.04;
 }
 
-function getLTT(price, province, firstTimeBuyer) {
-  let tax = 0;
-  if (province === "ON") {
-    if (price <= 55000) tax = price * 0.005;
-    else if (price <= 250000) tax = 275 + (price - 55000) * 0.01;
-    else if (price <= 400000) tax = 2225 + (price - 250000) * 0.015;
-    else if (price <= 2000000) tax = 4475 + (price - 400000) * 0.02;
-    else tax = 36475 + (price - 2000000) * 0.025;
-    if (firstTimeBuyer) tax = Math.max(0, tax - 4000);
-  } else if (province === "BC") {
-    if (price <= 200000) tax = price * 0.01;
-    else if (price <= 2000000) tax = 2000 + (price - 200000) * 0.02;
-    else tax = 38000 + (price - 2000000) * 0.03;
-    if (firstTimeBuyer && price <= 500000) tax = 0;
-  } else if (province === "QC") {
-    if (price <= 52800) tax = price * 0.005;
-    else if (price <= 264000) tax = 264 + (price - 52800) * 0.01;
-    else tax = 2376 + (price - 264000) * 0.015;
-  } else if (province === "MB") {
-    if (price <= 30000) tax = 0;
-    else if (price <= 90000) tax = (price - 30000) * 0.005;
-    else if (price <= 150000) tax = 300 + (price - 90000) * 0.01;
-    else if (price <= 200000) tax = 900 + (price - 150000) * 0.015;
-    else tax = 1650 + (price - 200000) * 0.02;
-  } else if (province === "NS") {
-    tax = price * 0.015;
-  } else if (province === "NB") {
-    tax = price * 0.01;
-  } else if (province === "PE") {
-    tax = price <= 30000 ? 0 : (price - 30000) * 0.01;
-    if (firstTimeBuyer) tax = Math.max(0, tax - price * 0.005);
-  }
-  return Math.round(tax);
-}
-
-const PROVINCES = [
-  ["AB", "Alberta - No provincial land transfer tax"],
-  ["BC", "British Columbia"],
-  ["MB", "Manitoba"],
-  ["NB", "New Brunswick"],
-  ["NL", "Newfoundland and Labrador"],
-  ["NS", "Nova Scotia"],
-  ["NT", "Northwest Territories - No provincial land transfer tax"],
-  ["NU", "Nunavut - No provincial land transfer tax"],
-  ["ON", "Ontario"],
-  ["PE", "Prince Edward Island"],
-  ["QC", "Quebec"],
-  ["SK", "Saskatchewan - No provincial land transfer tax"],
-  ["YT", "Yukon - No provincial land transfer tax"],
-];
-
 export default function MortgageCalculator() {
   const [homePrice, setHomePrice] = useState(650000);
   const [downPayment, setDownPayment] = useState(130000);
   const [rate, setRate] = useState(5.25);
-  const [amort, setAmort] = useState(25);
+  const [amortization, setAmortization] = useState(25);
   const [frequency, setFrequency] = useState("monthly");
   const [province, setProvince] = useState("ON");
-  const [firstTime, setFirstTime] = useState(false);
-  const [result, setResult] = useState(null);
-  const [hasTrackedStart, setHasTrackedStart] = useState(false);
 
-  const trackStartOnce = () => {
-    if (hasTrackedStart) return;
-    trackToolStart("mortgage_calculator", { entry_point: "input_interaction" });
-    setHasTrackedStart(true);
-  };
-
-  const homePriceValue = asNumber(homePrice);
-  const downPaymentValue = asNumber(downPayment);
-  const rateValue = asNumber(rate);
-  const downPct = homePriceValue > 0 ? ((downPaymentValue / homePriceValue) * 100).toFixed(1) : 0;
-
-  const calculate = () => {
-    trackToolCalculate("mortgage_calculator", {
-      action: "calculate",
-      province,
-      frequency,
-      first_time_buyer: firstTime,
-    });
-    const principal = homePriceValue - downPaymentValue;
-    if (principal <= 0 || downPaymentValue / homePriceValue < 0.05) {
-      alert("Enter a valid down payment. This calculator expects at least 5% down for planning purposes.");
-      return;
-    }
-
-    const cmhc = getCMHC(principal, homePriceValue);
+  const result = useMemo(() => {
+    const price = asNumber(homePrice);
+    const down = asNumber(downPayment);
+    const principal = Math.max(0, price - down);
+    const cmhc = principal > 0 ? getCMHC(principal, price || 1) : 0;
     const insuredPrincipal = principal + cmhc;
-    const months = amort * 12;
-    const monthlyPayment = calcPayment(insuredPrincipal, rateValue, months);
+    const monthlyPayment = calcPayment(insuredPrincipal, asNumber(rate), Math.max(1, asNumber(amortization, 25)) * 12);
 
-    let payment;
-    let label;
-    if (frequency === "monthly") {
-      payment = monthlyPayment;
-      label = "Monthly";
-    } else if (frequency === "biweekly") {
-      payment = (monthlyPayment * 12) / 26;
-      label = "Bi-Weekly";
+    let scheduledPayment = monthlyPayment;
+    let label = "Monthly payment";
+    if (frequency === "biweekly") {
+      scheduledPayment = (monthlyPayment * 12) / 26;
+      label = "Bi-weekly payment";
     } else if (frequency === "accelerated") {
-      payment = monthlyPayment / 2;
-      label = "Accelerated Bi-Weekly";
-    } else {
-      payment = (monthlyPayment * 12) / 52;
-      label = "Weekly";
+      scheduledPayment = monthlyPayment / 2;
+      label = "Accelerated bi-weekly payment";
+    } else if (frequency === "weekly") {
+      scheduledPayment = (monthlyPayment * 12) / 52;
+      label = "Weekly payment";
     }
 
-    const monthlyRate = getMonthlyRate(rateValue);
+    const monthlyRate = getMonthlyRate(asNumber(rate));
     let balance = insuredPrincipal;
     let totalInterest = 0;
-    const yearlyData = [];
-
-    for (let year = 1; year <= amort; year++) {
-      let yearInterest = 0;
-      let yearPrincipal = 0;
-      for (let month = 0; month < 12; month++) {
-        const interest = balance * monthlyRate;
-        const principalPaid = monthlyPayment - interest;
-        yearInterest += interest;
-        yearPrincipal += principalPaid;
-        balance = Math.max(0, balance - principalPaid);
-      }
-      totalInterest += yearInterest;
-      yearlyData.push({
-        year,
-        balance: Math.round(balance),
-        interest: Math.round(yearInterest),
-        principal: Math.round(yearPrincipal),
-      });
+    for (let month = 0; month < Math.max(1, asNumber(amortization, 25)) * 12; month += 1) {
+      const interest = balance * monthlyRate;
+      const principalPaid = monthlyPayment - interest;
+      totalInterest += interest;
+      balance = Math.max(0, balance - principalPaid);
     }
 
-    const ltt = getLTT(homePriceValue, province, firstTime);
-    const totalCost = insuredPrincipal + totalInterest;
-
-    setResult({
-      payment: Math.round(payment * 100) / 100,
-      label,
-      insuredPrincipal,
+    return {
+      downPct: price > 0 ? (down / price) * 100 : 0,
       cmhc: Math.round(cmhc),
+      insuredPrincipal: Math.round(insuredPrincipal),
+      scheduledPayment,
+      label,
       totalInterest: Math.round(totalInterest),
-      totalCost: Math.round(totalCost),
-      ltt,
-      yearlyData,
-      downPct,
-      needsCMHC: cmhc > 0,
-    });
-  };
+      landTransferTax: Math.round(price * (PROVINCES[province]?.landTransferTaxRate || 0)),
+    };
+  }, [homePrice, downPayment, rate, amortization, frequency, province]);
 
   return (
-    <section className="mx-auto max-w-4xl px-4 py-12">
-      <SEO
-        title="Canadian Mortgage Calculator 2026 - Payment, CMHC, and Land Transfer Tax"
-        description="Calculate your Canadian mortgage payment, CMHC insurance estimate, and land transfer tax using a semi-annual compounding model. Free mortgage calculator for Canadian planning."
-      />
-      <ToolPageSchema
-        name="Canadian Mortgage Calculator 2026"
-        description="Canadian mortgage calculator with semi-annual compounding, CMHC insurance estimates, and provincial land transfer tax handling."
-        canonical="https://easyfinancetools.com/tools/mortgage-calculator"
-        category="FinanceApplication"
-      />
-
-      <div className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold text-primary dark:text-accent">Canadian Mortgage Calculator</h1>
-        <p className="text-gray-600 dark:text-gray-300">
-          Estimate your mortgage payment with <strong>CMHC insurance</strong> and <strong>land transfer tax</strong> using a Canadian semi-annual compounding approach.
-        </p>
-      </div>
-
-      <div className="mb-8 grid gap-4 md:grid-cols-4">
-        {[
-          { title: "Last updated", body: "April 3, 2026" },
-          { title: "Methodology", body: "Canadian semi-annual compounding, simplified CMHC tiers, and provincial land transfer tax logic." },
-          { title: "Best for", body: "Scenario planning before you compare lender quotes, down payments, or payment frequencies." },
-          { title: "Reminder", body: "Use official lender, insurer, and lawyer documents before making an offer." },
-        ].map((item) => (
-          <div key={item.title} className="surface-card p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">{item.title}</p>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mb-8 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
-        <h2 className="text-lg font-bold text-primary dark:text-accent">Assumptions at a glance</h2>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          {[
-            "Uses a semi-annual compounding conversion before monthly payment math, which is standard for many Canadian mortgage comparisons.",
-            "Adds estimated CMHC insurance to the financed balance when down payment is below 20%.",
-            "Uses simplified provincial land transfer tax rules and does not model every rebate, municipal surcharge, or exception.",
-            "Shows directional closing costs to help with planning, not a binding legal or lender quote.",
-          ].map((item) => (
-            <div key={item} className="rounded-xl bg-white px-4 py-3 text-sm text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-              {item}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-        <div>
-          <label className="mb-1 block text-sm font-semibold">Home Price ($)</label>
-          <input
-            type="number"
-            value={homePrice}
-            onChange={(e) => { trackStartOnce(); setHomePrice(parseNumericInput(e.target.value)); }}
-            className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
+    <CalculatorLayout
+      title="Canadian Mortgage Calculator"
+      description="Estimate mortgage payments using Canadian semi-annual compounding, simplified CMHC insurance handling, and province-level land transfer tax context."
+      canonical="https://easyfinancetools.com/tools/mortgage-calculator"
+      badge="Payment planning"
+      results={
+        <>
+          <ResultCard
+            label={result.label}
+            value={fmtCAD(result.scheduledPayment, { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+            hint={`Mortgage amount including estimated CMHC: ${fmtCAD(result.insuredPrincipal)}.`}
+            tone="primary"
           />
-        </div>
+          <ResultCard
+            label="Estimated total interest"
+            value={fmtCAD(result.totalInterest)}
+            hint={`${fmtNum(result.downPct, { maximumFractionDigits: 1, minimumFractionDigits: 1 })}% down payment.`}
+          />
+          <ResultCard
+            label="Land transfer tax estimate"
+            value={fmtCAD(result.landTransferTax)}
+            hint={`${PROVINCES[province]?.label || "Province"} planning estimate only. CMHC estimate: ${fmtCAD(result.cmhc)}.`}
+            tone="success"
+          />
+        </>
+      }
+      relatedTools={[
+        { href: "/tools/mortgage-affordability-calculator", title: "Mortgage affordability calculator", body: "Work backward from income and debt before you model the payment itself." },
+        { href: "/tools/rent-vs-buy", title: "Rent vs buy calculator", body: "Compare the ownership scenario against continuing to rent." },
+        { href: "/blog/pay-off-mortgage-faster-canada", title: "Mortgage payoff guide", body: "See how accelerated payments and prepayment choices change the path.", destinationType: "article" },
+      ]}
+      footerNote="Educational estimate only. Lender quotes, legal fees, insurance, condo fees, and municipal taxes can materially change your actual cost."
+    >
+      <div className="space-y-5 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+        <div className="grid gap-5 md:grid-cols-2">
+          <NumberInput id="mortgage-home-price" label="Home price" prefix="$" value={homePrice} onChange={(value) => setHomePrice(parseNumericInput(value))} placeholder="650000" />
+          <NumberInput id="mortgage-down-payment" label="Down payment" prefix="$" value={downPayment} onChange={(value) => setDownPayment(parseNumericInput(value))} placeholder="130000" hint={result.downPct >= 20 ? "20% or more down: no CMHC estimate added." : "Under 20% down: simplified CMHC insurance estimate is added."} />
+          <NumberInput id="mortgage-rate" label="Interest rate" value={rate} onChange={(value) => setRate(parseNumericInput(value))} placeholder="5.25" suffix="%" hint="Uses a semi-annual compounding conversion before monthly mortgage math." />
 
-        <div>
-          <label className="mb-1 block text-sm font-semibold">
-            Down Payment ($)
-            <span className={`ml-2 rounded-full px-2 py-0.5 text-xs font-bold ${parseFloat(downPct) >= 20 ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
-              {downPct}%
-            </span>
+          <label className="block">
+            <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Amortization</span>
+            <select value={amortization} onChange={(event) => setAmortization(Number(event.target.value))} className="focus-ring w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
+              {[5, 10, 15, 20, 25, 30].map((years) => (
+                <option key={years} value={years}>{years} years</option>
+              ))}
+            </select>
           </label>
-          <input
-            type="number"
-            value={downPayment}
-            onChange={(e) => { trackStartOnce(); setDownPayment(parseNumericInput(e.target.value)); }}
-            className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
-          />
-          <p className="mt-1 text-xs text-gray-500">
-            {parseFloat(downPct) >= 20 ? "20%+ down payment: no CMHC insurance required" : "Under 20% down payment: CMHC mortgage insurance applies"}
-          </p>
-        </div>
 
-        <div>
-          <label className="mb-1 block text-sm font-semibold">Interest Rate (%)</label>
-          <input
-            type="number"
-            step="0.05"
-            value={rate}
-            onChange={(e) => { trackStartOnce(); setRate(parseNumericInput(e.target.value)); }}
-            className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
-          />
-          <p className="mt-1 text-xs text-gray-500">Uses a semi-annual compounding conversion for mortgage math.</p>
-        </div>
+          <label className="block">
+            <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Payment frequency</span>
+            <select value={frequency} onChange={(event) => setFrequency(event.target.value)} className="focus-ring w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
+              <option value="monthly">Monthly</option>
+              <option value="biweekly">Bi-weekly</option>
+              <option value="accelerated">Accelerated bi-weekly</option>
+              <option value="weekly">Weekly</option>
+            </select>
+          </label>
 
-        <div>
-          <label className="mb-1 block text-sm font-semibold">Amortization Period (Years)</label>
-          <select
-            value={amort}
-            onChange={(e) => { trackStartOnce(); setAmort(parseInt(e.target.value)); }}
-            className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
-          >
-            {[5, 10, 15, 20, 25, 30].map((years) => (
-              <option key={years} value={years}>
-                {years} years{years === 25 ? " (common insured max)" : ""}{years === 30 ? " (often uninsured only)" : ""}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="mb-1 block text-sm font-semibold">Payment Frequency</label>
-          <select
-            value={frequency}
-            onChange={(e) => { trackStartOnce(); setFrequency(e.target.value); }}
-            className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
-          >
-            <option value="monthly">Monthly</option>
-            <option value="biweekly">Bi-Weekly</option>
-            <option value="accelerated">Accelerated Bi-Weekly</option>
-            <option value="weekly">Weekly</option>
-          </select>
-          <p className="mt-1 text-xs text-gray-500">Accelerated bi-weekly payments can shorten amortization and reduce interest.</p>
-        </div>
-
-        <div>
-          <label className="mb-1 block text-sm font-semibold">Province</label>
-          <select
-            value={province}
-            onChange={(e) => { trackStartOnce(); setProvince(e.target.value); }}
-            className="w-full rounded-lg border-2 border-gray-200 p-3 outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
-          >
-            {PROVINCES.map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="flex items-center gap-3 md:col-span-2">
-          <input
-            type="checkbox"
-            id="firstTime"
-            checked={firstTime}
-            onChange={(e) => { trackStartOnce(); setFirstTime(e.target.checked); }}
-            className="h-5 w-5 accent-blue-600"
-          />
-          <label htmlFor="firstTime" className="cursor-pointer text-sm font-semibold">
-            First-time buyer planning view (applies basic rebate logic where supported)
+          <label className="block">
+            <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Province</span>
+            <select value={province} onChange={(event) => setProvince(event.target.value)} className="focus-ring w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
+              {Object.entries(PROVINCES).map(([code, config]) => (
+                <option key={code} value={code}>{config.label}</option>
+              ))}
+            </select>
           </label>
         </div>
       </div>
-
-      <button onClick={calculate} className="w-full rounded-xl bg-primary py-4 text-lg font-bold text-white transition-colors hover:bg-secondary">
-        Calculate My Mortgage
-      </button>
-
-      {result && (
-        <div className="mt-10">
-          <div className="mb-8 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-center text-white">
-            <p className="mb-1 text-sm font-semibold text-blue-200">{result.label} Payment</p>
-            <p className="mb-2 text-5xl font-bold">${result.payment.toLocaleString()}</p>
-            <p className="text-sm text-blue-200">
-              on a ${result.insuredPrincipal.toLocaleString()} mortgage over {amort} years at {rate}%
-            </p>
-          </div>
-
-          <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-            {[
-              { label: "Total Interest", value: `$${result.totalInterest.toLocaleString()}`, color: "bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-300" },
-              { label: "Total Cost", value: `$${result.totalCost.toLocaleString()}`, color: "bg-gray-50 border-gray-200 text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" },
-              { label: "CMHC Insurance", value: result.needsCMHC ? `$${result.cmhc.toLocaleString()}` : "Not Required", color: result.needsCMHC ? "bg-yellow-50 border-yellow-200 text-yellow-800 dark:bg-yellow-900/20 dark:border-yellow-800 dark:text-yellow-300" : "bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-300" },
-              { label: "Land Transfer Tax", value: result.ltt > 0 ? `$${result.ltt.toLocaleString()}` : "None in this model", color: "bg-purple-50 border-purple-200 text-purple-800 dark:bg-purple-900/20 dark:border-purple-800 dark:text-purple-300" },
-            ].map((card) => (
-              <div key={card.label} className={`rounded-xl border-2 p-4 ${card.color}`}>
-                <p className="text-xs font-semibold opacity-70">{card.label}</p>
-                <p className="mt-1 text-xl font-bold">{card.value}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mb-8 rounded-xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-800 dark:bg-blue-900/20">
-            <h2 className="mb-3 font-bold text-blue-800 dark:text-blue-300">Estimated Cash Needed to Close</h2>
-            <div className="space-y-1 text-sm text-blue-900 dark:text-blue-200">
-              <div className="flex justify-between"><span>Down Payment</span><strong>${downPayment.toLocaleString()}</strong></div>
-              {result.ltt > 0 && <div className="flex justify-between"><span>Land Transfer Tax</span><strong>${result.ltt.toLocaleString()}</strong></div>}
-              <div className="flex justify-between"><span>Legal Fees (estimate)</span><strong>~$1,500</strong></div>
-              <div className="flex justify-between"><span>Home Inspection (estimate)</span><strong>~$500</strong></div>
-              <div className="flex justify-between border-t border-blue-200 pt-2 text-base font-bold dark:border-blue-700">
-                <span>Estimated Total</span>
-                <span className="text-blue-700 dark:text-blue-300">${(downPayment + result.ltt + 2000).toLocaleString()}</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="mb-8 rounded-xl bg-white p-6 shadow dark:bg-gray-800">
-            <h2 className="mb-4 text-lg font-bold">Remaining Balance Over Time</h2>
-            <Line
-              data={{
-                labels: result.yearlyData.map((d) => `Yr ${d.year}`),
-                datasets: [
-                  {
-                    label: "Remaining Balance",
-                    data: result.yearlyData.map((d) => d.balance),
-                    fill: true,
-                    backgroundColor: "rgba(239,68,68,0.1)",
-                    borderColor: "#ef4444",
-                    tension: 0.4,
-                  },
-                ],
-              }}
-              options={{
-                responsive: true,
-                plugins: { legend: { display: false } },
-                scales: { y: { ticks: { callback: (v) => `$${(v / 1000).toFixed(0)}k` } } },
-              }}
-            />
-          </div>
-
-          <div className="mb-8 rounded-xl bg-white p-6 shadow dark:bg-gray-800">
-            <h2 className="mb-4 text-lg font-bold">Principal vs Interest Each Year</h2>
-            <Bar
-              data={{
-                labels: result.yearlyData.map((d) => `Yr ${d.year}`),
-                datasets: [
-                  {
-                    label: "Principal",
-                    data: result.yearlyData.map((d) => d.principal),
-                    backgroundColor: "rgba(0,168,232,0.8)",
-                  },
-                  {
-                    label: "Interest",
-                    data: result.yearlyData.map((d) => d.interest),
-                    backgroundColor: "rgba(239,68,68,0.6)",
-                  },
-                ],
-              }}
-              options={{
-                responsive: true,
-                scales: {
-                  x: { stacked: true },
-                  y: { stacked: true, ticks: { callback: (v) => `$${(v / 1000).toFixed(0)}k` } },
-                },
-              }}
-            />
-          </div>
-
-          {result.needsCMHC && (
-            <div className="mb-8 rounded-xl border border-yellow-200 bg-yellow-50 p-5 dark:border-yellow-800 dark:bg-yellow-900/20">
-              <h2 className="mb-2 font-bold text-yellow-800 dark:text-yellow-300">CMHC Mortgage Insurance</h2>
-              <p className="text-sm text-yellow-900 dark:text-yellow-200">
-                Your down payment is <strong>{result.downPct}%</strong>. Under 20% down payment requires CMHC insurance of <strong>${result.cmhc.toLocaleString()}</strong>. In this model it is added to the mortgage balance rather than paid upfront.
-              </p>
-            </div>
-          )}
-
-          <div className="rounded-xl bg-gray-50 p-6 dark:bg-gray-800">
-            <h2 className="mb-3 text-lg font-bold">Ways to Pay Off Faster</h2>
-            <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-              <li>Switch to <strong>accelerated bi-weekly payments</strong> to reduce interest and amortization time.</li>
-              <li>Make <strong>lump-sum prepayments</strong> if your lender allows them.</li>
-              <li>Increase your <strong>payment amount</strong> when income rises.</li>
-              <li>Renew at a <strong>lower rate</strong> if the market allows and your lender options improve.</li>
-              <li>Use your <strong>FHSA</strong> and, where appropriate, the <strong>RRSP Home Buyers' Plan</strong> to support the down payment.</li>
-            </ul>
-          </div>
-        </div>
-      )}
-
-      <section className="mt-10 grid gap-6 md:grid-cols-2">
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-          <h2 className="text-xl font-bold text-primary dark:text-accent">How to use this mortgage calculator</h2>
-          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
-            This Canadian mortgage calculator is best used to test realistic buying scenarios, not just to chase the biggest home price a lender might allow. Small changes to rate, amortization, down payment, and payment frequency can shift the long-term cost of ownership by tens of thousands of dollars. That is why the most useful way to use the page is to run two or three scenarios side by side instead of trusting the first result.
-          </p>
-          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
-            Try one conservative scenario, one stretch scenario, and one version with accelerated bi-weekly payments. If the stretch version only works on paper when everything goes right, it is usually not the right target. This page is built to help you sanity-check the payment, cash needed to close, and longer-term interest cost before you go deeper with a lender or broker.
-          </p>
-        </div>
-
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
-          <h2 className="text-xl font-bold text-primary dark:text-accent">What Canadians usually miss</h2>
-          <ul className="mt-3 space-y-3 text-sm text-slate-600 dark:text-slate-300">
-            <li>CMHC insurance can materially increase the financed balance when the down payment is under 20%.</li>
-            <li>Closing costs and land transfer tax can change the real cash needed more than people expect.</li>
-            <li>Accelerated bi-weekly payments can reduce amortization even when the payment difference feels modest.</li>
-            <li>The payment is only one part of the decision. Rent-vs-buy and down-payment strategy still matter.</li>
-          </ul>
-          <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
-            If you are still deciding whether ownership fits your budget at all, the best next step is usually the rent-vs-buy calculator, not a larger mortgage amount.
-          </p>
-        </div>
-      </section>
-
-      <MethodologyPanel
-        title="How this mortgage calculator works"
-        summary="This calculator estimates mortgage payments using a semi-annual compounding conversion, then layers in CMHC insurance and simplified provincial land transfer tax rules for planning purposes."
-        updated="April 3, 2026"
-        assumptions={[
-          "The annual rate entered is converted using a semi-annual compounding approach before monthly payment calculations are made.",
-          "CMHC insurance is estimated using simplified premium tiers based on the loan-to-value ratio.",
-          "Provincial land transfer tax handling is simplified and may not capture every rebate, municipal surcharge, or local variation.",
-          "Closing costs shown here are directional planning figures, not a lender or lawyer quote.",
-          "Qualification rules, stress test outcomes, and lender product pricing are not modeled directly on this page.",
-        ]}
-        sources={[
-          { label: "Government of Canada: Mortgage loan insurance", href: "https://www.canada.ca/en/financial-consumer-agency/services/mortgages/down-payment.html" },
-          { label: "FCAC: Mortgage calculator guidance", href: "https://itools-ioutils.fcac-acfc.gc.ca/MC-CH/MCCalc-CHCalc-eng.aspx" },
-        ]}
-        note="Educational estimate only. Verify payment quotes, qualification rules, and closing costs with your lender, broker, and lawyer before making an offer."
-      />
-
-      <div className="mt-8 grid gap-4 md:grid-cols-3">
-        {[
-          {
-            title: "Pay off your mortgage faster",
-            body: "See strategies for accelerated bi-weekly payments, lump sums, and renewal planning.",
-            href: "/blog/pay-off-mortgage-faster-canada",
-          },
-          {
-            title: "Rent vs buy calculator",
-            body: "Compare ownership costs against renting before you commit to a mortgage payment target.",
-            href: "/tools/rent-vs-buy",
-          },
-          {
-            title: "Methodology and sources",
-            body: "Review how EasyFinanceTools handles assumptions, updates, privacy, and disclosures.",
-            href: "/methodology",
-          },
-        ].map((item) => (
-          <SurfaceTrackedLink
-            key={item.href}
-            to={item.href}
-            eventName="tool_result_cta_click"
-            ctaLabel={item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}
-            trackingParams={{ tool_name: "mortgage_calculator", section: "next_steps", destination_type: item.href.startsWith("/tools/") ? "tool" : "article" }}
-            className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900"
-          >
-            <p className="text-lg font-bold text-primary dark:text-accent">{item.title}</p>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
-          </SurfaceTrackedLink>
-        ))}
-      </div>
-
-      <FAQ items={FAQS} />
-    </section>
+    </CalculatorLayout>
   );
 }
