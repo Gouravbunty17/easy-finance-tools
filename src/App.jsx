@@ -30,6 +30,8 @@ const CPPOASEstimator         = lazy(() => import('./pages/tools/CPPOASEstimator
 const IncomeTaxCalculator     = lazy(() => import('./pages/tools/IncomeTaxCalculator'));
 const FIRECalculator          = lazy(() => import('./pages/tools/FIRECalculator'));
 const CompoundInterestCalculator = lazy(() => import('./pages/tools/CompoundInterestCalculator'));
+const TipCalculator           = lazy(() => import('./pages/tools/TipCalculator'));
+const GstHstCalculator        = lazy(() => import('./pages/tools/GstHstCalculator'));
 
 const StockPage               = lazy(() => import('./pages/stocks/StockPage'));
 const StockCollectionPage     = lazy(() => import('./pages/stocks/StockCollectionPage'));
@@ -98,6 +100,8 @@ export default function App() {
             <Route path="/tools/income-tax-calculator" element={<IncomeTaxCalculator />} />
             <Route path="/tools/fire-calculator" element={<FIRECalculator />} />
             <Route path="/tools/compound-interest-calculator" element={<CompoundInterestCalculator />} />
+            <Route path="/tools/tip-calculator" element={<TipCalculator />} />
+            <Route path="/tools/gst-hst-calculator" element={<GstHstCalculator />} />
             <Route path="/stocks" element={<StockPage />} />
             <Route path="/stocks/canadian-bank-stocks" element={<StockCollectionPage collectionKey="canadian-bank-stocks" />} />
             <Route path="/stocks/canadian-etfs" element={<StockCollectionPage collectionKey="canadian-etfs" />} />

@@ -3,6 +3,8 @@ import SEO from "../components/SEO";
 import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
 
 const tools = [
+  { title: "Tip Calculator", desc: "Calculate the tip, split the bill, and compare pre-tax vs after-tax tipping with simple input boxes.", link: "/tools/tip-calculator", badge: "New", category: "Budget", color: "border-amber-200 hover:border-amber-400" },
+  { title: "GST/HST Calculator", desc: "Add sales tax or reverse it from a final price for every Canadian province and territory.", link: "/tools/gst-hst-calculator", badge: "New", category: "Tax", color: "border-emerald-200 hover:border-emerald-400" },
   { title: "Income Tax Calculator", desc: "Calculate your exact take-home pay, federal + provincial tax, CPP, and EI for all provinces.", link: "/tools/income-tax-calculator", badge: "New", category: "Tax", color: "border-indigo-200 hover:border-indigo-400" },
   { title: "Compound Interest Calculator", desc: "Project long-term growth in CAD with monthly contributions, fees, and inflation.", link: "/tools/compound-interest-calculator", badge: "High Demand", category: "Investing", color: "border-blue-200 hover:border-blue-400" },
   { title: "TFSA Calculator", desc: "Calculate your Tax-Free Savings Account growth with 2026 limits.", link: "/tools/tfsa-calculator", badge: "Most Popular", category: "Savings", color: "border-blue-200 hover:border-blue-400" },
