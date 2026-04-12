@@ -43,7 +43,7 @@ export default function Header() {
                   to={link.path}
                   className={({ isActive }) =>
                     `text-sm font-semibold transition-colors ${
-                      isActive ? "text-secondary" : "text-gray-600 hover:text-secondary dark:text-gray-300"
+                      isActive ? "text-primary dark:text-accent" : "text-gray-600 hover:text-secondary dark:text-gray-300"
                     }`
                   }
                 >
@@ -58,7 +58,7 @@ export default function Header() {
               >
                 <FiSearch size={13} />
                 <span className="hidden lg:inline">Search</span>
-                <kbd className="hidden rounded bg-white px-1 text-[11px] text-gray-700 dark:bg-gray-700 dark:text-gray-200 lg:inline">Ctrl+K</kbd>
+                <kbd className="hidden rounded bg-white px-1 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-200 lg:inline">Ctrl+K</kbd>
               </button>
 
               <NavLink to="/contact" className="rounded-lg bg-secondary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary">
@@ -111,7 +111,7 @@ export default function Header() {
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
                     `rounded-lg px-3 py-2 text-sm font-semibold ${
-                      isActive ? "bg-blue-50 text-secondary" : "text-gray-600 dark:text-gray-300"
+                      isActive ? "bg-blue-50 text-primary dark:bg-slate-800 dark:text-accent" : "text-gray-600 dark:text-gray-300"
                     }`
                   }
                 >

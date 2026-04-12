@@ -145,6 +145,12 @@ export default function App() {
             <Route path="/blog/emergency-fund-canada" element={<EmergencyFundCanada />} />
             <Route path="/blog/pay-off-mortgage-faster-canada" element={<PayOffMortgageFaster />} />
             <Route path="/blog/canada-child-benefit-2026" element={<CanadaChildBenefit2026 />} />
+            <Route path="*" element={
+              <div className="mx-auto max-w-3xl px-4 py-24 text-center">
+                <h1 className="text-4xl font-bold text-primary dark:text-accent">Page not found</h1>
+                <p className="mt-4 text-slate-600 dark:text-slate-300">The page you're looking for doesn't exist.</p>
+              </div>
+            } />
           </Routes>
         </Suspense>
       </main>

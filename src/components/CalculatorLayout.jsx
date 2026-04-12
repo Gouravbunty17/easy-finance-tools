@@ -25,12 +25,18 @@ export function ResultCard({ label, value, hint, tone = "default" }) {
     success: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300",
     warning: "bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300",
   };
+  const dimClasses = {
+    default: "text-slate-500 dark:text-slate-400",
+    primary: "text-white/75",
+    success: "text-emerald-800 dark:text-emerald-400",
+    warning: "text-amber-800 dark:text-amber-500",
+  };
 
   return (
     <div className={`rounded-2xl border border-slate-200 p-5 dark:border-slate-700 ${toneClasses[tone] || toneClasses.default}`}>
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] opacity-75">{label}</p>
+      <p className={`text-xs font-semibold uppercase tracking-[0.18em] ${dimClasses[tone] || dimClasses.default}`}>{label}</p>
       <p className="mt-3 text-3xl font-bold">{value}</p>
-      {hint ? <p className="mt-2 text-sm opacity-75">{hint}</p> : null}
+      {hint ? <p className={`mt-2 text-sm ${dimClasses[tone] || dimClasses.default}`}>{hint}</p> : null}
     </div>
   );
 }
@@ -52,7 +58,7 @@ export default function CalculatorLayout({
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
         <div>
           {badge ? (
-            <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
+            <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-primary dark:bg-slate-800 dark:text-secondary">
               {badge}
             </div>
           ) : null}
@@ -72,7 +78,7 @@ export default function CalculatorLayout({
 
       {relatedTools.length > 0 ? (
         <div className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related calculators</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary dark:text-secondary">Related calculators</p>
           <div className="mt-4 grid gap-4 md:grid-cols-3">
             {relatedTools.map((tool) => (
               <SurfaceTrackedLink

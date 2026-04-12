@@ -20,7 +20,7 @@ export default function NumberInput({
     <label htmlFor={id} className={`block ${className}`}>
       <div className="mb-2 flex items-center justify-between gap-3">
         <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">{label}</span>
-        {suffix ? <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">{suffix}</span> : null}
+        {suffix ? <span className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-600 dark:text-slate-400">{suffix}</span> : null}
       </div>
 
       <div

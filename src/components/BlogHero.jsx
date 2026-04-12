@@ -54,7 +54,7 @@ export default function BlogHero({
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
               <div className="relative">
                 <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-white/80">
+                  <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white/80">
                     Article visual
                   </span>
                   <span className="text-xs font-semibold text-white/60">{category}</span>
