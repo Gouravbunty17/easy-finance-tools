@@ -152,14 +152,14 @@ export default function Home() {
               className="group surface-card border-2 p-6 transition-all hover:-translate-y-1 hover:border-secondary hover:shadow-xl"
             >
               <div className="mb-4 flex items-start justify-between gap-3">
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-secondary dark:bg-slate-800">
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-primary dark:bg-slate-800 dark:text-secondary">
                   {tool.title.split(" ")[0]}
                 </span>
                 {tool.badge && <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-semibold text-green-700">{tool.badge}</span>}
               </div>
               <h3 className="mb-2 text-xl font-bold text-primary transition group-hover:text-secondary dark:text-white">{tool.title}</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">{tool.desc}</p>
-              <div className="mt-5 flex items-center justify-between text-sm font-semibold text-secondary">
+              <div className="mt-5 flex items-center justify-between text-sm font-semibold text-primary dark:text-secondary">
                 <span>Open calculator</span>
                 <span className="transition-transform group-hover:translate-x-1">More</span>
               </div>
@@ -205,7 +205,7 @@ export default function Home() {
         <div className="surface-soft p-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div className="max-w-3xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Original Canadian finance content</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary dark:text-secondary">Original Canadian finance content</p>
               <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the calculators with the guides, not as stand-alone formulas</h2>
               <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
                 EasyFinanceTools is built around practical Canadian decisions like TFSA vs RRSP, mortgage affordability, tax take-home pay, and savings tradeoffs. The strongest pages on the site pair calculator outputs with plain-language guides, published assumptions, and visible methodology so readers can sanity-check the result before acting on it.
@@ -247,7 +247,7 @@ export default function Home() {
               eventName="homepage_cta_click"
               ctaLabel="broker_comparisons_view_all_articles"
               trackingParams={{ section: "broker_comparisons", destination_type: "hub" }}
-              className="text-sm font-semibold text-secondary hover:underline"
+              className="text-sm font-semibold text-primary underline dark:text-secondary"
             >
               Browse all guides
             </SurfaceTrackedLink>
@@ -281,7 +281,7 @@ export default function Home() {
                 trackingParams={{ section: "broker_comparisons_decision_paths", destination_type: "tool" }}
                 className="rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900"
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Calculator-first path</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary dark:text-secondary">Calculator-first path</p>
                 <p className="mt-2 font-semibold text-primary dark:text-accent">{item.title}</p>
                 <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
               </SurfaceTrackedLink>
@@ -324,7 +324,7 @@ export default function Home() {
               eventName="homepage_cta_click"
               ctaLabel="popular_searches_browse_all"
               trackingParams={{ section: "popular_searches", destination_type: "hub" }}
-              className="text-sm font-semibold text-secondary hover:underline"
+              className="text-sm font-semibold text-primary underline dark:text-secondary"
             >
               Browse all calculators
             </SurfaceTrackedLink>
@@ -396,7 +396,7 @@ export default function Home() {
             eventName="homepage_cta_click"
             ctaLabel="latest_articles_view_all"
             trackingParams={{ section: "latest_articles", destination_type: "hub" }}
-            className="text-sm font-semibold text-secondary hover:underline"
+            className="text-sm font-semibold text-primary underline dark:text-secondary"
           >
             View all articles
           </SurfaceTrackedLink>
@@ -415,7 +415,7 @@ export default function Home() {
                 {post.category}
               </span>
               <h3 className="mb-2 mt-3 font-bold leading-snug text-gray-800 transition group-hover:text-secondary dark:text-white">{post.title}</h3>
-              <span className="text-xs font-semibold text-secondary">Read article</span>
+              <span className="text-xs font-semibold text-primary dark:text-secondary">Read article</span>
             </SurfaceTrackedLink>
           ))}
         </div>

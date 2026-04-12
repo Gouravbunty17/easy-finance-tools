@@ -351,7 +351,7 @@ function SymbolChip({ item, onClick }) {
     >
       <div className="flex items-center gap-2">
         <span className="font-bold text-primary dark:text-white">{item.label || shortSymbolLabel(item.t)}</span>
-        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-500 dark:bg-slate-700 dark:text-slate-300">
+        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-500 dark:bg-slate-700 dark:text-slate-300">
           {item.market}
         </span>
       </div>
@@ -1366,7 +1366,7 @@ export default function StockPage({ view = "overview" }) {
                         </>
                       ) : (
                         <>
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500">{card.label}</p>
+                          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">{card.label}</p>
                           <p className="mt-2 text-lg font-bold text-primary dark:text-accent">{card.value}</p>
                         </>
                       )}
@@ -1483,7 +1483,7 @@ export default function StockPage({ view = "overview" }) {
                       <div className="grid flex-1 gap-3 sm:grid-cols-3">
                         {quickStats.slice(0, 3).map((item) => (
                           <div key={item.label} className="rounded-xl border border-gray-100 bg-slate-50 p-3 dark:border-gray-700 dark:bg-gray-900">
-                            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500">{item.label}</p>
+                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">{item.label}</p>
                             <p className="mt-1 text-sm font-bold text-primary dark:text-accent">{item.value}</p>
                           </div>
                         ))}
@@ -1603,7 +1603,7 @@ export default function StockPage({ view = "overview" }) {
                   <div className="grid gap-3 px-4 pb-5 pt-3 sm:grid-cols-2">
                     {[...quickStats.slice(0, 6), ...valuationStats.slice(0, 2)].map((item) => (
                       <div key={item.label} className="rounded-xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-900">
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500">{item.label}</p>
+                        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gray-500">{item.label}</p>
                         <p className="mt-1 text-sm font-bold text-primary dark:text-accent">{item.value}</p>
                       </div>
                     ))}
@@ -2052,7 +2052,7 @@ function MoversPanel({ title, items, loading, emptyLabel, tone, onSelect, showVo
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="font-bold text-primary dark:text-white">{item.symbol.replace(".TO", "").replace("-USD", "")}</span>
-                  <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-500 dark:bg-slate-700 dark:text-slate-300">
+                  <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-500 dark:bg-slate-700 dark:text-slate-300">
                     {item.market}
                   </span>
                 </div>

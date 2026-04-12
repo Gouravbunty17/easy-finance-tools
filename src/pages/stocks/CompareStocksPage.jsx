@@ -189,7 +189,7 @@ function CompareCard({ symbol, quote, loading, onOpen }) {
 function MetricCard({ label, value }) {
   return (
     <div className="rounded-2xl border border-gray-100 bg-slate-50 p-4 dark:border-gray-700 dark:bg-gray-800">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-400">{label}</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">{label}</p>
       <p className="mt-2 text-lg font-bold text-primary dark:text-white">{value}</p>
     </div>
   );

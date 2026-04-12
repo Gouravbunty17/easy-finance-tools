@@ -158,7 +158,7 @@ export default function StockCollectionPage({ collectionKey }) {
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="text-xl font-bold text-primary dark:text-white">{shortTickerLabel(item.t)}</span>
-                        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-500 dark:bg-slate-700 dark:text-slate-300">
+                        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-500 dark:bg-slate-700 dark:text-slate-300">
                           {item.market}
                         </span>
                       </div>
@@ -186,7 +186,7 @@ export default function StockCollectionPage({ collectionKey }) {
 function MetricCard({ label, value }) {
   return (
     <div className="rounded-xl border border-gray-100 bg-white p-3 dark:border-gray-700 dark:bg-gray-900">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-400">{label}</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">{label}</p>
       <p className="mt-2 text-sm font-bold text-primary dark:text-white">{value}</p>
     </div>
   );
