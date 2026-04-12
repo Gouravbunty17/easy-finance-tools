@@ -32,6 +32,9 @@ const FIRECalculator          = lazy(() => import('./pages/tools/FIRECalculator'
 const CompoundInterestCalculator = lazy(() => import('./pages/tools/CompoundInterestCalculator'));
 const TipCalculator           = lazy(() => import('./pages/tools/TipCalculator'));
 const GstHstCalculator        = lazy(() => import('./pages/tools/GstHstCalculator'));
+const SalaryToHourlyCalculator = lazy(() => import('./pages/tools/SalaryToHourlyCalculator'));
+const CadUsdConverter         = lazy(() => import('./pages/tools/CadUsdConverter'));
+const InflationCalculator     = lazy(() => import('./pages/tools/InflationCalculator'));
 
 const StockPage               = lazy(() => import('./pages/stocks/StockPage'));
 const StockCollectionPage     = lazy(() => import('./pages/stocks/StockCollectionPage'));
@@ -102,6 +105,9 @@ export default function App() {
             <Route path="/tools/compound-interest-calculator" element={<CompoundInterestCalculator />} />
             <Route path="/tools/tip-calculator" element={<TipCalculator />} />
             <Route path="/tools/gst-hst-calculator" element={<GstHstCalculator />} />
+            <Route path="/tools/salary-to-hourly-calculator" element={<SalaryToHourlyCalculator />} />
+            <Route path="/tools/cad-usd-converter" element={<CadUsdConverter />} />
+            <Route path="/tools/inflation-calculator" element={<InflationCalculator />} />
             <Route path="/stocks" element={<StockPage />} />
             <Route path="/stocks/canadian-bank-stocks" element={<StockCollectionPage collectionKey="canadian-bank-stocks" />} />
             <Route path="/stocks/canadian-etfs" element={<StockCollectionPage collectionKey="canadian-etfs" />} />
