@@ -252,6 +252,7 @@ export default function MortgageCalculator() {
           { label: "CMHC: Mortgage loan insurance for consumers", href: "https://www.cmhc-schl.gc.ca/consumers/home-buying/mortgage-loan-insurance-for-consumers/what-is-cmhc-mortgage-loan-insurance" },
           { label: "Department of Finance Canada: Making mortgages more affordable", href: "https://www.canada.ca/en/department-finance/news/2024/09/making-mortgages-more-affordable.html" },
           { label: "Bank of Canada: Key interest rate", href: "https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/" },
+          { label: "OSFI Guideline B-20: Residential mortgage underwriting (stress test)", href: "https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/residential-mortgage-underwriting-practices-procedures-guideline-b-20" },
           { label: "Interest Act (R.S.C., 1985, c. I-15), section 6", href: "https://laws-lois.justice.gc.ca/eng/acts/i-15/section-6.html" },
         ]}
       />
