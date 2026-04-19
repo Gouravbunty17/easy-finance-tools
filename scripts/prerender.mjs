@@ -1,7 +1,38 @@
 import fs from "node:fs/promises";
+import fsSync from "node:fs";
 import path from "node:path";
 import { createServer } from "node:http";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
+
+const isVercel = process.env.VERCEL === "1";
+
+function findLocalChrome() {
+  if (process.env.CHROME_PATH) return process.env.CHROME_PATH;
+  const candidates =
+    process.platform === "win32"
+      ? [
+          "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+          "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+          `${process.env.LOCALAPPDATA || ""}\\Google\\Chrome\\Application\\chrome.exe`,
+          "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
+          "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+        ]
+      : process.platform === "darwin"
+        ? [
+            "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+            "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+          ]
+        : ["/usr/bin/google-chrome", "/usr/bin/chromium", "/usr/bin/chromium-browser"];
+  for (const p of candidates) {
+    try {
+      if (fsSync.existsSync(p)) return p;
+    } catch {}
+  }
+  throw new Error(
+    "No Chrome/Chromium found locally. Set CHROME_PATH to a Chrome executable or install Chrome.",
+  );
+}
 
 const DIST_DIR = path.resolve(process.cwd(), "dist");
 const HOST = "127.0.0.1";
@@ -227,8 +258,9 @@ async function prerenderRoute(browser, route) {
 async function main() {
   const server = await startSpaServer();
   const browser = await puppeteer.launch({
+    args: isVercel ? chromium.args : ["--no-sandbox", "--disable-setuid-sandbox"],
+    executablePath: isVercel ? await chromium.executablePath() : findLocalChrome(),
     headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 
   try {
