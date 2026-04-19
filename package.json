@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "npx vite build",
+    "build": "npm run build:app && npm run prerender",
+    "build:app": "npx vite build",
+    "prerender": "node scripts/prerender.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -18,6 +20,7 @@
     "@heroicons/react": "^2.0.18",
     "@vitejs/plugin-react": "^4.0.0",
     "autoprefixer": "^10.4.21",
+    "puppeteer": "^24.41.0",
     "tailwindcss": "^3.3.2",
     "vite": "^7.0.0"
   }

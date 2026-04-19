@@ -2,6 +2,7 @@ import React from "react";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import useAdSense from "../../hooks/useAdSense";
+import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import TrackedLink from "../../components/TrackedLink";
@@ -11,6 +12,11 @@ export default function WeeklyDividendETFs() {
 
   return (
     <div>
+      <SEO
+        title="What Are Weekly Dividend ETFs, and How Do They Work?"
+        description="How weekly dividend ETFs work, why covered-call strategies enable weekly payouts, and the yield, MER, and return-of-capital risks Canadian investors should watch for."
+        canonical="https://easyfinancetools.com/blog/weekly-dividend-etfs"
+      />
       <BlogHero
         icon="💵"
         category="Investing · Dividends"

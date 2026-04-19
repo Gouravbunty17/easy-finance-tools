@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Primary SEO -->
-    <title>EasyFinanceTools — Free TFSA, RRSP & Dividend Calculators for Canadians</title>
+    <title>EasyFinanceTools - Free TFSA, RRSP & Dividend Calculators for Canadians</title>
     <meta name="description" content="Free Canadian financial calculators for TFSA, RRSP, dividends and budgeting. No sign-up required. Privacy-first. Updated for 2026." />
     <meta name="keywords" content="TFSA calculator Canada, RRSP calculator 2026, dividend calculator Canada, free financial tools Canada, budget tracker, Canadian personal finance" />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="EasyFinanceTools" />
     <meta name="msvalidate.01" content="5F47EE7FF93EBF0D112F0840D9D1C4EF" />
-    <link rel="canonical" href="https://easyfinancetools.com/" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
@@ -19,17 +18,37 @@
     <!-- Open Graph (Facebook, LinkedIn sharing) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="EasyFinanceTools" />
-    <meta property="og:title" content="EasyFinanceTools — Free TFSA, RRSP & Dividend Calculators" />
+    <meta property="og:title" content="EasyFinanceTools - Free TFSA, RRSP & Dividend Calculators" />
     <meta property="og:description" content="Free Canadian financial calculators. TFSA, RRSP, dividends, budget tools. No sign-up. Privacy-first. Updated for 2026." />
-    <meta property="og:url" content="https://easyfinancetools.com/" />
-    <meta property="og:image" content="https://easyfinancetools.com/og-image.png" />
+    <meta property="og:image" content="https://easyfinancetools.com/og-image.svg" />
     <meta property="og:locale" content="en_CA" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="EasyFinanceTools — Free Canadian Financial Calculators" />
+    <meta name="twitter:title" content="EasyFinanceTools - Free Canadian Financial Calculators" />
     <meta name="twitter:description" content="Free TFSA, RRSP, dividend & budget calculators for Canadians. No signup required." />
-    <meta name="twitter:image" content="https://easyfinancetools.com/og-image.png" />
+    <meta name="twitter:image" content="https://easyfinancetools.com/og-image.svg" />
+
+    <script>
+      (function () {
+        var canonicalHref = window.location.origin + window.location.pathname;
+        var canonicalEl = document.querySelector("link[rel='canonical']");
+        if (!canonicalEl) {
+          canonicalEl = document.createElement("link");
+          canonicalEl.setAttribute("rel", "canonical");
+          document.head.appendChild(canonicalEl);
+        }
+        canonicalEl.setAttribute("href", canonicalHref);
+
+        var ogUrlEl = document.querySelector("meta[property='og:url']");
+        if (!ogUrlEl) {
+          ogUrlEl = document.createElement("meta");
+          ogUrlEl.setAttribute("property", "og:url");
+          document.head.appendChild(ogUrlEl);
+        }
+        ogUrlEl.setAttribute("content", canonicalHref);
+      })();
+    </script>
 
     <!-- Structured Data: Organization -->
     <script type="application/ld+json">
@@ -91,7 +110,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
 
-    <!-- Google Fonts — non-render-blocking (media=print trick) -->
+    <!-- Google Fonts - non-render-blocking (media=print trick) -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet" media="print" onload="this.media='all'" />
@@ -100,7 +119,7 @@
     </noscript>
   </head>
   <body>
-    <h1 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0">EasyFinanceTools — Free Canadian Finance Calculators</h1>
+    <h1 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0">EasyFinanceTools - Free Canadian Finance Calculators</h1>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

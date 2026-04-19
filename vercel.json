@@ -33,6 +33,7 @@
     { "source": "/about",                          "destination": "/index.html" },
     { "source": "/contact",                        "destination": "/index.html" },
     { "source": "/methodology",                    "destination": "/index.html" },
+    { "source": "/editorial-standards",            "destination": "/index.html" },
     { "source": "/privacy-policy",                 "destination": "/index.html" },
     { "source": "/terms",                          "destination": "/index.html" }
   ]
