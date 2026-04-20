@@ -5,10 +5,11 @@ import SEO from "../components/SEO";
 const COOKIES = [
   ["_ga", "Google Analytics", "Distinguishes unique users", "2 years"],
   ["_ga_3KQXRRRQFK", "Google Analytics", "Session state for this site", "2 years"],
-  ["__gads", "Google AdSense", "Ad measurement and frequency capping", "13 months"],
-  ["__gpi", "Google AdSense", "Personalized advertising identifier", "13 months"],
-  ["IDE", "Google DoubleClick", "Ad conversion tracking", "13 months"],
+  ["_gid", "Google Analytics", "Distinguishes users within a 24-hour window", "24 hours"],
   ["theme", "EasyFinanceTools (local storage)", "Remembers dark / light mode preference", "Until cleared"],
+  ["__gads", "Google AdSense (paused until approval)", "Ad measurement and frequency capping when ads are enabled", "13 months"],
+  ["__gpi", "Google AdSense (paused until approval)", "Personalized advertising identifier when ads are enabled", "13 months"],
+  ["IDE / NID", "Google / DoubleClick (paused until approval)", "Ad delivery and conversion tracking when ads are enabled", "13 months"],
 ];
 
 export default function PrivacyPolicy() {
@@ -16,54 +17,119 @@ export default function PrivacyPolicy() {
     <section className="max-w-3xl mx-auto px-4 py-16">
       <SEO
         title="Privacy Policy"
-        description="How EasyFinanceTools handles data, cookies, and third parties, and the rights available to you under PIPEDA and the GDPR."
+        description="How EasyFinanceTools handles data, cookies, and third parties, and the rights available to you under PIPEDA, Quebec's Law 25, the GDPR, and the CCPA."
         canonical="https://easyfinancetools.com/privacy-policy"
       />
       <h1 className="text-4xl font-bold text-primary dark:text-accent mb-2">Privacy Policy</h1>
-      <p className="text-gray-500 mb-10">Last updated: April 19, 2026</p>
+      <p className="text-gray-500 mb-10">Last updated: April 20, 2026</p>
 
       <div className="prose dark:prose-invert max-w-none">
         <p>
-          This Privacy Policy explains how EasyFinanceTools ("we", "our", or "the Site") collects, uses, and protects information when you use easyfinancetools.com. We follow the requirements of Canada's <strong>Personal Information Protection and Electronic Documents Act (PIPEDA)</strong> and, where they apply to you, the European Union's <strong>General Data Protection Regulation (GDPR)</strong>.
+          This Privacy Policy explains how EasyFinanceTools ("we", "our", or "the Site") collects, uses, and protects information when you use easyfinancetools.com. It is written to meet the requirements of Canada's <strong>Personal Information Protection and Electronic Documents Act (PIPEDA)</strong>, Quebec's <strong>Law 25</strong>, the European Union and United Kingdom's <strong>General Data Protection Regulation (GDPR)</strong>, and California's <strong>Consumer Privacy Act (CCPA/CPRA)</strong>, to the extent any of those laws apply to your visit.
         </p>
         <p>
-          <strong>The short version:</strong> we do not collect, store, or transmit any of the values you type into our calculators. All calculator math runs entirely in your browser. We do collect limited analytics and advertising data through third-party providers (Google Analytics, Google AdSense, and our hosting provider Vercel). Details below.
+          <strong>The short version:</strong> numbers you type into a calculator never leave your browser. We do not have user accounts, we do not sell data, and the only routine data collected is standard web analytics (page views, device type, referrer) and server logs needed to run the Site.
         </p>
 
-        <h2>1. Who we are</h2>
+        <h2>1. Who we are and how to contact us</h2>
         <p>
-          EasyFinanceTools is operated as an independent Canadian website and is edited by Gourav Kumar (see our <Link to="/about" className="text-secondary">About page</Link>). For privacy questions, data-access requests, or deletion requests, use our <Link to="/contact" className="text-secondary">Contact page</Link> and include "Privacy Request" in the subject line. We aim to respond within 30 days.
+          EasyFinanceTools is an independent Canadian website operated and edited by <strong>Gourav Kumar</strong> from <strong>Brampton, Ontario, Canada</strong>. Ontario law and Canadian federal privacy law are the primary frameworks that apply to the Site. Read more on the <Link to="/about" className="text-secondary">About page</Link>.
+        </p>
+        <p>
+          For privacy questions, data-access requests, corrections, or deletion requests, use our <Link to="/contact" className="text-secondary">Contact page</Link> and include "Privacy Request" in the subject line. We aim to respond within 30 days, as required by PIPEDA.
         </p>
 
-        <h2>2. Information we do NOT collect</h2>
+        <h2>2. What data we collect</h2>
+        <h3>2.1 Data we do NOT collect</h3>
         <p>
-          Any values you type into a calculator — income, balances, contribution amounts, ages, dates, home prices — <strong>stay in your browser</strong>. We do not transmit them to our servers or to any third party, and we do not log them. You can verify this by opening your browser's developer tools and watching the Network tab while you use any tool on the site.
+          Any values you type into a calculator — income, balances, contribution amounts, ages, dates, home prices, RRSP or TFSA room — <strong>stay in your browser</strong>. All calculator math runs client-side in JavaScript. Nothing you enter is transmitted to our servers or to any third party, and nothing is logged. You can verify this by opening your browser's developer tools and watching the Network tab while using any tool on the site.
         </p>
         <p>
-          We do not ask for or collect your name, email address, phone number, home address, Social Insurance Number, bank account numbers, or any tax-filing identifier. The Site has no user accounts, no login, and no sign-up flow.
+          We do not ask for or collect your name, email address, phone number, home address, Social Insurance Number, bank account numbers, or any tax-filing identifier. The Site has no user accounts, no login, and no sign-up flow. The only time you supply personal information is if you voluntarily send a message through the <Link to="/contact" className="text-secondary">Contact page</Link>, in which case your name, email, and message are delivered to us for the sole purpose of replying.
         </p>
 
-        <h2>3. Information collected automatically by third parties</h2>
-        <p>
-          When you visit the Site, the following information is collected automatically by the third-party services we rely on:
-        </p>
+        <h3>2.2 Data collected automatically</h3>
         <ul>
           <li>
-            <strong>Google Analytics 4</strong> collects page URLs viewed, referring URL, session duration, approximate city-level geolocation (derived from IP), device type, browser, operating system, and language. IP addresses are anonymized by Google before storage.
+            <strong>Google Analytics 4</strong> (property <code>G-3KQXRRRQFK</code>) collects anonymized page URLs viewed, referring URL, session duration, approximate city-level geolocation derived from IP, device type, browser, operating system, and language. IP addresses are truncated by Google before storage (IP anonymization is enabled by default in GA4).
           </li>
           <li>
-            <strong>Google AdSense</strong> may read and write advertising cookies (<code>__gads</code>, <code>__gpi</code>, <code>IDE</code>) to measure ad performance and, where you have consented, serve personalized advertisements. Ads are selected based on page content, not on values you enter into calculators.
+            <strong>Vercel</strong>, our hosting and edge-CDN provider, logs the request IP address, URL, timestamp, and user-agent string for every page load. These logs are retained for approximately 30 days and are used for security, abuse detection, and debugging.
+          </li>
+        </ul>
+
+        <h3>2.3 The Bank of Canada Valet API</h3>
+        <p>
+          Some calculators fetch live foreign-exchange rates and inflation data from the <a href="https://www.bankofcanada.ca/valet/docs" className="text-secondary" target="_blank" rel="noreferrer">Bank of Canada Valet API</a>. This is an <strong>outbound-only</strong> request: we ask the Bank of Canada for public rate data, and <strong>no information about you is sent</strong>. The Valet API does not use cookies and is not an advertising or analytics provider.
+        </p>
+
+        <h2>3. Why we collect it (legal basis)</h2>
+        <p>
+          Under PIPEDA, we rely on <strong>legitimate interest / implied consent</strong> to collect the minimum technical data needed to operate the Site, detect abuse, and understand aggregate usage so we can improve calculators. No personal financial information is processed, so the threshold for consent is low.
+        </p>
+        <p>
+          Under GDPR, where it applies to visitors from the EU or UK, we rely on <strong>legitimate interest</strong> for server logs and basic analytics, and on <strong>explicit consent</strong> for any personalized advertising cookies once AdSense is re-enabled (see Section 4). Under Quebec's Law 25, the same consent requirement applies to advertising technologies that track across sites.
+        </p>
+        <p>
+          Using a calculator does not require any account, login, or personal information. You can close the tab at any time and no record of your inputs remains on our systems because none was ever transmitted.
+        </p>
+
+        <h2>4. Third-party services we use</h2>
+        <p>The Site relies on the following providers:</p>
+        <ul>
+          <li>
+            <strong>Google Analytics 4 (Google LLC)</strong> — anonymous usage analytics. See <a href="https://policies.google.com/privacy" className="text-secondary" target="_blank" rel="noreferrer">policies.google.com/privacy</a>. Data may be transferred to the United States.
           </li>
           <li>
-            <strong>Vercel</strong>, our hosting provider, logs the IP address and standard request metadata (URL, timestamp, user agent) for every page load. These logs are retained for approximately 30 days as part of normal server operations and abuse detection.
+            <strong>Vercel Inc.</strong> — hosting, edge CDN, and serverless functions (including the Contact form backend). Privacy policy: <a href="https://vercel.com/legal/privacy-policy" className="text-secondary" target="_blank" rel="noreferrer">vercel.com/legal/privacy-policy</a>. Data may be transferred to the United States.
+          </li>
+          <li>
+            <strong>Bank of Canada</strong> — public Valet API for FX and inflation rates. Outbound data only; nothing about you is sent.
+          </li>
+          <li>
+            <strong>Google AdSense (paused)</strong> — ad delivery. <strong>AdSense is temporarily disabled as of April 2026</strong> pending a re-approval review. When ads resume, Google and its certified partners may use cookies and device identifiers to serve ads based on your prior visits to this or other sites, measure ad performance, and prevent fraud. You may opt out of personalized Google ads at <a href="https://adssettings.google.com" className="text-secondary" target="_blank" rel="noreferrer">adssettings.google.com</a>, and you can review Google's ad partner policies at <a href="https://policies.google.com/technologies/partner-sites" className="text-secondary" target="_blank" rel="noreferrer">policies.google.com/technologies/partner-sites</a>. This policy will remain accurate when AdSense is re-enabled; no further changes to Sections 4 or 7 are planned at that time.
           </li>
         </ul>
         <p>
-          No sensitive financial information, no account numbers, and no tax identifiers are ever sent to any server — ours or any third party's.
+          We do not sell, rent, or trade your information. We do not share it with any third party for any purpose beyond operating the Site.
         </p>
 
-        <h2>4. Cookies in use</h2>
-        <p>The following cookies and local-storage keys may be stored on your device:</p>
+        <h2>5. Your rights</h2>
+        <h3>5.1 Under PIPEDA (Canada)</h3>
+        <p>
+          You have the right to access the personal information a business holds about you, to request correction of inaccurate information, to withdraw consent for its use going forward, and to complain to the <a href="https://www.priv.gc.ca" className="text-secondary" target="_blank" rel="noreferrer">Office of the Privacy Commissioner of Canada</a>.
+        </p>
+
+        <h3>5.2 Under Quebec's Law 25</h3>
+        <p>
+          Quebec residents have additional rights to data portability, to refuse automated decision-making, and to complain to the <a href="https://www.cai.gouv.qc.ca/" className="text-secondary" target="_blank" rel="noreferrer">Commission d'accès à l'information du Québec</a>. Since the Site has no user accounts and performs no profiling, most of these rights are satisfied by the fact that we do not hold personal information about you to begin with.
+        </p>
+
+        <h3>5.3 Under GDPR (EU / UK)</h3>
+        <p>
+          You have the right to access, rectification, erasure ("right to be forgotten"), restriction of processing, data portability, objection to processing, and to lodge a complaint with a national data protection authority.
+        </p>
+
+        <h3>5.4 Under CCPA / CPRA (California)</h3>
+        <p>
+          California residents have the right to know what personal information is collected, the right to request deletion, the right to correction, and the right to opt out of the sale or sharing of personal information. <strong>We do not sell personal information</strong>, and we do not share it for cross-context behavioural advertising outside of the third parties disclosed above. There is no separate "Do Not Sell" link because there is no sale to opt out of.
+        </p>
+
+        <h3>5.5 How to exercise these rights</h3>
+        <p>
+          For data collected directly by this Site, contact us through the <Link to="/contact" className="text-secondary">Contact page</Link>. For data held by Google, use <a href="https://myaccount.google.com/data-and-privacy" className="text-secondary" target="_blank" rel="noreferrer">myaccount.google.com/data-and-privacy</a>. For data held by Vercel, use the process in their privacy policy.
+        </p>
+
+        <h2>6. Data retention</h2>
+        <ul>
+          <li><strong>Google Analytics:</strong> 14 months (the default GA4 retention window). After that, aggregated reports remain available but individual event data is deleted.</li>
+          <li><strong>Vercel server logs:</strong> approximately 30 days.</li>
+          <li><strong>Contact-form submissions:</strong> kept only as long as needed to reply, typically no more than 12 months.</li>
+          <li><strong>No user-account database:</strong> the Site does not maintain its own user database because there are no accounts.</li>
+        </ul>
+
+        <h2>7. Cookie policy</h2>
+        <p>The Site uses the following cookies and local-storage keys. Essential cookies are kept to a minimum — most in-browser state (theme preference, last-used calculator inputs) is stored in <code>localStorage</code> and never transmitted.</p>
 
         <div className="not-prose my-6 overflow-x-auto">
           <table className="w-full text-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
@@ -89,38 +155,7 @@ export default function PrivacyPolicy() {
         </div>
 
         <p>
-          You can block or delete cookies through your browser settings. You can opt out of personalized Google advertising at <a href="https://adssettings.google.com" className="text-secondary" target="_blank" rel="noreferrer">adssettings.google.com</a>. You can opt out of Google Analytics tracking by installing the <a href="https://tools.google.com/dlpage/gaoptout" className="text-secondary" target="_blank" rel="noreferrer">Google Analytics Opt-out Browser Add-on</a>.
-        </p>
-
-        <h2>5. Third parties we share data with</h2>
-        <p>We rely on the following third parties to operate the Site:</p>
-        <ul>
-          <li>
-            <strong>Google LLC</strong> — Google Analytics and Google AdSense. Data is processed under Google's privacy policy at <a href="https://policies.google.com/privacy" className="text-secondary" target="_blank" rel="noreferrer">policies.google.com/privacy</a> and may be transferred to the United States.
-          </li>
-          <li>
-            <strong>Vercel Inc.</strong> — hosting and content delivery. Privacy policy at <a href="https://vercel.com/legal/privacy-policy" className="text-secondary" target="_blank" rel="noreferrer">vercel.com/legal/privacy-policy</a>. Data may be transferred to the United States.
-          </li>
-        </ul>
-        <p>
-          We do not sell, rent, or trade any information collected through the Site. We do not share information with any third party for any purpose other than the operation of the Site itself.
-        </p>
-
-        <h2>6. Data retention</h2>
-        <p>
-          Google Analytics data is retained for 14 months, after which aggregated reports remain available but individual event data is deleted. Google AdSense cookies expire as shown in the cookie table above. Vercel server logs are retained for approximately 30 days. We do not maintain a separate user database of our own beyond what these third-party providers store.
-        </p>
-
-        <h2>7. Your rights</h2>
-        <p>Depending on where you live, you have the following rights regarding your personal information:</p>
-        <p>
-          <strong>Under PIPEDA (Canada)</strong> you have the right to access the personal information a business holds about you, to request correction of inaccurate information, and to withdraw consent for its use. You may also complain to the <a href="https://www.priv.gc.ca" className="text-secondary" target="_blank" rel="noreferrer">Office of the Privacy Commissioner of Canada</a>.
-        </p>
-        <p>
-          <strong>Under GDPR (European Union and United Kingdom)</strong> you additionally have the right to request deletion ("right to be forgotten"), to restrict or object to processing, to data portability, and to complain to a national data protection authority.
-        </p>
-        <p>
-          To exercise any of these rights for data collected directly by this Site, contact us through the <Link to="/contact" className="text-secondary">Contact page</Link>. For data held by Google (Analytics and Ads), use Google's own tools at <a href="https://myaccount.google.com/data-and-privacy" className="text-secondary" target="_blank" rel="noreferrer">myaccount.google.com/data-and-privacy</a>. For data held by Vercel, use the process described in their privacy policy.
+          You can block or delete cookies through your browser settings — see guides for <a href="https://support.google.com/chrome/answer/95647" className="text-secondary" target="_blank" rel="noreferrer">Chrome</a>, <a href="https://support.mozilla.org/en-US/kb/block-websites-storing-cookies-site-data" className="text-secondary" target="_blank" rel="noreferrer">Firefox</a>, <a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" className="text-secondary" target="_blank" rel="noreferrer">Safari</a>, and <a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" className="text-secondary" target="_blank" rel="noreferrer">Edge</a>. You can opt out of personalized Google advertising at <a href="https://adssettings.google.com" className="text-secondary" target="_blank" rel="noreferrer">adssettings.google.com</a> and of Google Analytics tracking with the <a href="https://tools.google.com/dlpage/gaoptout" className="text-secondary" target="_blank" rel="noreferrer">Google Analytics Opt-out Browser Add-on</a>.
         </p>
 
         <h2>8. International data transfers</h2>
@@ -130,17 +165,20 @@ export default function PrivacyPolicy() {
 
         <h2>9. Children's privacy</h2>
         <p>
-          The Site is not directed to children under the age of 13, and we do not knowingly collect information from children. If you believe a child has provided information through the Site, contact us and we will take reasonable steps to remove it.
+          The Site is not directed to children under the age of 13 (or under 16 in jurisdictions where GDPR raises the digital-consent threshold), and we do not knowingly collect information from children. If you believe a child has provided information through the Site, contact us and we will take reasonable steps to remove it.
         </p>
 
         <h2>10. Changes to this policy</h2>
         <p>
-          We may update this Privacy Policy from time to time. The "Last updated" date at the top of this page will reflect the most recent revision. Material changes will be highlighted on the home page for at least 30 days.
+          We may update this Privacy Policy from time to time as the Site evolves or as applicable laws change. The "Last updated" date at the top of this page will reflect the most recent revision. Material changes — for example, the addition of a new third-party service, or the re-enabling of AdSense — will be highlighted on the home page for at least 30 days.
         </p>
 
-        <h2>11. Contact</h2>
+        <h2>11. Contact for privacy requests</h2>
         <p>
-          For any privacy question, data-access request, or deletion request, use our <Link to="/contact" className="text-secondary">Contact page</Link> and include "Privacy Request" in the subject. We respond within 30 days as required by PIPEDA.
+          Privacy questions, access requests, correction requests, and deletion requests should be sent through our <Link to="/contact" className="text-secondary">Contact page</Link> with "Privacy Request" in the subject. We respond within 30 days as required by PIPEDA.
+        </p>
+        <p>
+          If you are not satisfied with our response, you may escalate to the <a href="https://www.priv.gc.ca" className="text-secondary" target="_blank" rel="noreferrer">Office of the Privacy Commissioner of Canada</a>, to the <a href="https://www.cai.gouv.qc.ca/" className="text-secondary" target="_blank" rel="noreferrer">Commission d'accès à l'information du Québec</a> (for Quebec residents), or to your national GDPR supervisory authority (for EU/UK residents).
         </p>
 
         <h2>12. Disclaimer</h2>
