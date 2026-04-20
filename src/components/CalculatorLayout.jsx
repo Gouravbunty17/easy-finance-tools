@@ -1,6 +1,7 @@
 import React from "react";
 import SEO from "./SEO";
 import SurfaceTrackedLink from "./SurfaceTrackedLink";
+import ToolByline from "./ToolByline";
 
 export function fmtCAD(value, options = {}) {
   return Number(value || 0).toLocaleString("en-CA", {
@@ -63,6 +64,7 @@ export default function CalculatorLayout({
             </div>
           ) : null}
           <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">{title}</h1>
+          <ToolByline />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">{description}</p>
           <div className="mt-8">{children}</div>
         </div>

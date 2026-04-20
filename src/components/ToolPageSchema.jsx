@@ -23,6 +23,11 @@ export default function ToolPageSchema({
           },
           description,
           url: canonical,
+          author: {
+            "@type": "Person",
+            name: "Gourav Kumar",
+            url: "https://easyfinancetools.com/about",
+          },
           publisher: {
             "@type": "Organization",
             name: "EasyFinanceTools",

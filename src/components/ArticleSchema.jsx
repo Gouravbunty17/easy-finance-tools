@@ -22,7 +22,7 @@ export default function ArticleSchema({
   url,
   datePublished,
   dateModified,
-  authorName = "EasyFinanceTools Editorial Team",
+  authorName = "Gourav Kumar",
   imageUrl = "https://easyfinancetools.com/og-image.svg",
 }) {
   if (!headline || !url) return null;
@@ -36,7 +36,7 @@ export default function ArticleSchema({
     datePublished,
     dateModified: dateModified || datePublished,
     author: {
-      "@type": "Organization",
+      "@type": "Person",
       name: authorName,
       url: "https://easyfinancetools.com/about",
     },

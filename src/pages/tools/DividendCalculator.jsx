@@ -13,6 +13,7 @@ import {
 import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import ToolByline from "../../components/ToolByline";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import ActionableNextSteps from "../../components/ActionableNextSteps";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
@@ -164,7 +165,8 @@ export default function DividendCalculator() {
 
       <div className="mb-8">
         <h1 className="mb-2 text-4xl font-bold text-primary dark:text-accent">Dividend Calculator</h1>
-        <p className="max-w-3xl text-gray-600 dark:text-gray-300">
+        <ToolByline />
+        <p className="mt-3 max-w-3xl text-gray-600 dark:text-gray-300">
           Project dividend income, DRIP reinvestment, portfolio value, and yield on cost over time.
         </p>
       </div>

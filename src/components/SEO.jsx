@@ -23,6 +23,7 @@ export default function SEO({ title, description, canonical, type = "website", r
     };
 
     setMeta("description", desc);
+    setMeta("author", "Gourav Kumar");
     setMeta("robots", robots);
     setMeta("og:title", fullTitle, true);
     setMeta("og:description", desc, true);

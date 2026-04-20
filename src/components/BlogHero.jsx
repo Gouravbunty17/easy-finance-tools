@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function BlogHero({
   icon,
@@ -7,7 +8,8 @@ export default function BlogHero({
   date,
   readTime,
   gradient = "from-primary to-secondary",
-  author = "EasyFinanceTools editorial team",
+  author = "Gourav Kumar",
+  authorHref = "/about",
   reviewer = "Reviewed against current Canadian source material",
   standardsHref = "/editorial-standards",
 }) {
@@ -41,7 +43,7 @@ export default function BlogHero({
             </div>
 
             <div className="mt-5 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
-              <span className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85">Written by {author}</span>
+              <Link to={authorHref} className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85 transition hover:bg-white/20">By {author}</Link>
               <span className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85">{reviewer}</span>
               <a href={standardsHref} className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85 transition hover:bg-white/20">
                 Editorial standards

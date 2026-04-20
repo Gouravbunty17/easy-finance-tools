@@ -13,6 +13,7 @@ import {
 import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import ToolByline from "../../components/ToolByline";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import ActionableNextSteps from "../../components/ActionableNextSteps";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
@@ -200,7 +201,8 @@ export default function RRSPCalculator() {
 
       <div className="mb-6">
         <h1 className="text-4xl font-bold text-primary dark:text-accent mb-2">RRSP Calculator 2026</h1>
-        <p className="text-gray-600 dark:text-gray-300">
+        <ToolByline />
+        <p className="mt-3 text-gray-600 dark:text-gray-300">
           Estimate your tax refund, project retirement growth, compare spousal RRSP strategies, and preview RRIF withdrawals.
         </p>
       </div>

@@ -14,6 +14,7 @@ import SEO from "../../components/SEO";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
+import ToolByline from "../../components/ToolByline";
 import ActionableNextSteps from "../../components/ActionableNextSteps";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
@@ -139,6 +140,7 @@ export default function CompoundInterestCalculator() {
           <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">
             Compound Interest Calculator Canada
           </h1>
+          <ToolByline />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             See how an initial deposit, monthly contributions, fees, and inflation change your long-term result. Built for CAD planning and easy scenario checks.
           </p>
