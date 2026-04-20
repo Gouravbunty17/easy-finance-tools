@@ -1,15 +1,12 @@
 import React from "react";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import useAdSense from "../../hooks/useAdSense";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import TrackedLink from "../../components/TrackedLink";
 
 export default function WeeklyDividendETFs() {
-  useAdSense();
-
   return (
     <div>
       <SEO
@@ -26,18 +23,6 @@ export default function WeeklyDividendETFs() {
         gradient="from-yellow-500 to-amber-600"
       />
       <section className="max-w-3xl mx-auto px-4 py-12">
-        {/* Top Ad */}
-        <div className="my-8">
-          <ins
-            className="adsbygoogle block"
-            style={{ display: "block" }}
-            data-ad-client="ca-pub-4262496331692202"
-            data-ad-slot="1901528811"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          />
-        </div>
-
         <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         {/* Section 1 */}
@@ -88,18 +73,6 @@ export default function WeeklyDividendETFs() {
         <p>
           Every week, the fund calculates the total income collected from dividends and options premiums, then distributes it pro-rata to unit holders. If you hold 1,000 units and the fund distributes $0.10/unit, you receive $100 that week.
         </p>
-
-        {/* Mid Ad */}
-        <div className="my-8 not-prose">
-          <ins
-            className="adsbygoogle block"
-            style={{ display: "block" }}
-            data-ad-client="ca-pub-4262496331692202"
-            data-ad-slot="3078879111"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          />
-        </div>
 
         {/* Section 4 */}
         <h2>Benefits of Weekly Dividend ETFs</h2>
@@ -232,18 +205,6 @@ export default function WeeklyDividendETFs() {
           <li>❌ Investors expecting to match market returns — covered calls limit upside</li>
           <li>❌ Those who don't understand return of capital and yield sustainability</li>
         </ul>
-
-        {/* Bottom Ad */}
-        <div className="my-8 not-prose">
-          <ins
-            className="adsbygoogle block"
-            style={{ display: "block" }}
-            data-ad-client="ca-pub-4262496331692202"
-            data-ad-slot="3078879111"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          />
-        </div>
 
         {/* Section 9 */}
         <h2>Key Questions to Ask Before Investing</h2>

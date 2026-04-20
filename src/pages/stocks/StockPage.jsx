@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SEO from "../../components/SEO";
-import AdSlot from "../../components/AdSlot";
 import { COMPARISON_PRESETS, makeComparisonSlug } from "./stockCollections";
 
 function TVWidget({ id, scriptSrc, configFn, height }) {
@@ -1570,8 +1569,6 @@ export default function StockPage({ view = "overview" }) {
             </div>
           </div>
 
-          <AdSlot slot="1901528811" format="auto" />
-
           {/* Technical + Profile */}
           <div id="profile" className="scroll-mt-28 mb-6 grid gap-6 md:grid-cols-2">
             {isMobileView ? (
@@ -1881,8 +1878,6 @@ export default function StockPage({ view = "overview" }) {
               )}
             </div>
           </div>
-
-          <AdSlot slot="3078879111" format="auto" />
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {[

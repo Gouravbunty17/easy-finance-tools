@@ -36,16 +36,6 @@ export default function CalculatorsPage() {
   ];
 
   useEffect(() => {
-    try {
-      if (window.adsbygoogle && process.env.NODE_ENV !== "development") {
-        window.adsbygoogle.push({});
-      }
-    } catch (err) {
-      console.error("AdSense error:", err);
-    }
-  }, []);
-
-  useEffect(() => {
     if (typeof window.gtag === "function") {
       window.gtag("event", "page_view", {
         page_path: "/calculators",
@@ -59,17 +49,6 @@ export default function CalculatorsPage() {
       <p className="text-gray-700 dark:text-gray-300 mb-8">
         Explore our calculators to plan, track, and optimize your financial future. All free, no sign-up needed.
       </p>
-
-      <div className="mb-8 flex justify-center">
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-4262496331692202"
-          data-ad-slot="3078879111"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {calculators.map((calc) => (

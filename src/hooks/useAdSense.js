@@ -1,18 +1,10 @@
 import { useEffect } from "react";
 
+export const ADSENSE_PUBLISHER_ID = "ca-pub-4262496331692202";
+
 export default function useAdSense() {
   useEffect(() => {
-    try {
-      if (window.adsbygoogle && process.env.NODE_ENV !== "development") {
-        const ads = document.querySelectorAll(".adsbygoogle");
-        ads.forEach((ad) => {
-          if (!ad.getAttribute("data-ad-status")) {
-            window.adsbygoogle.push({});
-          }
-        });
-      }
-    } catch (e) {
-      console.error("AdSense push failed", e);
-    }
+    // AdSense is intentionally disabled until the April 24 resubmission.
+    // Re-enable the loader and slots with ADSENSE_PUBLISHER_ID after review.
   }, []);
 }
