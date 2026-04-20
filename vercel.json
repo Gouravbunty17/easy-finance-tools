@@ -25,11 +25,8 @@
     }
   },
   "rewrites": [
-    { "source": "/stocks",           "destination": "/index.html" },
-    { "source": "/stocks/:path*",    "destination": "/index.html" },
-    { "source": "/contact",          "destination": "/index.html" },
-    { "source": "/privacy-policy",   "destination": "/index.html" },
-    { "source": "/terms",            "destination": "/index.html" },
-    { "source": "/:path*",           "destination": "/index.html" }
+    { "source": "/stocks",        "destination": "/" },
+    { "source": "/stocks/:path*", "destination": "/" },
+    { "source": "/:path*",        "destination": "/" }
   ]
 }
