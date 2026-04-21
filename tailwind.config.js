@@ -9,14 +9,14 @@ export default {
     extend: {
       colors: {
         primary: '#003366',
-        secondary: '#00A8E8',
+        secondary: '#00557a',
         accent: '#FFD700',
         neutralDark: '#343A40',
         neutralLight: '#F8F9FA',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        serif: ['Source Serif Pro', 'serif'],
+        sans: ['Segoe UI', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        serif: ['Georgia', 'Times New Roman', 'serif'],
       },
     },
   },

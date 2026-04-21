@@ -34,14 +34,14 @@ export default function Logo({ size = "md" }) {
           <span style={{ fontSize: s.textMain }} className="font-extrabold tracking-tight text-primary dark:text-white">
             Easy
           </span>
-          <span style={{ fontSize: s.textMain }} className="font-extrabold tracking-tight text-secondary">
+          <span style={{ fontSize: s.textMain }} className="font-extrabold tracking-tight text-[#004d73] dark:text-accent">
             Finance
           </span>
           <span style={{ fontSize: s.textMain }} className="font-extrabold tracking-tight text-primary dark:text-white">
             Tools
           </span>
         </div>
-        <span style={{ fontSize: s.textSub }} className="mt-0.5 font-medium uppercase tracking-[0.22em] text-gray-600 dark:text-gray-300">
+        <span style={{ fontSize: s.textSub }} className="mt-0.5 font-medium uppercase tracking-[0.22em] text-gray-700 dark:text-gray-300">
           Free Canadian Calculators
         </span>
       </div>

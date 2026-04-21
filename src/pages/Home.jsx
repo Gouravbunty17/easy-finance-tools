@@ -56,7 +56,7 @@ export default function Home() {
 
           <h1 className="mb-6 text-4xl font-bold leading-tight md:text-6xl">Free Canadian Finance Calculators</h1>
           <p className="mx-auto mb-10 max-w-3xl text-lg text-blue-100 md:text-xl">
-            TFSA, RRSP, income tax, mortgage, debt payoff, and savings tools for real Canadian decisions. No sign-up required. Clear assumptions. Fast, browser-based results.
+            Free calculators for TFSA, RRSP, income tax, mortgages, debt payoff, and savings goals. No sign-up. Clear assumptions. Fast results in your browser.
           </p>
 
         <div className="mx-auto mb-10 grid max-w-3xl gap-3 rounded-3xl border border-white/15 bg-white/10 p-3 backdrop-blur sm:grid-cols-[1fr_auto_auto]">
@@ -92,9 +92,9 @@ export default function Home() {
 
           <div className="grid gap-3 text-left md:grid-cols-3">
             {[
-              { title: "Search by decision", body: "Tax, mortgage, debt, savings, and retirement flows are grouped by outcome, not just by formula." },
-              { title: "Check assumptions fast", body: "Important pages link out to methodology and sources so results are easier to sanity-check." },
-              { title: "Move to the next tool", body: "Start with one calculation, then compare against the next account or planning path." },
+              { title: "Search by decision", body: "Find tools by outcome, like tax, mortgage, debt, savings, or retirement." },
+              { title: "Check assumptions fast", body: "Key pages link to methodology and sources so you can review the math." },
+              { title: "Move to the next tool", body: "Start with one calculation, then compare the next account or planning path." },
             ].map((item) => (
               <div key={item.title} className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
                 <p className="font-semibold text-white">{item.title}</p>
@@ -140,7 +140,7 @@ export default function Home() {
 
       <section className="mx-auto max-w-5xl px-4 py-12">
         <h2 className="mb-4 text-center text-3xl font-bold text-primary dark:text-accent">Our Free Calculators</h2>
-        <p className="mb-12 text-center text-gray-500">Start with the outcome you need, then move into related guides and next-step tools.</p>
+        <p className="mb-12 text-center text-gray-500">Start with the answer you need, then move into the related guide or next tool.</p>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {tools.map((tool) => (
             <SurfaceTrackedLink
@@ -182,9 +182,9 @@ export default function Home() {
       <section className="mx-auto max-w-5xl px-4 pb-8">
         <div className="grid gap-4 md:grid-cols-3">
           {[
-            { title: "Tax and paycheques", body: "Income tax and pay stub tools answer one of the highest-intent questions on the site.", href: "/tools/income-tax-calculator" },
-            { title: "Savings and compounding", body: "Use compound interest, TFSA, RRSP, and FHSA tools together instead of in isolation.", href: "/tools/compound-interest-calculator" },
-            { title: "Borrowing and housing", body: "Mortgage, rent-vs-buy, and debt payoff tools work best when paired with scenario planning.", href: "/tools/mortgage-calculator" },
+            { title: "Tax and paycheques", body: "Use these tools to estimate take-home pay, payroll deductions, and tax.", href: "/tools/income-tax-calculator" },
+            { title: "Savings and compounding", body: "Compare compound growth across TFSA, RRSP, FHSA, and regular savings plans.", href: "/tools/compound-interest-calculator" },
+            { title: "Borrowing and housing", body: "Model mortgage payments, rent-vs-buy tradeoffs, and debt payoff side by side.", href: "/tools/mortgage-calculator" },
           ].map((cluster) => (
             <SurfaceTrackedLink
               key={cluster.title}
@@ -208,7 +208,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary dark:text-secondary">Original Canadian finance content</p>
               <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the calculators with the guides, not as stand-alone formulas</h2>
               <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                EasyFinanceTools is built around practical Canadian decisions like TFSA vs RRSP, mortgage affordability, tax take-home pay, and savings tradeoffs. The strongest pages on the site pair calculator outputs with plain-language guides, published assumptions, and visible methodology so readers can sanity-check the result before acting on it.
+                EasyFinanceTools is built for practical Canadian money decisions. Use it to compare TFSA vs RRSP, check mortgage affordability, estimate take-home pay, and test savings tradeoffs. The strongest pages pair calculator results with plain-language guides, visible assumptions, and clear methodology.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-3 md:w-[340px] md:grid-cols-1">
@@ -239,7 +239,7 @@ export default function Home() {
             <div>
               <h2 className="text-2xl font-bold text-primary dark:text-accent">Popular broker comparisons</h2>
               <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                If you are choosing where to open an account, do the calculator work first, then use these high-intent comparison pages to choose the provider.
+                If you are choosing where to open an account, start with the math first. Then use these comparison pages to pick the provider.
               </p>
             </div>
             <SurfaceTrackedLink
@@ -316,7 +316,7 @@ export default function Home() {
             <div>
               <h2 className="text-2xl font-bold text-primary dark:text-accent">Popular calculator searches</h2>
               <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                Start with the highest-intent pages users usually look for first, then move into related comparisons.
+                Start with the pages people usually need first, then move into related comparisons.
               </p>
             </div>
             <SurfaceTrackedLink
@@ -356,19 +356,19 @@ export default function Home() {
           {[
             {
               title: "What makes a useful calculator page",
-              body: "The strongest tools explain assumptions, highlight major limitations, and point readers to the next question they should answer.",
+              body: "The best tool pages explain the assumptions, show the limits, and point you to the next question to solve.",
               href: "/methodology",
               cta: "quality_card_methodology",
             },
             {
               title: "How our articles are written",
-              body: "We publish Canadian-focused explainers, comparison pages, and calculator guides with visible dates and editorial standards.",
+              body: "We publish Canadian explainers, comparison pages, and calculator guides with clear dates and editorial standards.",
               href: "/editorial-standards",
               cta: "quality_card_editorial_standards",
             },
             {
               title: "Why trust still matters in finance content",
-              body: "For tax, investing, and borrowing topics, the site is designed to make assumptions and tradeoffs easier to inspect before you act.",
+              body: "For tax, investing, and borrowing topics, the site is designed to make assumptions and tradeoffs easier to inspect.",
               href: "/about",
               cta: "quality_card_about",
             },
@@ -426,14 +426,14 @@ export default function Home() {
           <h2 className="mb-12 text-3xl font-bold text-primary dark:text-accent">Why EasyFinanceTools?</h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {[
-              { icon: "Private", title: "100% Private", desc: "We never store your financial data. Everything runs in your browser unless a feature explicitly says otherwise." },
-              { icon: "Clear", title: "Clear methodology", desc: "Key calculators should show assumptions, update dates, and source links so users can sanity-check the output." },
-              { icon: "Canada", title: "Made for Canada", desc: "Built around Canadian tax brackets, registered-account limits, and local planning questions." },
+              { icon: "Private", title: "100% Private", desc: "We do not store your financial inputs. Everything runs in your browser unless a feature says otherwise." },
+              { icon: "Clear", title: "Clear methodology", desc: "Key calculators show assumptions, update dates, and source links so you can check the output." },
+              { icon: "Canada", title: "Made for Canada", desc: "Built around Canadian tax brackets, account limits, and local planning questions." },
             ].map((item) => (
               <div key={item.title} className="surface-card p-6">
-                <div className="mb-4 text-lg font-semibold text-secondary">{item.icon}</div>
+                <div className="mb-4 text-lg font-semibold text-primary dark:text-accent">{item.icon}</div>
                 <h3 className="mb-2 text-lg font-bold">{item.title}</h3>
-                <p className="text-sm text-gray-500">{item.desc}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -442,7 +442,7 @@ export default function Home() {
 
       <section className="bg-primary px-4 py-16 text-center text-white">
         <h2 className="mb-4 text-3xl font-bold">Ready to Take Control of Your Finances?</h2>
-        <p className="mb-8 text-blue-100">Start with the TFSA calculator, then compare it against RRSP and tax tools once you have a baseline.</p>
+        <p className="mb-8 text-blue-100">Start with the TFSA calculator, then compare it with RRSP and tax tools once you have a baseline.</p>
         <SurfaceTrackedLink
           to="/tools/tfsa-calculator"
           eventName="homepage_cta_click"
