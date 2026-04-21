@@ -36,8 +36,8 @@ export default function BestETFsForTFSA() {
   return (
     <div>
       <SEO
-        title="Best ETFs for TFSA Canada 2026 — Top Picks for Tax-Free Growth"
-        description="The best ETFs to hold in your Canadian TFSA in 2026. XEQT, VEQT, ZSP, VDY and more — ranked by strategy with pros and cons. Free Canadian investing guide."
+        title="Best ETFs for TFSA Canada 2026 - Top Picks for Tax-Free Growth"
+        description="The best ETFs to hold in your Canadian TFSA in 2026. XEQT, VEQT, ZSP, VDY and more - ranked by strategy with pros and cons. Free Canadian investing guide."
         canonical="https://easyfinancetools.com/blog/best-etfs-for-tfsa-canada-2026"
       />
       <ArticleSchema
@@ -49,8 +49,8 @@ export default function BestETFsForTFSA() {
       />
       <FAQSchema faqs={FAQS} />
       <BlogHero
-        icon="📊"
-        category="Investing · TFSA"
+        icon="ETF"
+        category="Investing | TFSA"
         title="Best ETFs for Your TFSA in Canada (2026)"
         date="March 28, 2026"
         readTime="9 min read"
@@ -59,7 +59,7 @@ export default function BestETFsForTFSA() {
       <section className="max-w-3xl mx-auto px-4 py-12">
         <TLDRBox
           headline="What are the best ETFs for a TFSA in Canada?"
-          answer="For many Canadians, the best TFSA ETFs are low-cost, diversified funds that match the job of the account. XEQT and VEQT are common all-in-one choices for long-term growth, XGRO and VGRO fit investors wanting some bonds, and dividend ETFs like VDY suit a more income-focused strategy with more concentration risk."
+          answer="For many Canadians, the best TFSA ETFs are low-cost, diversified funds that match the job of the account. XEQT and VEQT are common all-in-one picks for long-term growth. XGRO and VGRO fit investors who want some bonds. Dividend ETFs like VDY can work for income, but they come with more concentration risk."
           points={[
             "All-in-one ETFs are often the simplest TFSA choice for long-term investors",
             "Broad growth ETFs usually make better use of TFSA room than low-growth cash holdings",
@@ -70,14 +70,12 @@ export default function BestETFsForTFSA() {
         <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
 
         <h2>Why ETFs Are Ideal for a TFSA</h2>
-        <p>
-          ETFs (Exchange-Traded Funds) are the best vehicle for most TFSA investors because:
-        </p>
+        <p>ETFs work well in a TFSA for four simple reasons:</p>
         <ul>
-          <li><strong>Low fees</strong> — top Canadian index ETFs charge as little as 0.10–0.20% MER per year</li>
-          <li><strong>Instant diversification</strong> — one ETF can hold thousands of stocks globally</li>
-          <li><strong>Tax efficiency</strong> — ETFs generate fewer taxable distributions than mutual funds (though in a TFSA this matters less)</li>
-          <li><strong>Simplicity</strong> — one or two ETFs can be a complete investment portfolio</li>
+          <li><strong>Low fees</strong> - top Canadian index ETFs often charge about 0.10% to 0.20% MER per year.</li>
+          <li><strong>Instant diversification</strong> - one ETF can hold hundreds or thousands of stocks.</li>
+          <li><strong>Simple structure</strong> - one or two ETFs can cover most of a portfolio.</li>
+          <li><strong>Good fit for long-term growth</strong> - broad ETFs usually make better use of TFSA room than idle cash.</li>
         </ul>
 
         <h2>Best All-in-One ETFs for TFSA (Beginner-Friendly)</h2>
@@ -117,15 +115,15 @@ export default function BestETFsForTFSA() {
         </div>
 
         <p>
-          <strong>Our pick for most Canadians: XEQT or VEQT.</strong> If you're under 50 with a long time horizon, 100% equities maximizes long-term growth. Both track global markets and are nearly identical — pick whichever your broker offers commission-free.
+          <strong>Our pick for many Canadians: XEQT or VEQT.</strong> If you have a long time horizon and can handle volatility, a 100% equity ETF can maximize long-term growth. The two funds are very similar, so pick the one your broker offers at the lowest cost.
         </p>
 
         <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
           {[
-            { label: "Open XEQT chart", href: "/stocks/XEQT.TO" },
-            { label: "Open VEQT chart", href: "/stocks/VEQT.TO" },
-            { label: "Open XGRO chart", href: "/stocks/XGRO.TO" },
-            { label: "Open VGRO chart", href: "/stocks/VGRO.TO" },
+            { label: "Run the TFSA calculator", href: "/tools/tfsa-calculator" },
+            { label: "Read the beginner investing guide", href: "/blog/how-to-invest-in-canada-beginners-2026" },
+            { label: "Compare TFSA vs RRSP", href: "/blog/tfsa-vs-rrsp-2026" },
+            { label: "Review weekly dividend ETF tradeoffs", href: "/blog/weekly-dividend-etfs" },
           ].map((item) => (
             <TrackedLink
               key={item.label}
@@ -144,51 +142,49 @@ export default function BestETFsForTFSA() {
           Want Canadian exposure specifically? These ETFs focus on TSX-listed companies:
         </p>
         <ul>
-          <li><strong>ZCN (BMO S&P/TSX Capped Composite ETF)</strong> — 0.06% MER, tracks the entire Canadian market. The lowest-cost way to own Canada.</li>
-          <li><strong>XIC (iShares Core S&P/TSX Capped Composite)</strong> — 0.06% MER, very similar to ZCN.</li>
-          <li><strong>VCN (Vanguard FTSE Canada All Cap)</strong> — 0.05% MER, includes small-cap Canadian companies.</li>
+          <li><strong>ZCN (BMO S&amp;P/TSX Capped Composite ETF)</strong> - 0.06% MER, tracks the entire Canadian market. The lowest-cost way to own Canada.</li>
+          <li><strong>XIC (iShares Core S&amp;P/TSX Capped Composite)</strong> - 0.06% MER, very similar to ZCN.</li>
+          <li><strong>VCN (Vanguard FTSE Canada All Cap)</strong> - 0.05% MER, includes small-cap Canadian companies.</li>
         </ul>
 
         <h2>Best Dividend ETFs for TFSA</h2>
         <p>
-          Want income inside your TFSA? These ETFs pay regular dividends — and since you're in a TFSA, every dollar is received tax-free.
+          Want income inside your TFSA? These ETFs pay regular dividends, and those cash distributions can be withdrawn tax-free from the account.
         </p>
         <ul>
-          <li><strong>VDY (Vanguard FTSE Canadian High Dividend Yield)</strong> — ~4.5% yield, MER 0.22%. Focused on high-dividend Canadian stocks (banks, pipelines, utilities).</li>
-          <li><strong>XDV (iShares Canadian Select Dividend)</strong> — ~4.8% yield, MER 0.55%. More concentrated in dividend payers.</li>
-          <li><strong>ZWB (BMO Covered Call Canadian Banks)</strong> — ~6–7% yield via covered calls on big 6 banks. Higher income but capped upside.</li>
+          <li><strong>VDY (Vanguard FTSE Canadian High Dividend Yield)</strong> - about 4.5% yield, MER 0.22%. Focused on high-dividend Canadian stocks like banks, pipelines, and utilities.</li>
+          <li><strong>XDV (iShares Canadian Select Dividend)</strong> - about 4.8% yield, MER 0.55%. More concentrated in dividend payers.</li>
+          <li><strong>ZWB (BMO Covered Call Canadian Banks)</strong> - about 6% to 7% yield through covered calls on the big six banks. Higher income, but capped upside.</li>
         </ul>
         <p>
           Use our <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="dividend_calculator_inline" to="/tools/dividend-calculator" className="text-primary underline">Dividend Calculator</TrackedLink> to model what a dividend ETF position could generate annually.
         </p>
 
         <p>
-          For charting and recent headlines, compare <Link to="/stocks/VDY.TO" className="text-primary underline">VDY</Link>, <Link to="/stocks/XDV.TO" className="text-primary underline">XDV</Link>, and <Link to="/stocks/ZWB.TO" className="text-primary underline">ZWB</Link> in the stock section.
+          If you are considering dividend-heavy ETFs, compare them against a broad-market TFSA plan first. Our <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="weekly_dividend_etf_context" to="/blog/weekly-dividend-etfs" className="text-primary underline">weekly dividend ETF guide</TrackedLink> walks through the income, MER, and covered-call tradeoffs.
         </p>
 
         <h2>Best US Equity ETFs for TFSA</h2>
         <p>
-          You can hold US-listed ETFs in a TFSA, but there's an important catch: <strong>the US withholds 15% tax on dividends</strong> from US-listed ETFs held in a TFSA (the Canada-US tax treaty exemption only applies to RRSPs, not TFSAs). For growth ETFs with minimal dividends, this doesn't matter much. For dividend-heavy US ETFs, use the Canadian-listed equivalent instead.
+          You can hold US-listed ETFs in a TFSA, but there is an important catch: <strong>the US usually withholds 15% tax on dividends</strong>. The treaty exemption applies to RRSPs, not TFSAs. For growth ETFs with low dividends, this may not matter much. For dividend-heavy US ETFs, a Canadian-listed alternative is often the cleaner choice.
         </p>
         <ul>
-          <li><strong>VFV (Vanguard S&P 500 Index ETF — CAD-hedged)</strong> — tracks the S&P 500, listed in Canada, 0.09% MER</li>
-          <li><strong>ZSP (BMO S&P 500 Index ETF)</strong> — tracks S&P 500, 0.09% MER, unhedged (better for long-term)</li>
-          <li><strong>XIU (iShares S&P/TSX 60)</strong> — Canada's most traded ETF, blue-chip Canadian exposure, 0.18% MER</li>
+          <li><strong>VFV (Vanguard S&amp;P 500 Index ETF - CAD-hedged)</strong> - tracks the S&amp;P 500, is listed in Canada, and charges a 0.09% MER.</li>
+          <li><strong>ZSP (BMO S&amp;P 500 Index ETF)</strong> - tracks the S&amp;P 500, charges a 0.09% MER, and is unhedged.</li>
+          <li><strong>XIU (iShares S&amp;P/TSX 60)</strong> - Canada's most traded ETF, with blue-chip Canadian exposure and a 0.18% MER.</li>
         </ul>
 
         <p>
-          You can also open <Link to="/stocks/VFV.TO" className="text-primary underline">VFV</Link>, <Link to="/stocks/ZSP.TO" className="text-primary underline">ZSP</Link>, and <Link to="/stocks/XIU.TO" className="text-primary underline">XIU</Link> if you want to inspect the symbols directly.
+          If you want to compare account fit before picking a ticker, use the <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="tfsa_vs_rrsp_context" to="/blog/tfsa-vs-rrsp-2026" className="text-primary underline">TFSA vs RRSP guide</TrackedLink> and the <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="tfsa_calculator_context" to="/tools/tfsa-calculator" className="text-primary underline">TFSA calculator</TrackedLink>.
         </p>
 
         <h2>What NOT to Put in Your TFSA</h2>
-        <p>
-          Some investments belong in other accounts — not your TFSA:
-        </p>
+        <p>Some investments are usually a weaker fit for a TFSA:</p>
         <ul>
-          <li>❌ <strong>US-listed ETFs paying high dividends</strong> — lose 15% to withholding tax that can't be recovered</li>
-          <li>❌ <strong>GICs or HISA-only</strong> — fine for short-term but poor use of long-term TFSA room vs. growth ETFs</li>
-          <li>❌ <strong>Speculative individual stocks</strong> — if a stock crashes to zero in your TFSA, you permanently lose that contribution room forever</li>
-          <li>❌ <strong>Actively managed mutual funds</strong> — typical 2%+ MER quietly destroys decades of compounding</li>
+          <li><strong>US-listed ETFs paying high dividends</strong> - you lose 15% to withholding tax that cannot be recovered.</li>
+          <li><strong>GICs or HISA-only holdings</strong> - these can fit short-term goals, but they usually make weaker use of long-term TFSA room.</li>
+          <li><strong>Speculative individual stocks</strong> - if a stock falls to zero in your TFSA, you do not get that contribution room back.</li>
+          <li><strong>Actively managed mutual funds</strong> - a 2%+ MER can quietly eat away at decades of compounding.</li>
         </ul>
 
         <h2>The Simple 1-ETF TFSA Portfolio</h2>
@@ -197,10 +193,10 @@ export default function BestETFsForTFSA() {
         </p>
         <div className="not-prose bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5 my-4">
           <p className="font-bold text-blue-800 dark:text-blue-200 text-lg">100% XEQT (or VEQT)</p>
-          <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">Global diversification · Low 0.20% fee · Auto-rebalanced · No decisions needed</p>
+          <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">Global diversification. Low fee. Auto-rebalanced. Fewer decisions to make.</p>
         </div>
         <p>
-          Buy it, set up automatic contributions, and don't touch it. Over 20–30 years, this simple strategy beats the vast majority of actively managed portfolios.
+          Buy it, set up automatic contributions, and keep the process simple. Over long periods, a low-cost diversified ETF is hard for active strategies to beat.
         </p>
 
         <h2>Calculate Your TFSA Growth</h2>
@@ -257,13 +253,13 @@ export default function BestETFsForTFSA() {
 
         <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mt-8 not-prose">
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            <strong>Disclaimer:</strong> This article is for educational purposes only. ETF names, MERs, and yields are approximate and subject to change. This is not financial advice — consult a registered advisor before investing.
+            <strong>Disclaimer:</strong> This article is for educational purposes only. ETF names, MERs, and yields are approximate and subject to change. This is not financial advice - consult a registered advisor before investing.
           </p>
         </div>
       </article>
 
       <Link to="/blog" className="inline-block mt-10 text-primary dark:text-accent font-semibold hover:underline">
-        ← Back to Blog
+        Back to Blog
       </Link>
       </section>
     </div>

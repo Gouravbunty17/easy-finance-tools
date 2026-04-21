@@ -1,65 +1,63 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import CommandPalette from './components/CommandPalette';
 
-// Eagerly loaded — always needed on first paint
+// Eagerly loaded - always needed on first paint.
 import Home from './pages/Home';
 
-// Lazy-loaded route chunks — only downloaded when visited
-const ToolsPage               = lazy(() => import('./pages/ToolsPage'));
-const Blog                    = lazy(() => import('./pages/Blog'));
-const About                   = lazy(() => import('./pages/About'));
-const Contact                 = lazy(() => import('./pages/Contact'));
-const Methodology             = lazy(() => import('./pages/Methodology'));
-const EditorialStandards      = lazy(() => import('./pages/EditorialStandards'));
-const PrivacyPolicy           = lazy(() => import('./pages/PrivacyPolicy'));
-const Terms                   = lazy(() => import('./pages/Terms'));
+const CommandPalette = lazy(() => import('./components/CommandPalette'));
 
-const DividendCalculator      = lazy(() => import('./pages/tools/DividendCalculator'));
-const TFSACalculator          = lazy(() => import('./pages/tools/TFSACalculator'));
-const RRSPCalculator          = lazy(() => import('./pages/tools/RRSPCalculator'));
-const BudgetTracker           = lazy(() => import('./pages/tools/BudgetTracker'));
-const InvestmentTracker       = lazy(() => import('./pages/tools/InvestmentTracker'));
-const FHSACalculator          = lazy(() => import('./pages/tools/FHSACalculator'));
-const MortgageCalculator      = lazy(() => import('./pages/tools/MortgageCalculator'));
-const RentVsBuyCalculator     = lazy(() => import('./pages/tools/RentVsBuyCalculator'));
+// Lazy-loaded route chunks - only downloaded when visited.
+const ToolsPage = lazy(() => import('./pages/ToolsPage'));
+const Blog = lazy(() => import('./pages/Blog'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Methodology = lazy(() => import('./pages/Methodology'));
+const EditorialStandards = lazy(() => import('./pages/EditorialStandards'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const Terms = lazy(() => import('./pages/Terms'));
+
+const DividendCalculator = lazy(() => import('./pages/tools/DividendCalculator'));
+const TFSACalculator = lazy(() => import('./pages/tools/TFSACalculator'));
+const RRSPCalculator = lazy(() => import('./pages/tools/RRSPCalculator'));
+const BudgetTracker = lazy(() => import('./pages/tools/BudgetTracker'));
+const InvestmentTracker = lazy(() => import('./pages/tools/InvestmentTracker'));
+const FHSACalculator = lazy(() => import('./pages/tools/FHSACalculator'));
+const MortgageCalculator = lazy(() => import('./pages/tools/MortgageCalculator'));
+const RentVsBuyCalculator = lazy(() => import('./pages/tools/RentVsBuyCalculator'));
 const CapitalGainsTaxCalculator = lazy(() => import('./pages/tools/CapitalGainsTaxCalculator'));
-const CPPOASEstimator         = lazy(() => import('./pages/tools/CPPOASEstimator'));
-const IncomeTaxCalculator     = lazy(() => import('./pages/tools/IncomeTaxCalculator'));
-const FIRECalculator          = lazy(() => import('./pages/tools/FIRECalculator'));
+const CPPOASEstimator = lazy(() => import('./pages/tools/CPPOASEstimator'));
+const IncomeTaxCalculator = lazy(() => import('./pages/tools/IncomeTaxCalculator'));
+const FIRECalculator = lazy(() => import('./pages/tools/FIRECalculator'));
 const CompoundInterestCalculator = lazy(() => import('./pages/tools/CompoundInterestCalculator'));
-const TipCalculator           = lazy(() => import('./pages/tools/TipCalculator'));
-const GstHstCalculator        = lazy(() => import('./pages/tools/GstHstCalculator'));
+const TipCalculator = lazy(() => import('./pages/tools/TipCalculator'));
+const GstHstCalculator = lazy(() => import('./pages/tools/GstHstCalculator'));
 const SalaryToHourlyCalculator = lazy(() => import('./pages/tools/SalaryToHourlyCalculator'));
-const CadUsdConverter         = lazy(() => import('./pages/tools/CadUsdConverter'));
-const InflationCalculator     = lazy(() => import('./pages/tools/InflationCalculator'));
+const CadUsdConverter = lazy(() => import('./pages/tools/CadUsdConverter'));
+const InflationCalculator = lazy(() => import('./pages/tools/InflationCalculator'));
 const MortgageAffordabilityCalculator = lazy(() => import('./pages/tools/MortgageAffordabilityCalculator'));
 
-const StockPage               = lazy(() => import('./pages/stocks/StockPage'));
-const StockCollectionPage     = lazy(() => import('./pages/stocks/StockCollectionPage'));
-const CompareStocksPage       = lazy(() => import('./pages/stocks/CompareStocksPage'));
-const GICCalculator           = lazy(() => import('./pages/tools/GICCalculator'));
-const DebtPayoffCalculator    = lazy(() => import('./pages/tools/DebtPayoffCalculator'));
-const SavingsGoalCalculator   = lazy(() => import('./pages/tools/SavingsGoalCalculator'));
-const NetPayCalculator        = lazy(() => import('./pages/tools/NetPayCalculator'));
+const GICCalculator = lazy(() => import('./pages/tools/GICCalculator'));
+const DebtPayoffCalculator = lazy(() => import('./pages/tools/DebtPayoffCalculator'));
+const SavingsGoalCalculator = lazy(() => import('./pages/tools/SavingsGoalCalculator'));
+const NetPayCalculator = lazy(() => import('./pages/tools/NetPayCalculator'));
 
-const WeeklyDividendETFs      = lazy(() => import('./pages/blog/weekly-dividend-etfs'));
-const HowToInvestBeginners    = lazy(() => import('./pages/blog/how-to-invest-in-canada-beginners-2026'));
-const BestHISACanada2026      = lazy(() => import('./pages/blog/best-hisa-canada-2026'));
-const EmergencyFundCanada     = lazy(() => import('./pages/blog/emergency-fund-canada'));
-const PayOffMortgageFaster    = lazy(() => import('./pages/blog/pay-off-mortgage-faster-canada'));
-const CanadaChildBenefit2026  = lazy(() => import('./pages/blog/canada-child-benefit-2026'));
-const TFSAvsRRSP              = lazy(() => import('./pages/blog/tfsa-vs-rrsp-2026'));
-const HowMuchTFSARoom         = lazy(() => import('./pages/blog/how-much-tfsa-room-2026'));
-const BestETFsForTFSA         = lazy(() => import('./pages/blog/best-etfs-for-tfsa-canada-2026'));
-const HowToUseFHSA            = lazy(() => import('./pages/blog/how-to-use-fhsa-canada'));
-const CPPPaymentDates2026     = lazy(() => import('./pages/blog/cpp-payment-dates-2026'));
-const OASPaymentDates2026     = lazy(() => import('./pages/blog/oas-payment-dates-2026'));
+const WeeklyDividendETFs = lazy(() => import('./pages/blog/weekly-dividend-etfs'));
+const HowToInvestBeginners = lazy(() => import('./pages/blog/how-to-invest-in-canada-beginners-2026'));
+const BestHISACanada2026 = lazy(() => import('./pages/blog/best-hisa-canada-2026'));
+const EmergencyFundCanada = lazy(() => import('./pages/blog/emergency-fund-canada'));
+const PayOffMortgageFaster = lazy(() => import('./pages/blog/pay-off-mortgage-faster-canada'));
+const CanadaChildBenefit2026 = lazy(() => import('./pages/blog/canada-child-benefit-2026'));
+const TFSAvsRRSP = lazy(() => import('./pages/blog/tfsa-vs-rrsp-2026'));
+const HowMuchTFSARoom = lazy(() => import('./pages/blog/how-much-tfsa-room-2026'));
+const BestETFsForTFSA = lazy(() => import('./pages/blog/best-etfs-for-tfsa-canada-2026'));
+const HowToUseFHSA = lazy(() => import('./pages/blog/how-to-use-fhsa-canada'));
+const CPPPaymentDates2026 = lazy(() => import('./pages/blog/cpp-payment-dates-2026'));
+const OASPaymentDates2026 = lazy(() => import('./pages/blog/oas-payment-dates-2026'));
 const CanadianTaxBrackets2026 = lazy(() => import('./pages/blog/canadian-tax-brackets-2026'));
-const RRSPDeadline2026        = lazy(() => import('./pages/blog/rrsp-deadline-2026'));
-const BestGICRatesCanada2026  = lazy(() => import('./pages/blog/best-gic-rates-canada-2026'));
+const RRSPDeadline2026 = lazy(() => import('./pages/blog/rrsp-deadline-2026'));
+const BestGICRatesCanada2026 = lazy(() => import('./pages/blog/best-gic-rates-canada-2026'));
 const WealthsimpleVsQuestradeCanada = lazy(() => import('./pages/blog/wealthsimple-vs-questrade-canada'));
 const BestTFSABrokersCanada = lazy(() => import('./pages/blog/best-tfsa-brokers-canada'));
 const BestRRSPAccountsCanada = lazy(() => import('./pages/blog/best-rrsp-accounts-canada'));
@@ -75,10 +73,31 @@ function PageLoader() {
 }
 
 export default function App() {
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setIsCommandPaletteOpen(true);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-900 dark:bg-gray-950 dark:text-white">
-      <CommandPalette />
-      <Header />
+      <Suspense fallback={null}>
+        {isCommandPaletteOpen ? (
+          <CommandPalette
+            open={isCommandPaletteOpen}
+            onClose={() => setIsCommandPaletteOpen(false)}
+          />
+        ) : null}
+      </Suspense>
+      <Header onOpenSearch={() => setIsCommandPaletteOpen(true)} />
       <main className="flex-grow">
         <Suspense fallback={<PageLoader />}>
           <Routes>
@@ -110,17 +129,6 @@ export default function App() {
             <Route path="/tools/cad-usd-converter" element={<CadUsdConverter />} />
             <Route path="/tools/inflation-calculator" element={<InflationCalculator />} />
             <Route path="/tools/mortgage-affordability-calculator" element={<MortgageAffordabilityCalculator />} />
-            <Route path="/stocks" element={<StockPage />} />
-            <Route path="/stocks/canadian-bank-stocks" element={<StockCollectionPage collectionKey="canadian-bank-stocks" />} />
-            <Route path="/stocks/canadian-etfs" element={<StockCollectionPage collectionKey="canadian-etfs" />} />
-            <Route path="/stocks/dividend-etfs" element={<StockCollectionPage collectionKey="dividend-etfs" />} />
-            <Route path="/stocks/canadian-dividend-stocks" element={<StockCollectionPage collectionKey="canadian-dividend-stocks" />} />
-            <Route path="/stocks/covered-call-etfs" element={<StockCollectionPage collectionKey="covered-call-etfs" />} />
-            <Route path="/stocks/tsx-bank-stocks" element={<StockCollectionPage collectionKey="tsx-bank-stocks" />} />
-            <Route path="/stocks/compare" element={<CompareStocksPage />} />
-            <Route path="/stocks/compare/:comparisonSlug" element={<CompareStocksPage />} />
-            <Route path="/stocks/:ticker/dividend" element={<StockPage view="dividend" />} />
-            <Route path="/stocks/:ticker" element={<StockPage />} />
             <Route path="/tools/gic-calculator" element={<GICCalculator />} />
             <Route path="/tools/debt-payoff" element={<DebtPayoffCalculator />} />
             <Route path="/tools/savings-goal" element={<SavingsGoalCalculator />} />
@@ -145,12 +153,15 @@ export default function App() {
             <Route path="/blog/emergency-fund-canada" element={<EmergencyFundCanada />} />
             <Route path="/blog/pay-off-mortgage-faster-canada" element={<PayOffMortgageFaster />} />
             <Route path="/blog/canada-child-benefit-2026" element={<CanadaChildBenefit2026 />} />
-            <Route path="*" element={
-              <div className="mx-auto max-w-3xl px-4 py-24 text-center">
-                <h1 className="text-4xl font-bold text-primary dark:text-accent">Page not found</h1>
-                <p className="mt-4 text-slate-600 dark:text-slate-300">The page you're looking for doesn't exist.</p>
-              </div>
-            } />
+            <Route
+              path="*"
+              element={
+                <div className="mx-auto max-w-3xl px-4 py-24 text-center">
+                  <h1 className="text-4xl font-bold text-primary dark:text-accent">Page not found</h1>
+                  <p className="mt-4 text-slate-600 dark:text-slate-300">The page you're looking for doesn't exist.</p>
+                </div>
+              }
+            />
           </Routes>
         </Suspense>
       </main>

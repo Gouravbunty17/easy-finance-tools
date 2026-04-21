@@ -156,6 +156,7 @@ export default function FIRECalculator() {
       <SEO
         title="FIRE Calculator Canada 2026 — Financial Independence Retire Early"
         description="Calculate your FIRE number and retirement date with this free Canadian FIRE calculator. Includes CPP, OAS, inflation adjustment, and Lean/Fat/Barista FIRE scenarios."
+        canonical="https://easyfinancetools.com/tools/fire-calculator"
       />
 
       <div className="mb-8">
@@ -455,3 +456,5 @@ export default function FIRECalculator() {
     </section>
   );
 }
+
+

@@ -172,6 +172,7 @@ export default function RentVsBuyCalculator() {
       <SEO
         title="Rent vs Buy Calculator Canada 2026 — Is It Better to Rent or Buy?"
         description="Compare renting vs buying a home in Canada. See total costs, net worth, and the break-even year. Free Canadian rent vs buy calculator for 2026."
+        canonical="https://easyfinancetools.com/tools/rent-vs-buy"
       />
 
       <div className="mb-8">
@@ -480,3 +481,5 @@ export default function RentVsBuyCalculator() {
     </section>
   );
 }
+
+

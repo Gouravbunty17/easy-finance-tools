@@ -35,7 +35,7 @@ export default function WeeklyDividendETFs() {
         </p>
 
         <p>
-          If you want to inspect those ETFs directly, open the stock pages for <Link to="/stocks/VDY.TO" className="text-primary underline">VDY</Link> and <Link to="/stocks/XDV.TO" className="text-primary underline">XDV</Link> to compare charts and recent headlines.
+          If you want broader context before chasing yield, compare traditional dividend ETFs against simpler TFSA options in our <Link to="/blog/best-etfs-for-tfsa-canada-2026" className="text-primary underline">best ETFs for TFSA guide</Link>.
         </p>
 
         {/* Section 2 */}
@@ -163,10 +163,10 @@ export default function WeeklyDividendETFs() {
 
         <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
           {[
-            { label: "Open HDIV chart", href: "/stocks/HDIV.TO" },
-            { label: "Open QQQ chart", href: "/stocks/QQQ" },
-            { label: "Open SPY chart", href: "/stocks/SPY" },
-            { label: "Open Tesla chart", href: "/stocks/TSLA" },
+            { label: "Run the Dividend Calculator", href: "/tools/dividend-calculator" },
+            { label: "Run the TFSA Calculator", href: "/tools/tfsa-calculator" },
+            { label: "Read the TFSA ETF guide", href: "/blog/best-etfs-for-tfsa-canada-2026" },
+            { label: "Read the beginner investing guide", href: "/blog/how-to-invest-in-canada-beginners-2026" },
           ].map((item) => (
             <Link
               key={item.label}

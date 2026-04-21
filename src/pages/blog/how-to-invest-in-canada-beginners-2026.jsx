@@ -109,10 +109,10 @@ export default function HowToInvestBeginners2026() {
 
           <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
             {[
-              { label: "Open XEQT chart", href: "/stocks/XEQT.TO" },
-              { label: "Open VEQT chart", href: "/stocks/VEQT.TO" },
-              { label: "Open XGRO chart", href: "/stocks/XGRO.TO" },
-              { label: "Open XBAL chart", href: "/stocks/XBAL.TO" },
+              { label: "Best ETFs for a TFSA", href: "/blog/best-etfs-for-tfsa-canada-2026" },
+              { label: "TFSA Calculator", href: "/tools/tfsa-calculator" },
+              { label: "RRSP Calculator", href: "/tools/rrsp-calculator" },
+              { label: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
             ].map((item) => (
               <Link
                 key={item.label}
@@ -247,7 +247,7 @@ export default function HowToInvestBeginners2026() {
           </div>
 
           <p>
-            If you want to inspect ETF charts before deciding, start with <Link to="/stocks/XEQT.TO" className="text-primary underline">XEQT</Link>, <Link to="/stocks/VEQT.TO" className="text-primary underline">VEQT</Link>, or <Link to="/stocks/XGRO.TO" className="text-primary underline">XGRO</Link> in the stock section.
+            If you want a practical shortlist instead of a ticker page, start with our <Link to="/blog/best-etfs-for-tfsa-canada-2026" className="text-primary underline">best ETFs for TFSA guide</Link> and then run your own numbers with the calculator links above.
           </p>
 
           <MethodologyPanel

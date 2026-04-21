@@ -3,11 +3,13 @@ import React from "react";
 export default function SEO({ title, description, canonical, type = "website", robots = "index,follow,max-image-preview:large" }) {
   React.useEffect(() => {
     const siteName = "EasyFinanceTools";
+    const siteOrigin = "https://easyfinancetools.com";
     const fullTitle = title ? `${title} | ${siteName}` : `${siteName} - Free Canadian Finance Calculators`;
     const desc =
       description ||
       "Free Canadian financial calculators for TFSA, RRSP, dividends, taxes, mortgages, and budgeting. No sign-up required. Privacy-first. Updated for 2026.";
-    const url = canonical || `${window.location.origin}${window.location.pathname}`;
+    const normalizedPath = window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/+$/, "");
+    const url = canonical || `${siteOrigin}${normalizedPath}`;
 
     document.title = fullTitle;
 

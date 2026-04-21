@@ -1,20 +1,96 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { FiMenu, FiX, FiSun, FiMoon, FiSearch } from "react-icons/fi";
 import Logo from "./Logo";
 
 const navLinks = [
   { name: "Tools", path: "/tools" },
-  { name: "Stocks", path: "/stocks" },
   { name: "Blog", path: "/blog" },
   { name: "About", path: "/about" },
 ];
 
-export default function Header() {
+function IconBase({ children, size = 18 }) {
+  return (
+    <svg
+      aria-hidden="true"
+      fill="none"
+      height={size}
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      width={size}
+    >
+      {children}
+    </svg>
+  );
+}
+
+function SearchIcon({ size }) {
+  return (
+    <IconBase size={size}>
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" x2="16.65" y1="21" y2="16.65" />
+    </IconBase>
+  );
+}
+
+function MoonIcon({ size }) {
+  return (
+    <IconBase size={size}>
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </IconBase>
+  );
+}
+
+function SunIcon({ size }) {
+  return (
+    <IconBase size={size}>
+      <circle cx="12" cy="12" r="5" />
+      <line x1="12" x2="12" y1="1" y2="3" />
+      <line x1="12" x2="12" y1="21" y2="23" />
+      <line x1="4.22" x2="5.64" y1="4.22" y2="5.64" />
+      <line x1="18.36" x2="19.78" y1="18.36" y2="19.78" />
+      <line x1="1" x2="3" y1="12" y2="12" />
+      <line x1="21" x2="23" y1="12" y2="12" />
+      <line x1="4.22" x2="5.64" y1="19.78" y2="18.36" />
+      <line x1="18.36" x2="19.78" y1="5.64" y2="4.22" />
+    </IconBase>
+  );
+}
+
+function MenuIcon({ size }) {
+  return (
+    <IconBase size={size}>
+      <line x1="3" x2="21" y1="12" y2="12" />
+      <line x1="3" x2="21" y1="6" y2="6" />
+      <line x1="3" x2="21" y1="18" y2="18" />
+    </IconBase>
+  );
+}
+
+function CloseIcon({ size }) {
+  return (
+    <IconBase size={size}>
+      <line x1="18" x2="6" y1="6" y2="18" />
+      <line x1="6" x2="18" y1="6" y2="18" />
+    </IconBase>
+  );
+}
+
+export default function Header({ onOpenSearch }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(() => localStorage.getItem("theme") === "dark");
+  const [isDark, setIsDark] = useState(false);
+  const [themeReady, setThemeReady] = useState(false);
 
   useEffect(() => {
+    setIsDark(localStorage.getItem("theme") === "dark");
+    setThemeReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!themeReady) return;
+
     const html = document.documentElement;
     if (isDark) {
       html.classList.add("dark");
@@ -23,10 +99,10 @@ export default function Header() {
       html.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
-  }, [isDark]);
+  }, [isDark, themeReady]);
 
   const openSearch = () => {
-    window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true, bubbles: true }));
+    onOpenSearch?.();
   };
 
   return (
@@ -56,12 +132,12 @@ export default function Header() {
                 className="focus-ring flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
                 title="Quick search (Ctrl+K)"
               >
-                <FiSearch size={13} />
+                <SearchIcon size={13} />
                 <span className="hidden lg:inline">Search</span>
                 <kbd className="hidden rounded bg-white px-1 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-200 lg:inline">Ctrl+K</kbd>
               </button>
 
-              <NavLink to="/contact" className="rounded-lg bg-secondary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary">
+              <NavLink to="/contact" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0a4c89]">
                 Contact
               </NavLink>
 
@@ -70,7 +146,7 @@ export default function Header() {
                 aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
                 className="focus-ring rounded-lg bg-gray-100 p-2 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
               >
-                {isDark ? <FiSun size={16} /> : <FiMoon size={16} />}
+                {isDark ? <SunIcon size={16} /> : <MoonIcon size={16} />}
               </button>
             </nav>
 
@@ -80,14 +156,14 @@ export default function Header() {
                 aria-label="Open search"
                 className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
               >
-                <FiSearch size={18} />
+                <SearchIcon size={18} />
               </button>
               <button
                 onClick={() => setIsDark(!isDark)}
                 aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
                 className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
               >
-                {isDark ? <FiSun size={18} /> : <FiMoon size={18} />}
+                {isDark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
               </button>
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -95,7 +171,7 @@ export default function Header() {
                 aria-expanded={isOpen}
                 className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
               >
-                {isOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+                {isOpen ? <CloseIcon size={22} /> : <MenuIcon size={22} />}
               </button>
             </div>
           </div>
@@ -127,7 +203,7 @@ export default function Header() {
               >
                 Search tools and guides
               </button>
-              <NavLink to="/contact" onClick={() => setIsOpen(false)} className="rounded-lg bg-secondary px-3 py-2 text-center text-sm font-semibold text-white">
+              <NavLink to="/contact" onClick={() => setIsOpen(false)} className="rounded-lg bg-primary px-3 py-2 text-center text-sm font-semibold text-white">
                 Contact
               </NavLink>
             </nav>

@@ -118,9 +118,9 @@ export default function CadUsdConverter() {
         </>
       }
       relatedTools={[
-        { href: "/stocks/CAD=X", title: "Currency chart page", body: "Open the broader currency chart if you want a market-style view instead of a one-off conversion." },
         { href: "/tools/compound-interest-calculator", title: "Compound interest calculator", body: "Model how exchange-rate decisions affect long-term savings and investing plans." },
         { href: "/tools/inflation-calculator", title: "Inflation calculator", body: "Pair currency conversion with purchasing-power checks over time." },
+        { href: "/tools/savings-goal", title: "Savings goal calculator", body: "Translate a one-time conversion or transfer into a concrete savings target." },
       ]}
       footerNote="The Bank of Canada publishes a USD/CAD reference rate, not a cash-exchange or card-network quote. Your bank or broker may apply a spread."
     >

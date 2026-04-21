@@ -111,6 +111,7 @@ export default function InvestmentTracker() {
       <SEO
         title="Net Worth Calculator Canada 2026 — Free Asset & Debt Tracker"
         description="Track your total net worth, assets, and liabilities with this free Canadian net worth calculator. See your TFSA, RRSP, real estate, and debt breakdown with projection charts."
+        canonical="https://easyfinancetools.com/tools/investment-tracker"
       />
 
       <div className="mb-8">
@@ -565,3 +566,5 @@ export default function InvestmentTracker() {
     </section>
   );
 }
+
+
