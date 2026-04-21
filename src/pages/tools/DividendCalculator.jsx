@@ -16,6 +16,7 @@ import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolByline from "../../components/ToolByline";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import ActionableNextSteps from "../../components/ActionableNextSteps";
+import EducationalDisclaimer from "../../components/EducationalDisclaimer";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
@@ -170,6 +171,8 @@ export default function DividendCalculator() {
           Project dividend income, DRIP reinvestment, portfolio value, and yield on cost over time.
         </p>
       </div>
+
+      <EducationalDisclaimer />
 
       <div className="mb-8 grid gap-4 md:grid-cols-4">
         {[

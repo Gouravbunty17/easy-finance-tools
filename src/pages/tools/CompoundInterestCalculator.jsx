@@ -16,6 +16,7 @@ import MethodologyPanel from "../../components/MethodologyPanel";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 import ToolByline from "../../components/ToolByline";
 import ActionableNextSteps from "../../components/ActionableNextSteps";
+import EducationalDisclaimer from "../../components/EducationalDisclaimer";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -144,6 +145,10 @@ export default function CompoundInterestCalculator() {
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             See how an initial deposit, monthly contributions, fees, and inflation change your long-term result. Built for CAD planning and easy scenario checks.
           </p>
+
+          <div className="mt-6">
+            <EducationalDisclaimer />
+          </div>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
             <div className="surface-card p-4">

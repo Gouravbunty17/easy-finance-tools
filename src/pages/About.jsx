@@ -136,6 +136,31 @@ export default function About() {
                 </p>
               </div>
             </div>
+
+            <div className="mt-8 surface-card p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Who runs this site?</h2>
+              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+                <p>
+                  EasyFinanceTools is built and maintained by <strong>Gourav Kumar</strong>, a software developer based in Brampton, Ontario, Canada.
+                </p>
+                <p>
+                  I created this site in 2025 because I was frustrated with Canadian finance calculators that required sign-ups, sold user data, or were buried behind paywalls. EasyFinanceTools is my answer: a free, privacy-first alternative that respects your time and data.
+                </p>
+                <p>
+                  <strong>What I do:</strong> I'm a full-stack developer with expertise in web applications and GPU computing. I run Maple Silicon Inc., a Canadian AI infrastructure company, but EasyFinanceTools is a separate personal project focused entirely on accessible financial education.
+                </p>
+                <p>
+                  <strong>What this site is NOT:</strong> I am not a financial advisor, accountant, or licensed investment professional. I do not work for any bank, brokerage, or financial institution. I do not sell financial products, manage money, or earn commissions from financial recommendations.
+                </p>
+                <ul className="mt-2 space-y-1 text-sm">
+                  <li><strong>Contact:</strong> Use the <Link to="/contact" className="text-secondary underline-offset-2 hover:underline">contact form</Link> for questions, bug reports, or feedback.</li>
+                  <li><strong>Location:</strong> Brampton, Ontario, Canada</li>
+                </ul>
+                <p>
+                  This site will always remain free. I may add non-intrusive ads in the future to cover hosting costs, but your data will never be sold or shared with third parties.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="space-y-5">

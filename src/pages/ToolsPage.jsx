@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import SEO from "../components/SEO";
 import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
+import EducationalDisclaimer from "../components/EducationalDisclaimer";
 
 const tools = [
   { title: "Tip Calculator", desc: "Calculate the tip, split the bill, and compare pre-tax vs after-tax tipping with simple input boxes.", link: "/tools/tip-calculator", badge: "New", category: "Budget", color: "border-amber-200 hover:border-amber-400" },
@@ -64,6 +65,8 @@ export default function ToolsPage() {
       </div>
 
       <div className="mx-auto max-w-6xl px-4 py-16">
+
+        <EducationalDisclaimer />
 
         <div className="surface-soft grid gap-4 p-5 text-sm text-slate-700 dark:text-slate-300 md:grid-cols-4">
           <div>

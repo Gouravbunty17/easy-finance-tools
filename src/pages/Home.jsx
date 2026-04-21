@@ -3,6 +3,7 @@ import SEO from "../components/SEO";
 import CountUp from "../components/CountUp";
 import FinancialTip from "../components/FinancialTip";
 import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
+import EducationalDisclaimer from "../components/EducationalDisclaimer";
 
 const tools = [
   { title: "Income Tax Calculator", desc: "Calculate federal + provincial tax, CPP, EI, and take-home pay for 2026.", link: "/tools/income-tax-calculator", badge: "Most Popular" },
@@ -133,6 +134,10 @@ export default function Home() {
 
       <section className="mx-auto max-w-5xl px-4 pt-10">
         <FinancialTip />
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pt-0 pb-2">
+        <EducationalDisclaimer />
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-12">

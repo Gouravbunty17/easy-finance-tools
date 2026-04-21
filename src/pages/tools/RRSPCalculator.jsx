@@ -16,6 +16,7 @@ import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolByline from "../../components/ToolByline";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import ActionableNextSteps from "../../components/ActionableNextSteps";
+import EducationalDisclaimer from "../../components/EducationalDisclaimer";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 
@@ -207,6 +208,7 @@ export default function RRSPCalculator() {
         </p>
       </div>
 
+      <EducationalDisclaimer />
       <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 mb-6">
         <p className="text-sm text-green-800 dark:text-green-300">
           <strong>2026 RRSP limit:</strong> 18% of 2025 earned income up to <strong>$33,810</strong> &nbsp;|&nbsp;

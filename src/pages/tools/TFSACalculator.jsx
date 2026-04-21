@@ -4,24 +4,25 @@ import NumberInput from "../../components/NumberInput";
 import ActionableNextSteps from "../../components/ActionableNextSteps";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import EducationalDisclaimer from "../../components/EducationalDisclaimer";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 const TFSA_FAQS = [
   {
     q: "What is the TFSA contribution limit for 2026?",
-    a: "The 2026 TFSA annual limit is $7,000, unchanged from 2024 and 2025. Cumulative room for someone eligible every year since 2009 reaches $102,000 in 2026. CRA announces the annual limit each fall after indexing to inflation and rounding to the nearest $500.",
+    a: "The 2026 TFSA annual limit is $7,000, the same as 2024 and 2025. If you have been eligible every year since 2009 and never contributed, cumulative room reaches $102,000 in 2026. CRA sets the annual limit each fall after indexing for inflation and rounding to the nearest $500.",
   },
   {
     q: "What happens if I over-contribute to my TFSA?",
-    a: "CRA charges a 1% monthly penalty on the highest excess amount in your TFSA for every month the over-contribution stays in the account. You must withdraw the excess as soon as you notice it, and you can file form RC243 to request that CRA assess or waive the tax.",
+    a: "CRA charges a 1% monthly penalty on the highest excess amount in your TFSA for each month the over-contribution stays in the account. Withdraw the excess as soon as you notice it. You can also file form RC243 to ask CRA to assess or waive the tax.",
   },
   {
     q: "Can I re-contribute a TFSA withdrawal in the same calendar year?",
-    a: "Only if you still have existing unused room equal to the re-contribution. Withdrawals are added back to your room on January 1 of the following year, not immediately. Same-year re-contributions that push you over your room are treated as over-contributions and attract the 1% monthly penalty.",
+    a: "Only if you still have unused room available. Withdrawals are added back on January 1 of the following year, not right away. If you put the money back too soon and go over your room, CRA treats it as an over-contribution and the 1% monthly penalty can apply.",
   },
   {
     q: "Are dividends and capital gains inside a TFSA taxable?",
-    a: "Canadian dividends, interest, and capital gains earned inside a TFSA are fully tax-free and never reported on your personal tax return. US dividends are subject to a 15% US withholding tax that is not recoverable inside a TFSA, because the TFSA is not recognized as a retirement account under the Canada-US tax treaty.",
+    a: "Canadian dividends, interest, and capital gains earned inside a TFSA are tax-free and are not reported on your personal tax return. US dividends usually face a 15% US withholding tax that you cannot recover inside a TFSA because the account is not treated as a retirement account under the Canada-US tax treaty.",
   },
   {
     q: "Do I need to report my TFSA on my tax return?",
@@ -124,7 +125,7 @@ export default function TFSACalculator() {
     <>
       <CalculatorLayout
         title="TFSA Calculator 2026"
-        description="Estimate TFSA contribution room from your eligibility year, then project tax-free growth with clean input boxes instead of sliders."
+        description="Estimate your TFSA contribution room, then project tax-free growth with simple input boxes."
         canonical="https://easyfinancetools.com/tools/tfsa-calculator"
         badge="Registered accounts"
         results={
@@ -153,8 +154,9 @@ export default function TFSACalculator() {
           { href: "/tools/compound-interest-calculator", title: "Compound interest calculator", body: "Stress-test the same savings plan outside a registered account context." },
           { href: "/tools/dividend-calculator", title: "Dividend calculator", body: "Project income-focused investing once you know how much TFSA room you still have." },
         ]}
-        footerNote="Educational estimate only. Same-year TFSA withdrawals are generally added back on January 1 of the following year, so always verify room with CRA My Account before acting."
+        footerNote="Educational estimate only. Same-year TFSA withdrawals are usually added back on January 1 of the following year, so confirm your room with CRA My Account before acting."
       >
+        <EducationalDisclaimer />
         <div className="grid gap-5 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
           <div className="grid gap-5 md:grid-cols-2">
             <NumberInput id="tfsa-birth-year" label="Birth year" value={birthYear} onChange={(value) => setBirthYear(parseNumericInput(value, { integer: true }))} placeholder="1992" inputMode="numeric" hint="TFSA eligibility starts at age 18, but never earlier than 2009." />
@@ -172,8 +174,8 @@ export default function TFSACalculator() {
       <div className="mx-auto max-w-6xl px-4 pb-12">
         <ActionableNextSteps
           toolName="tfsa_calculator"
-          intro="Use this as a fast planning pass, then confirm your exact room with CRA before you contribute."
-          meaning={`Based on the inputs above, your estimated available TFSA room is ${fmtCAD(result.estimatedRoom)} and your projected value in ${fmtNum(years)} years is ${fmtCAD(result.projection.endingBalance)}.`}
+          intro="Use this as a quick planning pass, then confirm your exact room with CRA before you contribute."
+          meaning={`Based on the inputs above, your estimated TFSA room is ${fmtCAD(result.estimatedRoom)}. In ${fmtNum(years)} years, the account could grow to ${fmtCAD(result.projection.endingBalance)}.`}
           steps={[
             "Verify the estimate against your latest CRA TFSA room figure before making a large contribution.",
             "Compare TFSA and RRSP if you are deciding between tax-free growth and a deduction today.",
@@ -189,47 +191,47 @@ export default function TFSACalculator() {
         <article className="prose prose-lg prose-slate dark:prose-invert mt-10 max-w-none rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 md:p-8">
           <h2>How this calculator works</h2>
           <p>
-            This TFSA calculator answers two questions at once: how much TFSA room you likely have left right now, and how that balance could grow if you keep contributing. The room estimate starts from your first year of eligibility, adds every annual limit announced by CRA through 2026, and subtracts your net lifetime contributions to give a directional figure you can sanity-check against CRA My Account. The growth projection reinvests monthly contributions at a constant annual return, which is useful for seeing whether what you contribute is actually pacing you toward your goal.
+            This TFSA calculator answers two questions. First, it estimates how much TFSA room you may still have. Second, it shows how your balance could grow if you keep contributing. The room estimate starts with your first year of eligibility, adds each CRA annual limit through 2026, and subtracts your net lifetime contributions. The projection then applies a steady annual return to your current balance and monthly deposits.
           </p>
           <p>
-            Two inputs move the number more than the rest. Your birth year and residency year anchor your eligibility start — shift either by a single year and your cumulative room can change by several thousand dollars. Your total lifetime contributions, net of prior withdrawals, is the figure CRA ultimately compares against your room cap when penalties are assessed. Before you rely on the calculator for a large deposit, log in to CRA My Account; it is the only authoritative source because mid-year deposits, administrative processing lags, and withdrawal reinstatement timing can all shift your available room.
+            Two inputs matter more than the rest. Your birth year and residency year set your eligibility start, and even a one-year change can move your room by several thousand dollars. Your lifetime contributions, net of prior withdrawals, also matter because that is the figure CRA compares against your room cap. Before you make a large deposit, check CRA My Account. It is the only authoritative source, especially when recent deposits or withdrawals may not be fully processed yet.
           </p>
 
           <h2>The 2026 TFSA rules</h2>
           <p>
-            The TFSA annual limit for 2026 is <strong>$7,000</strong>, unchanged from 2024 and 2025. Someone who was 18 or older, a Canadian tax resident in 2009, and has never contributed has <strong>$102,000</strong> of cumulative room in 2026. Room carries forward indefinitely — skipping a year does not cost you any eligibility, and unused room from 2009 is still available today.
+            The TFSA annual limit for 2026 is <strong>$7,000</strong>, unchanged from 2024 and 2025. Someone who was 18 or older, a Canadian tax resident in 2009, and has never contributed has <strong>$102,000</strong> of cumulative room in 2026. Unused room carries forward forever, so skipping a year does not make you lose it.
           </p>
           <p>
-            Two rules catch people out most often. First, <strong>withdrawals are added back with a one-year lag</strong>: a $10,000 withdrawal in 2026 does not free up $10,000 of room until January 1, 2027. Re-contributing that same amount in the same calendar year can trigger a 1% monthly penalty on the excess. Second, <strong>room accrues from your eligibility year, not from 2009 automatically</strong>. A newcomer who became a Canadian resident in 2015 starts their TFSA clock in 2015.
+            Two rules cause the most confusion. First, <strong>withdrawals come back with a one-year lag</strong>: a $10,000 withdrawal in 2026 does not restore $10,000 of room until January 1, 2027. Re-contributing that amount too soon can trigger a 1% monthly penalty on the excess. Second, <strong>room starts from your eligibility year, not automatically from 2009</strong>. If you became a Canadian resident in 2015, your TFSA room starts in 2015.
           </p>
           <p>
-            Investment growth inside the TFSA — dividends, interest, capital gains — is entirely tax-free and does not count against your contribution room. If you invest $7,000 and it grows to $12,000, you have used $7,000 of room, not $12,000.
+            Investment growth inside the TFSA, including dividends, interest, and capital gains, is tax-free and does not use extra contribution room. If you invest $7,000 and it grows to $12,000, you have still used only $7,000 of room.
           </p>
 
           <h2>Common TFSA mistakes</h2>
           <p>
-            The most expensive mistake we see is <strong>re-contributing a same-year withdrawal</strong>. A reader who withdrew $15,000 in March to cover a gap and redeposited it in November was assessed a 1% monthly over-contribution penalty for each month the contributions exceeded available room. Always wait until January 1 of the following year before replacing a withdrawal unless you still have separate unused room.
+            The most expensive mistake is <strong>re-contributing a same-year withdrawal</strong>. If you pull money out in March and put it back in November, you can still trigger an over-contribution penalty if you do not have separate unused room. In most cases, it is safer to wait until January 1 of the following year before replacing a withdrawal.
           </p>
           <p>
-            The second is <strong>holding US-listed dividend stocks in a TFSA</strong>. US dividends paid into a TFSA are subject to a 15% US withholding tax, and the tax is not recoverable because the TFSA is not treaty-recognized as a retirement account. The same dividends held inside an RRSP avoid that withholding entirely. For a dividend-heavy US portfolio, account choice can matter more than the growth math.
+            The second is <strong>holding US-listed dividend stocks in a TFSA</strong>. US dividends paid into a TFSA usually face a 15% withholding tax, and you cannot recover it. The same dividends held in an RRSP usually avoid that tax. If your portfolio depends on US dividend income, account choice can matter a lot.
           </p>
           <p>
-            The third is treating TFSA room as "use it or lose it." It is not — room carries forward indefinitely for every year you are an eligible resident. The fourth is <strong>day-trading inside a TFSA</strong>; CRA can reclassify frequent active trading as a business and tax the gains as business income, a reassessment that has caught reader after reader off guard.
+            The third mistake is treating TFSA room as "use it or lose it." It is not. Room carries forward indefinitely while you remain an eligible resident. The fourth is <strong>day-trading inside a TFSA</strong>. CRA can treat frequent active trading as a business and tax the gains as business income.
           </p>
 
           <h2>A worked example</h2>
           <p>
-            Suppose you were born in 1992, became a Canadian resident in 2010, and have contributed $40,000 lifetime with $5,000 in prior withdrawals that have since been added back. Your eligibility year is 2010 (the year you turned 18). Adding the 2010–2026 annual limits gives $94,500 of cumulative accrued room. Subtracting net contributions of $35,000 ($40,000 minus $5,000 of withdrawals restored to room) leaves an estimated <strong>$59,500</strong> of room available for your 2026 contribution.
+            Suppose you were born in 1992, became a Canadian resident in 2010, contributed $40,000 over time, and previously withdrew $5,000 that has already been added back to your room. Your eligibility year is 2010. Adding the 2010 to 2026 annual limits gives $94,500 of accrued room. Subtracting net contributions of $35,000 leaves an estimated <strong>$59,500</strong> available in 2026.
           </p>
           <p>
-            If you then contribute $400 a month on top of a $25,000 current balance at a 6% average annual return for 15 years, the projected ending value is roughly <strong>$157,700</strong> — of which about <strong>$85,700</strong> is tax-free growth. That growth is the real point of the TFSA. The room estimate tells you how much more you can shelter; the projection tells you why sheltering matters. Adjust any slider above and all four numbers — eligibility year, accrued room, estimated available room, and projected value — recalculate instantly.
+            If you then add $400 a month to a $25,000 balance and earn a 6% average annual return for 15 years, the projected ending value is about <strong>$157,700</strong>. Roughly <strong>$85,700</strong> of that would be tax-free growth. That is the real value of the TFSA. The room estimate shows how much you can still shelter, and the projection shows why sheltering matters.
           </p>
         </article>
 
         <MethodologyPanel
           summary="This TFSA calculator estimates available contribution room by summing CRA-announced annual limits from your eligibility year through 2026, then subtracting your net lifetime contributions. Growth is projected using a constant annual return compounded monthly with even contribution pacing, which is a planning approximation rather than a market forecast."
           assumptions={[
-            "Annual limits used: $5,000 (2009–2012), $5,500 (2013–2014), $10,000 (2015), $5,500 (2016–2018), $6,000 (2019–2022), $6,500 (2023), and $7,000 (2024–2026).",
+            "Annual limits used: $5,000 (2009-2012), $5,500 (2013-2014), $10,000 (2015), $5,500 (2016-2018), $6,000 (2019-2022), $6,500 (2023), and $7,000 (2024-2026).",
             "Eligibility year is the later of age 18 or your Canadian residency year; room does not accrue for years before either threshold.",
             "Withdrawal reinstatement assumes withdrawals entered above occurred in or before the previous calendar year. Same-year withdrawals do not restore room until January 1 of the following year.",
             "Growth uses a constant annual return with even monthly reinvestment. Real-world returns are not linear, and market losses in early years can change the outcome materially.",

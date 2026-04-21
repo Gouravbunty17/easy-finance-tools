@@ -3,6 +3,7 @@ import CalculatorLayout, { ResultCard, fmtCAD, fmtNum } from "../../components/C
 import NumberInput from "../../components/NumberInput";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import EducationalDisclaimer from "../../components/EducationalDisclaimer";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 const MORTGAGE_FAQS = [
@@ -159,6 +160,7 @@ export default function MortgageCalculator() {
       ]}
       footerNote="Educational estimate only. Lender quotes, legal fees, insurance, condo fees, and municipal taxes can materially change your actual cost."
     >
+      <EducationalDisclaimer />
       <div className="space-y-5 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
         <div className="grid gap-5 md:grid-cols-2">
           <NumberInput id="mortgage-home-price" label="Home price" prefix="$" value={homePrice} onChange={(value) => setHomePrice(parseNumericInput(value))} placeholder="650000" />
