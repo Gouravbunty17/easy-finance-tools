@@ -12,9 +12,6 @@ const tools = [
   { title: "GIC Calculator", desc: "Project maturity value and compare short-term guaranteed savings options.", link: "/tools/gic-calculator", badge: "New" },
   { title: "Debt Payoff Calculator", desc: "Compare avalanche vs snowball and see your path to debt-free.", link: "/tools/debt-payoff", badge: "New" },
   { title: "Savings Goal Calculator", desc: "Set a timeline and get the monthly amount needed to hit your target.", link: "/tools/savings-goal", badge: "New" },
-  { title: "Mortgage Calculator", desc: "Estimate real Canadian mortgage payments, CMHC insurance, and closing costs.", link: "/tools/mortgage-calculator", badge: null },
-  { title: "FIRE Calculator", desc: "Estimate your financial independence number and target retirement date.", link: "/tools/fire-calculator", badge: null },
-  { title: "FHSA Calculator", desc: "Plan deductible contributions and tax-free home-buying withdrawals.", link: "/tools/fhsa-calculator", badge: null },
 ];
 
 const recentPosts = [
@@ -56,7 +53,7 @@ export default function Home() {
 
           <h1 className="mb-6 text-4xl font-bold leading-tight md:text-6xl">Free Canadian Finance Calculators</h1>
           <p className="mx-auto mb-10 max-w-3xl text-lg text-blue-100 md:text-xl">
-            Free calculators for TFSA, RRSP, income tax, mortgages, debt payoff, and savings goals. No sign-up. Clear assumptions. Fast results in your browser.
+            Start with the calculator, then read the guide. EasyFinanceTools is built for Canadian money decisions like TFSA versus RRSP, take-home pay, mortgage costs, debt payoff, and long-term savings.
           </p>
 
         <div className="mx-auto mb-10 grid max-w-3xl gap-3 rounded-3xl border border-white/15 bg-white/10 p-3 backdrop-blur sm:grid-cols-[1fr_auto_auto]">
@@ -179,50 +176,50 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 pb-8">
-        <div className="grid gap-4 md:grid-cols-3">
-          {[
-            { title: "Tax and paycheques", body: "Use these tools to estimate take-home pay, payroll deductions, and tax.", href: "/tools/income-tax-calculator" },
-            { title: "Savings and compounding", body: "Compare compound growth across TFSA, RRSP, FHSA, and regular savings plans.", href: "/tools/compound-interest-calculator" },
-            { title: "Borrowing and housing", body: "Model mortgage payments, rent-vs-buy tradeoffs, and debt payoff side by side.", href: "/tools/mortgage-calculator" },
-          ].map((cluster) => (
-            <SurfaceTrackedLink
-              key={cluster.title}
-              to={cluster.href}
-              eventName="homepage_cta_click"
-              ctaLabel={`cluster_card_${cluster.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
-              trackingParams={{ section: "cluster_cards", destination_type: "tool" }}
-              className="surface-card p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md"
-            >
-              <h3 className="text-lg font-bold text-primary dark:text-accent">{cluster.title}</h3>
-              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{cluster.body}</p>
-            </SurfaceTrackedLink>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-5xl px-4 pb-8">
+      <section className="mx-auto max-w-5xl px-4 pb-10">
         <div className="surface-soft p-6">
-          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-            <div className="max-w-3xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary dark:text-secondary">Original Canadian finance content</p>
-              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the calculators with the guides, not as stand-alone formulas</h2>
+          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary dark:text-secondary">How to use the site</p>
+              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Start with the calculator, then inspect the assumptions</h2>
               <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                EasyFinanceTools is built for practical Canadian money decisions. Use it to compare TFSA vs RRSP, check mortgage affordability, estimate take-home pay, and test savings tradeoffs. The strongest pages pair calculator results with plain-language guides, visible assumptions, and clear methodology.
+                This homepage is the starting point, not the full directory. Use it to pick the right calculator category, then move into the tool page, article, and methodology notes that explain the tradeoffs. The goal is to help you make one Canadian money decision at a time without hiding the math or the limits.
               </p>
+              <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                {[
+                  {
+                    title: "1. Run the numbers",
+                    body: "Pick the tool that matches the decision you are making right now.",
+                  },
+                  {
+                    title: "2. Read the guide",
+                    body: "Use the related article to compare options, risks, and next steps.",
+                  },
+                  {
+                    title: "3. Check methodology",
+                    body: "Review assumptions, source links, and update dates before relying on the result.",
+                  },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
+                    <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
+                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="grid gap-3 sm:grid-cols-3 md:w-[340px] md:grid-cols-1">
+            <div className="grid gap-3">
               {[
-                { label: "How we build calculators", href: "/methodology", cta: "editorial_intro_methodology" },
-                { label: "Editorial standards", href: "/editorial-standards", cta: "editorial_intro_standards" },
-                { label: "About EasyFinanceTools", href: "/about", cta: "editorial_intro_about" },
+                { label: "Browse all tools", href: "/tools", cta: "homepage_start_here_tools" },
+                { label: "Read the latest guides", href: "/blog", cta: "homepage_start_here_blog" },
+                { label: "How we build calculators", href: "/methodology", cta: "homepage_start_here_methodology" },
+                { label: "Editorial standards and review process", href: "/editorial-standards", cta: "homepage_start_here_editorial" },
               ].map((item) => (
                 <SurfaceTrackedLink
                   key={item.href}
                   to={item.href}
                   eventName="homepage_cta_click"
                   ctaLabel={item.cta}
-                  trackingParams={{ section: "editorial_intro", destination_type: "trust_page" }}
+                  trackingParams={{ section: "homepage_start_here", destination_type: "trust_or_hub" }}
                   className="rounded-2xl border border-slate-200 bg-white px-4 py-4 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
                 >
                   {item.label}
@@ -230,161 +227,6 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-5xl px-4 pb-10">
-        <div className="surface-soft p-5">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-primary dark:text-accent">Popular broker comparisons</h2>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                If you are choosing where to open an account, start with the math first. Then use these comparison pages to pick the provider.
-              </p>
-            </div>
-            <SurfaceTrackedLink
-              to="/blog"
-              eventName="homepage_cta_click"
-              ctaLabel="broker_comparisons_view_all_articles"
-              trackingParams={{ section: "broker_comparisons", destination_type: "hub" }}
-              className="text-sm font-semibold text-primary underline dark:text-secondary"
-            >
-              Browse all guides
-            </SurfaceTrackedLink>
-          </div>
-          <div className="mt-5 grid gap-3 md:grid-cols-3">
-            {[
-              {
-                title: "Start with TFSA math",
-                body: "Check contribution room and tax-free growth before comparing brokers.",
-                href: "/tools/tfsa-calculator",
-                cta: "comparison_module_tfsa_first",
-              },
-              {
-                title: "Start with RRSP math",
-                body: "Estimate the deduction and refund value before choosing an RRSP provider.",
-                href: "/tools/rrsp-calculator",
-                cta: "comparison_module_rrsp_first",
-              },
-              {
-                title: "Start with compound growth",
-                body: "Model the savings plan and fee drag first if you are still comparing platforms.",
-                href: "/tools/compound-interest-calculator",
-                cta: "comparison_module_compound_first",
-              },
-            ].map((item) => (
-              <SurfaceTrackedLink
-                key={item.title}
-                to={item.href}
-                eventName="homepage_cta_click"
-                ctaLabel={item.cta}
-                trackingParams={{ section: "broker_comparisons_decision_paths", destination_type: "tool" }}
-                className="rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900"
-              >
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary dark:text-secondary">Calculator-first path</p>
-                <p className="mt-2 font-semibold text-primary dark:text-accent">{item.title}</p>
-                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
-              </SurfaceTrackedLink>
-            ))}
-          </div>
-          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {[
-              { title: "Wealthsimple vs Questrade", href: "/blog/wealthsimple-vs-questrade-canada", note: "Beginner vs DIY investing" },
-              { title: "Best TFSA Brokers", href: "/blog/best-tfsa-brokers-canada", note: "Best fit for registered investing" },
-              { title: "Best RRSP Accounts", href: "/blog/best-rrsp-accounts-canada", note: "Compare deduction-focused account options" },
-              { title: "Best Investing Apps", href: "/blog/best-investing-apps-canada", note: "Simple shortlist for Canadians" },
-            ].map((item) => (
-              <SurfaceTrackedLink
-                key={item.title}
-                to={item.href}
-                eventName="homepage_cta_click"
-                ctaLabel={`broker_comparison_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
-                trackingParams={{ section: "broker_comparisons", destination_type: "article" }}
-                className="rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900"
-              >
-                <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
-                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.note}</p>
-              </SurfaceTrackedLink>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-5xl px-4 py-6">
-        <div className="surface-soft p-5">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-primary dark:text-accent">Popular calculator searches</h2>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                Start with the pages people usually need first, then move into related comparisons.
-              </p>
-            </div>
-            <SurfaceTrackedLink
-              to="/tools"
-              eventName="homepage_cta_click"
-              ctaLabel="popular_searches_browse_all"
-              trackingParams={{ section: "popular_searches", destination_type: "hub" }}
-              className="text-sm font-semibold text-primary underline dark:text-secondary"
-            >
-              Browse all calculators
-            </SurfaceTrackedLink>
-          </div>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { title: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
-              { title: "Income Tax Calculator", href: "/tools/income-tax-calculator" },
-              { title: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
-              { title: "TFSA Calculator", href: "/tools/tfsa-calculator" },
-            ].map((item) => (
-              <SurfaceTrackedLink
-                key={item.title}
-                to={item.href}
-                eventName="homepage_cta_click"
-                ctaLabel={`popular_search_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
-                trackingParams={{ section: "popular_searches", destination_type: "tool" }}
-                className="rounded-2xl border border-slate-200 bg-white px-4 py-4 text-sm font-semibold text-primary transition hover:-translate-y-0.5 hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-              >
-                {item.title}
-              </SurfaceTrackedLink>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-5xl px-4 py-4">
-        <div className="grid gap-4 md:grid-cols-3">
-          {[
-            {
-              title: "What makes a useful calculator page",
-              body: "The best tool pages explain the assumptions, show the limits, and point you to the next question to solve.",
-              href: "/methodology",
-              cta: "quality_card_methodology",
-            },
-            {
-              title: "How our articles are written",
-              body: "We publish Canadian explainers, comparison pages, and calculator guides with clear dates and editorial standards.",
-              href: "/editorial-standards",
-              cta: "quality_card_editorial_standards",
-            },
-            {
-              title: "Why trust still matters in finance content",
-              body: "For tax, investing, and borrowing topics, the site is designed to make assumptions and tradeoffs easier to inspect.",
-              href: "/about",
-              cta: "quality_card_about",
-            },
-          ].map((item) => (
-            <SurfaceTrackedLink
-              key={item.title}
-              to={item.href}
-              eventName="homepage_cta_click"
-              ctaLabel={item.cta}
-              trackingParams={{ section: "quality_cards", destination_type: "trust_page" }}
-              className="surface-card p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md"
-            >
-              <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
-              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
-            </SurfaceTrackedLink>
-          ))}
         </div>
       </section>
 

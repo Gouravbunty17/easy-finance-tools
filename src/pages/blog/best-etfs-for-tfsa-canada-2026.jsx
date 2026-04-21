@@ -32,6 +32,40 @@ const FAQS = [
   },
 ];
 
+const selectionPrinciples = [
+  {
+    title: "Account job first",
+    body: "We sorted ETFs by the job of the TFSA: long-term growth, balanced growth, or income. The best ticker depends on what the account is supposed to do.",
+  },
+  {
+    title: "Diversification over excitement",
+    body: "This page favours broad, low-cost funds that are easier to hold for years. Recent performance and hype were not the main ranking inputs.",
+  },
+  {
+    title: "Tax and behaviour matter",
+    body: "Withholding-tax drag, concentration risk, and the chance of abandoning the plan during volatility matter more than tiny differences between similar funds.",
+  },
+];
+
+const useCaseShortlist = [
+  {
+    title: "Best simple growth pick",
+    body: "XEQT or VEQT if you want one fund, global diversification, and you can handle a full-equity ride.",
+  },
+  {
+    title: "Best balanced pick",
+    body: "XGRO or VGRO if you want broad stock exposure with some bonds to soften the volatility.",
+  },
+  {
+    title: "Best income-oriented fit",
+    body: "A Canadian dividend ETF only if income is the point of the TFSA and you understand the concentration tradeoff.",
+  },
+  {
+    title: "Not a great use of this guide",
+    body: "Short-term savings goals, emergency funds, or money you may need soon. In that case, the account job matters more than the ETF ranking.",
+  },
+];
+
 export default function BestETFsForTFSA() {
   return (
     <div>
@@ -68,6 +102,28 @@ export default function BestETFsForTFSA() {
           ]}
         />
         <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+        <p className="lead">
+          The best TFSA ETF is not the ticker with the hottest recent chart. It is the one that matches the job of the account, your risk tolerance, and the odds that you will keep contributing through good and bad markets.
+        </p>
+
+        <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+          {selectionPrinciples.map((item) => (
+            <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-gray-900">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary dark:text-secondary">{item.title}</p>
+              <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{item.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <h2>Quick shortlist by use case</h2>
+        <div className="not-prose my-6 grid gap-4 md:grid-cols-2">
+          {useCaseShortlist.map((item) => (
+            <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-gray-900">
+              <p className="font-semibold text-primary dark:text-accent">{item.title}</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{item.body}</p>
+            </div>
+          ))}
+        </div>
 
         <h2>Why ETFs Are Ideal for a TFSA</h2>
         <p>ETFs work well in a TFSA for four simple reasons:</p>
@@ -118,6 +174,10 @@ export default function BestETFsForTFSA() {
           <strong>Our pick for many Canadians: XEQT or VEQT.</strong> If you have a long time horizon and can handle volatility, a 100% equity ETF can maximize long-term growth. The two funds are very similar, so pick the one your broker offers at the lowest cost.
         </p>
 
+        <p>
+          If you are stuck deciding between two nearly identical all-in-one funds, that usually means you are already in the right neighbourhood. Asset mix, contribution habit, and time horizon matter more than tiny differences between similar ETF wrappers.
+        </p>
+
         <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
           {[
             { label: "Run the TFSA calculator", href: "/tools/tfsa-calculator" },
@@ -152,9 +212,9 @@ export default function BestETFsForTFSA() {
           Want income inside your TFSA? These ETFs pay regular dividends, and those cash distributions can be withdrawn tax-free from the account.
         </p>
         <ul>
-          <li><strong>VDY (Vanguard FTSE Canadian High Dividend Yield)</strong> - about 4.5% yield, MER 0.22%. Focused on high-dividend Canadian stocks like banks, pipelines, and utilities.</li>
-          <li><strong>XDV (iShares Canadian Select Dividend)</strong> - about 4.8% yield, MER 0.55%. More concentrated in dividend payers.</li>
-          <li><strong>ZWB (BMO Covered Call Canadian Banks)</strong> - about 6% to 7% yield through covered calls on the big six banks. Higher income, but capped upside.</li>
+          <li><strong>VDY (Vanguard FTSE Canadian High Dividend Yield)</strong> - a Canadian dividend ETF focused on banks, pipelines, and utilities. Often a cleaner fit for investors who want income and accept sector concentration.</li>
+          <li><strong>XDV (iShares Canadian Select Dividend)</strong> - another dividend-focused option, typically more concentrated and less diversified than a broad market fund.</li>
+          <li><strong>ZWB (BMO Covered Call Canadian Banks)</strong> - a higher-income covered-call bank ETF. The tradeoff is capped upside and a narrower strategy than a core TFSA holding.</li>
         </ul>
         <p>
           Use our <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="dividend_calculator_inline" to="/tools/dividend-calculator" className="text-primary underline">Dividend Calculator</TrackedLink> to model what a dividend ETF position could generate annually.
@@ -164,14 +224,21 @@ export default function BestETFsForTFSA() {
           If you are considering dividend-heavy ETFs, compare them against a broad-market TFSA plan first. Our <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="weekly_dividend_etf_context" to="/blog/weekly-dividend-etfs" className="text-primary underline">weekly dividend ETF guide</TrackedLink> walks through the income, MER, and covered-call tradeoffs.
         </p>
 
+        <div className="not-prose my-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-900/20">
+          <p className="font-bold text-amber-800 dark:text-amber-300">When a dividend ETF is the wrong answer</p>
+          <p className="mt-2 text-sm text-amber-700 dark:text-amber-400">
+            A dividend ETF can look reassuring because it pays cash regularly, but that does not automatically make it the best TFSA choice. If your goal is long-term growth, a broader all-in-one ETF is often the stronger default because it is more diversified and less tied to a handful of high-yield sectors.
+          </p>
+        </div>
+
         <h2>Best US Equity ETFs for TFSA</h2>
         <p>
           You can hold US-listed ETFs in a TFSA, but there is an important catch: <strong>the US usually withholds 15% tax on dividends</strong>. The treaty exemption applies to RRSPs, not TFSAs. For growth ETFs with low dividends, this may not matter much. For dividend-heavy US ETFs, a Canadian-listed alternative is often the cleaner choice.
         </p>
         <ul>
-          <li><strong>VFV (Vanguard S&amp;P 500 Index ETF - CAD-hedged)</strong> - tracks the S&amp;P 500, is listed in Canada, and charges a 0.09% MER.</li>
-          <li><strong>ZSP (BMO S&amp;P 500 Index ETF)</strong> - tracks the S&amp;P 500, charges a 0.09% MER, and is unhedged.</li>
-          <li><strong>XIU (iShares S&amp;P/TSX 60)</strong> - Canada's most traded ETF, with blue-chip Canadian exposure and a 0.18% MER.</li>
+          <li><strong>VFV (Vanguard S&amp;P 500 Index ETF)</strong> - a Canadian-listed way to get S&amp;P 500 exposure without moving the holding outside a domestic brokerage workflow.</li>
+          <li><strong>ZSP (BMO S&amp;P 500 Index ETF)</strong> - another Canadian-listed S&amp;P 500 option for investors who want broad US large-cap exposure.</li>
+          <li><strong>XIU (iShares S&amp;P/TSX 60)</strong> - a large-cap Canadian equity fund that can make sense if you want a blue-chip Canada tilt rather than a US-focused ETF.</li>
         </ul>
 
         <p>
@@ -186,6 +253,10 @@ export default function BestETFsForTFSA() {
           <li><strong>Speculative individual stocks</strong> - if a stock falls to zero in your TFSA, you do not get that contribution room back.</li>
           <li><strong>Actively managed mutual funds</strong> - a 2%+ MER can quietly eat away at decades of compounding.</li>
         </ul>
+
+        <p>
+          The common thread is simple: do not waste TFSA room on holdings that are too expensive, too concentrated, or too short-term for the job you want the account to do.
+        </p>
 
         <h2>The Simple 1-ETF TFSA Portfolio</h2>
         <p>
@@ -253,7 +324,7 @@ export default function BestETFsForTFSA() {
 
         <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mt-8 not-prose">
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            <strong>Disclaimer:</strong> This article is for educational purposes only. ETF names, MERs, and yields are approximate and subject to change. This is not financial advice - consult a registered advisor before investing.
+            <strong>Disclaimer:</strong> This article is for educational purposes only. ETF mandates, fees, distributions, and tax treatment can change. Always verify the current fund facts and provider documents before investing.
           </p>
         </div>
       </article>

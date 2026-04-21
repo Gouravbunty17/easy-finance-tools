@@ -17,24 +17,28 @@ const brokers = [
     bestFor: "Absolute beginners who want the simplest long-term investing setup",
     strengths: "Very easy app experience, simple registered-account workflow, strong fit for broad ETF investing",
     tradeoff: "Less appealing if you want a more traditional self-directed brokerage experience",
+    notIdealFor: "Investors who already know they want a denser brokerage workflow with more manual control from day one",
   },
   {
     name: "Questrade",
     bestFor: "DIY investors who want more control over their TFSA setup",
     strengths: "More hands-on brokerage workflow, broader self-directed feel, strong fit for experienced ETF buyers",
     tradeoff: "Less beginner-friendly than a cleaner mobile-first app",
+    notIdealFor: "Brand-new investors who are still learning how TFSA room, transfers, and ETF orders work",
   },
   {
     name: "National Bank Direct Brokerage",
     bestFor: "Canadians who want a bank-linked brokerage with a more established platform feel",
     strengths: "Appeals to users who already prefer a bank ecosystem and want more investing control",
     tradeoff: "Can feel heavier than simple app-based platforms",
+    notIdealFor: "People who want the shortest path from opening the account to buying one simple ETF portfolio",
   },
   {
     name: "Qtrade",
     bestFor: "Investors who want research support and a more traditional brokerage workflow",
     strengths: "Solid option for investors comparing self-directed platforms beyond the biggest names",
     tradeoff: "Usually not the easiest first platform for brand-new investors",
+    notIdealFor: "Investors whose main priority is the simplest possible beginner setup with very little platform friction",
   },
 ];
 
@@ -73,6 +77,27 @@ const tfsaDecisionCards = [
     tone: "bg-slate-50 border-slate-200 dark:bg-slate-900/40 dark:border-slate-700",
     body: "you already know you want a more self-directed TFSA workflow and are comfortable trading off some simplicity for more control.",
   },
+];
+
+const rankingCriteria = [
+  {
+    title: "Account workflow first",
+    body: "We ranked platforms on how easy it is to open, fund, transfer, and keep using a TFSA without unnecessary friction.",
+  },
+  {
+    title: "Built for long-term ETF investors",
+    body: "This page is for Canadians buying diversified ETFs regularly, not for active traders chasing features or promo screens.",
+  },
+  {
+    title: "Bonuses do not drive rankings",
+    body: "Referral offers and sign-up promotions can change quickly, so they were not the main driver of the shortlist order.",
+  },
+];
+
+const whoShouldSkipThisGuide = [
+  "Canadians who are still deciding between TFSA, RRSP, and FHSA as the next account",
+  "Active traders who care more about trading tools than registered-account simplicity",
+  "Investors who want full-service advice rather than a self-directed brokerage",
 ];
 
 const FAQS = [
@@ -138,13 +163,26 @@ export default function BestTFSABrokersCanada() {
         <article className="prose prose-lg max-w-none prose-neutral dark:prose-invert">
           <div className="not-prose mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/20">
             <p className="text-sm text-amber-800 dark:text-amber-300">
-              <strong>Affiliate disclosure:</strong> Some links on this page may become affiliate links. We may earn a commission if you sign up through them, at no extra cost to you. Always compare the latest account terms, trading details, and product availability directly with the provider.
+              <strong>Affiliate disclosure:</strong> Some links on this page may become affiliate links. We may earn a commission if you sign up through them, at no extra cost to you. Referral links do not decide the ranking order, and some pages on the site may recommend options that have no affiliate relationship at all.
             </p>
           </div>
 
           <p className="lead">
             The best TFSA broker in Canada is not the one with the loudest marketing. It is the one that helps you use your TFSA room well, buy the right investments consistently, and avoid unnecessary complexity. For many Canadians, that means a broker that makes broad ETF investing easy rather than one that adds more features than they will actually use.
           </p>
+
+          <p>
+            This guide is intentionally narrow. It is built for Canadians choosing a self-directed TFSA for long-term investing, usually with one or two broad ETFs. If that is not your situation, the ranking can become less useful very quickly.
+          </p>
+
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            {rankingCriteria.map((item) => (
+              <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-gray-900">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary dark:text-secondary">{item.title}</p>
+                <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{item.body}</p>
+              </div>
+            ))}
+          </div>
 
           <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
             <TrackedLink
@@ -205,6 +243,16 @@ export default function BestTFSABrokersCanada() {
             <li><strong>Qtrade</strong> is worth considering if you want a more traditional brokerage feel with research support.</li>
           </ul>
 
+          <h2>Who should skip this ranking</h2>
+          <p>
+            A broker comparison is not always the right next page. In the situations below, the account strategy matters more than the broker shortlist.
+          </p>
+          <ul>
+            {whoShouldSkipThisGuide.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+
           <div className="not-prose my-6 flex flex-wrap gap-3 rounded-2xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-800 dark:bg-blue-900/20">
             <OutboundTrackedLink
               href={WEALTHSIMPLE_REFERRAL_URL}
@@ -224,6 +272,9 @@ export default function BestTFSABrokersCanada() {
             >
               Wealthsimple vs Questrade
             </TrackedLink>
+            <p className="w-full text-xs text-gray-600 dark:text-gray-400">
+              Bonus links are optional. If a provider fits your plan but has no promotion, the editorial ranking does not change.
+            </p>
           </div>
 
           <div className="not-prose my-6 overflow-x-auto">
@@ -271,6 +322,10 @@ export default function BestTFSABrokersCanada() {
             <li>An interface you will actually keep using during market volatility</li>
           </ul>
 
+          <p>
+            We did not rank these brokers on homepage design, headline bonuses, or one-time promos. We ranked them on whether the platform helps a Canadian investor open the account, fund it correctly, buy diversified holdings, and stay consistent.
+          </p>
+
           <h2>Best TFSA brokers ranked by use case</h2>
           <div className="not-prose my-6 space-y-4">
             {brokers.map((broker) => (
@@ -286,6 +341,9 @@ export default function BestTFSABrokersCanada() {
                 </p>
                 <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                   <strong>Main tradeoff:</strong> {broker.tradeoff}
+                </p>
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                  <strong>Not ideal for:</strong> {broker.notIdealFor}
                 </p>
               </div>
             ))}
