@@ -60,6 +60,38 @@ const quickDecisionCards = [
   },
 ];
 
+const comparisonCriteria = [
+  {
+    title: "Simplicity versus control",
+    body: "This comparison ranks the platforms by how well they fit a Canadian investor's actual behaviour, not by which app looks better in isolation.",
+  },
+  {
+    title: "Built for registered-account investors",
+    body: "The page is aimed at Canadians using TFSA, RRSP, or FHSA accounts for long-term ETF investing rather than frequent trading.",
+  },
+  {
+    title: "Bonuses do not decide the winner",
+    body: "Referral offers and promos can change quickly, so they were not the main reason one platform beats the other in a given use case.",
+  },
+];
+
+const whoShouldSkipThisGuide = [
+  "Canadians who still need to decide whether TFSA, RRSP, or FHSA should get the next contribution",
+  "Active traders who want a trading-platform review more than a registered-account comparison",
+  "Investors looking for full-service advice instead of a self-directed brokerage",
+];
+
+const platformTradeoffs = [
+  {
+    title: "Wealthsimple is not ideal if...",
+    body: "you already know you want a more traditional brokerage workflow, denser controls, or a platform that feels closer to a classic self-directed interface.",
+  },
+  {
+    title: "Questrade is not ideal if...",
+    body: "you are a true beginner who mostly wants to open an account, buy broad ETFs, and avoid extra setup friction or decision overload.",
+  },
+];
+
 const FAQS = [
   {
     q: "Is Wealthsimple or Questrade better for beginners in Canada?",
@@ -123,13 +155,26 @@ export default function WealthsimpleVsQuestradeCanada() {
         <article className="prose prose-lg max-w-none prose-neutral dark:prose-invert">
           <div className="not-prose mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/20">
             <p className="text-sm text-amber-800 dark:text-amber-300">
-              <strong>Affiliate disclosure:</strong> Some links on this page may become affiliate links. We may earn a commission if you sign up through them, at no extra cost to you. Comparisons should still be checked against each provider&apos;s latest pricing and account terms.
+              <strong>Affiliate disclosure:</strong> Some links on this page may become affiliate links. We may earn a commission if you sign up through them, at no extra cost to you. Referral links do not determine the winner, and comparisons should still be checked against each provider&apos;s latest pricing and account terms.
             </p>
           </div>
 
           <p className="lead">
             If you are choosing between Wealthsimple and Questrade, the real question is not which platform is universally better. It is which one fits the way you actually invest. For many Canadians, Wealthsimple wins on simplicity and speed. Questrade tends to win when you want more manual control and a more traditional self-directed workflow.
           </p>
+
+          <p>
+            This guide is intentionally practical. It is built for Canadians choosing between two self-directed platforms for registered accounts and long-term investing, not for readers who mainly care about active trading features or promotional bonuses.
+          </p>
+
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            {comparisonCriteria.map((item) => (
+              <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-gray-900">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary dark:text-secondary">{item.title}</p>
+                <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{item.body}</p>
+              </div>
+            ))}
+          </div>
 
           <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
             <TrackedLink
@@ -189,6 +234,16 @@ export default function WealthsimpleVsQuestradeCanada() {
             <li><strong>For most true beginners,</strong> Wealthsimple usually feels easier to start and stay consistent with.</li>
           </ul>
 
+          <h2>Who should skip this comparison</h2>
+          <p>
+            If any of the situations below sound like you, the next step is probably a different guide or calculator rather than a broker-versus-broker page.
+          </p>
+          <ul>
+            {whoShouldSkipThisGuide.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+
           <div className="not-prose my-6 flex flex-wrap gap-3 rounded-2xl border border-sky-200 bg-sky-50 p-5 dark:border-sky-800 dark:bg-sky-900/20">
             <OutboundTrackedLink
               href={WEALTHSIMPLE_REFERRAL_URL}
@@ -208,6 +263,9 @@ export default function WealthsimpleVsQuestradeCanada() {
             >
               Compare TFSA brokers
             </TrackedLink>
+            <p className="w-full text-xs text-gray-600 dark:text-gray-400">
+              Bonus links are optional. A referral offer does not turn the weaker fit into the stronger editorial pick.
+            </p>
           </div>
 
           <h2>Side-by-side comparison</h2>
@@ -245,6 +303,15 @@ export default function WealthsimpleVsQuestradeCanada() {
             ))}
           </div>
 
+          <div className="not-prose my-6 grid gap-4 md:grid-cols-2">
+            {platformTradeoffs.map((item) => (
+              <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-gray-900">
+                <p className="text-lg font-bold text-primary dark:text-accent">{item.title}</p>
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{item.body}</p>
+              </div>
+            ))}
+          </div>
+
           <h2>Wealthsimple: where it usually wins</h2>
           <p>
             Wealthsimple is usually the easier recommendation for a first-time investor who just wants to open an account, fund it, and buy a small number of broad-market ETFs without wrestling with a lot of setup decisions.
@@ -274,6 +341,10 @@ export default function WealthsimpleVsQuestradeCanada() {
             <li><strong>RRSP:</strong> Questrade can be attractive if you want a more hands-on retirement investing setup, but Wealthsimple still works well for many savers.</li>
             <li><strong>FHSA:</strong> Simplicity matters here too, especially if you are focused on regular contributions instead of active trading.</li>
           </ul>
+
+          <p>
+            We did not try to crown a universal winner across every type of investor. We ranked each platform by fit: which one makes it easier for a Canadian saver to pick the right account, fund it regularly, and stick with a simple investing plan.
+          </p>
 
           <h2>What beginners usually get wrong</h2>
           <p>

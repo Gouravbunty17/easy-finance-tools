@@ -17,24 +17,28 @@ const accountChoices = [
     bestFor: "Beginners who want a simple RRSP investing experience",
     strengths: "Easy account opening, simple recurring-investing workflow, strong fit for long-term ETF users",
     tradeoff: "Not ideal if you want a heavier self-directed brokerage setup",
+    notIdealFor: "Investors who want a denser self-directed brokerage workflow and expect to manage more of the process manually",
   },
   {
     name: "Questrade",
     bestFor: "DIY investors who want more direct control over their RRSP",
     strengths: "Better fit for Canadians who want a more traditional self-directed investing workflow",
     tradeoff: "Less beginner-friendly than simpler app-first platforms",
+    notIdealFor: "New RRSP investors who mainly want a straightforward account for recurring ETF contributions",
   },
   {
     name: "National Bank Direct Brokerage",
     bestFor: "Bank-oriented investors who still want a self-directed RRSP",
     strengths: "Feels more familiar if you already prefer a major-bank account ecosystem",
     tradeoff: "Can feel more operationally heavy than streamlined brokerage apps",
+    notIdealFor: "People looking for the shortest possible path from opening an RRSP to buying a simple long-term portfolio",
   },
   {
     name: "Qtrade",
     bestFor: "Users who value a more traditional brokerage experience with research support",
     strengths: "Useful if you want more depth than beginner-first platforms provide",
     tradeoff: "Usually not the easiest place for a first-ever RRSP investor to start",
+    notIdealFor: "Investors whose main goal is the lightest, easiest RRSP workflow with minimal platform friction",
   },
 ];
 
@@ -73,6 +77,27 @@ const rrspDecisionCards = [
     tone: "bg-slate-50 border-slate-200 dark:bg-slate-900/40 dark:border-slate-700",
     body: "you care more about control and self-directed flexibility than the cleanest beginner experience.",
   },
+];
+
+const rankingCriteria = [
+  {
+    title: "Deduction value before branding",
+    body: "This guide assumes the RRSP already makes sense for your income and tax situation. The provider choice comes after the account strategy.",
+  },
+  {
+    title: "Built for recurring long-term investing",
+    body: "We ranked these accounts for Canadians making regular RRSP contributions into broad ETFs or diversified portfolios, not for active trading.",
+  },
+  {
+    title: "Promotions do not set the order",
+    body: "Referral offers and sign-up bonuses can change. They were not the main factor behind the shortlist order.",
+  },
+];
+
+const whoShouldSkipThisGuide = [
+  "Canadians who are still deciding whether the RRSP should beat the TFSA or FHSA for the next contribution",
+  "Active traders who care more about trading tools than simple long-term retirement investing",
+  "Investors looking for full-service advice instead of a self-directed RRSP platform",
 ];
 
 const FAQS = [
@@ -138,13 +163,26 @@ export default function BestRRSPAccountsCanada() {
         <article className="prose prose-lg max-w-none prose-neutral dark:prose-invert">
           <div className="not-prose mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/20">
             <p className="text-sm text-amber-800 dark:text-amber-300">
-              <strong>Affiliate disclosure:</strong> Some links on this page may become affiliate links. We may earn a commission if you sign up through them, at no extra cost to you. Always confirm the latest pricing, account features, and transfer rules directly with the provider.
+              <strong>Affiliate disclosure:</strong> Some links on this page may become affiliate links. We may earn a commission if you sign up through them, at no extra cost to you. Promotions do not determine the ranking order, and readers should still confirm the latest pricing, account features, and transfer rules directly with the provider.
             </p>
           </div>
 
           <p className="lead">
             The best RRSP account in Canada is the one that helps you actually use the deduction well, invest consistently, and stay focused on long-term retirement planning. For many Canadians, that means a platform that makes recurring ETF investing easy rather than one that overwhelms them with features they will barely use.
           </p>
+
+          <p>
+            This page is intentionally narrow. It is written for Canadians choosing a self-directed RRSP for long-term investing. If you are still unclear on whether the RRSP should get the next dollar, that question matters more than which provider wins the shortlist.
+          </p>
+
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            {rankingCriteria.map((item) => (
+              <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-gray-900">
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary dark:text-secondary">{item.title}</p>
+                <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{item.body}</p>
+              </div>
+            ))}
+          </div>
 
           <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
             <TrackedLink
@@ -205,6 +243,16 @@ export default function BestRRSPAccountsCanada() {
             <li><strong>Qtrade</strong> is worth a look if you want a classic investing workflow with research support.</li>
           </ul>
 
+          <h2>Who should skip this ranking</h2>
+          <p>
+            If any of the situations below apply, solve that first. A provider ranking is less useful when the account strategy itself is still unsettled.
+          </p>
+          <ul>
+            {whoShouldSkipThisGuide.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+
           <div className="not-prose my-6 flex flex-wrap gap-3 rounded-2xl border border-green-200 bg-green-50 p-5 dark:border-green-800 dark:bg-green-900/20">
             <OutboundTrackedLink
               href={WEALTHSIMPLE_REFERRAL_URL}
@@ -224,6 +272,9 @@ export default function BestRRSPAccountsCanada() {
             >
               Wealthsimple vs Questrade
             </TrackedLink>
+            <p className="w-full text-xs text-gray-600 dark:text-gray-400">
+              Bonus links are optional. If a provider is the better fit for your RRSP plan but has no promotion, that does not lower its editorial standing.
+            </p>
           </div>
 
           <div className="not-prose my-6 overflow-x-auto">
@@ -271,6 +322,10 @@ export default function BestRRSPAccountsCanada() {
             <li>An interface you can stick with through market noise and annual contribution cycles</li>
           </ul>
 
+          <p>
+            We did not rank these accounts on glossy marketing, app-store reputation, or one-time sign-up offers. We ranked them on whether the platform helps a Canadian saver use the RRSP deduction well and maintain a realistic long-term investing plan.
+          </p>
+
           <h2>Best RRSP accounts ranked by use case</h2>
           <div className="not-prose my-6 space-y-4">
             {accountChoices.map((account) => (
@@ -286,6 +341,9 @@ export default function BestRRSPAccountsCanada() {
                 </p>
                 <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                   <strong>Main tradeoff:</strong> {account.tradeoff}
+                </p>
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                  <strong>Not ideal for:</strong> {account.notIdealFor}
                 </p>
               </div>
             ))}
