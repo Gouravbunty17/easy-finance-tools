@@ -6,7 +6,8 @@
     "build": "npm run build:app && npm run prerender",
     "build:app": "npx vite build",
     "prerender": "node scripts/prerender.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "verify:live": "powershell -ExecutionPolicy Bypass -File scripts/verify-live.ps1"
   },
   "dependencies": {
     "chart.js": "^4.4.0",

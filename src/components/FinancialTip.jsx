@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 
 const tips = [
   { tip: "Max out your TFSA first if it fits your situation. Qualified growth is tax-free.", tag: "TFSA" },
@@ -50,10 +50,18 @@ const tagColors = {
   Savings: "bg-emerald-100 text-emerald-700",
 };
 
+function getTipForToday() {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const dayOfYear = Math.floor((now - start) / 86400000);
+  return tips[dayOfYear % tips.length];
+}
+
 export default function FinancialTip() {
-  const tip = useMemo(() => {
-    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-    return tips[dayOfYear % tips.length];
+  const [tip, setTip] = useState(tips[0]);
+
+  useEffect(() => {
+    setTip(getTipForToday());
   }, []);
 
   const tagCls = tagColors[tip.tag] || "bg-gray-100 text-gray-600";
