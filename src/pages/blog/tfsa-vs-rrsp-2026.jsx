@@ -11,11 +11,11 @@ import ArticleSchema from "../../components/ArticleSchema";
 const FAQS = [
   {
     q: "Should I contribute to a TFSA or RRSP first?",
-    a: "For most Canadians earning under $50,000, the TFSA is usually the better first choice because the RRSP deduction provides limited value at lower marginal rates. For incomes above $80,000–$100,000, using both accounts typically makes sense. The RRSP becomes more attractive when you can contribute at a high marginal rate and expect to withdraw at a lower rate in retirement.",
+    a: "For many Canadians earning under $50,000, the TFSA is the better first choice because the RRSP deduction is worth less at lower tax rates. For incomes above $80,000 to $100,000, using both accounts usually makes sense. The RRSP becomes more attractive when you contribute at a high tax rate and expect to withdraw at a lower one in retirement.",
   },
   {
     q: "What is the difference between a TFSA and an RRSP?",
-    a: "An RRSP gives you a tax deduction when you contribute but taxes withdrawals as income. A TFSA has no upfront deduction, but all growth and qualified withdrawals are completely tax-free. Both accounts shelter investment growth from tax while the money is inside. The key difference is the timing of the tax benefit — RRSP is tax-deferred, TFSA is tax-free.",
+    a: "An RRSP gives you a tax deduction when you contribute, but withdrawals are usually taxed as income. A TFSA gives no deduction up front, but growth and qualified withdrawals are tax-free. Both accounts shelter investment growth. The key difference is when the tax break happens.",
   },
   {
     q: "Can I have both a TFSA and an RRSP?",
@@ -23,7 +23,7 @@ const FAQS = [
   },
   {
     q: "How much TFSA room do I have in 2026?",
-    a: "If you were born in 1991 or earlier and have been a Canadian resident since 2009 and have never contributed, your total 2026 TFSA room is $109,000. The 2026 annual limit is $7,000. Your exact available room accounts for all prior contributions and withdrawals — confirm it through CRA My Account.",
+    a: "If you were born in 1991 or earlier and have been a Canadian resident since 2009 and have never contributed, your total 2026 TFSA room is $109,000. The 2026 annual limit is $7,000. Your exact available room accounts for all prior contributions and withdrawals, so confirm it through CRA My Account.",
   },
 ];
 
@@ -56,8 +56,8 @@ export default function TFSAvsRRSP() {
 
       <section className="max-w-3xl mx-auto px-4 py-12">
         <TLDRBox
-          headline="TFSA or RRSP — which is better?"
-          answer="The RRSP gives a tax deduction now but you pay tax on withdrawals later. The TFSA has no deduction but all growth and withdrawals are tax-free. For most Canadians under $50K, start with the TFSA. Above $80K–$100K, using both together is usually the strongest approach."
+          headline="TFSA or RRSP: which is better?"
+          answer="The RRSP gives you a tax deduction now, but you pay tax on withdrawals later. The TFSA gives no deduction, but growth and withdrawals are tax-free. For many Canadians under $50K, the TFSA is the better first stop. Above roughly $80K to $100K, using both is often the strongest approach."
           points={[
             "RRSP wins when: your marginal rate today is higher than it will be in retirement",
             "TFSA wins when: you want flexibility, your income is lower, or withdrawals may affect benefits",
@@ -73,7 +73,7 @@ export default function TFSAvsRRSP() {
             <strong>TFSA:</strong> you do not get a deduction up front, but qualified growth and withdrawals are tax-free.
           </p>
           <p>
-            Both accounts shelter growth. The real question is whether a deduction today is more valuable than tax-free access and flexibility later.
+            Both accounts shelter growth. The real question is simple: is a deduction today worth more than tax-free access and flexibility later?
           </p>
 
           <h2>Side-by-side comparison</h2>
@@ -125,7 +125,7 @@ export default function TFSAvsRRSP() {
 
           <h2>For many Canadians, the answer is both</h2>
           <p>
-            A common pattern is to use the TFSA first for flexibility, then add RRSP contributions once income rises enough for the deduction to matter more. Another strong strategy is to reinvest RRSP refunds back into a TFSA.
+            A common pattern is to use the TFSA first, then add RRSP contributions once your income rises enough for the deduction to matter more. Another strong move is to reinvest RRSP refunds into your TFSA.
           </p>
 
           <h2>Quick decision guide</h2>
@@ -141,7 +141,7 @@ export default function TFSAvsRRSP() {
 
           <h2>Run the numbers instead of guessing</h2>
           <p>
-            The best account choice depends on your province, income, available room, and whether you value immediate flexibility over upfront tax savings.
+            The best choice depends on your province, income, available room, and whether you value flexibility more than an upfront tax deduction.
           </p>
           <ul>
             <li><TrackedLink articleSlug="tfsa-vs-rrsp-2026" ctaLabel="tfsa_calculator_inline" to="/tools/tfsa-calculator" className="text-primary underline">TFSA Calculator</TrackedLink> for growth and room planning.</li>

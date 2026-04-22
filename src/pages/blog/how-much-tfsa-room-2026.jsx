@@ -11,11 +11,11 @@ import ArticleSchema from "../../components/ArticleSchema";
 const FAQS = [
   {
     q: "How much TFSA room do I have in 2026?",
-    a: "If you were born in 1991 or earlier and have been a Canadian resident since 2009 and never made any TFSA contributions, your 2026 total room is $109,000. The 2026 annual limit is $7,000. Your exact available room depends on prior contributions, withdrawals, and your year of eligibility — confirm it through CRA My Account or your latest Notice of Assessment.",
+    a: "If you were born in 1991 or earlier, have been a Canadian resident since 2009, and have never contributed, your 2026 total room is $109,000. The 2026 annual limit is $7,000. Your exact room still depends on your past contributions, withdrawals, and eligibility year, so confirm it through CRA My Account or your latest Notice of Assessment.",
   },
   {
     q: "What is the TFSA limit for 2026?",
-    a: "The TFSA annual contribution limit for 2026 is $7,000 — the same as 2024 and 2025. This amount is indexed to inflation in $500 increments, so it will increase when accumulated inflation pushes it to the next threshold.",
+    a: "The TFSA annual contribution limit for 2026 is $7,000, the same as 2024 and 2025. This amount is indexed to inflation in $500 increments, so it will increase when accumulated inflation pushes it to the next threshold.",
   },
   {
     q: "Do TFSA withdrawals restore contribution room?",
@@ -23,7 +23,7 @@ const FAQS = [
   },
   {
     q: "What happens if I over-contribute to my TFSA?",
-    a: "Over-contributions to a TFSA are subject to a 1% per month penalty tax on the excess amount. Unlike the RRSP, there is no $2,000 buffer — any amount over your available room is penalized immediately. If you over-contribute, withdraw the excess as soon as possible to minimize the penalty.",
+    a: "Over-contributions to a TFSA are subject to a 1% per month penalty tax on the excess amount. Unlike the RRSP, there is no $2,000 buffer, and any amount over your available room is penalized immediately. If you over-contribute, withdraw the excess as soon as possible to minimize the penalty.",
   },
 ];
 
@@ -95,18 +95,18 @@ export default function HowMuchTFSARoom() {
       <section className="max-w-3xl mx-auto px-4 py-12">
         <TLDRBox
           headline="How much TFSA room do you have in 2026?"
-          answer="If you were born in 1991 or earlier and have been a Canadian resident since 2009 and never contributed, your total 2026 TFSA room is $109,000. The 2026 annual limit is $7,000. Your exact personal room depends on prior contributions and withdrawals — check CRA My Account for your precise number."
+          answer="If you were born in 1991 or earlier, have been a Canadian resident since 2009, and never contributed, your total 2026 TFSA room is $109,000. The 2026 annual limit is $7,000. Your exact room still depends on your past contributions and withdrawals, so check CRA My Account."
           points={[
             "2026 annual TFSA limit: $7,000",
             "Maximum cumulative room (eligible since 2009, never contributed): $109,000",
-            "Withdrawals restore room — but only on January 1 of the following year",
-            "Over-contributions are penalized at 1% per month — no buffer like the RRSP",
+            "Withdrawals restore room, but only on January 1 of the following year",
+            "Over-contributions are penalized at 1% per month, with no buffer like the RRSP",
           ]}
         />
         <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
           <h2>Your 2026 TFSA contribution room</h2>
           <p>
-            The 2026 annual TFSA dollar limit is <strong>$7,000</strong>. If you were eligible for a TFSA from 2009 onward and have never contributed, your cumulative room in 2026 is <strong>$109,000</strong>.
+            The 2026 annual TFSA dollar limit is <strong>$7,000</strong>. If you have been eligible since 2009 and never contributed, your cumulative room in 2026 is <strong>$109,000</strong>.
           </p>
           <p>Your personal room depends on three things:</p>
           <ol>
@@ -139,7 +139,7 @@ export default function HowMuchTFSARoom() {
           </div>
 
           <h2>How to find your exact TFSA room</h2>
-          <p>The most reliable place to confirm your personal room is <strong>CRA My Account</strong>:</p>
+          <p>The best place to confirm your personal room is <strong>CRA My Account</strong>:</p>
           <ol>
             <li>Go to <strong>canada.ca/my-cra-account</strong></li>
             <li>Sign in with your CRA credentials or participating bank login</li>
@@ -147,7 +147,7 @@ export default function HowMuchTFSARoom() {
             <li>Compare that figure against your recent contributions and withdrawals</li>
           </ol>
           <p>
-            CRA records for the prior calendar year are typically updated by spring, so if you made very recent contributions or withdrawals, confirm that the records have been processed before relying on the number.
+            CRA records for the prior calendar year are usually updated by spring. If you made recent contributions or withdrawals, make sure those records have been processed before you rely on the number.
           </p>
 
           <h2>How TFSA room accumulates</h2>
@@ -188,12 +188,12 @@ export default function HowMuchTFSARoom() {
 
           <h3>1. Re-contributing a withdrawal too early</h3>
           <p>
-            Many over-contributions happen because someone withdraws money and then puts it back in the same calendar year without having extra unused room. The withdrawal is usually only restored on January 1 of the following year.
+            Many over-contributions happen when someone withdraws money and then puts it back in the same calendar year without extra unused room. In most cases, the withdrawal does not restore room until January 1 of the following year.
           </p>
 
           <h3>2. Assuming CRA is always real-time</h3>
           <p>
-            CRA figures are valuable, but they can lag if institutions have not yet reported your latest transactions. Use CRA as your baseline, then reconcile it against your own records.
+            CRA figures are useful, but they can lag if financial institutions have not yet reported your latest transactions. Use CRA as your baseline, then compare it with your own records.
           </p>
 
           <h3>3. Contributing while non-resident</h3>
@@ -203,7 +203,7 @@ export default function HowMuchTFSARoom() {
 
           <h2>Next step</h2>
           <p>
-            Once you know your available room, run the <TrackedLink articleSlug="how-much-tfsa-room-2026" ctaLabel="tfsa_calculator_inline" to="/tools/tfsa-calculator" className="text-primary underline">TFSA calculator</TrackedLink> to estimate future tax-free growth, then compare it with the <TrackedLink articleSlug="how-much-tfsa-room-2026" ctaLabel="rrsp_calculator_inline" to="/tools/rrsp-calculator" className="text-primary underline">RRSP calculator</TrackedLink> if you are deciding between accounts.
+            Once you know your available room, run the <TrackedLink articleSlug="how-much-tfsa-room-2026" ctaLabel="tfsa_calculator_inline" to="/tools/tfsa-calculator" className="text-primary underline">TFSA calculator</TrackedLink> to estimate future tax-free growth. If you are deciding between accounts, compare it with the <TrackedLink articleSlug="how-much-tfsa-room-2026" ctaLabel="rrsp_calculator_inline" to="/tools/rrsp-calculator" className="text-primary underline">RRSP calculator</TrackedLink>.
           </p>
         </article>
 

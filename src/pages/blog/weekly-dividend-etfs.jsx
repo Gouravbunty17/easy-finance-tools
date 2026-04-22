@@ -1,266 +1,410 @@
 import React from "react";
-import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import TrackedLink from "../../components/TrackedLink";
+import TLDRBox from "../../components/TLDRBox";
+import FAQSchema from "../../components/FAQSchema";
+import ArticleSchema from "../../components/ArticleSchema";
+import ReferenceSection from "../../components/ReferenceSection";
+import { CONTENT_LAST_REVIEWED, DATA_SNAPSHOT_LABEL } from "../../config/financial";
+
+const FAQS = [
+  {
+    q: "Are weekly dividend ETFs a good fit for most Canadian investors?",
+    a: "Usually not as a default. Weekly payout funds are often built for cash-flow-focused investors who accept tradeoffs like higher fees, covered-call drag, leverage, or return-of-capital complexity.",
+  },
+  {
+    q: "Do weekly payout ETFs actually earn their yield from dividends?",
+    a: "Not always. Many high-payout funds combine stock dividends with option premiums, leverage, or cash-flow smoothing. That is why the headline yield can be much higher than a plain dividend ETF.",
+  },
+  {
+    q: "Should I hold a weekly payout ETF in a TFSA?",
+    a: "A TFSA can be a cleaner account for income-heavy ETFs because the cash flow stays tax-free and the reporting is simpler. The account choice does not fix a weak product structure, so the fund still needs to make sense on its own merits.",
+  },
+  {
+    q: "Why can a high weekly yield still lead to weak long-term results?",
+    a: "Because yield and total return are not the same thing. If the fund gives up upside through covered calls, pays high fees, or returns your own capital, the payout can look impressive while long-term growth stays weak.",
+  },
+  {
+    q: "What should I compare before buying a weekly dividend ETF?",
+    a: "Look at total return, payout source, fees, account location, concentration, and whether a simpler monthly dividend ETF or broad-market ETF would do the job better.",
+  },
+];
+
+const decisionCards = [
+  {
+    title: "Use this article if...",
+    body: "you are deciding between a high-payout ETF and a simpler dividend or broad-market ETF, and you want the tradeoffs explained in plain English.",
+    tone: "border-emerald-200 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-900/20",
+  },
+  {
+    title: "Skip the product for now if...",
+    body: "you have not yet decided whether the account needs income, growth, or both. The account job matters before the payout schedule.",
+    tone: "border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-900/20",
+  },
+  {
+    title: "Run the simulator first if...",
+    body: "you mainly want to know what yield, reinvestment, and capital size mean for your monthly income target.",
+    tone: "border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/20",
+  },
+];
+
+const weeklyIncomeStructures = [
+  {
+    label: "Single-stock option-income ETFs",
+    market: "Mostly US",
+    payoutStyle: "Often very frequent, very high headline yields",
+    whyInvestorsLook: "Feels like the fastest path to cash flow from one familiar stock or theme.",
+    mainTradeoff: "Single-name risk, option drag, and payout instability can be extreme.",
+  },
+  {
+    label: "Covered-call index income ETFs",
+    market: "US and Canada",
+    payoutStyle: "Usually monthly, sometimes marketed around frequent income",
+    whyInvestorsLook: "Broad basket exposure with higher cash flow than a plain index fund.",
+    mainTradeoff: "You usually give up some upside in strong markets and pay a higher fee.",
+  },
+  {
+    label: "Enhanced multi-sector income ETFs",
+    market: "Canada",
+    payoutStyle: "High monthly cash flow, often used as a proxy for income planning",
+    whyInvestorsLook: "One-ticker income solution inside a TFSA or RRSP.",
+    mainTradeoff: "Complex structure, leverage or covered-call layers, and more moving parts than a plain dividend ETF.",
+  },
+  {
+    label: "Traditional dividend ETFs",
+    market: "Canada",
+    payoutStyle: "Usually monthly or quarterly",
+    whyInvestorsLook: "Cleaner income profile with less product engineering.",
+    mainTradeoff: "Lower headline yield, but often a simpler starting point for most investors.",
+  },
+];
+
+const evaluationChecklist = [
+  "What percentage of the cash flow comes from dividends, option premiums, or return of capital?",
+  "Does the fund's total return still look acceptable after fees and upside caps?",
+  "Is this going into a TFSA, RRSP, or taxable account, and does that account choice still make sense?",
+  "Would a simpler dividend ETF or broad-market ETF do the same job with fewer moving parts?",
+  "If the yield fell by a third, would the plan still work?",
+];
+
+const whoItsFor = [
+  "Investors who truly need portfolio cash flow and understand that yield is not the same as total return.",
+  "Canadians using a TFSA or RRSP for income planning and willing to check fund documents before buying.",
+  "People comparing covered-call income products against simpler dividend ETF options.",
+];
+
+const whoShouldPass = [
+  "Young investors who mainly need long-term growth and do not need portfolio income yet.",
+  "Anyone choosing a fund purely because the payout is weekly or the yield looks dramatic.",
+  "Investors who have not yet worked out whether a TFSA, RRSP, or FHSA should get the next contribution.",
+];
+
+const referenceCards = [
+  {
+    label: "CRA: Tax-Free Savings Account",
+    body: "Use this when deciding whether income-heavy ETFs belong inside a TFSA and how tax-free withdrawals work.",
+    href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account.html",
+  },
+  {
+    label: "CRA: Registered Retirement Savings Plan",
+    body: "Useful for comparing TFSA and RRSP location decisions before you default to an income ETF in one account or the other.",
+    href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans.html",
+  },
+  {
+    label: "EasyFinanceTools methodology",
+    body: "How we treat planning assumptions, article reviews, and source standards across tools and guides.",
+    href: "https://easyfinancetools.com/methodology",
+  },
+  {
+    label: "Issuer fund pages and factsheets",
+    body: "Before buying any payout-heavy ETF, verify fee, yield, distribution composition, and strategy details on the issuer page.",
+    href: "",
+  },
+];
 
 export default function WeeklyDividendETFs() {
   return (
     <div>
       <SEO
-        title="What Are Weekly Dividend ETFs, and How Do They Work?"
-        description="How weekly dividend ETFs work, why covered-call strategies enable weekly payouts, and the yield, MER, and return-of-capital risks Canadian investors should watch for."
+        title="Weekly Dividend ETFs in Canada: How Weekly Payout Funds Actually Work"
+        description="Learn how weekly payout and high-yield dividend ETFs actually work, what Canadian investors should check first, and when a simpler TFSA income plan may be the better choice."
         canonical="https://easyfinancetools.com/blog/weekly-dividend-etfs"
       />
-      <BlogHero
-        icon="💵"
-        category="Investing · Dividends"
-        title="What Are Weekly Dividend ETFs, and How Do They Work?"
-        date="June 30, 2025"
-        readTime="8 min read"
-        gradient="from-yellow-500 to-amber-600"
+      <ArticleSchema
+        headline="Weekly Dividend ETFs in Canada: How Weekly Payout Funds Actually Work"
+        description="A Canadian-focused guide to weekly payout ETFs, covered-call income structures, return-of-capital risk, and how to decide whether a high-yield fund belongs in a TFSA income plan."
+        url="https://easyfinancetools.com/blog/weekly-dividend-etfs"
+        datePublished="2025-06-30"
+        dateModified="2026-04-22"
       />
-      <section className="max-w-3xl mx-auto px-4 py-12">
-        <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+      <FAQSchema faqs={FAQS} />
 
-        {/* Section 1 */}
-        <h2>What Is a Dividend ETF?</h2>
-        <p>
-          A dividend ETF (Exchange-Traded Fund) is a fund that holds a basket of dividend-paying stocks and passes the income on to investors. Instead of buying individual stocks like Royal Bank or Enbridge, you buy one ETF that gives you exposure to dozens — sometimes hundreds — of dividend payers at once.
-        </p>
-        <p>
-          The main appeal is simplicity and diversification. You get a steady stream of income without having to research, buy, and manage individual companies. Traditional dividend ETFs like <strong>VDY</strong> (Vanguard FTSE Canadian High Dividend Yield ETF) or <strong>XDV</strong> (iShares Canadian Select Dividend ETF) typically pay out monthly or quarterly.
-        </p>
+      <BlogHero
+        icon="YIELD"
+        category="Investing | Dividend income"
+        title="Weekly Dividend ETFs in Canada: How Weekly Payout Funds Actually Work"
+        date="June 30, 2025"
+        readTime="10 min read"
+        gradient="from-amber-500 to-orange-700"
+      />
 
-        <p>
-          If you want broader context before chasing yield, compare traditional dividend ETFs against simpler TFSA options in our <Link to="/blog/best-etfs-for-tfsa-canada-2026" className="text-primary underline">best ETFs for TFSA guide</Link>.
-        </p>
+      <section className="mx-auto max-w-3xl px-4 py-12">
+        <TLDRBox
+          headline="Are weekly dividend ETFs worth it?"
+          answer="Sometimes, but only for a narrow job. Most weekly payout ETFs are not just normal dividend funds with a faster schedule. They often rely on covered calls, leverage, or return-of-capital-heavy cash flows, which means the headline yield can look better than the long-term outcome."
+          points={[
+            "Start with the account job: income now, income later, or long-term growth",
+            "Check total return and payout source before getting impressed by frequency",
+            "A TFSA can be a cleaner place for income-heavy ETFs, but it does not fix a weak product structure",
+            "For many Canadians, a simpler dividend ETF or broad ETF still does the job better",
+          ]}
+        />
 
-        {/* Section 2 */}
-        <h2>What Makes Weekly Dividend ETFs Different?</h2>
-        <p>
-          Weekly dividend ETFs take this concept one step further — they pay distributions every single week. Instead of waiting 30 or 90 days for your next payment, money hits your account every 7 days.
-        </p>
-        <p>
-          This sounds incredible on paper, but there's a catch: most stocks and underlying assets don't naturally generate enough income to pay out weekly. So these funds typically use <strong>options strategies</strong> — specifically covered calls — to generate the extra income needed to sustain weekly payouts.
-        </p>
+        <article className="prose prose-lg max-w-none prose-neutral dark:prose-invert">
+          <p className="lead">
+            Weekly payout ETFs look attractive because they make income feel immediate. Cash shows up more often, the yield can look dramatic, and the product story is easy to sell. The harder question is whether that payout stream actually improves your investing plan or just makes the tradeoffs easier to ignore.
+          </p>
 
-        {/* Section 3 */}
-        <h2>How Weekly Dividend ETFs Actually Work</h2>
-        <p>
-          To understand weekly dividend ETFs, you need to understand two income sources working together:
-        </p>
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            {decisionCards.map((item) => (
+              <div key={item.title} className={`rounded-2xl border p-5 shadow-sm ${item.tone}`}>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary dark:text-accent">{item.title}</p>
+                <p className="mt-3 text-sm text-gray-700 dark:text-gray-300">{item.body}</p>
+              </div>
+            ))}
+          </div>
 
-        <h3>1. Dividend Income from Stocks</h3>
-        <p>
-          The ETF holds a portfolio of dividend-paying stocks. These companies pay dividends quarterly or monthly, which gets pooled into the fund. This forms the base layer of income.
-        </p>
-
-        <h3>2. Options Premiums (Covered Calls)</h3>
-        <p>
-          Here's where it gets interesting. The fund managers sell <strong>covered call options</strong> on the stocks they hold. A covered call means you own the stock and sell someone the right to buy it from you at a set price (the "strike price") before a certain date.
-        </p>
-        <p>
-          The buyer of that option pays you a <strong>premium</strong> upfront. That premium becomes additional income for the fund — income that can be distributed to investors weekly.
-        </p>
-        <p>
-          Think of it like renting out your car. You still own the car (the stock), but you collect rent (the option premium) every week. The downside: if the car's value goes up a lot, the renter can buy it at the old price, capping your upside.
-        </p>
-
-        <h3>3. Weekly Distribution Pool</h3>
-        <p>
-          Every week, the fund calculates the total income collected from dividends and options premiums, then distributes it pro-rata to unit holders. If you hold 1,000 units and the fund distributes $0.10/unit, you receive $100 that week.
-        </p>
-
-        {/* Section 4 */}
-        <h2>Benefits of Weekly Dividend ETFs</h2>
-
-        <h3>Consistent Weekly Cash Flow</h3>
-        <p>
-          For retirees or anyone living off investment income, weekly payouts align better with real-world expenses like rent, groceries, and utility bills. You don't have to budget around quarterly payouts or keep large cash reserves.
-        </p>
-
-        <h3>Faster Compounding if You Reinvest</h3>
-        <p>
-          If you enroll in a DRIP (Dividend Reinvestment Plan), your weekly distributions buy more units of the ETF every week. More frequent reinvestment means your money compounds faster compared to quarterly reinvestment — though the difference over short periods is modest.
-        </p>
-
-        <h3>Psychological Comfort</h3>
-        <p>
-          There's something motivating about seeing money deposited into your account every week. It makes passive income feel real and tangible, which helps investors stay the course during market downturns.
-        </p>
-
-        <h3>Diversification</h3>
-        <p>
-          Like any ETF, weekly dividend ETFs give you exposure to many stocks at once. You're not dependent on one company's dividend being maintained.
-        </p>
-
-        {/* Section 5 */}
-        <h2>Risks and Drawbacks to Know</h2>
-
-        <h3>Capped Upside Growth</h3>
-        <p>
-          This is the biggest trade-off. Because the fund sells covered calls on its holdings, it gives up some of the upside when stocks rise sharply. If the market rallies 20%, a covered call ETF might only capture 8–12% of that gain. You're trading growth potential for income.
-        </p>
-
-        <h3>High Management Expense Ratios (MERs)</h3>
-        <p>
-          Options strategies require active management, and that costs money. Many weekly dividend ETFs carry MERs of 0.60%–1.00% or more, compared to 0.10%–0.25% for simple index ETFs. Over 20 years, that fee difference compounds significantly against you.
-        </p>
-
-        <h3>Return of Capital Risk</h3>
-        <p>
-          Some weekly payouts include <strong>return of capital (ROC)</strong> — meaning the fund is giving back a portion of your own invested money, not earned income. This reduces your adjusted cost base and can result in a tax surprise later. Always check a fund's distribution breakdown.
-        </p>
-
-        <h3>Yield Can Be Misleading</h3>
-        <p>
-          A fund advertising a 15–20% annual yield sounds extraordinary. But if the underlying assets aren't generating that income naturally, the fund may be paying out more than it earns — depleting your principal over time. Look at the fund's <strong>total return</strong>, not just its distribution yield.
-        </p>
-
-        <h3>Complex Tax Treatment</h3>
-        <p>
-          Weekly distributions in a non-registered (taxable) account can create complicated tax reporting. Dividends, capital gains, foreign income, and return of capital are all taxed differently. Holding these ETFs inside a TFSA or RRSP simplifies this significantly.
-        </p>
-
-        {/* Section 6 */}
-        <h2>Popular Weekly Dividend ETF Examples</h2>
-        <p>
-          Here are some well-known weekly dividend ETFs available to Canadian and US investors:
-        </p>
-
-        <div className="not-prose overflow-x-auto my-6">
-          <table className="w-full text-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-            <thead className="bg-gray-100 dark:bg-gray-800 text-left">
-              <tr>
-                <th className="px-4 py-3 font-semibold">ETF</th>
-                <th className="px-4 py-3 font-semibold">Strategy</th>
-                <th className="px-4 py-3 font-semibold">Market</th>
-                <th className="px-4 py-3 font-semibold">Approx. Yield</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-              {[
-                ["TSLY (YieldMax)", "Covered calls on TSLA", "US", "~40–60%*"],
-                ["XYLD (Global X)", "Covered calls on S&P 500", "US", "~10–12%"],
-                ["QYLD (Global X)", "Covered calls on Nasdaq 100", "US", "~11–14%"],
-                ["RYLD (Global X)", "Covered calls on Russell 2000", "US", "~12–15%"],
-                ["HDIV (Hamilton ETFs)", "Multi-asset covered call", "Canada", "~7–10%"],
-              ].map(([etf, strategy, market, yield_]) => (
-                <tr key={etf} className="bg-white dark:bg-gray-900">
-                  <td className="px-4 py-3 font-medium">{etf}</td>
-                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{strategy}</td>
-                  <td className="px-4 py-3">{market}</td>
-                  <td className="px-4 py-3 text-green-600 font-semibold">{yield_}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="text-xs text-gray-400 mt-2">*High yields often include return of capital. Always verify distribution composition before investing.</p>
-        </div>
-
-        <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
-          {[
-            { label: "Run the Dividend Calculator", href: "/tools/dividend-calculator" },
-            { label: "Run the TFSA Calculator", href: "/tools/tfsa-calculator" },
-            { label: "Read the TFSA ETF guide", href: "/blog/best-etfs-for-tfsa-canada-2026" },
-            { label: "Read the beginner investing guide", href: "/blog/how-to-invest-in-canada-beginners-2026" },
-          ].map((item) => (
-            <Link
-              key={item.label}
-              to={item.href}
-              className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-gray-700 dark:bg-gray-900 dark:text-accent"
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
+            <TrackedLink
+              articleSlug="weekly-dividend-etfs"
+              ctaLabel="dividend_simulator_intro"
+              to="/tools/dividend-calculator"
+              className="rounded-2xl border border-blue-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-blue-800 dark:bg-gray-900"
             >
-              {item.label}
-            </Link>
-          ))}
-        </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-300">Model the income first</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Use the ETF income simulator</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                Test a realistic yield, add DRIP, and see how much capital is actually needed for a monthly income goal.
+              </p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="weekly-dividend-etfs"
+              ctaLabel="tfsa_context_intro"
+              to="/tools/tfsa-calculator"
+              className="rounded-2xl border border-emerald-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-emerald-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">Choose the account on purpose</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Check whether TFSA space should hold the income plan</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                Weekly cash flow can look attractive, but the better account choice still depends on room, tax drag, and the job of the money.
+              </p>
+            </TrackedLink>
+            <TrackedLink
+              articleSlug="weekly-dividend-etfs"
+              ctaLabel="tfsa_etf_context_intro"
+              to="/blog/best-etfs-for-tfsa-canada-2026"
+              className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-amber-800 dark:bg-gray-900"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Compare against simpler options</p>
+              <p className="mt-2 text-lg font-bold text-primary dark:text-accent">Read the TFSA ETF guide before chasing payout frequency</p>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                A broad ETF or traditional dividend ETF may solve the problem with fewer moving parts and less yield illusion.
+              </p>
+            </TrackedLink>
+          </div>
 
-        {/* Section 7 */}
-        <h2>Weekly Dividend ETFs in a Canadian Context</h2>
-        <p>
-          Canadian investors have a few important considerations:
-        </p>
-        <ul>
-          <li><strong>TFSA:</strong> Ideal for holding these ETFs. All distributions are received tax-free, and you avoid the complexity of tracking return of capital for tax purposes.</li>
-          <li><strong>RRSP:</strong> Also good, but be aware that US-listed ETFs held in an RRSP are exempt from US withholding tax on dividends under the Canada-US tax treaty — a significant advantage.</li>
-          <li><strong>Non-registered accounts:</strong> You'll need to track the character of each distribution (eligible dividends, non-eligible dividends, ROC, foreign income) for your tax return.</li>
-          <li><strong>Currency:</strong> Many popular weekly dividend ETFs are US-listed (paying in USD). Factor in currency conversion costs and exchange rate risk.</li>
-        </ul>
+          <h2>What investors usually mean by a weekly dividend ETF</h2>
+          <p>
+            Most people searching for weekly dividend ETFs are not really asking about dividends alone. They are looking for a fund that can send cash frequently enough to feel like income. In practice, that often leads them to products that mix ordinary dividends with option premiums, covered-call income, leverage, or return of capital.
+          </p>
+          <p>
+            That is the first mindset shift to make: <strong>weekly payout frequency is a product feature, not proof of a better investment outcome.</strong> The real decision is whether the structure fits the job of the account.
+          </p>
 
-        {/* Section 8 */}
-        <h2>Who Should Consider Weekly Dividend ETFs?</h2>
-        <p>Weekly dividend ETFs tend to be a better fit for:</p>
-        <ul>
-          <li>✅ <strong>Retirees</strong> who want regular income to cover living expenses</li>
-          <li>✅ <strong>Income-focused investors</strong> who prioritize cash flow over capital appreciation</li>
-          <li>✅ <strong>Conservative investors</strong> who want lower volatility through the covered call buffer</li>
-          <li>✅ <strong>TFSA/RRSP holders</strong> looking to maximize tax-sheltered income</li>
-        </ul>
-        <p>They are generally <strong>not ideal</strong> for:</p>
-        <ul>
-          <li>❌ Young investors with a long time horizon who should prioritize growth</li>
-          <li>❌ Investors expecting to match market returns — covered calls limit upside</li>
-          <li>❌ Those who don't understand return of capital and yield sustainability</li>
-        </ul>
+          <h2>How weekly payout products are usually engineered</h2>
+          <p>
+            A plain dividend ETF owns a basket of dividend-paying companies and passes through the cash those companies generate. A weekly payout fund often needs more than that, because underlying stocks usually do not pay often enough on their own to support a weekly schedule.
+          </p>
 
-        {/* Section 9 */}
-        <h2>Key Questions to Ask Before Investing</h2>
-        <ol>
-          <li><strong>What is the fund's total return</strong>, not just distribution yield?</li>
-          <li><strong>How much of the distribution is return of capital</strong> vs. earned income?</li>
-          <li><strong>What is the MER</strong>, and how does it affect long-term returns?</li>
-          <li><strong>Is the fund's NAV (Net Asset Value) declining</strong> over time? A shrinking NAV signals the fund may be paying out more than it earns.</li>
-          <li><strong>Which account type</strong> will you hold it in? TFSA and RRSP offer major tax advantages.</li>
-        </ol>
+          <h3>1. Ordinary dividends form only part of the cash flow</h3>
+          <p>
+            The base layer often still comes from stock dividends, but that base is usually not enough to support the headline payout.
+          </p>
 
-        {/* Conclusion */}
-        <h2>Final Thoughts</h2>
-        <p>
-          Weekly dividend ETFs can be a genuinely useful tool for income-focused investors — especially retirees who want predictable, frequent cash flow. The key is understanding the trade-offs: you're exchanging some long-term growth potential for regular income, and you need to look beyond the headline yield to understand what you're actually receiving.
-        </p>
-        <p>
-          Before investing, use our <TrackedLink articleSlug="weekly-dividend-etfs" ctaLabel="dividend_calculator_inline" to="/tools/dividend-calculator" className="text-primary underline">Dividend Calculator</TrackedLink> to model how weekly or monthly payouts could build your passive income over time. And if you're a Canadian investor, make sure to review the <TrackedLink articleSlug="weekly-dividend-etfs" ctaLabel="tfsa_calculator_inline" to="/tools/tfsa-calculator" className="text-primary underline">TFSA Calculator</TrackedLink> to see how much more your income could compound tax-free.
-        </p>
+          <h3>2. Covered calls or option premiums do the extra work</h3>
+          <p>
+            Many higher-yield funds sell call options on their holdings. That creates additional premium income, but it also means the fund may give up part of the upside if markets rally hard.
+          </p>
 
-        <p>
-          For broader ETF context, you can also review our <Link to="/blog/best-etfs-for-tfsa-canada-2026" className="text-primary underline">best ETFs for TFSA guide</Link> and then jump into the relevant ticker pages from there.
-        </p>
+          <h3>3. Some products smooth distributions aggressively</h3>
+          <p>
+            A steady weekly payout can feel reassuring, but stable cash flow does not always mean stable underlying economics. Some funds can include return of capital or make payout decisions that keep the cash flow looking smoother than the long-term return profile.
+          </p>
+
+          <div className="not-prose my-8 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Plain-English interpretation</p>
+            <p className="mt-3 text-sm leading-7 text-slate-700 dark:text-slate-300">
+              If the payout looks unusually high or unusually frequent, assume there is extra engineering behind it. That is not automatically bad, but it does mean you should judge the fund on <strong>total return, fee drag, and sustainability</strong>, not on distribution frequency alone.
+            </p>
+          </div>
+
+          <h2>The product types you are really comparing</h2>
+          <p>
+            The weekly-dividend search term tends to lump together very different fund structures. This table is a better decision starting point than a single “best weekly ETF” list.
+          </p>
+
+          <div className="not-prose overflow-x-auto my-6">
+            <table className="w-full rounded-xl border border-gray-200 text-sm dark:border-gray-700">
+              <thead className="bg-gray-100 text-left dark:bg-gray-800">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Structure</th>
+                  <th className="px-4 py-3 font-semibold">Typical market</th>
+                  <th className="px-4 py-3 font-semibold">Payout style</th>
+                  <th className="px-4 py-3 font-semibold">Why it gets attention</th>
+                  <th className="px-4 py-3 font-semibold">What to verify</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                {weeklyIncomeStructures.map((row) => (
+                  <tr key={row.label} className="bg-white dark:bg-gray-900">
+                    <td className="px-4 py-3 font-semibold text-primary dark:text-accent">{row.label}</td>
+                    <td className="px-4 py-3">{row.market}</td>
+                    <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{row.payoutStyle}</td>
+                    <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{row.whyInvestorsLook}</td>
+                    <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{row.mainTradeoff}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">{DATA_SNAPSHOT_LABEL}. Always confirm current fee, yield, and distribution details on the issuer page before acting.</p>
+          </div>
+
+          <h2>How to decide whether a weekly payout ETF belongs in your plan</h2>
+          <p>
+            The right question is not “Which weekly ETF pays the most?” It is “What job do I need this money to do, and is a payout-heavy ETF the cleanest way to get there?”
+          </p>
+
+          <h3>Use a weekly payout ETF only when the job is truly cash flow</h3>
+          <p>
+            If the account is meant to support current spending or near-term portfolio income, a higher-payout structure can make sense. If the job is long-term growth, a simpler ETF often remains the stronger default.
+          </p>
+
+          <h3>Compare total return against a boring baseline</h3>
+          <p>
+            Before buying a payout-heavy ETF, compare it with a plain Canadian dividend ETF and a broad-market ETF. If the weekly option only wins on yield but loses badly on growth and flexibility, the decision may not actually improve your plan.
+          </p>
+
+          <h3>Check the account location before you check the yield</h3>
+          <p>
+            A TFSA can be a cleaner home for income-heavy ETFs because distributions and withdrawals remain tax-free. In a taxable account, payout-heavy funds can create more tracking work and more room for confusion around the character of each distribution.
+          </p>
+
+          <div className="not-prose my-8 grid gap-4 md:grid-cols-2">
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 dark:border-emerald-800 dark:bg-emerald-900/20">
+              <p className="font-semibold text-emerald-800 dark:text-emerald-300">Usually a better fit</p>
+              <ul className="mt-3 space-y-2 text-sm text-emerald-700 dark:text-emerald-300">
+                {whoItsFor.map((item) => (
+                  <li key={item}>- {item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-rose-200 bg-rose-50 p-5 dark:border-rose-800 dark:bg-rose-900/20">
+              <p className="font-semibold text-rose-800 dark:text-rose-300">Usually a weaker fit</p>
+              <ul className="mt-3 space-y-2 text-sm text-rose-700 dark:text-rose-300">
+                {whoShouldPass.map((item) => (
+                  <li key={item}>- {item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <h2>The weekly income checklist to run before you buy</h2>
+          <ol>
+            {evaluationChecklist.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ol>
+
+          <h2>What to do inside a TFSA</h2>
+          <p>
+            If your TFSA is meant to be a long-term growth account, weekly payout products usually deserve a higher burden of proof. Many Canadians are better served by using the TFSA for broadly diversified ETFs and only adding an income-focused sleeve if the account genuinely needs to support cash flow.
+          </p>
+          <p>
+            If your TFSA is already an income-focused account, the next step is still not “buy the highest yield.” It is to estimate how much income you actually need, how much capital that requires, and whether DRIP or withdrawals fit the plan. That is exactly what the <TrackedLink articleSlug="weekly-dividend-etfs" ctaLabel="dividend_calculator_inline" to="/tools/dividend-calculator" className="text-primary underline">ETF income simulator</TrackedLink> helps you test.
+          </p>
+
+          <h2>Common mistakes with weekly payout funds</h2>
+          <ul>
+            <li><strong>Confusing yield with return.</strong> A bigger payout does not guarantee a better outcome.</li>
+            <li><strong>Skipping the account decision.</strong> TFSA, RRSP, and taxable accounts can change the after-tax picture materially.</li>
+            <li><strong>Ignoring concentration.</strong> Some high-income products are much narrower than the yield headline suggests.</li>
+            <li><strong>Assuming the payout is all earned income.</strong> Distribution composition matters.</li>
+            <li><strong>Never testing the plan against lower yields.</strong> A fragile income plan can break quickly if the headline payout compresses.</li>
+          </ul>
+
+          <h2>A better workflow than chasing yield</h2>
+          <p>
+            If you are seriously considering a weekly payout ETF, this is the cleaner order to work in:
+          </p>
+          <ol>
+            <li>Decide whether the account needs income now, income later, or growth first.</li>
+            <li>Use the <TrackedLink articleSlug="weekly-dividend-etfs" ctaLabel="workflow_dividend_calculator" to="/tools/dividend-calculator" className="text-primary underline">ETF income simulator</TrackedLink> to test a realistic yield and capital target.</li>
+            <li>Use the <TrackedLink articleSlug="weekly-dividend-etfs" ctaLabel="workflow_tfsa_calculator" to="/tools/tfsa-calculator" className="text-primary underline">TFSA calculator</TrackedLink> if the account-location decision is still unclear.</li>
+            <li>Compare the payout-heavy product against simpler TFSA ETF options in our <TrackedLink articleSlug="weekly-dividend-etfs" ctaLabel="workflow_tfsa_guide" to="/blog/best-etfs-for-tfsa-canada-2026" className="text-primary underline">TFSA ETF guide</TrackedLink>.</li>
+          </ol>
+
+          <h2>Final take</h2>
+          <p>
+            Weekly payout ETFs can be useful, but they are rarely the first product a Canadian investor should reach for. They make the most sense when the account genuinely needs cash flow, the tradeoffs are understood, and you have already compared the idea against simpler ETF options.
+          </p>
+          <p>
+            The best habit here is not memorizing which ticker pays the most. It is learning how to check the structure behind the payout, then using a simulator to see whether the cash flow target still works under more conservative assumptions.
+          </p>
+        </article>
 
         <MethodologyPanel
-          title="How to use this weekly dividend ETF guide"
-          summary="This article explains how payout-heavy and covered-call ETFs work, why weekly distributions can look attractive, and where the main tradeoffs usually show up for Canadian investors."
-          updated="April 3, 2026"
+          title="How to use this weekly payout ETF guide"
+          summary="This guide is built to help Canadian investors judge payout-heavy ETFs by account fit, structure, and total-return tradeoffs, not by headline yield alone."
+          updated={CONTENT_LAST_REVIEWED}
           assumptions={[
-            "Yield ranges are directional examples and can change quickly as payout policies, option income, and market prices move.",
-            "Covered-call strategy descriptions are simplified to help readers understand the tradeoff between higher cash flow and capped upside.",
-            "Tax treatment comments are educational and do not replace account-specific tax reporting or professional advice.",
+            "This page uses simplified descriptions of covered-call and payout-heavy ETF structures for educational planning, not product-level due diligence.",
+            "Distribution examples are directional and can change as fund policy, market volatility, and option income change.",
+            "Tax comments are high-level planning notes and do not replace personalized tax or investment advice.",
           ]}
           sources={[
-            { label: "Methodology and Sources", href: "https://easyfinancetools.com/methodology" },
             { label: "CRA: TFSA overview", href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account.html" },
+            { label: "Methodology and Sources", href: "https://easyfinancetools.com/methodology" },
           ]}
-          note="Educational guide only. High-yield ETF structures, return of capital, and distribution sustainability should be checked before investing."
+          note="Educational guide only. Verify fees, payout composition, and account-location details before making a real allocation."
+        />
+
+        <ReferenceSection
+          eyebrow="Source shell"
+          title="Where to verify the payout story before you buy"
+          intro="Weekly income products deserve more verification than a normal broad-market ETF. Use these source categories before relying on a headline yield or payout schedule."
+          references={referenceCards}
+          note="Use issuer factsheets and annual reports to verify current yield, fee, strategy, and distribution composition for any product on your shortlist."
         />
 
         <div className="not-prose mt-8 grid gap-4 md:grid-cols-3">
           {[
             {
-              title: "Dividend calculator",
-              body: "Model DRIP, payout assumptions, and projected income over time.",
+              title: "ETF income simulator",
+              body: "Model annual income, monthly equivalents, DRIP growth, and capital needed for a realistic payout goal.",
               href: "/tools/dividend-calculator",
             },
             {
               title: "Best ETFs for a TFSA",
-              body: "Compare income-focused funds against simpler broad-market ETF options.",
+              body: "Compare payout-heavy ideas against simpler broad-market and dividend ETF options for Canadian investors.",
               href: "/blog/best-etfs-for-tfsa-canada-2026",
             },
             {
-              title: "Terms and disclaimer",
-              body: "Review the site’s educational-use and disclosure standards before relying on yield examples.",
-              href: "/terms",
+              title: "Beginner investing guide",
+              body: "Step back to account choice, diversification, and first-principles investing if the payout chase is making the decision muddy.",
+              href: "/blog/how-to-invest-in-canada-beginners-2026",
             },
           ].map((item) => (
             <TrackedLink
@@ -276,20 +420,12 @@ export default function WeeklyDividendETFs() {
           ))}
         </div>
 
-        {/* Disclaimer */}
-        <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 mt-8 not-prose">
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            <strong>Disclaimer:</strong> This article is for educational and informational purposes only and does not constitute financial or investment advice. Always consult a qualified financial advisor before making investment decisions. Past performance is not indicative of future results.
-          </p>
-        </div>
-      </article>
-
-      <Link
-        to="/blog"
-        className="inline-block mt-10 text-primary dark:text-accent font-semibold hover:underline"
-      >
-        ← Back to Blog
-      </Link>
+        <Link
+          to="/blog"
+          className="mt-10 inline-block font-semibold text-primary hover:underline dark:text-accent"
+        >
+          Back to Blog
+        </Link>
       </section>
     </div>
   );
