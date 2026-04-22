@@ -59,6 +59,51 @@ export const DEFAULT_ASSUMPTIONS = {
     useSpousalComparison: true,
     reinvestRefund: true,
   },
+  mortgage: {
+    homePrice: 650000,
+    downPayment: 130000,
+    rate: 5.1,
+    amortization: 25,
+    frequency: 'monthly',
+    province: 'ON',
+    extraMonthlyPayment: 0,
+  },
+  mortgageAffordability: {
+    householdIncome: 145000,
+    downPayment: 120000,
+    monthlyDebtPayments: 600,
+    interestRate: 4.89,
+    amortization: 25,
+    province: 'ON',
+    propertyTaxMonthly: 450,
+    heatingMonthly: 150,
+    condoFeesMonthly: 0,
+  },
+  rentVsBuy: {
+    homePrice: 650000,
+    downPayment: 130000,
+    mortgageRate: 5.1,
+    amortization: 25,
+    monthlyRent: 2500,
+    rentIncrease: 3,
+    homeAppreciation: 4,
+    investReturn: 6.5,
+    propertyTax: 5000,
+    maintenance: 300,
+    condoFees: 0,
+    province: 'ON',
+    years: 10,
+    sellingCostRate: 4.5,
+  },
+  gic: {
+    principal: 10000,
+    rate: 3.75,
+    term: 2,
+    frequency: 2,
+    accountType: 'tfsa',
+    marginalTaxRate: 30,
+    inflationRate: 2.2,
+  },
 };
 
 export const CANADIAN_PROVINCES = [
@@ -102,6 +147,53 @@ export const RRSP_RULES = {
   annualEarnedIncomeRate: 0.18,
   maxContribution2026: 33810,
   deductionDeadlineLabel: 'March 2, 2026',
+};
+
+export const GIC_COMPOUNDING_OPTIONS = [
+  { label: 'Annually', value: 1 },
+  { label: 'Semi-Annually', value: 2 },
+  { label: 'Quarterly', value: 4 },
+  { label: 'Monthly', value: 12 },
+];
+
+export const GIC_SAMPLE_PRODUCTS = [
+  { id: 'eq-1yr', label: 'EQ 1-year', issuer: 'EQ Bank', rate: 3.75, term: 1, frequency: 2, notes: 'Short-term parking for a near-term goal.' },
+  { id: 'oaken-2yr', label: 'Oaken 2-year', issuer: 'Oaken Financial', rate: 4.1, term: 2, frequency: 2, notes: 'Useful when you want more yield without a very long lock-up.' },
+  { id: 'steinbach-3yr', label: 'Steinbach 3-year', issuer: 'Steinbach Credit Union', rate: 4.25, term: 3, frequency: 2, notes: 'Example of a longer term that can reward patience.' },
+  { id: 'big-bank-1yr', label: 'Big bank 1-year', issuer: 'Illustrative major bank', rate: 2.5, term: 1, frequency: 2, notes: 'Helpful reminder that convenience and rate are often a tradeoff.' },
+];
+
+export const HOUSING_PROVINCE_DETAILS = {
+  AB: { label: 'Alberta' },
+  BC: { label: 'British Columbia' },
+  MB: { label: 'Manitoba' },
+  NB: { label: 'New Brunswick' },
+  NL: { label: 'Newfoundland and Labrador' },
+  NS: { label: 'Nova Scotia' },
+  NT: { label: 'Northwest Territories' },
+  NU: { label: 'Nunavut' },
+  ON: { label: 'Ontario' },
+  PE: { label: 'Prince Edward Island' },
+  QC: { label: 'Quebec' },
+  SK: { label: 'Saskatchewan' },
+  YT: { label: 'Yukon' },
+};
+
+export const MORTGAGE_INSURANCE_PREMIUMS = [
+  { maxLoanToValue: 0.8, rate: 0 },
+  { maxLoanToValue: 0.85, rate: 0.028 },
+  { maxLoanToValue: 0.9, rate: 0.031 },
+  { maxLoanToValue: 0.95, rate: 0.04 },
+];
+
+export const MORTGAGE_RULES = {
+  minimumQualifyingRate: 5.25,
+  stressBuffer: 2,
+  defaultLegalAndTitleCost: 2500,
+  defaultInspectionCost: 600,
+  defaultSellingCostRate: 0.045,
+  insuredAmortizationDefault: 25,
+  uninsuredAmortizationDefault: 30,
 };
 
 export const RRIF_MINIMUM_RATES = {
@@ -250,6 +342,157 @@ export function getRrspAnnualLimit(earnedIncome) {
     Number(earnedIncome || 0) * RRSP_RULES.annualEarnedIncomeRate,
     RRSP_RULES.maxContribution2026
   );
+}
+
+export function getCanadianMonthlyRate(annualRate) {
+  return Math.pow(1 + Number(annualRate || 0) / 200, 1 / 6) - 1;
+}
+
+export function getMortgagePayment(principal, annualRate, months) {
+  const safePrincipal = Number(principal || 0);
+  const safeMonths = Math.max(1, Number(months || 1));
+  const monthlyRate = getCanadianMonthlyRate(annualRate);
+
+  if (monthlyRate === 0) {
+    return safePrincipal / safeMonths;
+  }
+
+  return (
+    (safePrincipal * monthlyRate * Math.pow(1 + monthlyRate, safeMonths)) /
+    (Math.pow(1 + monthlyRate, safeMonths) - 1)
+  );
+}
+
+export function getMortgagePrincipalFromPayment(payment, annualRate, months) {
+  const safePayment = Number(payment || 0);
+  const safeMonths = Math.max(1, Number(months || 1));
+  const monthlyRate = getCanadianMonthlyRate(annualRate);
+
+  if (monthlyRate === 0) {
+    return safePayment * safeMonths;
+  }
+
+  return (
+    safePayment * (Math.pow(1 + monthlyRate, safeMonths) - 1) /
+    (monthlyRate * Math.pow(1 + monthlyRate, safeMonths))
+  );
+}
+
+export function getCmhcPremiumRate(loanToValue) {
+  const safeLtv = Number(loanToValue || 0);
+  const match = MORTGAGE_INSURANCE_PREMIUMS.find((item) => safeLtv <= item.maxLoanToValue);
+  return match ? match.rate : MORTGAGE_INSURANCE_PREMIUMS[MORTGAGE_INSURANCE_PREMIUMS.length - 1].rate;
+}
+
+export function getCmhcPremium(principal, homePrice) {
+  const safePrincipal = Number(principal || 0);
+  const safeHomePrice = Math.max(1, Number(homePrice || 0));
+  const loanToValue = safePrincipal / safeHomePrice;
+  return safePrincipal * getCmhcPremiumRate(loanToValue);
+}
+
+export function getMortgageStressTestRate(contractRate) {
+  return Math.max(
+    Number(contractRate || 0) + MORTGAGE_RULES.stressBuffer,
+    MORTGAGE_RULES.minimumQualifyingRate
+  );
+}
+
+export function getLandTransferTax(homePrice, province) {
+  const price = Number(homePrice || 0);
+  const code = province || 'ON';
+
+  if (code === 'ON') {
+    if (price <= 55000) return price * 0.005;
+    if (price <= 250000) return 275 + (price - 55000) * 0.01;
+    if (price <= 400000) return 2225 + (price - 250000) * 0.015;
+    if (price <= 2000000) return 4475 + (price - 400000) * 0.02;
+    return 36475 + (price - 2000000) * 0.025;
+  }
+
+  if (code === 'BC') {
+    if (price <= 200000) return price * 0.01;
+    if (price <= 2000000) return 2000 + (price - 200000) * 0.02;
+    return 38000 + (price - 2000000) * 0.03;
+  }
+
+  if (code === 'QC') {
+    if (price <= 52800) return price * 0.005;
+    if (price <= 264000) return 264 + (price - 52800) * 0.01;
+    return 2376 + (price - 264000) * 0.015;
+  }
+
+  const flatRate = {
+    AB: 0,
+    MB: 0.015,
+    NB: 0.01,
+    NL: 0,
+    NS: 0.015,
+    NT: 0,
+    NU: 0,
+    PE: 0.01,
+    SK: 0,
+    YT: 0,
+  };
+
+  return price * (flatRate[code] || 0);
+}
+
+export function getMortgageMinimumDownPayment(homePrice) {
+  const price = Number(homePrice || 0);
+
+  if (price <= 500000) {
+    return price * 0.05;
+  }
+
+  if (price < 1500000) {
+    return 25000 + (price - 500000) * 0.1;
+  }
+
+  return price * 0.2;
+}
+
+export function getPaymentFrequencyDetails(frequency, monthlyPayment) {
+  const safeMonthlyPayment = Number(monthlyPayment || 0);
+
+  if (frequency === 'biweekly') {
+    return {
+      label: 'Bi-weekly payment',
+      scheduledPayment: safeMonthlyPayment * 12 / 26,
+      annualExtraEquivalent: 0,
+    };
+  }
+
+  if (frequency === 'accelerated') {
+    return {
+      label: 'Accelerated bi-weekly payment',
+      scheduledPayment: safeMonthlyPayment / 2,
+      annualExtraEquivalent: safeMonthlyPayment,
+    };
+  }
+
+  if (frequency === 'weekly') {
+    return {
+      label: 'Weekly payment',
+      scheduledPayment: safeMonthlyPayment * 12 / 52,
+      annualExtraEquivalent: 0,
+    };
+  }
+
+  return {
+    label: 'Monthly payment',
+    scheduledPayment: safeMonthlyPayment,
+    annualExtraEquivalent: 0,
+  };
+}
+
+export function getGicMaturityValue(principal, rate, years, frequency) {
+  const safePrincipal = Number(principal || 0);
+  const safeYears = Math.max(0, Number(years || 0));
+  const safeFrequency = Math.max(1, Number(frequency || 1));
+  const periodicRate = Number(rate || 0) / 100 / safeFrequency;
+  const periods = safeFrequency * safeYears;
+  return safePrincipal * Math.pow(1 + periodicRate, periods);
 }
 
 export const DIVIDEND_ETF_DATA = [

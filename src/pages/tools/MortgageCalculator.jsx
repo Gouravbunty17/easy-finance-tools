@@ -1,266 +1,605 @@
-import React, { useMemo, useState } from "react";
-import CalculatorLayout, { ResultCard, fmtCAD, fmtNum } from "../../components/CalculatorLayout";
-import NumberInput from "../../components/NumberInput";
-import FAQ from "../../components/FAQ";
-import MethodologyPanel from "../../components/MethodologyPanel";
-import EducationalDisclaimer from "../../components/EducationalDisclaimer";
-import { asNumber, parseNumericInput } from "../../lib/numericInputs";
+import React, { useMemo, useState } from 'react';
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  Filler,
+  Legend,
+  LineElement,
+  LinearScale,
+  PointElement,
+  Tooltip,
+} from 'chart.js';
+import SEO from '../../components/SEO';
+import FAQ from '../../components/FAQ';
+import MethodologyPanel from '../../components/MethodologyPanel';
+import ToolPageSchema from '../../components/ToolPageSchema';
+import ToolByline from '../../components/ToolByline';
+import ActionableNextSteps from '../../components/ActionableNextSteps';
+import EducationalDisclaimer from '../../components/EducationalDisclaimer';
+import ReferenceSection from '../../components/ReferenceSection';
+import {
+  CONTENT_LAST_REVIEWED,
+  DEFAULT_ASSUMPTIONS,
+  HOUSING_PROVINCE_DETAILS,
+  MORTGAGE_RULES,
+  getCanadianMonthlyRate,
+  getCmhcPremium,
+  getLandTransferTax,
+  getMortgageMinimumDownPayment,
+  getMortgagePayment,
+  getMortgageStressTestRate,
+  getPaymentFrequencyDetails,
+} from '../../config/financial';
+
+ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
 const MORTGAGE_FAQS = [
   {
-    q: "What is the minimum down payment for a home in Canada?",
-    a: "5% on the first $500,000 of purchase price, 10% on the portion between $500,000 and $1,499,999, and 20% on any home priced at $1,500,000 or more. The $1.5 million insurable threshold was raised from $1 million on December 15, 2024 as part of federal mortgage-rule changes.",
+    q: 'What is the minimum down payment for a home in Canada?',
+    a: 'The usual rule is 5% on the first $500,000, 10% on the portion between $500,000 and $1,499,999, and 20% once the purchase price reaches $1.5 million or more. Lender policy and product type can still change what is actually available to you.',
   },
   {
-    q: "What is CMHC mortgage insurance and when is it required?",
-    a: "Mortgage default insurance is required on any mortgage with less than 20% down, up to a maximum insurable purchase price of $1,499,999. CMHC is the federal Crown corporation that issues the insurance; Sagen and Canada Guaranty are private alternatives. The premium, typically 2.80% to 4.00% of the mortgage amount, is added to your principal rather than paid out of pocket at closing.",
+    q: 'When does CMHC mortgage insurance apply?',
+    a: 'If the down payment is below 20% and the purchase is within insurable limits, default insurance usually applies. The premium is normally added to the mortgage balance rather than paid in cash at closing.',
   },
   {
-    q: "Why does Canadian mortgage math use semi-annual compounding?",
-    a: "Section 6 of the Interest Act of Canada requires interest on fixed-rate mortgages to be calculated on a basis no more frequent than semi-annual. This is different from American mortgages, which compound monthly. The result is a slightly lower effective monthly rate, and a slightly lower monthly payment, at the same stated interest rate.",
+    q: 'Why does a Canadian mortgage calculator use semi-annual compounding?',
+    a: 'Canadian fixed-rate mortgage math is commonly quoted on a semi-annual compounding basis, which creates a slightly different effective monthly rate than a simple annual-rate-divided-by-12 approach.',
   },
   {
-    q: "How much does accelerated bi-weekly actually save?",
-    a: "Accelerated bi-weekly divides the monthly payment in half and applies it every two weeks. Because there are 26 bi-weekly periods in a year, you effectively make 13 monthly payments annually instead of 12. On a typical 25-year mortgage this shortens the amortization by three to four years and saves tens of thousands in total interest.",
+    q: 'Does accelerated bi-weekly really help?',
+    a: 'Usually yes. Accelerated bi-weekly makes the annual payment total closer to 13 monthly payments instead of 12, which can shorten amortization and reduce total interest if you keep the payment up consistently.',
   },
   {
-    q: "What is the mortgage stress test?",
-    a: "Federally regulated lenders must qualify borrowers at the greater of their contract rate plus 2%, or the 5.25% minimum qualifying rate (MQR) set by OSFI. The test applies to both insured and uninsured mortgages and protects against rate increases during the term. A contract rate of 5.25% therefore qualifies you at 7.25%.",
-  },
-  {
-    q: "What is the maximum amortization in Canada?",
-    a: "Insured mortgages are generally capped at 25 years. A 30-year amortization became available on December 15, 2024 for first-time buyers purchasing a newly built home. Uninsured mortgages (20% or more down) can be amortized up to 30 years with most federally regulated lenders.",
-  },
-  {
-    q: "How does the Bank of Canada policy rate affect my mortgage?",
-    a: "Variable-rate mortgages move with the lender's prime rate, which tracks the Bank of Canada's overnight policy rate. Fixed rates are primarily influenced by five-year Government of Canada bond yields, not directly by the policy rate. Variable mortgages respond almost immediately after a BoC decision; fixed mortgages only reset at renewal.",
-  },
-  {
-    q: "Should I choose a fixed or variable mortgage?",
-    a: "Neither is universally better. Historical Bank of Canada research has shown variable rates cost less on average, but with more short-term payment volatility. Fixed rates offer payment certainty and protect against sharp rate moves within the term. The right answer depends on your budget cushion, your rate outlook, and whether you might break the mortgage early.",
+    q: 'What does the mortgage stress test do?',
+    a: 'Federally regulated lenders generally qualify borrowers at the greater of the contract rate plus 2% or the minimum qualifying rate. That means your payment capacity is tested against a rate that is higher than the rate you may actually sign for.',
   },
 ];
 
-const PROVINCES = {
-  AB: { label: "Alberta", landTransferTaxRate: 0 },
-  BC: { label: "British Columbia", landTransferTaxRate: 0.018 },
-  MB: { label: "Manitoba", landTransferTaxRate: 0.015 },
-  NB: { label: "New Brunswick", landTransferTaxRate: 0.01 },
-  NL: { label: "Newfoundland and Labrador", landTransferTaxRate: 0 },
-  NS: { label: "Nova Scotia", landTransferTaxRate: 0.015 },
-  NT: { label: "Northwest Territories", landTransferTaxRate: 0 },
-  NU: { label: "Nunavut", landTransferTaxRate: 0 },
-  ON: { label: "Ontario", landTransferTaxRate: 0.015 },
-  PE: { label: "Prince Edward Island", landTransferTaxRate: 0.01 },
-  QC: { label: "Quebec", landTransferTaxRate: 0.01 },
-  SK: { label: "Saskatchewan", landTransferTaxRate: 0 },
-  YT: { label: "Yukon", landTransferTaxRate: 0 },
-};
-
-function getMonthlyRate(annualRate) {
-  return Math.pow(1 + annualRate / 200, 1 / 6) - 1;
+function formatCurrency(value, digits = 0) {
+  return Number(value || 0).toLocaleString('en-CA', {
+    style: 'currency',
+    currency: 'CAD',
+    maximumFractionDigits: digits,
+    minimumFractionDigits: digits,
+  });
 }
 
-function calcPayment(principal, annualRate, months) {
-  const monthlyRate = getMonthlyRate(annualRate);
-  if (monthlyRate === 0) return principal / months;
-  return (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+function formatPercent(value, digits = 1) {
+  return `${Number(value || 0).toFixed(digits)}%`;
 }
 
-function getCMHC(principal, homePrice) {
-  const ratio = principal / homePrice;
-  if (ratio <= 0.8) return 0;
-  if (ratio <= 0.85) return principal * 0.028;
-  if (ratio <= 0.9) return principal * 0.031;
-  return principal * 0.04;
+function MetricCard({ label, value, hint, tone = 'default' }) {
+  const tones = {
+    default: 'bg-white text-primary dark:bg-gray-800 dark:text-accent',
+    success: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300',
+    warning: 'bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300',
+    primary: 'bg-gradient-to-br from-primary to-secondary text-white',
+  };
+
+  return (
+    <div className={`rounded-2xl border border-slate-200 p-5 dark:border-slate-700 ${tones[tone] || tones.default}`}>
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] opacity-80">{label}</p>
+      <p className="mt-3 text-3xl font-bold">{value}</p>
+      {hint ? <p className="mt-2 text-sm opacity-80">{hint}</p> : null}
+    </div>
+  );
+}
+
+function InputField({ label, value, onChange, step, min, max, suffix, helpText }) {
+  return (
+    <div>
+      <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+      <div className="relative">
+        <input
+          type="number"
+          value={value}
+          onChange={onChange}
+          step={step}
+          min={min}
+          max={max}
+          className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 pr-14 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+        />
+        {suffix ? (
+          <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-slate-500 dark:text-slate-400">
+            {suffix}
+          </span>
+        ) : null}
+      </div>
+      {helpText ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
+    </div>
+  );
+}
+
+function SelectField({ label, value, onChange, options, helpText }) {
+  return (
+    <div>
+      <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+      <select
+        value={value}
+        onChange={onChange}
+        className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+      >
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>{option.label}</option>
+        ))}
+      </select>
+      {helpText ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
+    </div>
+  );
+}
+
+function simulateMortgage(balanceStart, annualRate, monthlyPayment, scheduledMonths) {
+  const monthlyRate = getCanadianMonthlyRate(annualRate);
+  const months = Math.max(1, Number(scheduledMonths || 1));
+  let balance = Math.max(0, Number(balanceStart || 0));
+  let totalInterest = 0;
+  let payoffMonth = months;
+  const yearlyBreakdown = [];
+  const labels = [];
+  const values = [];
+
+  for (let month = 1; month <= months; month += 1) {
+    if (balance <= 0) {
+      payoffMonth = month - 1;
+      break;
+    }
+
+    const interest = balance * monthlyRate;
+    const payment = Math.min(balance + interest, monthlyPayment);
+    const principalPaid = payment - interest;
+    totalInterest += interest;
+    balance = Math.max(0, balance - principalPaid);
+
+    if (month % 12 === 0 || month === months || balance <= 0) {
+      yearlyBreakdown.push({
+        year: Math.ceil(month / 12),
+        balance,
+        totalInterest,
+      });
+      labels.push(`Year ${Math.ceil(month / 12)}`);
+      values.push(Math.round(balance));
+    }
+
+    if (balance <= 0) {
+      payoffMonth = month;
+      break;
+    }
+  }
+
+  if (balance > 0) {
+    payoffMonth = months;
+  }
+
+  return {
+    totalInterest,
+    payoffMonth,
+    yearlyBreakdown,
+    labels,
+    values,
+  };
 }
 
 export default function MortgageCalculator() {
-  const [homePrice, setHomePrice] = useState(650000);
-  const [downPayment, setDownPayment] = useState(130000);
-  const [rate, setRate] = useState(5.25);
-  const [amortization, setAmortization] = useState(25);
-  const [frequency, setFrequency] = useState("monthly");
-  const [province, setProvince] = useState("ON");
+  const [homePrice, setHomePrice] = useState(DEFAULT_ASSUMPTIONS.mortgage.homePrice);
+  const [downPayment, setDownPayment] = useState(DEFAULT_ASSUMPTIONS.mortgage.downPayment);
+  const [rate, setRate] = useState(DEFAULT_ASSUMPTIONS.mortgage.rate);
+  const [amortization, setAmortization] = useState(DEFAULT_ASSUMPTIONS.mortgage.amortization);
+  const [frequency, setFrequency] = useState(DEFAULT_ASSUMPTIONS.mortgage.frequency);
+  const [province, setProvince] = useState(DEFAULT_ASSUMPTIONS.mortgage.province);
+  const [extraMonthlyPayment, setExtraMonthlyPayment] = useState(DEFAULT_ASSUMPTIONS.mortgage.extraMonthlyPayment);
 
   const result = useMemo(() => {
-    const price = asNumber(homePrice);
-    const down = asNumber(downPayment);
-    const principal = Math.max(0, price - down);
-    const cmhc = principal > 0 ? getCMHC(principal, price || 1) : 0;
-    const insuredPrincipal = principal + cmhc;
-    const monthlyPayment = calcPayment(insuredPrincipal, asNumber(rate), Math.max(1, asNumber(amortization, 25)) * 12);
+    const safeHomePrice = Math.max(0, Number(homePrice || 0));
+    const safeDownPayment = Math.max(0, Number(downPayment || 0));
+    const safeRate = Math.max(0, Number(rate || 0));
+    const safeAmortization = Math.max(5, Number(amortization || 25));
+    const safeExtraMonthlyPayment = Math.max(0, Number(extraMonthlyPayment || 0));
+    const principal = Math.max(0, safeHomePrice - safeDownPayment);
+    const downPaymentPct = safeHomePrice > 0 ? safeDownPayment / safeHomePrice : 0;
+    const minimumDownPayment = getMortgageMinimumDownPayment(safeHomePrice);
+    const cmhcPremium = downPaymentPct < 0.2 && safeHomePrice < 1500000 ? getCmhcPremium(principal, safeHomePrice || 1) : 0;
+    const insuredMortgage = principal + cmhcPremium;
+    const months = safeAmortization * 12;
+    const baseMonthlyPayment = getMortgagePayment(insuredMortgage, safeRate, months);
+    const frequencyDetails = getPaymentFrequencyDetails(frequency, baseMonthlyPayment);
+    const monthlyPaymentForSchedule = baseMonthlyPayment + safeExtraMonthlyPayment + frequencyDetails.annualExtraEquivalent / 12;
+    const stressRate = getMortgageStressTestRate(safeRate);
+    const stressPayment = getMortgagePayment(insuredMortgage, stressRate, months);
+    const landTransferTax = getLandTransferTax(safeHomePrice, province);
+    const closingCosts = landTransferTax + MORTGAGE_RULES.defaultLegalAndTitleCost + MORTGAGE_RULES.defaultInspectionCost;
 
-    let scheduledPayment = monthlyPayment;
-    let label = "Monthly payment";
-    if (frequency === "biweekly") {
-      scheduledPayment = (monthlyPayment * 12) / 26;
-      label = "Bi-weekly payment";
-    } else if (frequency === "accelerated") {
-      scheduledPayment = monthlyPayment / 2;
-      label = "Accelerated bi-weekly payment";
-    } else if (frequency === "weekly") {
-      scheduledPayment = (monthlyPayment * 12) / 52;
-      label = "Weekly payment";
-    }
+    const standardSchedule = simulateMortgage(insuredMortgage, safeRate, baseMonthlyPayment, months);
+    const activeSchedule = simulateMortgage(insuredMortgage, safeRate, monthlyPaymentForSchedule, months);
+    const yearsSaved = Math.max(0, (standardSchedule.payoffMonth - activeSchedule.payoffMonth) / 12);
+    const interestSaved = Math.max(0, standardSchedule.totalInterest - activeSchedule.totalInterest);
+    const rateShockIncrease = stressPayment - baseMonthlyPayment;
 
-    const monthlyRate = getMonthlyRate(asNumber(rate));
-    let balance = insuredPrincipal;
-    let totalInterest = 0;
-    for (let month = 0; month < Math.max(1, asNumber(amortization, 25)) * 12; month += 1) {
-      const interest = balance * monthlyRate;
-      const principalPaid = monthlyPayment - interest;
-      totalInterest += interest;
-      balance = Math.max(0, balance - principalPaid);
+    let interpretation = 'The payment looks workable on paper, but the decision still depends on your closing-cost cash, renewal risk, and whether the home fits the rest of your plan.';
+    if (safeHomePrice > 0 && safeDownPayment < minimumDownPayment) {
+      interpretation = 'The down payment entered is below the usual minimum for this purchase price. Before comparing lenders or rates, the first decision is whether the purchase structure itself is realistic.';
+    } else if (downPaymentPct < 0.2) {
+      interpretation = 'This is an insured-mortgage scenario. The lower upfront cash requirement helps, but it also adds mortgage insurance and usually limits how much amortization flexibility you have.';
+    } else if (rateShockIncrease > 500) {
+      interpretation = 'The stress-tested payment is materially higher than the contract-rate payment. That usually means approval is more sensitive to debt ratios, and a slightly cheaper home can create a much safer budget.';
+    } else if (yearsSaved >= 2) {
+      interpretation = 'The extra payment strategy is doing real work here. Even modest recurring prepayments can shorten the amortization and reduce interest without changing the home itself.';
     }
 
     return {
-      downPct: price > 0 ? (down / price) * 100 : 0,
-      cmhc: Math.round(cmhc),
-      insuredPrincipal: Math.round(insuredPrincipal),
-      scheduledPayment,
-      label,
-      totalInterest: Math.round(totalInterest),
-      landTransferTax: Math.round(price * (PROVINCES[province]?.landTransferTaxRate || 0)),
+      downPaymentPct,
+      minimumDownPayment,
+      cmhcPremium,
+      insuredMortgage,
+      baseMonthlyPayment,
+      frequencyDetails,
+      monthlyPaymentForSchedule,
+      stressRate,
+      stressPayment,
+      rateShockIncrease,
+      landTransferTax,
+      closingCosts,
+      standardSchedule,
+      activeSchedule,
+      yearsSaved,
+      interestSaved,
+      interpretation,
+      totalInterest: activeSchedule.totalInterest,
+      payoffYears: activeSchedule.payoffMonth / 12,
+      finalMonthlyBuffer: Math.max(0, stressPayment - baseMonthlyPayment),
     };
-  }, [homePrice, downPayment, rate, amortization, frequency, province]);
+  }, [amortization, downPayment, extraMonthlyPayment, frequency, homePrice, province, rate]);
+
+  const chartData = {
+    labels: result.standardSchedule.labels,
+    datasets: [
+      {
+        label: 'Standard balance path',
+        data: result.standardSchedule.values,
+        borderColor: '#94a3b8',
+        backgroundColor: 'rgba(148, 163, 184, 0.08)',
+        tension: 0.3,
+        pointRadius: 2,
+      },
+      {
+        label: 'Your balance path',
+        data: result.activeSchedule.values,
+        borderColor: '#00557a',
+        backgroundColor: 'rgba(0, 85, 122, 0.12)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 2,
+      },
+    ],
+  };
 
   return (
-    <>
-    <CalculatorLayout
-      title="Canadian Mortgage Calculator"
-      description="Estimate mortgage payments using Canadian semi-annual compounding, simplified CMHC insurance handling, and province-level land transfer tax context."
-      canonical="https://easyfinancetools.com/tools/mortgage-calculator"
-      badge="Payment planning"
-      results={
-        <>
-          <ResultCard
-            label={result.label}
-            value={fmtCAD(result.scheduledPayment, { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
-            hint={`Mortgage amount including estimated CMHC: ${fmtCAD(result.insuredPrincipal)}.`}
-            tone="primary"
-          />
-          <ResultCard
-            label="Estimated total interest"
-            value={fmtCAD(result.totalInterest)}
-            hint={`${fmtNum(result.downPct, { maximumFractionDigits: 1, minimumFractionDigits: 1 })}% down payment.`}
-          />
-          <ResultCard
-            label="Land transfer tax estimate"
-            value={fmtCAD(result.landTransferTax)}
-            hint={`${PROVINCES[province]?.label || "Province"} planning estimate only. CMHC estimate: ${fmtCAD(result.cmhc)}.`}
-            tone="success"
-          />
-        </>
-      }
-      relatedTools={[
-        { href: "/tools/mortgage-affordability-calculator", title: "Mortgage affordability calculator", body: "Work backward from income and debt before you model the payment itself." },
-        { href: "/tools/rent-vs-buy", title: "Rent vs buy calculator", body: "Compare the ownership scenario against continuing to rent." },
-        { href: "/blog/pay-off-mortgage-faster-canada", title: "Mortgage payoff guide", body: "See how accelerated payments and prepayment choices change the path.", destinationType: "article" },
-      ]}
-      footerNote="Educational estimate only. Lender quotes, legal fees, insurance, condo fees, and municipal taxes can materially change your actual cost."
-    >
-      <EducationalDisclaimer />
-      <div className="space-y-5 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
-        <div className="grid gap-5 md:grid-cols-2">
-          <NumberInput id="mortgage-home-price" label="Home price" prefix="$" value={homePrice} onChange={(value) => setHomePrice(parseNumericInput(value))} placeholder="650000" />
-          <NumberInput id="mortgage-down-payment" label="Down payment" prefix="$" value={downPayment} onChange={(value) => setDownPayment(parseNumericInput(value))} placeholder="130000" hint={result.downPct >= 20 ? "20% or more down: no CMHC estimate added." : "Under 20% down: simplified CMHC insurance estimate is added."} />
-          <NumberInput id="mortgage-rate" label="Interest rate" value={rate} onChange={(value) => setRate(parseNumericInput(value))} placeholder="5.25" suffix="%" hint="Uses a semi-annual compounding conversion before monthly mortgage math." />
+    <main className="mx-auto max-w-6xl px-4 py-12">
+      <SEO
+        title="Mortgage Payment Decision Tool Canada 2026"
+        description="Estimate Canadian mortgage payments, CMHC costs, closing costs, stress-test pressure, and payoff tradeoffs for 2026 home-buying decisions."
+        canonical="https://easyfinancetools.com/tools/mortgage-calculator"
+      />
+      <ToolPageSchema
+        name="Mortgage Payment Decision Tool Canada 2026"
+        description="Canadian mortgage planning tool for payment math, CMHC, stress-test context, closing costs, and payoff scenarios."
+        canonical="https://easyfinancetools.com/tools/mortgage-calculator"
+        category="FinanceApplication"
+      />
 
-          <label className="block">
-            <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Amortization</span>
-            <select value={amortization} onChange={(event) => setAmortization(Number(event.target.value))} className="focus-ring w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
-              {[5, 10, 15, 20, 25, 30].map((years) => (
-                <option key={years} value={years}>{years} years</option>
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
+        <div>
+          <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
+            Mortgage planning for Canadian buyers
+          </div>
+          <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">Mortgage payment and ownership-cost planner</h1>
+          <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against Canadian mortgage rules" />
+          <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
+            This page helps you move from "can I handle the payment?" to "what does this home actually cost once CMHC, closing costs, and rate risk are included?"
+          </p>
+
+          <div className="mt-6">
+            <EducationalDisclaimer />
+          </div>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <MetricCard
+              label={result.frequencyDetails.label}
+              value={formatCurrency(result.frequencyDetails.scheduledPayment, 0)}
+              hint={`Mortgage balance including insurance: ${formatCurrency(result.insuredMortgage)}`}
+              tone="primary"
+            />
+            <MetricCard
+              label="Total interest"
+              value={formatCurrency(result.totalInterest)}
+              hint={`Projected payoff in about ${result.payoffYears.toFixed(1)} years.`}
+            />
+            <MetricCard
+              label="Closing-cost estimate"
+              value={formatCurrency(result.closingCosts)}
+              hint={`Land transfer tax in ${HOUSING_PROVINCE_DETAILS[province]?.label || 'your province'}: ${formatCurrency(result.landTransferTax)}`}
+              tone="warning"
+            />
+            <MetricCard
+              label="Stress-test payment"
+              value={formatCurrency(result.stressPayment)}
+              hint={`Qualifying rate used: ${formatPercent(result.stressRate, 2)}`}
+              tone="success"
+            />
+          </div>
+
+          <div className="surface-card mt-8 p-6">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 className="text-xl font-bold text-primary dark:text-accent">Balance path and payoff tradeoff</h2>
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                  Compare the standard amortization path against the payment plan you entered.
+                </p>
+              </div>
+              <div className="rounded-full bg-slate-100 px-4 py-1.5 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                Interest saved vs standard: {formatCurrency(result.interestSaved)}
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <Line
+                data={chartData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                      callbacks: {
+                        label: (ctx) => `${ctx.dataset.label}: ${formatCurrency(Number(ctx.raw))}`,
+                      },
+                    },
+                  },
+                  scales: {
+                    y: {
+                      ticks: {
+                        callback: (value) => formatCurrency(Number(value)),
+                      },
+                    },
+                  },
+                }}
+                height={320}
+              />
+            </div>
+          </div>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            <div className="surface-card p-5">
+              <p className="text-sm font-semibold text-primary dark:text-accent">Plain-English interpretation</p>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{result.interpretation}</p>
+            </div>
+            <div className="surface-card p-5">
+              <p className="text-sm font-semibold text-primary dark:text-accent">Down-payment position</p>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                You are putting down {formatPercent(result.downPaymentPct * 100)}. The usual minimum for this purchase price is {formatCurrency(result.minimumDownPayment)}.
+              </p>
+            </div>
+            <div className="surface-card p-5">
+              <p className="text-sm font-semibold text-primary dark:text-accent">Rate-shock reminder</p>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                Qualifying at the stress-test rate adds about {formatCurrency(result.finalMonthlyBuffer)} to the payment benchmark versus the contract-rate payment.
+              </p>
+            </div>
+          </div>
+
+          <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">2026 mortgage checklist</p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the payment result as a decision checkpoint</h2>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {[
+                'Confirm that your down payment clears the minimum and still leaves emergency cash after closing costs.',
+                'Model the mortgage again at a slightly higher renewal rate before deciding the payment is comfortable.',
+                'Check whether accelerated payments or a small recurring prepayment improve the plan more than stretching the amortization.',
+                'Compare the ownership plan against FHSA, TFSA, and rent-vs-buy alternatives before treating the home as the only goal.',
+              ].map((item) => (
+                <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm leading-7 text-slate-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
+                  {item}
+                </div>
               ))}
-            </select>
-          </label>
+            </div>
+          </section>
 
-          <label className="block">
-            <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Payment frequency</span>
-            <select value={frequency} onChange={(event) => setFrequency(event.target.value)} className="focus-ring w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
-              <option value="monthly">Monthly</option>
-              <option value="biweekly">Bi-weekly</option>
-              <option value="accelerated">Accelerated bi-weekly</option>
-              <option value="weekly">Weekly</option>
-            </select>
-          </label>
+          <section className="mt-10 grid gap-4 md:grid-cols-3">
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+              <h2 className="text-xl font-bold text-primary dark:text-accent">How this mortgage tool works</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                It estimates the insured mortgage balance, converts the quoted Canadian rate into an effective monthly rate, and projects the payment path over the chosen amortization.
+              </p>
+            </div>
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+              <h2 className="text-xl font-bold text-primary dark:text-accent">When this is most useful</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                Use it when you are close to a purchase decision, comparing down-payment sizes, or trying to understand whether faster payments matter more than negotiating a slightly lower rate.
+              </p>
+            </div>
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+              <h2 className="text-xl font-bold text-primary dark:text-accent">Common mistakes</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                Buyers often focus on the contract-rate payment and ignore closing costs, insurance premiums, renewal risk, and the fact that the stress test may still limit approval even if the monthly payment looks manageable.
+              </p>
+            </div>
+          </section>
 
-          <label className="block">
-            <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Province</span>
-            <select value={province} onChange={(event) => setProvince(event.target.value)} className="focus-ring w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
-              {Object.entries(PROVINCES).map(([code, config]) => (
-                <option key={code} value={code}>{config.label}</option>
-              ))}
-            </select>
-          </label>
+          <div className="mt-10 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-gray-800">
+            <div className="border-b border-slate-200 px-6 py-4 dark:border-slate-700">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Year-by-year balance view</h2>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">A quick way to see how slowly early principal falls and why prepayments can matter.</p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-left text-sm">
+                <thead className="bg-slate-50 dark:bg-slate-900/60">
+                  <tr>
+                    <th className="px-6 py-3 font-semibold text-slate-600 dark:text-slate-300">Year</th>
+                    <th className="px-6 py-3 font-semibold text-slate-600 dark:text-slate-300">Remaining balance</th>
+                    <th className="px-6 py-3 font-semibold text-slate-600 dark:text-slate-300">Cumulative interest</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {result.activeSchedule.yearlyBreakdown.map((row) => (
+                    <tr key={row.year} className="border-t border-slate-100 dark:border-slate-700">
+                      <td className="px-6 py-3 text-slate-700 dark:text-slate-200">Year {row.year}</td>
+                      <td className="px-6 py-3 text-slate-700 dark:text-slate-200">{formatCurrency(row.balance)}</td>
+                      <td className="px-6 py-3 text-slate-700 dark:text-slate-200">{formatCurrency(row.totalInterest)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
+
+        <aside className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <h2 className="text-xl font-bold text-primary dark:text-accent">Scenario inputs</h2>
+          <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Start with the purchase price and down payment, then use the extra-payment field to see whether the ownership plan still feels right when you intentionally add margin.
+          </p>
+
+          <div className="mt-6 space-y-5">
+            <InputField label="Home price" value={homePrice} onChange={(event) => setHomePrice(event.target.value)} step="1000" min="0" suffix="CAD" />
+            <InputField
+              label="Down payment"
+              value={downPayment}
+              onChange={(event) => setDownPayment(event.target.value)}
+              step="1000"
+              min="0"
+              suffix="CAD"
+              helpText="If you are still building the down payment, compare this page with your FHSA and TFSA plan before deciding what is realistic."
+            />
+            <InputField label="Quoted rate" value={rate} onChange={(event) => setRate(event.target.value)} step="0.05" min="0" suffix="%" />
+            <SelectField
+              label="Amortization"
+              value={amortization}
+              onChange={(event) => setAmortization(Number(event.target.value))}
+              options={[5, 10, 15, 20, 25, 30].map((item) => ({ value: item, label: `${item} years` }))}
+            />
+            <SelectField
+              label="Payment frequency"
+              value={frequency}
+              onChange={(event) => setFrequency(event.target.value)}
+              options={[
+                { value: 'monthly', label: 'Monthly' },
+                { value: 'biweekly', label: 'Bi-weekly' },
+                { value: 'accelerated', label: 'Accelerated bi-weekly' },
+                { value: 'weekly', label: 'Weekly' },
+              ]}
+            />
+            <SelectField
+              label="Province"
+              value={province}
+              onChange={(event) => setProvince(event.target.value)}
+              options={Object.entries(HOUSING_PROVINCE_DETAILS).map(([value, item]) => ({ value, label: item.label }))}
+              helpText="Used for land transfer tax planning. Municipal taxes, rebates, and product-specific rules can still change the real closing number."
+            />
+            <InputField
+              label="Extra monthly prepayment"
+              value={extraMonthlyPayment}
+              onChange={(event) => setExtraMonthlyPayment(event.target.value)}
+              step="50"
+              min="0"
+              suffix="CAD"
+              helpText="Use this for recurring prepayments. Accelerated bi-weekly is modeled separately as one extra monthly payment per year."
+            />
+          </div>
+        </aside>
       </div>
-    </CalculatorLayout>
-
-    <div className="mx-auto max-w-6xl px-4 pb-12">
-      <article className="prose prose-lg prose-slate dark:prose-invert mt-10 max-w-none rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 md:p-8">
-        <h2>How this calculator works</h2>
-        <p>
-          This mortgage calculator estimates your regular payment, the total interest over a full amortization, and a province-specific land transfer tax figure for a Canadian home purchase. It follows the two rules that make Canadian mortgages different from American ones: fixed-rate mortgages compound <strong>semi-annually, not monthly</strong>, and anything under 20% down triggers <strong>CMHC mortgage insurance</strong> that gets added directly to your principal rather than paid at closing.
-        </p>
-        <p>
-          Start with the home price and down payment. The down-payment percentage updates automatically and tells you whether a CMHC premium is being added — the calculator uses a simplified premium schedule based on loan-to-value ratio. The amortization dropdown defaults to 25 years (the maximum for most insured mortgages) and allows up to 30 years for uninsured mortgages with at least 20% down. Frequency controls whether you see a monthly, bi-weekly, accelerated bi-weekly, or weekly figure — and accelerated bi-weekly is the one to watch, because it quietly shortens your amortization by several years.
-        </p>
-
-        <h2>Canadian amortization rules you need to know</h2>
-        <p>
-          Three rules shape every Canadian mortgage. <strong>Semi-annual compounding</strong> is required by the Interest Act for fixed-rate mortgages: a 5.25% quoted rate is converted to an effective monthly rate using <code>(1 + 0.0525/2)^(1/6) − 1</code>, not a simple <code>0.0525/12</code>. The calculator does this conversion automatically, which is why the monthly payment differs slightly from a US-style amortization tool.
-        </p>
-        <p>
-          <strong>Down payment minimums</strong> follow a graduated rule: 5% on the first $500,000 of purchase price, 10% on any portion between $500,000 and $1,499,999, and 20% on homes priced at $1,500,000 or more. The $1.5 million insurable ceiling was raised from $1 million on December 15, 2024 as part of federal reforms aimed at first-time buyers.
-        </p>
-        <p>
-          <strong>Amortization caps</strong> differ by insurance status. An insured mortgage is generally capped at 25 years, with a 30-year option available only for first-time buyers purchasing a newly built home. Uninsured mortgages (20%+ down) can stretch to 30 years at most federally regulated lenders. CMHC, Sagen, and Canada Guaranty are the three mortgage insurers; premiums typically range from 2.80% to 4.00% of the mortgage amount depending on loan-to-value ratio.
-        </p>
-
-        <h2>Common mistakes Canadian buyers make</h2>
-        <p>
-          <strong>Forgetting the stress test.</strong> Federally regulated lenders must qualify you at the greater of your contract rate plus 2%, or the 5.25% minimum qualifying rate set by OSFI. A 5.25% contract rate qualifies you at 7.25%. If your budget only works at the contract rate, the lender will not fund the mortgage.
-        </p>
-        <p>
-          <strong>Ignoring closing costs.</strong> Land transfer tax, legal fees, title insurance, moving costs, and the adjustment for property taxes already paid by the seller typically add 1.5% to 4% of the purchase price on top of the down payment. Toronto buyers face both provincial and municipal land transfer taxes — on a million-dollar home that combined bill alone can exceed $30,000.
-        </p>
-        <p>
-          <strong>Treating the posted rate as real.</strong> Most lenders will negotiate off posted rates, and mortgage brokers often access rates 40 to 80 basis points below what a bank homepage shows. A 50-basis-point difference on a $500,000 mortgage over 25 years is roughly $50,000 in total interest.
-        </p>
-        <p>
-          <strong>Over-amortizing by default.</strong> A 30-year amortization lowers the monthly payment but materially increases total interest paid. If cash flow allows, a 25-year term or a prepayment strategy usually saves more than the payment relief costs.
-        </p>
-
-        <h2>A worked example</h2>
-        <p>
-          Consider a $650,000 home in Ontario with a $130,000 down payment (20%), a 5.25% fixed rate, 25-year amortization, and monthly payments. With exactly 20% down, the $520,000 principal is uninsured — no CMHC premium is added. Using Canadian semi-annual compounding, the effective monthly rate is approximately 0.4327%, producing a monthly payment of roughly <strong>$3,105</strong>. Total interest over the 25 years works out to about <strong>$411,500</strong>, meaning you repay $931,500 on a $520,000 borrowing.
-        </p>
-        <p>
-          Switch the frequency to accelerated bi-weekly and the payment becomes $1,553 every two weeks. Because there are 26 such periods in a year, that is the equivalent of 13 monthly payments instead of 12 — one extra month per year. That single change shortens the amortization from 25 years to roughly 21 and cuts total interest by approximately $60,000. Ontario provincial land transfer tax on a $650,000 purchase is about $9,475, and a Toronto address would add a second, municipal land transfer tax of a similar amount. Toggle province, amortization, and frequency above to see how each lever changes the total cost of ownership.
-        </p>
-      </article>
 
       <MethodologyPanel
-        summary="This mortgage calculator estimates a regular payment and total interest using Canadian semi-annual compounding, a simplified CMHC premium schedule, and province-level land transfer tax rates. It is a planning tool — actual lender quotes, municipal taxes, and legal fees can change the final figure materially."
+        title="How this mortgage planner works"
+        updated={CONTENT_LAST_REVIEWED}
+        summary="This page uses Canadian semi-annual mortgage-rate math, a simplified insured-mortgage premium estimate, province-level land transfer tax rules, and a payment-path simulation to show how the mortgage behaves over time."
         assumptions={[
-          "Interest is compounded semi-annually in accordance with section 6 of the Interest Act of Canada and converted to an effective monthly rate before payment math.",
-          "CMHC premiums are modeled with a simplified schedule: 2.80% at 80.01–85% loan-to-value, 3.10% at 85.01–90%, and 4.00% above 90%. Actual CMHC, Sagen, or Canada Guaranty quotes can differ.",
-          "Land transfer tax uses a single provincial rate estimate. Municipal land transfer taxes (for example in Toronto) and first-time-buyer rebates are not included.",
-          "Property taxes, condo fees, homeowner's insurance, and the OSFI stress test are not included in the monthly payment figure.",
+          'Fixed-rate mortgage math is converted to an effective monthly rate using a semi-annual compounding convention.',
+          'Mortgage insurance is estimated using a simplified premium schedule and is only applied when the down payment is below 20% and the purchase is within insurable limits.',
+          'Closing costs include provincial land transfer tax, a default legal/title estimate, and a home-inspection placeholder. Municipal transfer taxes and rebates are not modeled here.',
+          'The stress-test comparison uses the greater of the contract rate plus 2% or the 5.25% minimum qualifying rate.',
         ]}
         sources={[
-          { label: "CMHC: Mortgage loan insurance for consumers", href: "https://www.cmhc-schl.gc.ca/consumers/home-buying/mortgage-loan-insurance-for-consumers/what-is-cmhc-mortgage-loan-insurance" },
-          { label: "Department of Finance Canada: Making mortgages more affordable", href: "https://www.canada.ca/en/department-finance/news/2024/09/making-mortgages-more-affordable.html" },
-          { label: "Bank of Canada: Key interest rate", href: "https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/" },
-          { label: "OSFI Guideline B-20: Residential mortgage underwriting (stress test)", href: "https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/residential-mortgage-underwriting-practices-procedures-guideline-b-20" },
-          { label: "Interest Act (R.S.C., 1985, c. I-15), section 6", href: "https://laws-lois.justice.gc.ca/eng/acts/i-15/section-6.html" },
+          { label: 'CMHC: Mortgage loan insurance for consumers', href: 'https://www.cmhc-schl.gc.ca/consumers/home-buying/mortgage-loan-insurance-for-consumers/what-is-cmhc-mortgage-loan-insurance' },
+          { label: 'OSFI Guideline B-20: Residential mortgage underwriting practices and procedures', href: 'https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/residential-mortgage-underwriting-practices-procedures-guideline-b-20' },
+          { label: 'Government of Canada: Making mortgages more affordable', href: 'https://www.canada.ca/en/department-finance/news/2024/09/making-mortgages-more-affordable.html' },
         ]}
+        note="Educational planning estimate only. Always confirm lender-specific rates, underwriting, and closing-cost details before making an offer."
+      />
+
+      <ReferenceSection
+        title="Source and review shell"
+        intro="These are the first places to verify if you are using the result for a real purchase decision or a content update."
+        references={[
+          {
+            label: 'CMHC mortgage insurance rules',
+            body: 'Use this to verify insured-mortgage eligibility, premium treatment, and home-buyer guidance.',
+            href: 'https://www.cmhc-schl.gc.ca/',
+          },
+          {
+            label: 'OSFI stress-test guidance',
+            body: 'Useful when checking how approval may differ from the contract-rate payment you see in the tool.',
+            href: 'https://www.osfi-bsif.gc.ca/',
+          },
+          {
+            label: 'Provincial and municipal closing-cost rules',
+            body: 'Land transfer tax, rebates, and municipal treatment can change the cash needed to close.',
+          },
+          {
+            label: 'Lender or broker quote sheet',
+            body: 'This is the real-world check for posted rate, discount, product restrictions, and prepayment privileges.',
+          },
+        ]}
+        note="If you publish lender examples, product names, or province-specific closing-cost guides, refresh them manually before shipping content updates."
+      />
+
+      <ActionableNextSteps
+        toolName="mortgage_payment_decision_tool"
+        title="Use the payment estimate to choose the right next move"
+        intro="The best next step usually depends on whether the bottleneck is the payment itself, the down payment, or the stress-test approval margin."
+        meaning={result.interpretation}
+        steps={[
+          'If the closing-cost number is the blocker, revisit FHSA, TFSA, or cash-management planning before stretching for the home price.',
+          'If the stress-test payment is the blocker, run the affordability tool before you keep rate-shopping.',
+          'If the payment is comfortable but interest is heavy, test a recurring prepayment or accelerated schedule before taking a longer amortization.',
+        ]}
+        actions={[
+          {
+            href: '/tools/mortgage-affordability-calculator',
+            title: 'Check approval range next',
+            body: 'Move from payment math into income, debt-ratio, and stress-test qualification planning.',
+            ctaLabel: 'mortgage_affordability_next',
+          },
+          {
+            href: '/tools/rent-vs-buy',
+            title: 'Compare owning against renting',
+            body: 'Use the home and payment assumptions here inside a richer rent-vs-buy decision workflow.',
+            ctaLabel: 'rent_vs_buy_next',
+          },
+          {
+            href: '/tools/fhsa-calculator',
+            title: 'Pressure-test the down-payment plan',
+            body: 'If the payment works but the cash to close is tight, compare the purchase against your FHSA strategy.',
+            ctaLabel: 'fhsa_next',
+          },
+        ]}
+        referral={{
+          placement: 'mortgage_tool_next_steps',
+          badge: 'Useful next step',
+          title: 'Still building the down payment? Get $25 free with Wealthsimple',
+          highlight: '$25 free',
+          description: 'If the purchase is not immediate, an FHSA or TFSA can be the better next move than stretching for the home today.',
+          details: 'Use the bonus only if the account fits your plan | Not a substitute for comparing rates or mortgage terms',
+          fitHeading: 'Why this may fit',
+          fitPoints: [
+            'Useful if you still need to grow the down payment before buying.',
+            'Works better as a next step after a real savings plan, not as a reason to rush into an account.',
+          ],
+          buttonLabel: 'Open an FHSA or TFSA',
+        }}
       />
 
       <FAQ items={MORTGAGE_FAQS} />
-    </div>
-    </>
+    </main>
   );
 }
