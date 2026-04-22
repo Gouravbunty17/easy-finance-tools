@@ -7,6 +7,7 @@ export const REGISTERED_ACCOUNT_LIMITS = {
   fhsaLifetimeLimit: 40000,
   fhsaMaxCarryforward: 8000,
   tfsaAnnualLimit: 7000,
+  rrspMaxContribution2026: 33810,
 };
 
 export const DEFAULT_ASSUMPTIONS = {
@@ -33,6 +34,31 @@ export const DEFAULT_ASSUMPTIONS = {
     useTfsa: true,
     marginalTaxRate: 30,
   },
+  tfsa: {
+    birthYear: 1992,
+    residencyYear: 2010,
+    province: 'ON',
+    taxableIncome: 85000,
+    currentBalance: 25000,
+    lifetimeContributions: 40000,
+    restoredWithdrawals: 5000,
+    annualContribution: 7000,
+    expectedReturn: 6.0,
+    years: 15,
+  },
+  rrsp: {
+    province: 'ON',
+    taxableIncome: 95000,
+    availableRoomNow: 17000,
+    annualContribution: 12000,
+    currentBalance: 35000,
+    expectedReturn: 6.5,
+    yearsToRetirement: 25,
+    retirementIncome: 45000,
+    spouseIncome: 35000,
+    useSpousalComparison: true,
+    reinvestRefund: true,
+  },
 };
 
 export const CANADIAN_PROVINCES = [
@@ -50,6 +76,61 @@ export const CANADIAN_PROVINCES = [
   { value: 'SK', label: 'Saskatchewan' },
   { value: 'YT', label: 'Yukon' },
 ];
+
+export const TFSA_ANNUAL_LIMITS = {
+  2009: 5000,
+  2010: 5000,
+  2011: 5000,
+  2012: 5000,
+  2013: 5500,
+  2014: 5500,
+  2015: 10000,
+  2016: 5500,
+  2017: 5500,
+  2018: 5500,
+  2019: 6000,
+  2020: 6000,
+  2021: 6000,
+  2022: 6000,
+  2023: 6500,
+  2024: 7000,
+  2025: 7000,
+  2026: 7000,
+};
+
+export const RRSP_RULES = {
+  annualEarnedIncomeRate: 0.18,
+  maxContribution2026: 33810,
+  deductionDeadlineLabel: 'March 2, 2026',
+};
+
+export const RRIF_MINIMUM_RATES = {
+  71: 5.28,
+  72: 5.4,
+  73: 5.53,
+  74: 5.67,
+  75: 5.82,
+  76: 5.98,
+  77: 6.17,
+  78: 6.36,
+  79: 6.58,
+  80: 6.82,
+  81: 7.08,
+  82: 7.38,
+  83: 7.71,
+  84: 8.08,
+  85: 8.51,
+  86: 8.99,
+  87: 9.55,
+  88: 10.21,
+  89: 10.99,
+  90: 11.92,
+  91: 13.06,
+  92: 14.49,
+  93: 16.34,
+  94: 18.79,
+  95: 20,
+};
 
 export const FHSA_TAX_BRACKETS = {
   AB: [
@@ -148,6 +229,27 @@ export function getEstimatedMarginalTaxRate(province, income) {
   }
 
   return 0.43;
+}
+
+export function getTfsaEligibleYear(birthYear, residencyYear) {
+  return Math.max(2009, Number(birthYear || 0) + 18, Number(residencyYear || 0));
+}
+
+export function getTfsaAccruedRoom(eligibleYear, upToYear = FINANCIAL_YEAR) {
+  let total = 0;
+
+  for (let year = Number(eligibleYear || 0); year <= upToYear; year += 1) {
+    total += TFSA_ANNUAL_LIMITS[year] || 0;
+  }
+
+  return total;
+}
+
+export function getRrspAnnualLimit(earnedIncome) {
+  return Math.min(
+    Number(earnedIncome || 0) * RRSP_RULES.annualEarnedIncomeRate,
+    RRSP_RULES.maxContribution2026
+  );
 }
 
 export const DIVIDEND_ETF_DATA = [
