@@ -1,10 +1,10 @@
-import React from "react";
-import SurfaceTrackedLink from "./SurfaceTrackedLink";
-import ReferralSection from "./ReferralSection";
+import React from 'react';
+import SurfaceTrackedLink from './SurfaceTrackedLink';
+import ReferralSection from './ReferralSection';
 
 export default function ActionableNextSteps({
   toolName,
-  title = "Your next steps",
+  title = 'Your next steps',
   intro,
   meaning,
   steps = [],
@@ -34,7 +34,7 @@ export default function ActionableNextSteps({
             <ul className="mt-3 space-y-3 text-sm text-slate-600 dark:text-slate-300">
               {steps.map((step) => (
                 <li key={step} className="flex gap-2">
-                  <span className="mt-0.5 text-secondary">•</span>
+                  <span className="mt-0.5 text-secondary">-</span>
                   <span>{step}</span>
                 </li>
               ))}
@@ -53,8 +53,8 @@ export default function ActionableNextSteps({
               ctaLabel={action.ctaLabel}
               trackingParams={{
                 tool_name: toolName,
-                section: "actionable_next_steps",
-                destination_type: action.destinationType || (action.href.startsWith("/tools/") ? "tool" : "article"),
+                section: 'actionable_next_steps',
+                destination_type: action.destinationType || (action.href.startsWith('/tools/') ? 'tool' : 'article'),
               }}
               className="rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-800"
             >

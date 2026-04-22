@@ -4,10 +4,10 @@ export default function SEO({ title, description, canonical, type = "website", r
   React.useEffect(() => {
     const siteName = "EasyFinanceTools";
     const siteOrigin = "https://easyfinancetools.com";
-    const fullTitle = title ? `${title} | ${siteName}` : `${siteName} - Free Canadian Finance Calculators`;
+    const fullTitle = title ? `${title} | ${siteName}` : `${siteName} - Canadian Investing Decision Tools`;
     const desc =
       description ||
-      "Free Canadian financial calculators for TFSA, RRSP, dividends, taxes, mortgages, and budgeting. No sign-up required. Privacy-first. Updated for 2026.";
+      "Canadian investing decision tools for FHSA, TFSA, RRSP, ETF income, taxes, mortgages, and savings planning. No sign-up required. Privacy-first. Updated for 2026.";
     const normalizedPath = window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/+$/, "");
     const url = canonical || `${siteOrigin}${normalizedPath}`;
 

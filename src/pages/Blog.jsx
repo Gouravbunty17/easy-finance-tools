@@ -204,6 +204,33 @@ const featuredComparisonSlugs = [
   "best-dividend-investing-platforms-canada",
 ];
 
+const decisionTracks = [
+  {
+    title: "FHSA and first-home planning",
+    body: "Use the guide and the calculator together when you are deciding whether the FHSA should get the next contribution.",
+    primaryHref: "/blog/how-to-use-fhsa-canada",
+    primaryLabel: "Read FHSA guide",
+    secondaryHref: "/tools/fhsa-calculator",
+    secondaryLabel: "Open FHSA planner",
+  },
+  {
+    title: "TFSA vs RRSP contribution decisions",
+    body: "Start with the comparison page, then move into the matching calculators once the account choice starts to narrow.",
+    primaryHref: "/blog/tfsa-vs-rrsp-2026",
+    primaryLabel: "Compare TFSA vs RRSP",
+    secondaryHref: "/tools/tfsa-calculator",
+    secondaryLabel: "Open TFSA calculator",
+  },
+  {
+    title: "Dividend income and ETF choices",
+    body: "Use the ETF guide, the income simulator, and the platform comparison pages as one workflow instead of separate clicks.",
+    primaryHref: "/blog/best-etfs-for-tfsa-canada-2026",
+    primaryLabel: "Read ETF guide",
+    secondaryHref: "/tools/dividend-calculator",
+    secondaryLabel: "Open ETF income simulator",
+  },
+];
+
 export default function Blog() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
@@ -235,7 +262,7 @@ export default function Blog() {
     <div className="min-h-screen">
       <SEO
         title="EasyFinanceTools Blog"
-        description="Canadian finance guides covering TFSA, RRSP, tax, mortgage, savings, retirement, ETFs, and household money decisions."
+        description="Canadian finance guides and decision tracks for FHSA, TFSA, RRSP, dividend income, ETFs, tax planning, and first-home saving."
         canonical="https://easyfinancetools.com/blog"
       />
 
@@ -279,6 +306,39 @@ export default function Blog() {
                 </SurfaceTrackedLink>
               ))}
             </div>
+          </div>
+        </div>
+
+        <div className="surface-card mb-6 p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Decision tracks</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the blog as a decision layer, not just a reading list</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {decisionTracks.map((track) => (
+              <div key={track.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                <h3 className="text-lg font-bold text-primary dark:text-accent">{track.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{track.body}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <SurfaceTrackedLink
+                    to={track.primaryHref}
+                    eventName="blog_index_cta_click"
+                    ctaLabel={track.primaryLabel.toLowerCase().replace(/[^a-z0-9]+/g, "_")}
+                    trackingParams={{ section: "decision_tracks", destination_type: "article" }}
+                    className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-secondary"
+                  >
+                    {track.primaryLabel}
+                  </SurfaceTrackedLink>
+                  <SurfaceTrackedLink
+                    to={track.secondaryHref}
+                    eventName="blog_index_cta_click"
+                    ctaLabel={track.secondaryLabel.toLowerCase().replace(/[^a-z0-9]+/g, "_")}
+                    trackingParams={{ section: "decision_tracks", destination_type: "tool" }}
+                    className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-600 dark:text-slate-100"
+                  >
+                    {track.secondaryLabel}
+                  </SurfaceTrackedLink>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

@@ -32,25 +32,25 @@ export default function ReferralSection({
 
   return (
     <section className="my-10">
-      <p className="mb-3 text-center text-xs text-gray-400">
+      <p className="mb-3 text-center text-xs text-gray-500">
         {disclosure}
       </p>
 
-      <div className="rounded-2xl border border-[#00b2a9]/30 bg-gradient-to-br from-[#00b2a9]/10 to-[#003366]/10 p-6 dark:border-[#00b2a9]/20 dark:from-[#00b2a9]/5 dark:to-[#003366]/5">
+      <div className="rounded-2xl border border-[#007f79]/35 bg-gradient-to-br from-[#007f79]/10 to-[#003366]/10 p-6 dark:border-[#007f79]/25 dark:from-[#007f79]/5 dark:to-[#003366]/5">
         <div className="flex flex-col items-center gap-6 sm:flex-row">
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-black shadow-md">
             <span className="text-lg font-black tracking-tight text-white">WS</span>
           </div>
 
           <div className="flex-1 text-center sm:text-left">
-            <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-[#00b2a9]/10 px-3 py-1 text-xs font-bold text-[#00b2a9]">
+            <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-[#007f79]/10 px-3 py-1 text-xs font-bold text-[#006b66]">
               {badge}
             </div>
             <h3 className="mb-1 text-lg font-bold text-gray-900 dark:text-white">
               {title.includes(highlight) ? (
                 <>
                   {title.split(highlight)[0]}
-                  <span className="text-[#00b2a9]">{highlight}</span>
+                  <span className="text-[#006b66] dark:text-[#4fd1c5]">{highlight}</span>
                   {title.split(highlight)[1]}
                 </>
               ) : (
@@ -70,13 +70,13 @@ export default function ReferralSection({
                 </ul>
               </div>
             )}
-            <p className="mt-1.5 text-xs text-gray-400">{details}</p>
+            <p className="mt-1.5 text-xs text-gray-500">{details}</p>
           </div>
 
           <div className="flex shrink-0 flex-col items-center gap-2">
             <div className="flex items-center gap-2">
-              <div className="rounded-lg border-2 border-[#00b2a9]/40 bg-white px-4 py-2 dark:bg-gray-800">
-                <span className="mb-0.5 block text-xs leading-none text-gray-400">Referral code</span>
+              <div className="rounded-lg border-2 border-[#007f79]/40 bg-white px-4 py-2 dark:bg-gray-800">
+                <span className="mb-0.5 block text-xs leading-none text-gray-500">Referral code</span>
                 <span className="font-mono text-lg font-bold tracking-widest text-gray-900 dark:text-white">{REFERRAL_CODE}</span>
               </div>
               <button

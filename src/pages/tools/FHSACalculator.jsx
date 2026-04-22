@@ -1,252 +1,246 @@
-import React, { useMemo, useState } from "react";
-import SEO from "../../components/SEO";
-import FAQ from "../../components/FAQ";
-import MethodologyPanel from "../../components/MethodologyPanel";
-import ToolPageSchema from "../../components/ToolPageSchema";
-import ToolByline from "../../components/ToolByline";
-import ActionableNextSteps from "../../components/ActionableNextSteps";
-import EducationalDisclaimer from "../../components/EducationalDisclaimer";
-import { Line } from "react-chartjs-2";
+import React, { useMemo, useState } from 'react';
+import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
-  LineElement,
   CategoryScale,
+  Filler,
+  Legend,
+  LineElement,
   LinearScale,
   PointElement,
   Tooltip,
-  Legend,
-  Filler,
-} from "chart.js";
+} from 'chart.js';
+import SEO from '../../components/SEO';
+import FAQ from '../../components/FAQ';
+import MethodologyPanel from '../../components/MethodologyPanel';
+import ToolPageSchema from '../../components/ToolPageSchema';
+import ToolByline from '../../components/ToolByline';
+import ActionableNextSteps from '../../components/ActionableNextSteps';
+import EducationalDisclaimer from '../../components/EducationalDisclaimer';
+import ReferenceSection from '../../components/ReferenceSection';
+import {
+  CANADIAN_PROVINCES,
+  CONTENT_LAST_REVIEWED,
+  DEFAULT_ASSUMPTIONS,
+  FINANCIAL_YEAR,
+  REGISTERED_ACCOUNT_LIMITS,
+  getEstimatedMarginalTaxRate,
+} from '../../config/financial';
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
+ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
-const CURRENT_YEAR = 2026;
-const ANNUAL_LIMIT = 8000;
-const MAX_CARRYFORWARD = 8000;
-const LIFETIME_LIMIT = 40000;
-
-const FAQS = [
+const FHSA_FAQS = [
   {
-    q: "Who is usually eligible to open an FHSA?",
-    a: "In general, you need to be a Canadian resident, at least 18 years old, and a qualifying first-time home buyer under the FHSA rules. You also generally need to be within the age limits set by CRA. Always confirm eligibility with current CRA guidance before opening or funding the account.",
+    q: 'Who can usually open an FHSA?',
+    a: 'In general, you need to be a Canadian resident, at least 18, and a qualifying first-time home buyer under the CRA definition. You also need to stay within the FHSA age rules when opening and contributing.',
   },
   {
-    q: "How much unused FHSA room can carry forward?",
-    a: "Up to $8,000 of unused FHSA participation room can generally carry forward into the next year. That means the usable room in a single year is often capped at $16,000: the current year's $8,000 plus up to $8,000 carried forward.",
+    q: 'How much FHSA room can carry forward?',
+    a: 'Unused FHSA participation room can generally carry forward up to $8,000. That is why the usable room in one year is often capped at $16,000: the current-year annual limit plus up to one year of unused room.',
   },
   {
-    q: "What happens if I never buy a home?",
-    a: "If you do not make a qualifying home purchase, FHSA assets can generally be transferred to an RRSP or RRIF without immediate tax if the applicable rules are met. That is one reason the FHSA is often compared against the RRSP and Home Buyers' Plan together rather than in isolation.",
+    q: 'Is the FHSA always better than a TFSA or RRSP?',
+    a: 'No. The FHSA is strongest when you expect to make a qualifying home purchase and the deduction matters at your current tax bracket. If the timeline or eligibility is uncertain, the TFSA or RRSP can be the cleaner next account.',
   },
   {
-    q: "Should I use an FHSA before a TFSA or RRSP?",
-    a: "It depends on your timeline, home-buying plans, and tax bracket. The FHSA is especially attractive when you expect to buy a qualifying home and can benefit from the deduction. If the home purchase is uncertain or far away, it helps to compare the FHSA against TFSA and RRSP scenarios before committing the next dollar.",
+    q: 'What happens if I never buy a home?',
+    a: 'If you do not make a qualifying home purchase, FHSA assets can usually be transferred to an RRSP or RRIF on a tax-deferred basis if the applicable rules are met. Withdrawing the money directly would generally make it taxable.',
   },
   {
-    q: "Can both spouses or partners use an FHSA?",
-    a: "Yes, if both people qualify individually. In many cases, each eligible partner can open and contribute to their own FHSA, which can materially increase the combined amount available for a future down payment.",
+    q: 'Can both spouses or partners use an FHSA?',
+    a: 'Yes, if both people qualify individually. Many couples plan with two FHSAs, then compare the combined tax deduction and the combined down-payment pool against their purchase timeline.',
   },
 ];
 
-const PROVINCE_OPTIONS = [
-  ["AB", "Alberta"],
-  ["BC", "British Columbia"],
-  ["MB", "Manitoba"],
-  ["NB", "New Brunswick"],
-  ["NL", "Newfoundland and Labrador"],
-  ["NS", "Nova Scotia"],
-  ["NT", "Northwest Territories"],
-  ["NU", "Nunavut"],
-  ["ON", "Ontario"],
-  ["PE", "Prince Edward Island"],
-  ["QC", "Quebec"],
-  ["SK", "Saskatchewan"],
-  ["YT", "Yukon"],
-];
-
-const TAX_RATES = {
-  AB: [[0, 57375, 25], [57375, 114750, 30.5], [114750, 177922, 36], [177922, 253414, 44], [253414, Infinity, 48]],
-  BC: [[0, 45654, 20.06], [45654, 91310, 28.7], [91310, 104835, 31], [104835, 127299, 38.7], [127299, 172602, 43.7], [172602, 240716, 46.2], [240716, Infinity, 53.5]],
-  ON: [[0, 51446, 20.05], [51446, 102894, 29.65], [102894, 150000, 33.89], [150000, 220000, 43.41], [220000, Infinity, 53.53]],
-  QC: [[0, 51780, 27.53], [51780, 103545, 37.12], [103545, 126000, 45.71], [126000, Infinity, 53.31]],
-  MB: [[0, 36842, 25.8], [36842, 79625, 37.9], [79625, Infinity, 50.4]],
-  SK: [[0, 49720, 25], [49720, 142058, 33], [142058, Infinity, 47]],
-  NS: [[0, 29590, 23.79], [29590, 59180, 37.17], [59180, 93000, 43.5], [93000, 150000, 50], [150000, Infinity, 54]],
-  NB: [[0, 47715, 27.16], [47715, 95431, 37.52], [95431, 176756, 46.84], [176756, Infinity, 53.3]],
-  NL: [[0, 43198, 23.7], [43198, 86395, 33.95], [86395, 154244, 44.5], [154244, Infinity, 51.3]],
-  PE: [[0, 32656, 24.8], [32656, 64313, 37.3], [64313, 105000, 42], [105000, Infinity, 47.37]],
-  NT: [[0, 50597, 20.9], [50597, 101198, 30.6], [101198, 164525, 39], [164525, Infinity, 47]],
-  NU: [[0, 53268, 19], [53268, 106537, 28], [106537, 173205, 35], [173205, Infinity, 45]],
-  YT: [[0, 55867, 21.4], [55867, 111733, 29.5], [111733, 154906, 36.9], [154906, 500000, 42], [500000, Infinity, 48]],
-};
-
-function getMarginalRate(province, income) {
-  const brackets = TAX_RATES[province] || TAX_RATES.ON;
-  for (const [low, high, rate] of brackets) {
-    if (income >= low && income < high) return rate / 100;
-  }
-  return 0.43;
+function formatCurrency(value, digits = 0) {
+  return Number(value || 0).toLocaleString('en-CA', {
+    style: 'currency',
+    currency: 'CAD',
+    maximumFractionDigits: digits,
+    minimumFractionDigits: digits,
+  });
 }
 
-function SliderInput({ label, value, min, max, step = 1, onChange, format }) {
-  const display = format ? format(value) : value;
+function ResultMetric({ label, value, hint, tone = 'default' }) {
+  const tones = {
+    default: 'bg-white text-primary dark:bg-gray-800 dark:text-accent',
+    success: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300',
+    warning: 'bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300',
+    primary: 'bg-gradient-to-br from-primary to-secondary text-white',
+  };
 
+  return (
+    <div className={`rounded-2xl border border-slate-200 p-5 dark:border-slate-700 ${tones[tone] || tones.default}`}>
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] opacity-80">{label}</p>
+      <p className="mt-3 text-3xl font-bold">{value}</p>
+      {hint ? <p className="mt-2 text-sm opacity-80">{hint}</p> : null}
+    </div>
+  );
+}
+
+function ScenarioInput({ label, value, onChange, type = 'number', step, min, max, suffix, helpText }) {
   return (
     <div>
-      <div className="mb-1 flex items-center justify-between">
-        <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">{label}</label>
-        <span className="text-sm font-bold text-secondary">{display}</span>
+      <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+      <div className="relative">
+        <input
+          type={type}
+          value={value}
+          onChange={onChange}
+          step={step}
+          min={min}
+          max={max}
+          className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 pr-14 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+        />
+        {suffix ? (
+          <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-slate-500 dark:text-slate-400">
+            {suffix}
+          </span>
+        ) : null}
       </div>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(event) => onChange(step < 1 ? parseFloat(event.target.value) : parseInt(event.target.value, 10))}
-        className="w-full accent-secondary"
-      />
-      <div className="mt-1 flex justify-between text-xs text-gray-400">
-        <span>{format ? format(min) : min}</span>
-        <span>{format ? format(max) : max}</span>
-      </div>
+      {helpText ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
     </div>
   );
 }
-
-function MetricCard({ label, value, colorClass = "text-primary dark:text-accent" }) {
-  return (
-    <div className="rounded-xl border border-gray-100 bg-white p-4 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
-      <p className="mb-1 text-xs uppercase tracking-[0.14em] text-gray-500">{label}</p>
-      <p className={`text-xl font-bold ${colorClass}`}>{value}</p>
-    </div>
-  );
-}
-
-const fmt = (value) => `$${Math.round(value).toLocaleString()}`;
 
 export default function FHSACalculator() {
-  const [birthYear, setBirthYear] = useState(1995);
-  const [province, setProvince] = useState("ON");
-  const [income, setIncome] = useState(85000);
-  const [yearOpened, setYearOpened] = useState(2024);
-  const [contributedToDate, setContributedToDate] = useState(8000);
-  const [availableRoomNow, setAvailableRoomNow] = useState(8000);
-  const [currentBalance, setCurrentBalance] = useState(8300);
-  const [monthlyContrib, setMonthlyContrib] = useState(500);
-  const [returnRate, setReturnRate] = useState(6);
-  const [buyInYears, setBuyInYears] = useState(5);
+  const [birthYear, setBirthYear] = useState(DEFAULT_ASSUMPTIONS.fhsa.birthYear);
+  const [province, setProvince] = useState(DEFAULT_ASSUMPTIONS.fhsa.province);
+  const [income, setIncome] = useState(DEFAULT_ASSUMPTIONS.fhsa.income);
+  const [availableRoomNow, setAvailableRoomNow] = useState(DEFAULT_ASSUMPTIONS.fhsa.availableRoomNow);
+  const [contributedToDate, setContributedToDate] = useState(DEFAULT_ASSUMPTIONS.fhsa.contributedToDate);
+  const [currentBalance, setCurrentBalance] = useState(DEFAULT_ASSUMPTIONS.fhsa.currentBalance);
+  const [annualContribution, setAnnualContribution] = useState(DEFAULT_ASSUMPTIONS.fhsa.annualContribution);
+  const [expectedReturn, setExpectedReturn] = useState(DEFAULT_ASSUMPTIONS.fhsa.expectedReturn);
+  const [yearsToPurchase, setYearsToPurchase] = useState(DEFAULT_ASSUMPTIONS.fhsa.yearsToPurchase);
 
   const result = useMemo(() => {
-    const age = CURRENT_YEAR - birthYear;
-    const marginalRate = getMarginalRate(province, income);
-    const annualTargetContribution = monthlyContrib * 12;
-    const monthlyRate = returnRate / 100 / 12;
-    const lifetimeRoomRemainingStart = Math.max(0, LIFETIME_LIMIT - contributedToDate);
-    const currentYearRoom = Math.max(
+    const age = FINANCIAL_YEAR - Number(birthYear || 0);
+    const marginalRate = getEstimatedMarginalTaxRate(province, Number(income || 0));
+    const lifetimeRemainingAtStart = Math.max(
       0,
-      Math.min(availableRoomNow, ANNUAL_LIMIT + MAX_CARRYFORWARD, lifetimeRoomRemainingStart)
+      REGISTERED_ACCOUNT_LIMITS.fhsaLifetimeLimit - Number(contributedToDate || 0)
     );
+    const yearOneRoom = Math.max(
+      0,
+      Math.min(
+        Number(availableRoomNow || 0),
+        REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit + REGISTERED_ACCOUNT_LIMITS.fhsaMaxCarryforward,
+        lifetimeRemainingAtStart
+      )
+    );
+    const yearlyContributionTarget = Math.max(0, Number(annualContribution || 0));
+    const yearlyRate = Number(expectedReturn || 0) / 100;
 
-    let balance = currentBalance;
-    let totalFutureContributed = 0;
-    let totalTaxSaved = 0;
-    let carryforward = 0;
-    let lifetimeRoomRemaining = lifetimeRoomRemainingStart;
+    let balance = Math.max(0, Number(currentBalance || 0));
+    let totalFutureContributions = 0;
+    let totalTaxSavings = 0;
+    let carryforward = Math.max(0, yearOneRoom - Math.min(yearlyContributionTarget, yearOneRoom));
+    let lifetimeRemaining = lifetimeRemainingAtStart;
 
-    const projections = [];
+    const chartLabels = [];
+    const chartValues = [];
     const yearlyBreakdown = [];
 
-    for (let year = 1; year <= buyInYears; year += 1) {
-      const roomThisYear =
-        year === 1
-          ? Math.min(currentYearRoom, lifetimeRoomRemaining)
-          : Math.min(ANNUAL_LIMIT + carryforward, lifetimeRoomRemaining);
+    for (let year = 1; year <= Math.max(1, Number(yearsToPurchase || 1)); year += 1) {
+      const roomThisYear = year === 1
+        ? yearOneRoom
+        : Math.min(
+            REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit + Math.min(carryforward, REGISTERED_ACCOUNT_LIMITS.fhsaMaxCarryforward),
+            lifetimeRemaining
+          );
 
-      const annualContribution = Math.min(annualTargetContribution, roomThisYear, lifetimeRoomRemaining);
-      const monthlyContributionThisYear = annualContribution / 12;
+      const contributionUsed = Math.min(yearlyContributionTarget, roomThisYear, lifetimeRemaining);
+      const contributionPerMonth = contributionUsed / 12;
 
       for (let month = 0; month < 12; month += 1) {
-        balance = balance * (1 + monthlyRate) + monthlyContributionThisYear;
+        balance = balance * (1 + yearlyRate / 12) + contributionPerMonth;
       }
 
-      totalFutureContributed += annualContribution;
-      totalTaxSaved += annualContribution * marginalRate;
-      lifetimeRoomRemaining -= annualContribution;
+      totalFutureContributions += contributionUsed;
+      totalTaxSavings += contributionUsed * marginalRate;
+      lifetimeRemaining = Math.max(0, lifetimeRemaining - contributionUsed);
+      carryforward = Math.min(REGISTERED_ACCOUNT_LIMITS.fhsaMaxCarryforward, Math.max(0, roomThisYear - contributionUsed));
 
-      const unusedRoom = Math.max(0, roomThisYear - annualContribution);
-      carryforward = Math.min(MAX_CARRYFORWARD, unusedRoom);
-
-      projections.push({ year, value: Math.round(balance) });
       yearlyBreakdown.push({
         year,
-        roomThisYear: Math.round(roomThisYear),
-        annualContribution: Math.round(annualContribution),
-        carryforwardNextYear: Math.round(carryforward),
-        lifetimeRoomRemaining: Math.round(lifetimeRoomRemaining),
+        roomThisYear,
+        contributionUsed,
+        carryforwardNextYear: carryforward,
+        balance,
+        lifetimeRemaining,
       });
+      chartLabels.push(`Year ${year}`);
+      chartValues.push(Math.round(balance));
     }
 
-    const currentYearDeductionValue = yearlyBreakdown[0]?.annualContribution
-      ? Math.round(yearlyBreakdown[0].annualContribution * marginalRate)
-      : 0;
+    const contributionUsedYearOne = yearlyBreakdown[0]?.contributionUsed || 0;
+    const projectedGrowth = Math.max(0, balance - Number(currentBalance || 0) - totalFutureContributions);
+    const effectiveContributionCost = totalFutureContributions - totalTaxSavings;
+    const annualLimitUsage = contributionUsedYearOne / REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit;
+    const roomUsage = contributionUsedYearOne / Math.max(yearOneRoom, 1);
+
+    let interpretation = 'The FHSA looks directionally useful, but compare it against TFSA and RRSP options before acting.';
+    if (age < 18 || age > 71) {
+      interpretation = 'This scenario may fall outside the usual FHSA age rules, so confirm eligibility before relying on the tax savings or down-payment plan.';
+    } else if (yearOneRoom === 0) {
+      interpretation = 'This plan is room-constrained right now. Confirm your FHSA room with CRA before making the next contribution decision.';
+    } else if (marginalRate >= 0.3 && Number(yearsToPurchase || 0) <= 7) {
+      interpretation = 'This is the classic strong FHSA setup: the deduction is meaningful today and the home-purchase window is still close enough for the tax-free withdrawal to matter.';
+    } else if (Number(yearsToPurchase || 0) >= 10) {
+      interpretation = 'The FHSA can still help, but a long timeline increases the importance of comparing it against TFSA flexibility and your broader investing plan.';
+    } else if (annualLimitUsage < 0.5) {
+      interpretation = 'Your planned yearly contribution is modest relative to the annual limit. The account still helps, but the tax deduction may grow only gradually unless contributions increase.';
+    }
 
     return {
       age,
-      marginalRatePercent: Math.round(marginalRate * 1000) / 10,
-      currentYearRoom,
-      currentYearDeductionValue,
-      annualTargetContribution: Math.round(annualTargetContribution),
-      totalContributedAllTime: Math.round(contributedToDate + totalFutureContributed),
-      totalFutureContributed: Math.round(totalFutureContributed),
-      totalGrowth: Math.round(balance - currentBalance - totalFutureContributed),
-      totalTaxSaved: Math.round(totalTaxSaved),
-      effectiveFutureCost: Math.round(totalFutureContributed - totalTaxSaved),
-      finalBalance: Math.round(balance),
-      lifetimeRoomRemainingStart: Math.round(lifetimeRoomRemainingStart),
-      lifetimeRoomRemainingEnd: Math.round(lifetimeRoomRemaining),
-      projections,
+      marginalRate,
+      contributionUsedYearOne,
+      annualLimitUsage,
+      roomUsage,
+      yearOneRoom,
+      projectedBalance: Math.round(balance),
+      projectedGrowth: Math.round(projectedGrowth),
+      totalFutureContributions: Math.round(totalFutureContributions),
+      totalTaxSavings: Math.round(totalTaxSavings),
+      effectiveContributionCost: Math.round(effectiveContributionCost),
+      lifetimeRemainingAtStart: Math.round(lifetimeRemainingAtStart),
+      lifetimeRemainingAtEnd: Math.round(lifetimeRemaining),
+      monthlyEquivalent: Math.round(yearlyContributionTarget / 12),
+      interpretation,
+      chartLabels,
+      chartValues,
       yearlyBreakdown,
       likelyAgeEligible: age >= 18 && age <= 71,
-      contributionCapReached: lifetimeRoomRemaining === 0,
     };
-  }, [
-    availableRoomNow,
-    birthYear,
-    buyInYears,
-    contributedToDate,
-    currentBalance,
-    income,
-    monthlyContrib,
-    province,
-    returnRate,
-  ]);
+  }, [annualContribution, availableRoomNow, birthYear, contributedToDate, currentBalance, expectedReturn, income, province, yearsToPurchase]);
 
   const chartData = {
-    labels: result.projections.map((point) => `Year ${point.year}`),
+    labels: result.chartLabels,
     datasets: [
       {
-        label: "Projected FHSA balance",
-        data: result.projections.map((point) => point.value),
+        label: 'Projected FHSA balance',
+        data: result.chartValues,
         fill: true,
-        backgroundColor: "rgba(34,197,94,0.12)",
-        borderColor: "#22c55e",
-        tension: 0.35,
+        backgroundColor: 'rgba(34, 197, 94, 0.12)',
+        borderColor: '#22c55e',
+        tension: 0.3,
         pointRadius: 3,
       },
     ],
   };
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12">
+    <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="FHSA Calculator 2026 - First Home Savings Account Canada"
-        description="Estimate FHSA contribution room, tax savings, and projected home-buying funds for 2026. Free Canadian FHSA calculator with carryforward, lifetime-limit, and home-purchase planning guidance."
+        title="FHSA Decision Tool 2026"
+        description="Estimate FHSA tax savings, contribution capacity, and projected down-payment growth for 2026. Built for Canadian first-home planning with assumptions, next steps, and related links."
         canonical="https://easyfinancetools.com/tools/fhsa-calculator"
       />
       <ToolPageSchema
-        name="FHSA Calculator 2026"
-        description="Canadian FHSA calculator for contribution planning, tax savings, carryforward room, and projected growth toward a first home purchase."
+        name="FHSA Decision Tool 2026"
+        description="Canadian FHSA planning tool for tax savings, contribution room, projected growth, and down-payment decisions."
         canonical="https://easyfinancetools.com/tools/fhsa-calculator"
         category="FinanceApplication"
       />
@@ -254,455 +248,393 @@ export default function FHSACalculator() {
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
         <div>
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
-            Home buying and registered accounts
+            FHSA planning for Canadian investors
           </div>
-          <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">
-            FHSA Calculator Canada 2026
-          </h1>
-          <ToolByline lastUpdated="April 2026" />
+          <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">FHSA tax savings and down-payment planner</h1>
+          <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against CRA account rules" />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
-            Estimate contribution room, tax deductions, and projected home-buying funds inside the First Home Savings Account. Use it to decide whether the FHSA should get the next dollar before you compare brokers or provider offers.
+            Use this page to decide how much of your next contribution should go to an FHSA, what the deduction may be worth, and whether the account still makes sense compared with your TFSA or RRSP path.
           </p>
 
           <div className="mt-6">
             <EducationalDisclaimer />
           </div>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            <div className="surface-card p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Projected balance at purchase</p>
-              <p className="mt-2 text-3xl font-bold text-primary dark:text-accent">{fmt(result.finalBalance)}</p>
-            </div>
-            <div className="surface-card p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Estimated tax savings</p>
-              <p className="mt-2 text-3xl font-bold text-emerald-600">{fmt(result.totalTaxSaved)}</p>
-            </div>
-            <div className="surface-card p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Lifetime room left after plan</p>
-              <p className="mt-2 text-3xl font-bold text-amber-600">{fmt(result.lifetimeRoomRemainingEnd)}</p>
-            </div>
-          </div>
-
           <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {[
-              {
-                title: "Strong fit if...",
-                body: "you expect to buy a qualifying first home and the deduction is meaningful at your current tax bracket.",
-              },
-              {
-                title: "Compare with RRSP too if...",
-                body: "you already have RRSP assets or the Home Buyers' Plan may be part of the down-payment strategy.",
-              },
-              {
-                title: "Pause and double-check if...",
-                body: "your first-time home buyer status, age eligibility, or purchase timeline is still uncertain.",
-              },
-            ].map((item) => (
-              <div key={item.title} className="surface-card p-5">
-                <p className="text-sm font-semibold text-primary dark:text-accent">{item.title}</p>
-                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
-              </div>
-            ))}
+            <ResultMetric
+              label="Estimated tax savings"
+              value={formatCurrency(result.totalTaxSavings)}
+              hint={`Approximate tax deduction value at a ${Math.round(result.marginalRate * 1000) / 10}% marginal rate.`}
+              tone="success"
+            />
+            <ResultMetric
+              label="Contribution used in year one"
+              value={formatCurrency(result.contributionUsedYearOne)}
+              hint={`Uses ${Math.round(result.annualLimitUsage * 100)}% of the ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)} annual limit.`}
+              tone="primary"
+            />
+            <ResultMetric
+              label="Projected balance at purchase"
+              value={formatCurrency(result.projectedBalance)}
+              hint={`Includes ${formatCurrency(result.projectedGrowth)} of projected growth over ${yearsToPurchase} years.`}
+              tone="warning"
+            />
           </div>
 
-          <div className="surface-card mt-8 p-5">
+          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Interpretation</p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What this scenario means in plain English</h2>
+            <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">{result.interpretation}</p>
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Contribution pace</p>
+                <p className="mt-2 text-lg font-bold text-primary dark:text-accent">{formatCurrency(annualContribution)} per year</p>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">About {formatCurrency(result.monthlyEquivalent)} per month if you spread it evenly.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Room used now</p>
+                <p className="mt-2 text-lg font-bold text-primary dark:text-accent">{Math.round(result.roomUsage * 100)}%</p>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Based on the room estimate you entered for this year.</p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Effective cost after tax savings</p>
+                <p className="mt-2 text-lg font-bold text-primary dark:text-accent">{formatCurrency(result.effectiveContributionCost)}</p>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">A planning view of what the contribution path may feel like after deduction value.</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <h2 className="text-xl font-bold text-primary dark:text-accent">FHSA balance over time</h2>
-                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                  This chart shows the account value if you keep contributing until the planned purchase date.
-                </p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Output</p>
+                <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Projected FHSA balance over time</h2>
               </div>
-              <div className="rounded-full bg-slate-100 px-4 py-1.5 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-                Estimated marginal tax rate: {result.marginalRatePercent.toFixed(1)}%
+              <div className="rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-600 dark:bg-slate-900 dark:text-slate-300">
+                Province: {CANADIAN_PROVINCES.find((item) => item.value === province)?.label || province}
               </div>
             </div>
 
-            <div className="mt-6">
+            <div className="mt-6 h-[320px]">
               <Line
                 data={chartData}
                 options={{
-                  responsive: true,
                   maintainAspectRatio: false,
                   plugins: {
                     legend: { display: false },
                     tooltip: {
                       callbacks: {
-                        label: (context) => `Balance: ${fmt(Number(context.raw))}`,
+                        label: (context) => `Balance: ${formatCurrency(Number(context.raw))}`,
                       },
                     },
                   },
                   scales: {
                     y: {
                       ticks: {
-                        callback: (value) => fmt(Number(value)),
+                        callback: (value) => formatCurrency(Number(value)),
                       },
                     },
                   },
                 }}
-                height={320}
               />
-            </div>
-          </div>
-
-          <section className="mt-10 grid gap-4 lg:grid-cols-2">
-            <div className="surface-card p-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">How FHSA room works</p>
-              <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">Use the current room estimate, not just the opening year</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                This calculator separates your current FHSA balance from two planning inputs that matter more for future contributions: how much you have already contributed and how much contribution room you believe is available right now. That makes the projection more useful than simply assuming the opening year tells the whole story.
-              </p>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                In practice, the best source for contribution room is your CRA record. Use this tool to plan scenarios once you have a reasonable room estimate, then confirm the actual amount before funding the account.
-              </p>
-            </div>
-
-            <div className="surface-card p-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">When the FHSA is strongest</p>
-              <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">The deduction and the withdrawal both need to matter</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                The FHSA is most compelling when two things are true at the same time: you can use the deduction at a meaningful tax rate today, and there is a realistic path to making a qualifying first-home withdrawal later. If one side of that equation is weak, the TFSA or RRSP can become the cleaner next account.
-              </p>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                That is why the best next comparison is usually not another FHSA article. It is a direct comparison against the RRSP deduction, the TFSA's flexibility, or the down-payment timeline itself.
-              </p>
             </div>
           </section>
 
-          <section className="mt-10 grid gap-4 md:grid-cols-3">
+          <section className="mt-8 grid gap-4 md:grid-cols-3">
             {[
               {
-                question: "Annual limit",
-                answer: "The FHSA annual contribution limit is $8,000. This tool lets you compare your desired monthly contribution against that ceiling.",
+                title: '2026 FHSA checklist',
+                items: [
+                  'Confirm first-time home buyer status before relying on the deduction.',
+                  'Check current FHSA room with CRA before making a real contribution.',
+                  'Decide whether the FHSA is beating your TFSA or RRSP for the next dollar.',
+                  'Match the investment mix to your home-buying timeline, not just the tax refund.',
+                ],
               },
               {
-                question: "Carryforward",
-                answer: "Up to $8,000 of unused participation room can generally carry into the next year, which is why a current-year room estimate can be as high as $16,000.",
+                title: 'How the FHSA works',
+                items: [
+                  `Annual contribution limit: ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)}.`,
+                  `Lifetime contribution cap: ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaLifetimeLimit)}.`,
+                  'Qualifying withdrawals are tax-free if you use the account for an eligible first-home purchase.',
+                  'Unused money can generally move to an RRSP or RRIF if no home purchase happens.',
+                ],
               },
               {
-                question: "Lifetime cap",
-                answer: "The lifetime contribution limit is $40,000. Once you approach that cap, future yearly contribution capacity becomes the real constraint to watch.",
+                title: 'When the FHSA is most useful',
+                items: [
+                  'You expect to buy a qualifying home within the next several years.',
+                  'Your current tax bracket makes the deduction meaningful now.',
+                  'You want a dedicated down-payment account instead of a flexible catch-all bucket.',
+                  'You are ready to compare the FHSA against RRSP Home Buyers Plan and TFSA options.',
+                ],
               },
-            ].map((item) => (
-              <div key={item.question} className="surface-card p-5">
-                <h2 className="text-lg font-bold text-primary dark:text-accent">{item.question}</h2>
-                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.answer}</p>
+            ].map((section) => (
+              <div key={section.title} className="surface-card p-5">
+                <h2 className="text-xl font-bold text-primary dark:text-accent">{section.title}</h2>
+                <ul className="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-300">
+                  {section.items.map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <span className="mt-0.5 text-secondary">-</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
+          </section>
+
+          <section className="mt-8 grid gap-4 lg:grid-cols-2">
+            <div className="surface-card p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Common mistakes</p>
+              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Where FHSA planning usually breaks down</h2>
+              <div className="mt-4 space-y-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                <p><strong>Opening the provider before the plan exists:</strong> the account wrapper matters less than whether the FHSA should win the next contribution at all.</p>
+                <p><strong>Chasing only the tax deduction:</strong> if the home purchase is uncertain or very far away, the TFSA may still be the cleaner account.</p>
+                <p><strong>Ignoring the investment mix:</strong> an FHSA for a two-year timeline should not be invested the same way as one for a seven-year timeline.</p>
+                <p><strong>Skipping the room check:</strong> the biggest preventable mistake is contributing before confirming current FHSA room with CRA.</p>
+              </div>
+            </div>
+
+            <div className="surface-card p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Year-by-year usage</p>
+              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Contribution and room breakdown</h2>
+              <div className="mt-4 overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-200 text-left dark:border-slate-700">
+                      <th className="py-2 pr-4 font-semibold">Year</th>
+                      <th className="py-2 pr-4 font-semibold">Room</th>
+                      <th className="py-2 pr-4 font-semibold">Used</th>
+                      <th className="py-2 pr-4 font-semibold">Carryforward</th>
+                      <th className="py-2 font-semibold">Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-slate-600 dark:text-slate-300">
+                    {result.yearlyBreakdown.map((row) => (
+                      <tr key={row.year} className="border-b border-slate-100 dark:border-slate-800">
+                        <td className="py-2 pr-4 font-medium">Year {row.year}</td>
+                        <td className="py-2 pr-4">{formatCurrency(row.roomThisYear)}</td>
+                        <td className="py-2 pr-4">{formatCurrency(row.contributionUsed)}</td>
+                        <td className="py-2 pr-4">{formatCurrency(row.carryforwardNextYear)}</td>
+                        <td className="py-2">{formatCurrency(row.balance)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </section>
         </div>
 
         <aside className="surface-card h-fit p-6">
-          <h2 className="text-2xl font-bold text-primary dark:text-accent">Adjust your FHSA scenario</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Input</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Build your FHSA scenario</h2>
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            Educational estimate only. CRA records, eligibility rules, and actual provider account details should always win over a planning model.
+            Enter the planning assumptions you know today. This tool is strongest when you treat it as a decision aid, not a final CRA record.
           </p>
 
           <div className="mt-6 space-y-5">
             <div>
-              <label className="mb-1 block text-sm font-semibold text-gray-700 dark:text-gray-300">Province</label>
+              <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Province</label>
               <select
                 value={province}
                 onChange={(event) => setProvince(event.target.value)}
-                className="w-full rounded-lg border-2 border-gray-200 p-3 text-sm outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
+                className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
               >
-                {PROVINCE_OPTIONS.map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
+                {CANADIAN_PROVINCES.map((item) => (
+                  <option key={item.value} value={item.value}>{item.label}</option>
                 ))}
               </select>
             </div>
 
-            <div>
-              <label className="mb-1 block text-sm font-semibold text-gray-700 dark:text-gray-300">Year FHSA opened</label>
-              <select
-                value={yearOpened}
-                onChange={(event) => setYearOpened(parseInt(event.target.value, 10))}
-                className="w-full rounded-lg border-2 border-gray-200 p-3 text-sm outline-none focus:border-secondary dark:border-gray-600 dark:bg-gray-800"
-              >
-                {[2023, 2024, 2025, 2026].map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <SliderInput
-              label="Birth year"
-              value={birthYear}
-              min={1960}
-              max={2008}
-              step={1}
-              onChange={setBirthYear}
-            />
-            <SliderInput
+            <ScenarioInput
               label="Annual income"
               value={income}
-              min={30000}
-              max={300000}
-              step={5000}
-              onChange={setIncome}
-              format={(value) => `$${(value / 1000).toFixed(0)}k`}
-            />
-            <SliderInput
-              label="Contributions already made"
-              value={contributedToDate}
+              onChange={(event) => setIncome(Number(event.target.value || 0))}
               min={0}
-              max={40000}
-              step={500}
-              onChange={setContributedToDate}
-              format={fmt}
+              step={1000}
+              suffix="CAD"
             />
-            <SliderInput
-              label="Estimated room available now"
+            <ScenarioInput
+              label="Birth year"
+              value={birthYear}
+              onChange={(event) => setBirthYear(Number(event.target.value || 0))}
+              min={1950}
+              max={2008}
+              step={1}
+            />
+            <ScenarioInput
+              label="Estimated FHSA room available now"
               value={availableRoomNow}
+              onChange={(event) => setAvailableRoomNow(Number(event.target.value || 0))}
               min={0}
               max={16000}
               step={500}
-              onChange={setAvailableRoomNow}
-              format={fmt}
+              suffix="CAD"
+              helpText="Check CRA before making a real contribution."
             />
-            <SliderInput
+            <ScenarioInput
+              label="Contributions already made"
+              value={contributedToDate}
+              onChange={(event) => setContributedToDate(Number(event.target.value || 0))}
+              min={0}
+              max={REGISTERED_ACCOUNT_LIMITS.fhsaLifetimeLimit}
+              step={500}
+              suffix="CAD"
+            />
+            <ScenarioInput
               label="Current FHSA balance"
               value={currentBalance}
+              onChange={(event) => setCurrentBalance(Number(event.target.value || 0))}
               min={0}
-              max={50000}
               step={500}
-              onChange={setCurrentBalance}
-              format={fmt}
+              suffix="CAD"
             />
-            <SliderInput
-              label="Monthly contribution"
-              value={monthlyContrib}
+            <ScenarioInput
+              label="Planned annual contribution"
+              value={annualContribution}
+              onChange={(event) => setAnnualContribution(Number(event.target.value || 0))}
               min={0}
-              max={667}
-              step={25}
-              onChange={setMonthlyContrib}
-              format={(value) => `$${value}/mo`}
+              max={16000}
+              step={500}
+              suffix="CAD"
+              helpText={`The 2026 annual limit is ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)} before carryforward.`}
             />
-            <SliderInput
-              label="Expected annual return"
-              value={returnRate}
-              min={1}
-              max={10}
+            <ScenarioInput
+              label="Expected annual growth"
+              value={expectedReturn}
+              onChange={(event) => setExpectedReturn(Number(event.target.value || 0))}
+              min={0}
+              max={12}
               step={0.5}
-              onChange={setReturnRate}
-              format={(value) => `${value}%`}
+              suffix="%"
+              helpText="Use a lower number to stress-test a short home-buying timeline."
             />
-            <SliderInput
-              label="Years until home purchase"
-              value={buyInYears}
+            <ScenarioInput
+              label="Years until purchase"
+              value={yearsToPurchase}
+              onChange={(event) => setYearsToPurchase(Number(event.target.value || 0))}
               min={1}
               max={15}
               step={1}
-              onChange={setBuyInYears}
-              format={(value) => `${value} year${value === 1 ? "" : "s"}`}
+              suffix="yrs"
             />
           </div>
 
-          <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm dark:border-amber-800 dark:bg-amber-900/20">
-            <p className="font-semibold text-amber-800 dark:text-amber-200">
-              First-year deduction estimate: {fmt(result.currentYearDeductionValue)}
-            </p>
-            <p className="mt-2 text-amber-700 dark:text-amber-300">
-              At a modeled marginal tax rate of {result.marginalRatePercent.toFixed(1)}%, this is the approximate value of the first year's FHSA deduction if you contribute what the room allows.
-            </p>
-          </div>
-
-          <div className="mt-6 grid grid-cols-2 gap-3">
-            <MetricCard label="Room available now" value={fmt(result.currentYearRoom)} colorClass="text-blue-600 dark:text-blue-400" />
-            <MetricCard label="Lifetime room left now" value={fmt(result.lifetimeRoomRemainingStart)} colorClass="text-slate-700 dark:text-slate-200" />
-            <MetricCard label="Future contributions in plan" value={fmt(result.totalFutureContributed)} colorClass="text-purple-600 dark:text-purple-400" />
-            <MetricCard label="Tax-free growth" value={fmt(result.totalGrowth)} colorClass="text-emerald-600 dark:text-emerald-400" />
-          </div>
-
-          <div className="mt-6 rounded-2xl bg-slate-50 p-4 dark:bg-slate-900">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Scenario summary</p>
-            <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-              <li>Age in {CURRENT_YEAR}: {result.age}</li>
-              <li>Target yearly contribution: {fmt(result.annualTargetContribution)}</li>
-              <li>Total FHSA contributions after this plan: {fmt(result.totalContributedAllTime)}</li>
-              <li>Effective future cost after tax savings: {fmt(result.effectiveFutureCost)}</li>
+          <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-800 dark:bg-blue-900/20">
+            <p className="font-semibold text-blue-800 dark:text-blue-200">Current planning view</p>
+            <ul className="mt-2 space-y-2 text-blue-700 dark:text-blue-300">
+              <li>Estimated current room: {formatCurrency(result.yearOneRoom)}</li>
+              <li>Lifetime room left today: {formatCurrency(result.lifetimeRemainingAtStart)}</li>
+              <li>Lifetime room left after this plan: {formatCurrency(result.lifetimeRemainingAtEnd)}</li>
             </ul>
           </div>
 
-          <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900 dark:border-blue-900/60 dark:bg-blue-950/30 dark:text-blue-100">
-            Use CRA records for room confirmation. This model is strongest when you already know your approximate available room and want to compare contribution pace, tax savings, and purchase timeline.
-          </div>
-
           {!result.likelyAgeEligible ? (
-            <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900 dark:border-rose-900/60 dark:bg-rose-950/30 dark:text-rose-100">
-              Age check warning: based on the birth year entered, this scenario may fall outside the usual FHSA age rules. Confirm eligibility directly before acting.
+            <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-200">
+              Based on the birth year entered, this scenario may fall outside the usual FHSA age rules. Treat the output as exploratory until eligibility is confirmed.
             </div>
           ) : null}
         </aside>
       </div>
 
-      <section className="mt-10 rounded-3xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-          <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Year-by-year plan</p>
-            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">How the contribution room gets used</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-              This breakdown helps you see whether the current room estimate is being used quickly, whether any carryforward survives into next year, and how much of the lifetime contribution cap remains after the plan.
-            </p>
-          </div>
-          {result.contributionCapReached ? (
-            <span className="rounded-full bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
-              Lifetime contribution cap reached in projection
-            </span>
-          ) : null}
-        </div>
-
-        <div className="mt-6 overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b dark:border-gray-600">
-                <th className="py-2 pr-4 text-left font-semibold">Year</th>
-                <th className="py-2 pr-4 text-left font-semibold">Room available</th>
-                <th className="py-2 pr-4 text-left font-semibold">Contribution used</th>
-                <th className="py-2 pr-4 text-left font-semibold">Carryforward to next year</th>
-                <th className="py-2 text-left font-semibold">Lifetime room left</th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-700 dark:text-gray-300">
-              {result.yearlyBreakdown.map((row) => (
-                <tr key={row.year} className="border-b dark:border-gray-700">
-                  <td className="py-2 pr-4 font-medium">Year {row.year}</td>
-                  <td className="py-2 pr-4">{fmt(row.roomThisYear)}</td>
-                  <td className="py-2 pr-4">{fmt(row.annualContribution)}</td>
-                  <td className="py-2 pr-4">{fmt(row.carryforwardNextYear)}</td>
-                  <td className="py-2">{fmt(row.lifetimeRoomRemaining)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section className="mt-10 rounded-3xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Compare account paths</p>
-        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">FHSA vs RRSP Home Buyers' Plan vs TFSA</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-          The FHSA is not automatically the only answer. Many Canadians still need to compare it against RRSP deduction value, Home Buyers' Plan repayment rules, and the TFSA's flexibility before deciding which account deserves the next contribution.
-        </p>
-
-        <div className="mt-6 overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b dark:border-gray-600">
-                <th className="py-2 pr-4 text-left font-semibold">Feature</th>
-                <th className="py-2 pr-4 text-left font-semibold text-blue-600">FHSA</th>
-                <th className="py-2 pr-4 text-left font-semibold text-gray-500">RRSP HBP</th>
-                <th className="py-2 text-left font-semibold text-emerald-600">TFSA</th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-700 dark:text-gray-300">
-              {[
-                ["Primary strength", "Deduction now and tax-free qualifying withdrawal later", "Deduction now plus temporary home-buyer access to RRSP funds", "Flexible tax-free growth and withdrawals"],
-                ["Repayment required", "No repayment on a qualifying FHSA withdrawal", "Yes, under the Home Buyers' Plan rules", "No repayment"],
-                ["Annual contribution cap", "$8,000 with limited carryforward", "No separate HBP annual cap", "TFSA room rules apply instead"],
-                ["Lifetime contribution cap", "$40,000", "RRSP rules apply instead", "TFSA room rules apply instead"],
-                ["Best fit", "Planned first-home purchase plus meaningful tax deduction", "Home purchase plus existing RRSP strategy", "Flexible savings when purchase timeline or eligibility is less certain"],
-              ].map(([feature, fhsa, rrsp, tfsa]) => (
-                <tr key={feature} className="border-b dark:border-gray-700">
-                  <td className="py-2 pr-4 font-medium">{feature}</td>
-                  <td className="py-2 pr-4">{fhsa}</td>
-                  <td className="py-2 pr-4">{rrsp}</td>
-                  <td className="py-2">{tfsa}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="mt-4 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-800 dark:bg-blue-900/20">
-          <strong className="text-blue-800 dark:text-blue-200">Planning note:</strong>
-          <span className="text-blue-700 dark:text-blue-300">
-            {" "}
-            many first-time buyers evaluate the FHSA together with the RRSP Home Buyers' Plan and TFSA flexibility. The best mix depends on your tax bracket, existing account balances, and purchase timeline.
-          </span>
-        </div>
-      </section>
-
       <MethodologyPanel
-        title="How this FHSA calculator works"
-        summary="This calculator estimates FHSA growth by combining your current balance, estimated available room now, projected contributions, a fixed annual return assumption, and a simplified provincial marginal tax rate estimate."
+        title="Assumptions behind this FHSA decision tool"
+        summary="This page estimates FHSA deduction value and balance growth using the room, income, contribution pace, and return assumptions you enter. It is designed to help with account-choice decisions, not to replace CRA records."
+        updated={CONTENT_LAST_REVIEWED}
+        reviewer="Gourav Kumar"
         assumptions={[
-          "Current FHSA room is entered as a planning estimate and should be checked against CRA records before acting.",
-          "Future yearly contributions are limited by the annual FHSA cap, simplified carryforward handling, and the $40,000 lifetime contribution limit.",
-          "Tax savings are estimated using a simplified marginal tax rate lookup by province and income.",
-          "Growth is modeled with a constant return assumption and does not reflect real market volatility or product-level fees.",
+          'Current FHSA room is entered as a planning estimate and should be verified with CRA before acting.',
+          `Future yearly contributions are limited by the ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)} annual FHSA cap, limited carryforward handling, and the ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaLifetimeLimit)} lifetime contribution limit.`,
+          'Tax savings are estimated using a simplified marginal-rate lookup by province and income.',
+          'Projected growth uses a fixed return assumption and does not model product fees, market volatility, or contribution timing differences.',
         ]}
         sources={[
-          { label: "CRA: First Home Savings Account", href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account.html" },
-          { label: "Government of Canada: FHSA overview", href: "https://www.canada.ca/en/department-finance/news/2022/08/design-of-the-tax-free-first-home-savings-account.html" },
-          { label: "Methodology and Sources", href: "https://easyfinancetools.com/methodology" },
+          { label: 'CRA: First Home Savings Account', href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account.html' },
+          { label: 'Department of Finance Canada: FHSA background', href: 'https://www.canada.ca/en/department-finance/news/2022/08/design-of-the-tax-free-first-home-savings-account.html' },
+          { label: 'EasyFinanceTools methodology', href: 'https://easyfinancetools.com/methodology' },
         ]}
-        updated="April 22, 2026"
-        reviewer="Reviewed for accuracy"
-        note="Educational estimate only. Verify FHSA eligibility, room, withdrawal rules, and provider details before acting."
+        note="Educational planning tool only. Verify eligibility, room, withdrawal rules, and investment suitability before making contributions or opening an account."
       />
 
-      <section className="mt-10 grid gap-4 lg:grid-cols-2">
-        <div className="surface-card p-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">How to use this FHSA calculator</p>
-          <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">Use it to pressure-test the plan, not just to chase the biggest refund</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            Start with the room you believe is actually available now, then set a monthly contribution that you could keep making without stretching the rest of your plan. If the result only works under a high return assumption or an unrealistically aggressive contribution amount, the FHSA strategy probably needs a slower, cleaner version.
-          </p>
-          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            This page is strongest when you use it before comparing providers. Once the contribution pace, tax savings, and home-purchase timeline make sense, then it is worth comparing broker workflows, fees, and account-opening friction.
-          </p>
-        </div>
-
-        <div className="surface-card p-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">What this page helps you decide</p>
-          <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">The account choice matters more than the provider brand</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            Many first-time buyers jump to broker comparisons too early. The bigger question is whether the FHSA should be the main down-payment account at all, how much room is actually available, and how the deduction compares with the RRSP and TFSA paths. This calculator makes those tradeoffs easier to inspect before marketing language starts shaping the decision.
-          </p>
-          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            If the deduction is weak, the timeline is uncertain, or the age and first-time buyer rules are still unclear, the cleaner next step may be to compare account wrappers rather than commit to an FHSA contribution immediately.
-          </p>
-        </div>
-      </section>
+      <ReferenceSection
+        eyebrow="Source shell"
+        title="Primary references to refresh when FHSA rules change"
+        intro="This section is meant to keep the page maintainable. When limits, age rules, or qualifying-withdrawal rules change, refresh the constants file and then re-check these sources."
+        references={[
+          {
+            label: 'CRA FHSA overview',
+            body: 'Primary source for contribution rules, eligibility, qualifying withdrawals, and transfers to RRSP or RRIF.',
+            href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account.html',
+          },
+          {
+            label: 'CRA guidance on first-time home buyer definition',
+            body: 'Use this to confirm whether the current scenario still qualifies under the CRA interpretation.',
+            href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account.html#toc3',
+          },
+          {
+            label: 'Department of Finance FHSA backgrounder',
+            body: 'Useful for policy context and when comparing the FHSA with the RRSP Home Buyers Plan.',
+            href: 'https://www.canada.ca/en/department-finance/news/2022/08/design-of-the-tax-free-first-home-savings-account.html',
+          },
+          {
+            label: 'Local config to update',
+            body: 'If annual limits or default assumptions change, update src/config/financial.js first so every dependent page stays aligned.',
+          },
+        ]}
+        note="Manual review needed each year: confirm annual FHSA limits, TFSA limits referenced in related links, and any updated CRA interpretation notes."
+      />
 
       <ActionableNextSteps
-        toolName="fhsa_calculator"
-        title="Turn the FHSA estimate into a real home-buying decision"
-        intro="The calculator result is most useful when it turns into an account decision, not just a projected balance. Use the FHSA estimate to compare where the next dollar should go and what account mix best supports the purchase plan."
-        meaning={`${fmt(result.finalBalance)} is the directional FHSA balance if your current room estimate, contribution pace, and purchase timeline hold up. The best next move is usually comparing that result against RRSP and TFSA alternatives before you choose a provider.`}
+        toolName="fhsa_decision_tool"
+        title="What to do next with the FHSA result"
+        intro="The best use of this result is to move from a tax estimate into an account decision. Confirm room, compare account paths, then choose a provider only after the strategy is clear."
+        meaning={`${formatCurrency(result.projectedBalance)} is the directional FHSA balance if your contribution pace, room estimate, and purchase timeline hold up. The stronger the deduction is at your tax rate, the more the FHSA deserves comparison against your TFSA and RRSP before you open anything.`}
         steps={[
-          "Confirm current FHSA room with CRA before making a real contribution.",
-          "Compare the same monthly amount against RRSP and TFSA scenarios, not just FHSA growth in isolation.",
-          "Only compare providers after the account strategy, tax benefit, and purchase timeline are clear.",
+          'Confirm your current FHSA room with CRA before making a real contribution.',
+          'Compare the same contribution amount against TFSA and RRSP scenarios, not only the FHSA result in isolation.',
+          'Choose a provider after the account strategy is clear and the timeline still supports a qualifying home withdrawal.',
         ]}
         actions={[
           {
-            title: "Read the FHSA guide",
-            body: "See how eligibility, room rules, and withdrawal planning fit together before you fund the account.",
-            href: "/blog/how-to-use-fhsa-canada",
-            ctaLabel: "open_how_to_use_fhsa_guide",
+            title: 'Read the FHSA guide',
+            body: 'Review FHSA eligibility, qualifying withdrawals, and how the account stacks with the RRSP Home Buyers Plan.',
+            href: '/blog/how-to-use-fhsa-canada',
+            ctaLabel: 'read_fhsa_guide',
           },
           {
-            title: "Open RRSP calculator",
-            body: "Compare the FHSA against the RRSP deduction and Home Buyers' Plan context.",
-            href: "/tools/rrsp-calculator",
-            ctaLabel: "open_rrsp_calculator",
+            title: 'Compare TFSA vs RRSP',
+            body: 'Pressure-test whether the next dollar belongs in the FHSA, TFSA, or RRSP based on flexibility and tax value.',
+            href: '/blog/tfsa-vs-rrsp-2026',
+            ctaLabel: 'compare_tfsa_vs_rrsp',
           },
           {
-            title: "Open mortgage affordability calculator",
-            body: "Translate the projected down-payment path into a housing budget check.",
-            href: "/tools/mortgage-affordability-calculator",
-            ctaLabel: "open_mortgage_affordability_calculator",
+            title: 'Open the mortgage affordability calculator',
+            body: 'Translate the projected FHSA down-payment path into a home-price and affordability check.',
+            href: '/tools/mortgage-affordability-calculator',
+            ctaLabel: 'open_mortgage_affordability',
           },
         ]}
+        referral={{
+          placement: 'fhsa_decision_page',
+          badge: 'Logical next step',
+          title: 'Open an FHSA and start investing with Wealthsimple',
+          highlight: 'FHSA',
+          description: 'If the FHSA still looks like the right account after you compare it with TFSA and RRSP scenarios, a simple investing workflow can be a reasonable next step.',
+          fitHeading: 'Why this placement makes sense here',
+          fitPoints: [
+            'You already know the FHSA should get the next contribution.',
+            'You want an easy path to hold cash, ETFs, or a simple investing mix inside the FHSA.',
+            'You have already checked room, timeline, and home-buyer eligibility before opening the account.',
+          ],
+          details: 'Use the referral code at signup | Keep comparing account features, fees, and product choices before deciding',
+          disclosure: 'Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change the FHSA assumptions, tax discussion, or account-comparison guidance on this page.',
+          buttonLabel: 'Open FHSA with Wealthsimple',
+        }}
       />
 
-      <FAQ items={FAQS} />
-    </section>
+      <FAQ items={FHSA_FAQS} />
+    </main>
   );
 }

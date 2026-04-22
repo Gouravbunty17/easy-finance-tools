@@ -12,14 +12,14 @@ const tools = [
   { title: "Mortgage Affordability Calculator", desc: "Estimate the home price your income can support with Canadian stress-test and debt-ratio assumptions.", link: "/tools/mortgage-affordability-calculator", badge: "New", category: "Real Estate", color: "border-rose-200 hover:border-rose-400" },
   { title: "Income Tax Calculator", desc: "Calculate your exact take-home pay, federal + provincial tax, CPP, and EI for all provinces.", link: "/tools/income-tax-calculator", badge: "New", category: "Tax", color: "border-indigo-200 hover:border-indigo-400" },
   { title: "Compound Interest Calculator", desc: "Project long-term growth in CAD with monthly contributions, fees, and inflation.", link: "/tools/compound-interest-calculator", badge: "High Demand", category: "Investing", color: "border-blue-200 hover:border-blue-400" },
-  { title: "TFSA Calculator", desc: "Calculate your Tax-Free Savings Account growth with 2026 limits.", link: "/tools/tfsa-calculator", badge: "Most Popular", category: "Savings", color: "border-blue-200 hover:border-blue-400" },
-  { title: "RRSP Calculator", desc: "Estimate your tax refund and project long-term registered-account growth.", link: "/tools/rrsp-calculator", badge: "2026 Updated", category: "Savings", color: "border-green-200 hover:border-green-400" },
-  { title: "FHSA Calculator", desc: "Plan your First Home Savings Account with deductible contributions and tax-free withdrawals.", link: "/tools/fhsa-calculator", badge: "New", category: "Savings", color: "border-orange-200 hover:border-orange-400" },
+  { title: "TFSA Calculator", desc: "Model tax-free growth, compare contribution pace, and use it as a baseline when choosing between registered accounts.", link: "/tools/tfsa-calculator", badge: "Most Popular", category: "Savings", color: "border-blue-200 hover:border-blue-400" },
+  { title: "RRSP Calculator", desc: "Estimate refund value, compare contribution timing, and see when the deduction starts to matter more.", link: "/tools/rrsp-calculator", badge: "2026 Updated", category: "Savings", color: "border-green-200 hover:border-green-400" },
+  { title: "FHSA Planner", desc: "Estimate deduction value, room usage, and down-payment growth before deciding where the next contribution should go.", link: "/tools/fhsa-calculator", badge: "Featured", category: "Savings", color: "border-orange-200 hover:border-orange-400" },
   { title: "Mortgage Calculator", desc: "Calculate your real Canadian mortgage payment with CMHC insurance and land transfer tax.", link: "/tools/mortgage-calculator", badge: "New", category: "Real Estate", color: "border-red-200 hover:border-red-400" },
   { title: "Rent vs Buy Calculator", desc: "Compare renting vs buying with total costs, net worth, and the break-even year.", link: "/tools/rent-vs-buy", badge: "New", category: "Real Estate", color: "border-teal-200 hover:border-teal-400" },
   { title: "Capital Gains Tax Calculator", desc: "Calculate capital gains tax on stocks, crypto, real estate, and small business shares.", link: "/tools/capital-gains-tax", badge: "New", category: "Tax", color: "border-pink-200 hover:border-pink-400" },
   { title: "CPP and OAS Estimator", desc: "Estimate government retirement income and compare collection ages.", link: "/tools/cpp-oas-estimator", badge: "New", category: "Retirement", color: "border-red-200 hover:border-red-400" },
-  { title: "Dividend Calculator", desc: "Project passive income with DRIP reinvestment and long-term compounding.", link: "/tools/dividend-calculator", badge: null, category: "Investing", color: "border-yellow-200 hover:border-yellow-400" },
+  { title: "ETF Income Simulator", desc: "Compare Canadian dividend ETFs, DRIP assumptions, and the capital needed to target monthly income goals.", link: "/tools/dividend-calculator", badge: "Featured", category: "Investing", color: "border-yellow-200 hover:border-yellow-400" },
   { title: "Budget Tracker", desc: "Track income and expenses so you can plan monthly cash flow with less guesswork.", link: "/tools/budget-tracker", badge: null, category: "Budget", color: "border-purple-200 hover:border-purple-400" },
   { title: "Net Worth Calculator", desc: "Track assets and liabilities and see your longer-term financial picture.", link: "/tools/investment-tracker", badge: "Updated", category: "Investing", color: "border-cyan-200 hover:border-cyan-400" },
   { title: "FIRE Calculator", desc: "Find your financial independence number, retirement date, and safe withdrawal strategy.", link: "/tools/fire-calculator", badge: "New", category: "Retirement", color: "border-orange-200 hover:border-orange-400" },
@@ -47,19 +47,19 @@ export default function ToolsPage() {
   return (
     <main aria-labelledby="tools-page-title">
       <SEO
-        title="Free Canadian Finance Tools"
-        description="Browse free Canadian finance calculators for tax, TFSA, RRSP, mortgage, debt payoff, paycheques, investing, and savings goals."
+        title="Canadian Money Decision Tools"
+        description="Browse Canadian decision tools for FHSA, TFSA, RRSP, ETF income, tax planning, mortgages, debt payoff, and savings goals."
         canonical="https://easyfinancetools.com/tools"
       />
 
       <div className="bg-gradient-to-br from-primary to-secondary px-4 py-16 text-white">
         <div className="mx-auto max-w-5xl text-center">
           <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.18em] text-blue-50">
-            Search by goal or category
+            Search by decision, not just category
           </div>
-          <h1 id="tools-page-title" className="mb-4 text-4xl font-bold md:text-5xl">Free Canadian Finance Tools</h1>
+          <h1 id="tools-page-title" className="mb-4 text-4xl font-bold md:text-5xl">Canadian money decision tools</h1>
           <p className="mx-auto max-w-3xl text-lg text-blue-50">
-            Search by goal, compare scenarios, and move into related guides without leaving the site.
+            Pick the question you are trying to answer, compare scenarios, and move into the guide or next calculator that makes the decision clearer.
           </p>
         </div>
       </div>
@@ -71,19 +71,19 @@ export default function ToolsPage() {
         <div className="surface-soft grid gap-4 p-5 text-sm text-slate-700 dark:text-slate-300 md:grid-cols-4">
           <div>
             <p className="font-semibold text-primary dark:text-accent">No sign-up</p>
-            <p className="mt-1">Open any tool and calculate immediately.</p>
+            <p className="mt-1">Open any tool and start modeling the decision immediately.</p>
           </div>
           <div>
             <p className="font-semibold text-primary dark:text-accent">Privacy-first</p>
-            <p className="mt-1">We do not need your email to show results.</p>
+            <p className="mt-1">We do not need your email to show results or pressure you into a funnel.</p>
           </div>
           <div>
             <p className="font-semibold text-primary dark:text-accent">Methodology</p>
-            <p className="mt-1">Important tools should explain assumptions and update dates.</p>
+            <p className="mt-1">Important tools should explain assumptions, limits, and update dates.</p>
           </div>
           <div>
             <p className="font-semibold text-primary dark:text-accent">Built for Canada</p>
-            <p className="mt-1">Tax, housing, retirement, and savings workflows for Canadian users.</p>
+            <p className="mt-1">Tax, home-buying, ETF income, retirement, and registered-account workflows for Canadian users.</p>
           </div>
         </div>
 
@@ -95,10 +95,10 @@ export default function ToolsPage() {
             trackingParams={{ section: "featured_cards", destination_type: "tool", emphasis: "primary" }}
             className="rounded-2xl bg-gradient-to-br from-primary via-[#0a4c89] to-secondary p-5 text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
           >
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-50">Most searched</p>
-            <h2 className="mt-3 text-3xl font-bold leading-tight">Compound Interest Calculator</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-50">Core planning tool</p>
+            <h2 className="mt-3 text-3xl font-bold leading-tight">Compound interest and contribution planning</h2>
             <p className="mt-3 max-w-sm text-sm leading-6 text-blue-50">
-              Project long-term growth with monthly contributions, inflation, and fee drag in one place.
+              Project long-term growth, contribution pace, inflation drag, and the compounding base that supports every other account decision.
             </p>
             <div className="mt-5 inline-flex rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white">
               Open featured calculator
@@ -106,8 +106,8 @@ export default function ToolsPage() {
           </SurfaceTrackedLink>
 
           {[
-            { label: "Tax", title: "Income tax", href: "/tools/income-tax-calculator" },
-            { label: "Real estate", title: "Mortgage", href: "/tools/mortgage-calculator" },
+            { label: "First-home planning", title: "FHSA", href: "/tools/fhsa-calculator" },
+            { label: "Income planning", title: "ETF income", href: "/tools/dividend-calculator" },
             { label: "Registered accounts", title: "TFSA", href: "/tools/tfsa-calculator" },
           ].map((item) => (
             <SurfaceTrackedLink
@@ -119,7 +119,7 @@ export default function ToolsPage() {
               className="surface-card p-4 transition hover:-translate-y-0.5 hover:shadow-md"
             >
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-600 dark:text-slate-300">{item.label}</p>
-              <h3 className="mt-2 text-lg font-bold text-primary dark:text-accent">{item.title} calculator</h3>
+              <h3 className="mt-2 text-lg font-bold text-primary dark:text-accent">{item.title} tool</h3>
             </SurfaceTrackedLink>
           ))}
         </div>
@@ -128,7 +128,7 @@ export default function ToolsPage() {
           <div className="grid gap-3 md:grid-cols-[1fr_auto]">
             <input
               type="text"
-              placeholder="Search calculators such as TFSA, mortgage, tax, debt..."
+              placeholder="Search tools such as FHSA, ETF income, TFSA, mortgage, tax, debt..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               aria-label="Search finance tools"
@@ -181,7 +181,7 @@ export default function ToolsPage() {
                 <h2 className="mb-2 text-xl font-bold text-primary dark:text-white">{tool.title}</h2>
                 <p className="text-sm text-gray-700 dark:text-gray-300">{tool.desc}</p>
                 <div className="mt-5 flex items-center justify-between text-sm font-semibold text-secondary">
-                  <span>Open calculator and see results</span>
+                  <span>Open tool and see next steps</span>
                   <span className="transition-transform group-hover:translate-x-1">More</span>
                 </div>
               </SurfaceTrackedLink>
@@ -207,9 +207,9 @@ export default function ToolsPage() {
 
         <div className="mt-12 grid gap-4 md:grid-cols-3">
           {[
-            { title: "Start with tax", body: "Income tax and pay stub tools answer one of the highest-intent questions on the site.", href: "/tools/income-tax-calculator" },
-            { title: "Model compound growth", body: "Start with compound interest, then compare TFSA, RRSP, and FHSA account choices.", href: "/tools/compound-interest-calculator" },
-            { title: "Compare debt and housing", body: "Mortgage, rent-vs-buy, and debt payoff tools work best when paired with scenario planning.", href: "/tools/mortgage-calculator" },
+            { title: "Start with the account decision", body: "FHSA, TFSA, and RRSP tools work best when you compare the next dollar instead of looking at one account in isolation.", href: "/tools/fhsa-calculator" },
+            { title: "Model income goals", body: "The ETF income simulator helps turn a yield idea into a monthly-income and capital requirement plan.", href: "/tools/dividend-calculator" },
+            { title: "Compare housing tradeoffs", body: "Mortgage, affordability, and rent-vs-buy tools are stronger when you use them together instead of as isolated checks.", href: "/tools/mortgage-calculator" },
           ].map((item) => (
             <SurfaceTrackedLink
               key={item.title}
