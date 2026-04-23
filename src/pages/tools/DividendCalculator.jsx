@@ -56,7 +56,27 @@ const ETF_FAQS = [
   },
 ];
 
-function formatCurrency(value, digits = 0) {
+const VISIBLE_DIVIDEND_ETFS = DIVIDEND_ETF_DATA.filter((etf) => etf.id !== 'custom');
+
+function buildDividendInitialState(initialValues = {}) {
+  const selectedEtfId = initialValues.selectedEtfId ?? DEFAULT_ASSUMPTIONS.etfIncome.selectedEtfId;
+  const selectedEtf = getDividendEtfById(selectedEtfId);
+
+  return {
+    selectedEtfId,
+    investmentAmount: initialValues.investmentAmount ?? DEFAULT_ASSUMPTIONS.etfIncome.investmentAmount,
+    yieldInput: initialValues.yieldInput ?? initialValues.customYield ?? selectedEtf.yield,
+    dividendGrowth: initialValues.dividendGrowth ?? initialValues.customDividendGrowth ?? selectedEtf.dividendGrowth,
+    priceGrowth: initialValues.priceGrowth ?? initialValues.customPriceGrowth ?? selectedEtf.priceGrowth,
+    years: initialValues.years ?? DEFAULT_ASSUMPTIONS.etfIncome.years,
+    additionalMonthly: initialValues.additionalMonthly ?? DEFAULT_ASSUMPTIONS.etfIncome.additionalMonthly,
+    dripEnabled: initialValues.dripEnabled ?? DEFAULT_ASSUMPTIONS.etfIncome.dripEnabled,
+    useTfsa: initialValues.useTfsa ?? DEFAULT_ASSUMPTIONS.etfIncome.useTfsa,
+    marginalTaxRate: initialValues.marginalTaxRate ?? DEFAULT_ASSUMPTIONS.etfIncome.marginalTaxRate,
+  };
+}
+
+export function formatDividendCurrency(value, digits = 0) {
   return Number(value || 0).toLocaleString('en-CA', {
     style: 'currency',
     currency: 'CAD',
@@ -65,7 +85,7 @@ function formatCurrency(value, digits = 0) {
   });
 }
 
-function formatPercent(value) {
+export function formatDividendPercent(value) {
   return `${Number(value || 0).toFixed(1)}%`;
 }
 
@@ -111,17 +131,18 @@ function NumericField({ label, value, onChange, step, min, max, suffix, helpText
   );
 }
 
-export default function DividendCalculator() {
-  const [selectedEtfId, setSelectedEtfId] = useState(DEFAULT_ASSUMPTIONS.etfIncome.selectedEtfId);
-  const [investmentAmount, setInvestmentAmount] = useState(DEFAULT_ASSUMPTIONS.etfIncome.investmentAmount);
-  const [yieldInput, setYieldInput] = useState(getDividendEtfById(DEFAULT_ASSUMPTIONS.etfIncome.selectedEtfId).yield);
-  const [dividendGrowth, setDividendGrowth] = useState(getDividendEtfById(DEFAULT_ASSUMPTIONS.etfIncome.selectedEtfId).dividendGrowth);
-  const [priceGrowth, setPriceGrowth] = useState(getDividendEtfById(DEFAULT_ASSUMPTIONS.etfIncome.selectedEtfId).priceGrowth);
-  const [years, setYears] = useState(DEFAULT_ASSUMPTIONS.etfIncome.years);
-  const [additionalMonthly, setAdditionalMonthly] = useState(DEFAULT_ASSUMPTIONS.etfIncome.additionalMonthly);
-  const [dripEnabled, setDripEnabled] = useState(DEFAULT_ASSUMPTIONS.etfIncome.dripEnabled);
-  const [useTfsa, setUseTfsa] = useState(DEFAULT_ASSUMPTIONS.etfIncome.useTfsa);
-  const [marginalTaxRate, setMarginalTaxRate] = useState(DEFAULT_ASSUMPTIONS.etfIncome.marginalTaxRate);
+export function useDividendCalculatorModel(initialValues = {}) {
+  const initialScenario = buildDividendInitialState(initialValues);
+  const [selectedEtfId, setSelectedEtfId] = useState(initialScenario.selectedEtfId);
+  const [investmentAmount, setInvestmentAmount] = useState(initialScenario.investmentAmount);
+  const [yieldInput, setYieldInput] = useState(initialScenario.yieldInput);
+  const [dividendGrowth, setDividendGrowth] = useState(initialScenario.dividendGrowth);
+  const [priceGrowth, setPriceGrowth] = useState(initialScenario.priceGrowth);
+  const [years, setYears] = useState(initialScenario.years);
+  const [additionalMonthly, setAdditionalMonthly] = useState(initialScenario.additionalMonthly);
+  const [dripEnabled, setDripEnabled] = useState(initialScenario.dripEnabled);
+  const [useTfsa, setUseTfsa] = useState(initialScenario.useTfsa);
+  const [marginalTaxRate, setMarginalTaxRate] = useState(initialScenario.marginalTaxRate);
   const [hasTrackedStart, setHasTrackedStart] = useState(false);
 
   const selectedEtf = getDividendEtfById(selectedEtfId);
@@ -189,7 +210,12 @@ export default function DividendCalculator() {
 
     const firstYearIncome = safeInvestment * (safeYield / 100);
     const afterTaxFirstYearIncome = useTfsa ? firstYearIncome : firstYearIncome * (1 - safeTaxRate / 100 * 0.5);
-    const finalYear = rows[rows.length - 1];
+    const finalYear = rows[rows.length - 1] || {
+      afterTaxIncome: afterTaxFirstYearIncome,
+      monthlyIncome: afterTaxFirstYearIncome / 12,
+      balance: safeInvestment,
+      totalCashTaken,
+    };
     const effectiveYield = useTfsa ? safeYield / 100 : (safeYield / 100) * (1 - safeTaxRate / 100 * 0.5);
     const capitalRequired = DIVIDEND_INCOME_GOALS.map((goal) => ({
       goal,
@@ -221,7 +247,7 @@ export default function DividendCalculator() {
     };
   }, [additionalMonthly, dividendGrowth, dripEnabled, investmentAmount, marginalTaxRate, priceGrowth, useTfsa, yieldInput, years]);
 
-  const chartData = {
+  const chartData = useMemo(() => ({
     labels: results.rows.map((row) => `Year ${row.year}`),
     datasets: [
       {
@@ -243,7 +269,272 @@ export default function DividendCalculator() {
         yAxisID: 'balance',
       },
     ],
+  }), [results.rows]);
+
+  return {
+    selectedEtfId,
+    setSelectedEtfId,
+    investmentAmount,
+    setInvestmentAmount,
+    yieldInput,
+    setYieldInput,
+    dividendGrowth,
+    setDividendGrowth,
+    priceGrowth,
+    setPriceGrowth,
+    years,
+    setYears,
+    additionalMonthly,
+    setAdditionalMonthly,
+    dripEnabled,
+    setDripEnabled,
+    useTfsa,
+    setUseTfsa,
+    marginalTaxRate,
+    setMarginalTaxRate,
+    selectedEtf,
+    results,
+    chartData,
+    trackStartOnce,
+    applyEtf,
   };
+}
+
+export function DividendEtfComparisonTable({
+  selectedEtfId,
+  onSelectEtf,
+  title = 'Illustrative Canadian dividend ETF snapshot',
+  intro = 'Use these rows to autofill the simulator, then change the yield or growth assumptions if your shortlist differs. This is an illustrative planning table, not a live quote feed.',
+  variant = 'tool',
+}) {
+  return (
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Comparison table</p>
+      <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">{title}</h2>
+      <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{intro}</p>
+      <div className="mt-5 overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-slate-200 text-left dark:border-slate-700">
+              <th className="py-2 pr-4 font-semibold">ETF</th>
+              {variant === 'tool' ? <th className="py-2 pr-4 font-semibold">Focus</th> : null}
+              <th className="py-2 pr-4 font-semibold">Yield</th>
+              {variant === 'tool' ? <th className="py-2 pr-4 font-semibold">MER</th> : null}
+              {variant === 'tool' ? <th className="py-2 pr-4 font-semibold">Frequency</th> : null}
+              {variant === 'article' ? <th className="py-2 pr-4 font-semibold">Notes</th> : null}
+              <th className="py-2 font-semibold">Action</th>
+            </tr>
+          </thead>
+          <tbody className="text-slate-600 dark:text-slate-300">
+            {VISIBLE_DIVIDEND_ETFS.map((etf) => (
+              <tr key={etf.id} className={`border-b border-slate-100 dark:border-slate-800 ${selectedEtfId === etf.id ? 'bg-blue-50/70 dark:bg-blue-950/20' : ''}`}>
+                <td className="py-3 pr-4 align-top">
+                  <div className="font-semibold text-primary dark:text-accent">{etf.ticker}</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400">{etf.name}</div>
+                </td>
+                {variant === 'tool' ? <td className="py-3 pr-4 align-top">{etf.focus}</td> : null}
+                <td className="py-3 pr-4 align-top">{formatDividendPercent(etf.yield)}</td>
+                {variant === 'tool' ? <td className="py-3 pr-4 align-top">{formatDividendPercent(etf.mer)}</td> : null}
+                {variant === 'tool' ? <td className="py-3 pr-4 align-top">{etf.frequency}</td> : null}
+                {variant === 'article' ? <td className="py-3 pr-4 align-top text-sm leading-6">{etf.notes}</td> : null}
+                <td className="py-3 align-top">
+                  <button
+                    onClick={() => onSelectEtf(etf.id)}
+                    className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${selectedEtfId === etf.id ? 'bg-primary text-white' : 'bg-slate-100 text-primary hover:bg-slate-200 dark:bg-slate-900 dark:text-slate-200'}`}
+                  >
+                    {selectedEtfId === etf.id ? 'Loaded' : 'Use in calculator'}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="mt-4 text-xs text-slate-500 dark:text-slate-400">{DATA_SNAPSHOT_LABEL}. Update the values in <code>src/config/financial.js</code> when yields or ETF assumptions change.</p>
+    </section>
+  );
+}
+
+export function EmbeddedDividendCalculator({
+  model,
+  title = 'Try the dividend ETF income calculator',
+  intro = 'Start with an example, then change the yield or switch ETFs to see how quickly the monthly income target moves.',
+}) {
+  const {
+    selectedEtfId,
+    investmentAmount,
+    setInvestmentAmount,
+    yieldInput,
+    setYieldInput,
+    years,
+    setYears,
+    dripEnabled,
+    setDripEnabled,
+    useTfsa,
+    setUseTfsa,
+    selectedEtf,
+    results,
+    trackStartOnce,
+    applyEtf,
+  } = model;
+
+  return (
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(300px,360px)]">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Embedded calculator</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">{title}</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{intro}</p>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <SummaryCard
+              label="Annual income now"
+              value={formatDividendCurrency(results.afterTaxFirstYearIncome)}
+              hint={useTfsa ? 'Based on the current TFSA assumption.' : 'After a simplified tax-drag assumption.'}
+              tone="primary"
+            />
+            <SummaryCard
+              label="Monthly income now"
+              value={formatDividendCurrency(results.afterTaxFirstYearIncome / 12)}
+              hint={`Using ${formatDividendPercent(yieldInput)} and ${formatDividendCurrency(investmentAmount)}.`}
+              tone="success"
+            />
+            <SummaryCard
+              label={`Projected income in year ${years}`}
+              value={formatDividendCurrency(results.finalAnnualIncome)}
+              hint={dripEnabled ? 'Includes reinvested distributions.' : 'Assumes cash income is taken out instead of reinvested.'}
+              tone="warning"
+            />
+          </div>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Current ETF selection</p>
+              <p className="mt-2 text-xl font-bold text-primary dark:text-accent">{selectedEtf.ticker}</p>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{selectedEtf.notes}</p>
+            </div>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Plain-English interpretation</p>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{results.interpretation}</p>
+            </div>
+          </div>
+        </div>
+
+        <aside className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Input</p>
+          <h3 className="mt-2 text-xl font-bold text-primary dark:text-accent">Run your own example</h3>
+          <div className="mt-5 space-y-4">
+            <div>
+              <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Quick select ETF</label>
+              <select
+                value={selectedEtfId}
+                onChange={(event) => applyEtf(event.target.value)}
+                className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+              >
+                {DIVIDEND_ETF_DATA.map((etf) => (
+                  <option key={etf.id} value={etf.id}>{etf.ticker} - {etf.name}</option>
+                ))}
+              </select>
+            </div>
+
+            <NumericField
+              label="Investment amount"
+              value={investmentAmount}
+              onChange={(event) => {
+                trackStartOnce();
+                setInvestmentAmount(parseNumericInput(event.target.value));
+                trackToolCalculate('etf_income_dividend_simulator', { action: 'investment_change', surface: 'embedded_article' });
+              }}
+              min={0}
+              step={500}
+              suffix="CAD"
+            />
+            <NumericField
+              label="Yield assumption"
+              value={yieldInput}
+              onChange={(event) => {
+                trackStartOnce();
+                setYieldInput(parseNumericInput(event.target.value));
+                trackToolCalculate('etf_income_dividend_simulator', { action: 'yield_change', surface: 'embedded_article' });
+              }}
+              min={0}
+              max={20}
+              step={0.1}
+              suffix="%"
+            />
+            <NumericField
+              label="Projection horizon"
+              value={years}
+              onChange={(event) => {
+                trackStartOnce();
+                setYears(parseNumericInput(event.target.value, { integer: true }));
+              }}
+              min={1}
+              max={30}
+              step={1}
+              suffix="yrs"
+            />
+
+            <label className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
+              <input
+                type="checkbox"
+                checked={dripEnabled}
+                onChange={(event) => {
+                  trackStartOnce();
+                  setDripEnabled(event.target.checked);
+                }}
+                className="h-5 w-5 accent-primary"
+              />
+              Reinvest distributions (DRIP)
+            </label>
+
+            <label className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
+              <input
+                type="checkbox"
+                checked={useTfsa}
+                onChange={(event) => {
+                  trackStartOnce();
+                  setUseTfsa(event.target.checked);
+                }}
+                className="h-5 w-5 accent-primary"
+              />
+              Model this inside a TFSA
+            </label>
+          </div>
+        </aside>
+      </div>
+    </section>
+  );
+}
+
+export default function DividendCalculator() {
+  const model = useDividendCalculatorModel();
+  const {
+    selectedEtfId,
+    investmentAmount,
+    setInvestmentAmount,
+    yieldInput,
+    setYieldInput,
+    dividendGrowth,
+    setDividendGrowth,
+    priceGrowth,
+    setPriceGrowth,
+    years,
+    setYears,
+    additionalMonthly,
+    setAdditionalMonthly,
+    dripEnabled,
+    setDripEnabled,
+    useTfsa,
+    setUseTfsa,
+    marginalTaxRate,
+    setMarginalTaxRate,
+    selectedEtf,
+    results,
+    chartData,
+    trackStartOnce,
+    applyEtf,
+  } = model;
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
@@ -277,68 +568,31 @@ export default function DividendCalculator() {
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             <SummaryCard
               label="Estimated annual income now"
-              value={formatCurrency(results.afterTaxFirstYearIncome)}
+              value={formatDividendCurrency(results.afterTaxFirstYearIncome)}
               hint={useTfsa ? 'Based on the current yield assumption inside a TFSA.' : 'After a simplified dividend tax drag assumption.'}
               tone="primary"
             />
             <SummaryCard
               label={`Income in year ${years}`}
-              value={formatCurrency(results.finalAnnualIncome)}
-              hint={`${formatCurrency(results.finalMonthlyIncome)} per month under the current assumptions.`}
+              value={formatDividendCurrency(results.finalAnnualIncome)}
+              hint={`${formatDividendCurrency(results.finalMonthlyIncome)} per month under the current assumptions.`}
               tone="success"
             />
             <SummaryCard
               label="Projected balance"
-              value={formatCurrency(results.projectedBalance)}
+              value={formatDividendCurrency(results.projectedBalance)}
               hint={`Includes ${dripEnabled ? 'reinvested distributions' : 'cash taken out plus balance growth'} over ${years} years.`}
               tone="warning"
             />
           </div>
 
-          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Comparison table</p>
-            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Illustrative Canadian dividend ETF snapshot</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-              Use these rows to autofill the simulator, then change the yield or growth assumptions if your shortlist differs. This is an illustrative planning table, not a live quote feed.
-            </p>
-            <div className="mt-5 overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-200 text-left dark:border-slate-700">
-                    <th className="py-2 pr-4 font-semibold">ETF</th>
-                    <th className="py-2 pr-4 font-semibold">Focus</th>
-                    <th className="py-2 pr-4 font-semibold">Yield</th>
-                    <th className="py-2 pr-4 font-semibold">MER</th>
-                    <th className="py-2 pr-4 font-semibold">Frequency</th>
-                    <th className="py-2 font-semibold">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="text-slate-600 dark:text-slate-300">
-                  {DIVIDEND_ETF_DATA.map((etf) => (
-                    <tr key={etf.id} className={`border-b border-slate-100 dark:border-slate-800 ${selectedEtfId === etf.id ? 'bg-blue-50/70 dark:bg-blue-950/20' : ''}`}>
-                      <td className="py-3 pr-4">
-                        <div className="font-semibold text-primary dark:text-accent">{etf.ticker}</div>
-                        <div className="text-xs text-slate-500 dark:text-slate-400">{etf.name}</div>
-                      </td>
-                      <td className="py-3 pr-4">{etf.focus}</td>
-                      <td className="py-3 pr-4">{formatPercent(etf.yield)}</td>
-                      <td className="py-3 pr-4">{formatPercent(etf.mer)}</td>
-                      <td className="py-3 pr-4">{etf.frequency}</td>
-                      <td className="py-3">
-                        <button
-                          onClick={() => applyEtf(etf.id)}
-                          className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${selectedEtfId === etf.id ? 'bg-primary text-white' : 'bg-slate-100 text-primary hover:bg-slate-200 dark:bg-slate-900 dark:text-slate-200'}`}
-                        >
-                          Use in simulator
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-4 text-xs text-slate-500 dark:text-slate-400">{DATA_SNAPSHOT_LABEL}. Update the values in <code>src/config/financial.js</code> when yields or ETF assumptions change.</p>
-          </section>
+          <div className="mt-8">
+            <DividendEtfComparisonTable
+              selectedEtfId={selectedEtfId}
+              onSelectEtf={applyEtf}
+              variant="tool"
+            />
+          </div>
 
           <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Interpretation</p>
@@ -380,21 +634,21 @@ export default function DividendCalculator() {
                   plugins: {
                     tooltip: {
                       callbacks: {
-                        label: (context) => `${context.dataset.label}: ${formatCurrency(Number(context.raw))}`,
+                        label: (context) => `${context.dataset.label}: ${formatDividendCurrency(Number(context.raw))}`,
                       },
                     },
                   },
                   scales: {
                     y: {
                       ticks: {
-                        callback: (value) => formatCurrency(Number(value)),
+                        callback: (value) => formatDividendCurrency(Number(value)),
                       },
                     },
                     balance: {
                       position: 'right',
                       grid: { drawOnChartArea: false },
                       ticks: {
-                        callback: (value) => formatCurrency(Number(value)),
+                        callback: (value) => formatDividendCurrency(Number(value)),
                       },
                     },
                   },
@@ -409,8 +663,8 @@ export default function DividendCalculator() {
             <div className="mt-5 grid gap-4 md:grid-cols-3">
               {results.capitalRequired.map((goal) => (
                 <div key={goal.goal} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{formatCurrency(goal.monthlyIncome)} per month</p>
-                  <p className="mt-2 text-2xl font-bold text-primary dark:text-accent">{formatCurrency(goal.capital)}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{formatDividendCurrency(goal.monthlyIncome)} per month</p>
+                  <p className="mt-2 text-2xl font-bold text-primary dark:text-accent">{formatDividendCurrency(goal.capital)}</p>
                   <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
                     Based on the current yield assumption and {useTfsa ? 'tax-free TFSA income.' : 'a simplified after-tax dividend rate.'}
                   </p>
@@ -617,9 +871,9 @@ export default function DividendCalculator() {
           <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-800 dark:bg-blue-900/20">
             <p className="font-semibold text-blue-800 dark:text-blue-200">Scenario snapshot</p>
             <ul className="mt-2 space-y-2 text-blue-700 dark:text-blue-300">
-              <li>Current yield assumption: {formatPercent(asNumber(yieldInput))}</li>
+              <li>Current yield assumption: {formatDividendPercent(asNumber(yieldInput))}</li>
               <li>Selected ETF focus: {selectedEtf.focus}</li>
-              <li>Projected yield on contributed capital: {formatPercent(results.yieldOnContribution * 100)}</li>
+              <li>Projected yield on contributed capital: {formatDividendPercent(results.yieldOnContribution * 100)}</li>
             </ul>
           </div>
         </aside>
@@ -673,7 +927,7 @@ export default function DividendCalculator() {
         toolName="etf_income_dividend_simulator"
         title="What to do next with the income estimate"
         intro="Once the income math looks realistic, the next job is deciding whether the ETF belongs in your TFSA, how much concentration risk you can accept, and which platform fits the strategy."
-        meaning={`${formatCurrency(results.finalAnnualIncome)} of projected annual income in year ${years} looks useful only if the ETF assumption is realistic and the account job is actually income. Compare the ETF idea against your broader TFSA plan before chasing yield.`}
+        meaning={`${formatDividendCurrency(results.finalAnnualIncome)} of projected annual income in year ${years} looks useful only if the ETF assumption is realistic and the account job is actually income. Compare the ETF idea against your broader TFSA plan before chasing yield.`}
         steps={[
           'Decide whether the account should prioritize growth, cash flow, or a blend of both.',
           'Compare the dividend ETF idea against a broader TFSA ETF option before assuming income is the best use of the account.',
@@ -681,15 +935,15 @@ export default function DividendCalculator() {
         ]}
         actions={[
           {
-            title: 'Read the TFSA ETF guide',
-            body: 'Compare this income idea with broader all-in-one and balanced ETF options for a Canadian TFSA.',
-            href: '/blog/best-etfs-for-tfsa-canada-2026',
-            ctaLabel: 'open_tfsa_etf_guide',
+            title: 'Read the $500/month dividend guide',
+            body: 'Use the dividend guide to compare realistic capital targets, DRIP tradeoffs, and account-fit decisions before you buy anything.',
+            href: '/blog/500-month-dividend-canada',
+            ctaLabel: 'open_500_month_dividend_guide',
           },
           {
             title: 'Compare TFSA vs RRSP',
             body: 'Use the account comparison guide if the income ETF might live outside the TFSA or compete with other contribution priorities.',
-            href: '/blog/tfsa-vs-rrsp-2026',
+            href: '/blog/tfsa-vs-rrsp-canada-2026',
             ctaLabel: 'open_tfsa_vs_rrsp_guide',
           },
           {

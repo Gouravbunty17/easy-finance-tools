@@ -19,6 +19,46 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "tfsa-vs-rrsp-canada-2026",
+    title: "TFSA vs RRSP in Canada (2026): Which Should You Max First?",
+    date: "2026-04-23",
+    category: "TFSA & RRSP",
+    readTime: "11 min",
+    excerpt: "Compare TFSA vs RRSP in Canada for 2026, including tax differences, contribution strategy, and which account to prioritize based on income and goals.",
+  },
+  {
+    slug: "fhsa-vs-rrsp-down-payment-canada-2026",
+    title: "FHSA vs RRSP for a Down Payment in Canada (2026)",
+    date: "2026-04-23",
+    category: "FHSA",
+    readTime: "10 min",
+    excerpt: "Compare FHSA vs RRSP for a down payment in Canada, including tax treatment, withdrawal rules, contribution tradeoffs, and when using both makes sense.",
+  },
+  {
+    slug: "fhsa-calculator-canada-2026",
+    title: "FHSA Calculator Canada: 2026 Tax Savings, Rules, and Growth Guide",
+    date: "2026-04-23",
+    category: "FHSA",
+    readTime: "10 min",
+    excerpt: "Estimate your 2026 FHSA tax savings, understand the contribution rules, and compare the FHSA against TFSA and RRSP choices before your next deposit.",
+  },
+  {
+    slug: "500-month-dividend-canada",
+    title: "How to Earn $500/Month from Dividend ETFs in Canada (2026)",
+    date: "2026-04-23",
+    category: "Dividends",
+    readTime: "9 min",
+    excerpt: "See how much you may need to invest to reach $500 per month from Canadian dividend ETFs, with examples, calculator inputs, and account-planning context.",
+  },
+  {
+    slug: "how-to-start-investing-canada-2026",
+    title: "How to Start Investing in Canada (2026): TFSA, RRSP, ETFs and First Steps",
+    date: "2026-04-23",
+    category: "Beginners",
+    readTime: "10 min",
+    excerpt: "A beginner-friendly guide to choosing between TFSA, RRSP, and FHSA, deciding when to save versus invest, and taking practical first ETF steps in Canada.",
+  },
+  {
     slug: "best-dividend-investing-platforms-canada",
     title: "Best Dividend Investing Platforms in Canada (2026)",
     date: "2026-04-04",
@@ -206,28 +246,28 @@ const featuredComparisonSlugs = [
 
 const decisionTracks = [
   {
-    title: "FHSA and first-home planning",
-    body: "Use the guide and the calculator together when you are deciding whether the FHSA should get the next contribution.",
-    primaryHref: "/blog/how-to-use-fhsa-canada",
-    primaryLabel: "Read FHSA guide",
-    secondaryHref: "/tools/fhsa-calculator",
-    secondaryLabel: "Open FHSA planner",
-  },
-  {
-    title: "TFSA vs RRSP contribution decisions",
-    body: "Start with the comparison page, then move into the matching calculators once the account choice starts to narrow.",
-    primaryHref: "/blog/tfsa-vs-rrsp-2026",
+    title: "Choose the right registered account first",
+    body: "Start with the TFSA vs RRSP hub when the next dollar could reasonably go into more than one account.",
+    primaryHref: "/blog/tfsa-vs-rrsp-canada-2026",
     primaryLabel: "Compare TFSA vs RRSP",
     secondaryHref: "/tools/tfsa-calculator",
     secondaryLabel: "Open TFSA calculator",
   },
   {
-    title: "Dividend income and ETF choices",
-    body: "Use the ETF guide, the income simulator, and the platform comparison pages as one workflow instead of separate clicks.",
-    primaryHref: "/blog/best-etfs-for-tfsa-canada-2026",
-    primaryLabel: "Read ETF guide",
+    title: "Plan a first-home path with the FHSA",
+    body: "Use the FHSA guide and calculator together when the home timeline is real and the deduction needs to be compared properly.",
+    primaryHref: "/blog/fhsa-calculator-canada-2026",
+    primaryLabel: "Read FHSA guide",
+    secondaryHref: "/tools/fhsa-calculator",
+    secondaryLabel: "Open FHSA calculator",
+  },
+  {
+    title: "Build dividend income with realistic targets",
+    body: "Use the dividend-income guide and calculator together so the income goal competes against the right account and ETF tradeoffs.",
+    primaryHref: "/blog/500-month-dividend-canada",
+    primaryLabel: "Read dividend guide",
     secondaryHref: "/tools/dividend-calculator",
-    secondaryLabel: "Open ETF income simulator",
+    secondaryLabel: "Open dividend calculator",
   },
 ];
 

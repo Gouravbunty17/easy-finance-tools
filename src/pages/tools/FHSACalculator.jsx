@@ -22,10 +22,9 @@ import {
   CANADIAN_PROVINCES,
   CONTENT_LAST_REVIEWED,
   DEFAULT_ASSUMPTIONS,
-  FINANCIAL_YEAR,
   REGISTERED_ACCOUNT_LIMITS,
-  getEstimatedMarginalTaxRate,
 } from '../../config/financial';
+import { calculateFhsaScenario, formatFhsaCurrency as formatCurrency } from '../../lib/fhsaPlanning';
 
 ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
@@ -51,15 +50,6 @@ const FHSA_FAQS = [
     a: 'Yes, if both people qualify individually. Many couples plan with two FHSAs, then compare the combined tax deduction and the combined down-payment pool against their purchase timeline.',
   },
 ];
-
-function formatCurrency(value, digits = 0) {
-  return Number(value || 0).toLocaleString('en-CA', {
-    style: 'currency',
-    currency: 'CAD',
-    maximumFractionDigits: digits,
-    minimumFractionDigits: digits,
-  });
-}
 
 function ResultMetric({ label, value, hint, tone = 'default' }) {
   const tones = {
@@ -114,107 +104,17 @@ export default function FHSACalculator() {
   const [expectedReturn, setExpectedReturn] = useState(DEFAULT_ASSUMPTIONS.fhsa.expectedReturn);
   const [yearsToPurchase, setYearsToPurchase] = useState(DEFAULT_ASSUMPTIONS.fhsa.yearsToPurchase);
 
-  const result = useMemo(() => {
-    const age = FINANCIAL_YEAR - Number(birthYear || 0);
-    const marginalRate = getEstimatedMarginalTaxRate(province, Number(income || 0));
-    const lifetimeRemainingAtStart = Math.max(
-      0,
-      REGISTERED_ACCOUNT_LIMITS.fhsaLifetimeLimit - Number(contributedToDate || 0)
-    );
-    const yearOneRoom = Math.max(
-      0,
-      Math.min(
-        Number(availableRoomNow || 0),
-        REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit + REGISTERED_ACCOUNT_LIMITS.fhsaMaxCarryforward,
-        lifetimeRemainingAtStart
-      )
-    );
-    const yearlyContributionTarget = Math.max(0, Number(annualContribution || 0));
-    const yearlyRate = Number(expectedReturn || 0) / 100;
-
-    let balance = Math.max(0, Number(currentBalance || 0));
-    let totalFutureContributions = 0;
-    let totalTaxSavings = 0;
-    let carryforward = Math.max(0, yearOneRoom - Math.min(yearlyContributionTarget, yearOneRoom));
-    let lifetimeRemaining = lifetimeRemainingAtStart;
-
-    const chartLabels = [];
-    const chartValues = [];
-    const yearlyBreakdown = [];
-
-    for (let year = 1; year <= Math.max(1, Number(yearsToPurchase || 1)); year += 1) {
-      const roomThisYear = year === 1
-        ? yearOneRoom
-        : Math.min(
-            REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit + Math.min(carryforward, REGISTERED_ACCOUNT_LIMITS.fhsaMaxCarryforward),
-            lifetimeRemaining
-          );
-
-      const contributionUsed = Math.min(yearlyContributionTarget, roomThisYear, lifetimeRemaining);
-      const contributionPerMonth = contributionUsed / 12;
-
-      for (let month = 0; month < 12; month += 1) {
-        balance = balance * (1 + yearlyRate / 12) + contributionPerMonth;
-      }
-
-      totalFutureContributions += contributionUsed;
-      totalTaxSavings += contributionUsed * marginalRate;
-      lifetimeRemaining = Math.max(0, lifetimeRemaining - contributionUsed);
-      carryforward = Math.min(REGISTERED_ACCOUNT_LIMITS.fhsaMaxCarryforward, Math.max(0, roomThisYear - contributionUsed));
-
-      yearlyBreakdown.push({
-        year,
-        roomThisYear,
-        contributionUsed,
-        carryforwardNextYear: carryforward,
-        balance,
-        lifetimeRemaining,
-      });
-      chartLabels.push(`Year ${year}`);
-      chartValues.push(Math.round(balance));
-    }
-
-    const contributionUsedYearOne = yearlyBreakdown[0]?.contributionUsed || 0;
-    const projectedGrowth = Math.max(0, balance - Number(currentBalance || 0) - totalFutureContributions);
-    const effectiveContributionCost = totalFutureContributions - totalTaxSavings;
-    const annualLimitUsage = contributionUsedYearOne / REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit;
-    const roomUsage = contributionUsedYearOne / Math.max(yearOneRoom, 1);
-
-    let interpretation = 'The FHSA looks directionally useful, but compare it against TFSA and RRSP options before acting.';
-    if (age < 18 || age > 71) {
-      interpretation = 'This scenario may fall outside the usual FHSA age rules, so confirm eligibility before relying on the tax savings or down-payment plan.';
-    } else if (yearOneRoom === 0) {
-      interpretation = 'This plan is room-constrained right now. Confirm your FHSA room with CRA before making the next contribution decision.';
-    } else if (marginalRate >= 0.3 && Number(yearsToPurchase || 0) <= 7) {
-      interpretation = 'This is the classic strong FHSA setup: the deduction is meaningful today and the home-purchase window is still close enough for the tax-free withdrawal to matter.';
-    } else if (Number(yearsToPurchase || 0) >= 10) {
-      interpretation = 'The FHSA can still help, but a long timeline increases the importance of comparing it against TFSA flexibility and your broader investing plan.';
-    } else if (annualLimitUsage < 0.5) {
-      interpretation = 'Your planned yearly contribution is modest relative to the annual limit. The account still helps, but the tax deduction may grow only gradually unless contributions increase.';
-    }
-
-    return {
-      age,
-      marginalRate,
-      contributionUsedYearOne,
-      annualLimitUsage,
-      roomUsage,
-      yearOneRoom,
-      projectedBalance: Math.round(balance),
-      projectedGrowth: Math.round(projectedGrowth),
-      totalFutureContributions: Math.round(totalFutureContributions),
-      totalTaxSavings: Math.round(totalTaxSavings),
-      effectiveContributionCost: Math.round(effectiveContributionCost),
-      lifetimeRemainingAtStart: Math.round(lifetimeRemainingAtStart),
-      lifetimeRemainingAtEnd: Math.round(lifetimeRemaining),
-      monthlyEquivalent: Math.round(yearlyContributionTarget / 12),
-      interpretation,
-      chartLabels,
-      chartValues,
-      yearlyBreakdown,
-      likelyAgeEligible: age >= 18 && age <= 71,
-    };
-  }, [annualContribution, availableRoomNow, birthYear, contributedToDate, currentBalance, expectedReturn, income, province, yearsToPurchase]);
+  const result = useMemo(() => calculateFhsaScenario({
+    birthYear,
+    province,
+    income,
+    availableRoomNow,
+    contributedToDate,
+    currentBalance,
+    annualContribution,
+    expectedReturn,
+    yearsToPurchase,
+  }), [annualContribution, availableRoomNow, birthYear, contributedToDate, currentBalance, expectedReturn, income, province, yearsToPurchase]);
 
   const chartData = {
     labels: result.chartLabels,
@@ -598,10 +498,10 @@ export default function FHSACalculator() {
         ]}
         actions={[
           {
-            title: 'Read the FHSA guide',
-            body: 'Review FHSA eligibility, qualifying withdrawals, and how the account stacks with the RRSP Home Buyers Plan.',
-            href: '/blog/how-to-use-fhsa-canada',
-            ctaLabel: 'read_fhsa_guide',
+            title: 'Read the FHSA master guide',
+            body: 'See FHSA tax savings, rules, growth examples, and how the account compares with TFSA and RRSP choices.',
+            href: '/blog/fhsa-calculator-canada-2026',
+            ctaLabel: 'read_fhsa_master_guide',
           },
           {
             title: 'Open the TFSA decision tool',

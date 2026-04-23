@@ -147,6 +147,8 @@ export const RRSP_RULES = {
   annualEarnedIncomeRate: 0.18,
   maxContribution2026: 33810,
   deductionDeadlineLabel: 'March 2, 2026',
+  homeBuyersPlanWithdrawalLimit: 60000,
+  homeBuyersPlanRepaymentYears: 15,
 };
 
 export const GIC_COMPOUNDING_OPTIONS = [
@@ -617,54 +619,54 @@ export const PRIORITY_INVESTING_TOOLS = [
 
 export const PRIORITY_INVESTING_WORKFLOWS = [
   {
-    title: 'Buying your first home in 3 to 7 years',
-    body: 'Start with the FHSA planner, then compare the same savings decision against TFSA and RRSP options before you open anything.',
-    primaryHref: '/tools/fhsa-calculator',
-    primaryLabel: 'Open FHSA planner',
-    secondaryHref: '/blog/how-to-use-fhsa-canada',
-    secondaryLabel: 'Read FHSA guide',
-  },
-  {
-    title: 'Trying to reach $500 per month from investments',
-    body: 'Use the ETF income simulator to compare yield assumptions, DRIP, and how much capital the goal really requires before you choose a platform.',
-    primaryHref: '/tools/dividend-calculator',
-    primaryLabel: 'Open ETF income simulator',
-    secondaryHref: '/blog/best-etfs-for-tfsa-canada-2026',
-    secondaryLabel: 'Read ETF guide',
-  },
-  {
-    title: 'Deciding where the next registered-account contribution should go',
-    body: 'Use TFSA and RRSP tools together so the account choice is driven by tax rate, flexibility, and timeline instead of habit.',
-    primaryHref: '/blog/tfsa-vs-rrsp-2026',
+    title: 'Reduce taxes and choose the right account',
+    body: 'Start with the TFSA vs RRSP decision guide when the next contribution could reasonably land in more than one registered account.',
+    primaryHref: '/blog/tfsa-vs-rrsp-canada-2026',
     primaryLabel: 'Compare TFSA vs RRSP',
-    secondaryHref: '/tools/rrsp-calculator',
-    secondaryLabel: 'Open RRSP planner',
+    secondaryHref: '/tools/tfsa-calculator',
+    secondaryLabel: 'Open TFSA calculator',
+  },
+  {
+    title: 'Save for your first home without wasting the tax edge',
+    body: 'Start with the FHSA guide if the home timeline is real and you need to understand deduction value, room rules, and what the next contribution should do.',
+    primaryHref: '/blog/fhsa-calculator-canada-2026',
+    primaryLabel: 'Read the FHSA guide',
+    secondaryHref: '/tools/fhsa-calculator',
+    secondaryLabel: 'Open FHSA calculator',
+  },
+  {
+    title: 'Build dividend income without chasing yield blindly',
+    body: 'Start with the dividend-income guide when the goal is monthly cash flow and you want to compare account fit, yield assumptions, and the capital required.',
+    primaryHref: '/blog/500-month-dividend-canada',
+    primaryLabel: 'Read the dividend guide',
+    secondaryHref: '/tools/dividend-calculator',
+    secondaryLabel: 'Open dividend calculator',
   },
 ];
 
 export const PRIORITY_INVESTING_GUIDES = [
   {
-    title: 'How to use the FHSA in Canada',
-    body: 'Eligibility, carryforward, qualifying withdrawals, and how the FHSA compares with the RRSP Home Buyers Plan.',
-    href: '/blog/how-to-use-fhsa-canada',
-    category: 'FHSA',
-  },
-  {
-    title: 'TFSA vs RRSP: which is better in 2026?',
-    body: 'A practical comparison when the next dollar could go into either account.',
-    href: '/blog/tfsa-vs-rrsp-2026',
+    title: 'TFSA vs RRSP in Canada: which should you max first?',
+    body: 'A practical top-of-funnel guide to choosing the right registered account based on income, flexibility, and goals.',
+    href: '/blog/tfsa-vs-rrsp-canada-2026',
     category: 'Accounts',
   },
   {
-    title: 'Best ETFs for a TFSA in Canada',
-    body: 'A stronger ETF shortlist when the account job is growth, balance, or income.',
-    href: '/blog/best-etfs-for-tfsa-canada-2026',
-    category: 'Investing',
+    title: 'FHSA calculator guide for Canada',
+    body: 'Tax savings, contribution rules, growth framing, and the first-home tradeoffs that decide whether the FHSA should come first.',
+    href: '/blog/fhsa-calculator-canada-2026',
+    category: 'FHSA',
   },
   {
-    title: 'How to invest in Canada as a beginner',
-    body: 'A broader guide that connects account type, ETF choice, and platform decisions into one investing workflow.',
-    href: '/blog/how-to-invest-in-canada-beginners-2026',
-    category: 'Workflow',
+    title: 'How to earn $500 per month from dividend ETFs',
+    body: 'Use this guide when you want realistic income targets, yield tradeoffs, and a better link between ETF cash flow and account choice.',
+    href: '/blog/500-month-dividend-canada',
+    category: 'Dividend income',
+  },
+  {
+    title: 'How to start investing in Canada',
+    body: 'A beginner-friendly entry point that explains accounts, ETFs, first steps, and what to do with the first $1,000.',
+    href: '/blog/how-to-start-investing-canada-2026',
+    category: 'Beginners',
   },
 ];

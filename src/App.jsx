@@ -1,7 +1,8 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import { trackPageView } from './lib/analytics';
 
 // Eagerly loaded - always needed on first paint.
 import Home from './pages/Home';
@@ -44,6 +45,11 @@ const SavingsGoalCalculator = lazy(() => import('./pages/tools/SavingsGoalCalcul
 const NetPayCalculator = lazy(() => import('./pages/tools/NetPayCalculator'));
 
 const WeeklyDividendETFs = lazy(() => import('./pages/blog/weekly-dividend-etfs'));
+const FiveHundredMonthDividendCanada = lazy(() => import('./pages/blog/500-month-dividend-canada'));
+const FHSACalculatorCanada2026 = lazy(() => import('./pages/blog/fhsa-calculator-canada-2026'));
+const FHSAvsRRSPDownPaymentCanada2026 = lazy(() => import('./pages/blog/fhsa-vs-rrsp-down-payment-canada-2026'));
+const TFSAvsRRSPCanada2026 = lazy(() => import('./pages/blog/tfsa-vs-rrsp-canada-2026'));
+const HowToStartInvestingCanada2026 = lazy(() => import('./pages/blog/how-to-start-investing-canada-2026'));
 const HowToInvestBeginners = lazy(() => import('./pages/blog/how-to-invest-in-canada-beginners-2026'));
 const BestHISACanada2026 = lazy(() => import('./pages/blog/best-hisa-canada-2026'));
 const EmergencyFundCanada = lazy(() => import('./pages/blog/emergency-fund-canada'));
@@ -72,8 +78,28 @@ function PageLoader() {
   );
 }
 
+function useSpaPageTracking() {
+  const location = useLocation();
+  const hasTrackedInitialPage = useRef(false);
+
+  useEffect(() => {
+    if (!hasTrackedInitialPage.current) {
+      hasTrackedInitialPage.current = true;
+      return;
+    }
+
+    trackPageView({
+      page_title: document.title,
+      page_location: window.location.href,
+      page_path: `${location.pathname}${location.search}${location.hash}`,
+    });
+  }, [location.pathname, location.search, location.hash]);
+}
+
 export default function App() {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+
+  useSpaPageTracking();
 
   useEffect(() => {
     const onKeyDown = (event) => {
@@ -134,6 +160,11 @@ export default function App() {
             <Route path="/tools/savings-goal" element={<SavingsGoalCalculator />} />
             <Route path="/tools/net-pay-calculator" element={<NetPayCalculator />} />
             <Route path="/blog/weekly-dividend-etfs" element={<WeeklyDividendETFs />} />
+            <Route path="/blog/500-month-dividend-canada" element={<FiveHundredMonthDividendCanada />} />
+            <Route path="/blog/fhsa-calculator-canada-2026" element={<FHSACalculatorCanada2026 />} />
+            <Route path="/blog/fhsa-vs-rrsp-down-payment-canada-2026" element={<FHSAvsRRSPDownPaymentCanada2026 />} />
+            <Route path="/blog/tfsa-vs-rrsp-canada-2026" element={<TFSAvsRRSPCanada2026 />} />
+            <Route path="/blog/how-to-start-investing-canada-2026" element={<HowToStartInvestingCanada2026 />} />
             <Route path="/blog/tfsa-vs-rrsp-2026" element={<TFSAvsRRSP />} />
             <Route path="/blog/how-much-tfsa-room-2026" element={<HowMuchTFSARoom />} />
             <Route path="/blog/best-etfs-for-tfsa-canada-2026" element={<BestETFsForTFSA />} />

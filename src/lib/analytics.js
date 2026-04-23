@@ -1,13 +1,36 @@
+function getPageContext() {
+  if (typeof window === "undefined") return {};
+
+  return {
+    page_location: window.location.href,
+    page_path: `${window.location.pathname}${window.location.search}${window.location.hash}`,
+  };
+}
+
 export function trackEvent(eventName, params = {}) {
   if (typeof window === "undefined") return;
 
+  const payload = {
+    ...getPageContext(),
+    ...params,
+  };
+
   if (typeof window.gtag === "function") {
-    window.gtag("event", eventName, params);
+    window.gtag("event", eventName, payload);
     return;
   }
 
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: eventName, ...params });
+  window.dataLayer.push({ event: eventName, ...payload });
+}
+
+export function trackPageView(params = {}) {
+  if (typeof window === "undefined") return;
+
+  trackEvent("page_view", {
+    page_title: document.title,
+    ...params,
+  });
 }
 
 export function trackSurfaceCta(eventName, ctaLabel, destination, params = {}) {

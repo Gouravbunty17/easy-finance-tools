@@ -583,7 +583,7 @@ export default function TFSACalculator() {
           {
             title: 'Compare TFSA vs RRSP',
             body: 'Pressure-test whether the TFSA should beat the RRSP for the next contribution.',
-            href: '/blog/tfsa-vs-rrsp-2026',
+            href: '/blog/tfsa-vs-rrsp-canada-2026',
             ctaLabel: 'compare_tfsa_vs_rrsp',
           },
           {
