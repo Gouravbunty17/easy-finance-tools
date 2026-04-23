@@ -604,16 +604,16 @@ export default function FHSACalculator() {
             ctaLabel: 'read_fhsa_guide',
           },
           {
-            title: 'Compare TFSA vs RRSP',
-            body: 'Pressure-test whether the next dollar belongs in the FHSA, TFSA, or RRSP based on flexibility and tax value.',
-            href: '/blog/tfsa-vs-rrsp-2026',
-            ctaLabel: 'compare_tfsa_vs_rrsp',
+            title: 'Open the TFSA decision tool',
+            body: 'If the home timeline is uncertain, compare the same contribution against a more flexible TFSA path before you commit.',
+            href: '/tools/tfsa-calculator',
+            ctaLabel: 'open_tfsa_decision_tool',
           },
           {
-            title: 'Open the mortgage affordability calculator',
-            body: 'Translate the projected FHSA down-payment path into a home-price and affordability check.',
-            href: '/tools/mortgage-affordability-calculator',
-            ctaLabel: 'open_mortgage_affordability',
+            title: 'Open the RRSP decision tool',
+            body: 'If the deduction is the main attraction, compare the FHSA against a pure RRSP contribution before making the next deposit.',
+            href: '/tools/rrsp-calculator',
+            ctaLabel: 'open_rrsp_decision_tool',
           },
         ]}
         referral={{

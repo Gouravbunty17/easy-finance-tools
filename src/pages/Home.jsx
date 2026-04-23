@@ -2,95 +2,20 @@ import React from 'react';
 import SEO from '../components/SEO';
 import SurfaceTrackedLink from '../components/SurfaceTrackedLink';
 import EducationalDisclaimer from '../components/EducationalDisclaimer';
-import { CONTENT_LAST_REVIEWED, REGISTERED_ACCOUNT_LIMITS } from '../config/financial';
-
-const featuredTools = [
-  {
-    title: 'FHSA tax savings planner',
-    body: 'Estimate deduction value, contribution capacity, and a realistic down-payment path before choosing a provider.',
-    href: '/tools/fhsa-calculator',
-    label: 'First-home planning',
-  },
-  {
-    title: 'ETF income simulator',
-    body: 'Compare Canadian dividend ETFs, test DRIP assumptions, and see how much capital is needed for income goals.',
-    href: '/tools/dividend-calculator',
-    label: 'Income planning',
-  },
-  {
-    title: 'TFSA calculator',
-    body: 'Model tax-free growth and use it as the baseline when comparing TFSA, RRSP, and FHSA priorities.',
-    href: '/tools/tfsa-calculator',
-    label: 'Registered accounts',
-  },
-  {
-    title: 'RRSP calculator',
-    body: 'Estimate refund value, compare contribution timing, and see when the deduction starts to matter more.',
-    href: '/tools/rrsp-calculator',
-    label: 'Tax planning',
-  },
-];
-
-const decisionExamples = [
-  {
-    title: 'Buying your first home in 3 to 7 years',
-    body: 'Start with the FHSA planner, then compare it against TFSA and RRSP options before you open anything.',
-    primaryHref: '/tools/fhsa-calculator',
-    primaryLabel: 'Open FHSA planner',
-    secondaryHref: '/blog/how-to-use-fhsa-canada',
-    secondaryLabel: 'Read FHSA guide',
-  },
-  {
-    title: 'Trying to reach $500 per month from investments',
-    body: 'Use the ETF income simulator to compare yield assumptions, DRIP, and how much capital the goal really requires.',
-    primaryHref: '/tools/dividend-calculator',
-    primaryLabel: 'Open ETF income simulator',
-    secondaryHref: '/blog/best-etfs-for-tfsa-canada-2026',
-    secondaryLabel: 'Read ETF guide',
-  },
-  {
-    title: 'Deciding where the next contribution should go',
-    body: 'Use TFSA and RRSP tools together so the account choice is driven by the decision, not by habit or marketing.',
-    primaryHref: '/blog/tfsa-vs-rrsp-2026',
-    primaryLabel: 'Compare TFSA vs RRSP',
-    secondaryHref: '/tools/tfsa-calculator',
-    secondaryLabel: 'Open TFSA calculator',
-  },
-];
-
-const featuredGuides = [
-  {
-    title: 'How to use the FHSA in Canada',
-    body: 'Eligibility, carryforward, qualifying withdrawals, and how it stacks with the RRSP Home Buyers Plan.',
-    href: '/blog/how-to-use-fhsa-canada',
-    category: 'FHSA',
-  },
-  {
-    title: 'TFSA vs RRSP: which is better in 2026?',
-    body: 'A practical comparison when the next dollar could go into either account.',
-    href: '/blog/tfsa-vs-rrsp-2026',
-    category: 'Accounts',
-  },
-  {
-    title: 'Best ETFs for a TFSA in Canada',
-    body: 'A stronger ETF shortlist when the account job is growth, balance, or income.',
-    href: '/blog/best-etfs-for-tfsa-canada-2026',
-    category: 'Investing',
-  },
-  {
-    title: 'Best dividend investing platforms in Canada',
-    body: 'Platform comparison after the dividend or ETF income strategy is already clear.',
-    href: '/blog/best-dividend-investing-platforms-canada',
-    category: 'Platforms',
-  },
-];
+import {
+  CONTENT_LAST_REVIEWED,
+  PRIORITY_INVESTING_GUIDES,
+  PRIORITY_INVESTING_TOOLS,
+  PRIORITY_INVESTING_WORKFLOWS,
+  REGISTERED_ACCOUNT_LIMITS,
+} from '../config/financial';
 
 export default function Home() {
   return (
     <main className="min-h-screen">
       <SEO
-        title="Canadian Investing Decision Tools"
-        description="Decision tools and guides for FHSA, TFSA, RRSP, dividend income, ETFs, tax planning, and first-home saving in Canada."
+        title="Canadian Investing Decision Platform | FHSA, TFSA, RRSP and ETF Income"
+        description="Canadian investing decision tools and guides for FHSA, TFSA, RRSP, ETF income, dividend planning, and first-home saving."
         canonical="https://easyfinancetools.com/"
       />
 
@@ -135,13 +60,13 @@ export default function Home() {
                   Open ETF income simulator
                 </SurfaceTrackedLink>
                 <SurfaceTrackedLink
-                  to="/blog"
+                  to="/blog/tfsa-vs-rrsp-2026"
                   eventName="homepage_cta_click"
-                  ctaLabel="hero_browse_guides"
-                  trackingParams={{ section: 'hero', destination_type: 'hub' }}
+                  ctaLabel="hero_compare_tfsa_vs_rrsp"
+                  trackingParams={{ section: 'hero', destination_type: 'article' }}
                   className="rounded-2xl border border-white/15 bg-white/10 px-6 py-4 text-lg font-bold text-white transition hover:bg-white/15"
                 >
-                  Browse guides
+                  Compare TFSA vs RRSP
                 </SurfaceTrackedLink>
               </div>
             </div>
@@ -197,7 +122,7 @@ export default function Home() {
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {featuredTools.map((tool) => (
+            {PRIORITY_INVESTING_TOOLS.map((tool) => (
               <SurfaceTrackedLink
                 key={tool.href}
                 to={tool.href}
@@ -248,7 +173,7 @@ export default function Home() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Sample decision paths</p>
           <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Examples of how to use the platform</h2>
           <div className="mt-6 grid gap-4 lg:grid-cols-3">
-            {decisionExamples.map((example) => (
+            {PRIORITY_INVESTING_WORKFLOWS.map((example) => (
               <div key={example.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
                 <h3 className="text-xl font-bold text-primary dark:text-accent">{example.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{example.body}</p>
@@ -357,7 +282,7 @@ export default function Home() {
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {featuredGuides.map((guide) => (
+            {PRIORITY_INVESTING_GUIDES.map((guide) => (
               <SurfaceTrackedLink
                 key={guide.href}
                 to={guide.href}

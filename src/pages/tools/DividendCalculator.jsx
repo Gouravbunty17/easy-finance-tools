@@ -693,10 +693,10 @@ export default function DividendCalculator() {
             ctaLabel: 'open_tfsa_vs_rrsp_guide',
           },
           {
-            title: 'Review dividend platform comparisons',
-            body: 'See which Canadian investing platforms best fit an ETF income strategy after the portfolio plan is clear.',
-            href: '/blog/best-dividend-investing-platforms-canada',
-            ctaLabel: 'open_dividend_platform_comparison',
+            title: 'Open the TFSA decision tool',
+            body: 'Use the TFSA planner if the ETF income strategy needs to compete with broader account goals before you add new cash.',
+            href: '/tools/tfsa-calculator',
+            ctaLabel: 'open_tfsa_decision_tool',
           },
         ]}
         referral={{
@@ -735,9 +735,9 @@ export default function DividendCalculator() {
               body: 'Compare the ETF income idea against the broader job you want the TFSA to do over time.',
             },
             {
-              href: '/blog/how-to-invest-in-canada-beginners-2026',
-              title: 'How to invest in Canada',
-              body: 'Step back and review the full account and ETF workflow before committing to one income strategy.',
+              href: '/tools/rrsp-calculator',
+              title: 'RRSP decision tool',
+              body: 'If the income strategy competes with registered-account contribution room, compare it against the RRSP path before you act.',
             },
           ].map((item) => (
             <Link
