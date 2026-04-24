@@ -113,8 +113,8 @@ export default function FHSAvsRRSPDownPaymentCanada2026() {
   return (
     <div>
       <SEO
-        title="FHSA vs RRSP for a Down Payment in Canada (2026)"
-        description="Compare FHSA vs RRSP for a down payment in Canada. See tax treatment, withdrawal rules, contribution tradeoffs, and which account to use first in 2026."
+        title="FHSA vs RRSP for a Down Payment (Canada 2026)"
+        description="Compare FHSA and RRSP for a down payment in Canada, including tax treatment, withdrawals, and which account comes first."
         canonical="https://easyfinancetools.com/blog/fhsa-vs-rrsp-down-payment-canada-2026"
       />
       <ArticleSchema

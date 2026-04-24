@@ -4,6 +4,7 @@ import path from "node:path";
 import { createServer } from "node:http";
 import puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
+import { PRERENDER_ROUTES, SITE_URL } from "./site-routes.mjs";
 
 const isVercel = process.env.VERCEL === "1";
 
@@ -38,69 +39,6 @@ const DIST_DIR = path.resolve(process.cwd(), "dist");
 const HOST = "127.0.0.1";
 const PORT = Number(process.env.PRERENDER_PORT || 4173);
 const BASE_URL = `http://${HOST}:${PORT}`;
-const SITE_URL = "https://easyfinancetools.com";
-
-// Start with the highest-intent routes. Add to this list as more pages need
-// a fully baked first response for SEO.
-const ROUTES = [
-  "/",
-  "/tools",
-  "/blog",
-  "/about",
-  "/contact",
-  "/privacy-policy",
-  "/terms",
-  "/editorial-standards",
-  "/methodology",
-  "/tools/income-tax-calculator",
-  "/tools/compound-interest-calculator",
-  "/tools/tfsa-calculator",
-  "/tools/rrsp-calculator",
-  "/tools/dividend-calculator",
-  "/tools/budget-tracker",
-  "/tools/investment-tracker",
-  "/tools/fhsa-calculator",
-  "/tools/mortgage-calculator",
-  "/tools/rent-vs-buy",
-  "/tools/capital-gains-tax",
-  "/tools/cpp-oas-estimator",
-  "/tools/fire-calculator",
-  "/tools/tip-calculator",
-  "/tools/gst-hst-calculator",
-  "/tools/salary-to-hourly-calculator",
-  "/tools/cad-usd-converter",
-  "/tools/inflation-calculator",
-  "/tools/mortgage-affordability-calculator",
-  "/tools/gic-calculator",
-  "/tools/debt-payoff",
-  "/tools/savings-goal",
-  "/tools/net-pay-calculator",
-  "/blog/weekly-dividend-etfs",
-  "/blog/500-month-dividend-canada",
-  "/blog/fhsa-calculator-canada-2026",
-  "/blog/fhsa-vs-rrsp-down-payment-canada-2026",
-  "/blog/tfsa-vs-rrsp-canada-2026",
-  "/blog/how-to-start-investing-canada-2026",
-  "/blog/tfsa-vs-rrsp-2026",
-  "/blog/how-much-tfsa-room-2026",
-  "/blog/best-etfs-for-tfsa-canada-2026",
-  "/blog/how-to-use-fhsa-canada",
-  "/blog/cpp-payment-dates-2026",
-  "/blog/oas-payment-dates-2026",
-  "/blog/canadian-tax-brackets-2026",
-  "/blog/rrsp-deadline-2026",
-  "/blog/best-gic-rates-canada-2026",
-  "/blog/wealthsimple-vs-questrade-canada",
-  "/blog/best-tfsa-brokers-canada",
-  "/blog/best-rrsp-accounts-canada",
-  "/blog/best-investing-apps-canada",
-  "/blog/best-dividend-investing-platforms-canada",
-  "/blog/how-to-invest-in-canada-beginners-2026",
-  "/blog/best-hisa-canada-2026",
-  "/blog/emergency-fund-canada",
-  "/blog/pay-off-mortgage-faster-canada",
-  "/blog/canada-child-benefit-2026",
-];
 
 const CONTENT_TYPES = {
   ".css": "text/css; charset=utf-8",
@@ -289,7 +227,7 @@ async function main() {
   });
 
   try {
-    for (const route of ROUTES) {
+    for (const route of PRERENDER_ROUTES) {
       await prerenderRoute(browser, route);
     }
   } finally {

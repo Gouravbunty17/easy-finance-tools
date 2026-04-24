@@ -94,8 +94,8 @@ export default function HowToStartInvestingCanada2026() {
   return (
     <div>
       <SEO
-        title="How to Start Investing in Canada (2026): TFSA, RRSP, ETFs and First Steps"
-        description="New to investing in Canada? Learn how to start in 2026 using TFSAs, RRSPs, ETFs, and simple beginner steps. Includes practical guidance and next tools to use."
+        title="How to Start Investing in Canada (2026)"
+        description="New to investing in Canada? Learn which account to open first, when to use ETFs, and the next tools to use in 2026."
         canonical="https://easyfinancetools.com/blog/how-to-start-investing-canada-2026"
       />
       <ArticleSchema

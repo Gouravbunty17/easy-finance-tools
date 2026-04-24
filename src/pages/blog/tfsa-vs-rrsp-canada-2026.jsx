@@ -122,8 +122,8 @@ export default function TFSAvsRRSPCanada2026() {
   return (
     <div>
       <SEO
-        title="TFSA vs RRSP in Canada (2026): Which Should You Max First?"
-        description="Compare TFSA vs RRSP in Canada for 2026. Learn tax differences, contribution strategy, and which account to prioritize based on income and goals."
+        title="TFSA vs RRSP 2026: Which Should You Fund First?"
+        description="Use your income, tax rate, and goals to see whether TFSA or RRSP should get the next dollar in 2026."
         canonical="https://easyfinancetools.com/blog/tfsa-vs-rrsp-canada-2026"
       />
       <ArticleSchema

@@ -121,8 +121,8 @@ export default function FiveHundredMonthDividendCanada() {
   return (
     <div>
       <SEO
-        title="How to Earn $500/Month from Dividend ETFs in Canada (2026)"
-        description="See how much you need to invest to earn $500/month using Canadian dividend ETFs. Includes calculator, examples, and strategy."
+        title="$500/Month Dividends: How Much You Need (Canada)"
+        description="See how much capital you need for $500 per month in dividends, with Canadian ETF examples, calculator inputs, and account strategy."
         canonical="https://easyfinancetools.com/blog/500-month-dividend-canada"
       />
       <ArticleSchema

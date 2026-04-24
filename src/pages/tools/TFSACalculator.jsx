@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import SEO from '../../components/SEO';
 import FAQ from '../../components/FAQ';
+import FAQSchema from '../../components/FAQSchema';
 import MethodologyPanel from '../../components/MethodologyPanel';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
@@ -218,16 +219,17 @@ export default function TFSACalculator() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="TFSA Decision Tool 2026"
-        description="Estimate TFSA room, project tax-free growth, and decide whether the TFSA should get the next contribution in 2026."
+        title="TFSA Calculator 2026: Room & Tax-Free Growth"
+        description="Estimate TFSA room, tax-free growth, and account-fit decisions for 2026. Built for Canadians with clear assumptions."
         canonical="https://easyfinancetools.com/tools/tfsa-calculator"
       />
       <ToolPageSchema
-        name="TFSA Decision Tool 2026"
+        name="TFSA Calculator 2026"
         description="Canadian TFSA planning tool for contribution room, tax-free growth, and account-priority decisions."
         canonical="https://easyfinancetools.com/tools/tfsa-calculator"
         category="FinanceApplication"
       />
+      <FAQSchema faqs={TFSA_FAQS} />
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
         <div>

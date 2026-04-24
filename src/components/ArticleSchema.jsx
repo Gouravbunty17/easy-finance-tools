@@ -24,39 +24,59 @@ export default function ArticleSchema({
   dateModified,
   authorName = "Gourav Kumar",
   imageUrl = "https://easyfinancetools.com/og-image.svg",
+  breadcrumbs,
 }) {
   if (!headline || !url) return null;
 
+  const defaultBreadcrumbs = [
+    { name: "Home", item: "https://easyfinancetools.com/" },
+    { name: "Blog", item: "https://easyfinancetools.com/blog" },
+    { name: headline, item: url },
+  ];
+
   const schema = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline,
-    description,
-    url,
-    datePublished,
-    dateModified: dateModified || datePublished,
-    author: {
-      "@type": "Person",
-      name: authorName,
-      url: "https://easyfinancetools.com/about",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "EasyFinanceTools",
-      url: "https://easyfinancetools.com",
-      logo: {
-        "@type": "ImageObject",
-        url: imageUrl,
+    "@graph": [
+      {
+        "@type": "Article",
+        headline,
+        description,
+        url,
+        datePublished,
+        dateModified: dateModified || datePublished,
+        author: {
+          "@type": "Person",
+          name: authorName,
+          url: "https://easyfinancetools.com/about",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Easy Finance Tools",
+          url: "https://easyfinancetools.com",
+          logo: {
+            "@type": "ImageObject",
+            url: imageUrl,
+          },
+        },
+        image: {
+          "@type": "ImageObject",
+          url: imageUrl,
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": url,
+        },
       },
-    },
-    image: {
-      "@type": "ImageObject",
-      url: imageUrl,
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": url,
-    },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: (breadcrumbs || defaultBreadcrumbs).map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item.name,
+          item: item.item,
+        })),
+      },
+    ],
   };
 
   return (

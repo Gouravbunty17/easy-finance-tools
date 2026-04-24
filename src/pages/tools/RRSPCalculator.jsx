@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import SEO from '../../components/SEO';
 import FAQ from '../../components/FAQ';
+import FAQSchema from '../../components/FAQSchema';
 import MethodologyPanel from '../../components/MethodologyPanel';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
@@ -241,16 +242,17 @@ export default function RRSPCalculator() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="RRSP Decision Tool 2026"
-        description="Estimate RRSP tax refunds, project retirement growth, and compare the RRSP against TFSA and spousal planning paths for 2026."
+        title="RRSP Calculator 2026: Refund & Retirement"
+        description="Estimate RRSP refunds, room use, and retirement impact for 2026. Compare deduction value before you contribute."
         canonical="https://easyfinancetools.com/tools/rrsp-calculator"
       />
       <ToolPageSchema
-        name="RRSP Decision Tool 2026"
+        name="RRSP Calculator 2026"
         description="Canadian RRSP planning tool for contribution room, refund value, retirement projections, and RRIF context."
         canonical="https://easyfinancetools.com/tools/rrsp-calculator"
         category="FinanceApplication"
       />
+      <FAQSchema faqs={RRSP_FAQS} />
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
         <div>

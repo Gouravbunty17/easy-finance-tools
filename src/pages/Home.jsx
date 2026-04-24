@@ -142,8 +142,8 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <SEO
-        title="Make Better Money Decisions in Canada | TFSA, RRSP, FHSA and Dividend Tools"
-        description="Compare TFSA vs RRSP, estimate FHSA tax savings, and plan dividend income with practical tools built for Canadians."
+        title="Canadian TFSA, RRSP & FHSA Calculators (Free)"
+        description="Run TFSA, RRSP, FHSA and dividend calculations instantly. No signup. Built for Canadians."
         canonical="https://easyfinancetools.com/"
       />
 

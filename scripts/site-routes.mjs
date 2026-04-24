@@ -1,0 +1,70 @@
+export const SITE_URL = "https://easyfinancetools.com";
+
+export const STATIC_ROUTES = [
+  { route: "/", sourcePath: "src/pages/Home.jsx", group: "pages" },
+  { route: "/tools", sourcePath: "src/pages/ToolsPage.jsx", group: "pages" },
+  { route: "/blog", sourcePath: "src/pages/Blog.jsx", group: "pages" },
+  { route: "/about", sourcePath: "src/pages/About.jsx", group: "pages" },
+  { route: "/contact", sourcePath: "src/pages/Contact.jsx", group: "pages" },
+  { route: "/privacy-policy", sourcePath: "src/pages/PrivacyPolicy.jsx", group: "pages" },
+  { route: "/terms", sourcePath: "src/pages/Terms.jsx", group: "pages" },
+  { route: "/editorial-standards", sourcePath: "src/pages/EditorialStandards.jsx", group: "pages" },
+  { route: "/methodology", sourcePath: "src/pages/Methodology.jsx", group: "pages" },
+];
+
+export const TOOL_ROUTES = [
+  { route: "/tools/income-tax-calculator", sourcePath: "src/pages/tools/IncomeTaxCalculator.jsx", group: "tools" },
+  { route: "/tools/compound-interest-calculator", sourcePath: "src/pages/tools/CompoundInterestCalculator.jsx", group: "tools" },
+  { route: "/tools/tfsa-calculator", sourcePath: "src/pages/tools/TFSACalculator.jsx", group: "tools" },
+  { route: "/tools/rrsp-calculator", sourcePath: "src/pages/tools/RRSPCalculator.jsx", group: "tools" },
+  { route: "/tools/dividend-calculator", sourcePath: "src/pages/tools/DividendCalculator.jsx", group: "tools" },
+  { route: "/tools/budget-tracker", sourcePath: "src/pages/tools/BudgetTracker.jsx", group: "tools" },
+  { route: "/tools/investment-tracker", sourcePath: "src/pages/tools/InvestmentTracker.jsx", group: "tools" },
+  { route: "/tools/fhsa-calculator", sourcePath: "src/pages/tools/FHSACalculator.jsx", group: "tools" },
+  { route: "/tools/mortgage-calculator", sourcePath: "src/pages/tools/MortgageCalculator.jsx", group: "tools" },
+  { route: "/tools/rent-vs-buy", sourcePath: "src/pages/tools/RentVsBuyCalculator.jsx", group: "tools" },
+  { route: "/tools/capital-gains-tax", sourcePath: "src/pages/tools/CapitalGainsTaxCalculator.jsx", group: "tools" },
+  { route: "/tools/cpp-oas-estimator", sourcePath: "src/pages/tools/CPPOASEstimator.jsx", group: "tools" },
+  { route: "/tools/fire-calculator", sourcePath: "src/pages/tools/FIRECalculator.jsx", group: "tools" },
+  { route: "/tools/tip-calculator", sourcePath: "src/pages/tools/TipCalculator.jsx", group: "tools" },
+  { route: "/tools/gst-hst-calculator", sourcePath: "src/pages/tools/GstHstCalculator.jsx", group: "tools" },
+  { route: "/tools/salary-to-hourly-calculator", sourcePath: "src/pages/tools/SalaryToHourlyCalculator.jsx", group: "tools" },
+  { route: "/tools/cad-usd-converter", sourcePath: "src/pages/tools/CadUsdConverter.jsx", group: "tools" },
+  { route: "/tools/inflation-calculator", sourcePath: "src/pages/tools/InflationCalculator.jsx", group: "tools" },
+  { route: "/tools/mortgage-affordability-calculator", sourcePath: "src/pages/tools/MortgageAffordabilityCalculator.jsx", group: "tools" },
+  { route: "/tools/gic-calculator", sourcePath: "src/pages/tools/GICCalculator.jsx", group: "tools" },
+  { route: "/tools/debt-payoff", sourcePath: "src/pages/tools/DebtPayoffCalculator.jsx", group: "tools" },
+  { route: "/tools/savings-goal", sourcePath: "src/pages/tools/SavingsGoalCalculator.jsx", group: "tools" },
+  { route: "/tools/net-pay-calculator", sourcePath: "src/pages/tools/NetPayCalculator.jsx", group: "tools" },
+];
+
+export const BLOG_ROUTES = [
+  { route: "/blog/weekly-dividend-etfs", sourcePath: "src/pages/blog/weekly-dividend-etfs.jsx", group: "blog" },
+  { route: "/blog/500-month-dividend-canada", sourcePath: "src/pages/blog/500-month-dividend-canada.jsx", group: "blog" },
+  { route: "/blog/fhsa-calculator-canada-2026", sourcePath: "src/pages/blog/fhsa-calculator-canada-2026.jsx", group: "blog" },
+  { route: "/blog/fhsa-vs-rrsp-down-payment-canada-2026", sourcePath: "src/pages/blog/fhsa-vs-rrsp-down-payment-canada-2026.jsx", group: "blog" },
+  { route: "/blog/tfsa-vs-rrsp-canada-2026", sourcePath: "src/pages/blog/tfsa-vs-rrsp-canada-2026.jsx", group: "blog" },
+  { route: "/blog/how-to-start-investing-canada-2026", sourcePath: "src/pages/blog/how-to-start-investing-canada-2026.jsx", group: "blog" },
+  { route: "/blog/tfsa-vs-rrsp-2026", sourcePath: "src/pages/blog/tfsa-vs-rrsp-2026.jsx", group: "blog" },
+  { route: "/blog/how-much-tfsa-room-2026", sourcePath: "src/pages/blog/how-much-tfsa-room-2026.jsx", group: "blog" },
+  { route: "/blog/best-etfs-for-tfsa-canada-2026", sourcePath: "src/pages/blog/best-etfs-for-tfsa-canada-2026.jsx", group: "blog" },
+  { route: "/blog/how-to-use-fhsa-canada", sourcePath: "src/pages/blog/how-to-use-fhsa-canada.jsx", group: "blog" },
+  { route: "/blog/cpp-payment-dates-2026", sourcePath: "src/pages/blog/cpp-payment-dates-2026.jsx", group: "blog" },
+  { route: "/blog/oas-payment-dates-2026", sourcePath: "src/pages/blog/oas-payment-dates-2026.jsx", group: "blog" },
+  { route: "/blog/canadian-tax-brackets-2026", sourcePath: "src/pages/blog/canadian-tax-brackets-2026.jsx", group: "blog" },
+  { route: "/blog/rrsp-deadline-2026", sourcePath: "src/pages/blog/rrsp-deadline-2026.jsx", group: "blog" },
+  { route: "/blog/best-gic-rates-canada-2026", sourcePath: "src/pages/blog/best-gic-rates-canada-2026.jsx", group: "blog" },
+  { route: "/blog/wealthsimple-vs-questrade-canada", sourcePath: "src/pages/blog/wealthsimple-vs-questrade-canada.jsx", group: "blog" },
+  { route: "/blog/best-tfsa-brokers-canada", sourcePath: "src/pages/blog/best-tfsa-brokers-canada.jsx", group: "blog" },
+  { route: "/blog/best-rrsp-accounts-canada", sourcePath: "src/pages/blog/best-rrsp-accounts-canada.jsx", group: "blog" },
+  { route: "/blog/best-investing-apps-canada", sourcePath: "src/pages/blog/best-investing-apps-canada.jsx", group: "blog" },
+  { route: "/blog/best-dividend-investing-platforms-canada", sourcePath: "src/pages/blog/best-dividend-investing-platforms-canada.jsx", group: "blog" },
+  { route: "/blog/how-to-invest-in-canada-beginners-2026", sourcePath: "src/pages/blog/how-to-invest-in-canada-beginners-2026.jsx", group: "blog" },
+  { route: "/blog/best-hisa-canada-2026", sourcePath: "src/pages/blog/best-hisa-canada-2026.jsx", group: "blog" },
+  { route: "/blog/emergency-fund-canada", sourcePath: "src/pages/blog/emergency-fund-canada.jsx", group: "blog" },
+  { route: "/blog/pay-off-mortgage-faster-canada", sourcePath: "src/pages/blog/pay-off-mortgage-faster-canada.jsx", group: "blog" },
+  { route: "/blog/canada-child-benefit-2026", sourcePath: "src/pages/blog/canada-child-benefit-2026.jsx", group: "blog" },
+];
+
+export const SITE_ROUTES = [...STATIC_ROUTES, ...TOOL_ROUTES, ...BLOG_ROUTES];
+export const PRERENDER_ROUTES = SITE_ROUTES.map((entry) => entry.route);

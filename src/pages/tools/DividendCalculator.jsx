@@ -13,6 +13,7 @@ import {
 } from 'chart.js';
 import SEO from '../../components/SEO';
 import FAQ from '../../components/FAQ';
+import FAQSchema from '../../components/FAQSchema';
 import MethodologyPanel from '../../components/MethodologyPanel';
 import ToolByline from '../../components/ToolByline';
 import ToolPageSchema from '../../components/ToolPageSchema';
@@ -539,16 +540,17 @@ export default function DividendCalculator() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="ETF Income and Dividend Calculator Canada 2026"
-        description="Compare Canadian dividend ETFs, estimate annual and monthly income, model DRIP growth, and see how much capital you need for common income goals."
+        title="Dividend Calculator Canada: Income & DRIP"
+        description="Estimate annual income, monthly dividends, and DRIP growth for Canadian ETF income planning. Built for TFSA and RRSP comparisons."
         canonical="https://easyfinancetools.com/tools/dividend-calculator"
       />
       <ToolPageSchema
-        name="ETF Income and Dividend Calculator Canada 2026"
+        name="Dividend Calculator Canada"
         description="Canadian ETF income and dividend planning tool for yield assumptions, DRIP growth, income goals, and TFSA context."
         canonical="https://easyfinancetools.com/tools/dividend-calculator"
         category="FinanceApplication"
       />
+      <FAQSchema faqs={ETF_FAQS} />
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
         <div>

@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:app && npm run prerender",
+    "build": "npm run generate:sitemap && npm run build:app && npm run prerender",
     "build:app": "npx vite build",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
     "prerender": "node scripts/prerender.mjs",
     "preview": "vite preview",
     "verify:live": "powershell -ExecutionPolicy Bypass -File scripts/verify-live.ps1"

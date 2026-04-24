@@ -1,13 +1,20 @@
 import React from "react";
 
-export default function SEO({ title, description, canonical, type = "website", robots = "index,follow,max-image-preview:large" }) {
+export default function SEO({
+  title,
+  description,
+  canonical,
+  type = "website",
+  robots = "index,follow,max-image-preview:large",
+  schema,
+}) {
   React.useEffect(() => {
-    const siteName = "EasyFinanceTools";
+    const siteName = "Easy Finance Tools";
     const siteOrigin = "https://easyfinancetools.com";
-    const fullTitle = title ? `${title} | ${siteName}` : `${siteName} - Canadian Investing Decision Tools`;
+    const fullTitle = title || "Canadian TFSA, RRSP & FHSA Calculators (Free)";
     const desc =
       description ||
-      "Canadian investing decision tools for FHSA, TFSA, RRSP, ETF income, taxes, mortgages, and savings planning. No sign-up required. Privacy-first. Updated for 2026.";
+      "Run TFSA, RRSP, FHSA and dividend calculations instantly. No signup. Built for Canadians.";
     const normalizedPath = window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/+$/, "");
     const url = canonical || `${siteOrigin}${normalizedPath}`;
 
@@ -45,7 +52,27 @@ export default function SEO({ title, description, canonical, type = "website", r
       document.head.appendChild(canonicalEl);
     }
     canonicalEl.setAttribute("href", url);
-  }, [title, description, canonical, type, robots]);
+
+    document
+      .querySelectorAll('script[data-seo-schema="true"]')
+      .forEach((element) => element.remove());
+
+    const schemaItems = Array.isArray(schema) ? schema : schema ? [schema] : [];
+    schemaItems.forEach((item, index) => {
+      const scriptEl = document.createElement("script");
+      scriptEl.type = "application/ld+json";
+      scriptEl.dataset.seoSchema = "true";
+      scriptEl.dataset.seoSchemaIndex = String(index);
+      scriptEl.textContent = JSON.stringify(item);
+      document.head.appendChild(scriptEl);
+    });
+
+    return () => {
+      document
+        .querySelectorAll('script[data-seo-schema="true"]')
+        .forEach((element) => element.remove());
+    };
+  }, [title, description, canonical, robots, schema, type]);
 
   return null;
 }

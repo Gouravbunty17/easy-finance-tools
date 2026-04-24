@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import SEO from '../../components/SEO';
 import FAQ from '../../components/FAQ';
+import FAQSchema from '../../components/FAQSchema';
 import MethodologyPanel from '../../components/MethodologyPanel';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
@@ -134,16 +135,17 @@ export default function FHSACalculator() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="FHSA Decision Tool 2026"
-        description="Estimate FHSA tax savings, contribution capacity, and projected down-payment growth for 2026. Built for Canadian first-home planning with assumptions, next steps, and related links."
+        title="FHSA Calculator 2026: Tax Savings & Growth"
+        description="Estimate FHSA tax savings, room use, and down-payment growth for 2026. Compare FHSA against TFSA and RRSP."
         canonical="https://easyfinancetools.com/tools/fhsa-calculator"
       />
       <ToolPageSchema
-        name="FHSA Decision Tool 2026"
+        name="FHSA Calculator 2026"
         description="Canadian FHSA planning tool for tax savings, contribution room, projected growth, and down-payment decisions."
         canonical="https://easyfinancetools.com/tools/fhsa-calculator"
         category="FinanceApplication"
       />
+      <FAQSchema faqs={FHSA_FAQS} />
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
         <div>

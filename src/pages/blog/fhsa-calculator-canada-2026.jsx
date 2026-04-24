@@ -125,8 +125,8 @@ export default function FHSACalculatorCanada2026() {
   return (
     <div>
       <SEO
-        title="FHSA Calculator Canada: 2026 Tax Savings, Rules, and Growth Guide"
-        description="Estimate your 2026 FHSA tax savings, contribution impact, and long-term growth. Includes calculator examples, contribution rules, and next steps for Canadians."
+        title="FHSA Calculator Canada 2026: Tax Savings & Growth"
+        description="Estimate FHSA tax savings, room use, and growth for 2026. Includes examples, rules, and the next account to compare."
         canonical="https://easyfinancetools.com/blog/fhsa-calculator-canada-2026"
       />
       <ArticleSchema

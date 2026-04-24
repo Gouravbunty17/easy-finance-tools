@@ -301,8 +301,8 @@ export default function Blog() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="EasyFinanceTools Blog"
-        description="Canadian finance guides and decision tracks for FHSA, TFSA, RRSP, dividend income, ETFs, tax planning, and first-home saving."
+        title="Canadian Investing Guides & Account Comparisons"
+        description="Read Canadian guides for TFSA, RRSP, FHSA, dividend income, ETFs, and account decisions before using the tools."
         canonical="https://easyfinancetools.com/blog"
       />
 

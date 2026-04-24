@@ -2,502 +2,230 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://easyfinancetools.com/</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-04-24</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/tools</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/tools/tip-calculator</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.74</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/tools/gst-hst-calculator</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.76</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/tools/salary-to-hourly-calculator</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.73</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/tools/cad-usd-converter</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.72</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/tools/inflation-calculator</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.76</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/tools/mortgage-affordability-calculator</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.77</priority>
+    <lastmod>2026-04-22</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/blog</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/canadian-bank-stocks</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.78</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/canadian-etfs</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/dividend-etfs</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.77</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/canadian-dividend-stocks</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.76</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/covered-call-etfs</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/tsx-bank-stocks</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.77</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/compare</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.76</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/compare/xeqt-vs-veqt</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/compare/ry-vs-td</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.74</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/compare/bns-vs-bmo</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.73</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/compare/vdy-vs-xdv</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.73</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/AAPL</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/NVDA</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/TSLA</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.74</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/SHOP</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.74</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/RY</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.74</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/TD</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.74</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/SPY</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.72</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/QQQ</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.72</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/XEQT.TO</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.78</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/VEQT.TO</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.76</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/XGRO.TO</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.76</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/VGRO.TO</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.75</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/VDY.TO</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.72</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/XDV.TO</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/VFV.TO</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.72</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/ZSP.TO</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.71</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/XIU.TO</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.71</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/CASH.TO</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.68</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/CSAV.TO</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.68</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/HDIV.TO</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.67</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/BTC-USD</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/ETH-USD</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.69</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/GC=F</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/SI=F</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.68</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/CL=F</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.69</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/CAD=X</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.67</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/stocks/EURUSD=X</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.67</priority>
+    <lastmod>2026-04-24</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/about</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <lastmod>2026-04-21</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/contact</loc>
     <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://easyfinancetools.com/privacy-policy</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-04-20</lastmod>
   </url>
-
+  <url>
+    <loc>https://easyfinancetools.com/terms</loc>
+    <lastmod>2026-04-04</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/editorial-standards</loc>
+    <lastmod>2026-04-07</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/methodology</loc>
+    <lastmod>2026-04-07</lastmod>
+  </url>
   <url>
     <loc>https://easyfinancetools.com/tools/income-tax-calculator</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-04-20</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/tools/compound-interest-calculator</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.98</priority>
+    <lastmod>2026-04-21</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/tools/tfsa-calculator</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
+    <lastmod>2026-04-24</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/tools/rrsp-calculator</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/tools/fhsa-calculator</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/tools/mortgage-calculator</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.92</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/tools/rent-vs-buy</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/tools/capital-gains-tax</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/tools/cpp-oas-estimator</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <lastmod>2026-04-24</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/tools/dividend-calculator</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <lastmod>2026-04-24</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/tools/budget-tracker</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/tools/fire-calculator</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-04-07</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/tools/investment-tracker</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <lastmod>2026-04-21</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/tools/fhsa-calculator</loc>
+    <lastmod>2026-04-24</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/tools/mortgage-calculator</loc>
+    <lastmod>2026-04-22</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/tools/rent-vs-buy</loc>
+    <lastmod>2026-04-22</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/tools/capital-gains-tax</loc>
+    <lastmod>2026-04-07</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/tools/cpp-oas-estimator</loc>
+    <lastmod>2026-04-07</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/tools/fire-calculator</loc>
+    <lastmod>2026-04-21</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/tools/tip-calculator</loc>
+    <lastmod>2026-04-12</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/tools/gst-hst-calculator</loc>
+    <lastmod>2026-04-12</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/tools/salary-to-hourly-calculator</loc>
+    <lastmod>2026-04-12</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/tools/cad-usd-converter</loc>
+    <lastmod>2026-04-21</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/tools/inflation-calculator</loc>
+    <lastmod>2026-04-12</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/tools/mortgage-affordability-calculator</loc>
+    <lastmod>2026-04-22</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/tools/gic-calculator</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.82</priority>
+    <lastmod>2026-04-22</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/tools/debt-payoff</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.88</priority>
+    <lastmod>2026-04-07</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/tools/savings-goal</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <lastmod>2026-04-12</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/tools/net-pay-calculator</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.88</priority>
-  </url>
-
-  <url>
-    <loc>https://easyfinancetools.com/blog/cpp-payment-dates-2026</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/blog/oas-payment-dates-2026</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/blog/canadian-tax-brackets-2026</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/blog/rrsp-deadline-2026</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.92</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/blog/best-gic-rates-canada-2026</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.92</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/blog/tfsa-vs-rrsp-2026</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/blog/how-much-tfsa-room-2026</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/blog/best-etfs-for-tfsa-canada-2026</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.88</priority>
-  </url>
-  <url>
-    <loc>https://easyfinancetools.com/blog/how-to-use-fhsa-canada</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.88</priority>
+    <lastmod>2026-04-12</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/blog/weekly-dividend-etfs</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-04-22</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/500-month-dividend-canada</loc>
+    <lastmod>2026-04-24</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/fhsa-calculator-canada-2026</loc>
+    <lastmod>2026-04-24</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/fhsa-vs-rrsp-down-payment-canada-2026</loc>
+    <lastmod>2026-04-24</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/tfsa-vs-rrsp-canada-2026</loc>
+    <lastmod>2026-04-24</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/how-to-start-investing-canada-2026</loc>
+    <lastmod>2026-04-24</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/tfsa-vs-rrsp-2026</loc>
+    <lastmod>2026-04-22</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/how-much-tfsa-room-2026</loc>
+    <lastmod>2026-04-22</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/best-etfs-for-tfsa-canada-2026</loc>
+    <lastmod>2026-04-21</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/how-to-use-fhsa-canada</loc>
+    <lastmod>2026-04-07</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/cpp-payment-dates-2026</loc>
+    <lastmod>2026-04-07</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/oas-payment-dates-2026</loc>
+    <lastmod>2026-04-07</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/canadian-tax-brackets-2026</loc>
+    <lastmod>2026-04-07</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/rrsp-deadline-2026</loc>
+    <lastmod>2026-04-07</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/best-gic-rates-canada-2026</loc>
+    <lastmod>2026-04-07</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/wealthsimple-vs-questrade-canada</loc>
+    <lastmod>2026-04-21</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/best-tfsa-brokers-canada</loc>
+    <lastmod>2026-04-21</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/best-rrsp-accounts-canada</loc>
+    <lastmod>2026-04-21</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/best-investing-apps-canada</loc>
+    <lastmod>2026-04-07</lastmod>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/best-dividend-investing-platforms-canada</loc>
+    <lastmod>2026-04-04</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/blog/how-to-invest-in-canada-beginners-2026</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.84</priority>
+    <lastmod>2026-04-21</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/blog/best-hisa-canada-2026</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.84</priority>
+    <lastmod>2026-04-22</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/blog/emergency-fund-canada</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.82</priority>
+    <lastmod>2026-04-22</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/blog/pay-off-mortgage-faster-canada</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.82</priority>
+    <lastmod>2026-04-22</lastmod>
   </url>
   <url>
     <loc>https://easyfinancetools.com/blog/canada-child-benefit-2026</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.82</priority>
+    <lastmod>2026-04-02</lastmod>
   </url>
 </urlset>
