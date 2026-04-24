@@ -2,6 +2,7 @@ import React from 'react';
 import SEO from '../components/SEO';
 import SurfaceTrackedLink from '../components/SurfaceTrackedLink';
 import ReferralSection from '../components/ReferralSection';
+import EducationalDisclaimer from '../components/EducationalDisclaimer';
 
 const GOAL_CARDS = [
   {
@@ -362,6 +363,10 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pb-4">
+        <EducationalDisclaimer />
       </section>
 
       <section className="mx-auto max-w-5xl px-4 pb-16">
