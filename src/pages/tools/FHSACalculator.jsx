@@ -135,12 +135,12 @@ export default function FHSACalculator() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="FHSA Calculator 2026: Tax Savings & Growth"
-        description="Estimate FHSA tax savings, room use, and down-payment growth for 2026. Compare FHSA against TFSA and RRSP."
+        title="FHSA Calculator Canada 2026: Tax Savings & Growth"
+        description="Free Canadian FHSA calculator. Estimate 2026 tax savings, contribution room, down-payment growth, and FHSA vs TFSA vs RRSP."
         canonical="https://easyfinancetools.com/tools/fhsa-calculator"
       />
       <ToolPageSchema
-        name="FHSA Calculator 2026"
+        name="FHSA Calculator Canada 2026"
         description="Canadian FHSA planning tool for tax savings, contribution room, projected growth, and down-payment decisions."
         canonical="https://easyfinancetools.com/tools/fhsa-calculator"
         category="FinanceApplication"

@@ -7,8 +7,8 @@ export default function CanadaChildBenefit2026() {
   return (
     <div>
       <SEO
-        title="Canada Child Benefit (CCB) 2026 — Amounts, Dates & How to Apply"
-        description="Everything about the Canada Child Benefit in 2026: monthly payment amounts by income and child age, all 12 payment dates, how to maximize your CCB, and eligibility rules."
+        title="Canada Child Benefit (CCB) 2026: Amounts, Dates & How to Apply"
+        description="2026 Canada Child Benefit (CCB) guide: monthly amounts by income and child age, all 12 payment dates, eligibility, and how to maximize your CCB."
         canonical="https://easyfinancetools.com/blog/canada-child-benefit-2026"
       />
 

@@ -62,14 +62,14 @@ export default function CanadianTaxBrackets2026() {
   return (
     <div>
       <SEO
-        title="Canadian Tax Brackets 2026: Federal & Provincial Rates Explained"
-        description="Complete guide to 2026 Canadian federal and provincial income tax brackets. Understand marginal vs effective rates, see worked examples, and use free calculators to estimate your tax."
+        title="Canadian Tax Brackets 2026: Federal & Provincial Rates"
+        description="2026 Canadian federal and provincial income tax brackets explained. Marginal vs effective rates, worked examples, and a free tax calculator."
         canonical="https://easyfinancetools.com/blog/canadian-tax-brackets-2026"
       />
 
       <ArticleSchema
-        headline="Canadian Tax Brackets 2026: Federal & Provincial Rates Explained"
-        description="Complete guide to 2026 Canadian federal and provincial income tax brackets. Understand marginal vs effective rates, see worked examples, and use free calculators to estimate your tax."
+        headline="Canadian Tax Brackets 2026: Federal & Provincial Rates"
+        description="2026 Canadian federal and provincial income tax brackets explained. Marginal vs effective rates, worked examples, and a free tax calculator."
         url="https://easyfinancetools.com/blog/canadian-tax-brackets-2026"
         datePublished="2026-03-29"
         dateModified="2026-04-07"

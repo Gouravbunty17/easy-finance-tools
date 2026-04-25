@@ -11,10 +11,11 @@ export default function SEO({
   React.useEffect(() => {
     const siteName = "Easy Finance Tools";
     const siteOrigin = "https://easyfinancetools.com";
-    const fullTitle = title || "Canadian TFSA, RRSP & FHSA Calculators (Free)";
+    const defaultTitle = "Free Canadian TFSA, RRSP & FHSA Calculators 2026 | EasyFinanceTools";
+    const fullTitle = title || defaultTitle;
     const desc =
       description ||
-      "Run TFSA, RRSP, FHSA and dividend calculations instantly. No signup. Built for Canadians.";
+      "Free 2026 Canadian finance calculators for TFSA, RRSP, FHSA, dividends, mortgage, and tax. Plain-English guides, no sign-up, built for Canadians.";
     const normalizedPath = window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/+$/, "");
     const url = canonical || `${siteOrigin}${normalizedPath}`;
 

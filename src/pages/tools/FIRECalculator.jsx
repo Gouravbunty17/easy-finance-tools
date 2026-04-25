@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import SEO from "../../components/SEO";
+import ToolPageSchema from "../../components/ToolPageSchema";
 import { Line, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS, LineElement, ArcElement, CategoryScale,
@@ -154,9 +155,15 @@ export default function FIRECalculator() {
   return (
     <section className="max-w-5xl mx-auto px-4 py-12">
       <SEO
-        title="FIRE Calculator Canada 2026 — Financial Independence Retire Early"
-        description="Calculate your FIRE number and retirement date with this free Canadian FIRE calculator. Includes CPP, OAS, inflation adjustment, and Lean/Fat/Barista FIRE scenarios."
+        title="FIRE Calculator Canada 2026 — Retire Early Number"
+        description="Free Canadian FIRE calculator. Estimate your FIRE number, retirement date, and Lean/Fat/Barista FIRE paths with CPP, OAS, and inflation built in."
         canonical="https://easyfinancetools.com/tools/fire-calculator"
+      />
+      <ToolPageSchema
+        name="FIRE Calculator Canada 2026"
+        description="Canadian financial independence calculator covering FIRE number, retirement date, CPP, OAS, inflation, and Lean/Fat/Barista FIRE scenarios."
+        canonical="https://easyfinancetools.com/tools/fire-calculator"
+        category="FinanceApplication"
       />
 
       <div className="mb-8">

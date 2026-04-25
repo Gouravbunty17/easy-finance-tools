@@ -277,12 +277,12 @@ export default function MortgageCalculator() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="Mortgage Payment Decision Tool Canada 2026"
-        description="Estimate Canadian mortgage payments, CMHC costs, closing costs, stress-test pressure, and payoff tradeoffs for 2026 home-buying decisions."
+        title="Mortgage Calculator Canada 2026: Payments, CMHC & Stress Test"
+        description="Free Canadian mortgage calculator. Estimate monthly payments, CMHC premiums, closing costs, stress-test pressure, and payoff tradeoffs for 2026."
         canonical="https://easyfinancetools.com/tools/mortgage-calculator"
       />
       <ToolPageSchema
-        name="Mortgage Payment Decision Tool Canada 2026"
+        name="Mortgage Calculator Canada 2026"
         description="Canadian mortgage planning tool for payment math, CMHC, stress-test context, closing costs, and payoff scenarios."
         canonical="https://easyfinancetools.com/tools/mortgage-calculator"
         category="FinanceApplication"

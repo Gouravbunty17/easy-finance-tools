@@ -242,12 +242,12 @@ export default function RRSPCalculator() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="RRSP Calculator 2026: Refund & Retirement"
-        description="Estimate RRSP refunds, room use, and retirement impact for 2026. Compare deduction value before you contribute."
+        title="RRSP Calculator Canada 2026: Tax Refund & Retirement"
+        description="Free Canadian RRSP calculator. Estimate 2026 tax refund, contribution room, and retirement impact before your next deposit."
         canonical="https://easyfinancetools.com/tools/rrsp-calculator"
       />
       <ToolPageSchema
-        name="RRSP Calculator 2026"
+        name="RRSP Calculator Canada 2026"
         description="Canadian RRSP planning tool for contribution room, refund value, retirement projections, and RRIF context."
         canonical="https://easyfinancetools.com/tools/rrsp-calculator"
         category="FinanceApplication"

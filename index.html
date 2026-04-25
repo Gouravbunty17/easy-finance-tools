@@ -1,33 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-CA">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#003366" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="EasyFinanceTools" />
 
     <!-- Primary SEO -->
-    <title>Canadian TFSA, RRSP & FHSA Calculators (Free)</title>
-    <meta name="description" content="Run TFSA, RRSP, FHSA and dividend calculations instantly. No signup. Built for Canadians." />
-    <meta name="keywords" content="TFSA calculator Canada, RRSP calculator 2026, dividend calculator Canada, free financial tools Canada, budget tracker, Canadian personal finance" />
-    <meta name="robots" content="index, follow" />
+    <title>Free Canadian TFSA, RRSP & FHSA Calculators 2026 | EasyFinanceTools</title>
+    <meta name="description" content="Free 2026 Canadian finance calculators for TFSA, RRSP, FHSA, dividends, mortgage, and tax. Plain-English guides, no sign-up, built for Canadians." />
+    <meta name="keywords" content="TFSA calculator Canada, RRSP calculator 2026, FHSA calculator, dividend calculator Canada, mortgage calculator Canada, Canadian income tax calculator, free finance tools Canada, budget tracker, Canadian personal finance" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow" />
     <meta name="author" content="Gourav Kumar" />
+    <meta name="publisher" content="Easy Finance Tools" />
+    <meta name="application-name" content="EasyFinanceTools" />
+    <meta name="geo.region" content="CA" />
+    <meta name="geo.placename" content="Canada" />
+    <meta name="rating" content="general" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="msvalidate.01" content="5F47EE7FF93EBF0D112F0840D9D1C4EF" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#003366" />
+
+    <!-- Hreflang (English / Canada) -->
+    <link rel="alternate" hreflang="en-ca" href="https://easyfinancetools.com/" />
+    <link rel="alternate" hreflang="en" href="https://easyfinancetools.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://easyfinancetools.com/" />
 
     <!-- Open Graph (Facebook, LinkedIn sharing) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Easy Finance Tools" />
-    <meta property="og:title" content="Canadian TFSA, RRSP & FHSA Calculators (Free)" />
-    <meta property="og:description" content="Run TFSA, RRSP, FHSA and dividend calculations instantly. No signup. Built for Canadians." />
+    <meta property="og:title" content="Free Canadian TFSA, RRSP & FHSA Calculators 2026 | EasyFinanceTools" />
+    <meta property="og:description" content="Free 2026 Canadian finance calculators for TFSA, RRSP, FHSA, dividends, mortgage, and tax. Plain-English guides, no sign-up, built for Canadians." />
     <meta property="og:image" content="https://easyfinancetools.com/og-image.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="EasyFinanceTools - free Canadian TFSA, RRSP, FHSA and dividend calculators" />
     <meta property="og:locale" content="en_CA" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Canadian TFSA, RRSP & FHSA Calculators (Free)" />
-    <meta name="twitter:description" content="Run TFSA, RRSP, FHSA and dividend calculations instantly. No signup. Built for Canadians." />
+            <meta name="twitter:title" content="Free Canadian TFSA, RRSP & FHSA Calculators 2026 | EasyFinanceTools" />
+    <meta name="twitter:description" content="Free 2026 Canadian finance calculators for TFSA, RRSP, FHSA, dividends, mortgage, and tax. Plain-English guides, no sign-up, built for Canadians." />
     <meta name="twitter:image" content="https://easyfinancetools.com/og-image.svg" />
+    <meta name="twitter:image:alt" content="EasyFinanceTools - free Canadian TFSA, RRSP, FHSA and dividend calculators" />
 
     <script>
       (function () {
@@ -55,16 +80,37 @@
     {
       "@context": "https://schema.org",
       "@type": "Organization",
+      "@id": "https://easyfinancetools.com/#organization",
       "name": "Easy Finance Tools",
+      "alternateName": ["EasyFinanceTools", "Easy Finance Tools Canada"],
       "url": "https://easyfinancetools.com",
-      "logo": "https://easyfinancetools.com/logo.svg",
-      "description": "Canadian financial calculators and decision guides for TFSA, RRSP, FHSA, dividend income, and investing.",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://easyfinancetools.com/logo.svg",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://easyfinancetools.com/og-image.svg",
+      "description": "Free Canadian financial calculators and decision guides for TFSA, RRSP, FHSA, dividend income, mortgage, tax, and investing.",
+      "founder": {
+        "@type": "Person",
+        "name": "Gourav Kumar",
+        "url": "https://easyfinancetools.com/about"
+      },
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "Customer Support",
-        "url": "https://easyfinancetools.com/contact"
+        "url": "https://easyfinancetools.com/contact",
+        "availableLanguage": ["en-CA", "en"]
       },
-      "areaServed": "CA",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Canada"
+      },
+      "knowsAbout": [
+        "TFSA", "RRSP", "FHSA", "Canadian income tax", "Mortgages",
+        "Dividend investing", "ETFs", "GIC", "Personal finance"
+      ],
       "inLanguage": "en-CA"
     }
     </script>
@@ -74,11 +120,19 @@
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
+      "@id": "https://easyfinancetools.com/#website",
       "name": "Easy Finance Tools",
+      "alternateName": "EasyFinanceTools",
       "url": "https://easyfinancetools.com",
+      "description": "Free Canadian finance calculators and plain-English guides for TFSA, RRSP, FHSA, dividend income, mortgage, and tax planning.",
+      "publisher": { "@id": "https://easyfinancetools.com/#organization" },
+      "inLanguage": "en-CA",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://easyfinancetools.com/tools?q={search_term_string}",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://easyfinancetools.com/tools?q={search_term_string}"
+        },
         "query-input": "required name=search_term_string"
       }
     }
@@ -97,14 +151,16 @@
       });
     </script>
 
-    <!-- AdSense intentionally disabled until April 24 resubmission. -->
-    <!-- Re-enable publisher ID: ca-pub-4262496331692202 -->
-
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <!-- Preconnect / DNS-prefetch for performance -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+
+

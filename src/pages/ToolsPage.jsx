@@ -47,8 +47,8 @@ export default function ToolsPage() {
   return (
     <main aria-labelledby="tools-page-title">
       <SEO
-        title="Free Investment Calculators Canada | TFSA, RRSP, Dividend & Growth Tools"
-        description="Explore free Canadian investment calculators for TFSA, RRSP, dividends, compound interest, savings goals, and long-term portfolio planning."
+        title="Free Canadian Finance Calculators 2026 | All Tools"
+        description="Browse 20+ free Canadian finance calculators: TFSA, RRSP, FHSA, dividend, mortgage, tax, GIC, FIRE, debt payoff, and more. No sign-up required."
         canonical="https://easyfinancetools.com/tools"
       />
 

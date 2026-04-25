@@ -69,14 +69,14 @@ export default function HowMuchTFSARoom() {
   return (
     <div>
       <SEO
-        title="How Much TFSA Room Do I Have in 2026? - Full Contribution Limit Table"
-        description="Find out how much TFSA contribution room you may have in 2026. See the full year-by-year limit table, cumulative totals, and how to verify your exact number through CRA My Account."
+        title="How Much TFSA Room Do I Have in 2026? Full Limit Table"
+        description="See your 2026 TFSA contribution room. Year-by-year TFSA limit table, cumulative totals since 2009, and how to confirm room in CRA My Account."
         canonical="https://easyfinancetools.com/blog/how-much-tfsa-room-2026"
       />
 
       <ArticleSchema
         headline="How Much TFSA Room Do I Have in 2026?"
-        description="Find out how much TFSA contribution room you may have in 2026. See the full year-by-year limit table, cumulative totals, and how to verify your exact number through CRA My Account."
+        description="See your 2026 TFSA contribution room. Year-by-year TFSA limit table, cumulative totals since 2009, and how to confirm room in CRA My Account."
         url="https://easyfinancetools.com/blog/how-much-tfsa-room-2026"
         datePublished="2026-04-03"
         dateModified="2026-04-07"

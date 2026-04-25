@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import SEO from '../../components/SEO';
+import ToolPageSchema from '../../components/ToolPageSchema';
 import { Doughnut, Bar, Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS, ArcElement, BarElement, LineElement,
@@ -109,9 +110,15 @@ export default function InvestmentTracker() {
   return (
     <section className="max-w-5xl mx-auto px-4 py-12">
       <SEO
-        title="Net Worth Calculator Canada 2026 — Free Asset & Debt Tracker"
-        description="Track your total net worth, assets, and liabilities with this free Canadian net worth calculator. See your TFSA, RRSP, real estate, and debt breakdown with projection charts."
+        title="Net Worth Calculator Canada 2026 — Asset & Debt Tracker"
+        description="Free Canadian net worth calculator. Track TFSA, RRSP, FHSA, real estate, and debt with breakdowns and projection charts. No sign-up."
         canonical="https://easyfinancetools.com/tools/investment-tracker"
+      />
+      <ToolPageSchema
+        name="Net Worth Calculator Canada 2026"
+        description="Track Canadian assets and liabilities with breakdowns for TFSA, RRSP, real estate, and debt, plus a multi-year net worth projection."
+        canonical="https://easyfinancetools.com/tools/investment-tracker"
+        category="FinanceApplication"
       />
 
       <div className="mb-8">

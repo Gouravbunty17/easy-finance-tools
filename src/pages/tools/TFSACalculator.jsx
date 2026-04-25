@@ -219,12 +219,12 @@ export default function TFSACalculator() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="TFSA Calculator 2026: Room & Tax-Free Growth"
-        description="Estimate TFSA room, tax-free growth, and account-fit decisions for 2026. Built for Canadians with clear assumptions."
+        title="TFSA Calculator Canada 2026: Room & Tax-Free Growth"
+        description="Free Canadian TFSA calculator. Estimate 2026 contribution room, tax-free growth, and TFSA vs RRSP fit with clear assumptions."
         canonical="https://easyfinancetools.com/tools/tfsa-calculator"
       />
       <ToolPageSchema
-        name="TFSA Calculator 2026"
+        name="TFSA Calculator Canada 2026"
         description="Canadian TFSA planning tool for contribution room, tax-free growth, and account-priority decisions."
         canonical="https://easyfinancetools.com/tools/tfsa-calculator"
         category="FinanceApplication"

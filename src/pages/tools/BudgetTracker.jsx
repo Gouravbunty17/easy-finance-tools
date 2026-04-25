@@ -5,6 +5,7 @@ import {
   LinearScale, Tooltip, Legend
 } from "chart.js";
 import SEO from "../../components/SEO";
+import ToolPageSchema from "../../components/ToolPageSchema";
 import FAQ from "../../components/FAQ";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
@@ -121,9 +122,15 @@ export default function BudgetTracker() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <SEO
-        title="Budget Tracker 2026 — Canadian Monthly Budget Calculator"
-        description="Free Canadian budget tracker with 50/30/20 rule analysis, spending breakdown charts, emergency fund calculator, and savings rate. No signup required."
+        title="Budget Tracker Canada 2026 — Free Monthly Budget Calculator"
+        description="Free Canadian budget tracker with 50/30/20 analysis, spending breakdown charts, emergency fund calculator, and savings-rate score. No sign-up."
         canonical="https://easyfinancetools.com/tools/budget-tracker"
+      />
+      <ToolPageSchema
+        name="Budget Tracker Canada 2026"
+        description="Canadian monthly budget tracker with 50/30/20 analysis, spending breakdown, emergency fund and savings-rate scoring."
+        canonical="https://easyfinancetools.com/tools/budget-tracker"
+        category="FinanceApplication"
       />
 
       <div className="mb-6">

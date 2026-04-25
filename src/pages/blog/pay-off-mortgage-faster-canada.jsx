@@ -53,12 +53,12 @@ export default function PayOffMortgageFasterCanada() {
     <div>
       <SEO
         title="7 Ways to Pay Off Your Mortgage Faster in Canada (2026)"
-        description="Proven, lender-approved strategies to shave years off your Canadian mortgage and save tens of thousands in interest. Includes bi-weekly math, Big Six prepayment rules, and penalty explained."
+        description="Lender-approved strategies to shave years off a Canadian mortgage: bi-weekly math, Big Six prepayment rules, lump-sum tactics, and penalty types explained."
         canonical="https://easyfinancetools.com/blog/pay-off-mortgage-faster-canada"
       />
       <ArticleSchema
         headline="7 Ways to Pay Off Your Mortgage Faster in Canada (2026)"
-        description="Seven lender-approved strategies to reduce your Canadian mortgage amortization, including accelerated bi-weekly math, prepayment allowances by lender, penalty types, and the stress test explained."
+        description="Seven lender-approved strategies to reduce a Canadian mortgage: bi-weekly math, prepayment allowances by lender, penalty types, and the stress test."
         url="https://easyfinancetools.com/blog/pay-off-mortgage-faster-canada"
         datePublished="2026-04-02"
         dateModified="2026-04-20"

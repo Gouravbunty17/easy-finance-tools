@@ -108,13 +108,14 @@ export default function DebtPayoffCalculator() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-12">
       <SEO
-        title="Debt Payoff Calculator Canada - Avalanche vs Snowball"
-        description="Compare debt payoff strategies in Canada. Model avalanche vs snowball, extra monthly payments, payoff time, and total interest."
+        title="Debt Payoff Calculator Canada 2026: Avalanche vs Snowball"
+        description="Free Canadian debt payoff calculator. Compare avalanche vs snowball, model extra monthly payments, and see total interest and payoff time side by side."
+        canonical="https://easyfinancetools.com/tools/debt-payoff"
       />
       <ToolPageSchema
         name="Debt Payoff Calculator Canada"
-        description="Debt payoff calculator comparing avalanche and snowball repayment strategies, extra monthly payments, payoff timing, and interest."
-        canonical="https://easyfinancetools.com/tools/debt-payoff-calculator"
+        description="Compare avalanche and snowball repayment strategies, extra monthly payments, payoff timing, and total interest for Canadian debt."
+        canonical="https://easyfinancetools.com/tools/debt-payoff"
         category="FinanceApplication"
       />
 

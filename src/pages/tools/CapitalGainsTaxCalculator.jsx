@@ -143,8 +143,8 @@ export default function CapitalGainsTaxCalculator() {
   return (
     <section className="mx-auto max-w-5xl px-4 py-12">
       <SEO
-        title="Canadian Capital Gains Tax Calculator 2026 - Stocks, Crypto, Real Estate"
-        description="Calculate estimated capital gains tax in Canada for stocks, crypto, real estate, and other capital property."
+        title="Capital Gains Tax Calculator Canada 2026"
+        description="Free Canadian capital gains tax calculator for stocks, crypto, real estate, and other capital property. Estimate the tax owed using 2026 inclusion rates."
         canonical="https://easyfinancetools.com/tools/capital-gains-tax"
       />
       <ToolPageSchema

@@ -540,8 +540,8 @@ export default function DividendCalculator() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="Dividend Calculator Canada: Income & DRIP"
-        description="Estimate annual income, monthly dividends, and DRIP growth for Canadian ETF income planning. Built for TFSA and RRSP comparisons."
+        title="Dividend Calculator Canada 2026: Income, Yield & DRIP"
+        description="Free Canadian dividend calculator. Estimate annual income, monthly dividends, and DRIP growth for ETFs in TFSA, RRSP, or non-registered accounts."
         canonical="https://easyfinancetools.com/tools/dividend-calculator"
       />
       <ToolPageSchema

@@ -50,14 +50,14 @@ export default function RRSPDeadline2026() {
   return (
     <div>
       <SEO
-        title="RRSP Deadline 2026: Contribution Deadline, Limits & Tax Refund Guide"
-        description="The 2026 RRSP contribution deadline is March 2, 2026. Learn the 2025 and 2026 RRSP limits, how to estimate your tax refund, spousal RRSP rules, over-contribution penalties, and contribution strategies."
+        title="RRSP Deadline 2026: Contribution Limits & Tax Refund Guide"
+        description="The 2026 RRSP deadline is March 2, 2026. See 2025/2026 RRSP limits, refund math, spousal RRSP rules, and over-contribution penalties."
         canonical="https://easyfinancetools.com/blog/rrsp-deadline-2026"
       />
 
       <ArticleSchema
-        headline="RRSP Deadline 2026: Contribution Deadline, Limits & Tax Refund Guide"
-        description="The 2026 RRSP contribution deadline is March 2, 2026. Learn the 2025 and 2026 RRSP limits, how to estimate your tax refund, spousal RRSP rules, and contribution strategies."
+        headline="RRSP Deadline 2026: Contribution Limits & Tax Refund Guide"
+        description="The 2026 RRSP deadline is March 2, 2026. See 2025/2026 RRSP limits, refund math, spousal RRSP rules, and contribution strategies."
         url="https://easyfinancetools.com/blog/rrsp-deadline-2026"
         datePublished="2026-03-29"
         dateModified="2026-04-07"

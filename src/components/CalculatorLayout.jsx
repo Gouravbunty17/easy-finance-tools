@@ -1,5 +1,6 @@
 import React from "react";
 import SEO from "./SEO";
+import ToolPageSchema from "./ToolPageSchema";
 import SurfaceTrackedLink from "./SurfaceTrackedLink";
 import ToolByline from "./ToolByline";
 
@@ -55,6 +56,14 @@ export default function CalculatorLayout({
   return (
     <section className="mx-auto max-w-6xl px-4 py-12">
       <SEO title={title} description={description} canonical={canonical} />
+      {canonical && title ? (
+        <ToolPageSchema
+          name={title}
+          description={description}
+          canonical={canonical}
+          category="FinanceApplication"
+        />
+      ) : null}
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
         <div>

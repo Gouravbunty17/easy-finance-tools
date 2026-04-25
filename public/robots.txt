@@ -1,9 +1,66 @@
+# robots.txt - easyfinancetools.com
+# Free Canadian finance calculators and guides
+
 User-agent: *
 Allow: /
 
-# Sitemap location
-Sitemap: https://easyfinancetools.com/sitemap.xml
+# Major search engines
+User-agent: Googlebot
+Allow: /
 
-# Block unnecessary paths
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# AI / answer engines
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# Block paths that should not be indexed
+User-agent: *
 Disallow: /api/
 Disallow: /.env
+Disallow: /assets/
+Disallow: /*?*utm_
+Disallow: /*?*ref=
+Disallow: /*?*fbclid=
+Disallow: /*?*gclid=
+
+# Sitemap
+Sitemap: https://easyfinancetools.com/sitemap.xml
+
