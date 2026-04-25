@@ -35,6 +35,11 @@
   },
   "redirects": [
     {
+      "source": "/ads.txt",
+      "destination": "https://srv.adstxtmanager.com/19390/easyfinancetools.com",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
@@ -45,7 +50,15 @@
       "destination": "https://easyfinancetools.com/:path*",
       "permanent": true
     },
-    { "source": "/calculators", "destination": "/tools", "permanent": true },
-    { "source": "/calculators/:path*", "destination": "/tools", "permanent": true }
+    {
+      "source": "/calculators",
+      "destination": "/tools",
+      "permanent": true
+    },
+    {
+      "source": "/calculators/:path*",
+      "destination": "/tools",
+      "permanent": true
+    }
   ]
 }
