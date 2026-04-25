@@ -47,8 +47,8 @@ export default function ToolsPage() {
   return (
     <main aria-labelledby="tools-page-title">
       <SEO
-        title="Canadian Money Decision Tools"
-        description="Browse Canadian decision tools for FHSA, TFSA, RRSP, ETF income, tax planning, mortgages, debt payoff, and savings goals."
+        title="Free Investment Calculators Canada | TFSA, RRSP, Dividend & Growth Tools"
+        description="Explore free Canadian investment calculators for TFSA, RRSP, dividends, compound interest, savings goals, and long-term portfolio planning."
         canonical="https://easyfinancetools.com/tools"
       />
 

@@ -122,8 +122,8 @@ export default function CompoundInterestCalculator() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="Compound Interest Calculator Canada"
-        description="Estimate compound growth in CAD with monthly contributions, investment fees, and inflation. Free Canadian compound interest calculator with chart and plain-language breakdown."
+        title="Compound Interest Calculator Canada | See Your Investment Growth"
+        description="Calculate compound interest, monthly contributions, investment growth, and future value in Canada. Free calculator with instant results."
         canonical="https://easyfinancetools.com/tools/compound-interest-calculator"
       />
       <ToolPageSchema

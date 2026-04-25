@@ -127,8 +127,8 @@ export default function BestTFSABrokersCanada() {
   return (
     <div>
       <SEO
-        title="Best TFSA Brokers in Canada (2026)"
-        description="Compare the best TFSA brokers in Canada for 2026, including Wealthsimple, Questrade, and other self-directed platforms for long-term ETF investors."
+        title="Best TFSA Brokers in Canada 2026 | Fees, Apps & Investing Platforms"
+        description="Compare the best TFSA brokers in Canada for 2026. Review fees, trading apps, account features, beginner options, and long-term investing platforms."
         canonical="https://easyfinancetools.com/blog/best-tfsa-brokers-canada"
       />
       <ArticleSchema

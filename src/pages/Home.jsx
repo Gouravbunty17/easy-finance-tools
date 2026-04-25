@@ -143,8 +143,8 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <SEO
-        title="Canadian TFSA, RRSP & FHSA Calculators (Free)"
-        description="Run TFSA, RRSP, FHSA and dividend calculations instantly. No signup. Built for Canadians."
+        title="Free Canadian Finance Calculators | TFSA, RRSP & Dividend Tools"
+        description="Use free Canadian finance calculators for TFSA, RRSP, compound interest, dividends, and savings planning. Simple tools, no sign-up required."
         canonical="https://easyfinancetools.com/"
       />
 

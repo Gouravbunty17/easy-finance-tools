@@ -70,8 +70,8 @@ export default function BestETFsForTFSA() {
   return (
     <div>
       <SEO
-        title="Best ETFs for TFSA Canada 2026 - Top Picks for Tax-Free Growth"
-        description="The best ETFs to hold in your Canadian TFSA in 2026. XEQT, VEQT, ZSP, VDY and more - ranked by strategy with pros and cons. Free Canadian investing guide."
+        title="Best TFSA ETFs in Canada 2026 | Growth, Dividend & Index ETF Picks"
+        description="Compare the best TFSA ETFs in Canada for 2026, including growth ETFs, dividend ETFs, index ETFs, fees, risk level, and beginner-friendly picks."
         canonical="https://easyfinancetools.com/blog/best-etfs-for-tfsa-canada-2026"
       />
       <ArticleSchema
