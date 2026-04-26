@@ -16,7 +16,7 @@ import {
   getFhsaIncomeExample,
 } from '../../lib/fhsaPlanning';
 
-const PAGE_LAST_UPDATED = 'April 23, 2026';
+const PAGE_LAST_UPDATED = 'April 26, 2026';
 
 const FAQS = [
   {
@@ -119,29 +119,48 @@ const RELATED_DECISION_LINKS = [
   },
 ];
 
+const FHSA_CALCULATOR_CHECKLIST = [
+  {
+    title: 'Contribution room',
+    body: 'How much 2026 room you can use now, plus whether carry-forward room is actually available.',
+  },
+  {
+    title: 'Estimated tax savings',
+    body: 'What the deduction may be worth at your current income and province before you contribute.',
+  },
+  {
+    title: 'Home-buying timeline',
+    body: 'Whether the purchase window is close enough to justify the FHSA over a more flexible account.',
+  },
+  {
+    title: 'Next account to compare',
+    body: 'Whether the same dollar should still be checked against the TFSA or RRSP before you lock in the plan.',
+  },
+];
+
 export default function FHSACalculatorCanada2026() {
   const quickExample = getFhsaIncomeExample('ON', EXAMPLE_INPUTS.income);
 
   return (
     <div>
       <SEO
-        title="FHSA Calculator Canada 2026: Tax Savings & Growth"
-        description="Estimate FHSA tax savings, room use, and growth for 2026. Includes examples, rules, and the next account to compare."
+        title="FHSA Calculator Canada 2026: Limits, Tax Savings & Growth"
+        description="Use this FHSA calculator guide to estimate 2026 contribution room, tax savings, and down-payment growth in Canada before choosing TFSA or RRSP."
         canonical="https://easyfinancetools.com/blog/fhsa-calculator-canada-2026"
       />
       <ArticleSchema
-        headline="FHSA Calculator Canada: 2026 Tax Savings, Rules, and Growth Guide"
-        description="Estimate your 2026 FHSA tax savings, understand the contribution rules, and compare the FHSA against TFSA and RRSP choices before your next deposit."
+        headline="FHSA Calculator Canada: 2026 Limits, Tax Savings, and Growth Guide"
+        description="Estimate your 2026 FHSA tax savings, understand the contribution limits, and compare the FHSA against TFSA and RRSP choices before your next deposit."
         url="https://easyfinancetools.com/blog/fhsa-calculator-canada-2026"
         datePublished="2026-04-23"
-        dateModified="2026-04-23"
+        dateModified="2026-04-26"
       />
       <FAQSchema faqs={FAQS} />
 
       <BlogHero
         icon="FHSA"
         category="FHSA | First home"
-        title="FHSA Calculator Canada: 2026 Tax Savings, Rules, and Growth Guide"
+        title="FHSA Calculator Canada: 2026 Limits, Tax Savings, and Growth Guide"
         date={PAGE_LAST_UPDATED}
         readTime="10 min read"
         gradient="from-emerald-500 to-teal-700"
@@ -149,19 +168,20 @@ export default function FHSACalculatorCanada2026() {
 
       <section className="mx-auto max-w-5xl px-4 py-12">
         <TLDRBox
-          headline="What is the FHSA and who benefits most?"
-          answer={`The FHSA is a registered first-home savings account that combines an RRSP-style deduction with a TFSA-style tax-free qualifying withdrawal. In 2026, the annual contribution limit is ${formatFhsaCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)}, and it is often most useful for eligible first-time buyers who expect to purchase within the next several years and still get real value from the deduction today. In Ontario, someone earning ${formatFhsaCurrency(EXAMPLE_INPUTS.income)} could see roughly ${formatFhsaCurrency(quickExample.estimatedTaxSavings)} of estimated tax savings from a full-year FHSA contribution.`}
+          headline="What should an FHSA calculator tell you?"
+          answer={`A useful FHSA calculator should show your 2026 contribution room, the value of the deduction at your income level, the projected down-payment balance, and whether the FHSA still beats the TFSA or RRSP for the same dollar. In 2026, the annual FHSA contribution limit is ${formatFhsaCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)}, and in Ontario someone earning ${formatFhsaCurrency(EXAMPLE_INPUTS.income)} could see roughly ${formatFhsaCurrency(quickExample.estimatedTaxSavings)} of estimated tax savings from a full-year FHSA contribution.`}
           points={[
             `2026 annual FHSA limit: ${formatFhsaCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)}`,
             `Lifetime FHSA limit: ${formatFhsaCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaLifetimeLimit)}`,
             'Unused room can carry forward, but only after the account is open',
-            'The best use case is usually a real first-home plan plus a meaningful current tax rate',
+            'A real purchase timeline matters almost as much as the tax deduction',
+            'The best next comparison is usually TFSA vs RRSP vs FHSA, not FHSA in isolation',
           ]}
         />
 
         <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
           <p className="lead">
-            This page is built for the real decision, not just the definition. If your next dollar could go to an FHSA,
+            If you are searching for an FHSA calculator in Canada, the real question is not just how the account works. It is whether your next dollar should go into the FHSA at all,
             <strong> how much is the deduction worth, how much room can you actually use, and is the FHSA still better than your TFSA or RRSP?</strong>
           </p>
 
@@ -177,11 +197,40 @@ export default function FHSACalculatorCanada2026() {
           </p>
         </article>
 
+        <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">What an FHSA calculator should tell you</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the FHSA math to narrow the next account decision</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {FHSA_CALCULATOR_CHECKLIST.map((item) => (
+              <div key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-5 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            If you are still new to the account order itself, start with the
+            {' '}
+            <TrackedLink articleSlug="fhsa-calculator-canada-2026" ctaLabel="fhsa_beginner_guide_inline" to="/blog/how-to-start-investing-canada-2026" className="text-primary underline">
+              beginner investing guide
+            </TrackedLink>
+            {' '}
+            or go straight to the
+            {' '}
+            <TrackedLink articleSlug="fhsa-calculator-canada-2026" ctaLabel="fhsa_tfsa_vs_rrsp_inline" to="/blog/tfsa-vs-rrsp-canada-2026" className="text-primary underline">
+              TFSA vs RRSP hub
+            </TrackedLink>
+            {' '}
+            before you assume the FHSA automatically wins.
+          </p>
+        </section>
+
         <ToolByline
           lastUpdated={PAGE_LAST_UPDATED}
           reviewer="Reviewed against CRA FHSA guidance"
           trustNote="Based on CRA FHSA rules and publicly available Canadian financial guidance. Educational use only, and contribution room should still be checked against CRA records."
         />
+
 
         <div className="mt-8">
           <EmbeddedFHSACalculator
@@ -291,6 +340,7 @@ export default function FHSACalculatorCanada2026() {
             ))}
           </div>
         </section>
+
 
         <section className="mt-8 grid gap-4 lg:grid-cols-2">
           {COMPARISON_CARDS.map((card) => (
@@ -427,6 +477,7 @@ export default function FHSACalculatorCanada2026() {
           ]}
           note="Manual review needed each year: confirm annual FHSA limits, carry-forward wording, and any CRA changes to first-time home buyer interpretation."
         />
+
 
         <ActionableNextSteps
           toolName="fhsa_master_guide"

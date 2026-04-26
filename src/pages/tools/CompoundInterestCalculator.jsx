@@ -123,12 +123,12 @@ export default function CompoundInterestCalculator() {
     <section className="mx-auto max-w-6xl px-4 py-12">
       <SEO
         title="Compound Interest Calculator Canada | See Your Investment Growth"
-        description="Calculate compound interest, monthly contributions, investment growth, and future value in Canada. Free calculator with instant results."
+        description="Calculate compound interest, monthly contributions, TFSA-style growth, and future value in Canada. Free calculator with fees and inflation built in."
         canonical="https://easyfinancetools.com/tools/compound-interest-calculator"
       />
       <ToolPageSchema
         name="Compound Interest Calculator Canada"
-        description="Estimate compound growth in CAD with monthly contributions, fees, and inflation."
+        description="Estimate compound growth in CAD with monthly contributions, fees, inflation, and TFSA-style long-term investing scenarios."
         canonical="https://easyfinancetools.com/tools/compound-interest-calculator"
         category="FinanceApplication"
       />
@@ -143,7 +143,7 @@ export default function CompoundInterestCalculator() {
           </h1>
           <ToolByline />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
-            See how an initial deposit, monthly contributions, fees, and inflation change your long-term result. Built for CAD planning and easy scenario checks.
+            See how an initial deposit, monthly contributions, fees, inflation, and a TFSA-style investing wrapper can change your long-term result. Built for CAD planning and easy scenario checks.
           </p>
 
           <div className="mt-6">
@@ -231,6 +231,87 @@ export default function CompoundInterestCalculator() {
               </p>
             </div>
           </div>
+
+          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Compound interest in a TFSA</p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Why the TFSA version of the same growth plan can matter more</h2>
+            <div className="mt-4 space-y-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+              <p>
+                If you are searching for a compound interest calculator in Canada, there is a good chance the real question is about TFSA growth. The math engine is the same either way, but the account wrapper changes what happens to the gains. A TFSA lets the balance compound without tax on the growth or on qualifying withdrawals, which is why the same monthly contribution plan can be more valuable there than in a taxable account.
+              </p>
+              <p>
+                Use this calculator to size the savings engine first. Then check whether the plan belongs in a
+                {' '}
+                <SurfaceTrackedLink
+                  to="/tools/tfsa-calculator"
+                  eventName="tool_result_cta_click"
+                  ctaLabel="compound_tfsa_calculator_inline"
+                  trackingParams={{ tool_name: "compound_interest_calculator", section: "tfsa_growth_context", destination_type: "tool" }}
+                  className="text-primary underline"
+                >
+                  TFSA calculator
+                </SurfaceTrackedLink>
+                , whether the
+                {' '}
+                <SurfaceTrackedLink
+                  to="/blog/tfsa-vs-rrsp-canada-2026"
+                  eventName="tool_result_cta_click"
+                  ctaLabel="compound_tfsa_vs_rrsp_inline"
+                  trackingParams={{ tool_name: "compound_interest_calculator", section: "tfsa_growth_context", destination_type: "article" }}
+                  className="text-primary underline"
+                >
+                  TFSA vs RRSP decision
+                </SurfaceTrackedLink>
+                {' '}
+                changes the account choice, and which
+                {' '}
+                <SurfaceTrackedLink
+                  to="/blog/best-etfs-for-tfsa-canada-2026"
+                  eventName="tool_result_cta_click"
+                  ctaLabel="compound_best_tfsa_etfs_inline"
+                  trackingParams={{ tool_name: "compound_interest_calculator", section: "tfsa_growth_context", destination_type: "article" }}
+                  className="text-primary underline"
+                >
+                  TFSA ETF mix
+                </SurfaceTrackedLink>
+                {' '}
+                and
+                {' '}
+                <SurfaceTrackedLink
+                  to="/blog/best-tfsa-brokers-canada"
+                  eventName="tool_result_cta_click"
+                  ctaLabel="compound_best_tfsa_brokers_inline"
+                  trackingParams={{ tool_name: "compound_interest_calculator", section: "tfsa_growth_context", destination_type: "article" }}
+                  className="text-primary underline"
+                >
+                  broker workflow
+                </SurfaceTrackedLink>
+                {' '}
+                fit the plan.
+              </p>
+            </div>
+
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                <h3 className="text-lg font-bold text-primary dark:text-accent">Best use of this page</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                  Pressure-test a monthly investing plan before you choose the account wrapper or the provider.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                <h3 className="text-lg font-bold text-primary dark:text-accent">Strong TFSA use case</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                  Long-term ETF investing where tax-free growth and withdrawal flexibility both matter.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                <h3 className="text-lg font-bold text-primary dark:text-accent">Best next comparison</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                  Run the same contribution plan through TFSA and RRSP math before you pick a broker or ETF.
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
 
         <aside className="surface-card h-fit p-6">
@@ -381,6 +462,9 @@ export default function CompoundInterestCalculator() {
             are comparing brokers, robo-advisors, or ETF options, use this page as the neutral planning baseline before provider marketing or sign-up bonuses
             start shaping the decision.
           </p>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            For TFSA-focused readers, the cleanest sequence is usually: calculate the compounding plan here, compare the account decision with TFSA vs RRSP, then narrow the ETF and broker choice once the monthly contribution target feels realistic.
+          </p>
         </div>
       </section>
 
@@ -399,7 +483,7 @@ export default function CompoundInterestCalculator() {
           {
             question: "What should I open next?",
             answer:
-              "If you are deciding where to invest, compare this result against TFSA and RRSP calculators so tax treatment is part of the decision.",
+              "If you are deciding where to invest, compare this result against TFSA and RRSP calculators, then use the TFSA ETF and broker guides if tax-sheltered investing still looks like the right fit.",
           },
         ].map((item) => (
           <div key={item.question} className="surface-card p-5">

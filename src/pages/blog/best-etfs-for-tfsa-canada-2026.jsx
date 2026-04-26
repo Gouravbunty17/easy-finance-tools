@@ -66,6 +66,33 @@ const useCaseShortlist = [
   },
 ];
 
+const categoryComparisonRows = [
+  {
+    category: "All-in-one growth ETF",
+    examples: "XEQT, VEQT",
+    fit: "Long time horizon and high volatility tolerance",
+    watchout: "Big drawdowns can be hard to stick with",
+  },
+  {
+    category: "Balanced ETF",
+    examples: "XGRO, VGRO, XBAL",
+    fit: "You want growth but some bond ballast",
+    watchout: "Less upside than a full-equity TFSA plan",
+  },
+  {
+    category: "Canadian index ETF",
+    examples: "ZCN, XIC, VCN",
+    fit: "You want a Canada tilt or already own global funds elsewhere",
+    watchout: "Too narrow if this is your only long-term holding",
+  },
+  {
+    category: "Canadian dividend ETF",
+    examples: "VDY, XDV, ZWB",
+    fit: "Income-focused TFSA use and higher tolerance for sector concentration",
+    watchout: "Higher yield does not always mean better long-term TFSA growth",
+  },
+];
+
 export default function BestETFsForTFSA() {
   return (
     <div>
@@ -75,17 +102,17 @@ export default function BestETFsForTFSA() {
         canonical="https://easyfinancetools.com/blog/best-etfs-for-tfsa-canada-2026"
       />
       <ArticleSchema
-        headline="Best ETFs for Your TFSA in Canada (2026)"
-        description="Compare the best ETFs for a Canadian TFSA in 2026, including all-in-one, dividend, and broad-market options plus key tax and account-location tradeoffs."
+        headline="Best TFSA ETFs in Canada (2026)"
+        description="Compare the best TFSA ETFs in Canada for 2026, including growth, dividend, balanced, and index ETF options plus the account-fit tradeoffs that matter."
         url="https://easyfinancetools.com/blog/best-etfs-for-tfsa-canada-2026"
         datePublished="2026-03-28"
-        dateModified="2026-04-07"
+        dateModified="2026-04-26"
       />
       <FAQSchema faqs={FAQS} />
       <BlogHero
         icon="ETF"
         category="Investing | TFSA"
-        title="Best ETFs for Your TFSA in Canada (2026)"
+        title="Best TFSA ETFs in Canada (2026)"
         date="March 28, 2026"
         readTime="9 min read"
         gradient="from-indigo-500 to-violet-700"
@@ -93,17 +120,27 @@ export default function BestETFsForTFSA() {
       <section className="max-w-3xl mx-auto px-4 py-12">
         <TLDRBox
           headline="What are the best ETFs for a TFSA in Canada?"
-          answer="For many Canadians, the best TFSA ETFs are low-cost, diversified funds that match the job of the account. XEQT and VEQT are common all-in-one picks for long-term growth. XGRO and VGRO fit investors who want some bonds. Dividend ETFs like VDY can work for income, but they come with more concentration risk."
+          answer="For many Canadians, the best TFSA ETFs are low-cost funds that match the job of the account. XEQT and VEQT are common all-in-one growth picks, XGRO and VGRO fit investors who want a balanced ETF, and dividend ETFs like VDY make more sense when income is the point of the TFSA rather than maximum long-term growth."
           points={[
-            "All-in-one ETFs are often the simplest TFSA choice for long-term investors",
+            "All-in-one growth ETFs are often the simplest TFSA choice for long-term investors",
+            "Balanced ETFs can make more sense if a 100% equity ride would cause bad behavior",
+            "Canadian dividend ETFs fit income-focused TFSAs better than many US dividend ETFs",
             "Broad growth ETFs usually make better use of TFSA room than low-growth cash holdings",
-            "US dividend ETFs can create withholding-tax drag inside a TFSA",
             "The best ETF depends more on risk tolerance and time horizon than on the ticker alone",
           ]}
         />
         <article className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
         <p className="lead">
           The best TFSA ETF is not the ticker with the hottest recent chart. It is the one that matches the job of the account, your risk tolerance, and the odds that you will keep contributing through good and bad markets.
+        </p>
+
+        <p>
+          If you are still deciding whether the next dollar belongs in a TFSA at all, settle that first with the
+          {' '}
+          <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="intro_tfsa_vs_rrsp_hub" to="/blog/tfsa-vs-rrsp-canada-2026" className="text-primary underline">
+            TFSA vs RRSP guide
+          </TrackedLink>
+          . If the TFSA is already the right account, the next question is usually whether you need a simple growth ETF, a balanced ETF, or a more income-focused dividend ETF.
         </p>
 
         <div className="not-prose my-8 grid gap-4 md:grid-cols-3">
@@ -123,6 +160,34 @@ export default function BestETFsForTFSA() {
               <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{item.body}</p>
             </div>
           ))}
+        </div>
+
+        <h2>Best TFSA ETF categories at a glance</h2>
+        <p>
+          Most of the search intent around this topic falls into four buckets: growth ETFs, balanced ETFs, Canadian index ETFs, and dividend ETFs. The right category usually matters more than debating two similar tickers inside the same bucket.
+        </p>
+
+        <div className="not-prose overflow-x-auto my-6">
+          <table className="w-full text-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+            <thead className="bg-gray-100 dark:bg-gray-800 text-left">
+              <tr>
+                <th className="px-4 py-3 font-semibold">ETF category</th>
+                <th className="px-4 py-3 font-semibold">Examples</th>
+                <th className="px-4 py-3 font-semibold">Usually best for</th>
+                <th className="px-4 py-3 font-semibold">Main tradeoff</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+              {categoryComparisonRows.map((row) => (
+                <tr key={row.category} className="bg-white dark:bg-gray-900">
+                  <td className="px-4 py-3 font-semibold text-primary dark:text-accent">{row.category}</td>
+                  <td className="px-4 py-3">{row.examples}</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{row.fit}</td>
+                  <td className="px-4 py-3 text-gray-500 dark:text-gray-400">{row.watchout}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         <h2>Why ETFs Are Ideal for a TFSA</h2>
@@ -181,9 +246,9 @@ export default function BestETFsForTFSA() {
         <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
           {[
             { label: "Run the TFSA calculator", href: "/tools/tfsa-calculator" },
-            { label: "Read the beginner investing guide", href: "/blog/how-to-invest-in-canada-beginners-2026" },
-            { label: "Compare TFSA vs RRSP", href: "/blog/tfsa-vs-rrsp-2026" },
-            { label: "Review weekly dividend ETF tradeoffs", href: "/blog/weekly-dividend-etfs" },
+            { label: "Compare TFSA vs RRSP", href: "/blog/tfsa-vs-rrsp-canada-2026" },
+            { label: "Read the best TFSA brokers guide", href: "/blog/best-tfsa-brokers-canada" },
+            { label: "Learn how to start investing in Canada", href: "/blog/how-to-start-investing-canada-2026" },
           ].map((item) => (
             <TrackedLink
               key={item.label}
@@ -242,7 +307,16 @@ export default function BestETFsForTFSA() {
         </ul>
 
         <p>
-          If you want to compare account fit before picking a ticker, use the <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="tfsa_vs_rrsp_context" to="/blog/tfsa-vs-rrsp-2026" className="text-primary underline">TFSA vs RRSP guide</TrackedLink> and the <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="tfsa_calculator_context" to="/tools/tfsa-calculator" className="text-primary underline">TFSA calculator</TrackedLink>.
+          If you want to compare account fit before picking a ticker, use the <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="tfsa_vs_rrsp_context" to="/blog/tfsa-vs-rrsp-canada-2026" className="text-primary underline">TFSA vs RRSP guide</TrackedLink> and the <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="tfsa_calculator_context" to="/tools/tfsa-calculator" className="text-primary underline">TFSA calculator</TrackedLink>.
+        </p>
+        <p>
+          After the account choice is clear, make sure the brokerage workflow matches the plan. Our
+          {' '}
+          <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="best_tfsa_brokers_context" to="/blog/best-tfsa-brokers-canada" className="text-primary underline">
+            best TFSA brokers guide
+          </TrackedLink>
+          {' '}
+          helps narrow the platform side once you know whether this will be a simple all-in-one ETF strategy or a more hands-on self-directed setup.
         </p>
 
         <h2>What NOT to Put in Your TFSA</h2>
@@ -299,14 +373,14 @@ export default function BestETFsForTFSA() {
               href: "/tools/tfsa-calculator",
             },
             {
-              title: "Dividend calculator",
-              body: "Model dividend ETF income, DRIP scenarios, and long-term yield on cost.",
-              href: "/tools/dividend-calculator",
+              title: "Best TFSA brokers",
+              body: "Choose the self-directed platform that fits a simple ETF plan once the account choice is clear.",
+              href: "/blog/best-tfsa-brokers-canada",
             },
             {
-              title: "Terms and disclaimer",
-              body: "Review educational-use limits before relying on any comparison or ETF mention.",
-              href: "/terms",
+              title: "Beginner investing guide",
+              body: "See the clean first steps if you still need the broader investing process before choosing a TFSA ETF.",
+              href: "/blog/how-to-start-investing-canada-2026",
             },
           ].map((item) => (
             <TrackedLink
