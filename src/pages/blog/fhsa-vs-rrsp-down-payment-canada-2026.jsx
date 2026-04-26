@@ -7,6 +7,7 @@ import FAQSchema from '../../components/FAQSchema';
 import MethodologyPanel from '../../components/MethodologyPanel';
 import ReferenceSection from '../../components/ReferenceSection';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
+import EzoicAd from '../../components/EzoicAd';
 import ToolByline from '../../components/ToolByline';
 import TrackedLink from '../../components/TrackedLink';
 import {
@@ -167,6 +168,12 @@ export default function FHSAvsRRSPDownPaymentCanada2026() {
           </p>
         </article>
 
+        {/* Temporary Ezoic placeholder ID 102. Replace with the real Ezoic placement ID from the dashboard. */}
+        <EzoicAd
+          placementId={102}
+          wrapperClassName="mt-8 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-800"
+        />
+
         <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Quick comparison</p>
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">FHSA vs RRSP for a down payment at a glance</h2>
@@ -325,6 +332,12 @@ export default function FHSAvsRRSPDownPaymentCanada2026() {
           </div>
         </section>
 
+        {/* Temporary Ezoic placeholder ID 103. Replace with the real Ezoic placement ID from the dashboard. */}
+        <EzoicAd
+          placementId={103}
+          wrapperClassName="mt-8 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-800"
+        />
+
         <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Scenario examples</p>
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Plain-English examples by income and goal</h2>
@@ -432,6 +445,12 @@ export default function FHSAvsRRSPDownPaymentCanada2026() {
             },
           ]}
           note="Manual review needed each year: confirm FHSA annual and lifetime limits, HBP withdrawal limit, and repayment timing for the current withdrawal year."
+        />
+
+        {/* Temporary Ezoic placeholder ID 104. Replace with the real Ezoic placement ID from the dashboard. */}
+        <EzoicAd
+          placementId={104}
+          wrapperClassName="mt-8 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-800"
         />
 
         <ActionableNextSteps

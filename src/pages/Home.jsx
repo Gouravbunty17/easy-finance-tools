@@ -1,4 +1,5 @@
 import React from 'react';
+import EzoicAd from '../components/EzoicAd';
 import SEO from '../components/SEO';
 import SurfaceTrackedLink from '../components/SurfaceTrackedLink';
 import ReferralSection from '../components/ReferralSection';
@@ -314,6 +315,14 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        {/* Temporary Ezoic placeholder ID 101. Replace with the real Ezoic placement ID from the dashboard. */}
+        <EzoicAd
+          placementId={101}
+          wrapperClassName="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-900"
+        />
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-12">
