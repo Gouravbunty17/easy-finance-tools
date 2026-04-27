@@ -243,6 +243,20 @@ export default function BestETFsForTFSA() {
           If you are stuck deciding between two nearly identical all-in-one funds, that usually means you are already in the right neighbourhood. Asset mix, contribution habit, and time horizon matter more than tiny differences between similar ETF wrappers.
         </p>
 
+        <h2>Best growth ETFs for TFSA Canada 2026</h2>
+        <p>
+          The best growth ETFs for TFSA Canada 2026 searches usually come from investors who want the account to do one job really well: compound for years without creating tax drag on withdrawals. In practice, that means broad, low-cost equity ETFs that you can keep buying through good and bad markets instead of a narrow theme that feels exciting for six months and then gets abandoned.
+        </p>
+        <p>
+          For many Canadians, the strongest growth default is still <strong>XEQT</strong> or <strong>VEQT</strong>. Both give you global diversification in one ticket, keep the fee low enough that it will not quietly eat into decades of growth, and remove the need to rebalance between Canada, the US, and international markets by hand. If this TFSA is meant to be a long-term wealth-building account, that simplicity is a feature, not a compromise.
+        </p>
+        <p>
+          A more concentrated option like <strong>VFV</strong> can still make sense when you specifically want S&amp;P 500 exposure inside a Canadian-listed wrapper, but it is a narrower answer than a one-fund global ETF. The same logic applies to other Canada-only or US-only funds: they can be useful building blocks, but they are usually weaker as the only long-term TFSA growth holding unless you already know why you want that tilt.
+        </p>
+        <p>
+          The cleanest takeaway is that the best high-growth ETF is not automatically the one with the biggest recent return. It is the one that matches a long time horizon, broad diversification, and your ability to keep contributing when markets fall. For most people reading this page, that points back to all-in-one equity ETFs before it points to something more specialized.
+        </p>
+
         <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
           {[
             { label: "Run the TFSA calculator", href: "/tools/tfsa-calculator" },
@@ -272,15 +286,21 @@ export default function BestETFsForTFSA() {
           <li><strong>VCN (Vanguard FTSE Canada All Cap)</strong> - 0.05% MER, includes small-cap Canadian companies.</li>
         </ul>
 
-        <h2>Best Dividend ETFs for TFSA</h2>
+        <h2>Best dividend ETFs for TFSA Canada 2026</h2>
         <p>
-          Want income inside your TFSA? These ETFs pay regular dividends, and those cash distributions can be withdrawn tax-free from the account.
+          The best dividend ETFs for TFSA Canada 2026 searches usually come from investors who want tax-free income and a simpler withdrawal story later on. That can be a valid use of the account, but the key is understanding that a higher yield does not automatically mean a better TFSA. A dividend ETF often gives you more cash flow, but it can also give you more sector concentration and less total-growth potential than a broad all-in-one ETF.
+        </p>
+        <p>
+          For many Canadian income-focused investors, <strong>VDY</strong> is the cleanest starting point because it is built around large Canadian dividend payers that many TFSA users already understand. <strong>XDV</strong> is another common Canadian dividend ETF, while <strong>ZWB</strong> takes a more income-heavy covered-call approach that can raise cash flow but cap upside. Those are very different tradeoffs, even though all three might show up in the same "best dividend ETF" search.
         </p>
         <ul>
           <li><strong>VDY (Vanguard FTSE Canadian High Dividend Yield)</strong> - a Canadian dividend ETF focused on banks, pipelines, and utilities. Often a cleaner fit for investors who want income and accept sector concentration.</li>
           <li><strong>XDV (iShares Canadian Select Dividend)</strong> - another dividend-focused option, typically more concentrated and less diversified than a broad market fund.</li>
           <li><strong>ZWB (BMO Covered Call Canadian Banks)</strong> - a higher-income covered-call bank ETF. The tradeoff is capped upside and a narrower strategy than a core TFSA holding.</li>
         </ul>
+        <p>
+          A Canadian-listed dividend ETF also tends to fit a TFSA more cleanly than a US-listed dividend ETF when income is the goal, because the withholding-tax issue is usually easier to manage. That does not make every Canadian dividend fund a great choice, but it does explain why many TFSA income investors start with domestic dividend ETFs before they start chasing US yield.
+        </p>
         <p>
           Use our <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="dividend_calculator_inline" to="/tools/dividend-calculator" className="text-primary underline">Dividend Calculator</TrackedLink> to model what a dividend ETF position could generate annually.
         </p>

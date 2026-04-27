@@ -54,6 +54,16 @@
       "source": "/calculators/:path*",
       "destination": "/tools",
       "permanent": true
+    },
+    {
+      "source": "/shop",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/stocks/:slug*",
+      "destination": "/",
+      "permanent": true
     }
   ]
 }
