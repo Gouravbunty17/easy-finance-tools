@@ -210,6 +210,8 @@ export default function Header({ onOpenSearch }) {
           </div>
         )}
       </header>
+
     </>
   );
 }
+

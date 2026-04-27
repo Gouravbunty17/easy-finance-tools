@@ -3,6 +3,7 @@ import SEO from "./SEO";
 import ToolPageSchema from "./ToolPageSchema";
 import SurfaceTrackedLink from "./SurfaceTrackedLink";
 import ToolByline from "./ToolByline";
+import EzoicAd from "./EzoicAd";
 
 export function fmtCAD(value, options = {}) {
   return Number(value || 0).toLocaleString("en-CA", {
@@ -81,9 +82,11 @@ export default function CalculatorLayout({
         <aside className="space-y-4">
           {results}
 
-          <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400">
-            Ad slot or partner placement can live here once the layout is final. For now this keeps the scaffold spacing consistent.
-          </div>
+          {/* Ezoic calculator sidebar — Ad Tester placeholder #108 */}
+          <EzoicAd
+            placementId={108}
+            wrapperClassName="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-700 dark:bg-slate-900"
+          />
         </aside>
       </div>
 

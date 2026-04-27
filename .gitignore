@@ -10,3 +10,7 @@ npm-debug.log*
 src/assets/tax-guide.png
 .claude/
 .vercel/
+# Added by code-review-graph
+.code-review-graph/
+.vercel
+.env*.local

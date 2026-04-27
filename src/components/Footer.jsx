@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white mt-auto">
+    <>
+      <footer className="bg-primary text-white mt-auto">
       <div className="max-w-5xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
@@ -54,10 +55,12 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-blue-800 pt-6 text-center text-blue-100 text-sm">
-          <p>&copy; {new Date().getFullYear()} EasyFinanceTools. All rights reserved. Not financial advice.</p>
+          <p>Copyright 2026 EasyFinanceTools. All rights reserved. Not financial advice.</p>
           <p className="mt-1">Built in Canada for Canadian savers, investors, and households.</p>
         </div>
       </div>
     </footer>
+    </>
   );
 }
+

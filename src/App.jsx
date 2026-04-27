@@ -138,16 +138,16 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-900 dark:bg-gray-950 dark:text-white">
-      <Suspense fallback={null}>
-        {isCommandPaletteOpen ? (
+      {isCommandPaletteOpen ? (
+        <Suspense fallback={null}>
           <CommandPalette
             open={isCommandPaletteOpen}
             onClose={() => setIsCommandPaletteOpen(false)}
           />
-        ) : null}
-      </Suspense>
+        </Suspense>
+      ) : null}
       <Header onOpenSearch={() => setIsCommandPaletteOpen(true)} />
-      <main className="flex-grow">
+      <div className="flex-grow">
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -227,7 +227,7 @@ export default function App() {
             />
           </section>
         ) : null}
-      </main>
+      </div>
       <Footer />
     </div>
   );

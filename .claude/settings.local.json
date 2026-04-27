@@ -12,7 +12,20 @@
       "Write(**)",
       "Edit(**)",
       "Skill(update-config)",
-      "Skill(update-config:*)"
+      "Skill(update-config:*)",
+      "Bash(cp \"C:/Users/15879/Downloads/NumberInput.jsx\" \"C:/Users/15879/Downloads/easy-finance-tools-v2/\")",
+      "Bash(cp \"C:/Users/15879/Downloads/CalculatorLayout.jsx\" \"C:/Users/15879/Downloads/easy-finance-tools-v2/\")",
+      "Bash(cp \"C:/Users/15879/Downloads/TipCalculator.jsx\" \"C:/Users/15879/Downloads/easy-finance-tools-v2/\")",
+      "Bash(cp \"C:/Users/15879/Downloads/GstHstCalculator.jsx\" \"C:/Users/15879/Downloads/easy-finance-tools-v2/\")",
+      "Bash(curl -sI https://easyfinancetools.com/privacy-policy)",
+      "Bash(curl -sS https://easyfinancetools.com/privacy-policy)",
+      "Bash(curl -sI https://easyfinancetools.com/terms)",
+      "Bash(curl -sI https://easyfinancetools.com/contact)",
+      "Bash(curl -sI https://easyfinancetools.com/about)",
+      "Bash(curl -s https://easyfinancetools.com/)",
+      "Bash(curl -sI https://easyfinancetools.com/)",
+      "Bash(curl -s https://easyfinancetools.com/tools/tfsa-calculator)",
+      "Bash(curl -s https://easyfinancetools.com/about)"
     ]
   }
 }
