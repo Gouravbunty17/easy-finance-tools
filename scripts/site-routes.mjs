@@ -8,6 +8,7 @@ export const STATIC_ROUTES = [
   { route: "/contact", sourcePath: "src/pages/Contact.jsx", group: "pages" },
   { route: "/privacy-policy", sourcePath: "src/pages/PrivacyPolicy.jsx", group: "pages" },
   { route: "/terms", sourcePath: "src/pages/Terms.jsx", group: "pages" },
+  { route: "/affiliate-disclosure", sourcePath: "src/pages/AffiliateDisclosure.jsx", group: "pages" },
   { route: "/editorial-standards", sourcePath: "src/pages/EditorialStandards.jsx", group: "pages" },
   { route: "/methodology", sourcePath: "src/pages/Methodology.jsx", group: "pages" },
 ];

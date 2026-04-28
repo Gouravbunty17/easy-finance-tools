@@ -31,6 +31,33 @@ const tools = [
 
 const categories = ["All", "Savings", "Real Estate", "Tax", "Retirement", "Investing", "Budget"];
 
+const decisionPaths = [
+  {
+    title: "Where should my next registered-account dollar go?",
+    body: "Start with TFSA vs RRSP, then use the FHSA calculator if a first home is part of the plan.",
+    href: "/blog/tfsa-vs-rrsp-canada-2026",
+    ctaLabel: "decision_path_registered_accounts",
+  },
+  {
+    title: "How much could my investing habit grow?",
+    body: "Use compound interest first, then check whether the TFSA, RRSP, or FHSA wrapper changes the result.",
+    href: "/tools/compound-interest-calculator",
+    ctaLabel: "decision_path_compound_growth",
+  },
+  {
+    title: "Is dividend income realistic for my portfolio?",
+    body: "Model the capital, yield, DRIP, and account fit before choosing a dividend ETF or platform.",
+    href: "/tools/dividend-calculator",
+    ctaLabel: "decision_path_dividend_income",
+  },
+  {
+    title: "Can I afford the home, not just the payment?",
+    body: "Check affordability, mortgage cost, and rent-vs-buy tradeoffs before treating approval as the whole answer.",
+    href: "/tools/mortgage-affordability-calculator",
+    ctaLabel: "decision_path_home_affordability",
+  },
+];
+
 export default function ToolsPage() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
@@ -86,6 +113,29 @@ export default function ToolsPage() {
             <p className="mt-1">Tax, home-buying, ETF income, retirement, and registered-account workflows for Canadian users.</p>
           </div>
         </div>
+
+        <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Decision paths</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Start with the question, then open the calculator</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+            These paths group calculators by the real decision a Canadian reader is trying to make, so the tools page feels like a guided hub instead of a loose list.
+          </p>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {decisionPaths.map((item) => (
+              <SurfaceTrackedLink
+                key={item.href}
+                to={item.href}
+                eventName="tools_hub_decision_path_click"
+                ctaLabel={item.ctaLabel}
+                trackingParams={{ section: "decision_paths", destination_type: item.href.startsWith("/blog") ? "article" : "tool" }}
+                className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900/60"
+              >
+                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+              </SurfaceTrackedLink>
+            ))}
+          </div>
+        </section>
 
         <div className="mt-6 grid gap-3 lg:grid-cols-[1.35fr_repeat(3,minmax(0,1fr))]">
           <SurfaceTrackedLink

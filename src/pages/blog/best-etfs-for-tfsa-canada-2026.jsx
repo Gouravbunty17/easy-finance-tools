@@ -113,9 +113,10 @@ export default function BestETFsForTFSA() {
         icon="ETF"
         category="Investing | TFSA"
         title="Best TFSA ETFs in Canada (2026)"
-        date="March 28, 2026"
+        date="Last updated April 26, 2026"
         readTime="9 min read"
         gradient="from-indigo-500 to-violet-700"
+        reviewer="Reviewed for Canadian ETF account fit"
       />
       <section className="max-w-3xl mx-auto px-4 py-12">
         <TLDRBox

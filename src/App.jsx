@@ -19,6 +19,7 @@ const Methodology = lazyWithPreload(() => import('./pages/Methodology'));
 const EditorialStandards = lazyWithPreload(() => import('./pages/EditorialStandards'));
 const PrivacyPolicy = lazyWithPreload(() => import('./pages/PrivacyPolicy'));
 const Terms = lazyWithPreload(() => import('./pages/Terms'));
+const AffiliateDisclosure = lazyWithPreload(() => import('./pages/AffiliateDisclosure'));
 
 const DividendCalculator = lazyWithPreload(() => import('./pages/tools/DividendCalculator'));
 const TFSACalculator = lazyWithPreload(() => import('./pages/tools/TFSACalculator'));
@@ -80,6 +81,7 @@ const ROUTE_PRELOADERS = new Map([
   ['/editorial-standards', EditorialStandards],
   ['/privacy-policy', PrivacyPolicy],
   ['/terms', Terms],
+  ['/affiliate-disclosure', AffiliateDisclosure],
   ['/tools/dividend-calculator', DividendCalculator],
   ['/tools/tfsa-calculator', TFSACalculator],
   ['/tools/rrsp-calculator', RRSPCalculator],
@@ -194,6 +196,7 @@ export default function App() {
             <Route path="/editorial-standards" element={<EditorialStandards />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
             <Route path="/tools/dividend-calculator" element={<DividendCalculator />} />
             <Route path="/tools/tfsa-calculator" element={<TFSACalculator />} />
             <Route path="/tools/rrsp-calculator" element={<RRSPCalculator />} />

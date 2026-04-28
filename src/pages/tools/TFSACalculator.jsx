@@ -524,8 +524,19 @@ export default function TFSACalculator() {
         </aside>
       </div>
 
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Read the TFSA result as room first, growth second</h2>
+        <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+          In this scenario, estimated current TFSA room is {formatCurrency(result.estimatedRoomNow)} and the projected
+          balance after {years} years is {formatCurrency(result.projectedBalance)}. The first number helps prevent an
+          over-contribution; the second number shows what the contribution habit could become if the room estimate,
+          return assumption, and timeline hold up.
+        </p>
+      </section>
+
       <MethodologyPanel
-        title="Assumptions behind this TFSA decision tool"
+        title="How this calculator works: TFSA room and growth assumptions"
         summary="This page estimates TFSA room from your eligibility year, lifetime contributions, and restored withdrawals, then projects tax-free growth using the contribution pace and return assumptions you enter."
         updated={CONTENT_LAST_REVIEWED}
         reviewer="Gourav Kumar"

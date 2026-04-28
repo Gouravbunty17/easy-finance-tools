@@ -7,7 +7,6 @@ import ArticleSchema from '../../components/ArticleSchema';
 import MethodologyPanel from '../../components/MethodologyPanel';
 import ReferenceSection from '../../components/ReferenceSection';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
-import EzoicAd from '../../components/EzoicAd';
 import ToolByline from '../../components/ToolByline';
 import TrackedLink from '../../components/TrackedLink';
 import EmbeddedFHSACalculator from '../../components/EmbeddedFHSACalculator';
@@ -232,12 +231,6 @@ export default function FHSACalculatorCanada2026() {
           trustNote="Based on CRA FHSA rules and publicly available Canadian financial guidance. Educational use only, and contribution room should still be checked against CRA records."
         />
 
-        {/* Temporary Ezoic placeholder ID 102. Replace with the real Ezoic placement ID from the dashboard. */}
-        <EzoicAd
-          placementId={102}
-          wrapperClassName="mt-8 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-800"
-        />
-
         <div className="mt-8">
           <EmbeddedFHSACalculator
             initialValues={EXAMPLE_INPUTS}
@@ -346,12 +339,6 @@ export default function FHSACalculatorCanada2026() {
             ))}
           </div>
         </section>
-
-        {/* Temporary Ezoic placeholder ID 103. Replace with the real Ezoic placement ID from the dashboard. */}
-        <EzoicAd
-          placementId={103}
-          wrapperClassName="mt-8 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-800"
-        />
 
         <section className="mt-8 grid gap-4 lg:grid-cols-2">
           {COMPARISON_CARDS.map((card) => (
@@ -487,12 +474,6 @@ export default function FHSACalculatorCanada2026() {
             },
           ]}
           note="Manual review needed each year: confirm annual FHSA limits, carry-forward wording, and any CRA changes to first-time home buyer interpretation."
-        />
-
-        {/* Temporary Ezoic placeholder ID 104. Replace with the real Ezoic placement ID from the dashboard. */}
-        <EzoicAd
-          placementId={104}
-          wrapperClassName="mt-8 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-800"
         />
 
         <ActionableNextSteps

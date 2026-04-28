@@ -442,7 +442,7 @@ export default function FHSACalculator() {
       </div>
 
       <MethodologyPanel
-        title="Assumptions behind this FHSA decision tool"
+        title="How this calculator works: FHSA room, tax savings, and growth"
         summary="This page estimates FHSA deduction value and balance growth using the room, income, contribution pace, and return assumptions you enter. It is designed to help with account-choice decisions, not to replace CRA records."
         updated={CONTENT_LAST_REVIEWED}
         reviewer="Gourav Kumar"

@@ -35,6 +35,21 @@ const contributionPresets = [
   { label: "Aggressive", amount: 1000 },
 ];
 
+const COMPOUND_FAQS = [
+  {
+    q: "Is this compound interest calculator for Canada?",
+    a: "Yes. The math is universal, but the surrounding guidance points Canadian users toward TFSA, RRSP, FHSA, and taxable-account decisions after the growth estimate is clear.",
+  },
+  {
+    q: "Should I use this for TFSA compound interest?",
+    a: "You can use it as the growth baseline, then open the TFSA calculator to check contribution room and account-specific constraints before contributing.",
+  },
+  {
+    q: "Does the projection guarantee my future return?",
+    a: "No. It uses a fixed annual return, fee, and inflation assumption. Real portfolios move unevenly, so treat the result as a planning range rather than a guarantee.",
+  },
+];
+
 export default function CompoundInterestCalculator() {
   const [initialAmount, setInitialAmount] = useState(10000);
   const [monthlyContribution, setMonthlyContribution] = useState(500);
@@ -416,7 +431,7 @@ export default function CompoundInterestCalculator() {
       </div>
 
       <MethodologyPanel
-        title="How this compound interest calculator works"
+        title="How this calculator works: compound interest assumptions"
         summary="This calculator applies a monthly compounding model using your opening amount, monthly contributions, expected annual return, annual fee drag, and an inflation adjustment. It is designed for educational planning, not account-specific forecasting."
         assumptions={[
           "Returns are smoothed into a constant monthly rate and do not reflect market volatility.",
@@ -491,6 +506,44 @@ export default function CompoundInterestCalculator() {
             <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.answer}</p>
           </div>
         ))}
+      </section>
+
+      <section className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Example calculation</p>
+          <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">What the current scenario means</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            With {formatCurrency(initialAmount)} invested today, {formatCurrency(monthlyContribution)} added each month,
+            a {formatPercent(annualReturn)} expected return, and {formatPercent(annualFee)} annual fee drag, this
+            scenario projects about {formatCurrency(projection.endingBalance)} after {years} years. Of that total,
+            {formatCurrency(projection.totalContributions)} comes from contributions and {formatCurrency(projection.investmentGrowth)}
+            comes from modeled investment growth.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Common mistakes</p>
+          <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">Do not let the return slider do all the work</h2>
+          <ul className="mt-3 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            <li>- Using a return assumption that is higher than the portfolio can reasonably support.</li>
+            <li>- Ignoring fees, inflation, or taxes when comparing account types.</li>
+            <li>- Treating a one-time projection as a guarantee instead of a planning range.</li>
+            <li>- Picking a broker before the contribution amount and account type are clear.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">FAQ</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Compound interest calculator questions</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {COMPOUND_FAQS.map((item) => (
+            <div key={item.q} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+              <h3 className="text-base font-bold text-primary dark:text-accent">{item.q}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.a}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       <ActionableNextSteps

@@ -7,7 +7,6 @@ import FAQSchema from '../../components/FAQSchema';
 import MethodologyPanel from '../../components/MethodologyPanel';
 import ReferenceSection from '../../components/ReferenceSection';
 import ReferralSection from '../../components/ReferralSection';
-import EzoicAd from '../../components/EzoicAd';
 import ToolByline from '../../components/ToolByline';
 import TrackedLink from '../../components/TrackedLink';
 import {
@@ -181,12 +180,6 @@ export default function FiveHundredMonthDividendCanada() {
           trustNote="Based on CRA registered-account rules, public ETF documents, and Canadian financial guidance. Yields on this page are illustrative planning values, not live quotes."
         />
 
-        {/* Temporary Ezoic placeholder ID 102. Replace with the real Ezoic placement ID from the dashboard. */}
-        <EzoicAd
-          placementId={102}
-          wrapperClassName="mt-8 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-800"
-        />
-
         <div className="mt-8">
           <EmbeddedDividendCalculator
             model={calculatorModel}
@@ -254,12 +247,6 @@ export default function FiveHundredMonthDividendCanada() {
             </p>
           </div>
         </section>
-
-        {/* Temporary Ezoic placeholder ID 103. Replace with the real Ezoic placement ID from the dashboard. */}
-        <EzoicAd
-          placementId={103}
-          wrapperClassName="mt-8 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-800"
-        />
 
         <MethodologyPanel
           title="Assumptions behind the $500 per month examples"
@@ -338,12 +325,6 @@ export default function FiveHundredMonthDividendCanada() {
             ))}
           </div>
         </section>
-
-        {/* Temporary Ezoic placeholder ID 104. Replace with the real Ezoic placement ID from the dashboard. */}
-        <EzoicAd
-          placementId={104}
-          wrapperClassName="mt-8 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-800"
-        />
 
         <div className="mt-8">
           <ReferralSection

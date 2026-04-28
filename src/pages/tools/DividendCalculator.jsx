@@ -881,8 +881,29 @@ export default function DividendCalculator() {
         </aside>
       </div>
 
+      <section className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">How this calculator works</p>
+          <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">Start with yield, then test whether the income is sustainable</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            The simulator begins with your selected ETF or custom yield, estimates current annual income, and then projects income over time using your dividend-growth, price-growth, contribution, DRIP, and tax-account assumptions. The goal is not to crown the highest-yield ETF. It is to show whether the income target still makes sense after reinvestment, account type, and total-return tradeoffs are visible.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Common mistakes</p>
+          <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">Avoid chasing the biggest payout without checking the tradeoff</h2>
+          <ul className="mt-3 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            <li>- Treating current yield as a guaranteed future payout.</li>
+            <li>- Ignoring MER, covered-call drag, concentration, or falling unit prices.</li>
+            <li>- Comparing dividend ETFs without checking whether the TFSA should prioritize growth instead.</li>
+            <li>- Forgetting that taxable-account dividend treatment is more complex than this simplified planning model.</li>
+          </ul>
+        </div>
+      </section>
+
       <MethodologyPanel
-        title="Assumptions behind this ETF income simulator"
+        title="How this calculator works: ETF income and dividend assumptions"
         summary="This page is built for scenario planning, not live ETF quotes. It combines a yield assumption, optional dividend growth, price growth, and DRIP behavior to show how income and account value could change over time."
         updated={CONTENT_LAST_REVIEWED}
         reviewer="Gourav Kumar"

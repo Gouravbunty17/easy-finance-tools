@@ -586,8 +586,19 @@ export default function RRSPCalculator() {
         </aside>
       </div>
 
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Read the RRSP result as refund value plus future tax tradeoff</h2>
+        <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+          In this scenario, the estimated current-year refund is {formatCurrency(result.taxRefundYearOne)} and the
+          projected RRSP balance after {yearsToRetirement} years is {formatCurrency(result.projectedBalance)}. The
+          refund is useful only if the later withdrawal tax, retirement-income assumptions, and TFSA/FHSA alternatives
+          still leave the RRSP ahead.
+        </p>
+      </section>
+
       <MethodologyPanel
-        title="Assumptions behind this RRSP decision tool"
+        title="How this calculator works: RRSP refund and growth assumptions"
         summary="This page estimates RRSP refund value using your current income and province, then projects balance growth using the contribution pace, room estimate, and retirement assumptions you enter."
         updated={CONTENT_LAST_REVIEWED}
         reviewer="Gourav Kumar"

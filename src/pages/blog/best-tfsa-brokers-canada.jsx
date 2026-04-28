@@ -144,9 +144,10 @@ export default function BestTFSABrokersCanada() {
         icon="TFSA"
         category="Investing | TFSA"
         title="Best TFSA Brokers in Canada (2026): Beginner and Self-Directed Picks"
-        date="April 4, 2026"
+        date="Last updated April 26, 2026"
         readTime="11 min read"
         gradient="from-blue-500 to-indigo-700"
+        reviewer="Reviewed for Canadian brokerage-fee clarity"
       />
 
       <section className="mx-auto max-w-3xl px-4 py-12">
