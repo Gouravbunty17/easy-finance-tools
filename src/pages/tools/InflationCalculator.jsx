@@ -1,11 +1,33 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { Chart as ChartJS, CategoryScale, LinearScale, LineElement, PointElement, Tooltip, Filler, Legend } from "chart.js";
 import { Line } from "react-chartjs-2";
 import CalculatorLayout, { ResultCard, fmtCAD, fmtNum } from "../../components/CalculatorLayout";
+import FAQ from "../../components/FAQ";
+import MethodologyPanel from "../../components/MethodologyPanel";
 import NumberInput from "../../components/NumberInput";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Tooltip, Filler, Legend);
+
+const FAQS = [
+  {
+    q: "What inflation data does this calculator use?",
+    a: "It uses the Bank of Canada inflation-calculator series, which is based on Statistics Canada CPI observations.",
+  },
+  {
+    q: "Is this the same as my personal inflation rate?",
+    a: "No. CPI is a broad basket. Your own inflation can differ depending on housing, food, transportation, and spending habits.",
+  },
+  {
+    q: "Why does the result use annual average CPI?",
+    a: "Annual averages make long-range purchasing-power comparisons easier and reduce month-to-month noise.",
+  },
+  {
+    q: "Can I use this for investment returns?",
+    a: "Use it to understand purchasing power, then compare investment growth separately with the compound interest calculator.",
+  },
+];
 
 function buildAnnualCpi(observations) {
   const bucket = new Map();
@@ -112,8 +134,8 @@ export default function InflationCalculator() {
 
   return (
     <CalculatorLayout
-      title="Inflation Calculator Canada"
-      description="See what a dollar amount from one year would be worth in another year using the Bank of Canada inflation-calculator series based on Statistics Canada CPI data."
+      title="Inflation Calculator Canada | CPI Purchasing Power Tool"
+      description="Compare Canadian dollar purchasing power across years using Bank of Canada CPI data. Estimate inflation-adjusted value, percent change, and average annual inflation."
       canonical="https://easyfinancetools.com/tools/inflation-calculator"
       badge="1914 to present"
       results={
@@ -218,6 +240,100 @@ export default function InflationCalculator() {
           </div>
         </div>
       </div>
+
+      <section className="mt-8 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">What this calculator does</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Compare Canadian purchasing power across years</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            This calculator estimates what a CAD amount from one year is worth in another year using CPI data. It is useful when comparing old prices, salary history, savings targets, or long-term investment goals.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use it</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Choose the amount, start year, and end year</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Enter the original dollar amount, choose the year it belongs to, then choose the comparison year. The result shows the inflation-adjusted value and the average annual inflation rate over the period.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Inputs explained</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What each inflation input means</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {[
+            ["Dollar amount", "The CAD amount you want to compare across time."],
+            ["Start year", "The year the original amount belongs to."],
+            ["End year", "The year you want to translate the amount into."],
+          ].map(([title, body]) => (
+            <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+              <h3 className="font-bold text-primary dark:text-accent">{title}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {result ? (
+        <section className="mt-8 grid gap-4 lg:grid-cols-2">
+          <div className="surface-card p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Example: {fmtCAD(asNumber(amount), { maximumFractionDigits: 2, minimumFractionDigits: 2 })} from {safeStartYear} to {safeEndYear}</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+              Using the CPI ratio for those years, {fmtCAD(asNumber(amount), { maximumFractionDigits: 2, minimumFractionDigits: 2 })} in {safeStartYear} is estimated at {fmtCAD(result.inflatedAmount, { maximumFractionDigits: 2, minimumFractionDigits: 2 })} in {safeEndYear}. The modeled price-level change is {fmtNum(result.percentChange, { maximumFractionDigits: 1, minimumFractionDigits: 1 })}%.
+            </p>
+          </div>
+
+          <div className="surface-card p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to read your result</p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Inflation-adjusted value is purchasing power, not income</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+              The adjusted amount estimates what would have similar purchasing power in the end year. For investing decisions, compare this with projected growth in the <Link to="/tools/compound-interest-calculator" className="text-primary underline dark:text-secondary">compound interest calculator</Link> or account choices like the <Link to="/tools/tfsa-calculator" className="text-primary underline dark:text-secondary">TFSA calculator</Link>.
+            </p>
+          </div>
+        </section>
+      ) : null}
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Common mistakes</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">CPI is useful, but it is not your exact household budget</h2>
+        <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+          <li>- Treating CPI as a perfect match for your personal spending pattern.</li>
+          <li>- Comparing nominal investment returns without subtracting inflation.</li>
+          <li>- Using one high-inflation year to represent a long-term planning period.</li>
+          <li>- Forgetting that housing, taxes, and savings goals can move differently from broad CPI.</li>
+        </ul>
+      </section>
+
+      <MethodologyPanel
+        title="Methodology: how this inflation calculator works"
+        summary="The calculator builds annual CPI values from the Bank of Canada inflation-calculator series, finds the selected start and end years, then multiplies the original amount by the CPI ratio."
+        assumptions={[
+          "Annual average CPI is used for a smoother long-term comparison.",
+          "The calculation is amount multiplied by end-year CPI divided by start-year CPI.",
+          "Personal inflation can differ from national CPI depending on spending mix and location.",
+          "If live data is unavailable, the page shows a data-loading notice instead of inventing a result.",
+        ]}
+        sources={[
+          { label: "Bank of Canada Valet API", href: "https://www.bankofcanada.ca/valet/docs" },
+          { label: "EasyFinanceTools methodology", href: "https://easyfinancetools.com/methodology" },
+        ]}
+        note="Educational estimate only. Use official CPI sources and qualified advice for tax, legal, or contractual indexation decisions."
+      />
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related tools and guides</p>
+        <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
+          <Link to="/tools" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">All calculators</Link>
+          <Link to="/tools/rrsp-calculator" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">RRSP calculator</Link>
+          <Link to="/blog/tfsa-vs-rrsp-canada-2026" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">TFSA vs RRSP guide</Link>
+          <Link to="/blog/how-to-start-investing-canada-2026" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Beginner investing guide</Link>
+        </div>
+      </section>
+
+      <FAQ items={FAQS} />
     </CalculatorLayout>
   );
 }

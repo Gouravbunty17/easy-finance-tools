@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
@@ -143,8 +144,8 @@ export default function CapitalGainsTaxCalculator() {
   return (
     <section className="mx-auto max-w-5xl px-4 py-12">
       <SEO
-        title="Capital Gains Tax Calculator Canada 2026"
-        description="Free Canadian capital gains tax calculator for stocks, crypto, real estate, and other capital property. Estimate the tax owed using 2026 inclusion rates."
+        title="Capital Gains Tax Calculator Canada 2026 | Stocks, Crypto & Property"
+        description="Estimate Canadian capital gains tax for stocks, ETFs, crypto, rental property, or business shares. Compare taxable gains, tax owed, and after-tax proceeds."
         canonical="https://easyfinancetools.com/tools/capital-gains-tax"
       />
       <ToolPageSchema
@@ -157,7 +158,7 @@ export default function CapitalGainsTaxCalculator() {
       <div className="mb-8">
         <h1 className="mb-2 text-3xl font-bold text-primary dark:text-accent">Capital Gains Tax Calculator</h1>
         <p className="max-w-3xl text-gray-600 dark:text-gray-300">
-          Estimate the taxable portion of a gain, approximate tax owed, and after-tax proceeds.
+          Estimate the taxable portion of a capital gain, approximate tax owed, and after-tax proceeds for Canadian planning. This tool is useful for investors reviewing stocks, ETFs, crypto, rental property, or business-share scenarios before they talk to a qualified tax professional.
         </p>
       </div>
 
@@ -295,8 +296,83 @@ export default function CapitalGainsTaxCalculator() {
         </div>
       </div>
 
+      <section className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">What this calculator does</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Estimate the taxable gain before you sell or file</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            The calculator starts with sale price, adjusted cost base, selling expenses, province, and income. It estimates the capital gain, taxable portion, tax owed, and after-tax proceeds under a simplified Canadian capital-gains model.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use it</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Enter the asset details, then choose the tax context</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Choose the asset type, enter your purchase price or adjusted cost base, sale price, selling expenses, province, and income. Use the TFSA toggle only when the asset was held in a qualifying TFSA position.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Inputs explained</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What each capital gains input changes</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          {[
+            ["Purchase price / ACB", "The cost base used to estimate the gain. Real ACB can include adjustments, commissions, and reinvested distributions."],
+            ["Sale price", "The gross sale proceeds before expenses and tax."],
+            ["Selling expenses", "Commissions or eligible selling costs that reduce the modeled gain."],
+            ["Province and income", "Used to estimate the marginal tax rate applied to the taxable capital gain."],
+          ].map(([title, body]) => (
+            <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+              <h3 className="font-bold text-primary dark:text-accent">{title}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Example: current gain preview</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            With a purchase price of {fmtCurrency(purchasePriceValue)}, sale price of {fmtCurrency(salePriceValue)}, and selling expenses of {fmtCurrency(expensesValue)}, the current preview shows a {gain >= 0 ? "capital gain" : "capital loss"} of {fmtCurrency(Math.abs(gain))}. Click calculate to estimate the taxable portion and tax owed.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to read your result</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Focus on taxable gain and after-tax proceeds</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            The capital gain is not always the amount taxed. The taxable portion is the amount included in income, while after-tax proceeds estimate what remains after the modeled tax. If the sale affects registered-account planning, compare the result with the <Link to="/tools/tfsa-calculator" className="text-primary underline dark:text-secondary">TFSA calculator</Link> or <Link to="/tools/rrsp-calculator" className="text-primary underline dark:text-secondary">RRSP calculator</Link>.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Common mistakes</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Capital gains planning is sensitive to records and account type</h2>
+        <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+          <li>- Using the original purchase price when the adjusted cost base has changed.</li>
+          <li>- Forgetting commissions, selling expenses, foreign exchange, or crypto transaction records.</li>
+          <li>- Assuming rental property, business shares, and crypto always follow the same simple workflow.</li>
+          <li>- Treating the TFSA toggle as valid when the asset was not actually held in a qualifying TFSA account.</li>
+        </ul>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related tools and guides</p>
+        <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
+          <Link to="/tools" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">All calculators</Link>
+          <Link to="/tools/compound-interest-calculator" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Compound interest calculator</Link>
+          <Link to="/blog/tfsa-vs-rrsp-canada-2026" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">TFSA vs RRSP guide</Link>
+          <Link to="/blog/how-to-start-investing-canada-2026" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Beginner investing guide</Link>
+        </div>
+      </section>
+
       <MethodologyPanel
-        title="How this capital gains calculator works"
+        title="Methodology: how this capital gains calculator works"
         summary="This page estimates the gain after transaction costs, applies a simplified inclusion-rate model, and then multiplies the taxable portion by an estimated combined marginal tax rate for the selected province."
         assumptions={[
           "The income entered is used only to estimate a marginal tax rate for planning.",

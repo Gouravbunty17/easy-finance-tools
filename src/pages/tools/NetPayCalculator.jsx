@@ -1,5 +1,8 @@
 import React, { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import CalculatorLayout, { ResultCard, fmtCAD, fmtNum } from "../../components/CalculatorLayout";
+import FAQ from "../../components/FAQ";
+import MethodologyPanel from "../../components/MethodologyPanel";
 import NumberInput from "../../components/NumberInput";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
@@ -44,6 +47,25 @@ const PAY_FREQS = [
   { label: "Semi-Monthly", value: 24 },
   { label: "Monthly", value: 12 },
   { label: "Weekly", value: 52 },
+];
+
+const FAQS = [
+  {
+    q: "Is this net pay calculator exact?",
+    a: "No. It is an estimate based on federal, provincial, CPP, EI, RRSP, and deduction inputs. Employer benefits, taxable benefits, credits, and payroll setup can change the actual pay stub.",
+  },
+  {
+    q: "Why does province matter for net pay in Canada?",
+    a: "Federal tax is only part of the calculation. Each province and territory has its own brackets and basic personal amount, so the same salary can produce different net pay.",
+  },
+  {
+    q: "Does an RRSP contribution increase my net pay?",
+    a: "A payroll RRSP contribution can reduce taxable income before withholding, but the contribution itself is also deducted from the paycheque. The calculator shows both effects together.",
+  },
+  {
+    q: "Should I use salary or hourly mode?",
+    a: "Use salary mode for a fixed annual salary. Use hourly mode if your weekly hours or rate are the easier way to estimate annual gross pay.",
+  },
 ];
 
 function calcBracketTax(income, brackets, basicPersonal) {
@@ -112,8 +134,8 @@ export default function NetPayCalculator() {
 
   return (
     <CalculatorLayout
-      title="Canadian Pay Stub Calculator 2026"
-      description="Estimate gross pay, taxes, CPP, EI, RRSP deductions, and net pay with input boxes only. Works for salary and hourly income across Canadian provinces."
+      title="Net Pay Calculator Canada 2026 | Paycheque & Payroll Estimate"
+      description="Estimate Canadian net pay by province from salary or hourly income, including federal tax, provincial tax, CPP, EI, RRSP deductions, and per-pay results."
       canonical="https://easyfinancetools.com/tools/net-pay-calculator"
       badge="Paycheque planning"
       results={
@@ -140,7 +162,7 @@ export default function NetPayCalculator() {
       relatedTools={[
         { href: "/tools/income-tax-calculator", title: "Income tax calculator", body: "Check annual tax effects separately if you are comparing a few income scenarios." },
         { href: "/tools/salary-to-hourly-calculator", title: "Salary to hourly calculator", body: "Convert gross salary first if you are comparing offers or freelance rates." },
-        { href: "/tools/budget-tracker", title: "Budget tracker", body: "Turn the estimated net pay into a monthly spending plan." },
+        { href: "/tools/rrsp-calculator", title: "RRSP calculator", body: "Compare whether RRSP contributions should be part of the next paycheque plan." },
       ]}
       footerNote="Educational estimate only. Employer-specific payroll rules, benefits, taxable benefits, and local credits can change your real pay stub."
     >
@@ -197,6 +219,99 @@ export default function NetPayCalculator() {
           <NumberInput id="pay-other-deductions" label="Other deductions per pay" prefix="$" value={otherDeductions} onChange={(value) => setOtherDeductions(parseNumericInput(value))} placeholder="0" hint="Use for benefits, union dues, or other payroll deductions." />
         </div>
       </div>
+
+      <section className="mt-8 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">What this calculator does</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Estimate take-home pay before a paycheque arrives</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            This calculator is for Canadian employees comparing salary offers, hourly work, RRSP payroll deductions, or pay frequency. It estimates gross pay, income tax, CPP, EI, and net pay for the province or territory you choose.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use it</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Start with gross income, then add payroll deductions</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Choose salary or hourly mode, select your province, and match the pay frequency to your employer. Add RRSP contributions or recurring deductions only if they come directly off each paycheque.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Inputs explained</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What each pay input changes</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          {[
+            ["Income", "Salary mode annualizes the entered salary. Hourly mode multiplies hourly rate by weekly hours and 52 weeks."],
+            ["Province", "Province changes the estimated provincial or territorial income-tax portion."],
+            ["Pay frequency", "This divides annual gross, tax, CPP, EI, and deductions into weekly, bi-weekly, semi-monthly, or monthly pay."],
+            ["Deductions", "RRSP and other deductions are modeled per pay period and reduce the cash that lands in your account."],
+          ].map(([title, body]) => (
+            <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+              <h3 className="font-bold text-primary dark:text-accent">{title}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-8 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Example: Ontario salary paid bi-weekly</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            With the current inputs, the estimated annual gross pay is {fmtCAD(results.annualGross)} and estimated net pay is {fmtCAD(results.netPay, { maximumFractionDigits: 2, minimumFractionDigits: 2 })} per pay. Use this as a planning estimate, then compare it with your employer's actual payroll details.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to read your result</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Net pay is the useful budgeting number</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            The headline net-pay number is the estimated amount after modeled income tax, CPP, EI, RRSP contributions, and other deductions. If you are building a savings plan, use net pay with the <Link to="/tools/compound-interest-calculator" className="text-primary underline dark:text-secondary">compound interest calculator</Link> or compare RRSP contributions with the <Link to="/tools/rrsp-calculator" className="text-primary underline dark:text-secondary">RRSP calculator</Link>.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Common mistakes</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Do not treat payroll estimates like a final tax return</h2>
+        <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+          <li>- Forgetting employer benefits, taxable benefits, bonus pay, commissions, or pension adjustments.</li>
+          <li>- Comparing monthly expenses to gross salary instead of estimated net pay.</li>
+          <li>- Entering annual RRSP contributions in a field that expects the per-pay amount.</li>
+          <li>- Assuming payroll withholding equals the final refund or balance owing at tax time.</li>
+        </ul>
+      </section>
+
+      <MethodologyPanel
+        title="Methodology: how this net pay calculator works"
+        summary="The calculator annualizes salary or hourly income, subtracts modeled payroll RRSP contributions from taxable income, estimates federal and provincial income tax, then applies CPP, CPP2, EI, and other per-pay deductions."
+        assumptions={[
+          "Federal and provincial tax brackets are simplified planning tables for 2026-style estimates.",
+          "CPP, CPP2, and EI use annual caps and are then divided by the selected pay frequency.",
+          "Tax credits, benefit deductions, taxable benefits, bonuses, and employer-specific payroll rules are not fully modeled.",
+          "RRSP contributions are treated as payroll deductions entered per pay period.",
+        ]}
+        sources={[
+          { label: "CRA payroll deductions", href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll.html" },
+          { label: "EasyFinanceTools methodology", href: "https://easyfinancetools.com/methodology" },
+        ]}
+        note="Educational payroll estimate only. Verify your actual pay stub with your employer, CRA guidance, or a qualified tax professional."
+      />
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related tools and guides</p>
+        <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
+          <Link to="/tools" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">All calculators</Link>
+          <Link to="/tools/tfsa-calculator" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">TFSA calculator</Link>
+          <Link to="/blog/tfsa-vs-rrsp-canada-2026" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">TFSA vs RRSP guide</Link>
+          <Link to="/blog/how-to-start-investing-canada-2026" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Beginner investing guide</Link>
+        </div>
+      </section>
+
+      <FAQ items={FAQS} />
     </CalculatorLayout>
   );
 }

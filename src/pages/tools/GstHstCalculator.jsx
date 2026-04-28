@@ -1,6 +1,9 @@
 import React, { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import NumberInput from "../../components/NumberInput";
 import CalculatorLayout, { ResultCard, fmtCAD, fmtNum } from "../../components/CalculatorLayout";
+import FAQ from "../../components/FAQ";
+import MethodologyPanel from "../../components/MethodologyPanel";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 const TAX_RATES = {
@@ -22,6 +25,25 @@ const TAX_RATES = {
 function getCombinedRate(taxConfig) {
   return taxConfig.hst || taxConfig.gst + taxConfig.pst + taxConfig.qst;
 }
+
+const FAQS = [
+  {
+    q: "Does this GST/HST calculator cover every exemption?",
+    a: "No. It uses standard provincial and territorial sales-tax rates. Some goods and services are zero-rated, exempt, or subject to special rules.",
+  },
+  {
+    q: "Why does Quebec show GST and QST instead of HST?",
+    a: "Quebec uses GST plus QST rather than a harmonized HST rate, so the calculator shows the combined effect separately.",
+  },
+  {
+    q: "What is reverse sales tax mode?",
+    a: "Reverse mode starts with a tax-included total and estimates the pre-tax amount and tax portion.",
+  },
+  {
+    q: "Can I use this for invoices?",
+    a: "You can use it for quick planning, but business invoices should still follow CRA and provincial tax registration rules.",
+  },
+];
 
 export default function GstHstCalculator() {
   const [province, setProvince] = useState("ON");
@@ -61,8 +83,8 @@ export default function GstHstCalculator() {
 
   return (
     <CalculatorLayout
-      title="GST/HST Calculator Canada"
-      description="Add sales tax or reverse it from a final price. Covers GST-only provinces, GST plus PST provinces, HST provinces, and Quebec’s GST plus QST structure."
+      title="GST/HST Calculator Canada | Add or Reverse Sales Tax"
+      description="Calculate GST, HST, PST, and QST by province in Canada. Add sales tax to a pre-tax price or reverse tax from a final tax-included amount."
       canonical="https://easyfinancetools.com/tools/gst-hst-calculator"
       badge="Reverse tax included"
       results={
@@ -79,7 +101,7 @@ export default function GstHstCalculator() {
           />
           <ResultCard
             label="Tax breakdown"
-            value={taxLines.map((line) => `${line.label} ${fmtNum(line.rate, { maximumFractionDigits: 3, minimumFractionDigits: line.rate % 1 ? 3 : 0 })}%`).join(" • ")}
+            value={taxLines.map((line) => `${line.label} ${fmtNum(line.rate, { maximumFractionDigits: 3, minimumFractionDigits: line.rate % 1 ? 3 : 0 })}%`).join(" / ")}
             hint="Use reverse mode when the receipt already shows a tax-included total."
             tone="success"
           />
@@ -87,7 +109,7 @@ export default function GstHstCalculator() {
       }
       relatedTools={[
         { href: "/tools/income-tax-calculator", title: "Income tax calculator", body: "Move from purchase-level tax into annual tax and take-home planning." },
-        { href: "/tools/budget-tracker", title: "Budget tracker", body: "Use final after-tax costs inside your monthly spending plan." },
+        { href: "/tools/net-pay-calculator", title: "Net pay calculator", body: "Compare after-tax spending with estimated take-home pay." },
         { href: "/tools/tip-calculator", title: "Tip calculator", body: "Check the total after tax and tip when you are eating out or splitting bills." },
       ]}
       footerNote="Rates shown are standard provincial sales tax rates and do not reflect every exemption or product-specific rule."
@@ -152,6 +174,97 @@ export default function GstHstCalculator() {
           </p>
         </div>
       </div>
+
+      <section className="mt-8 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">What this calculator does</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Estimate Canadian sales tax before or after checkout</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Use this tool to add GST, HST, PST, or QST to a pre-tax price, or reverse a tax-included receipt to estimate the pre-tax subtotal. It is useful for Canadian shoppers, freelancers, and small-business planning checks.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use it</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Choose province first, then choose add or reverse mode</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Select the province or territory where the sale occurs, enter the amount, and choose whether that amount is before tax or already includes tax. The result updates instantly as the province or mode changes.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Inputs explained</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What changes the GST/HST result</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {[
+            ["Amount", mode === "remove" ? "The tax-included total from the receipt or invoice." : "The pre-tax price before sales tax is added."],
+            ["Province", "The province or territory controls whether GST, PST, QST, or HST applies."],
+            ["Mode", "Add mode calculates tax on top. Reverse mode backs tax out of a final total."],
+          ].map(([title, body]) => (
+            <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+              <h3 className="font-bold text-primary dark:text-accent">{title}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-8 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Example: {taxConfig.name} sales tax</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            With {fmtCAD(asNumber(amount), { maximumFractionDigits: 2, minimumFractionDigits: 2 })} entered in {taxConfig.name}, the calculator uses a combined rate of {fmtNum(getCombinedRate(taxConfig), { maximumFractionDigits: 3, minimumFractionDigits: taxConfig.qst ? 3 : 0 })}%. The estimated tax portion is {fmtCAD(result.tax, { maximumFractionDigits: 2, minimumFractionDigits: 2 })}.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to read your result</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use final total for budgeting, not just the shelf price</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            The final total is the amount you would plan to pay before any discounts, exemptions, or special product rules. If you are building a monthly plan, compare after-tax spending with the <Link to="/tools/net-pay-calculator" className="text-primary underline dark:text-secondary">net pay calculator</Link> or browse the <Link to="/tools" className="text-primary underline dark:text-secondary">tools hub</Link>.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Common mistakes</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Sales tax depends on what is being sold</h2>
+        <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+          <li>- Assuming every item is taxable at the standard rate.</li>
+          <li>- Using the wrong province when the place of supply is different from your home address.</li>
+          <li>- Treating reverse mode as a substitute for proper invoice or accounting records.</li>
+          <li>- Forgetting that tips, shipping, discounts, or business tax rules can change the final calculation.</li>
+        </ul>
+      </section>
+
+      <MethodologyPanel
+        title="Methodology: how this GST/HST calculator works"
+        summary="The calculator selects the standard sales-tax configuration for the province or territory, combines the applicable GST, PST, QST, or HST rate, then either adds tax to a subtotal or reverses tax from a final total."
+        assumptions={[
+          "Rates are standard provincial or territorial sales-tax rates for common taxable purchases.",
+          "Product-specific exemptions, zero-rated supplies, and business registration rules are not modeled.",
+          "Reverse mode divides the final amount by one plus the combined tax rate.",
+          "Quebec is modeled with GST plus QST rather than HST.",
+        ]}
+        sources={[
+          { label: "CRA: GST/HST", href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses.html" },
+          { label: "EasyFinanceTools methodology", href: "https://easyfinancetools.com/methodology" },
+        ]}
+        note="Educational estimate only. Verify tax-specific treatment with CRA, your provincial tax authority, or a qualified professional."
+      />
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related tools and guides</p>
+        <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
+          <Link to="/tools" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">All calculators</Link>
+          <Link to="/tools/compound-interest-calculator" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Compound interest calculator</Link>
+          <Link to="/blog/how-to-start-investing-canada-2026" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Beginner investing guide</Link>
+        </div>
+      </section>
+
+      <FAQ items={FAQS} />
     </CalculatorLayout>
   );
 }
