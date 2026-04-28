@@ -7,9 +7,6 @@ const COOKIES = [
   ["_ga_3KQXRRRQFK", "Google Analytics", "Session state for this site", "2 years"],
   ["_gid", "Google Analytics", "Distinguishes users within a 24-hour window", "24 hours"],
   ["theme", "EasyFinanceTools (local storage)", "Remembers dark / light mode preference", "Until cleared"],
-  ["Consent cookies (names vary)", "Ezoic / Gatekeeper Consent CMP", "Stores consent choices and privacy-framework state so ads and measurement can respect regional consent rules", "Varies by region and browser settings"],
-  ["Ezoic analytics identifiers", "Ezoic Analytics", "Measures ad and site performance in aggregate", "Varies by browser settings"],
-  ["__gads / __gpi / IDE / NID", "Google demand partners via Ezoic", "Ad delivery, fraud prevention, frequency capping, and performance measurement when Google demand participates in an auction", "Up to 13 months"],
 ];
 
 export default function PrivacyPolicy() {
@@ -21,14 +18,14 @@ export default function PrivacyPolicy() {
         canonical="https://easyfinancetools.com/privacy-policy"
       />
       <h1 className="text-4xl font-bold text-primary dark:text-accent mb-2">Privacy Policy</h1>
-      <p className="text-gray-500 mb-10">Last updated: April 25, 2026</p>
+      <p className="text-gray-500 mb-10">Last updated: April 28, 2026</p>
 
       <div className="prose dark:prose-invert max-w-none">
         <p>
           This Privacy Policy explains how EasyFinanceTools ("we", "our", or "the Site") collects, uses, and protects information when you use easyfinancetools.com. It is written to meet the requirements of Canada's <strong>Personal Information Protection and Electronic Documents Act (PIPEDA)</strong>, Quebec's <strong>Law 25</strong>, the European Union and United Kingdom's <strong>General Data Protection Regulation (GDPR)</strong>, and California's <strong>Consumer Privacy Act (CCPA/CPRA)</strong>, to the extent any of those laws apply to your visit.
         </p>
         <p>
-          <strong>The short version:</strong> numbers you type into a calculator never leave your browser. We do not have user accounts, we do not sell data, and the only routine data collected is standard web analytics, server logs, and advertising or consent signals needed to run the Site and serve ads through Ezoic.
+          <strong>The short version:</strong> numbers you type into a calculator never leave your browser. We do not have user accounts, we do not sell data, and the only routine data collected is standard web analytics and server logs needed to run and improve the Site.
         </p>
 
         <h2>1. Who we are and how to contact us</h2>
@@ -56,9 +53,6 @@ export default function PrivacyPolicy() {
           <li>
             <strong>Vercel</strong>, our hosting and edge-CDN provider, logs the request IP address, URL, timestamp, and user-agent string for every page load. These logs are retained for approximately 30 days and are used for security, abuse detection, and debugging.
           </li>
-          <li>
-            <strong>Ezoic</strong>, its consent tools, analytics tools, and advertising partners may process page URLs, referrer data, IP-derived geolocation, device and browser information, consent status, ad-request data, and performance data so ads can be served, measured, limited for fraud, and adapted to regional privacy rules.
-          </li>
         </ul>
 
         <h3>2.3 The Bank of Canada Valet API</h3>
@@ -71,7 +65,7 @@ export default function PrivacyPolicy() {
           Under PIPEDA, we rely on <strong>legitimate interest / implied consent</strong> to collect the minimum technical data needed to operate the Site, detect abuse, and understand aggregate usage so we can improve calculators. No personal financial information is processed, so the threshold for consent is low.
         </p>
         <p>
-          Under GDPR, where it applies to visitors from the EU or UK, we rely on <strong>legitimate interest</strong> for server logs and basic analytics, and on <strong>explicit consent</strong> for non-essential advertising, marketing, and consent-management cookies delivered through Ezoic and participating demand partners. Under Quebec's Law 25, the same consent requirement applies to advertising technologies that track across sites.
+          Under GDPR, where it applies to visitors from the EU or UK, we rely on <strong>legitimate interest</strong> for server logs and basic analytics. If we introduce non-essential advertising, marketing, or consent-management cookies in the future, we will request consent where required by law before those technologies run.
         </p>
         <p>
           Using a calculator does not require any account, login, or personal information. You can close the tab at any time and no record of your inputs remains on our systems because none was ever transmitted.
@@ -89,20 +83,13 @@ export default function PrivacyPolicy() {
           <li>
             <strong>Bank of Canada</strong> - public Valet API for FX and inflation rates. Outbound data only; nothing about you is sent.
           </li>
-          <li>
-            <strong>Ezoic Inc.</strong> - advertising, consent management, analytics, and site optimization. Ezoic's standalone JavaScript integration on this Site includes Gatekeeper consent scripts, the Ezoic standalone header script, and Ezoic Analytics. Depending on geography, consent state, and auction demand, Ezoic and its participating partners may use cookies, device identifiers, and similar technologies to serve ads, measure performance, prevent fraud, and comply with privacy rules. Privacy policy: <a href="https://www.ezoic.com/privacy-policy/" className="text-secondary" target="_blank" rel="noreferrer">ezoic.com/privacy-policy</a>. Support documentation: <a href="https://support.ezoic.com/kb/article/ezoics-privacy-policy-app" className="text-secondary" target="_blank" rel="noreferrer">support.ezoic.com/kb/article/ezoics-privacy-policy-app</a>.
-          </li>
-          <li>
-            <strong>Google demand via Ezoic</strong> - ad demand may sometimes be filled by Google or other advertising partners through Ezoic's platform rather than through direct Google AdSense code on this Site. If Google demand participates, Google advertising cookies and device identifiers may appear subject to the active consent state. You may review Google's advertising controls at <a href="https://adssettings.google.com" className="text-secondary" target="_blank" rel="noreferrer">adssettings.google.com</a> and Google's partner information at <a href="https://policies.google.com/technologies/partner-sites" className="text-secondary" target="_blank" rel="noreferrer">policies.google.com/technologies/partner-sites</a>.
-          </li>
         </ul>
 
         <div className="not-prose my-6 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
-          <p className="font-semibold text-primary dark:text-accent">Ezoic privacy disclosures</p>
+          <p className="font-semibold text-primary dark:text-accent">Advertising status</p>
           <p className="mt-2">
-            The span below is intentionally included so Ezoic can inject any required partner-specific privacy disclosures configured in the Ezoic dashboard.
+            Ezoic advertising, consent-management, and analytics scripts are currently disabled on the Site. If advertising is added later, this policy will be updated before those scripts are re-enabled.
           </p>
-          <span id="ezoic-privacy-policy-embed"></span>
         </div>
 
         <p>
@@ -139,7 +126,6 @@ export default function PrivacyPolicy() {
         <ul>
           <li><strong>Google Analytics:</strong> 14 months, the default GA4 retention window. After that, aggregated reports remain available but individual event data is deleted.</li>
           <li><strong>Vercel server logs:</strong> approximately 30 days.</li>
-          <li><strong>Ezoic and participating ad partners:</strong> retention varies by product, geography, consent state, and partner policy. See Ezoic's privacy disclosures and any injected Ezoic policy text on this page for the most current details.</li>
           <li><strong>Contact-form submissions:</strong> kept only as long as needed to reply, typically no more than 12 months.</li>
           <li><strong>No user-account database:</strong> the Site does not maintain its own user database because there are no accounts.</li>
         </ul>
@@ -171,12 +157,12 @@ export default function PrivacyPolicy() {
         </div>
 
         <p>
-          You can block or delete cookies through your browser settings - see guides for <a href="https://support.google.com/chrome/answer/95647" className="text-secondary" target="_blank" rel="noreferrer">Chrome</a>, <a href="https://support.mozilla.org/en-US/kb/block-websites-storing-cookies-site-data" className="text-secondary" target="_blank" rel="noreferrer">Firefox</a>, <a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" className="text-secondary" target="_blank" rel="noreferrer">Safari</a>, and <a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" className="text-secondary" target="_blank" rel="noreferrer">Edge</a>. You can opt out of personalized Google advertising at <a href="https://adssettings.google.com" className="text-secondary" target="_blank" rel="noreferrer">adssettings.google.com</a>, opt out of Google Analytics tracking with the <a href="https://tools.google.com/dlpage/gaoptout" className="text-secondary" target="_blank" rel="noreferrer">Google Analytics Opt-out Browser Add-on</a>, and manage Ezoic consent choices through the consent banner or privacy controls presented on the Site where required by law.
+          You can block or delete cookies through your browser settings - see guides for <a href="https://support.google.com/chrome/answer/95647" className="text-secondary" target="_blank" rel="noreferrer">Chrome</a>, <a href="https://support.mozilla.org/en-US/kb/block-websites-storing-cookies-site-data" className="text-secondary" target="_blank" rel="noreferrer">Firefox</a>, <a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" className="text-secondary" target="_blank" rel="noreferrer">Safari</a>, and <a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" className="text-secondary" target="_blank" rel="noreferrer">Edge</a>. You can opt out of Google Analytics tracking with the <a href="https://tools.google.com/dlpage/gaoptout" className="text-secondary" target="_blank" rel="noreferrer">Google Analytics Opt-out Browser Add-on</a>.
         </p>
 
         <h2>8. International data transfers</h2>
         <p>
-          Because Google, Ezoic, and Vercel operate globally, information collected through the Site may be transferred to, stored in, or processed in the United States and other countries outside Canada or the European Economic Area. Those providers rely on standard contractual clauses and other legally recognized transfer mechanisms where required.
+          Because Google and Vercel operate globally, information collected through the Site may be transferred to, stored in, or processed in the United States and other countries outside Canada or the European Economic Area. Those providers rely on standard contractual clauses and other legally recognized transfer mechanisms where required.
         </p>
 
         <h2>9. Children's privacy</h2>
@@ -186,7 +172,7 @@ export default function PrivacyPolicy() {
 
         <h2>10. Changes to this policy</h2>
         <p>
-          We may update this Privacy Policy from time to time as the Site evolves or as applicable laws change. The "Last updated" date at the top of this page will reflect the most recent revision. Material changes, for example the addition of a new advertising provider or a change in the Ezoic consent setup, will be highlighted on the home page for at least 30 days.
+          We may update this Privacy Policy from time to time as the Site evolves or as applicable laws change. The "Last updated" date at the top of this page will reflect the most recent revision. Material changes, for example the addition of a new advertising provider or a change in advertising-consent setup, will be highlighted on the home page for at least 30 days.
         </p>
 
         <h2>11. Contact for privacy requests</h2>

@@ -1,6 +1,5 @@
 import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import EzoicAd from './components/EzoicAd';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { trackPageView } from './lib/analytics';
@@ -97,32 +96,10 @@ function useSpaPageTracking() {
   }, [location.pathname, location.search, location.hash]);
 }
 
-function useEzoicRouteCleanup() {
-  const location = useLocation();
-
-  useEffect(() => {
-    return () => {
-      if (typeof window === 'undefined') return;
-
-      const destroyPlaceholders = window.ezstandalone?.destroyPlaceholders;
-      if (typeof destroyPlaceholders !== 'function') return;
-
-      try {
-        destroyPlaceholders();
-      } catch (error) {
-        console.warn('Ezoic placeholders could not be cleaned up on route change.', error);
-      }
-    };
-  }, [location.pathname, location.search, location.hash]);
-}
-
 export default function App() {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-  const location = useLocation();
-  const showToolRouteAd = location.pathname.startsWith('/tools/') && location.pathname !== '/tools';
 
   useSpaPageTracking();
-  useEzoicRouteCleanup();
 
   useEffect(() => {
     const onKeyDown = (event) => {
@@ -218,15 +195,6 @@ export default function App() {
             />
           </Routes>
         </Suspense>
-        {showToolRouteAd ? (
-          <section className="mx-auto max-w-6xl px-4 pb-16">
-            {/* Temporary Ezoic placeholder ID 105. Replace with the real Ezoic placement ID from the dashboard. */}
-            <EzoicAd
-              placementId={105}
-              wrapperClassName="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-900"
-            />
-          </section>
-        ) : null}
       </div>
       <Footer />
     </div>
