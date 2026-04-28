@@ -1,6 +1,6 @@
 import React from 'react';
-import { createRoot, hydrateRoot } from 'react-dom/client';
-import App from './App';
+import { createRoot } from 'react-dom/client';
+import App, { preloadRouteForPathname } from './App';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -14,8 +14,12 @@ const app = (
   </React.StrictMode>
 );
 
-if (container.hasChildNodes()) {
-  hydrateRoot(container, app);
-} else {
+async function mount() {
+  if (container.hasChildNodes()) {
+    await preloadRouteForPathname(window.location.pathname);
+  }
+
   createRoot(container).render(app);
 }
+
+mount();
