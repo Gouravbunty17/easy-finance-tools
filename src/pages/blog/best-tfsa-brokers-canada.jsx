@@ -136,7 +136,7 @@ export default function BestTFSABrokersCanada() {
         description="Compare the best self-directed TFSA brokers in Canada for 2026, including beginner-friendly and more hands-on platforms for long-term ETF investors."
         url="https://easyfinancetools.com/blog/best-tfsa-brokers-canada"
         datePublished="2026-04-04"
-        dateModified="2026-04-26"
+        dateModified="2026-04-29"
       />
       <FAQSchema faqs={FAQS} />
 
@@ -144,7 +144,7 @@ export default function BestTFSABrokersCanada() {
         icon="TFSA"
         category="Investing | TFSA"
         title="Best TFSA Brokers in Canada (2026): Beginner and Self-Directed Picks"
-        date="Last updated April 26, 2026"
+        date="Last updated April 29, 2026"
         readTime="11 min read"
         gradient="from-blue-500 to-indigo-700"
         reviewer="Reviewed for Canadian brokerage-fee clarity"
@@ -424,10 +424,23 @@ export default function BestTFSABrokersCanada() {
             </TrackedLink>
           </div>
 
+          <div className="not-prose mt-8 rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-gray-900">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">FAQ</p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">TFSA broker questions</h2>
+            <div className="mt-5 grid gap-4 md:grid-cols-2">
+              {FAQS.map((item) => (
+                <div key={item.q} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                  <h3 className="text-base font-bold text-primary dark:text-accent">{item.q}</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <MethodologyPanel
             title="How this TFSA broker guide should be used"
             summary="This page is a practical shortlist for Canadians choosing a self-directed TFSA broker. It prioritizes account fit, ease of use, and long-term investing behavior over feature overload."
-            updated="April 4, 2026"
+            updated="April 29, 2026"
             assumptions={[
               "Broker features, pricing, and available account workflows can change, so readers should verify the latest details before opening or transferring accounts.",
               "This guide emphasizes simple long-term ETF investing workflows rather than active trading or advanced order-management features.",
@@ -448,9 +461,19 @@ export default function BestTFSABrokersCanada() {
                 href: "/blog/wealthsimple-vs-questrade-canada",
               },
               {
+                title: "TFSA contribution room",
+                body: "Check 2026 room, withdrawal timing, and over-contribution risks before funding a new account.",
+                href: "/blog/tfsa-contribution-room-canada-2026",
+              },
+              {
                 title: "TFSA vs RRSP",
                 body: "Choose the right registered account before worrying about the broker.",
                 href: "/blog/tfsa-vs-rrsp-canada-2026",
+              },
+              {
+                title: "TFSA vs RRSP vs FHSA",
+                body: "Use this if a first-home goal could change which registered account comes first.",
+                href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada",
               },
               {
                 title: "How to start investing in Canada",

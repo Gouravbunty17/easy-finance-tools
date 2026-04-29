@@ -19,6 +19,46 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "tfsa-contribution-room-canada-2026",
+    title: "TFSA Contribution Room Canada 2026: Limit, Rules & Common Mistakes",
+    date: "2026-04-29",
+    category: "TFSA",
+    readTime: "9 min",
+    excerpt: "Learn how TFSA contribution room works in Canada for 2026, including the $7,000 limit, withdrawals, CRA room updates, examples, and common mistakes.",
+  },
+  {
+    slug: "rrsp-deadline-canada-2026",
+    title: "RRSP Deadline Canada 2026: Contribution Rules & Tax Refund Examples",
+    date: "2026-04-29",
+    category: "RRSP",
+    readTime: "9 min",
+    excerpt: "Understand the 2026 RRSP contribution deadline, deduction-room rules, tax refund examples, late-contribution mistakes, and account planning basics.",
+  },
+  {
+    slug: "fhsa-rules-canada-2026",
+    title: "FHSA Rules Canada 2026: Eligibility, Limits, Transfers & Withdrawals",
+    date: "2026-04-29",
+    category: "FHSA",
+    readTime: "10 min",
+    excerpt: "A Canadian FHSA rules guide covering eligibility, 2026 contribution room, carry-forward rules, transfers, qualifying withdrawals, and common mistakes.",
+  },
+  {
+    slug: "tfsa-vs-rrsp-vs-fhsa-canada",
+    title: "TFSA vs RRSP vs FHSA: Which Account Should Canadians Use First?",
+    date: "2026-04-29",
+    category: "TFSA & RRSP",
+    readTime: "10 min",
+    excerpt: "Compare TFSA, RRSP, and FHSA account priority for Canadians saving for a home, retirement, investing flexibility, and tax planning.",
+  },
+  {
+    slug: "best-canadian-dividend-etfs-2026",
+    title: "Best Canadian Dividend ETFs 2026: Income, Fees & Risks",
+    date: "2026-04-29",
+    category: "Dividends",
+    readTime: "11 min",
+    excerpt: "Compare Canadian dividend ETF categories by income focus, fees, diversification, covered-call risk, account fit, and payout assumptions.",
+  },
+  {
     slug: "tfsa-vs-rrsp-canada-2026",
     title: "TFSA vs RRSP in Canada (2026): Which Should You Max First?",
     date: "2026-04-23",

@@ -106,14 +106,14 @@ export default function BestETFsForTFSA() {
         description="Compare the best TFSA ETFs in Canada for 2026, including growth, dividend, balanced, and index ETF options plus the account-fit tradeoffs that matter."
         url="https://easyfinancetools.com/blog/best-etfs-for-tfsa-canada-2026"
         datePublished="2026-03-28"
-        dateModified="2026-04-26"
+        dateModified="2026-04-29"
       />
       <FAQSchema faqs={FAQS} />
       <BlogHero
         icon="ETF"
         category="Investing | TFSA"
         title="Best TFSA ETFs in Canada (2026)"
-        date="Last updated April 26, 2026"
+        date="Last updated April 29, 2026"
         readTime="9 min read"
         gradient="from-indigo-500 to-violet-700"
         reviewer="Reviewed for Canadian ETF account fit"
@@ -370,10 +370,23 @@ export default function BestETFsForTFSA() {
           Use our <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="tfsa_calculator_inline" to="/tools/tfsa-calculator" className="text-primary underline">TFSA Calculator</TrackedLink> to see exactly how much your ETF investments could grow tax-free over your investment horizon.
         </p>
 
+        <div className="not-prose mt-8 rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-gray-900">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">FAQ</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">TFSA ETF questions</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {FAQS.map((item) => (
+              <div key={item.q} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                <h3 className="text-base font-bold text-primary dark:text-accent">{item.q}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <MethodologyPanel
           title="How to use this ETF guide"
           summary="This page is a practical comparison guide for Canadian TFSA investors. It highlights common ETF structures, broad fee ranges, and planning tradeoffs rather than giving personalized recommendations."
-          updated="April 3, 2026"
+          updated="April 29, 2026"
           assumptions={[
             "ETF examples and use cases are educational snapshots and may change as fund mandates, fees, or distributions change.",
             "MER and yield references are directional planning figures and should be verified on the provider's facts page before investing.",
@@ -386,7 +399,7 @@ export default function BestETFsForTFSA() {
           note="Educational guide only. ETF suitability, fees, and distribution treatment should be checked before investing."
         />
 
-        <div className="not-prose mt-8 grid gap-4 md:grid-cols-3">
+        <div className="not-prose mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[
             {
               title: "TFSA calculator",
@@ -394,9 +407,19 @@ export default function BestETFsForTFSA() {
               href: "/tools/tfsa-calculator",
             },
             {
+              title: "TFSA contribution room",
+              body: "Review the 2026 room limit, withdrawal timing, and common contribution mistakes.",
+              href: "/blog/tfsa-contribution-room-canada-2026",
+            },
+            {
               title: "Best TFSA brokers",
               body: "Choose the self-directed platform that fits a simple ETF plan once the account choice is clear.",
               href: "/blog/best-tfsa-brokers-canada",
+            },
+            {
+              title: "Canadian dividend ETFs",
+              body: "Compare income-focused ETF categories, fees, risks, and account fit.",
+              href: "/blog/best-canadian-dividend-etfs-2026",
             },
             {
               title: "Beginner investing guide",

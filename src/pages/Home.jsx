@@ -3,6 +3,7 @@ import SEO from '../components/SEO';
 import SurfaceTrackedLink from '../components/SurfaceTrackedLink';
 import ReferralSection from '../components/ReferralSection';
 import EducationalDisclaimer from '../components/EducationalDisclaimer';
+import FAQSchema from '../components/FAQSchema';
 
 const GOAL_CARDS = [
   {
@@ -44,6 +45,20 @@ const GOAL_CARDS = [
 ];
 
 const GUIDE_CARDS = [
+  {
+    title: 'TFSA Contribution Room Canada 2026',
+    description: 'Check the 2026 TFSA limit, withdrawal timing, CRA room updates, and the mistakes that cause over-contributions.',
+    href: '/blog/tfsa-contribution-room-canada-2026',
+    ctaLabel: 'guide_tfsa_contribution_room',
+    guideName: 'tfsa_contribution_room',
+  },
+  {
+    title: 'TFSA vs RRSP vs FHSA',
+    description: 'Compare the three major registered accounts when a home goal, tax deduction, and flexible investing all compete.',
+    href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
+    ctaLabel: 'guide_tfsa_rrsp_fhsa',
+    guideName: 'tfsa_rrsp_fhsa',
+  },
   {
     title: 'TFSA vs RRSP in Canada (2026)',
     description: 'Figure out which account should get the next contribution based on income, tax treatment, and flexibility.',
@@ -96,6 +111,12 @@ const CALCULATOR_CARDS = [
 
 const ACCOUNT_COMPARISON_LINKS = [
   {
+    title: 'Compare TFSA vs RRSP vs FHSA',
+    description: 'Best starting point when your home, retirement, and flexible investing goals are all competing.',
+    href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
+    ctaLabel: 'comparison_strip_tfsa_rrsp_fhsa',
+  },
+  {
     title: 'Compare TFSA vs RRSP first',
     description: 'Best starting point when the next registered-account contribution is still undecided.',
     href: '/blog/tfsa-vs-rrsp-canada-2026',
@@ -139,6 +160,25 @@ const NEXT_STEP_CARDS = [
   },
 ];
 
+const HOME_FAQS = [
+  {
+    q: 'What is EasyFinanceTools for?',
+    a: 'EasyFinanceTools helps Canadians compare common money decisions such as TFSA vs RRSP, FHSA planning, compound growth, dividend income, tax estimates, and mortgage affordability.',
+  },
+  {
+    q: 'Are the calculators financial advice?',
+    a: 'No. The calculators and guides are educational planning tools. They use simplified assumptions and should be checked against official sources or a qualified professional before you act.',
+  },
+  {
+    q: 'Which page should I start with?',
+    a: 'If you are choosing an account, start with TFSA vs RRSP vs FHSA. If you already know the account, start with the matching calculator or guide.',
+  },
+  {
+    q: 'Do I need to sign up to use the tools?',
+    a: 'No. The calculators are free to use without an email sign-up.',
+  },
+];
+
 export default function Home() {
   return (
     <main className="min-h-screen">
@@ -147,6 +187,7 @@ export default function Home() {
         description="Use free Canadian finance calculators for TFSA, RRSP, compound interest, dividends, and savings planning. Simple tools, no sign-up required."
         canonical="https://easyfinancetools.com/"
       />
+      <FAQSchema faqs={HOME_FAQS} />
 
       <section className="relative overflow-hidden bg-gradient-to-br from-primary via-[#0a4c89] to-secondary px-4 py-20 text-white">
         <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle at top left, white 1px, transparent 1px)', backgroundSize: '26px 26px' }} />
@@ -160,13 +201,14 @@ export default function Home() {
                 <span className="rounded-full bg-white/15 px-4 py-1.5">Built for Canadians</span>
                 <span className="rounded-full bg-white/15 px-4 py-1.5">Practical guides</span>
                 <span className="rounded-full bg-white/15 px-4 py-1.5">Clear next steps</span>
+                <span className="rounded-full bg-white/15 px-4 py-1.5">Updated Apr 29, 2026</span>
               </div>
 
               <h1 className="text-4xl font-bold leading-tight md:text-6xl">
                 Make better money decisions in Canada
               </h1>
               <p className="mt-6 max-w-3xl text-lg text-blue-100 md:text-xl">
-                Compare TFSA vs RRSP, estimate FHSA tax savings, and plan dividend income with practical tools built for Canadians.
+                Compare TFSA, RRSP, and FHSA decisions, estimate compound growth in CAD, check contribution-room basics, and plan dividend income with practical tools built for Canadians.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -205,6 +247,35 @@ export default function Home() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-10">
+        <div className="rounded-3xl border border-blue-100 bg-blue-50 p-6 dark:border-blue-900/60 dark:bg-blue-950/30">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Quick answer</p>
+          <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Start with the account decision, then run the calculator</h2>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-700 dark:text-slate-300">
+            Most Canadian finance choices get easier in this order: choose the account, estimate the numbers, then compare products. If the next dollar could go into a TFSA, RRSP, or FHSA, use the account guides first. If the account is already clear, use the matching calculator to test the contribution, growth, tax, or income scenario.
+          </p>
+          <div className="mt-5 grid gap-3 md:grid-cols-3">
+            {[
+              { title: 'Account choice unclear', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', label: 'Compare TFSA, RRSP, FHSA' },
+              { title: 'Growth target unclear', href: '/tools/compound-interest-calculator', label: 'Run compound growth' },
+              { title: 'TFSA room unclear', href: '/blog/tfsa-contribution-room-canada-2026', label: 'Check TFSA room rules' },
+            ].map((item) => (
+              <SurfaceTrackedLink
+                key={item.href}
+                to={item.href}
+                eventName="homepage_cta_click"
+                ctaLabel={`quick_answer_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`}
+                trackingParams={{ section: 'quick_answer', destination_type: item.href.startsWith('/blog') ? 'article' : 'tool' }}
+                className="rounded-2xl bg-white p-5 text-sm shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-slate-900"
+              >
+                <p className="font-bold text-primary dark:text-accent">{item.title}</p>
+                <p className="mt-2 font-semibold text-secondary">{item.label}</p>
+              </SurfaceTrackedLink>
+            ))}
           </div>
         </div>
       </section>
@@ -366,6 +437,18 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 pb-4">
+        <div className="mb-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">FAQ</p>
+          <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Common questions before using the tools</h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {HOME_FAQS.map((item) => (
+              <div key={item.q} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.q}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
         <EducationalDisclaimer />
       </section>
 

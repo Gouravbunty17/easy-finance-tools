@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import SEO from "../components/SEO";
 import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
 import EducationalDisclaimer from "../components/EducationalDisclaimer";
+import FAQSchema from "../components/FAQSchema";
 
 const tools = [
   { title: "Tip Calculator", desc: "Calculate the tip, split the bill, and compare pre-tax vs after-tax tipping with simple input boxes.", link: "/tools/tip-calculator", badge: "New", category: "Budget", color: "border-amber-200 hover:border-amber-400" },
@@ -33,6 +34,12 @@ const categories = ["All", "Savings", "Real Estate", "Tax", "Retirement", "Inves
 
 const decisionPaths = [
   {
+    title: "Should I use a TFSA, RRSP, or FHSA first?",
+    body: "Use the account comparison guide before opening a calculator if the account order is still unclear.",
+    href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada",
+    ctaLabel: "decision_path_tfsa_rrsp_fhsa",
+  },
+  {
     title: "Where should my next registered-account dollar go?",
     body: "Start with TFSA vs RRSP, then use the FHSA calculator if a first home is part of the plan.",
     href: "/blog/tfsa-vs-rrsp-canada-2026",
@@ -58,6 +65,25 @@ const decisionPaths = [
   },
 ];
 
+const toolHubFaqs = [
+  {
+    q: "Which finance calculator should I start with?",
+    a: "If you are choosing between accounts, start with the TFSA, RRSP, or FHSA tools. If you are testing a savings habit, start with the compound interest calculator.",
+  },
+  {
+    q: "Are these calculators specific to Canada?",
+    a: "Yes. The hub is built around Canadian account types, tax concepts, CAD examples, provincial sales-tax workflows, and Canadian retirement or home-buying decisions.",
+  },
+  {
+    q: "Do the calculators replace official tax advice?",
+    a: "No. They are educational estimates. Use CRA, provincial, lender, or provider documents for official numbers and speak with a qualified professional for personal advice.",
+  },
+  {
+    q: "Do I need to create an account?",
+    a: "No. The tools are free to open and use without an email sign-up.",
+  },
+];
+
 export default function ToolsPage() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
@@ -75,9 +101,10 @@ export default function ToolsPage() {
     <main aria-labelledby="tools-page-title">
       <SEO
         title="Free Canadian Finance Calculators 2026 | All Tools"
-        description="Browse 20+ free Canadian finance calculators: TFSA, RRSP, FHSA, dividend, mortgage, tax, GIC, FIRE, debt payoff, and more. No sign-up required."
+        description="Browse 23 free Canadian finance calculators: TFSA, RRSP, FHSA, dividend, mortgage, tax, GIC, FIRE, debt payoff, and more. No sign-up required."
         canonical="https://easyfinancetools.com/tools"
       />
+      <FAQSchema faqs={toolHubFaqs} />
 
       <div className="bg-gradient-to-br from-primary to-secondary px-4 py-16 text-white">
         <div className="mx-auto max-w-5xl text-center">
@@ -88,12 +115,48 @@ export default function ToolsPage() {
           <p className="mx-auto max-w-3xl text-lg text-blue-50">
             Pick the question you are trying to answer, compare scenarios, and move into the guide or next calculator that makes the decision clearer.
           </p>
+          <p className="mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-blue-100">
+            Last updated April 29, 2026
+          </p>
         </div>
       </div>
 
       <div className="mx-auto max-w-6xl px-4 py-16">
 
         <EducationalDisclaimer />
+
+        <section className="mb-8 rounded-3xl border border-blue-100 bg-blue-50 p-6 dark:border-blue-900/60 dark:bg-blue-950/30">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Quick answer</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the tools page as a decision map</h2>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-700 dark:text-slate-300">
+            If the account choice is unclear, start with TFSA, RRSP, or FHSA comparisons. If the account is already clear, open the calculator that models the number you need: contribution room, future growth, take-home pay, tax, mortgage cost, dividend income, or debt payoff.
+          </p>
+          <div className="mt-5 overflow-x-auto">
+            <table className="w-full min-w-[680px] overflow-hidden rounded-2xl border border-slate-200 bg-white text-left text-sm dark:border-slate-700 dark:bg-slate-900">
+              <thead className="bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Decision</th>
+                  <th className="px-4 py-3 font-semibold">Start here</th>
+                  <th className="px-4 py-3 font-semibold">Then compare</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                {[
+                  ["Account priority", "TFSA vs RRSP vs FHSA guide", "TFSA, RRSP, and FHSA calculators"],
+                  ["Long-term growth", "Compound interest calculator", "TFSA or RRSP calculator"],
+                  ["Income goal", "Dividend calculator", "Canadian dividend ETF guide"],
+                  ["Home buying", "FHSA calculator", "Mortgage affordability and rent-vs-buy tools"],
+                ].map(([decision, start, compare]) => (
+                  <tr key={decision}>
+                    <td className="px-4 py-3 font-semibold text-primary dark:text-accent">{decision}</td>
+                    <td className="px-4 py-3 text-slate-700 dark:text-slate-300">{start}</td>
+                    <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{compare}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
         <div className="surface-soft grid gap-4 p-5 text-sm text-slate-700 dark:text-slate-300 md:grid-cols-4">
           <div>
@@ -132,6 +195,30 @@ export default function ToolsPage() {
               >
                 <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+              </SurfaceTrackedLink>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related guides</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use a guide when the calculator needs context</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              { title: "TFSA contribution room", href: "/blog/tfsa-contribution-room-canada-2026" },
+              { title: "TFSA vs RRSP vs FHSA", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada" },
+              { title: "FHSA rules", href: "/blog/fhsa-rules-canada-2026" },
+              { title: "Canadian dividend ETFs", href: "/blog/best-canadian-dividend-etfs-2026" },
+            ].map((item) => (
+              <SurfaceTrackedLink
+                key={item.href}
+                to={item.href}
+                eventName="tools_hub_cta_click"
+                ctaLabel={`related_guide_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
+                trackingParams={{ section: "related_guides", destination_type: "article" }}
+                className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900/60 dark:text-accent"
+              >
+                {item.title}
               </SurfaceTrackedLink>
             ))}
           </div>
@@ -274,6 +361,19 @@ export default function ToolsPage() {
             </SurfaceTrackedLink>
           ))}
         </div>
+
+        <section className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">FAQ</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Questions about the calculator hub</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {toolHubFaqs.map((item) => (
+              <div key={item.q} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.q}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </main>
   );

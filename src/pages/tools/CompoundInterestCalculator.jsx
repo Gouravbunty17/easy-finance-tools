@@ -17,6 +17,7 @@ import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 import ToolByline from "../../components/ToolByline";
 import ActionableNextSteps from "../../components/ActionableNextSteps";
 import EducationalDisclaimer from "../../components/EducationalDisclaimer";
+import FAQSchema from "../../components/FAQSchema";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -47,6 +48,14 @@ const COMPOUND_FAQS = [
   {
     q: "Does the projection guarantee my future return?",
     a: "No. It uses a fixed annual return, fee, and inflation assumption. Real portfolios move unevenly, so treat the result as a planning range rather than a guarantee.",
+  },
+  {
+    q: "What is a realistic return assumption for Canadian planning?",
+    a: "There is no guaranteed number. For a cautious long-term scenario, many people test several ranges, such as lower-return, base-case, and optimistic assumptions, then check whether the plan still works if returns are weaker.",
+  },
+  {
+    q: "How do fees affect compound growth?",
+    a: "Fees reduce the return that actually compounds. A small annual fee difference can become meaningful over long periods, especially when contributions continue for many years.",
   },
 ];
 
@@ -147,6 +156,7 @@ export default function CompoundInterestCalculator() {
         canonical="https://easyfinancetools.com/tools/compound-interest-calculator"
         category="FinanceApplication"
       />
+      <FAQSchema faqs={COMPOUND_FAQS} />
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
         <div>
@@ -157,12 +167,23 @@ export default function CompoundInterestCalculator() {
             Compound Interest Calculator Canada
           </h1>
           <ToolByline />
+          <p className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+            Last updated April 29, 2026
+          </p>
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             See how an initial deposit, monthly contributions, fees, inflation, and a TFSA-style investing wrapper can change your long-term result. Built for CAD planning and easy scenario checks.
           </p>
 
           <div className="mt-6">
             <EducationalDisclaimer />
+          </div>
+
+          <div className="mt-6 rounded-3xl border border-blue-100 bg-blue-50 p-5 dark:border-blue-900/60 dark:bg-blue-950/30">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Quick answer</p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use this as the growth baseline before choosing TFSA, RRSP, or FHSA</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-700 dark:text-slate-300">
+              The calculator shows what steady contributions could become after fees and inflation assumptions. For Canadian planning, use the result as step one, then compare whether the same plan belongs in a TFSA, RRSP, FHSA, or taxable account.
+            </p>
           </div>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -443,7 +464,7 @@ export default function CompoundInterestCalculator() {
           { label: "Bank of Canada inflation resources", href: "https://www.bankofcanada.ca/core-functions/monetary-policy/inflation/" },
           { label: "Government of Canada registered accounts overview", href: "https://www.canada.ca/en/services/finance.html" },
         ]}
-        updated="April 3, 2026"
+        updated="April 29, 2026"
         reviewer="EasyFinanceTools editorial team"
         note="Educational estimate only. Real returns vary year to year, and taxes may apply depending on whether you invest inside a TFSA, RRSP, FHSA, or non-registered account."
       />
@@ -542,6 +563,31 @@ export default function CompoundInterestCalculator() {
               <h3 className="text-base font-bold text-primary dark:text-accent">{item.q}</h3>
               <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.a}</p>
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related tools and guides</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Turn the projection into a Canadian account decision</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            { title: "TFSA calculator", href: "/tools/tfsa-calculator", body: "Check room and tax-free growth." },
+            { title: "RRSP calculator", href: "/tools/rrsp-calculator", body: "Compare deduction value and retirement savings." },
+            { title: "TFSA contribution room", href: "/blog/tfsa-contribution-room-canada-2026", body: "Avoid room and withdrawal timing mistakes." },
+            { title: "TFSA vs RRSP vs FHSA", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada", body: "Choose which account comes first." },
+          ].map((item) => (
+            <SurfaceTrackedLink
+              key={item.href}
+              to={item.href}
+              eventName="tool_result_cta_click"
+              ctaLabel={`compound_related_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
+              trackingParams={{ tool_name: "compound_interest_calculator", section: "related_tools_guides", destination_type: item.href.startsWith("/blog") ? "article" : "tool" }}
+              className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900/60"
+            >
+              <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+            </SurfaceTrackedLink>
           ))}
         </div>
       </section>

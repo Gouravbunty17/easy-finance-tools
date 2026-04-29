@@ -71,6 +71,11 @@ const BestTFSABrokersCanada = lazyWithPreload(() => import('./pages/blog/best-tf
 const BestRRSPAccountsCanada = lazyWithPreload(() => import('./pages/blog/best-rrsp-accounts-canada'));
 const BestInvestingAppsCanada = lazyWithPreload(() => import('./pages/blog/best-investing-apps-canada'));
 const BestDividendInvestingPlatformsCanada = lazyWithPreload(() => import('./pages/blog/best-dividend-investing-platforms-canada'));
+const TFSAContributionRoomCanada2026 = lazyWithPreload(() => import('./pages/blog/tfsa-contribution-room-canada-2026'));
+const RRSPDeadlineCanada2026 = lazyWithPreload(() => import('./pages/blog/rrsp-deadline-canada-2026'));
+const FHSARulesCanada2026 = lazyWithPreload(() => import('./pages/blog/fhsa-rules-canada-2026'));
+const TFSAvsRRSPvsFHSACanada = lazyWithPreload(() => import('./pages/blog/tfsa-vs-rrsp-vs-fhsa-canada'));
+const BestCanadianDividendETFs2026 = lazyWithPreload(() => import('./pages/blog/best-canadian-dividend-etfs-2026'));
 
 const ROUTE_PRELOADERS = new Map([
   ['/tools', ToolsPage],
@@ -130,6 +135,11 @@ const ROUTE_PRELOADERS = new Map([
   ['/blog/best-rrsp-accounts-canada', BestRRSPAccountsCanada],
   ['/blog/best-investing-apps-canada', BestInvestingAppsCanada],
   ['/blog/best-dividend-investing-platforms-canada', BestDividendInvestingPlatformsCanada],
+  ['/blog/tfsa-contribution-room-canada-2026', TFSAContributionRoomCanada2026],
+  ['/blog/rrsp-deadline-canada-2026', RRSPDeadlineCanada2026],
+  ['/blog/fhsa-rules-canada-2026', FHSARulesCanada2026],
+  ['/blog/tfsa-vs-rrsp-vs-fhsa-canada', TFSAvsRRSPvsFHSACanada],
+  ['/blog/best-canadian-dividend-etfs-2026', BestCanadianDividendETFs2026],
 ]);
 
 export function preloadRouteForPathname(pathname) {
@@ -240,6 +250,11 @@ export default function App() {
             <Route path="/blog/best-rrsp-accounts-canada" element={<BestRRSPAccountsCanada />} />
             <Route path="/blog/best-investing-apps-canada" element={<BestInvestingAppsCanada />} />
             <Route path="/blog/best-dividend-investing-platforms-canada" element={<BestDividendInvestingPlatformsCanada />} />
+            <Route path="/blog/tfsa-contribution-room-canada-2026" element={<TFSAContributionRoomCanada2026 />} />
+            <Route path="/blog/rrsp-deadline-canada-2026" element={<RRSPDeadlineCanada2026 />} />
+            <Route path="/blog/fhsa-rules-canada-2026" element={<FHSARulesCanada2026 />} />
+            <Route path="/blog/tfsa-vs-rrsp-vs-fhsa-canada" element={<TFSAvsRRSPvsFHSACanada />} />
+            <Route path="/blog/best-canadian-dividend-etfs-2026" element={<BestCanadianDividendETFs2026 />} />
             <Route path="/blog/how-to-invest-in-canada-beginners-2026" element={<HowToInvestBeginners />} />
             <Route path="/blog/best-hisa-canada-2026" element={<BestHISACanada2026 />} />
             <Route path="/blog/emergency-fund-canada" element={<EmergencyFundCanada />} />
