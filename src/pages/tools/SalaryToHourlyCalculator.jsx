@@ -1,11 +1,33 @@
 import React, { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import CalculatorLayout, { ResultCard, fmtCAD, fmtNum } from "../../components/CalculatorLayout";
+import FAQ from "../../components/FAQ";
+import MethodologyPanel from "../../components/MethodologyPanel";
 import NumberInput from "../../components/NumberInput";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 function getWorkWeeks(vacationWeeks, paidVacation) {
   return paidVacation ? 52 : Math.max(1, 52 - vacationWeeks);
 }
+
+const FAQS = [
+  {
+    q: "Does this salary to hourly calculator show take-home pay?",
+    a: "No. It converts gross pay before tax. Use the net pay calculator for payroll deductions, CPP, EI, and estimated income tax.",
+  },
+  {
+    q: "Should I include paid vacation weeks?",
+    a: "For most salaried Canadian jobs, paid vacation is already included in annual salary. For contract or freelance work, unpaid time off reduces working hours.",
+  },
+  {
+    q: "Why does weekly hours matter?",
+    a: "The same salary can mean a very different effective hourly rate if one job expects 35 hours per week and another expects 45.",
+  },
+  {
+    q: "Can I use this for freelance pricing?",
+    a: "Yes, but add business costs, unpaid admin time, taxes, benefits, and vacation separately before setting a final rate.",
+  },
+];
 
 export default function SalaryToHourlyCalculator() {
   const [inputMode, setInputMode] = useState("salary"); // "salary" | "hourly"
@@ -48,8 +70,8 @@ export default function SalaryToHourlyCalculator() {
 
   return (
     <CalculatorLayout
-      title="Salary to Hourly & Hourly to Salary Calculator Canada"
-      description="Convert salary to hourly pay or hourly to annual salary in Canada. Get weekly, bi-weekly, semi-monthly, and monthly pay across any work schedule."
+      title="Salary to Hourly Calculator Canada | Convert Pay"
+      description="Convert salary to hourly pay or hourly to annual salary in Canada. Estimate gross weekly, bi-weekly, semi-monthly, and monthly pay by work schedule."
       canonical="https://easyfinancetools.com/tools/salary-to-hourly-calculator"
       badge="Job offer planning"
       results={
@@ -210,6 +232,106 @@ export default function SalaryToHourlyCalculator() {
           </div>
         </div>
       </div>
+
+      <section className="mt-8 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">What this calculator does</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Compare job offers in hourly and annual terms</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            This calculator converts gross annual salary into an effective hourly rate, or converts an hourly rate into an annual salary estimate. It is useful for Canadian employees, contractors, students, and job seekers comparing offers with different schedules.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use it</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Choose direction, then enter your schedule</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Use salary mode when you know the annual amount. Use hourly mode when you know the hourly rate. Then enter weekly hours and vacation treatment so the calculator can estimate working hours for the year.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Inputs explained</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What changes your pay conversion</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          {[
+            ["Annual salary or hourly rate", "The gross pay number before income tax, CPP, EI, benefits, or other deductions."],
+            ["Hours per week", "The expected working schedule used to calculate total annual hours."],
+            ["Vacation weeks", "Time away from work. It changes hourly comparisons when vacation is unpaid."],
+            ["Vacation treatment", "Paid vacation keeps the year at 52 paid weeks; unpaid vacation reduces working weeks."],
+          ].map(([title, body]) => (
+            <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+              <h3 className="font-bold text-primary dark:text-accent">{title}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-8 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Example: current work schedule</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            With the current inputs, the calculator uses {fmtNum(result.workHours)} working hours across {fmtNum(result.workWeeks)} paid weeks. That produces {inputMode === "hourly" ? `an annual salary equivalent of ${fmtCAD(result.salary)}` : `an effective hourly rate of ${fmtCAD(result.effectiveHourly, { maximumFractionDigits: 2, minimumFractionDigits: 2 })}`}.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to read your result</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Gross pay is only the starting point</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Use the hourly or salary result to compare offers at the same work schedule. Then move the annual amount into the <Link to="/tools/net-pay-calculator" className="text-primary underline dark:text-secondary">net pay calculator</Link> to estimate take-home pay and payroll deductions.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Common mistakes</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Do not compare offers on gross pay alone</h2>
+        <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+          <li>- Ignoring unpaid overtime or long expected workweeks.</li>
+          <li>- Comparing contractor hourly rates to employee salary without benefits, vacation, or tax differences.</li>
+          <li>- Forgetting that gross pay is not the amount deposited into your bank account.</li>
+          <li>- Treating semi-monthly and bi-weekly pay as the same number of cheques per year.</li>
+        </ul>
+      </section>
+
+      <MethodologyPanel
+        title="Methodology and assumptions"
+        summary="The calculator converts between gross annual salary and gross hourly rate using weekly hours and paid or unpaid vacation treatment, then derives common pay-period equivalents."
+        assumptions={[
+          "Salary mode divides annual salary by modeled working hours.",
+          "Hourly mode multiplies hourly rate by modeled working hours.",
+          "Paid vacation is treated as 52 paid weeks; unpaid vacation reduces paid working weeks.",
+          "Income tax, CPP, EI, employer benefits, pensions, overtime, and bonuses are not included.",
+        ]}
+        sources={[
+          { label: "Government of Canada: Pay and minimum wage", href: "https://www.canada.ca/en/services/jobs/workplace/federal-labour-standards/pay-deductions.html" },
+          { label: "EasyFinanceTools methodology", href: "https://easyfinancetools.com/methodology" },
+        ]}
+        note="Educational gross-pay estimate only. Verify compensation details with your employer, contract, or payroll documents."
+      />
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related tools and guides</p>
+        <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
+          <Link to="/tools" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">All calculators</Link>
+          <Link to="/tools/net-pay-calculator" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Net pay calculator</Link>
+          <Link to="/tools/inflation-calculator" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Inflation calculator</Link>
+          <Link to="/blog/how-to-start-investing-canada-2026" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Beginner investing guide</Link>
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-900/20">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Disclaimer</p>
+        <p className="mt-3 text-sm leading-7 text-amber-800 dark:text-amber-200">
+          This page estimates gross pay only. It does not replace payroll advice, employment-law review, or a detailed comparison of benefits, pension, bonus, tax, and contract terms.
+        </p>
+      </section>
+
+      <FAQ items={FAQS} />
     </CalculatorLayout>
   );
 }

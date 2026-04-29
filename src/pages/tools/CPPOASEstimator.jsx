@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
@@ -37,6 +38,10 @@ const GIS_COUPLE_MAX = 645;
 const CPP_EARLY_MONTHLY = 0.006;
 const CPP_LATE_MONTHLY = 0.007;
 const OAS_DEFER_MONTHLY = 0.006;
+
+function fmtCurrency(value) {
+  return new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 }).format(value);
+}
 
 function estimateCPP(yearsContributed, avgIncome, retirementAge) {
   const dropoutYears = Math.floor(yearsContributed * 0.17);
@@ -140,8 +145,8 @@ export default function CPPOASEstimator() {
   return (
     <section className="mx-auto max-w-5xl px-4 py-12">
       <SEO
-        title="CPP and OAS Estimator 2026 - Canadian Retirement Income Calculator"
-        description="Estimate CPP, OAS, clawback risk, and rough GIS eligibility for retirement planning in Canada."
+        title="CPP and OAS Estimator Canada 2026 | Retirement Income"
+        description="Estimate Canadian CPP, OAS, OAS clawback risk, rough GIS eligibility, and collection-age scenarios for retirement income planning."
         canonical="https://easyfinancetools.com/tools/cpp-oas-estimator"
       />
       <ToolPageSchema
@@ -154,7 +159,7 @@ export default function CPPOASEstimator() {
       <div className="mb-8">
         <h1 className="mb-2 text-3xl font-bold text-primary dark:text-accent">CPP and OAS Estimator</h1>
         <p className="max-w-3xl text-gray-600 dark:text-gray-300">
-          Estimate government retirement income and compare collection-age scenarios for CPP and OAS.
+          Estimate Canadian government retirement income and compare CPP/OAS collection-age scenarios. This page is for retirement planning conversations, not an official Service Canada benefit statement or personalized financial advice.
         </p>
       </div>
 
@@ -273,8 +278,91 @@ export default function CPPOASEstimator() {
         </div>
       </div>
 
+      <section className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">What this calculator does</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Estimate the public-pension layer of retirement income</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            This estimator models CPP, OAS, rough OAS clawback, and rough GIS context using simplified Canadian retirement assumptions. It helps you see how start age, contribution years, average income, and residency years can affect the monthly income layer that may support RRSP, TFSA, pension, and non-registered savings.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use it</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Enter work history, residency, and retirement income</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Use your My Service Canada records if you have them. Enter current age, CPP start age, contribution years, average employment income, years in Canada after age 18, OAS start age, retirement income, and marital status, then compare the output against your own records.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Inputs explained</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What changes your CPP and OAS estimate</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          {[
+            ["CPP start age", "Starting before 65 reduces the modeled monthly amount; starting after 65 increases it in this simplified model."],
+            ["Contribution years and average income", "These estimate how close your CPP history is to the maximum pensionable earnings path."],
+            ["Years in Canada after 18", "OAS is modeled from residency years, capped at the full-residency assumption."],
+            ["Expected retirement income", "Used to estimate whether OAS clawback or rough GIS eligibility may be relevant."],
+          ].map(([title, body]) => (
+            <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+              <h3 className="font-bold text-primary dark:text-accent">{title}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Example: default Canadian retirement scenario</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            With the current default inputs, the tool estimates benefits using age {currentAge}, CPP start age {retirementAge}, {yearsContrib} CPP contribution years so far, {fmtCurrency(avgIncomeValue)} average employment income, and {yearsCanada} years in Canada after age 18. Click the button to calculate a monthly CAD estimate and compare start-age scenarios.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to read your result</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Treat CPP and OAS as one layer, not the whole plan</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            The result shows estimated monthly public-pension income, not your full retirement budget. Use it beside the <Link to="/tools/rrsp-calculator" className="text-primary underline dark:text-secondary">RRSP calculator</Link>, <Link to="/tools/tfsa-calculator" className="text-primary underline dark:text-secondary">TFSA calculator</Link>, and <Link to="/tools/fire-calculator" className="text-primary underline dark:text-secondary">FIRE calculator</Link> to test how private savings may fill the gap.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Common mistakes</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Official records matter more than estimates</h2>
+        <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+          <li>- Assuming the maximum CPP amount applies without checking your actual contribution history.</li>
+          <li>- Forgetting that OAS eligibility depends on residency rules and can differ for partial pensions.</li>
+          <li>- Ignoring OAS clawback when retirement income is high.</li>
+          <li>- Using GIS estimates without checking detailed household-income eligibility rules.</li>
+        </ul>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related tools and guides</p>
+        <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
+          <Link to="/tools" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">All calculators</Link>
+          <Link to="/tools/rrsp-calculator" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">RRSP calculator</Link>
+          <Link to="/tools/tfsa-calculator" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">TFSA calculator</Link>
+          <Link to="/tools/inflation-calculator" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Inflation calculator</Link>
+          <Link to="/blog/tfsa-vs-rrsp-canada-2026" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">TFSA vs RRSP guide</Link>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-900/20">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Disclaimer</p>
+        <p className="mt-3 text-sm leading-7 text-amber-800 dark:text-amber-200">
+          This estimator is educational and simplified. Your official CPP, OAS, GIS, tax, and clawback results depend on Service Canada records, CRA income definitions, residency history, and current program rules.
+        </p>
+      </section>
+
       <MethodologyPanel
-        title="How this CPP and OAS estimator works"
+        title="Methodology and assumptions"
         summary="This page uses simplified assumptions about contribution years, earnings relative to pensionable maximums, collection-age adjustments, OAS residency years, and clawback thresholds."
         assumptions={[
           "CPP is estimated using simplified earnings and contribution-year fractions rather than your official statement of contributions.",

@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
@@ -108,8 +109,8 @@ export default function DebtPayoffCalculator() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-12">
       <SEO
-        title="Debt Payoff Calculator Canada 2026: Avalanche vs Snowball"
-        description="Free Canadian debt payoff calculator. Compare avalanche vs snowball, model extra monthly payments, and see total interest and payoff time side by side."
+        title="Debt Payoff Calculator Canada | Avalanche vs Snowball"
+        description="Compare debt payoff plans in Canada using avalanche and snowball methods. Estimate payoff time, total interest, extra payments, and priority order."
         canonical="https://easyfinancetools.com/tools/debt-payoff"
       />
       <ToolPageSchema
@@ -121,8 +122,8 @@ export default function DebtPayoffCalculator() {
 
       <div className="mb-8">
         <h1 className="mb-2 text-3xl font-bold text-primary dark:text-accent">Debt Payoff Calculator</h1>
-        <p className="text-gray-600 dark:text-gray-300">
-          Compare avalanche and snowball repayment strategies to find a practical path to becoming debt-free.
+        <p className="max-w-3xl text-gray-600 dark:text-gray-300">
+          Compare avalanche and snowball repayment strategies for Canadian credit cards, lines of credit, loans, and other balances. This calculator is for people who want a clear payoff order, a monthly payment target, and an estimate of interest saved without treating the result as financial advice.
         </p>
       </div>
 
@@ -334,8 +335,91 @@ export default function DebtPayoffCalculator() {
         </ul>
       </div>
 
+      <section className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">What this calculator does</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Build a debt-free timeline from your real balances</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            The calculator combines each debt balance, interest rate, minimum payment, and extra monthly payment. It estimates how long repayment may take, how much interest could be paid, and which debt is targeted first under avalanche or snowball ordering.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use it</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Enter every debt, then choose your payoff style</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Add credit cards, loans, or lines of credit with their current balances and minimum payments. Then test how an extra monthly payment changes the payoff date, and compare the avalanche method with the snowball method before choosing a plan you can maintain.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Inputs explained</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What each debt input changes</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          {[
+            ["Balance", "The amount currently owing on the debt. Use the latest statement balance if possible."],
+            ["Interest rate", "The annual rate used to estimate monthly interest. Credit cards usually have the highest rates."],
+            ["Minimum payment", "The amount still paid to every debt before extra money is applied to the priority balance."],
+            ["Extra monthly payment", "Additional cash directed to the current focus debt after all minimum payments are covered."],
+          ].map(([title, body]) => (
+            <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+              <h3 className="font-bold text-primary dark:text-accent">{title}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Example: three debts and $200 extra per month</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            With the starter example, the calculator models {fmt(totalDebt)} of debt, {fmt(totalMinPayment)} in minimum payments, and {fmt(extraPayment)} of extra monthly cash. The selected method estimates a payoff timeline of {monthsToYears(chosen.months)} and total interest of {fmt(chosen.totalInterest)}.
+          </p>
+        </div>
+
+        <div className="surface-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to read your result</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the interest and timeline together</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            A lower-interest plan is useful only if you can stick with the payment. Compare the payoff month, total interest, and priority order, then use the <Link to="/tools/net-pay-calculator" className="text-primary underline dark:text-secondary">net pay calculator</Link> or <Link to="/tools/savings-goal" className="text-primary underline dark:text-secondary">savings goal calculator</Link> to make sure the payment fits your monthly cash flow.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Common mistakes</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Debt payoff estimates depend on payment discipline</h2>
+        <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+          <li>- Forgetting to keep making minimum payments on every non-priority debt.</li>
+          <li>- Using a promotional balance-transfer rate after the promotion has expired.</li>
+          <li>- Adding new purchases to a credit card while modeling it as a shrinking balance.</li>
+          <li>- Comparing avalanche and snowball without checking which one you will actually follow.</li>
+        </ul>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related tools and guides</p>
+        <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
+          <Link to="/tools" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">All calculators</Link>
+          <Link to="/tools/net-pay-calculator" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Net pay calculator</Link>
+          <Link to="/tools/savings-goal" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Savings goal calculator</Link>
+          <Link to="/tools/compound-interest-calculator" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Compound interest calculator</Link>
+          <Link to="/blog/how-to-start-investing-canada-2026" className="rounded-full bg-white px-4 py-2 text-primary shadow-sm dark:bg-slate-800 dark:text-accent">Beginner investing guide</Link>
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-900/20">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Disclaimer</p>
+        <p className="mt-3 text-sm leading-7 text-amber-800 dark:text-amber-200">
+          This is an educational planning estimate. Confirm payment rules, rates, fees, and hardship options directly with your lender or a qualified credit counsellor before making repayment decisions.
+        </p>
+      </section>
+
       <MethodologyPanel
-        title="How this debt payoff calculator works"
+        title="Methodology and assumptions"
         summary="This calculator applies monthly interest to each debt, makes the required minimum payments, and then applies any extra payment to the current priority debt under either avalanche or snowball ordering."
         assumptions={[
           "Interest is modeled monthly using a simple annual-rate-to-monthly-rate conversion.",
