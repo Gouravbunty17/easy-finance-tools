@@ -116,6 +116,7 @@ const article = {
     { title: "Skipping account-tax context", body: "TFSA, RRSP, and taxable accounts treat income differently. The same ETF can feel different depending on where it is held." },
   ],
   related: [
+    { type: "Guide", label: "Dividend reinvestment plans Canada", href: "/blog/dividend-reinvestment-plans-canada", body: "Learn how DRIPs, synthetic brokerage reinvestment, taxes, and adjusted cost base work before turning reinvestment on." },
     { type: "Tool", label: "Dividend calculator", href: "/tools/dividend-calculator", body: "Estimate annual and monthly cash flow from a portfolio amount and yield assumption." },
     { type: "Tool", label: "TFSA calculator", href: "/tools/tfsa-calculator", body: "Model how dividend ETFs may fit inside TFSA contribution room and long-term growth." },
     { type: "Tool", label: "RRSP calculator", href: "/tools/rrsp-calculator", body: "Estimate deduction value and future RRSP balances before choosing account order." },

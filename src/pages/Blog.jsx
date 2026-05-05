@@ -19,6 +19,14 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "dividend-reinvestment-plans-canada",
+    title: "Dividend Reinvestment Plans Canada: How DRIPs Work, Pros, Cons & Taxes",
+    date: "2026-05-05",
+    category: "Dividends",
+    readTime: "10 min",
+    excerpt: "Learn how DRIPs work in Canada, including synthetic brokerage DRIPs, compounding examples, taxable-account reporting, adjusted cost base, and common mistakes.",
+  },
+  {
     slug: "tfsa-contribution-room-canada-2026",
     title: "TFSA Contribution Room Canada 2026: Limit, Rules & Common Mistakes",
     date: "2026-04-29",

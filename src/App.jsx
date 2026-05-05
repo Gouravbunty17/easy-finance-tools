@@ -76,6 +76,7 @@ const RRSPDeadlineCanada2026 = lazyWithPreload(() => import('./pages/blog/rrsp-d
 const FHSARulesCanada2026 = lazyWithPreload(() => import('./pages/blog/fhsa-rules-canada-2026'));
 const TFSAvsRRSPvsFHSACanada = lazyWithPreload(() => import('./pages/blog/tfsa-vs-rrsp-vs-fhsa-canada'));
 const BestCanadianDividendETFs2026 = lazyWithPreload(() => import('./pages/blog/best-canadian-dividend-etfs-2026'));
+const DividendReinvestmentPlansCanada = lazyWithPreload(() => import('./pages/blog/dividend-reinvestment-plans-canada'));
 
 const ROUTE_PRELOADERS = new Map([
   ['/tools', ToolsPage],
@@ -140,6 +141,7 @@ const ROUTE_PRELOADERS = new Map([
   ['/blog/fhsa-rules-canada-2026', FHSARulesCanada2026],
   ['/blog/tfsa-vs-rrsp-vs-fhsa-canada', TFSAvsRRSPvsFHSACanada],
   ['/blog/best-canadian-dividend-etfs-2026', BestCanadianDividendETFs2026],
+  ['/blog/dividend-reinvestment-plans-canada', DividendReinvestmentPlansCanada],
 ]);
 
 export function preloadRouteForPathname(pathname) {
@@ -255,6 +257,7 @@ export default function App() {
             <Route path="/blog/fhsa-rules-canada-2026" element={<FHSARulesCanada2026 />} />
             <Route path="/blog/tfsa-vs-rrsp-vs-fhsa-canada" element={<TFSAvsRRSPvsFHSACanada />} />
             <Route path="/blog/best-canadian-dividend-etfs-2026" element={<BestCanadianDividendETFs2026 />} />
+            <Route path="/blog/dividend-reinvestment-plans-canada" element={<DividendReinvestmentPlansCanada />} />
             <Route path="/blog/how-to-invest-in-canada-beginners-2026" element={<HowToInvestBeginners />} />
             <Route path="/blog/best-hisa-canada-2026" element={<BestHISACanada2026 />} />
             <Route path="/blog/emergency-fund-canada" element={<EmergencyFundCanada />} />

@@ -45,6 +45,7 @@ export const BLOG_ROUTES = [
   { route: "/blog/fhsa-rules-canada-2026", sourcePath: "src/pages/blog/fhsa-rules-canada-2026.jsx", group: "blog" },
   { route: "/blog/tfsa-vs-rrsp-vs-fhsa-canada", sourcePath: "src/pages/blog/tfsa-vs-rrsp-vs-fhsa-canada.jsx", group: "blog" },
   { route: "/blog/best-canadian-dividend-etfs-2026", sourcePath: "src/pages/blog/best-canadian-dividend-etfs-2026.jsx", group: "blog" },
+  { route: "/blog/dividend-reinvestment-plans-canada", sourcePath: "src/pages/blog/dividend-reinvestment-plans-canada.jsx", group: "blog" },
   { route: "/blog/weekly-dividend-etfs", sourcePath: "src/pages/blog/weekly-dividend-etfs.jsx", group: "blog" },
   { route: "/blog/500-month-dividend-canada", sourcePath: "src/pages/blog/500-month-dividend-canada.jsx", group: "blog" },
   { route: "/blog/fhsa-calculator-canada-2026", sourcePath: "src/pages/blog/fhsa-calculator-canada-2026.jsx", group: "blog" },

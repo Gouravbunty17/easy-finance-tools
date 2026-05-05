@@ -574,6 +574,7 @@ export default function CompoundInterestCalculator() {
           {[
             { title: "TFSA calculator", href: "/tools/tfsa-calculator", body: "Check room and tax-free growth." },
             { title: "RRSP calculator", href: "/tools/rrsp-calculator", body: "Compare deduction value and retirement savings." },
+            { title: "DRIP investing guide", href: "/blog/dividend-reinvestment-plans-canada", body: "Learn when reinvesting dividends helps compounding and when cash may be better." },
             { title: "TFSA contribution room", href: "/blog/tfsa-contribution-room-canada-2026", body: "Avoid room and withdrawal timing mistakes." },
             { title: "TFSA vs RRSP vs FHSA", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada", body: "Choose which account comes first." },
           ].map((item) => (

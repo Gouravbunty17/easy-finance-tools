@@ -127,8 +127,8 @@ export default function BestTFSABrokersCanada() {
   return (
     <div>
       <SEO
-        title="Best TFSA Brokers in Canada 2026: Wealthsimple, Questrade & More"
-        description="Compare Wealthsimple, Questrade, NBDB, and Qtrade to find the best TFSA broker in Canada for beginners, ETF investors, and DIY accounts."
+        title="Best Self-Directed TFSA Brokers Canada 2026 | Fees & Platforms"
+        description="Compare self-directed TFSA brokers in Canada for 2026, including Wealthsimple, Questrade, NBDB, Qtrade, fees, ETF costs, apps, and beginner fit."
         canonical="https://easyfinancetools.com/blog/best-tfsa-brokers-canada"
       />
       <ArticleSchema
@@ -171,6 +171,8 @@ export default function BestTFSABrokersCanada() {
           <p className="lead">
             The best TFSA broker in Canada is not the one with the loudest marketing. It is the one that helps you use your TFSA room well, buy the right investments consistently, and avoid unnecessary complexity. For many Canadians, that means a broker that makes broad ETF investing easy rather than one that adds more features than they will actually use.
           </p>
+
+          <h2>Best self-directed TFSA brokers in Canada for 2026</h2>
 
           <p>
             This guide is intentionally narrow. It is built for Canadians choosing a self-directed TFSA for long-term investing, usually with one or two broad ETFs. If that is not your situation, the ranking can become less useful very quickly.

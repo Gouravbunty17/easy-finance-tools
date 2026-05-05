@@ -1002,6 +1002,11 @@ export default function DividendCalculator() {
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {[
             {
+              href: '/blog/dividend-reinvestment-plans-canada',
+              title: 'Dividend reinvestment plan guide',
+              body: 'Learn how DRIPs work in Canada, including synthetic DRIPs, taxable-account reporting, and adjusted cost base.',
+            },
+            {
               href: '/blog/weekly-dividend-etfs',
               title: 'Weekly dividend ETF guide',
               body: 'See why payout frequency can be attractive without assuming it makes the ETF a better long-term choice.',

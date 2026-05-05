@@ -14,3 +14,4 @@ src/assets/tax-guide.png
 .code-review-graph/
 .vercel
 .env*.local
+.gstack/
