@@ -9,10 +9,17 @@ import ReferenceSection from '../../components/ReferenceSection';
 import ReferralSection from '../../components/ReferralSection';
 import ToolByline from '../../components/ToolByline';
 import TrackedLink from '../../components/TrackedLink';
+import ArticleTrustBox from '../../components/ArticleTrustBox';
 import { CONTENT_LAST_REVIEWED } from '../../config/financial';
 
 const PAGE_LAST_UPDATED = 'May 5, 2026';
 const ARTICLE_SLUG = '500-month-tfsa-income-canada';
+
+const TRUST_SOURCES = [
+  { label: 'CRA TFSA room', href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/contributing/calculate-room.html' },
+  { label: 'CRA TFSA contributions', href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/types-investments.html' },
+  { label: 'CRA TFSA withdrawals', href: 'https://www.canada.ca/content/canadasite/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/withdraw.html' },
+];
 
 const FAQS = [
   {
@@ -152,6 +159,13 @@ export default function FiveHundredMonthTFSAIncomeCanada() {
           ]}
         />
 
+        <ArticleTrustBox
+          articleSlug={ARTICLE_SLUG}
+          lastUpdated={PAGE_LAST_UPDATED}
+          reviewer="Gourav Kumar / EasyFinanceTools editorial review"
+          sources={TRUST_SOURCES}
+        />
+
         <ToolByline
           lastUpdated={PAGE_LAST_UPDATED}
           reviewer="Reviewed for Canadian TFSA income-planning context"
@@ -168,15 +182,9 @@ export default function FiveHundredMonthTFSAIncomeCanada() {
           </p>
 
           <h2>The $500/month TFSA formula</h2>
-          <p>
-            The math is blunt:
-          </p>
-          <p>
-            <strong>Capital needed = annual income target / annual yield</strong>
-          </p>
-          <p>
-            If you want $500 per month, you need $6,000 per year. From there, the required capital depends on the yield you use.
-          </p>
+          <p>The math is blunt:</p>
+          <p><strong>Capital needed = annual income target / annual yield</strong></p>
+          <p>If you want $500 per month, you need $6,000 per year. From there, the required capital depends on the yield you use.</p>
         </article>
 
         <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
@@ -204,20 +212,13 @@ export default function FiveHundredMonthTFSAIncomeCanada() {
               </tbody>
             </table>
           </div>
-          <p className="mt-4 text-xs leading-6 text-slate-500 dark:text-slate-400">
-            These examples are rounded planning estimates. They do not model ETF price movement, distribution cuts, currency conversion, trading fees, or product-specific risks.
-          </p>
+          <p className="mt-4 text-xs leading-6 text-slate-500 dark:text-slate-400">These examples are rounded planning estimates. They do not model ETF price movement, distribution cuts, currency conversion, trading fees, or product-specific risks.</p>
         </section>
 
         <article className="prose prose-lg prose-neutral dark:prose-invert mt-8 max-w-none">
           <h2>Why $500/month is not really a beginner goal</h2>
-          <p>
-            The honest truth: $500/month is a serious portfolio target. A beginner with a few thousand dollars should not expect to reach it immediately without taking extreme risk. That does not make the goal impossible. It means the correct path is staged.
-          </p>
-
-          <p>
-            Your first goal should be $25/month, then $50/month, then $100/month. Once you can build that without panicking, overcontributing, or chasing unstable products, the larger target becomes more realistic.
-          </p>
+          <p>The honest truth: $500/month is a serious portfolio target. A beginner with a few thousand dollars should not expect to reach it immediately without taking extreme risk. That does not make the goal impossible. It means the correct path is staged.</p>
+          <p>Your first goal should be $25/month, then $50/month, then $100/month. Once you can build that without panicking, overcontributing, or chasing unstable products, the larger target becomes more realistic.</p>
         </article>
 
         <section className="mt-8 grid gap-4 md:grid-cols-2">
@@ -232,27 +233,13 @@ export default function FiveHundredMonthTFSAIncomeCanada() {
 
         <article className="prose prose-lg prose-neutral dark:prose-invert mt-8 max-w-none">
           <h2>The real decision: safer capital or aggressive yield?</h2>
-          <p>
-            A 4% to 6% yield usually requires more capital, but the path is easier to understand. An 8% to 12% yield can make the goal look much closer, but that income can come with more moving parts. Covered-call ETFs, split-share products, leveraged strategies, or concentrated high-yield funds may produce attractive distributions, but they are not the same as guaranteed income.
-          </p>
-
-          <p>
-            The question is not whether high yield is always bad. That is too simplistic. The question is whether the product can maintain enough total return after distributions, fees, volatility, and price movement. If the ETF pays you $500/month but loses more than that in market value over time, the income is not as strong as it looks.
-          </p>
-
+          <p>A 4% to 6% yield usually requires more capital, but the path is easier to understand. An 8% to 12% yield can make the goal look much closer, but that income can come with more moving parts. Covered-call ETFs, split-share products, leveraged strategies, or concentrated high-yield funds may produce attractive distributions, but they are not the same as guaranteed income.</p>
+          <p>The question is not whether high yield is always bad. That is too simplistic. The question is whether the product can maintain enough total return after distributions, fees, volatility, and price movement. If the ETF pays you $500/month but loses more than that in market value over time, the income is not as strong as it looks.</p>
           <h2>TFSA rules that matter for this strategy</h2>
-          <p>
-            The 2026 TFSA dollar limit is $7,000, but your real room depends on unused room from previous years, withdrawals from previous years, and contributions already made this year. CRA also warns that TFSA information in your CRA account is updated only once per year after issuers report prior-year activity, so you should verify room using your own records too.
-          </p>
-
-          <p>
-            Withdrawals are another trap. If you take money out of your TFSA, that amount normally comes back as new room on January 1 of the following calendar year, not immediately. If you withdraw and re-contribute in the same year without enough room, you can create an overcontribution problem.
-          </p>
-
+          <p>The 2026 TFSA dollar limit is $7,000, but your real room depends on unused room from previous years, withdrawals from previous years, and contributions already made this year. CRA also warns that TFSA information in your CRA account is updated only once per year after issuers report prior-year activity, so you should verify room using your own records too.</p>
+          <p>Withdrawals are another trap. If you take money out of your TFSA, that amount normally comes back as new room on January 1 of the following calendar year, not immediately. If you withdraw and re-contribute in the same year without enough room, you can create an overcontribution problem.</p>
           <h2>Where people mess this up</h2>
-          <p>
-            Most failed TFSA income plans do not fail because the investor wanted cash flow. They fail because the investor confused yield with safety.
-          </p>
+          <p>Most failed TFSA income plans do not fail because the investor wanted cash flow. They fail because the investor confused yield with safety.</p>
         </article>
 
         <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
@@ -260,44 +247,26 @@ export default function FiveHundredMonthTFSAIncomeCanada() {
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">The mistakes that can ruin a $500/month TFSA plan</h2>
           <ul className="mt-5 grid gap-3 text-sm text-slate-600 dark:text-slate-300">
             {COMMON_MISTAKES.map((mistake) => (
-              <li key={mistake} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
-                {mistake}
-              </li>
+              <li key={mistake} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">{mistake}</li>
             ))}
           </ul>
         </section>
 
         <article className="prose prose-lg prose-neutral dark:prose-invert mt-8 max-w-none">
           <h2>A smarter $500/month TFSA strategy</h2>
-          <p>
-            A better strategy is to split the goal into two engines. The first engine is capital growth: consistent contributions, broad diversification, and patience. The second engine is income: dividend ETFs, covered-call ETFs, or other income assets used carefully enough that they do not dominate the account before you understand them.
-          </p>
-
-          <p>
-            If you are still building, DRIP can be useful because every distribution buys more units. Once the TFSA income becomes meaningful, you can choose whether to keep reinvesting or start taking part of the cash. The right answer depends on whether the income has a job today.
-          </p>
-
+          <p>A better strategy is to split the goal into two engines. The first engine is capital growth: consistent contributions, broad diversification, and patience. The second engine is income: dividend ETFs, covered-call ETFs, or other income assets used carefully enough that they do not dominate the account before you understand them.</p>
+          <p>If you are still building, DRIP can be useful because every distribution buys more units. Once the TFSA income becomes meaningful, you can choose whether to keep reinvesting or start taking part of the cash. The right answer depends on whether the income has a job today.</p>
           <h2>Use the calculator before you act</h2>
-          <p>
-            Do not guess the timeline. Run the numbers. Change the capital, yield, and DRIP assumption. Then ask whether the risk required to hit the number is something you can actually live with.
-          </p>
+          <p>Do not guess the timeline. Run the numbers. Change the capital, yield, and DRIP assumption. Then ask whether the risk required to hit the number is something you can actually live with.</p>
         </article>
 
         <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Next steps</p>
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Turn the $500 target into a real plan</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            Use the tools and supporting guides below to turn the target into numbers that fit your own TFSA room, risk tolerance, and contribution schedule.
-          </p>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">Use the tools and supporting guides below to turn the target into numbers that fit your own TFSA room, risk tolerance, and contribution schedule.</p>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {INTERNAL_LINKS.map((item) => (
-              <TrackedLink
-                key={item.href}
-                articleSlug={ARTICLE_SLUG}
-                ctaLabel={item.ctaLabel}
-                to={item.href}
-                className="rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition hover:border-secondary hover:shadow-md dark:border-slate-700 dark:bg-slate-900/60"
-              >
+              <TrackedLink key={item.href} articleSlug={ARTICLE_SLUG} ctaLabel={item.ctaLabel} to={item.href} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition hover:border-secondary hover:shadow-md dark:border-slate-700 dark:bg-slate-900/60">
                 <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
               </TrackedLink>
@@ -316,66 +285,24 @@ export default function FiveHundredMonthTFSAIncomeCanada() {
             'The examples do not model market-price changes, distribution cuts, currency conversion, or ETF-specific risks.',
             'The TFSA contribution-room discussion is based on CRA public guidance and should be checked against each person’s own records.',
           ]}
-          sources={[
-            { label: 'CRA: Calculate your TFSA contribution room', href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/contributing/calculate-room.html' },
-            { label: 'CRA: Before you contribute to a TFSA', href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/types-investments.html' },
-            { label: 'CRA: Withdrawing from a TFSA', href: 'https://www.canada.ca/content/canadasite/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/withdraw.html' },
-          ]}
+          sources={TRUST_SOURCES}
           note="Refresh this article whenever TFSA contribution limits, CRA room guidance, or ETF income assumptions change."
         />
 
-        <ReferenceSection
-          eyebrow="References"
-          title="Primary TFSA sources used for this guide"
-          intro="The article links to official CRA pages for contribution-room, contribution, and withdrawal rules so readers can verify the core account mechanics."
-          references={[
-            {
-              label: 'CRA: Calculate your TFSA contribution room',
-              body: 'Used for the 2026 TFSA dollar limit, contribution-room formula, and CRA account update timing.',
-              href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/contributing/calculate-room.html',
-            },
-            {
-              label: 'CRA: Before you contribute to a TFSA',
-              body: 'Used for contribution-room basics and the reminder that TFSA room is shared across all TFSAs.',
-              href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/types-investments.html',
-            },
-            {
-              label: 'CRA: Withdrawing from a TFSA',
-              body: 'Used for the warning that withdrawals create new room only on January 1 of the following calendar year.',
-              href: 'https://www.canada.ca/content/canadasite/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/withdraw.html',
-            },
-          ]}
-          note="This is educational content. It should not be used as personal investment, tax, or legal advice."
-        />
+        <ReferenceSection eyebrow="References" title="Primary TFSA sources used for this guide" intro="The article links to official CRA pages for contribution-room, contribution, and withdrawal rules so readers can verify the core account mechanics." references={[
+          { label: 'CRA: Calculate your TFSA contribution room', body: 'Used for the 2026 TFSA dollar limit, contribution-room formula, and CRA account update timing.', href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/contributing/calculate-room.html' },
+          { label: 'CRA: Before you contribute to a TFSA', body: 'Used for contribution-room basics and the reminder that TFSA room is shared across all TFSAs.', href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/types-investments.html' },
+          { label: 'CRA: Withdrawing from a TFSA', body: 'Used for the warning that withdrawals create new room only on January 1 of the following calendar year.', href: 'https://www.canada.ca/content/canadasite/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/withdraw.html' },
+        ]} note="This is educational content. It should not be used as personal investment, tax, or legal advice." />
 
-        <div className="mt-8">
-          <ReferralSection
-            placement="500_month_tfsa_income_article"
-            badge="Optional next step"
-            title="Open an investing account only after the strategy makes sense"
-            highlight="after the strategy makes sense"
-            description="If you have checked your TFSA room and understand the difference between yield and total return, a simple investing account can help you buy ETFs and reinvest distributions."
-            fitHeading="When this CTA makes sense"
-            fitPoints={[
-              'You have verified your TFSA contribution room using your own records.',
-              'You understand that high yield can come with price risk or distribution risk.',
-              'You have run a calculator scenario before choosing an ETF or account contribution plan.',
-            ]}
-            details="Use the referral code at signup | Compare platform features and fees before deciding"
-            disclosure="Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change the analysis, examples, or internal links in this article."
-            buttonLabel="Open an investing account with Wealthsimple"
-          />
-        </div>
+        <div className="mt-8"><ReferralSection placement="500_month_tfsa_income_article" badge="Optional next step" title="Open an investing account only after the strategy makes sense" highlight="after the strategy makes sense" description="If you have checked your TFSA room and understand the difference between yield and total return, a simple investing account can help you buy ETFs and reinvest distributions." fitHeading="When this CTA makes sense" fitPoints={['You have verified your TFSA contribution room using your own records.', 'You understand that high yield can come with price risk or distribution risk.', 'You have run a calculator scenario before choosing an ETF or account contribution plan.']} details="Use the referral code at signup | Compare platform features and fees before deciding" disclosure="Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change the analysis, examples, or internal links in this article." buttonLabel="Open an investing account with Wealthsimple" /></div>
 
         <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">FAQ</p>
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Questions about earning $500/month from a TFSA</h2>
           <div className="mt-5 space-y-4">
             {FAQS.map((item) => (
-              <div key={item.q} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
-                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.q}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.a}</p>
-              </div>
+              <div key={item.q} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60"><h3 className="text-lg font-bold text-primary dark:text-accent">{item.q}</h3><p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.a}</p></div>
             ))}
           </div>
         </section>
