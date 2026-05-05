@@ -55,7 +55,6 @@ Allow: /
 User-agent: *
 Disallow: /api/
 Disallow: /.env
-Disallow: /assets/
 Disallow: /*?*utm_
 Disallow: /*?*ref=
 Disallow: /*?*fbclid=
