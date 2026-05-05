@@ -88,7 +88,7 @@ export default function PrivacyPolicy() {
         <div className="not-prose my-6 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
           <p className="font-semibold text-primary dark:text-accent">Advertising status</p>
           <p className="mt-2">
-            Ezoic advertising, consent-management, and analytics scripts are currently disabled on the Site. If advertising is added later, this policy will be updated before those scripts are re-enabled.
+            The Site does not currently run third-party display advertising scripts. If advertising is added later, this policy will be updated before those scripts are enabled.
           </p>
         </div>
 
