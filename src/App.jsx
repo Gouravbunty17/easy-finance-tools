@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -40,7 +40,6 @@ const SalaryToHourlyCalculator = lazyWithPreload(() => import('./pages/tools/Sal
 const CadUsdConverter = lazyWithPreload(() => import('./pages/tools/CadUsdConverter'));
 const InflationCalculator = lazyWithPreload(() => import('./pages/tools/InflationCalculator'));
 const MortgageAffordabilityCalculator = lazyWithPreload(() => import('./pages/tools/MortgageAffordabilityCalculator'));
-
 const GICCalculator = lazyWithPreload(() => import('./pages/tools/GICCalculator'));
 const DebtPayoffCalculator = lazyWithPreload(() => import('./pages/tools/DebtPayoffCalculator'));
 const SavingsGoalCalculator = lazyWithPreload(() => import('./pages/tools/SavingsGoalCalculator'));
@@ -48,6 +47,8 @@ const NetPayCalculator = lazyWithPreload(() => import('./pages/tools/NetPayCalcu
 
 const WeeklyDividendETFs = lazyWithPreload(() => import('./pages/blog/weekly-dividend-etfs'));
 const FiveHundredMonthDividendCanada = lazyWithPreload(() => import('./pages/blog/500-month-dividend-canada'));
+const FiveHundredMonthTFSAIncomeCanada = lazyWithPreload(() => import('./pages/blog/500-month-tfsa-income-canada'));
+const TFSAPassiveIncomeCanada2026 = lazyWithPreload(() => import('./pages/blog/tfsa-passive-income-canada-2026'));
 const FHSACalculatorCanada2026 = lazyWithPreload(() => import('./pages/blog/fhsa-calculator-canada-2026'));
 const FHSAvsRRSPDownPaymentCanada2026 = lazyWithPreload(() => import('./pages/blog/fhsa-vs-rrsp-down-payment-canada-2026'));
 const TFSAvsRRSPCanada2026 = lazyWithPreload(() => import('./pages/blog/tfsa-vs-rrsp-canada-2026'));
@@ -78,7 +79,8 @@ const TFSAvsRRSPvsFHSACanada = lazyWithPreload(() => import('./pages/blog/tfsa-v
 const BestCanadianDividendETFs2026 = lazyWithPreload(() => import('./pages/blog/best-canadian-dividend-etfs-2026'));
 const DividendReinvestmentPlansCanada = lazyWithPreload(() => import('./pages/blog/dividend-reinvestment-plans-canada'));
 
-const ROUTE_PRELOADERS = new Map([
+const routeEntries = [
+  ['/', Home],
   ['/tools', ToolsPage],
   ['/blog', Blog],
   ['/about', About],
@@ -113,15 +115,12 @@ const ROUTE_PRELOADERS = new Map([
   ['/tools/net-pay-calculator', NetPayCalculator],
   ['/blog/weekly-dividend-etfs', WeeklyDividendETFs],
   ['/blog/500-month-dividend-canada', FiveHundredMonthDividendCanada],
+  ['/blog/500-month-tfsa-income-canada', FiveHundredMonthTFSAIncomeCanada],
+  ['/blog/tfsa-passive-income-canada-2026', TFSAPassiveIncomeCanada2026],
   ['/blog/fhsa-calculator-canada-2026', FHSACalculatorCanada2026],
   ['/blog/fhsa-vs-rrsp-down-payment-canada-2026', FHSAvsRRSPDownPaymentCanada2026],
   ['/blog/tfsa-vs-rrsp-canada-2026', TFSAvsRRSPCanada2026],
   ['/blog/how-to-start-investing-canada-2026', HowToStartInvestingCanada2026],
-  ['/blog/how-to-invest-in-canada-beginners-2026', HowToInvestBeginners],
-  ['/blog/best-hisa-canada-2026', BestHISACanada2026],
-  ['/blog/emergency-fund-canada', EmergencyFundCanada],
-  ['/blog/pay-off-mortgage-faster-canada', PayOffMortgageFaster],
-  ['/blog/canada-child-benefit-2026', CanadaChildBenefit2026],
   ['/blog/tfsa-vs-rrsp-2026', TFSAvsRRSP],
   ['/blog/how-much-tfsa-room-2026', HowMuchTFSARoom],
   ['/blog/best-etfs-for-tfsa-canada-2026', BestETFsForTFSA],
@@ -142,7 +141,14 @@ const ROUTE_PRELOADERS = new Map([
   ['/blog/tfsa-vs-rrsp-vs-fhsa-canada', TFSAvsRRSPvsFHSACanada],
   ['/blog/best-canadian-dividend-etfs-2026', BestCanadianDividendETFs2026],
   ['/blog/dividend-reinvestment-plans-canada', DividendReinvestmentPlansCanada],
-]);
+  ['/blog/how-to-invest-in-canada-beginners-2026', HowToInvestBeginners],
+  ['/blog/best-hisa-canada-2026', BestHISACanada2026],
+  ['/blog/emergency-fund-canada', EmergencyFundCanada],
+  ['/blog/pay-off-mortgage-faster-canada', PayOffMortgageFaster],
+  ['/blog/canada-child-benefit-2026', CanadaChildBenefit2026],
+];
+
+const ROUTE_PRELOADERS = new Map(routeEntries.filter(([path]) => path !== '/'));
 
 export function preloadRouteForPathname(pathname) {
   const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/+$/, '');
@@ -171,6 +177,7 @@ function useSpaPageTracking() {
 
 export default function App() {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const routes = useMemo(() => routeEntries, []);
 
   useSpaPageTracking();
 
@@ -199,79 +206,18 @@ export default function App() {
       <Header onOpenSearch={() => setIsCommandPaletteOpen(true)} />
       <div className="flex-grow">
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/tools" element={<ToolsPage />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/methodology" element={<Methodology />} />
-            <Route path="/editorial-standards" element={<EditorialStandards />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
-            <Route path="/tools/dividend-calculator" element={<DividendCalculator />} />
-            <Route path="/tools/tfsa-calculator" element={<TFSACalculator />} />
-            <Route path="/tools/rrsp-calculator" element={<RRSPCalculator />} />
-            <Route path="/tools/budget-tracker" element={<BudgetTracker />} />
-            <Route path="/tools/investment-tracker" element={<InvestmentTracker />} />
-            <Route path="/tools/fhsa-calculator" element={<FHSACalculator />} />
-            <Route path="/tools/mortgage-calculator" element={<MortgageCalculator />} />
-            <Route path="/tools/rent-vs-buy" element={<RentVsBuyCalculator />} />
-            <Route path="/tools/capital-gains-tax" element={<CapitalGainsTaxCalculator />} />
-            <Route path="/tools/cpp-oas-estimator" element={<CPPOASEstimator />} />
-            <Route path="/tools/income-tax-calculator" element={<IncomeTaxCalculator />} />
-            <Route path="/tools/fire-calculator" element={<FIRECalculator />} />
-            <Route path="/tools/compound-interest-calculator" element={<CompoundInterestCalculator />} />
-            <Route path="/tools/tip-calculator" element={<TipCalculator />} />
-            <Route path="/tools/gst-hst-calculator" element={<GstHstCalculator />} />
-            <Route path="/tools/salary-to-hourly-calculator" element={<SalaryToHourlyCalculator />} />
-            <Route path="/tools/cad-usd-converter" element={<CadUsdConverter />} />
-            <Route path="/tools/inflation-calculator" element={<InflationCalculator />} />
-            <Route path="/tools/mortgage-affordability-calculator" element={<MortgageAffordabilityCalculator />} />
-            <Route path="/tools/gic-calculator" element={<GICCalculator />} />
-            <Route path="/tools/debt-payoff" element={<DebtPayoffCalculator />} />
-            <Route path="/tools/savings-goal" element={<SavingsGoalCalculator />} />
-            <Route path="/tools/net-pay-calculator" element={<NetPayCalculator />} />
-            <Route path="/blog/weekly-dividend-etfs" element={<WeeklyDividendETFs />} />
-            <Route path="/blog/500-month-dividend-canada" element={<FiveHundredMonthDividendCanada />} />
-            <Route path="/blog/fhsa-calculator-canada-2026" element={<FHSACalculatorCanada2026 />} />
-            <Route path="/blog/fhsa-vs-rrsp-down-payment-canada-2026" element={<FHSAvsRRSPDownPaymentCanada2026 />} />
-            <Route path="/blog/tfsa-vs-rrsp-canada-2026" element={<TFSAvsRRSPCanada2026 />} />
-            <Route path="/blog/how-to-start-investing-canada-2026" element={<HowToStartInvestingCanada2026 />} />
-            <Route path="/blog/tfsa-vs-rrsp-2026" element={<TFSAvsRRSP />} />
-            <Route path="/blog/how-much-tfsa-room-2026" element={<HowMuchTFSARoom />} />
-            <Route path="/blog/best-etfs-for-tfsa-canada-2026" element={<BestETFsForTFSA />} />
-            <Route path="/blog/how-to-use-fhsa-canada" element={<HowToUseFHSA />} />
-            <Route path="/blog/cpp-payment-dates-2026" element={<CPPPaymentDates2026 />} />
-            <Route path="/blog/oas-payment-dates-2026" element={<OASPaymentDates2026 />} />
-            <Route path="/blog/canadian-tax-brackets-2026" element={<CanadianTaxBrackets2026 />} />
-            <Route path="/blog/rrsp-deadline-2026" element={<RRSPDeadline2026 />} />
-            <Route path="/blog/best-gic-rates-canada-2026" element={<BestGICRatesCanada2026 />} />
-            <Route path="/blog/wealthsimple-vs-questrade-canada" element={<WealthsimpleVsQuestradeCanada />} />
-            <Route path="/blog/best-tfsa-brokers-canada" element={<BestTFSABrokersCanada />} />
-            <Route path="/blog/best-rrsp-accounts-canada" element={<BestRRSPAccountsCanada />} />
-            <Route path="/blog/best-investing-apps-canada" element={<BestInvestingAppsCanada />} />
-            <Route path="/blog/best-dividend-investing-platforms-canada" element={<BestDividendInvestingPlatformsCanada />} />
-            <Route path="/blog/tfsa-contribution-room-canada-2026" element={<TFSAContributionRoomCanada2026 />} />
-            <Route path="/blog/rrsp-deadline-canada-2026" element={<RRSPDeadlineCanada2026 />} />
-            <Route path="/blog/fhsa-rules-canada-2026" element={<FHSARulesCanada2026 />} />
-            <Route path="/blog/tfsa-vs-rrsp-vs-fhsa-canada" element={<TFSAvsRRSPvsFHSACanada />} />
-            <Route path="/blog/best-canadian-dividend-etfs-2026" element={<BestCanadianDividendETFs2026 />} />
-            <Route path="/blog/dividend-reinvestment-plans-canada" element={<DividendReinvestmentPlansCanada />} />
-            <Route path="/blog/how-to-invest-in-canada-beginners-2026" element={<HowToInvestBeginners />} />
-            <Route path="/blog/best-hisa-canada-2026" element={<BestHISACanada2026 />} />
-            <Route path="/blog/emergency-fund-canada" element={<EmergencyFundCanada />} />
-            <Route path="/blog/pay-off-mortgage-faster-canada" element={<PayOffMortgageFaster />} />
-            <Route path="/blog/canada-child-benefit-2026" element={<CanadaChildBenefit2026 />} />
-            <Route
-              path="*"
-              element={
-                <div className="mx-auto max-w-3xl px-4 py-24 text-center">
-                  <h1 className="text-4xl font-bold text-primary dark:text-accent">Page not found</h1>
-                  <p className="mt-4 text-slate-600 dark:text-slate-300">The page you're looking for doesn't exist.</p>
-                </div>
-              }
-            />
+          {routes.map(([path, Component]) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+          <Route
+            path="*"
+            element={
+              <div className="mx-auto max-w-3xl px-4 py-24 text-center">
+                <h1 className="text-4xl font-bold text-primary dark:text-accent">Page not found</h1>
+                <p className="mt-4 text-slate-600 dark:text-slate-300">The page you're looking for doesn't exist.</p>
+              </div>
+            }
+          />
         </Routes>
       </div>
       <Footer />
