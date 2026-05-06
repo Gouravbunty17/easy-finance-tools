@@ -46,6 +46,31 @@
       "permanent": true
     },
     {
+      "source": "/blog/rrsp-deadline-canada-2026",
+      "destination": "/blog/rrsp-deadline-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tfsa-contribution-room-canada-2026",
+      "destination": "/blog/how-much-tfsa-room-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tfsa-vs-rrsp-2026",
+      "destination": "/blog/tfsa-vs-rrsp-vs-fhsa-canada",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tfsa-vs-rrsp-canada-2026",
+      "destination": "/blog/tfsa-vs-rrsp-vs-fhsa-canada",
+      "permanent": true
+    },
+    {
+      "source": "/blog/best-canadian-dividend-etfs-2026",
+      "destination": "/blog/best-etfs-for-tfsa-canada-2026",
+      "permanent": true
+    },
+    {
       "source": "/calculators",
       "destination": "/tools",
       "permanent": true

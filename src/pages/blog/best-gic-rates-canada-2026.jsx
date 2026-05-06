@@ -398,7 +398,7 @@ export default function BestGICRatesCanada2026() {
               <span className="text-sm text-gray-500">Tool</span>
               <p className="mt-1 font-semibold text-primary dark:text-accent">Savings Goal Calculator</p>
             </TrackedLink>
-            <TrackedLink articleSlug="best-gic-rates-canada-2026" ctaLabel="related_tfsa_vs_rrsp" to="/blog/tfsa-vs-rrsp-2026" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
+            <TrackedLink articleSlug="best-gic-rates-canada-2026" ctaLabel="related_tfsa_vs_rrsp" to="/blog/tfsa-vs-rrsp-vs-fhsa-canada" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
               <span className="text-sm text-gray-500">Planning</span>
               <p className="mt-1 font-semibold text-primary dark:text-accent">TFSA vs RRSP: Which Is Better?</p>
             </TrackedLink>

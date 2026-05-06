@@ -33,7 +33,7 @@ const ACCOUNT_CARDS = [
     title: 'TFSA',
     body: 'The TFSA is often the easiest first investing account because growth and qualified withdrawals stay tax-free, and the account does not trap you if priorities change.',
     fit: 'Often the strongest first stop for lower to moderate incomes and flexible long-term investing.',
-    href: '/blog/tfsa-vs-rrsp-canada-2026',
+    href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
     ctaText: 'Compare TFSA vs RRSP',
     ctaLabel: 'beginner_tfsa_vs_rrsp_hub',
   },
@@ -218,7 +218,7 @@ export default function HowToStartInvestingCanada2026() {
             <p>
               And if you are still not sure which account should hold the ETF, use the
               {' '}
-              <TrackedLink articleSlug="how-to-start-investing-canada-2026" ctaLabel="beginner_tfsa_vs_rrsp_hub_inline" to="/blog/tfsa-vs-rrsp-canada-2026" className="text-primary underline">
+              <TrackedLink articleSlug="how-to-start-investing-canada-2026" ctaLabel="beginner_tfsa_vs_rrsp_hub_inline" to="/blog/tfsa-vs-rrsp-vs-fhsa-canada" className="text-primary underline">
                 TFSA vs RRSP hub
               </TrackedLink>
               {' '}
@@ -319,7 +319,7 @@ export default function HowToStartInvestingCanada2026() {
           ]}
           actions={[
             {
-              href: '/blog/tfsa-vs-rrsp-canada-2026',
+              href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
               title: 'Compare TFSA vs RRSP first',
               body: 'Start here if the biggest beginner question is where the next contribution should go.',
               ctaLabel: 'beginner_next_tfsa_vs_rrsp',

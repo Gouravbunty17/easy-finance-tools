@@ -64,7 +64,7 @@ const STRATEGY_CARDS = [
 
 const INTERNAL_LINKS = [
   {
-    href: '/blog/tfsa-vs-rrsp-canada-2026',
+    href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
     title: 'Compare TFSA vs RRSP before you chase yield',
     body: 'Use the TFSA vs RRSP hub if the ETF income plan is competing with registered-account contribution priorities.',
     ctaLabel: 'open_tfsa_vs_rrsp_from_dividend_article',
@@ -294,7 +294,7 @@ export default function FiveHundredMonthDividendCanada() {
           <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
             The dividend income target only becomes useful when it competes against your broader account decisions. Compare the income idea against the
             {' '}
-            <TrackedLink articleSlug="500-month-dividend-canada" ctaLabel="tfsa_vs_rrsp_hub_inline" to="/blog/tfsa-vs-rrsp-canada-2026" className="text-primary underline">
+            <TrackedLink articleSlug="500-month-dividend-canada" ctaLabel="tfsa_vs_rrsp_hub_inline" to="/blog/tfsa-vs-rrsp-vs-fhsa-canada" className="text-primary underline">
               TFSA vs RRSP guide
             </TrackedLink>
             , the

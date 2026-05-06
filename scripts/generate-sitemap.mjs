@@ -1,9 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import { SITE_ROUTES, SITE_URL } from "./site-routes.mjs";
 
 const PROJECT_ROOT = process.cwd();
 const OUTPUT_PATH = path.join(PROJECT_ROOT, "public", "sitemap.xml");
+const execFileAsync = promisify(execFile);
 
 function normalizeSiteUrl(route) {
   if (route === "/") return `${SITE_URL}/`;
@@ -56,11 +59,9 @@ const PRIORITY_OVERRIDES = {
   "/tools/cad-usd-converter": "0.7",
   "/tools/inflation-calculator": "0.7",
   "/tools/tip-calculator": "0.6",
-  "/blog/tfsa-vs-rrsp-canada-2026": "0.85",
   "/blog/fhsa-calculator-canada-2026": "0.85",
   "/blog/how-to-start-investing-canada-2026": "0.85",
   "/blog/canadian-tax-brackets-2026": "0.85",
-  "/blog/tfsa-vs-rrsp-2026": "0.8",
   "/blog/fhsa-vs-rrsp-down-payment-canada-2026": "0.8",
   "/blog/how-to-use-fhsa-canada": "0.8",
   "/blog/how-to-invest-in-canada-beginners-2026": "0.8",
@@ -102,6 +103,16 @@ function getPriority(entry) {
 }
 
 async function getLastModified(sourcePath) {
+  try {
+    const { stdout } = await execFileAsync("git", ["log", "-1", "--format=%cs", "--", sourcePath], {
+      cwd: PROJECT_ROOT,
+    });
+    const lastCommitDate = stdout.trim();
+    if (lastCommitDate) return lastCommitDate;
+  } catch {
+    // Fall back to filesystem mtime when Git metadata is unavailable.
+  }
+
   const absolutePath = path.join(PROJECT_ROOT, sourcePath);
   const stats = await fs.stat(absolutePath);
   return toIsoDate(stats.mtime);

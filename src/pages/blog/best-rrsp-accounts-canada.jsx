@@ -429,7 +429,7 @@ export default function BestRRSPAccountsCanada() {
               {
                 title: "TFSA vs RRSP",
                 body: "Choose the right account before optimizing the provider.",
-                href: "/blog/tfsa-vs-rrsp-2026",
+                href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada",
               },
               {
                 title: "Wealthsimple vs Questrade",

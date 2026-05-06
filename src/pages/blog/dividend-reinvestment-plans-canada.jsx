@@ -146,7 +146,7 @@ const article = {
     { type: "Tool", label: "Compound interest calculator", href: "/tools/compound-interest-calculator", body: "Compare DRIP-style compounding against contributions, fees, inflation, and time." },
     { type: "Tool", label: "TFSA calculator", href: "/tools/tfsa-calculator", body: "Check whether tax-free contribution room is the right place for dividend reinvestment." },
     { type: "Tool", label: "Capital gains tax calculator", href: "/tools/capital-gains-tax", body: "Estimate taxable capital-gains context when selling shares or ETF units later." },
-    { type: "Guide", label: "Best Canadian dividend ETFs", href: "/blog/best-canadian-dividend-etfs-2026", body: "Compare dividend ETF categories before deciding what to reinvest into." },
+    { type: "Guide", label: "Best Canadian dividend ETFs", href: "/blog/best-etfs-for-tfsa-canada-2026", body: "Compare dividend ETF categories before deciding what to reinvest into." },
     { type: "Guide", label: "$500/month dividends in Canada", href: "/blog/500-month-dividend-canada", body: "See how dividend income targets translate into portfolio size and yield assumptions." },
   ],
   methodology: {

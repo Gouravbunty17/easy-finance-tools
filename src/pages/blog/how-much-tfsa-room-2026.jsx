@@ -149,6 +149,9 @@ export default function HowMuchTFSARoom() {
           <p>
             CRA records for the prior calendar year are usually updated by spring. If you made recent contributions or withdrawals, make sure those records have been processed before you rely on the number.
           </p>
+          <p>
+            CRA My Account is useful, but it is not a real-time TFSA ledger. If you have more than one TFSA, combine every bank and brokerage transaction before contributing because all accounts share one personal contribution limit.
+          </p>
 
           <h2>How TFSA room accumulates</h2>
           <p>Your available room is generally:</p>
@@ -157,6 +160,9 @@ export default function HowMuchTFSARoom() {
           </div>
           <p>
             If you withdrew $10,000 in 2025, that $10,000 is normally added back on January 1, 2026, along with the new annual limit for 2026.
+          </p>
+          <p>
+            Investment gains and losses do not change contribution room by themselves. If an investment falls inside a TFSA, you do not get extra room back for the loss; room is driven by eligible limits, contributions, withdrawals, and timing.
           </p>
 
           <h2>TFSA room by birth year in 2026 if you never contributed</h2>
@@ -196,7 +202,12 @@ export default function HowMuchTFSARoom() {
             CRA figures are useful, but they can lag if financial institutions have not yet reported your latest transactions. Use CRA as your baseline, then compare it with your own records.
           </p>
 
-          <h3>3. Contributing while non-resident</h3>
+          <h3>3. Treating multiple TFSAs as separate limits</h3>
+          <p>
+            A TFSA at one bank and a TFSA at another broker still share the same room. Opening another account does not create another annual limit.
+          </p>
+
+          <h3>4. Contributing while non-resident</h3>
           <p>
             You generally do not accumulate new TFSA room while a non-resident of Canada, and contributions made while non-resident can trigger penalties.
           </p>

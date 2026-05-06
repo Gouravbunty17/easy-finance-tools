@@ -1,4 +1,4 @@
-﻿export const FINANCIAL_YEAR = 2026;
+export const FINANCIAL_YEAR = 2026;
 export const CONTENT_LAST_REVIEWED = 'April 22, 2026';
 export const DATA_SNAPSHOT_LABEL = 'Illustrative planning snapshot for April 2026';
 
@@ -621,7 +621,7 @@ export const PRIORITY_INVESTING_WORKFLOWS = [
   {
     title: 'Reduce taxes and choose the right account',
     body: 'Start with the TFSA vs RRSP decision guide when the next contribution could reasonably land in more than one registered account.',
-    primaryHref: '/blog/tfsa-vs-rrsp-canada-2026',
+    primaryHref: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
     primaryLabel: 'Compare TFSA vs RRSP',
     secondaryHref: '/tools/tfsa-calculator',
     secondaryLabel: 'Open TFSA calculator',
@@ -648,7 +648,7 @@ export const PRIORITY_INVESTING_GUIDES = [
   {
     title: 'TFSA vs RRSP in Canada: which should you max first?',
     body: 'A practical top-of-funnel guide to choosing the right registered account based on income, flexibility, and goals.',
-    href: '/blog/tfsa-vs-rrsp-canada-2026',
+    href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
     category: 'Accounts',
   },
   {

@@ -966,7 +966,7 @@ export default function DividendCalculator() {
           {
             title: 'Compare TFSA vs RRSP',
             body: 'Use the account comparison guide if the income ETF might live outside the TFSA or compete with other contribution priorities.',
-            href: '/blog/tfsa-vs-rrsp-canada-2026',
+            href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
             ctaLabel: 'open_tfsa_vs_rrsp_guide',
           },
           {

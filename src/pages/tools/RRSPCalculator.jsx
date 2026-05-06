@@ -658,7 +658,7 @@ export default function RRSPCalculator() {
           {
             title: 'Compare TFSA vs RRSP',
             body: 'Move from refund math into a clearer account-priority decision.',
-            href: '/blog/tfsa-vs-rrsp-canada-2026',
+            href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
             ctaLabel: 'compare_tfsa_vs_rrsp',
           },
           {

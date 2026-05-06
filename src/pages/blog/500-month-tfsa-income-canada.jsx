@@ -103,19 +103,19 @@ const INTERNAL_LINKS = [
     ctaLabel: 'open_tfsa_passive_income_foundation',
   },
   {
-    href: '/blog/best-canadian-dividend-etfs-2026',
+    href: '/blog/best-etfs-for-tfsa-canada-2026',
     title: 'Compare Canadian dividend ETF categories',
     body: 'Review ETF income styles, fees, diversification, and covered-call risks before chasing yield.',
     ctaLabel: 'open_canadian_dividend_etfs_from_500_tfsa_income',
   },
   {
-    href: '/blog/tfsa-contribution-room-canada-2026',
+    href: '/blog/how-much-tfsa-room-2026',
     title: 'Review TFSA contribution room rules',
     body: 'Make sure your deposits do not create an avoidable overcontribution problem.',
     ctaLabel: 'open_tfsa_room_from_500_tfsa_income',
   },
   {
-    href: '/blog/tfsa-vs-rrsp-canada-2026',
+    href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
     title: 'Compare TFSA vs RRSP first',
     body: 'A TFSA income plan may fit your goal, but the RRSP deduction can still be more valuable for some Canadians.',
     ctaLabel: 'open_tfsa_vs_rrsp_from_500_tfsa_income',

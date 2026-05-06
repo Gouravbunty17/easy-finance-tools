@@ -465,12 +465,12 @@ export default function BestTFSABrokersCanada() {
               {
                 title: "TFSA contribution room",
                 body: "Check 2026 room, withdrawal timing, and over-contribution risks before funding a new account.",
-                href: "/blog/tfsa-contribution-room-canada-2026",
+                href: "/blog/how-much-tfsa-room-2026",
               },
               {
                 title: "TFSA vs RRSP",
                 body: "Choose the right registered account before worrying about the broker.",
-                href: "/blog/tfsa-vs-rrsp-canada-2026",
+                href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada",
               },
               {
                 title: "TFSA vs RRSP vs FHSA",

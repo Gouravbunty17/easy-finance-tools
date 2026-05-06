@@ -102,7 +102,7 @@ const RELATED_DECISION_LINKS = [
   {
     title: 'Compare TFSA vs RRSP before you overfund one account',
     body: 'Use the TFSA vs RRSP hub when the next contribution could still reasonably go to another registered account instead of the FHSA.',
-    href: '/blog/tfsa-vs-rrsp-canada-2026',
+    href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
     ctaLabel: 'fhsa_to_tfsa_vs_rrsp_hub',
   },
   {
@@ -217,7 +217,7 @@ export default function FHSACalculatorCanada2026() {
             {' '}
             or go straight to the
             {' '}
-            <TrackedLink articleSlug="fhsa-calculator-canada-2026" ctaLabel="fhsa_tfsa_vs_rrsp_inline" to="/blog/tfsa-vs-rrsp-canada-2026" className="text-primary underline">
+            <TrackedLink articleSlug="fhsa-calculator-canada-2026" ctaLabel="fhsa_tfsa_vs_rrsp_inline" to="/blog/tfsa-vs-rrsp-vs-fhsa-canada" className="text-primary underline">
               TFSA vs RRSP hub
             </TrackedLink>
             {' '}
@@ -396,7 +396,7 @@ export default function FHSACalculatorCanada2026() {
             <p>
               If the real question is account priority more broadly, compare the FHSA against the
               {' '}
-              <TrackedLink articleSlug="fhsa-calculator-canada-2026" ctaLabel="tfsa_vs_rrsp_hub_inline" to="/blog/tfsa-vs-rrsp-canada-2026" className="text-primary underline">
+              <TrackedLink articleSlug="fhsa-calculator-canada-2026" ctaLabel="tfsa_vs_rrsp_hub_inline" to="/blog/tfsa-vs-rrsp-vs-fhsa-canada" className="text-primary underline">
                 TFSA vs RRSP hub
               </TrackedLink>
               {' '}

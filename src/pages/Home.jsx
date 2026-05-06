@@ -9,7 +9,7 @@ const GOAL_CARDS = [
   {
     title: 'Pay less tax',
     description: 'Use the TFSA vs RRSP decision guide when the next contribution could land in more than one registered account.',
-    href: '/blog/tfsa-vs-rrsp-canada-2026',
+    href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
     cta: 'Compare TFSA vs RRSP',
     ctaLabel: 'goal_pay_less_tax',
     badge: 'Reduce taxes / choose account',
@@ -48,7 +48,7 @@ const GUIDE_CARDS = [
   {
     title: 'TFSA Contribution Room Canada 2026',
     description: 'Check the 2026 TFSA limit, withdrawal timing, CRA room updates, and the mistakes that cause over-contributions.',
-    href: '/blog/tfsa-contribution-room-canada-2026',
+    href: '/blog/how-much-tfsa-room-2026',
     ctaLabel: 'guide_tfsa_contribution_room',
     guideName: 'tfsa_contribution_room',
   },
@@ -62,7 +62,7 @@ const GUIDE_CARDS = [
   {
     title: 'TFSA vs RRSP in Canada (2026)',
     description: 'Figure out which account should get the next contribution based on income, tax treatment, and flexibility.',
-    href: '/blog/tfsa-vs-rrsp-canada-2026',
+    href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
     ctaLabel: 'guide_tfsa_vs_rrsp',
     guideName: 'tfsa_vs_rrsp',
   },
@@ -119,7 +119,7 @@ const ACCOUNT_COMPARISON_LINKS = [
   {
     title: 'Compare TFSA vs RRSP first',
     description: 'Best starting point when the next registered-account contribution is still undecided.',
-    href: '/blog/tfsa-vs-rrsp-canada-2026',
+    href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
     ctaLabel: 'comparison_strip_tfsa_vs_rrsp',
   },
   {
@@ -213,7 +213,7 @@ export default function Home() {
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <SurfaceTrackedLink
-                  to="/blog/tfsa-vs-rrsp-canada-2026"
+                  to="/blog/tfsa-vs-rrsp-vs-fhsa-canada"
                   eventName="homepage_cta_click"
                   ctaLabel="hero_compare_tfsa_vs_rrsp"
                   trackingParams={{ section: 'hero', destination_type: 'article' }}
@@ -262,7 +262,7 @@ export default function Home() {
             {[
               { title: 'Account choice unclear', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', label: 'Compare TFSA, RRSP, FHSA' },
               { title: 'Growth target unclear', href: '/tools/compound-interest-calculator', label: 'Run compound growth' },
-              { title: 'TFSA room unclear', href: '/blog/tfsa-contribution-room-canada-2026', label: 'Check TFSA room rules' },
+              { title: 'TFSA room unclear', href: '/blog/how-much-tfsa-room-2026', label: 'Check TFSA room rules' },
             ].map((item) => (
               <SurfaceTrackedLink
                 key={item.href}

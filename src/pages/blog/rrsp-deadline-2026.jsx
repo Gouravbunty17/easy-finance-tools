@@ -188,6 +188,9 @@ export default function RRSPDeadline2026() {
               <strong>Split the deduction if:</strong> You want some refund now but also expect higher income next year. CRA allows you to claim part of a contribution on 2025 and carry the remainder to a future year.
             </li>
           </ul>
+          <p>
+            Contributions after March 2, 2026 can still be valid if you have RRSP room, but they are generally too late to deduct on the 2025 return. Report first-60-days contributions even if you carry some of the deduction forward, because the contribution and deduction do not always have to be claimed in the same tax year.
+          </p>
 
           <h2>The "RRSP refund into TFSA" strategy</h2>
           <p>
@@ -200,6 +203,9 @@ export default function RRSPDeadline2026() {
           </ul>
           <p>
             This is sometimes called the "RRSP refund loop" and it's one of the most powerful compounding strategies available to Canadians within the existing registered account framework.
+          </p>
+          <p>
+            The refund is still tax deferral, not free money. If the refund is spent instead of saved or invested, the long-term RRSP benefit can be weaker because RRSP or RRIF withdrawals are generally taxable later.
           </p>
 
           <h2>Spousal RRSP: splitting income in retirement</h2>
@@ -351,7 +357,7 @@ export default function RRSPDeadline2026() {
         <div className="mt-10 border-t pt-8 dark:border-gray-700">
           <h3 className="mb-4 text-lg font-bold text-primary dark:text-accent">Related Articles & Tools</h3>
           <div className="grid gap-4 sm:grid-cols-2">
-            <TrackedLink articleSlug="rrsp-deadline-2026" ctaLabel="related_tfsa_vs_rrsp" to="/blog/tfsa-vs-rrsp-2026" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
+            <TrackedLink articleSlug="rrsp-deadline-2026" ctaLabel="related_tfsa_vs_rrsp" to="/blog/tfsa-vs-rrsp-vs-fhsa-canada" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
               <span className="text-sm text-gray-500">Planning</span>
               <p className="mt-1 font-semibold text-primary dark:text-accent">TFSA vs RRSP: Which Is Better in 2026?</p>
             </TrackedLink>

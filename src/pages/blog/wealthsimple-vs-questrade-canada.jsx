@@ -417,7 +417,7 @@ export default function WealthsimpleVsQuestradeCanada() {
               {
                 title: "TFSA vs RRSP",
                 body: "Compare the two account types before choosing the platform that will hold them.",
-                href: "/blog/tfsa-vs-rrsp-2026",
+                href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada",
               },
               {
                 title: "Beginner investing guide",
@@ -453,7 +453,7 @@ export default function WealthsimpleVsQuestradeCanada() {
         <div className="mt-10 border-t pt-8 dark:border-gray-700">
           <h3 className="mb-4 text-lg font-bold text-primary dark:text-accent">Related articles and tools</h3>
           <div className="grid gap-4 sm:grid-cols-2">
-            <TrackedLink articleSlug="wealthsimple-vs-questrade-canada" ctaLabel="related_tfsa_vs_rrsp" to="/blog/tfsa-vs-rrsp-2026" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
+            <TrackedLink articleSlug="wealthsimple-vs-questrade-canada" ctaLabel="related_tfsa_vs_rrsp" to="/blog/tfsa-vs-rrsp-vs-fhsa-canada" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
               <span className="text-sm text-gray-500">Registered accounts</span>
               <p className="mt-1 font-semibold text-primary dark:text-accent">TFSA vs RRSP: Which Is Better in 2026?</p>
             </TrackedLink>

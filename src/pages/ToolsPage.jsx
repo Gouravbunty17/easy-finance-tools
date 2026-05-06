@@ -42,7 +42,7 @@ const decisionPaths = [
   {
     title: "Where should my next registered-account dollar go?",
     body: "Start with TFSA vs RRSP, then use the FHSA calculator if a first home is part of the plan.",
-    href: "/blog/tfsa-vs-rrsp-canada-2026",
+    href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada",
     ctaLabel: "decision_path_registered_accounts",
   },
   {
@@ -205,10 +205,10 @@ export default function ToolsPage() {
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use a guide when the calculator needs context</h2>
           <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "TFSA contribution room", href: "/blog/tfsa-contribution-room-canada-2026" },
+              { title: "TFSA contribution room", href: "/blog/how-much-tfsa-room-2026" },
               { title: "TFSA vs RRSP vs FHSA", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada" },
               { title: "FHSA rules", href: "/blog/fhsa-rules-canada-2026" },
-              { title: "Canadian dividend ETFs", href: "/blog/best-canadian-dividend-etfs-2026" },
+              { title: "Canadian dividend ETFs", href: "/blog/best-etfs-for-tfsa-canada-2026" },
             ].map((item) => (
               <SurfaceTrackedLink
                 key={item.href}

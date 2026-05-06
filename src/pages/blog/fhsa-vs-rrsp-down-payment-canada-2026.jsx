@@ -301,7 +301,7 @@ export default function FHSAvsRRSPDownPaymentCanada2026() {
             <p>
               If the home question is only one part of the bigger account decision, compare this page against the
               {' '}
-              <TrackedLink articleSlug="fhsa-vs-rrsp-down-payment-canada-2026" ctaLabel="tfsa_vs_rrsp_hub_inline" to="/blog/tfsa-vs-rrsp-canada-2026" className="text-primary underline">
+              <TrackedLink articleSlug="fhsa-vs-rrsp-down-payment-canada-2026" ctaLabel="tfsa_vs_rrsp_hub_inline" to="/blog/tfsa-vs-rrsp-vs-fhsa-canada" className="text-primary underline">
                 TFSA vs RRSP guide
               </TrackedLink>
               {' '}

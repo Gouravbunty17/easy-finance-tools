@@ -79,13 +79,13 @@ const INTERNAL_LINKS = [
     ctaLabel: 'open_tfsa_calculator_from_tfsa_passive_income',
   },
   {
-    href: '/blog/tfsa-contribution-room-canada-2026',
+    href: '/blog/how-much-tfsa-room-2026',
     title: 'Understand 2026 TFSA room first',
     body: 'Before adding money, review how annual limits, withdrawals, and overcontribution risk work.',
     ctaLabel: 'open_tfsa_room_article_from_tfsa_passive_income',
   },
   {
-    href: '/blog/best-canadian-dividend-etfs-2026',
+    href: '/blog/best-etfs-for-tfsa-canada-2026',
     title: 'Compare dividend ETF categories',
     body: 'Use this guide to compare income-focused ETF styles, fees, diversification, and covered-call risks.',
     ctaLabel: 'open_dividend_etf_article_from_tfsa_passive_income',
@@ -97,7 +97,7 @@ const INTERNAL_LINKS = [
     ctaLabel: 'open_500_month_dividend_article_from_tfsa_passive_income',
   },
   {
-    href: '/blog/tfsa-vs-rrsp-canada-2026',
+    href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
     title: 'Compare TFSA vs RRSP before deciding',
     body: 'A TFSA income strategy may be flexible, but the RRSP deduction can still win in some income situations.',
     ctaLabel: 'open_tfsa_vs_rrsp_from_tfsa_passive_income',

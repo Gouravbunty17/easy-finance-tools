@@ -33,6 +33,7 @@ const article = {
       paragraphs: [
         "Start with the goal. If the goal is a first home and you are eligible, the FHSA usually moves to the top of the list because contributions can be deductible and qualifying withdrawals can be tax-free. That combination is rare.",
         "If a first home is not realistic or you are not eligible, compare TFSA and RRSP. TFSA usually wins when flexibility matters or when your current tax rate is not high. RRSP usually becomes stronger when the deduction is meaningful and the money is for retirement.",
+        "Income changes the answer. At lower incomes, TFSA flexibility often beats a modest RRSP deduction. At higher incomes, the RRSP deduction can become valuable enough that using both accounts, or funding RRSP first after FHSA decisions, deserves a closer look.",
       ],
       table: {
         headers: ["Account", "Best first use", "Main tradeoff"],
@@ -69,6 +70,7 @@ const article = {
       paragraphs: [
         "A clean order is: build a basic emergency buffer, capture any employer match if available, check FHSA eligibility if a first home is realistic, then compare TFSA and RRSP using income and flexibility. This avoids choosing an account in isolation.",
         "If you are still unsure, split the contribution between accounts rather than waiting forever. A partial FHSA plus TFSA strategy can make sense for uncertain home buyers, while a partial RRSP plus TFSA strategy can make sense for higher-income investors who still value flexibility.",
+        "One practical strategy is to reinvest an RRSP refund into a TFSA. That can preserve the RRSP deduction benefit while also building tax-free flexibility, but it only works if the refund is actually saved rather than spent.",
       ],
     },
   ],
@@ -89,7 +91,7 @@ const article = {
     { type: "Tool", label: "FHSA calculator", href: "/tools/fhsa-calculator", body: "Estimate FHSA deduction value and down-payment path." },
     { type: "Tool", label: "TFSA calculator", href: "/tools/tfsa-calculator", body: "Compare tax-free growth and contribution room." },
     { type: "Tool", label: "RRSP calculator", href: "/tools/rrsp-calculator", body: "Estimate deduction value and long-term RRSP tradeoffs." },
-    { type: "Guide", label: "TFSA vs RRSP guide", href: "/blog/tfsa-vs-rrsp-canada-2026", body: "Deepen the two-account comparison if FHSA is not relevant." },
+    { type: "Guide", label: "FHSA vs RRSP for a down payment", href: "/blog/fhsa-vs-rrsp-down-payment-canada-2026", body: "Use this narrower guide when the decision is specifically about a first-home down payment." },
     { type: "Guide", label: "FHSA rules guide", href: "/blog/fhsa-rules-canada-2026", body: "Understand FHSA eligibility, withdrawals, and transfers first." },
   ],
   methodology: {

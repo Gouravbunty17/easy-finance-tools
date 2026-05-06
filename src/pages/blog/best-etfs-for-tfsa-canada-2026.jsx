@@ -138,7 +138,7 @@ export default function BestETFsForTFSA() {
         <p>
           If you are still deciding whether the next dollar belongs in a TFSA at all, settle that first with the
           {' '}
-          <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="intro_tfsa_vs_rrsp_hub" to="/blog/tfsa-vs-rrsp-canada-2026" className="text-primary underline">
+          <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="intro_tfsa_vs_rrsp_hub" to="/blog/tfsa-vs-rrsp-vs-fhsa-canada" className="text-primary underline">
             TFSA vs RRSP guide
           </TrackedLink>
           . If the TFSA is already the right account, the next question is usually whether you need a simple growth ETF, a balanced ETF, or a more income-focused dividend ETF.
@@ -261,7 +261,7 @@ export default function BestETFsForTFSA() {
         <div className="not-prose my-6 grid gap-3 sm:grid-cols-2">
           {[
             { label: "Run the TFSA calculator", href: "/tools/tfsa-calculator" },
-            { label: "Compare TFSA vs RRSP", href: "/blog/tfsa-vs-rrsp-canada-2026" },
+            { label: "Compare TFSA vs RRSP", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada" },
             { label: "Read the best TFSA brokers guide", href: "/blog/best-tfsa-brokers-canada" },
             { label: "Learn how to start investing in Canada", href: "/blog/how-to-start-investing-canada-2026" },
           ].map((item) => (
@@ -294,11 +294,17 @@ export default function BestETFsForTFSA() {
         <p>
           For many Canadian income-focused investors, <strong>VDY</strong> is the cleanest starting point because it is built around large Canadian dividend payers that many TFSA users already understand. <strong>XDV</strong> is another common Canadian dividend ETF, while <strong>ZWB</strong> takes a more income-heavy covered-call approach that can raise cash flow but cap upside. Those are very different tradeoffs, even though all three might show up in the same "best dividend ETF" search.
         </p>
+        <p>
+          Compare dividend ETFs by total return, fees, diversification, distribution policy, and risk rather than yield alone. Canadian dividend funds often lean heavily toward banks, energy, utilities, telecoms, and pipelines, so the income stream can come with more sector concentration than a broad all-in-one ETF.
+        </p>
         <ul>
           <li><strong>VDY (Vanguard FTSE Canadian High Dividend Yield)</strong> - a Canadian dividend ETF focused on banks, pipelines, and utilities. Often a cleaner fit for investors who want income and accept sector concentration.</li>
           <li><strong>XDV (iShares Canadian Select Dividend)</strong> - another dividend-focused option, typically more concentrated and less diversified than a broad market fund.</li>
           <li><strong>ZWB (BMO Covered Call Canadian Banks)</strong> - a higher-income covered-call bank ETF. The tradeoff is capped upside and a narrower strategy than a core TFSA holding.</li>
         </ul>
+        <p>
+          Covered-call ETFs may pay higher cash distributions, but the option strategy can limit upside in strong markets and distributions can still change. Before relying on the cash flow, check the provider's current MER, holdings, distribution history, risk rating, and fund facts.
+        </p>
         <p>
           A Canadian-listed dividend ETF also tends to fit a TFSA more cleanly than a US-listed dividend ETF when income is the goal, because the withholding-tax issue is usually easier to manage. That does not make every Canadian dividend fund a great choice, but it does explain why many TFSA income investors start with domestic dividend ETFs before they start chasing US yield.
         </p>
@@ -328,7 +334,7 @@ export default function BestETFsForTFSA() {
         </ul>
 
         <p>
-          If you want to compare account fit before picking a ticker, use the <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="tfsa_vs_rrsp_context" to="/blog/tfsa-vs-rrsp-canada-2026" className="text-primary underline">TFSA vs RRSP guide</TrackedLink> and the <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="tfsa_calculator_context" to="/tools/tfsa-calculator" className="text-primary underline">TFSA calculator</TrackedLink>.
+          If you want to compare account fit before picking a ticker, use the <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="tfsa_vs_rrsp_context" to="/blog/tfsa-vs-rrsp-vs-fhsa-canada" className="text-primary underline">TFSA vs RRSP vs FHSA guide</TrackedLink> and the <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="tfsa_calculator_context" to="/tools/tfsa-calculator" className="text-primary underline">TFSA calculator</TrackedLink>.
         </p>
         <p>
           After the account choice is clear, make sure the brokerage workflow matches the plan. Our
@@ -409,7 +415,7 @@ export default function BestETFsForTFSA() {
             {
               title: "TFSA contribution room",
               body: "Review the 2026 room limit, withdrawal timing, and common contribution mistakes.",
-              href: "/blog/tfsa-contribution-room-canada-2026",
+              href: "/blog/how-much-tfsa-room-2026",
             },
             {
               title: "Best TFSA brokers",
@@ -419,7 +425,7 @@ export default function BestETFsForTFSA() {
             {
               title: "Canadian dividend ETFs",
               body: "Compare income-focused ETF categories, fees, risks, and account fit.",
-              href: "/blog/best-canadian-dividend-etfs-2026",
+              href: "/blog/weekly-dividend-etfs",
             },
             {
               title: "Beginner investing guide",

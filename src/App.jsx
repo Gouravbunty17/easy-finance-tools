@@ -51,14 +51,12 @@ const FiveHundredMonthTFSAIncomeCanada = lazyWithPreload(() => import('./pages/b
 const TFSAPassiveIncomeCanada2026 = lazyWithPreload(() => import('./pages/blog/tfsa-passive-income-canada-2026'));
 const FHSACalculatorCanada2026 = lazyWithPreload(() => import('./pages/blog/fhsa-calculator-canada-2026'));
 const FHSAvsRRSPDownPaymentCanada2026 = lazyWithPreload(() => import('./pages/blog/fhsa-vs-rrsp-down-payment-canada-2026'));
-const TFSAvsRRSPCanada2026 = lazyWithPreload(() => import('./pages/blog/tfsa-vs-rrsp-canada-2026'));
 const HowToStartInvestingCanada2026 = lazyWithPreload(() => import('./pages/blog/how-to-start-investing-canada-2026'));
 const HowToInvestBeginners = lazyWithPreload(() => import('./pages/blog/how-to-invest-in-canada-beginners-2026'));
 const BestHISACanada2026 = lazyWithPreload(() => import('./pages/blog/best-hisa-canada-2026'));
 const EmergencyFundCanada = lazyWithPreload(() => import('./pages/blog/emergency-fund-canada'));
 const PayOffMortgageFaster = lazyWithPreload(() => import('./pages/blog/pay-off-mortgage-faster-canada'));
 const CanadaChildBenefit2026 = lazyWithPreload(() => import('./pages/blog/canada-child-benefit-2026'));
-const TFSAvsRRSP = lazyWithPreload(() => import('./pages/blog/tfsa-vs-rrsp-2026'));
 const HowMuchTFSARoom = lazyWithPreload(() => import('./pages/blog/how-much-tfsa-room-2026'));
 const BestETFsForTFSA = lazyWithPreload(() => import('./pages/blog/best-etfs-for-tfsa-canada-2026'));
 const HowToUseFHSA = lazyWithPreload(() => import('./pages/blog/how-to-use-fhsa-canada'));
@@ -72,11 +70,8 @@ const BestTFSABrokersCanada = lazyWithPreload(() => import('./pages/blog/best-tf
 const BestRRSPAccountsCanada = lazyWithPreload(() => import('./pages/blog/best-rrsp-accounts-canada'));
 const BestInvestingAppsCanada = lazyWithPreload(() => import('./pages/blog/best-investing-apps-canada'));
 const BestDividendInvestingPlatformsCanada = lazyWithPreload(() => import('./pages/blog/best-dividend-investing-platforms-canada'));
-const TFSAContributionRoomCanada2026 = lazyWithPreload(() => import('./pages/blog/tfsa-contribution-room-canada-2026'));
-const RRSPDeadlineCanada2026 = lazyWithPreload(() => import('./pages/blog/rrsp-deadline-canada-2026'));
 const FHSARulesCanada2026 = lazyWithPreload(() => import('./pages/blog/fhsa-rules-canada-2026'));
 const TFSAvsRRSPvsFHSACanada = lazyWithPreload(() => import('./pages/blog/tfsa-vs-rrsp-vs-fhsa-canada'));
-const BestCanadianDividendETFs2026 = lazyWithPreload(() => import('./pages/blog/best-canadian-dividend-etfs-2026'));
 const DividendReinvestmentPlansCanada = lazyWithPreload(() => import('./pages/blog/dividend-reinvestment-plans-canada'));
 
 const routeEntries = [
@@ -119,9 +114,7 @@ const routeEntries = [
   ['/blog/tfsa-passive-income-canada-2026', TFSAPassiveIncomeCanada2026],
   ['/blog/fhsa-calculator-canada-2026', FHSACalculatorCanada2026],
   ['/blog/fhsa-vs-rrsp-down-payment-canada-2026', FHSAvsRRSPDownPaymentCanada2026],
-  ['/blog/tfsa-vs-rrsp-canada-2026', TFSAvsRRSPCanada2026],
   ['/blog/how-to-start-investing-canada-2026', HowToStartInvestingCanada2026],
-  ['/blog/tfsa-vs-rrsp-2026', TFSAvsRRSP],
   ['/blog/how-much-tfsa-room-2026', HowMuchTFSARoom],
   ['/blog/best-etfs-for-tfsa-canada-2026', BestETFsForTFSA],
   ['/blog/how-to-use-fhsa-canada', HowToUseFHSA],
@@ -135,11 +128,8 @@ const routeEntries = [
   ['/blog/best-rrsp-accounts-canada', BestRRSPAccountsCanada],
   ['/blog/best-investing-apps-canada', BestInvestingAppsCanada],
   ['/blog/best-dividend-investing-platforms-canada', BestDividendInvestingPlatformsCanada],
-  ['/blog/tfsa-contribution-room-canada-2026', TFSAContributionRoomCanada2026],
-  ['/blog/rrsp-deadline-canada-2026', RRSPDeadlineCanada2026],
   ['/blog/fhsa-rules-canada-2026', FHSARulesCanada2026],
   ['/blog/tfsa-vs-rrsp-vs-fhsa-canada', TFSAvsRRSPvsFHSACanada],
-  ['/blog/best-canadian-dividend-etfs-2026', BestCanadianDividendETFs2026],
   ['/blog/dividend-reinvestment-plans-canada', DividendReinvestmentPlansCanada],
   ['/blog/how-to-invest-in-canada-beginners-2026', HowToInvestBeginners],
   ['/blog/best-hisa-canada-2026', BestHISACanada2026],
