@@ -27,8 +27,8 @@ export default function BlogHero({
       <div className="absolute -left-16 top-8 h-48 w-48 rounded-full bg-white/8 blur-3xl" />
       <div className="absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-white/8 blur-3xl" />
 
-      <div className="relative mx-auto max-w-6xl px-4 py-14 md:py-16">
-        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div className="relative mx-auto max-w-7xl px-4 py-14 md:py-16">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_480px]">
           <div className="text-center lg:text-left">
             <div className="mb-5 inline-flex rounded-full bg-white/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">
               {category}
@@ -53,8 +53,8 @@ export default function BlogHero({
             </div>
           </div>
 
-          <div className="mx-auto w-full max-w-sm">
-            <div className="relative overflow-hidden rounded-[28px] border border-white/20 bg-white/10 p-5 shadow-2xl backdrop-blur">
+          <div className="mx-auto w-full max-w-xl">
+            <div className="relative overflow-hidden rounded-[28px] border border-white/20 bg-white/10 p-4 shadow-2xl backdrop-blur sm:p-5">
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
               <div className="relative">
                 <div className="mb-4 flex items-center justify-between">
@@ -68,11 +68,11 @@ export default function BlogHero({
                   <ArticleImage
                     slug={slug}
                     loading="eager"
-                    className="min-h-[220px] rounded-[22px] border border-white/15"
-                    imgClassName="aspect-[16/10]"
+                    className="min-h-[240px] rounded-[22px] border border-white/15 md:min-h-[280px]"
+                    imgClassName="aspect-[16/10] md:aspect-[16/9]"
                   />
                 ) : (
-                  <div className="flex min-h-[220px] items-center justify-center rounded-[22px] border border-white/15 bg-slate-950/20 p-6">
+                  <div className="flex min-h-[240px] items-center justify-center rounded-[22px] border border-white/15 bg-slate-950/20 p-6 md:min-h-[280px]">
                     <div className="text-center">
                       <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-[24px] bg-white/15 px-3 text-3xl font-black uppercase tracking-[0.12em] text-white shadow-lg">
                         {icon}

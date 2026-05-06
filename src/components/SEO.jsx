@@ -8,6 +8,9 @@ export default function SEO({
   robots = "index,follow,max-image-preview:large",
   schema,
   image,
+  imageAlt,
+  imageWidth = "1200",
+  imageHeight = "630",
 }) {
   React.useEffect(() => {
     const siteName = "Easy Finance Tools";
@@ -20,6 +23,16 @@ export default function SEO({
     const normalizedPath = window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/+$/, "");
     const url = canonical || `${siteOrigin}${normalizedPath}`;
     const imageUrl = image || "https://easyfinancetools.com/og-image.svg";
+    const imageType = imageUrl.endsWith(".webp")
+      ? "image/webp"
+      : imageUrl.endsWith(".png")
+        ? "image/png"
+        : imageUrl.endsWith(".jpg") || imageUrl.endsWith(".jpeg")
+          ? "image/jpeg"
+          : "image/svg+xml";
+    const imageAltText =
+      imageAlt ||
+      "EasyFinanceTools - free Canadian TFSA, RRSP, FHSA and dividend calculators";
 
     document.title = fullTitle;
 
@@ -43,10 +56,15 @@ export default function SEO({
     setMeta("og:type", type, true);
     setMeta("og:site_name", siteName, true);
     setMeta("og:image", imageUrl, true);
+    setMeta("og:image:type", imageType, true);
+    setMeta("og:image:width", String(imageWidth), true);
+    setMeta("og:image:height", String(imageHeight), true);
+    setMeta("og:image:alt", imageAltText, true);
     setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", fullTitle);
     setMeta("twitter:description", desc);
     setMeta("twitter:image", imageUrl);
+    setMeta("twitter:image:alt", imageAltText);
 
     let canonicalEl = document.querySelector("link[rel='canonical']");
     if (!canonicalEl) {
@@ -75,7 +93,7 @@ export default function SEO({
         .querySelectorAll('script[data-seo-schema="true"]')
         .forEach((element) => element.remove());
     };
-  }, [title, description, canonical, image, robots, schema, type]);
+  }, [title, description, canonical, image, imageAlt, imageWidth, imageHeight, robots, schema, type]);
 
   return null;
 }

@@ -7,7 +7,7 @@ import ArticleSchema from "../../components/ArticleSchema";
 import FAQSchema from "../../components/FAQSchema";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import TrackedLink from "../../components/TrackedLink";
-import { getAbsoluteArticleImage } from "./articleMedia";
+import { getAbsoluteArticleImage, getArticleMedia } from "./articleMedia";
 
 function slugify(value) {
   return String(value || "")
@@ -25,10 +25,17 @@ function renderParagraphs(paragraphs = []) {
 export default function CanadianEducationArticle({ article }) {
   const tocItems = article.sections.map((section) => ({ id: slugify(section.heading), label: section.heading }));
   const imageUrl = article.imageUrl || getAbsoluteArticleImage(article.slug);
+  const imageAlt = article.imageAlt || getArticleMedia(article.slug).alt;
 
   return (
     <div>
-      <SEO title={article.seoTitle} description={article.metaDescription} canonical={article.canonical} image={imageUrl} />
+      <SEO
+        title={article.seoTitle}
+        description={article.metaDescription}
+        canonical={article.canonical}
+        image={imageUrl}
+        imageAlt={imageAlt}
+      />
       <ArticleSchema
         headline={article.title}
         description={article.metaDescription}

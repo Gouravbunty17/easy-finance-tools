@@ -15,8 +15,12 @@ import {
   useDividendCalculatorModel,
 } from '../tools/DividendCalculator';
 import { CONTENT_LAST_REVIEWED } from '../../config/financial';
+import { getAbsoluteArticleImage, getArticleMedia } from './articleMedia';
 
 const PAGE_LAST_UPDATED = 'April 23, 2026';
+const ARTICLE_SLUG = '500-month-dividend-canada';
+const ARTICLE_IMAGE = getAbsoluteArticleImage(ARTICLE_SLUG);
+const ARTICLE_IMAGE_ALT = getArticleMedia(ARTICLE_SLUG).alt;
 
 const FAQS = [
   {
@@ -124,6 +128,10 @@ export default function FiveHundredMonthDividendCanada() {
         title="$500/Month Dividends: How Much You Need (Canada)"
         description="See how much capital you need for $500 per month in dividends, with Canadian ETF examples, calculator inputs, and account strategy."
         canonical="https://easyfinancetools.com/blog/500-month-dividend-canada"
+        image={ARTICLE_IMAGE}
+        imageAlt={ARTICLE_IMAGE_ALT}
+        imageWidth="1400"
+        imageHeight="933"
       />
       <ArticleSchema
         headline="How to Earn $500/Month from Dividend ETFs in Canada (2026)"
@@ -131,6 +139,7 @@ export default function FiveHundredMonthDividendCanada() {
         url="https://easyfinancetools.com/blog/500-month-dividend-canada"
         datePublished="2026-04-23"
         dateModified="2026-04-23"
+        imageUrl={ARTICLE_IMAGE}
       />
       <FAQSchema faqs={FAQS} />
 
@@ -141,6 +150,7 @@ export default function FiveHundredMonthDividendCanada() {
         date={PAGE_LAST_UPDATED}
         readTime="9 min read"
         gradient="from-amber-500 to-orange-700"
+        slug={ARTICLE_SLUG}
       />
 
       <section className="mx-auto max-w-5xl px-4 py-12">

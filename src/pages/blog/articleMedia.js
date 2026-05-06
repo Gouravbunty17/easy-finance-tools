@@ -1,15 +1,15 @@
 export const articleMediaBySlug = {
   "best-canadian-dividend-etfs-2026": {
-    image: "/article-images/dividend-etfs-canada.svg",
-    alt: "Canadian dividend ETF editorial illustration with ETF income chart and gold coin accent",
+    image: "/article-images/best-canadian-dividend-etfs-2026.webp",
+    alt: "Canadian dividend planning calendar with finance app, portfolio folders, and maple leaf details",
   },
   "what-is-a-dividend-etf-canada": {
     image: "/article-images/dividend-etfs-canada.svg",
     alt: "Dividend ETF education illustration with bars, income icon, and Canadian investing styling",
   },
   "500-month-dividend-canada": {
-    image: "/article-images/dividend-etfs-canada.svg",
-    alt: "Dividend income planning illustration for Canadian ETF investors",
+    image: "/article-images/500-month-dividend-canada.webp",
+    alt: "Laptop showing Canadian investment charts beside TFSA, RRSP, and FHSA checklist for dividend ETF planning",
   },
   "tfsa-investing-mistakes-canada": {
     image: "/article-images/tfsa-investing.svg",
@@ -68,8 +68,8 @@ export const articleMediaBySlug = {
     alt: "Canadian beginner investing platform illustration",
   },
   "tfsa-vs-rrsp-vs-fhsa-canada": {
-    image: "/article-images/fhsa-home-buying.svg",
-    alt: "Registered account comparison illustration for TFSA, RRSP, and FHSA decisions",
+    image: "/article-images/tfsa-vs-rrsp-vs-fhsa-canada.webp",
+    alt: "Canadian registered account planning scene with coins, nest egg, and home-buying keys",
   },
   "rrsp-deadline-canada-2026": {
     image: "/article-images/retirement-canada.svg",
