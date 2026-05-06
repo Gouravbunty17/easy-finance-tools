@@ -57,7 +57,7 @@ export default function CadUsdConverter() {
 
     async function loadRates() {
       try {
-        const response = await fetch("https://www.bankofcanada.ca/valet/observations/FXUSDCAD/json?recent=10");
+        const response = await fetch("/api/bank-of-canada?series=FXUSDCAD&recent=10");
         if (!response.ok) {
           throw new Error(`Bank of Canada request failed with ${response.status}`);
         }

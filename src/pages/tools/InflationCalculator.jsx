@@ -58,7 +58,7 @@ export default function InflationCalculator() {
 
     async function loadInflationSeries() {
       try {
-        const response = await fetch("https://www.bankofcanada.ca/valet/observations/STATIC_INFLATIONCALC/json");
+        const response = await fetch("/api/bank-of-canada?series=STATIC_INFLATIONCALC");
         if (!response.ok) {
           throw new Error(`Bank of Canada request failed with ${response.status}`);
         }

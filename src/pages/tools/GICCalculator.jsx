@@ -468,7 +468,7 @@ export default function GICCalculator() {
             ctaLabel: 'tfsa_room_next',
           },
           {
-            href: '/tools/savings-goal-calculator',
+            href: '/tools/savings-goal',
             title: 'Match the term to the goal',
             body: 'Route the maturity result into a goal-timeline calculator before you commit to the deposit term.',
             ctaLabel: 'savings_goal_next',

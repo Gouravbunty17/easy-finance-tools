@@ -53,14 +53,6 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: "POST required" });
   }
 
-  const serviceId = process.env.VITE_EMAILJS_SERVICE_ID || process.env.EMAILJS_SERVICE_ID;
-  const templateId = process.env.VITE_EMAILJS_TEMPLATE_ID || process.env.EMAILJS_TEMPLATE_ID;
-  const publicKey = process.env.VITE_EMAILJS_PUBLIC_KEY || process.env.EMAILJS_PUBLIC_KEY;
-
-  if (!serviceId || !templateId || !publicKey) {
-    return res.status(500).json({ error: "Contact email is not configured" });
-  }
-
   let body = req.body;
   if (typeof body === "string") {
     try {
@@ -86,6 +78,14 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: "Message is too short" });
   }
 
+  const serviceId = process.env.VITE_EMAILJS_SERVICE_ID || process.env.EMAILJS_SERVICE_ID;
+  const templateId = process.env.VITE_EMAILJS_TEMPLATE_ID || process.env.EMAILJS_TEMPLATE_ID;
+  const publicKey = process.env.VITE_EMAILJS_PUBLIC_KEY || process.env.EMAILJS_PUBLIC_KEY;
+
+  if (!serviceId || !templateId || !publicKey) {
+    return res.status(500).json({ error: "Contact email is not configured" });
+  }
+
   try {
     await postJSON("https://api.emailjs.com/api/v1.0/email/send", {
       service_id: serviceId,
@@ -105,7 +105,6 @@ module.exports = async function handler(req, res) {
   } catch (error) {
     return res.status(500).json({
       error: "We could not send your message right now. Please try again in a moment.",
-      detail: error.message,
     });
   }
 };
