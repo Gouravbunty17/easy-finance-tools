@@ -5,6 +5,7 @@ import Logo from "./Logo";
 const navLinks = [
   { name: "Tools", path: "/tools" },
   { name: "Blog", path: "/blog" },
+  { name: "Investing", path: "/blog/investing" },
   { name: "About", path: "/about" },
 ];
 

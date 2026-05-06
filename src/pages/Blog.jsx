@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import SEO from "../components/SEO";
 import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
 
-const categoryStyle = {
+export const categoryStyle = {
   Retirement: { gradient: "from-purple-500 to-purple-700", icon: "CA" },
   Tax: { gradient: "from-orange-500 to-red-600", icon: "Tax" },
   RRSP: { gradient: "from-green-500 to-emerald-700", icon: "RRSP" },
@@ -17,7 +17,7 @@ const categoryStyle = {
   Beginners: { gradient: "from-sky-500 to-blue-700", icon: "Learn" },
 };
 
-const posts = [
+export const posts = [
   {
     slug: "dividend-reinvestment-plans-canada",
     title: "Dividend Reinvestment Plans Canada: How DRIPs Work, Pros, Cons & Taxes",
@@ -323,6 +323,15 @@ export default function Blog() {
           <p className="mx-auto mt-4 max-w-3xl text-lg text-blue-100">
             Canadian finance guides for tax, savings, registered accounts, retirement, ETFs, and household planning decisions.
           </p>
+          <SurfaceTrackedLink
+            to="/blog/investing"
+            eventName="blog_index_cta_click"
+            ctaLabel="hero_open_investing_archive"
+            trackingParams={{ section: "blog_hero", destination_type: "category_archive" }}
+            className="mt-6 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-bold text-primary transition hover:bg-blue-50"
+          >
+            Browse investing archive
+          </SurfaceTrackedLink>
         </div>
       </section>
 

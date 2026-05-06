@@ -13,6 +13,7 @@ const CommandPalette = lazy(() => import('./components/CommandPalette'));
 // Lazy-loaded route chunks - only downloaded when visited.
 const ToolsPage = lazyWithPreload(() => import('./pages/ToolsPage'));
 const Blog = lazyWithPreload(() => import('./pages/Blog'));
+const InvestingArchive = lazyWithPreload(() => import('./pages/InvestingArchive'));
 const About = lazyWithPreload(() => import('./pages/About'));
 const Contact = lazyWithPreload(() => import('./pages/Contact'));
 const Methodology = lazyWithPreload(() => import('./pages/Methodology'));
@@ -78,6 +79,7 @@ const routeEntries = [
   ['/', Home],
   ['/tools', ToolsPage],
   ['/blog', Blog],
+  ['/blog/investing', InvestingArchive],
   ['/about', About],
   ['/contact', Contact],
   ['/methodology', Methodology],

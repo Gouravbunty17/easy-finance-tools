@@ -35,9 +35,9 @@ const GOAL_CARDS = [
   },
   {
     title: 'Learn to invest',
-    description: 'Start with the beginner guide if you need help choosing between TFSA, RRSP, FHSA, ETFs, and the first account to open.',
-    href: '/blog/how-to-start-investing-canada-2026',
-    cta: 'Read the beginner guide',
+    description: 'Browse the investing archive if you need help choosing between TFSA, RRSP, FHSA, ETFs, dividends, and the first account to open.',
+    href: '/blog/investing',
+    cta: 'Browse investing guides',
     ctaLabel: 'goal_learn_to_invest',
     badge: 'Beginners',
     goalType: 'beginner',
@@ -74,11 +74,11 @@ const GUIDE_CARDS = [
     guideName: 'fhsa_calculator_canada',
   },
   {
-    title: 'How to Start Investing in Canada (2026)',
-    description: 'Start with a beginner-friendly plan for choosing accounts, using ETFs, and taking practical first steps.',
-    href: '/blog/how-to-start-investing-canada-2026',
-    ctaLabel: 'guide_how_to_start_investing',
-    guideName: 'how_to_start_investing',
+    title: 'Investing Guides Canada',
+    description: 'Browse TFSA investing, ETF, dividend, DRIP, broker, and beginner investing guides in one archive.',
+    href: '/blog/investing',
+    ctaLabel: 'guide_investing_archive',
+    guideName: 'investing_archive',
   },
 ];
 
@@ -153,9 +153,9 @@ const NEXT_STEP_CARDS = [
   },
   {
     title: 'Starting from scratch',
-    description: 'Use the beginner guide if you want one clear path through accounts, ETFs, and your first investing steps.',
-    href: '/blog/how-to-start-investing-canada-2026',
-    cta: 'Go to beginner investing guide',
+    description: 'Use the investing archive if you want one clear library for accounts, ETFs, dividends, brokers, and first investing steps.',
+    href: '/blog/investing',
+    cta: 'Go to investing archive',
     ctaLabel: 'next_step_beginner',
   },
 ];

@@ -40,6 +40,7 @@ export const TOOL_ROUTES = [
 ];
 
 export const BLOG_ROUTES = [
+  { route: "/blog/investing", sourcePath: "src/pages/InvestingArchive.jsx", group: "blog" },
   { route: "/blog/500-month-tfsa-income-canada", sourcePath: "src/pages/blog/500-month-tfsa-income-canada.jsx", group: "blog" },
   { route: "/blog/tfsa-passive-income-canada-2026", sourcePath: "src/pages/blog/tfsa-passive-income-canada-2026.jsx", group: "blog" },
   { route: "/blog/fhsa-rules-canada-2026", sourcePath: "src/pages/blog/fhsa-rules-canada-2026.jsx", group: "blog" },

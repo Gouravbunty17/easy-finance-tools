@@ -62,6 +62,7 @@ const PRIORITY_OVERRIDES = {
   "/blog/fhsa-calculator-canada-2026": "0.85",
   "/blog/how-to-start-investing-canada-2026": "0.85",
   "/blog/canadian-tax-brackets-2026": "0.85",
+  "/blog/investing": "0.85",
   "/blog/fhsa-vs-rrsp-down-payment-canada-2026": "0.8",
   "/blog/how-to-use-fhsa-canada": "0.8",
   "/blog/how-to-invest-in-canada-beginners-2026": "0.8",

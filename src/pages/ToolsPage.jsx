@@ -208,6 +208,7 @@ export default function ToolsPage() {
               { title: "TFSA contribution room", href: "/blog/how-much-tfsa-room-2026" },
               { title: "TFSA vs RRSP vs FHSA", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada" },
               { title: "FHSA rules", href: "/blog/fhsa-rules-canada-2026" },
+              { title: "Investing guides", href: "/blog/investing" },
               { title: "Canadian dividend ETFs", href: "/blog/best-etfs-for-tfsa-canada-2026" },
             ].map((item) => (
               <SurfaceTrackedLink
