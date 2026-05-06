@@ -189,11 +189,7 @@ export default function Home() {
       />
       <FAQSchema faqs={HOME_FAQS} />
 
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-[#0a4c89] to-secondary px-4 py-20 text-white">
-        <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle at top left, white 1px, transparent 1px)', backgroundSize: '26px 26px' }} />
-        <div className="absolute -right-16 top-8 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
-        <div className="absolute -left-20 bottom-0 h-52 w-52 rounded-full bg-accent/20 blur-3xl" />
-
+      <section className="hero-home relative min-h-[420px] overflow-hidden bg-slate-950 px-4 py-20 text-white">
         <div className="relative mx-auto max-w-6xl">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_340px] lg:items-center">
             <div>

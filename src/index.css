@@ -36,6 +36,24 @@ textarea {
   @apply focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-950;
 }
 
+.hero-home {
+  background-image:
+    linear-gradient(90deg, rgba(3, 18, 38, 0.94) 0%, rgba(3, 18, 38, 0.84) 44%, rgba(3, 18, 38, 0.56) 100%),
+    url('/images/home/canadian-finance-hero-bg.webp');
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (max-width: 768px) {
+  .hero-home {
+    background-image:
+      linear-gradient(180deg, rgba(3, 18, 38, 0.96) 0%, rgba(3, 18, 38, 0.9) 56%, rgba(3, 18, 38, 0.8) 100%),
+      url('/images/home/canadian-finance-hero-bg.webp');
+    background-position: 62% center;
+  }
+}
+
 /* Fix form fields in dark mode */
 input,
 select,
