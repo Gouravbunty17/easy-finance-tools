@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ArticleImage from "./ArticleImage";
+import { getArticleMedia } from "../pages/blog/articleMedia";
 
 export default function BlogHero({
   icon,
@@ -15,10 +16,16 @@ export default function BlogHero({
   standardsHref = "/editorial-standards",
   slug,
 }) {
+  const media = slug ? getArticleMedia(slug) : null;
+  const hasPhotoBackground = Boolean(media?.image && !media.image.endsWith(".svg"));
+
   return (
-    <section className={`relative overflow-hidden bg-gradient-to-br ${gradient}`}>
+    <section
+      className={`relative overflow-hidden text-white ${hasPhotoBackground ? "article-hero-photo bg-slate-950" : `bg-gradient-to-br ${gradient}`}`}
+      style={hasPhotoBackground ? { "--article-hero-image": `url('${media.image}')` } : undefined}
+    >
       <div
-        className="absolute inset-0 opacity-10"
+        className={`absolute inset-0 ${hasPhotoBackground ? "opacity-0" : "opacity-10"}`}
         style={{
           backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)",
           backgroundSize: "26px 26px",
@@ -27,14 +34,14 @@ export default function BlogHero({
       <div className="absolute -left-16 top-8 h-48 w-48 rounded-full bg-white/8 blur-3xl" />
       <div className="absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-white/8 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-14 md:py-16">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_480px]">
+      <div className={`relative mx-auto px-4 py-14 md:py-16 ${hasPhotoBackground ? "max-w-6xl lg:py-24" : "max-w-7xl"}`}>
+        <div className={`grid items-center gap-10 ${hasPhotoBackground ? "min-h-[420px]" : "lg:grid-cols-[minmax(0,1fr)_480px]"}`}>
           <div className="text-center lg:text-left">
             <div className="mb-5 inline-flex rounded-full bg-white/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">
               {category}
             </div>
 
-            <h1 className="max-w-3xl text-3xl font-bold leading-tight text-white drop-shadow md:text-5xl">
+            <h1 className={`${hasPhotoBackground ? "max-w-4xl" : "max-w-3xl"} text-3xl font-bold leading-tight text-white drop-shadow md:text-5xl`}>
               {title}
             </h1>
 
@@ -53,6 +60,7 @@ export default function BlogHero({
             </div>
           </div>
 
+          {!hasPhotoBackground ? (
           <div className="mx-auto w-full max-w-xl">
             <div className="relative overflow-hidden rounded-[28px] border border-white/20 bg-white/10 p-4 shadow-2xl backdrop-blur sm:p-5">
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
@@ -92,6 +100,7 @@ export default function BlogHero({
               </div>
             </div>
           </div>
+          ) : null}
         </div>
       </div>
     </section>
