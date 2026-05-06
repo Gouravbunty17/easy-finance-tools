@@ -7,6 +7,7 @@ export default function SEO({
   type = "website",
   robots = "index,follow,max-image-preview:large",
   schema,
+  image,
 }) {
   React.useEffect(() => {
     const siteName = "Easy Finance Tools";
@@ -18,6 +19,7 @@ export default function SEO({
       "Free 2026 Canadian finance calculators for TFSA, RRSP, FHSA, dividends, mortgage, and tax. Plain-English guides, no sign-up, built for Canadians.";
     const normalizedPath = window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/+$/, "");
     const url = canonical || `${siteOrigin}${normalizedPath}`;
+    const imageUrl = image || "https://easyfinancetools.com/og-image.svg";
 
     document.title = fullTitle;
 
@@ -40,11 +42,11 @@ export default function SEO({
     setMeta("og:url", url, true);
     setMeta("og:type", type, true);
     setMeta("og:site_name", siteName, true);
-    setMeta("og:image", "https://easyfinancetools.com/og-image.svg", true);
+    setMeta("og:image", imageUrl, true);
     setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", fullTitle);
     setMeta("twitter:description", desc);
-    setMeta("twitter:image", "https://easyfinancetools.com/og-image.svg");
+    setMeta("twitter:image", imageUrl);
 
     let canonicalEl = document.querySelector("link[rel='canonical']");
     if (!canonicalEl) {
@@ -73,7 +75,7 @@ export default function SEO({
         .querySelectorAll('script[data-seo-schema="true"]')
         .forEach((element) => element.remove());
     };
-  }, [title, description, canonical, robots, schema, type]);
+  }, [title, description, canonical, image, robots, schema, type]);
 
   return null;
 }

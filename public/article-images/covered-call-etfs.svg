@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Covered call ETF editorial image</title>
+  <desc id="desc">An educational covered call ETF visual showing income, option premium, and upside tradeoff.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#172554"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="118" y="94" width="1044" height="532" rx="42" fill="#fff" opacity="0.94"/>
+  <text x="184" y="184" fill="#0b3558" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="850">Covered Call ETFs</text>
+  <text x="184" y="232" fill="#64748b" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="600">Higher income, real tradeoffs</text>
+  <path d="M200 506c106-92 173-116 262-84 103 37 138 7 196-81 62-94 112-116 192-92 64 19 116 68 222 36" fill="none" stroke="#0f766e" stroke-width="18" stroke-linecap="round"/>
+  <path d="M200 506c106-92 173-116 262-84 103 37 138 7 196-81" fill="none" stroke="#f59e0b" stroke-width="22" stroke-linecap="round" stroke-dasharray="2 34"/>
+  <rect x="780" y="350" width="246" height="98" rx="22" fill="#ede9fe"/>
+  <text x="822" y="411" fill="#6d28d9" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="900">Premium</text>
+  <line x1="760" y1="272" x2="1070" y2="272" stroke="#ef4444" stroke-width="12" stroke-linecap="round"/>
+  <text x="782" y="252" fill="#991b1b" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="800">Upside cap zone</text>
+</svg>

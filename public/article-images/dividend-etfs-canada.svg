@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Canadian dividend ETF editorial image</title>
+  <desc id="desc">A premium editorial finance illustration with dividend bars, ETF label, gold coin accents, and a Canadian maple leaf motif.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#062c4f"/>
+      <stop offset="0.58" stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#f2b84b"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#e8fff8" stop-opacity="0.88"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <circle cx="1070" cy="120" r="160" fill="#ffffff" opacity="0.08"/>
+  <circle cx="155" cy="610" r="210" fill="#001b33" opacity="0.18"/>
+  <rect x="120" y="96" width="1040" height="528" rx="42" fill="url(#card)"/>
+  <text x="180" y="190" fill="#0b3558" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="800">Canadian Dividend ETFs</text>
+  <text x="180" y="238" fill="#33616f" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="600">Income, fees, risk, and total return</text>
+  <rect x="180" y="300" width="112" height="190" rx="16" fill="#0f766e"/>
+  <rect x="326" y="250" width="112" height="240" rx="16" fill="#14b8a6"/>
+  <rect x="472" y="340" width="112" height="150" rx="16" fill="#f2b84b"/>
+  <rect x="618" y="206" width="112" height="284" rx="16" fill="#0b3558"/>
+  <path d="M180 530h630" stroke="#d7e7ea" stroke-width="10" stroke-linecap="round"/>
+  <path d="M870 230c36 28 77 28 113 0-7 49-26 80-56 102-31-22-50-53-57-102Z" fill="#0f766e"/>
+  <path d="M927 184v194" stroke="#f2b84b" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="1006" cy="440" r="62" fill="#f2b84b"/>
+  <text x="974" y="456" fill="#0b3558" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="900">$</text>
+</svg>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ArticleImage from "./ArticleImage";
 
 export default function BlogHero({
   icon,
@@ -12,6 +13,7 @@ export default function BlogHero({
   authorHref = "/about",
   reviewer = "Reviewed against current Canadian source material",
   standardsHref = "/editorial-standards",
+  slug,
 }) {
   return (
     <section className={`relative overflow-hidden bg-gradient-to-br ${gradient}`}>
@@ -62,18 +64,27 @@ export default function BlogHero({
                   <span className="text-xs font-semibold text-white/60">{category}</span>
                 </div>
 
-                <div className="flex min-h-[220px] items-center justify-center rounded-[22px] border border-white/15 bg-slate-950/20 p-6">
-                  <div className="text-center">
-                    <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-[24px] bg-white/15 px-3 text-3xl font-black uppercase tracking-[0.12em] text-white shadow-lg">
-                      {icon}
-                    </div>
-                    <div className="mt-5 space-y-2">
-                      <div className="mx-auto h-2.5 w-24 rounded-full bg-white/30" />
-                      <div className="mx-auto h-2.5 w-40 rounded-full bg-white/20" />
-                      <div className="mx-auto h-2.5 w-32 rounded-full bg-white/15" />
+                {slug ? (
+                  <ArticleImage
+                    slug={slug}
+                    loading="eager"
+                    className="min-h-[220px] rounded-[22px] border border-white/15"
+                    imgClassName="aspect-[16/10]"
+                  />
+                ) : (
+                  <div className="flex min-h-[220px] items-center justify-center rounded-[22px] border border-white/15 bg-slate-950/20 p-6">
+                    <div className="text-center">
+                      <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-[24px] bg-white/15 px-3 text-3xl font-black uppercase tracking-[0.12em] text-white shadow-lg">
+                        {icon}
+                      </div>
+                      <div className="mt-5 space-y-2">
+                        <div className="mx-auto h-2.5 w-24 rounded-full bg-white/30" />
+                        <div className="mx-auto h-2.5 w-40 rounded-full bg-white/20" />
+                        <div className="mx-auto h-2.5 w-32 rounded-full bg-white/15" />
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
 
                 <div className="mt-4 rounded-2xl bg-white/10 px-4 py-3">
                   <p className="text-sm font-semibold text-white">{title}</p>

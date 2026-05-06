@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">ETF checklist editorial image</title>
+  <desc id="desc">A clean ETF selection checklist with fees, allocation, diversification, and risk markers.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b3558"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="138" y="82" width="1004" height="556" rx="38" fill="#f8fafc"/>
+  <text x="204" y="168" fill="#0b3558" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="850">ETF Checklist</text>
+  <text x="204" y="215" fill="#64748b" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="600">Choose funds by fit, not ticker noise</text>
+  <g font-family="Segoe UI, Arial, sans-serif" font-size="29" font-weight="800" fill="#0b3558">
+    <rect x="204" y="288" width="54" height="54" rx="14" fill="#dcfce7"/><path d="M217 316l12 13 24-28" fill="none" stroke="#0f766e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><text x="286" y="324">Asset allocation</text>
+    <rect x="204" y="376" width="54" height="54" rx="14" fill="#dcfce7"/><path d="M217 404l12 13 24-28" fill="none" stroke="#0f766e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><text x="286" y="412">MER and trading costs</text>
+    <rect x="204" y="464" width="54" height="54" rx="14" fill="#dcfce7"/><path d="M217 492l12 13 24-28" fill="none" stroke="#0f766e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><text x="286" y="500">Diversification and risk</text>
+  </g>
+  <circle cx="920" cy="388" r="138" fill="#0f766e"/>
+  <text x="856" y="408" fill="#fff" font-family="Segoe UI, Arial, sans-serif" font-size="58" font-weight="950">ETF</text>
+</svg>

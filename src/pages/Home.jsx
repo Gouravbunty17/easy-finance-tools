@@ -1,5 +1,6 @@
 import React from 'react';
 import SEO from '../components/SEO';
+import ArticleImage from '../components/ArticleImage';
 import SurfaceTrackedLink from '../components/SurfaceTrackedLink';
 import ReferralSection from '../components/ReferralSection';
 import EducationalDisclaimer from '../components/EducationalDisclaimer';
@@ -79,6 +80,30 @@ const GUIDE_CARDS = [
     href: '/blog/how-to-start-investing-canada-2026',
     ctaLabel: 'guide_how_to_start_investing',
     guideName: 'how_to_start_investing',
+  },
+];
+
+const LATEST_GUIDES = [
+  {
+    title: 'How to Choose ETFs in Canada',
+    description: 'A practical checklist for asset allocation, fees, diversification, currency, and risk.',
+    href: '/blog/how-to-choose-etfs-canada',
+    slug: 'how-to-choose-etfs-canada',
+    category: 'ETF Guides',
+  },
+  {
+    title: 'TFSA Investing Mistakes Canadians Should Avoid',
+    description: 'Avoid overcontributions, withdrawal timing errors, short-term risk, and trading tax issues.',
+    href: '/blog/tfsa-investing-mistakes-canada',
+    slug: 'tfsa-investing-mistakes-canada',
+    category: 'TFSA',
+  },
+  {
+    title: 'Covered Call ETFs in Canada Explained',
+    description: 'Understand higher income, option premiums, upside tradeoffs, and total-return risk.',
+    href: '/blog/covered-call-etfs-canada-explained',
+    slug: 'covered-call-etfs-canada-explained',
+    category: 'Dividend Investing',
   },
 ];
 
@@ -340,6 +365,46 @@ export default function Home() {
                 <h3 className="text-xl font-bold text-primary dark:text-accent">{guide.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{guide.description}</p>
                 <span className="mt-5 inline-flex text-sm font-semibold text-secondary">Read guide</span>
+              </SurfaceTrackedLink>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <div className="surface-card p-6">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Latest investing guides</p>
+              <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">New Canadian investing explainers</h2>
+            </div>
+            <SurfaceTrackedLink
+              to="/blog/investing"
+              eventName="homepage_cta_click"
+              ctaLabel="latest_guides_investing_archive"
+              trackingParams={{ section: 'latest_investing_guides', destination_type: 'category_page' }}
+              className="text-sm font-semibold text-primary underline dark:text-secondary"
+            >
+              Browse investing archive
+            </SurfaceTrackedLink>
+          </div>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            {LATEST_GUIDES.map((guide) => (
+              <SurfaceTrackedLink
+                key={guide.href}
+                to={guide.href}
+                eventName="homepage_cta_click"
+                ctaLabel={`latest_guide_${guide.slug}`}
+                trackingParams={{ section: 'latest_investing_guides', destination_type: 'article', article_slug: guide.slug }}
+                className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md dark:border-slate-700 dark:bg-slate-900"
+              >
+                <ArticleImage slug={guide.slug} className="h-44" />
+                <div className="p-5">
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-secondary">{guide.category}</p>
+                  <h3 className="mt-2 text-xl font-bold text-primary group-hover:text-secondary dark:text-accent">{guide.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{guide.description}</p>
+                </div>
               </SurfaceTrackedLink>
             ))}
           </div>

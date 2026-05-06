@@ -13,6 +13,7 @@ const CommandPalette = lazy(() => import('./components/CommandPalette'));
 // Lazy-loaded route chunks - only downloaded when visited.
 const ToolsPage = lazyWithPreload(() => import('./pages/ToolsPage'));
 const Blog = lazyWithPreload(() => import('./pages/Blog'));
+const InvestingCategory = lazyWithPreload(() => import('./pages/InvestingCategory'));
 const About = lazyWithPreload(() => import('./pages/About'));
 const Contact = lazyWithPreload(() => import('./pages/Contact'));
 const Methodology = lazyWithPreload(() => import('./pages/Methodology'));
@@ -78,11 +79,17 @@ const FHSARulesCanada2026 = lazyWithPreload(() => import('./pages/blog/fhsa-rule
 const TFSAvsRRSPvsFHSACanada = lazyWithPreload(() => import('./pages/blog/tfsa-vs-rrsp-vs-fhsa-canada'));
 const BestCanadianDividendETFs2026 = lazyWithPreload(() => import('./pages/blog/best-canadian-dividend-etfs-2026'));
 const DividendReinvestmentPlansCanada = lazyWithPreload(() => import('./pages/blog/dividend-reinvestment-plans-canada'));
+const WhatIsADividendETFCanada = lazyWithPreload(() => import('./pages/blog/what-is-a-dividend-etf-canada'));
+const HowToChooseETFsCanada = lazyWithPreload(() => import('./pages/blog/how-to-choose-etfs-canada'));
+const TFSAInvestingMistakesCanada = lazyWithPreload(() => import('./pages/blog/tfsa-investing-mistakes-canada'));
+const DRIPStrategyCanada = lazyWithPreload(() => import('./pages/blog/drip-strategy-canada'));
+const CoveredCallETFsCanadaExplained = lazyWithPreload(() => import('./pages/blog/covered-call-etfs-canada-explained'));
 
 const routeEntries = [
   ['/', Home],
   ['/tools', ToolsPage],
   ['/blog', Blog],
+  ['/blog/investing', InvestingCategory],
   ['/about', About],
   ['/contact', Contact],
   ['/methodology', Methodology],
@@ -141,6 +148,11 @@ const routeEntries = [
   ['/blog/tfsa-vs-rrsp-vs-fhsa-canada', TFSAvsRRSPvsFHSACanada],
   ['/blog/best-canadian-dividend-etfs-2026', BestCanadianDividendETFs2026],
   ['/blog/dividend-reinvestment-plans-canada', DividendReinvestmentPlansCanada],
+  ['/blog/what-is-a-dividend-etf-canada', WhatIsADividendETFCanada],
+  ['/blog/how-to-choose-etfs-canada', HowToChooseETFsCanada],
+  ['/blog/tfsa-investing-mistakes-canada', TFSAInvestingMistakesCanada],
+  ['/blog/drip-strategy-canada', DRIPStrategyCanada],
+  ['/blog/covered-call-etfs-canada-explained', CoveredCallETFsCanadaExplained],
   ['/blog/how-to-invest-in-canada-beginners-2026', HowToInvestBeginners],
   ['/blog/best-hisa-canada-2026', BestHISACanada2026],
   ['/blog/emergency-fund-canada', EmergencyFundCanada],

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import SEO from "../components/SEO";
+import ArticleImage from "../components/ArticleImage";
 import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
 
 const categoryStyle = {
@@ -18,6 +19,46 @@ const categoryStyle = {
 };
 
 const posts = [
+  {
+    slug: "covered-call-etfs-canada-explained",
+    title: "Covered Call ETFs in Canada Explained",
+    date: "2026-05-06",
+    category: "Investing",
+    readTime: "10 min",
+    excerpt: "Learn how covered call ETFs generate income, why yields can be higher, what upside tradeoffs exist, and what Canadians should compare before buying.",
+  },
+  {
+    slug: "drip-strategy-canada",
+    title: "DRIP Strategy Canada: When to Reinvest Dividends",
+    date: "2026-05-06",
+    category: "Dividends",
+    readTime: "9 min",
+    excerpt: "Decide when reinvesting dividends makes sense and when taking cash may be better for taxes, rebalancing, income, or portfolio control.",
+  },
+  {
+    slug: "tfsa-investing-mistakes-canada",
+    title: "TFSA Investing Mistakes Canadians Should Avoid",
+    date: "2026-05-06",
+    category: "TFSA",
+    readTime: "9 min",
+    excerpt: "Avoid overcontributions, withdrawal timing errors, short-term investing risk, business-like trading issues, and foreign dividend surprises.",
+  },
+  {
+    slug: "how-to-choose-etfs-canada",
+    title: "How to Choose ETFs in Canada: Beginner Checklist",
+    date: "2026-05-06",
+    category: "Investing",
+    readTime: "10 min",
+    excerpt: "A Canadian ETF checklist covering account type, asset allocation, MER, diversification, currency, distributions, tax complexity, and risk.",
+  },
+  {
+    slug: "what-is-a-dividend-etf-canada",
+    title: "What Is a Dividend ETF? Canadian Investor Guide",
+    date: "2026-05-06",
+    category: "Investing",
+    readTime: "9 min",
+    excerpt: "Learn how dividend ETFs work, how distributions are paid, what risks to check, and how they may fit a TFSA, RRSP, or taxable account.",
+  },
   {
     slug: "dividend-reinvestment-plans-canada",
     title: "Dividend Reinvestment Plans Canada: How DRIPs Work, Pros, Cons & Taxes",
@@ -319,6 +360,30 @@ const decisionTracks = [
   },
 ];
 
+const mainStorySlug = "best-canadian-dividend-etfs-2026";
+const secondaryFeatureSlugs = [
+  "tfsa-investing-mistakes-canada",
+  "covered-call-etfs-canada-explained",
+  "how-to-choose-etfs-canada",
+  "drip-strategy-canada",
+];
+
+const beginnerHubSlugs = [
+  "how-to-start-investing-canada-2026",
+  "tfsa-investing-mistakes-canada",
+  "what-is-a-dividend-etf-canada",
+  "drip-strategy-canada",
+  "weekly-dividend-etfs",
+];
+
+const popularTools = [
+  { label: "TFSA Calculator", href: "/tools/tfsa-calculator", icon: "TFSA", body: "Model tax-free growth, room, and contribution scenarios." },
+  { label: "RRSP Calculator", href: "/tools/rrsp-calculator", icon: "RRSP", body: "Estimate deduction value, refund impact, and retirement growth." },
+  { label: "Dividend Calculator", href: "/tools/dividend-calculator", icon: "Div", body: "Estimate monthly income, yield, DRIP, and portfolio targets." },
+  { label: "Mortgage Calculator", href: "/tools/mortgage-calculator", icon: "Home", body: "Estimate Canadian mortgage payments, CMHC, and affordability." },
+  { label: "FHSA Calculator", href: "/tools/fhsa-calculator", icon: "FHSA", body: "Plan first-home tax savings, contributions, and growth." },
+];
+
 export default function Blog() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
@@ -346,6 +411,32 @@ export default function Blog() {
     [filteredPosts]
   );
 
+  const mainStory = useMemo(
+    () => posts.find((post) => post.slug === mainStorySlug) || posts[0],
+    []
+  );
+
+  const secondaryFeatures = useMemo(
+    () => secondaryFeatureSlugs
+      .map((slug) => posts.find((post) => post.slug === slug))
+      .filter(Boolean),
+    []
+  );
+
+  const beginnerHubPosts = useMemo(
+    () => beginnerHubSlugs
+      .map((slug) => posts.find((post) => post.slug === slug))
+      .filter(Boolean),
+    []
+  );
+
+  const latestInvestingGuides = useMemo(
+    () => posts
+      .filter((post) => ["Investing", "Dividends", "TFSA", "Beginners"].includes(post.category))
+      .slice(0, 10),
+    []
+  );
+
   return (
     <div className="min-h-screen">
       <SEO
@@ -367,6 +458,101 @@ export default function Blog() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
+        <div className="mb-8 grid gap-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(360px,0.92fr)]">
+          <ArticleImage
+            slug={mainStory.slug}
+            loading="eager"
+            className="min-h-[300px] rounded-2xl shadow-lg lg:min-h-[420px]"
+            imgClassName="aspect-[16/10] lg:aspect-auto"
+          />
+          <div className="flex flex-col justify-center rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-gray-900 md:p-8">
+            <div className="mb-4 flex flex-wrap items-center gap-2 text-xs">
+              <span className="rounded-full bg-emerald-100 px-3 py-1 font-bold uppercase tracking-[0.14em] text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+                Main story
+              </span>
+              <span className="font-semibold text-slate-400">{mainStory.category}</span>
+              <span className="text-slate-300">/</span>
+              <span className="font-semibold text-slate-400">{mainStory.readTime}</span>
+            </div>
+            <h2 className="text-3xl font-bold leading-tight text-primary dark:text-accent md:text-4xl">
+              {mainStory.title}
+            </h2>
+            <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300">
+              {mainStory.excerpt}
+            </p>
+            <SurfaceTrackedLink
+              to={`/blog/${mainStory.slug}`}
+              eventName="blog_index_cta_click"
+              ctaLabel="main_story"
+              trackingParams={{ section: "main_story", destination_type: "article", article_slug: mainStory.slug }}
+              className="mt-6 inline-flex w-fit rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-secondary"
+            >
+              Read main story
+            </SurfaceTrackedLink>
+          </div>
+        </div>
+
+        <div className="mb-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {secondaryFeatures.map((post) => (
+            <SurfaceTrackedLink
+              key={post.slug}
+              to={`/blog/${post.slug}`}
+              eventName="blog_index_cta_click"
+              ctaLabel={`secondary_feature_${post.slug}`}
+              trackingParams={{ section: "secondary_features", destination_type: "article", article_slug: post.slug }}
+              className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-lg dark:border-slate-800 dark:bg-gray-900"
+            >
+              <ArticleImage slug={post.slug} className="h-40" />
+              <div className="p-4">
+                <div className="mb-2 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+                  <span className="rounded-full bg-slate-100 px-2.5 py-1 font-bold text-primary dark:bg-slate-800 dark:text-accent">{post.category}</span>
+                  <span>{post.readTime}</span>
+                </div>
+                <h3 className="text-base font-bold leading-snug text-primary group-hover:text-secondary dark:text-white">
+                  {post.title}
+                </h3>
+                <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-500 dark:text-slate-400">{post.excerpt}</p>
+              </div>
+            </SurfaceTrackedLink>
+          ))}
+        </div>
+
+        <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-gray-900">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Popular tools</p>
+              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the calculators after the guide</h2>
+            </div>
+            <SurfaceTrackedLink
+              to="/tools"
+              eventName="blog_index_cta_click"
+              ctaLabel="popular_tools_all_tools"
+              trackingParams={{ section: "popular_tools", destination_type: "tools_index" }}
+              className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-bold text-primary hover:border-secondary hover:text-secondary dark:border-slate-700 dark:text-slate-100"
+            >
+              View all tools
+            </SurfaceTrackedLink>
+          </div>
+          <div className="mt-5 grid gap-4 md:grid-cols-5">
+            {popularTools.map((tool) => (
+              <SurfaceTrackedLink
+                key={tool.href}
+                to={tool.href}
+                eventName="blog_index_cta_click"
+                ctaLabel={`popular_tool_${tool.label.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
+                trackingParams={{ section: "popular_tools", destination_type: "tool" }}
+                className="rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-md dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-gray-900"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-xs font-black uppercase tracking-[0.08em] text-white">
+                  {tool.icon}
+                </div>
+                <h3 className="mt-4 text-sm font-bold text-primary dark:text-accent">{tool.label}</h3>
+                <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">{tool.body}</p>
+              </SurfaceTrackedLink>
+            ))}
+          </div>
+        </div>
+
         <div className="surface-soft mb-6 p-5">
           <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
             <div>
@@ -380,6 +566,7 @@ export default function Blog() {
               {[
                 { label: "Methodology and sources", href: "/methodology", cta: "blog_intro_methodology" },
                 { label: "Editorial standards", href: "/editorial-standards", cta: "blog_intro_editorial_standards" },
+                { label: "Investing guide archive", href: "/blog/investing", cta: "blog_intro_investing_archive" },
                 { label: "About EasyFinanceTools", href: "/about", cta: "blog_intro_about" },
               ].map((item) => (
                 <SurfaceTrackedLink
@@ -428,6 +615,108 @@ export default function Blog() {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="mb-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+          <section className="surface-card p-5">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Latest investing guides</p>
+                <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Fresh Canadian investing explainers</h2>
+              </div>
+              <SurfaceTrackedLink
+                to="/blog/investing"
+                eventName="blog_index_cta_click"
+                ctaLabel="latest_guides_investing_archive"
+                trackingParams={{ section: "latest_investing_guides", destination_type: "category_page" }}
+                className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-bold text-primary hover:border-secondary hover:text-secondary dark:border-slate-700 dark:text-slate-100"
+              >
+                Investing archive
+              </SurfaceTrackedLink>
+            </div>
+            <div className="mt-5 space-y-4">
+              {latestInvestingGuides.slice(0, 5).map((post) => (
+                <SurfaceTrackedLink
+                  key={post.slug}
+                  to={`/blog/${post.slug}`}
+                  eventName="blog_index_cta_click"
+                  ctaLabel={`latest_investing_${post.slug}`}
+                  trackingParams={{ section: "latest_investing_guides", destination_type: "article", article_slug: post.slug }}
+                  className="group grid gap-4 rounded-2xl border border-slate-200 bg-white p-3 transition hover:border-secondary hover:shadow-md dark:border-slate-700 dark:bg-gray-900 sm:grid-cols-[168px_minmax(0,1fr)]"
+                >
+                  <ArticleImage slug={post.slug} className="h-32 rounded-xl" />
+                  <div className="min-w-0 py-1">
+                    <div className="flex flex-wrap gap-2 text-xs text-slate-400">
+                      <span className="font-bold text-secondary">{post.category}</span>
+                      <span>{post.date}</span>
+                      <span>{post.readTime}</span>
+                    </div>
+                    <h3 className="mt-2 text-lg font-bold leading-snug text-primary group-hover:text-secondary dark:text-accent">
+                      {post.title}
+                    </h3>
+                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{post.excerpt}</p>
+                  </div>
+                </SurfaceTrackedLink>
+              ))}
+            </div>
+          </section>
+
+          <aside className="space-y-6">
+            <section className="surface-soft p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Beginner investing hub</p>
+              <h2 className="mt-2 text-xl font-bold text-primary dark:text-accent">Start here if investing still feels fuzzy</h2>
+              <div className="mt-4 grid gap-3">
+                {beginnerHubPosts.map((post) => (
+                  <SurfaceTrackedLink
+                    key={post.slug}
+                    to={`/blog/${post.slug}`}
+                    eventName="blog_index_cta_click"
+                    ctaLabel={`beginner_hub_${post.slug}`}
+                    trackingParams={{ section: "beginner_hub", destination_type: "article", article_slug: post.slug }}
+                    className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                  >
+                    {post.title}
+                  </SurfaceTrackedLink>
+                ))}
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 dark:border-emerald-900 dark:bg-emerald-950/30">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">Newsletter</p>
+              <h2 className="mt-2 text-xl font-bold text-primary dark:text-accent">Get Canadian investing guides weekly</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                ETF explainers, TFSA strategy, dividend income ideas, and new calculator updates. No hype, no crypto spam.
+              </p>
+              <form className="mt-4 grid gap-3" onSubmit={(event) => event.preventDefault()}>
+                <input
+                  type="email"
+                  placeholder="Email address"
+                  aria-label="Email address"
+                  className="focus-ring rounded-xl border border-emerald-200 bg-white px-4 py-3 text-sm dark:border-emerald-900 dark:bg-slate-900"
+                />
+                <button className="rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white transition hover:bg-secondary" type="submit">
+                  Join the list
+                </button>
+              </form>
+            </section>
+
+            <section className="surface-card p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Platforms and partners</p>
+              <h2 className="mt-2 text-xl font-bold text-primary dark:text-accent">Compare before choosing</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                Brokerage and app pages are framed as education-first comparisons, with affiliate disclosure kept visible.
+              </p>
+              <SurfaceTrackedLink
+                to="/blog/best-investing-apps-canada"
+                eventName="blog_index_cta_click"
+                ctaLabel="partner_section_best_investing_apps"
+                trackingParams={{ section: "partner_education", destination_type: "article" }}
+                className="mt-4 block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+              >
+                Best investing apps in Canada
+              </SurfaceTrackedLink>
+            </section>
+          </aside>
         </div>
 
         <div className="surface-card p-4">
@@ -517,13 +806,7 @@ export default function Blog() {
                     className="group block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-lg dark:border-slate-700 dark:bg-gray-900"
                   >
                     <div className="flex flex-col sm:flex-row">
-                      <div
-                        className={`flex h-28 items-center justify-center bg-gradient-to-br ${style.gradient} px-4 sm:w-36 sm:flex-shrink-0 sm:px-0`}
-                      >
-                        <span className="rounded-full bg-white/15 px-3 py-1 text-sm font-bold text-white">
-                          {style.icon}
-                        </span>
-                      </div>
+                      <ArticleImage slug={post.slug} className="h-44 sm:h-auto sm:w-44 sm:flex-shrink-0" />
                       <div className="flex-1 p-5">
                         <div className="mb-2 flex flex-wrap items-center gap-2 text-xs text-slate-400">
                           <span className={`rounded-full bg-gradient-to-r ${style.gradient} px-2.5 py-0.5 font-semibold text-white`}>
@@ -593,6 +876,22 @@ export default function Blog() {
                   </SurfaceTrackedLink>
                 ))}
               </div>
+            </div>
+
+            <div className="surface-soft p-5">
+              <h3 className="text-lg font-bold text-primary dark:text-accent">Investing archive</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                Browse TFSA, ETF, dividend, covered call, DRIP, and beginner investing guides as one organized category.
+              </p>
+              <SurfaceTrackedLink
+                to="/blog/investing"
+                eventName="blog_index_cta_click"
+                ctaLabel="sidebar_investing_archive"
+                trackingParams={{ section: "sidebar_investing_archive", destination_type: "category_page" }}
+                className="mt-4 block rounded-xl bg-primary px-4 py-3 text-center text-sm font-semibold text-white transition hover:bg-secondary"
+              >
+                Open investing guides
+              </SurfaceTrackedLink>
             </div>
 
             <div className="surface-soft p-5">

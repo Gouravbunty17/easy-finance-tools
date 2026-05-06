@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">FHSA first home buyer editorial image</title>
+  <desc id="desc">A Canadian FHSA and first home buyer planning image with a house, account label, and savings path.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#064e3b"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="120" y="94" width="1040" height="532" rx="42" fill="#fff" opacity="0.94"/>
+  <text x="184" y="184" fill="#0b3558" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="850">FHSA vs RRSP</text>
+  <text x="184" y="232" fill="#64748b" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="600">First-home account planning</text>
+  <path d="M760 396l150-128 150 128v162H760V396Z" fill="#dcfce7"/>
+  <path d="M728 396l182-158 182 158" fill="none" stroke="#0f766e" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="858" y="438" width="104" height="120" rx="8" fill="#0b3558"/>
+  <path d="M210 520c110-110 234-84 312-156 58-54 94-128 178-112" fill="none" stroke="#f2b84b" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="278" cy="468" r="34" fill="#f2b84b"/><circle cx="510" cy="362" r="34" fill="#f2b84b"/><circle cx="700" cy="252" r="34" fill="#f2b84b"/>
+  <text x="236" y="368" fill="#0b3558" font-family="Segoe UI, Arial, sans-serif" font-size="54" font-weight="950">FHSA</text>
+</svg>
