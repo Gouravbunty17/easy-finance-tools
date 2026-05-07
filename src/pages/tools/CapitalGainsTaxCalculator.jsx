@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import SourceList from "../../components/SourceList";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
+import { dividendTaxOfficialSources, taxOfficialSources } from "../../config/officialSources";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -384,6 +386,12 @@ export default function CapitalGainsTaxCalculator() {
           { label: "CRA: Capital gains", href: "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/t4037/capital-gains.html" },
         ]}
         note="Educational estimate only. Verify current tax rules and your asset-specific treatment before filing or selling."
+      />
+
+      <SourceList
+        title="Official investment-tax sources to verify"
+        intro="Use these CRA references to verify capital-gains, dividend, and broader tax treatment before making a taxable-account decision."
+        sources={[dividendTaxOfficialSources[2], dividendTaxOfficialSources[0], taxOfficialSources[0]]}
       />
 
       <div className="mt-12">

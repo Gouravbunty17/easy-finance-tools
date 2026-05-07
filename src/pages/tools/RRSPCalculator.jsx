@@ -19,6 +19,7 @@ import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
+import SourceList from '../../components/SourceList';
 import ResultInsightCard from '../../components/ResultInsightCard';
 import OptimizationTips from '../../components/OptimizationTips';
 import ImportantConsiderations from '../../components/ImportantConsiderations';
@@ -33,6 +34,7 @@ import {
   getEstimatedMarginalTaxRate,
   getRrspAnnualLimit,
 } from '../../config/financial';
+import { rrspOfficialSources } from '../../config/officialSources';
 
 ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
@@ -663,6 +665,12 @@ export default function RRSPCalculator() {
           { label: 'EasyFinanceTools methodology', href: 'https://easyfinancetools.com/methodology' },
         ]}
         note="Educational planning tool only. Confirm deduction room, contribution deadlines, spousal RRSP rules, and retirement-income assumptions before acting."
+      />
+
+      <SourceList
+        title="Official RRSP sources to verify"
+        intro="Use these CRA references to confirm deduction room, contribution timing, and tax-return treatment before making a real RRSP contribution."
+        sources={rrspOfficialSources}
       />
 
       <ReferenceSection

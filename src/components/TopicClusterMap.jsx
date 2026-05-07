@@ -6,6 +6,7 @@ const DEFAULT_CLUSTERS = [
     title: 'TFSA',
     body: 'Room, withdrawals, account priority, and ETF fit.',
     links: [
+      ['TFSA hub', '/topics/tfsa'],
       ['TFSA calculator', '/tools/tfsa-calculator'],
       ['TFSA contribution room', '/blog/tfsa-contribution-room-canada-2026'],
       ['TFSA investing mistakes', '/blog/tfsa-investing-mistakes-canada'],
@@ -15,6 +16,7 @@ const DEFAULT_CLUSTERS = [
     title: 'RRSP',
     body: 'Deduction value, refund use, retirement tax tradeoffs, and RRIF context.',
     links: [
+      ['RRSP hub', '/topics/rrsp'],
       ['RRSP calculator', '/tools/rrsp-calculator'],
       ['RRSP deadline guide', '/blog/rrsp-deadline-canada-2026'],
       ['TFSA vs RRSP', '/blog/tfsa-vs-rrsp-canada-2026'],
@@ -24,6 +26,7 @@ const DEFAULT_CLUSTERS = [
     title: 'FHSA',
     body: 'Eligibility, room timing, tax savings, and first-home withdrawal rules.',
     links: [
+      ['FHSA hub', '/topics/fhsa'],
       ['FHSA calculator', '/tools/fhsa-calculator'],
       ['FHSA rules', '/blog/fhsa-rules-canada-2026'],
       ['FHSA vs RRSP', '/blog/fhsa-vs-rrsp-down-payment-canada-2026'],
@@ -33,6 +36,7 @@ const DEFAULT_CLUSTERS = [
     title: 'Dividend investing',
     body: 'Income targets, ETF yield, DRIP, covered calls, and account fit.',
     links: [
+      ['Dividend hub', '/topics/dividends'],
       ['Dividend calculator', '/tools/dividend-calculator'],
       ['$500/month guide', '/blog/500-month-dividend-canada'],
       ['Dividend ETFs', '/blog/best-canadian-dividend-etfs-2026'],
@@ -42,6 +46,7 @@ const DEFAULT_CLUSTERS = [
     title: 'Home buying',
     body: 'Mortgage payments, affordability, down-payment planning, and payoff tradeoffs.',
     links: [
+      ['Mortgage hub', '/topics/mortgages'],
       ['Mortgage calculator', '/tools/mortgage-calculator'],
       ['Affordability calculator', '/tools/mortgage-affordability-calculator'],
       ['Pay off mortgage faster', '/blog/pay-off-mortgage-faster-canada'],
@@ -51,6 +56,7 @@ const DEFAULT_CLUSTERS = [
     title: 'Beginner investing',
     body: 'Account order, ETFs, emergency fund, and practical first steps.',
     links: [
+      ['Retirement hub', '/topics/retirement'],
       ['Start investing guide', '/blog/how-to-start-investing-canada-2026'],
       ['Choose ETFs', '/blog/how-to-choose-etfs-canada'],
       ['Emergency fund', '/blog/emergency-fund-canada'],

@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import SourceList from "../../components/SourceList";
 import ToolByline from "../../components/ToolByline";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
+import { taxOfficialSources } from "../../config/officialSources";
 
 const PROVINCES = [
   { code: "AB", name: "Alberta" },
@@ -326,6 +328,12 @@ export default function IncomeTaxCalculator() {
           { label: "CRA: Personal income tax rates", href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-rates.html" },
           { label: "CRA: CPP and EI payroll deductions", href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/calculating-deductions.html" },
         ]}
+      />
+
+      <SourceList
+        title="Official tax sources to verify"
+        intro="Use these CRA references to confirm tax rates, payroll deductions, and return-line treatment before relying on a planning estimate."
+        sources={taxOfficialSources}
       />
 
       <div className="mt-10 grid sm:grid-cols-3 gap-4">

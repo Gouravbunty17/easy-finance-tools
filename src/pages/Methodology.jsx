@@ -125,6 +125,21 @@ export default function Methodology() {
             </div>
 
             <div className="surface-card p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Maintenance schedule and quality gates</h2>
+              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+                <p>
+                  Core Canadian rule pages should be checked when CRA, Government of Canada, Bank of Canada, CMHC, FCAC, or lender qualification guidance changes. Registered-account limits, tax brackets, CPP/OAS figures, and mortgage rules get priority because stale assumptions can mislead users quickly.
+                </p>
+                <p>
+                  A calculator update should pass four checks before it is treated as current: official-source verification, formula sanity testing, result-explanation review, and mobile layout review. If a page cannot meet that standard, the safer choice is to improve it, keep it noindexed, or remove it from prominent journeys.
+                </p>
+                <p>
+                  Low-risk utility pages are intentionally not treated as authority pages. They remain noindexed until they contain enough Canadian context, practical examples, limitations, and source support to belong beside the core TFSA, RRSP, FHSA, mortgage, tax, and retirement tools.
+                </p>
+              </div>
+            </div>
+
+            <div className="surface-card p-6 md:p-8">
               <h2 className="text-2xl font-bold text-primary dark:text-accent">Calculator families</h2>
               <div className="mt-5 grid gap-5">
                 {toolGroups.map((group) => (

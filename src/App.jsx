@@ -15,6 +15,7 @@ const CommandPalette = lazy(() => import('./components/CommandPalette'));
 const ToolsPage = lazyWithPreload(() => import('./pages/ToolsPage'));
 const Blog = lazyWithPreload(() => import('./pages/Blog'));
 const InvestingCategory = lazyWithPreload(() => import('./pages/InvestingCategory'));
+const TopicHub = lazyWithPreload(() => import('./pages/TopicHub'));
 const About = lazyWithPreload(() => import('./pages/About'));
 const Contact = lazyWithPreload(() => import('./pages/Contact'));
 const Methodology = lazyWithPreload(() => import('./pages/Methodology'));
@@ -93,6 +94,12 @@ const routeEntries = [
   ['/tools', ToolsPage],
   ['/blog', Blog],
   ['/blog/investing', InvestingCategory],
+  ['/topics/tfsa', TopicHub],
+  ['/topics/rrsp', TopicHub],
+  ['/topics/fhsa', TopicHub],
+  ['/topics/dividends', TopicHub],
+  ['/topics/mortgages', TopicHub],
+  ['/topics/retirement', TopicHub],
   ['/about', About],
   ['/contact', Contact],
   ['/methodology', Methodology],

@@ -67,6 +67,18 @@ export default function About() {
               <EnhancedAuthorBox lastUpdated="May 7, 2026" focus="Canadian finance tools and education" />
             </div>
 
+            <div className="mt-8 surface-card p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Authority, honestly stated</h2>
+              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+                <p>
+                  EasyFinanceTools is founder-operated and does not claim CPA, CFA, CFP, mortgage-broker, or tax-preparer credentials. The site's authority comes from transparent calculator logic, Canada-specific assumptions, visible official sources, and a willingness to noindex or improve pages that are not strong enough.
+                </p>
+                <p>
+                  The content system is built so future guest reviewers or licensed professionals can be credited clearly when that review actually happens. Until then, pages should not imply institutional approval or professional certification.
+                </p>
+              </div>
+            </div>
+
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {[
                 {

@@ -6,10 +6,20 @@ import TLDRBox from "../../components/TLDRBox";
 import ArticleSchema from "../../components/ArticleSchema";
 import FAQSchema from "../../components/FAQSchema";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import SourceList from "../../components/SourceList";
 import TrackedLink from "../../components/TrackedLink";
 import EnhancedAuthorBox from "../../components/EnhancedAuthorBox";
 import EditorialReviewNote from "../../components/EditorialReviewNote";
 import ContinueLearning from "../../components/ContinueLearning";
+import {
+  dividendTaxOfficialSources,
+  fhsaOfficialSources,
+  mortgageOfficialSources,
+  retirementOfficialSources,
+  rrspOfficialSources,
+  taxOfficialSources,
+  tfsaOfficialSources,
+} from "../../config/officialSources";
 import { getAbsoluteArticleImage, getArticleMedia } from "./articleMedia";
 
 function slugify(value) {
@@ -25,10 +35,28 @@ function renderParagraphs(paragraphs = []) {
   ));
 }
 
+function getArticleOfficialSources(article) {
+  if (article.officialSources?.length) return article.officialSources;
+
+  const text = `${article.slug} ${article.category} ${article.title}`.toLowerCase();
+
+  if (text.includes("tfsa") && text.includes("rrsp")) return [tfsaOfficialSources[0], rrspOfficialSources[0], fhsaOfficialSources[0]];
+  if (text.includes("fhsa")) return fhsaOfficialSources;
+  if (text.includes("tfsa")) return tfsaOfficialSources;
+  if (text.includes("rrsp")) return rrspOfficialSources;
+  if (text.includes("mortgage") || text.includes("home buyer") || text.includes("down payment")) return mortgageOfficialSources;
+  if (text.includes("cpp") || text.includes("oas") || text.includes("retirement")) return retirementOfficialSources;
+  if (text.includes("tax bracket") || text.includes("canada child benefit")) return taxOfficialSources;
+  if (text.includes("dividend") || text.includes("drip") || text.includes("covered call")) return dividendTaxOfficialSources;
+
+  return [];
+}
+
 export default function CanadianEducationArticle({ article }) {
   const tocItems = article.sections.map((section) => ({ id: slugify(section.heading), label: section.heading }));
   const imageUrl = article.imageUrl || getAbsoluteArticleImage(article.slug);
   const imageAlt = article.imageAlt || getArticleMedia(article.slug).alt;
+  const officialSources = getArticleOfficialSources(article);
 
   return (
     <div>
@@ -186,6 +214,12 @@ export default function CanadianEducationArticle({ article }) {
           assumptions={article.methodology.assumptions}
           sources={article.methodology.sources}
           note={article.methodology.note}
+        />
+
+        <SourceList
+          title="Official Canadian sources to verify"
+          intro="These primary references help readers verify the Canadian rules, limits, and tax treatment discussed in this guide."
+          sources={officialSources}
         />
 
         <div className="mt-10">

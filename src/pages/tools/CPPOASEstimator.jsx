@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import SourceList from "../../components/SourceList";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import { Bar, Line } from "react-chartjs-2";
 import {
@@ -17,6 +18,7 @@ import {
   Filler,
 } from "chart.js";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
+import { retirementOfficialSources } from "../../config/officialSources";
 
 ChartJS.register(BarElement, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -375,6 +377,12 @@ export default function CPPOASEstimator() {
           { label: "Government of Canada: OAS overview", href: "https://www.canada.ca/en/services/benefits/publicpensions/cpp/old-age-security.html" },
         ]}
         note="Educational estimate only. Use My Service Canada for your actual contribution history and official benefit projections."
+      />
+
+      <SourceList
+        title="Official retirement-benefit sources to verify"
+        intro="Use these government references to confirm CPP, OAS, and retirement-account income rules before relying on a benefit estimate."
+        sources={retirementOfficialSources}
       />
 
       <div className="mt-12">

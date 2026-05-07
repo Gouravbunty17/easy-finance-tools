@@ -20,6 +20,7 @@ import ToolPageSchema from '../../components/ToolPageSchema';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
+import SourceList from '../../components/SourceList';
 import TrackedLink from '../../components/TrackedLink';
 import ResultInsightCard from '../../components/ResultInsightCard';
 import OptimizationTips from '../../components/OptimizationTips';
@@ -32,6 +33,7 @@ import {
   DIVIDEND_INCOME_GOALS,
   getDividendEtfById,
 } from '../../config/financial';
+import { dividendTaxOfficialSources, tfsaOfficialSources } from '../../config/officialSources';
 import { trackToolCalculate, trackToolStart } from '../../lib/analytics';
 import { asNumber, parseNumericInput } from '../../lib/numericInputs';
 
@@ -958,6 +960,12 @@ export default function DividendCalculator() {
           { label: 'EasyFinanceTools methodology', href: 'https://easyfinancetools.com/methodology' },
         ]}
         note="Educational planning tool only. Verify live ETF factsheets, fees, tax treatment, and suitability before acting."
+      />
+
+      <SourceList
+        title="Official dividend and account-tax sources to verify"
+        intro="Use these official references to check taxable dividend, investment-income, and TFSA context before relying on a dividend-income scenario."
+        sources={[...dividendTaxOfficialSources, tfsaOfficialSources[0]]}
       />
 
       <ReferenceSection

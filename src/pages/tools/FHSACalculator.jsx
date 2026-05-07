@@ -19,12 +19,14 @@ import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
+import SourceList from '../../components/SourceList';
 import {
   CANADIAN_PROVINCES,
   CONTENT_LAST_REVIEWED,
   DEFAULT_ASSUMPTIONS,
   REGISTERED_ACCOUNT_LIMITS,
 } from '../../config/financial';
+import { fhsaOfficialSources } from '../../config/officialSources';
 import { calculateFhsaScenario, formatFhsaCurrency as formatCurrency } from '../../lib/fhsaPlanning';
 
 ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
@@ -458,6 +460,12 @@ export default function FHSACalculator() {
           { label: 'EasyFinanceTools methodology', href: 'https://easyfinancetools.com/methodology' },
         ]}
         note="Educational planning tool only. Verify eligibility, room, withdrawal rules, and investment suitability before making contributions or opening an account."
+      />
+
+      <SourceList
+        title="Official FHSA sources to verify"
+        intro="Use these CRA references to confirm FHSA eligibility, contribution room, qualifying withdrawals, and transfer rules before acting on a first-home plan."
+        sources={fhsaOfficialSources}
       />
 
       <ReferenceSection

@@ -188,7 +188,7 @@ const NEXT_STEP_CARDS = [
 const HOME_FAQS = [
   {
     q: 'What is EasyFinanceTools for?',
-    a: 'EasyFinanceTools helps Canadians compare common money decisions such as TFSA vs RRSP, FHSA planning, compound growth, dividend income, tax estimates, and mortgage affordability.',
+    a: 'EasyFinanceTools helps Canadians compare common money decisions such as TFSA vs RRSP, FHSA planning, compound growth, dividend income, tax estimates, and mortgage affordability using educational tools and source-linked guides.',
   },
   {
     q: 'Are the calculators financial advice?',
@@ -229,7 +229,7 @@ export default function Home() {
                 Make better money decisions in Canada
               </h1>
               <p className="mt-6 max-w-3xl text-lg text-blue-100 md:text-xl">
-                Compare TFSA, RRSP, and FHSA decisions, estimate compound growth in CAD, check contribution-room basics, and plan dividend income with practical tools built for Canadians.
+                Compare TFSA, RRSP, and FHSA decisions, estimate compound growth in CAD, check contribution-room basics, and plan dividend income with practical, source-linked tools built for Canadians.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -527,7 +527,8 @@ export default function Home() {
           <div className="mt-5 grid gap-3 md:grid-cols-3">
             {[
               { title: 'Start with the decision tool', href: '/tools/account-decision-tool', body: 'Turn TFSA, RRSP, and FHSA uncertainty into a practical next-step framework.' },
-              { title: 'Read the methodology', href: '/methodology', body: 'See how calculators are built, tested, sourced, and updated.' },
+              { title: 'Use the topic hubs', href: '/topics/tfsa', body: 'Follow TFSA, RRSP, FHSA, dividend, mortgage, and retirement paths instead of hunting through random pages.' },
+              { title: 'Read the methodology', href: '/methodology', body: 'See how calculators are built, tested, sourced, updated, and noindexed when they are not strong enough.' },
               { title: 'Meet the founder', href: '/about', body: 'Learn who runs the site and why it focuses on Canadian finance decisions.' },
             ].map((item) => (
               <SurfaceTrackedLink

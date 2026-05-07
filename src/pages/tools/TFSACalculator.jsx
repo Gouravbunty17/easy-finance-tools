@@ -19,6 +19,7 @@ import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
+import SourceList from '../../components/SourceList';
 import ResultInsightCard from '../../components/ResultInsightCard';
 import OptimizationTips from '../../components/OptimizationTips';
 import ImportantConsiderations from '../../components/ImportantConsiderations';
@@ -33,6 +34,7 @@ import {
   getTfsaAccruedRoom,
   getTfsaEligibleYear,
 } from '../../config/financial';
+import { tfsaOfficialSources } from '../../config/officialSources';
 
 ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
@@ -601,6 +603,12 @@ export default function TFSACalculator() {
           { label: 'EasyFinanceTools methodology', href: 'https://easyfinancetools.com/methodology' },
         ]}
         note="Educational planning tool only. Verify room, withdrawal timing, and account suitability before making real contributions."
+      />
+
+      <SourceList
+        title="Official TFSA sources to verify"
+        intro="Use these CRA references to confirm contribution room, withdrawal timing, and excess-contribution rules before making a real TFSA contribution."
+        sources={tfsaOfficialSources}
       />
 
       <ReferenceSection

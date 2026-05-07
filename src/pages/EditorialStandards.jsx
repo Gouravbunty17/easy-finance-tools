@@ -111,6 +111,21 @@ export default function EditorialStandards() {
                 </p>
               </div>
             </div>
+
+            <div className="surface-card p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Review workflow for high-risk finance pages</h2>
+              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+                <p>
+                  High-risk pages include tax, registered accounts, mortgages, benefits, investing, and retirement planning. These pages should show a last-reviewed date, plain-language limitations, relevant official sources, and links to related calculators or guides that help users continue the decision.
+                </p>
+                <p>
+                  The review order is source first, formula second, explanation third, and monetization last. Referral or affiliate opportunities should not appear before the user has received useful context, and compensation cannot change the calculator logic or risk language.
+                </p>
+                <p>
+                  EasyFinanceTools is currently founder-operated, so the site avoids implying professional certification or institutional review. The content system is designed to support future external expert review notes without fabricating them today.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="space-y-5">

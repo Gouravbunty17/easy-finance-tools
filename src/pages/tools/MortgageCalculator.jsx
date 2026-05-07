@@ -18,6 +18,7 @@ import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
+import SourceList from '../../components/SourceList';
 import ResultInsightCard from '../../components/ResultInsightCard';
 import OptimizationTips from '../../components/OptimizationTips';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
@@ -34,6 +35,7 @@ import {
   getMortgageStressTestRate,
   getPaymentFrequencyDetails,
 } from '../../config/financial';
+import { mortgageOfficialSources } from '../../config/officialSources';
 
 ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
@@ -565,6 +567,12 @@ export default function MortgageCalculator() {
           { label: 'Government of Canada: Making mortgages more affordable', href: 'https://www.canada.ca/en/department-finance/news/2024/09/making-mortgages-more-affordable.html' },
         ]}
         note="Educational planning estimate only. Always confirm lender-specific rates, underwriting, and closing-cost details before making an offer."
+      />
+
+      <SourceList
+        title="Official mortgage sources to verify"
+        intro="Use these Canadian mortgage references to confirm insurance, affordability, rate, and consumer-protection context before relying on a payment estimate."
+        sources={mortgageOfficialSources}
       />
 
       <ReferenceSection

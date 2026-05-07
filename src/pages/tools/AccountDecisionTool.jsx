@@ -9,7 +9,9 @@ import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import OptimizationTips from '../../components/OptimizationTips';
 import ImportantConsiderations from '../../components/ImportantConsiderations';
 import NextStepLinks from '../../components/NextStepLinks';
+import SourceList from '../../components/SourceList';
 import { CONTENT_LAST_REVIEWED } from '../../config/financial';
+import { fhsaOfficialSources, rrspOfficialSources, tfsaOfficialSources } from '../../config/officialSources';
 
 const GOALS = [
   { value: 'home', label: 'First home' },
@@ -275,6 +277,14 @@ export default function AccountDecisionTool() {
             </p>
           </div>
         </aside>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4">
+        <SourceList
+          title="Official account sources to verify"
+          intro="Use these CRA references to confirm TFSA, RRSP, and FHSA rules before acting on any account-priority suggestion."
+          sources={[tfsaOfficialSources[0], rrspOfficialSources[0], fhsaOfficialSources[0]]}
+        />
       </section>
 
       <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">

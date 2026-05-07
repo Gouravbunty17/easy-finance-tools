@@ -18,6 +18,7 @@ import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
+import SourceList from '../../components/SourceList';
 import {
   CONTENT_LAST_REVIEWED,
   DEFAULT_ASSUMPTIONS,
@@ -27,6 +28,7 @@ import {
   getMortgagePrincipalFromPayment,
   getMortgageStressTestRate,
 } from '../../config/financial';
+import { mortgageOfficialSources } from '../../config/officialSources';
 
 ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
@@ -411,6 +413,12 @@ export default function MortgageAffordabilityCalculator() {
           { label: 'Government of Canada: Mortgage affordability measures', href: 'https://www.canada.ca/en/department-finance/news/2024/09/making-mortgages-more-affordable.html' },
         ]}
         note="Educational planning estimate only. Actual lender approval depends on credit, product choice, documentation, and institution-specific underwriting."
+      />
+
+      <SourceList
+        title="Official affordability sources to verify"
+        intro="Use these Canadian references to check mortgage qualification, insurance, and consumer guidance before treating an affordability estimate as a purchase budget."
+        sources={mortgageOfficialSources}
       />
 
       <ReferenceSection

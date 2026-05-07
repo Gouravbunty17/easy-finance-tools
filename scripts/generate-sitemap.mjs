@@ -15,6 +15,12 @@ const CHANGEFREQ_OVERRIDES = {
   "/tools": "weekly",
   "/blog": "weekly",
   "/blog/investing": "weekly",
+  "/topics/tfsa": "weekly",
+  "/topics/rrsp": "weekly",
+  "/topics/fhsa": "weekly",
+  "/topics/dividends": "weekly",
+  "/topics/mortgages": "weekly",
+  "/topics/retirement": "weekly",
   "/about": "monthly",
   "/contact": "monthly",
   "/methodology": "monthly",
@@ -29,6 +35,12 @@ const PRIORITY_OVERRIDES = {
   "/tools": "0.9",
   "/blog": "0.9",
   "/blog/investing": "0.85",
+  "/topics/tfsa": "0.85",
+  "/topics/rrsp": "0.85",
+  "/topics/fhsa": "0.85",
+  "/topics/dividends": "0.85",
+  "/topics/mortgages": "0.85",
+  "/topics/retirement": "0.85",
   "/about": "0.5",
   "/contact": "0.4",
   "/methodology": "0.4",
@@ -106,6 +118,7 @@ function getPriority(entry) {
 
   if (entry.group === "tools") return "0.7";
   if (entry.group === "blog") return "0.7";
+  if (entry.group === "topics") return "0.75";
   return "0.5";
 }
 
