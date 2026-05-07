@@ -13,6 +13,9 @@ export default function Footer() {
             <p className="text-blue-100 text-sm">
               Free, private financial calculators for Canadians. No sign-up required.
             </p>
+            <p className="mt-3 text-sm text-blue-100">
+              Founder-operated by Gourav Kumar in Canada. Educational tools only, not licensed financial advice.
+            </p>
           </div>
           <div>
             <p className="font-bold mb-3 text-white">Tools</p>
@@ -66,6 +69,7 @@ export default function Footer() {
         <div className="border-t border-blue-800 pt-6 text-center text-blue-100 text-sm">
           <p>Copyright 2026 EasyFinanceTools. All rights reserved.</p>
           <p className="mt-1">Built in Canada for Canadian savers, investors, and households.</p>
+          <p className="mt-1">Independent Canadian finance tools and education, with assumptions and sources shown where they matter.</p>
         </div>
       </div>
     </footer>

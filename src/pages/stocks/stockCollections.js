@@ -80,7 +80,7 @@ export const STOCK_COLLECTIONS = {
     items: DIVIDEND_ETFS,
     relatedLinks: [
       { title: "Compare VDY vs XDV", href: "/stocks/compare/vdy-vs-xdv" },
-      { title: "Read weekly dividend ETFs", href: "/blog/weekly-dividend-etfs" },
+      { title: "Read weekly dividend ETFs", href: "/blog/best-canadian-dividend-etfs-2026" },
       { title: "Open dividend calculator", href: "/tools/dividend-calculator" },
     ],
   },
@@ -92,7 +92,7 @@ export const STOCK_COLLECTIONS = {
     items: CANADIAN_DIVIDEND_STOCKS,
     relatedLinks: [
       { title: "Open dividend calculator", href: "/tools/dividend-calculator" },
-      { title: "Read weekly dividend ETFs", href: "/blog/weekly-dividend-etfs" },
+      { title: "Read weekly dividend ETFs", href: "/blog/best-canadian-dividend-etfs-2026" },
       { title: "Compare RY vs TD", href: "/stocks/compare/ry-vs-td" },
     ],
   },

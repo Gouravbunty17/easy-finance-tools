@@ -33,6 +33,16 @@ const tools = [
 
 const categories = ["All", "Savings", "Real Estate", "Tax", "Retirement", "Investing", "Budget"];
 
+const lowValueUtilityLinks = new Set([
+  "/tools/tip-calculator",
+  "/tools/gst-hst-calculator",
+  "/tools/salary-to-hourly-calculator",
+  "/tools/cad-usd-converter",
+  "/tools/inflation-calculator",
+  "/tools/savings-goal",
+  "/tools/net-pay-calculator",
+]);
+
 const decisionPaths = [
   {
     title: "Should I use a TFSA, RRSP, or FHSA first?",
@@ -92,6 +102,7 @@ export default function ToolsPage() {
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
     return tools.filter((tool) => {
+      if (!q && activeCategory === "All" && lowValueUtilityLinks.has(tool.link)) return false;
       const matchesSearch = !q || tool.title.toLowerCase().includes(q) || tool.desc.toLowerCase().includes(q);
       const matchesCategory = activeCategory === "All" || tool.category === activeCategory;
       return matchesSearch && matchesCategory;
@@ -102,7 +113,7 @@ export default function ToolsPage() {
     <main aria-labelledby="tools-page-title">
       <SEO
         title="Free Canadian Finance Calculators 2026 | All Tools"
-        description="Browse 23 free Canadian finance calculators: TFSA, RRSP, FHSA, dividend, mortgage, tax, GIC, FIRE, debt payoff, and more. No sign-up required."
+        description="Browse free Canadian finance calculators for TFSA, RRSP, FHSA, dividend, mortgage, tax, GIC, FIRE, debt payoff, and more. No sign-up required."
         canonical="https://easyfinancetools.com/tools"
       />
       <FAQSchema faqs={toolHubFaqs} />

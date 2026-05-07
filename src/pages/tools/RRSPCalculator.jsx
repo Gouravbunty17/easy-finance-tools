@@ -14,6 +14,8 @@ import SEO from '../../components/SEO';
 import FAQ from '../../components/FAQ';
 import FAQSchema from '../../components/FAQSchema';
 import MethodologyPanel from '../../components/MethodologyPanel';
+import OfficialSourceNote from '../../components/OfficialSourceNote';
+import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
@@ -273,6 +275,10 @@ export default function RRSPCalculator() {
 
           <div className="mt-6">
             <EducationalDisclaimer />
+            <OfficialSourceNote
+              body="RRSP deduction room, contribution deadlines, and deduction treatment should be verified with CRA before contributing."
+              sources={[rrspOfficialSources[0], rrspOfficialSources[1]]}
+            />
           </div>
 
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -647,6 +653,20 @@ export default function RRSPCalculator() {
           still leave the RRSP ahead.
         </p>
       </section>
+
+      <CalculatorCaseStudy
+        title="Ontario resident earning $65,000 deciding whether the RRSP refund is worth it"
+        scenario="A 35-year-old Ontario employee has $8,000 of RRSP room, no employer pension adjustment beyond what is already on CRA records, and is deciding whether to contribute $4,000 or keep the money flexible in a TFSA."
+        inputs={[
+          'Province: Ontario',
+          'Employment income: $65,000',
+          'RRSP contribution tested: $4,000',
+          'Refund use: reinvested rather than spent',
+        ]}
+        result="The calculator estimates the current deduction value and shows how reinvesting the refund can change the long-term comparison."
+        interpretation="The RRSP is strongest if the current tax rate is meaningfully higher than the expected retirement withdrawal rate and the refund is used intentionally. If the refund is spent, the TFSA comparison often becomes tighter."
+        limitation="This example does not model employer pension details, exact tax credits, future salary changes, or retirement benefit recovery tax."
+      />
 
       <MethodologyPanel
         title="How this calculator works: RRSP refund and growth assumptions"

@@ -274,7 +274,7 @@ const TYPE_BADGE = {
 
 const FUND_FALLBACK_RESOURCES = [
   { title: "Best ETFs for a TFSA",     body: "Compare XEQT, VEQT, XGRO, and dividend ETFs for registered accounts.", href: "/blog/best-etfs-for-tfsa-canada-2026" },
-  { title: "Weekly dividend ETFs",     body: "Understand covered-call ETFs and high-yield products before relying on them.", href: "/blog/weekly-dividend-etfs" },
+  { title: "Weekly dividend ETFs",     body: "Understand covered-call ETFs and high-yield products before relying on them.", href: "/blog/best-canadian-dividend-etfs-2026" },
   { title: "Dividend calculator",      body: "Model income and DRIP scenarios for dividend ETFs or stocks.", href: "/tools/dividend-calculator" },
 ];
 
@@ -1433,7 +1433,7 @@ export default function StockPage({ view = "overview" }) {
                     body: isFundLike
                       ? "Compare covered-call and payout-heavy ETFs before relying on headline yield alone."
                       : "Compare platforms before you buy a dividend stock or ETF.",
-                    href: isFundLike ? "/blog/weekly-dividend-etfs" : "/blog/best-dividend-investing-platforms-canada",
+                    href: isFundLike ? "/blog/best-canadian-dividend-etfs-2026" : "/blog/best-dividend-investing-platforms-canada",
                   },
                   {
                     title: relatedComparisons[0]?.label || "Compare alternatives",
@@ -1751,7 +1751,7 @@ export default function StockPage({ view = "overview" }) {
                       desc: isFundLike
                         ? "See how covered-call and high-yield ETFs differ before chasing payout size."
                         : "Review platform choices if this stock is part of a dividend-income plan.",
-                      href: isFundLike ? "/blog/weekly-dividend-etfs" : "/blog/best-dividend-investing-platforms-canada",
+                      href: isFundLike ? "/blog/best-canadian-dividend-etfs-2026" : "/blog/best-dividend-investing-platforms-canada",
                     },
                     {
                       title: relatedComparisons[0]?.label || "Compare alternatives",

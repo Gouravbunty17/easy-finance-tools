@@ -14,6 +14,8 @@ import SEO from '../../components/SEO';
 import FAQ from '../../components/FAQ';
 import FAQSchema from '../../components/FAQSchema';
 import MethodologyPanel from '../../components/MethodologyPanel';
+import OfficialSourceNote from '../../components/OfficialSourceNote';
+import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
@@ -162,6 +164,10 @@ export default function FHSACalculator() {
 
           <div className="mt-6">
             <EducationalDisclaimer />
+            <OfficialSourceNote
+              body="FHSA eligibility, participation room, and qualifying withdrawal rules should be checked against CRA before opening or contributing."
+              sources={[fhsaOfficialSources[0], fhsaOfficialSources[1], fhsaOfficialSources[2]]}
+            />
           </div>
 
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -442,6 +448,20 @@ export default function FHSACalculator() {
           ) : null}
         </aside>
       </div>
+
+      <CalculatorCaseStudy
+        title="First-time buyer in Alberta deciding whether to prioritize FHSA"
+        scenario="A 29-year-old Alberta resident earns $72,000, expects to buy within four years, and is comparing an $8,000 FHSA contribution against keeping the same money in a TFSA."
+        inputs={[
+          'Province: Alberta',
+          'Income: $72,000',
+          'FHSA contribution tested: $8,000',
+          'Home-buying timeline: 4 years',
+        ]}
+        result="The calculator estimates deduction value, remaining room, and projected down-payment balance."
+        interpretation="The FHSA can be compelling when the buyer is eligible, the purchase timeline is real, and a qualifying withdrawal is likely. If the home goal is uncertain, TFSA flexibility deserves a serious comparison."
+        limitation="Eligibility, qualifying withdrawal paperwork, and account-closure timing can change the outcome. The calculator does not replace CRA rules or issuer forms."
+      />
 
       <MethodologyPanel
         title="How this calculator works: FHSA room, tax savings, and growth"

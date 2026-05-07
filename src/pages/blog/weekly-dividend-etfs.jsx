@@ -131,12 +131,12 @@ export default function WeeklyDividendETFs() {
       <SEO
         title="Weekly Dividend ETFs in Canada: How Weekly Payout Funds Actually Work"
         description="Learn how weekly payout and high-yield dividend ETFs actually work, what Canadian investors should check first, and when a simpler TFSA income plan may be the better choice."
-        canonical="https://easyfinancetools.com/blog/weekly-dividend-etfs"
+        canonical="https://easyfinancetools.com/blog/best-canadian-dividend-etfs-2026"
       />
       <ArticleSchema
         headline="Weekly Dividend ETFs in Canada: How Weekly Payout Funds Actually Work"
         description="A Canadian-focused guide to weekly payout ETFs, covered-call income structures, return-of-capital risk, and how to decide whether a high-yield fund belongs in a TFSA income plan."
-        url="https://easyfinancetools.com/blog/weekly-dividend-etfs"
+        url="https://easyfinancetools.com/blog/best-canadian-dividend-etfs-2026"
         datePublished="2025-06-30"
         dateModified="2026-04-22"
       />

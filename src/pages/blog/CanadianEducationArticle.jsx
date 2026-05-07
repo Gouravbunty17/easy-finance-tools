@@ -6,6 +6,7 @@ import TLDRBox from "../../components/TLDRBox";
 import ArticleSchema from "../../components/ArticleSchema";
 import FAQSchema from "../../components/FAQSchema";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import OfficialSourceNote from "../../components/OfficialSourceNote";
 import SourceList from "../../components/SourceList";
 import TrackedLink from "../../components/TrackedLink";
 import EnhancedAuthorBox from "../../components/EnhancedAuthorBox";
@@ -90,6 +91,12 @@ export default function CanadianEducationArticle({ article }) {
 
       <section className="mx-auto max-w-4xl px-4 py-12">
         <TLDRBox headline={article.shortAnswerHeadline} answer={article.shortAnswer} points={article.keyPoints} />
+
+        <OfficialSourceNote
+          title="Source check before you act"
+          body="This guide is educational. Use the official references below to verify account rules, tax treatment, benefit rules, or mortgage guidance before making a personal decision."
+          sources={officialSources}
+        />
 
         <div className="mb-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Table of contents</p>

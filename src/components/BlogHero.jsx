@@ -15,6 +15,7 @@ export default function BlogHero({
   reviewer = "Reviewed against current Canadian source material",
   standardsHref = "/editorial-standards",
   slug,
+  linkedinUrl = "",
 }) {
   const media = slug ? getArticleMedia(slug) : null;
   const hasPhotoBackground = Boolean(media?.image && !media.image.endsWith(".svg"));
@@ -57,6 +58,25 @@ export default function BlogHero({
               <a href={standardsHref} className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85 transition hover:bg-white/20">
                 Editorial standards
               </a>
+            </div>
+
+            <div className="mt-6 max-w-2xl rounded-2xl border border-white/15 bg-white/10 p-4 text-left text-sm leading-6 text-white/85 backdrop-blur">
+              <div className="flex items-start gap-3">
+                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-white/15 text-sm font-black text-white">
+                  GK
+                </div>
+                <div>
+                  <p className="font-bold text-white">Gourav Kumar, Founder of Easy Finance Tools</p>
+                  <p className="mt-1">
+                    Independent Canadian finance tools creator. Educational content only; not a licensed financial advisor, accountant, mortgage broker, or tax professional.
+                  </p>
+                  <div className="mt-2 flex flex-wrap gap-3 text-xs font-semibold">
+                    <Link to={authorHref} className="underline underline-offset-2">About the author</Link>
+                    {linkedinUrl ? <a href={linkedinUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2">LinkedIn</a> : null}
+                    <span>Last reviewed: {date}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

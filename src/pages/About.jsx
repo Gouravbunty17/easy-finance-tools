@@ -4,6 +4,9 @@ import SEO from "../components/SEO";
 import EnhancedAuthorBox from "../components/EnhancedAuthorBox";
 import TopicClusterMap from "../components/TopicClusterMap";
 
+const FOUNDER_HEADSHOT_URL = "";
+const FOUNDER_LINKEDIN_URL = "";
+
 export default function About() {
   return (
     <main className="min-h-screen" aria-labelledby="about-page-title">
@@ -64,14 +67,22 @@ export default function About() {
             </div>
 
             <div className="mt-8">
-              <EnhancedAuthorBox lastUpdated="May 7, 2026" focus="Canadian finance tools and education" />
+              <EnhancedAuthorBox
+                lastUpdated="May 7, 2026"
+                focus="Canadian finance tools and education"
+                headshotUrl={FOUNDER_HEADSHOT_URL}
+                linkedinUrl={FOUNDER_LINKEDIN_URL}
+              />
             </div>
 
             <div className="mt-8 surface-card p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-primary dark:text-accent">Authority, honestly stated</h2>
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Founder identity and role</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
-                  EasyFinanceTools is founder-operated and does not claim CPA, CFA, CFP, mortgage-broker, or tax-preparer credentials. The site's authority comes from transparent calculator logic, Canada-specific assumptions, visible official sources, and a willingness to noindex or improve pages that are not strong enough.
+                  EasyFinanceTools is built and edited by Gourav Kumar, an independent Canadian finance tools creator. The site exists to make Canadian money decisions easier to understand by pairing calculators with assumptions, official sources, and plain-language tradeoffs.
+                </p>
+                <p>
+                  Gourav is not a licensed financial advisor, accountant, mortgage broker, tax professional, CPA, CFA, or CFP. The site's authority comes from transparent calculator logic, Canada-specific assumptions, visible official sources, and a willingness to noindex or improve pages that are not strong enough.
                 </p>
                 <p>
                   The content system is built so future guest reviewers or licensed professionals can be credited clearly when that review actually happens. Until then, pages should not imply institutional approval or professional certification.

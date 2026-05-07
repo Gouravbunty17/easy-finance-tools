@@ -342,7 +342,7 @@ export default function EmergencyFundCanada() {
               <span className="text-sm text-gray-500">Tool</span>
               <p className="font-semibold text-primary dark:text-accent mt-1">Savings Goal Calculator</p>
             </Link>
-            <Link to="/blog/how-much-tfsa-room-2026" className="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
+            <Link to="/blog/tfsa-contribution-room-canada-2026" className="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
               <span className="text-sm text-gray-500">TFSA</span>
               <p className="font-semibold text-primary dark:text-accent mt-1">How Much TFSA Room Do I Have in 2026?</p>
             </Link>

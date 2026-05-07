@@ -203,7 +203,7 @@ export default function CanadaChildBenefit2026() {
               <span className="text-sm text-gray-500">Tax</span>
               <p className="font-semibold text-primary dark:text-accent mt-1">Canadian Tax Brackets 2026</p>
             </Link>
-            <Link to="/blog/rrsp-deadline-2026" className="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
+            <Link to="/blog/rrsp-deadline-canada-2026" className="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
               <span className="text-sm text-gray-500">RRSP</span>
               <p className="font-semibold text-primary dark:text-accent mt-1">RRSP Deadline 2026</p>
             </Link>

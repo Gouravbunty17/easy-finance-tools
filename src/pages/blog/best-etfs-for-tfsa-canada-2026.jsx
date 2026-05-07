@@ -307,7 +307,7 @@ export default function BestETFsForTFSA() {
         </p>
 
         <p>
-          If you are considering dividend-heavy ETFs, compare them against a broad-market TFSA plan first. Our <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="weekly_dividend_etf_context" to="/blog/weekly-dividend-etfs" className="text-primary underline">weekly dividend ETF guide</TrackedLink> walks through the income, MER, and covered-call tradeoffs.
+          If you are considering dividend-heavy ETFs, compare them against a broad-market TFSA plan first. Our <TrackedLink articleSlug="best-etfs-for-tfsa-canada-2026" ctaLabel="weekly_dividend_etf_context" to="/blog/best-canadian-dividend-etfs-2026" className="text-primary underline">weekly dividend ETF guide</TrackedLink> walks through the income, MER, and covered-call tradeoffs.
         </p>
 
         <div className="not-prose my-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-900/20">

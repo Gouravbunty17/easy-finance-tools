@@ -310,6 +310,13 @@ const posts = [
   },
 ];
 
+const hiddenFromArchiveSlugs = new Set([
+  "tfsa-vs-rrsp-2026",
+  "how-much-tfsa-room-2026",
+  "rrsp-deadline-2026",
+  "weekly-dividend-etfs",
+]);
+
 const categories = [
   "All",
   "Beginners",
@@ -374,7 +381,7 @@ const beginnerHubSlugs = [
   "tfsa-investing-mistakes-canada",
   "what-is-a-dividend-etf-canada",
   "drip-strategy-canada",
-  "weekly-dividend-etfs",
+  "best-canadian-dividend-etfs-2026",
 ];
 
 const popularTools = [
@@ -391,6 +398,7 @@ export default function Blog() {
 
   const filteredPosts = useMemo(() => {
     return posts.filter((post) => {
+      if (hiddenFromArchiveSlugs.has(post.slug)) return false;
       const q = search.toLowerCase();
       const matchesSearch =
         !q ||

@@ -33,13 +33,13 @@ export default function TFSAvsRRSP() {
       <SEO
         title="TFSA vs RRSP: Which Is Better in 2026?"
         description="TFSA vs RRSP compared side by side for 2026. Learn when each account wins, how to use both together, and what to watch before contributing."
-        canonical="https://easyfinancetools.com/blog/tfsa-vs-rrsp-2026"
+        canonical="https://easyfinancetools.com/blog/tfsa-vs-rrsp-canada-2026"
       />
 
       <ArticleSchema
         headline="TFSA vs RRSP: Which Is Better in 2026?"
         description="TFSA vs RRSP compared side by side for 2026. Learn when each account wins, how to use both together, and what to watch before contributing."
-        url="https://easyfinancetools.com/blog/tfsa-vs-rrsp-2026"
+        url="https://easyfinancetools.com/blog/tfsa-vs-rrsp-canada-2026"
         datePublished="2026-03-28"
         dateModified="2026-04-07"
       />

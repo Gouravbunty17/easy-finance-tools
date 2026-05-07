@@ -326,7 +326,7 @@ export default function BestDividendInvestingPlatformsCanada() {
               {
                 title: "Weekly dividend ETFs",
                 body: "Understand the tradeoffs behind high-yield and weekly-distribution ETF products.",
-                href: "/blog/weekly-dividend-etfs",
+                href: "/blog/best-canadian-dividend-etfs-2026",
               },
               {
                 title: "Best investing apps",
@@ -361,7 +361,7 @@ export default function BestDividendInvestingPlatformsCanada() {
               <span className="text-sm text-gray-500">Income planning</span>
               <p className="mt-1 font-semibold text-primary dark:text-accent">Dividend Calculator</p>
             </TrackedLink>
-            <TrackedLink articleSlug="best-dividend-investing-platforms-canada" ctaLabel="related_weekly_dividend_etfs" to="/blog/weekly-dividend-etfs" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
+            <TrackedLink articleSlug="best-dividend-investing-platforms-canada" ctaLabel="related_weekly_dividend_etfs" to="/blog/best-canadian-dividend-etfs-2026" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
               <span className="text-sm text-gray-500">Dividend guide</span>
               <p className="mt-1 font-semibold text-primary dark:text-accent">Weekly Dividend ETFs</p>
             </TrackedLink>

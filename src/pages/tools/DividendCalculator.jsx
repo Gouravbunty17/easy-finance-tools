@@ -15,6 +15,8 @@ import SEO from '../../components/SEO';
 import FAQ from '../../components/FAQ';
 import FAQSchema from '../../components/FAQSchema';
 import MethodologyPanel from '../../components/MethodologyPanel';
+import OfficialSourceNote from '../../components/OfficialSourceNote';
+import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import ToolByline from '../../components/ToolByline';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
@@ -570,6 +572,10 @@ export default function DividendCalculator() {
 
           <div className="mt-6">
             <EducationalDisclaimer />
+            <OfficialSourceNote
+              body="Dividend income can have different tax treatment depending on account type. Verify taxable-account rules with CRA before relying on an income plan."
+              sources={[dividendTaxOfficialSources[0], dividendTaxOfficialSources[1], tfsaOfficialSources[0]]}
+            />
           </div>
 
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -944,6 +950,20 @@ export default function DividendCalculator() {
         </div>
       </section>
 
+      <CalculatorCaseStudy
+        title="Investor testing a $500/month Canadian dividend target"
+        scenario="A Canadian investor wants $500 per month from dividend ETFs but is deciding whether the portfolio should sit in a TFSA, RRSP, or taxable account and whether the yield assumption is realistic."
+        inputs={[
+          'Income target: $500 per month',
+          'Portfolio type: Canadian dividend ETF basket',
+          'Yield tested: 4% to 6%',
+          'DRIP: compared on and off',
+        ]}
+        result="The calculator translates the monthly income goal into required capital and shows how DRIP assumptions change the long-term path."
+        interpretation="If the plan only works at a very high yield, the risk may be hidden in slower growth, covered-call tradeoffs, or falling unit prices. A lower-yield, better-diversified ETF may require more capital but less concentration risk."
+        limitation="ETF distributions are not guaranteed. The calculator does not model exact tax slips, adjusted cost base, foreign withholding, or issuer-specific distribution changes."
+      />
+
       <MethodologyPanel
         title="How this calculator works: ETF income and dividend assumptions"
         summary="This page is built for scenario planning, not live ETF quotes. It combines a yield assumption, optional dividend growth, price growth, and DRIP behavior to show how income and account value could change over time."
@@ -1055,7 +1075,7 @@ export default function DividendCalculator() {
               body: 'Learn how DRIPs work in Canada, including synthetic DRIPs, taxable-account reporting, and adjusted cost base.',
             },
             {
-              href: '/blog/weekly-dividend-etfs',
+              href: '/blog/best-canadian-dividend-etfs-2026',
               title: 'Weekly dividend ETF guide',
               body: 'See why payout frequency can be attractive without assuming it makes the ETF a better long-term choice.',
             },

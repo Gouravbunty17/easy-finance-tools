@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import OfficialSourceNote from "../../components/OfficialSourceNote";
+import CalculatorCaseStudy from "../../components/CalculatorCaseStudy";
 import SourceList from "../../components/SourceList";
 import ToolByline from "../../components/ToolByline";
 import ToolPageSchema from "../../components/ToolPageSchema";
@@ -315,6 +317,11 @@ export default function IncomeTaxCalculator() {
         </div>
       </section>
 
+      <OfficialSourceNote
+        body="Tax brackets, payroll deductions, CPP, EI, and tax-return treatment should be verified with CRA before filing or making a tax decision."
+        sources={[taxOfficialSources[0], taxOfficialSources[1]]}
+      />
+
       <MethodologyPanel
         title="How this tax calculator works"
         summary="This calculator estimates income tax using 2026 federal and provincial bracket assumptions, then adds CPP and EI payroll deductions to show approximate take-home pay. It is designed for directional planning, not tax filing."
@@ -328,6 +335,20 @@ export default function IncomeTaxCalculator() {
           { label: "CRA: Personal income tax rates", href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-rates.html" },
           { label: "CRA: CPP and EI payroll deductions", href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/calculating-deductions.html" },
         ]}
+      />
+
+      <CalculatorCaseStudy
+        title="Ontario employee earning $80,000 estimating take-home pay"
+        scenario="An Ontario employee wants a directional view of annual tax, CPP, EI, and take-home pay before deciding whether an RRSP contribution might reduce taxable income."
+        inputs={[
+          'Province: Ontario',
+          'Employment income: $80,000',
+          'RRSP deduction tested: $5,000',
+          'Employment type: regular salaried income',
+        ]}
+        result="The calculator estimates income tax and payroll deductions, then compares take-home pay before and after the RRSP deduction input."
+        interpretation="The result is useful for planning cash flow and understanding marginal tax pressure. It should not be used as a filing result because real returns include credits, deductions, benefits, and personal facts this model does not handle."
+        limitation="This is not tax software. It does not include every credit, benefit, taxable benefit, self-employment rule, or province-specific nuance."
       />
 
       <SourceList

@@ -424,12 +424,12 @@ export default function BestRRSPAccountsCanada() {
               {
                 title: "RRSP deadline guide",
                 body: "See how contribution timing and refund planning fit into the account decision.",
-                href: "/blog/rrsp-deadline-2026",
+                href: "/blog/rrsp-deadline-canada-2026",
               },
               {
                 title: "TFSA vs RRSP",
                 body: "Choose the right account before optimizing the provider.",
-                href: "/blog/tfsa-vs-rrsp-2026",
+                href: "/blog/tfsa-vs-rrsp-canada-2026",
               },
               {
                 title: "Wealthsimple vs Questrade",
@@ -460,7 +460,7 @@ export default function BestRRSPAccountsCanada() {
         <div className="mt-10 border-t pt-8 dark:border-gray-700">
           <h3 className="mb-4 text-lg font-bold text-primary dark:text-accent">Related articles and tools</h3>
           <div className="grid gap-4 sm:grid-cols-2">
-            <TrackedLink articleSlug="best-rrsp-accounts-canada" ctaLabel="related_rrsp_deadline" to="/blog/rrsp-deadline-2026" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
+            <TrackedLink articleSlug="best-rrsp-accounts-canada" ctaLabel="related_rrsp_deadline" to="/blog/rrsp-deadline-canada-2026" className="block rounded-lg bg-white p-4 shadow transition hover:shadow-md dark:bg-gray-800">
               <span className="text-sm text-gray-500">RRSP planning</span>
               <p className="mt-1 font-semibold text-primary dark:text-accent">RRSP Deadline 2026: Contribution Deadline, Limits & Tax Refund Tips</p>
             </TrackedLink>

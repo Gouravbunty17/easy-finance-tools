@@ -14,6 +14,8 @@ import SEO from '../../components/SEO';
 import FAQ from '../../components/FAQ';
 import FAQSchema from '../../components/FAQSchema';
 import MethodologyPanel from '../../components/MethodologyPanel';
+import OfficialSourceNote from '../../components/OfficialSourceNote';
+import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
@@ -250,6 +252,10 @@ export default function TFSACalculator() {
 
           <div className="mt-6">
             <EducationalDisclaimer />
+            <OfficialSourceNote
+              body="TFSA contribution room and withdrawal timing should be checked against CRA before making a real contribution."
+              sources={[tfsaOfficialSources[0], tfsaOfficialSources[1]]}
+            />
           </div>
 
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -585,6 +591,20 @@ export default function TFSACalculator() {
           return assumption, and timeline hold up.
         </p>
       </section>
+
+      <CalculatorCaseStudy
+        title="Ontario investor checking whether the TFSA can handle the next $6,000"
+        scenario="A 31-year-old Ontario resident has $18,000 invested in a TFSA, no same-year withdrawals, and wants to add $500 per month for the next year before comparing RRSP deductions."
+        inputs={[
+          'Province: Ontario',
+          'Current TFSA balance: $18,000',
+          'Planned contribution: $500 per month',
+          'Expected return: 5.5% before fees',
+        ]}
+        result="The calculator is used to separate contribution-room safety from projected growth."
+        interpretation="If the room estimate is comfortable, the TFSA can remain a flexible investing account. If room is tight, the better next step is to confirm CRA records before contributing and compare the same dollars against RRSP or FHSA options."
+        limitation="CRA My Account can lag recent transactions. Same-year withdrawals and transfers between institutions can make the calculator estimate too optimistic."
+      />
 
       <MethodologyPanel
         title="How this calculator works: TFSA room and growth assumptions"

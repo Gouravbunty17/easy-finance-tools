@@ -13,6 +13,8 @@ import {
 import SEO from '../../components/SEO';
 import FAQ from '../../components/FAQ';
 import MethodologyPanel from '../../components/MethodologyPanel';
+import OfficialSourceNote from '../../components/OfficialSourceNote';
+import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
@@ -306,6 +308,10 @@ export default function MortgageCalculator() {
 
           <div className="mt-6">
             <EducationalDisclaimer />
+            <OfficialSourceNote
+              body="Mortgage payments, insurance, and qualification context should be checked against official Canadian consumer guidance and lender documents."
+              sources={[mortgageOfficialSources[0], mortgageOfficialSources[2], mortgageOfficialSources[3]]}
+            />
           </div>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -550,6 +556,20 @@ export default function MortgageCalculator() {
           </div>
         </aside>
       </div>
+
+      <CalculatorCaseStudy
+        title="Ontario buyer testing a $650,000 purchase before talking to a lender"
+        scenario="A buyer is considering a $650,000 home with a $65,000 down payment, 25-year amortization, and a 5.0% fixed-rate assumption. They want to know whether the payment, CMHC insurance, and closing costs still fit the household plan."
+        inputs={[
+          'Province: Ontario',
+          'Purchase price: $650,000',
+          'Down payment: $65,000',
+          'Rate and amortization: 5.0% over 25 years',
+        ]}
+        result="The calculator estimates the mortgage payment, insured-mortgage impact, land transfer tax, and total interest path."
+        interpretation="The payment is only one part of affordability. If closing cash or stress-test pressure is tight, the next step is the affordability tool rather than simply shopping for a slightly lower rate."
+        limitation="Real approvals depend on credit, debts, property type, lender rules, insurance eligibility, municipal taxes, and exact closing costs."
+      />
 
       <MethodologyPanel
         title="How this mortgage planner works"
