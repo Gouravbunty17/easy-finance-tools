@@ -42,6 +42,7 @@ const PRIORITY_OVERRIDES = {
   "/tools/income-tax-calculator": "0.9",
   "/tools/mortgage-calculator": "0.9",
   "/tools/compound-interest-calculator": "0.8",
+  "/tools/account-decision-tool": "0.9",
   "/tools/mortgage-affordability-calculator": "0.8",
   "/tools/rent-vs-buy": "0.8",
   "/tools/capital-gains-tax": "0.8",

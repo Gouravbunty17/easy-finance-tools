@@ -2,7 +2,6 @@ import React from 'react';
 import SEO from '../components/SEO';
 import ArticleImage from '../components/ArticleImage';
 import SurfaceTrackedLink from '../components/SurfaceTrackedLink';
-import ReferralSection from '../components/ReferralSection';
 import EducationalDisclaimer from '../components/EducationalDisclaimer';
 import FAQSchema from '../components/FAQSchema';
 import TopicClusterMap from '../components/TopicClusterMap';
@@ -10,9 +9,9 @@ import TopicClusterMap from '../components/TopicClusterMap';
 const GOAL_CARDS = [
   {
     title: 'Pay less tax',
-    description: 'Use the TFSA vs RRSP decision guide when the next contribution could land in more than one registered account.',
-    href: '/blog/tfsa-vs-rrsp-canada-2026',
-    cta: 'Compare TFSA vs RRSP',
+    description: 'Answer a few questions first, then use the TFSA, RRSP, or FHSA calculator that matches the account decision.',
+    href: '/tools/account-decision-tool',
+    cta: 'Use decision tool',
     ctaLabel: 'goal_pay_less_tax',
     badge: 'Reduce taxes / choose account',
     goalType: 'tax',
@@ -235,13 +234,13 @@ export default function Home() {
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <SurfaceTrackedLink
-                  to="/blog/tfsa-vs-rrsp-canada-2026"
+                  to="/tools/account-decision-tool"
                   eventName="homepage_cta_click"
-                  ctaLabel="hero_compare_tfsa_vs_rrsp"
-                  trackingParams={{ section: 'hero', destination_type: 'article' }}
+                  ctaLabel="hero_account_decision_tool"
+                  trackingParams={{ section: 'hero', destination_type: 'tool' }}
                   className="rounded-2xl bg-white px-6 py-4 text-lg font-bold text-primary transition hover:bg-blue-50"
                 >
-                  Compare TFSA vs RRSP
+                  Find your next account
                 </SurfaceTrackedLink>
                 <SurfaceTrackedLink
                   to="/tools"
@@ -519,22 +518,32 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 pb-16">
-        <ReferralSection
-          placement="homepage_lower_router_cta"
-          badge="Helpful next step"
-          title="Open an investing account after the account choice is clear"
-          highlight="investing account"
-          description="If the homepage helped you decide between TFSA, RRSP, FHSA, or a dividend-income path, a low-friction investing account can be a reasonable next step after the strategy is settled."
-          fitHeading="When this CTA makes sense"
-          fitPoints={[
-            'You already know which account or path should come first.',
-            'You want a simple place to buy and hold ETFs without adding more decision noise.',
-            'You have already used the guides and calculators to narrow the strategy.',
-          ]}
-          details="Use the referral code at signup | Keep comparing fees, account features, and product options before deciding"
-          disclosure="Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change how the homepage routes users into guides, calculators, or account comparisons."
-          buttonLabel="Open an account with Wealthsimple"
-        />
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Why this site exists</p>
+          <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Decision support before products</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            EasyFinanceTools is built to help Canadians understand account order, calculator assumptions, and tradeoffs before comparing platforms or opening accounts. Product links belong after the education, not before the decision.
+          </p>
+          <div className="mt-5 grid gap-3 md:grid-cols-3">
+            {[
+              { title: 'Start with the decision tool', href: '/tools/account-decision-tool', body: 'Turn TFSA, RRSP, and FHSA uncertainty into a practical next-step framework.' },
+              { title: 'Read the methodology', href: '/methodology', body: 'See how calculators are built, tested, sourced, and updated.' },
+              { title: 'Meet the founder', href: '/about', body: 'Learn who runs the site and why it focuses on Canadian finance decisions.' },
+            ].map((item) => (
+              <SurfaceTrackedLink
+                key={item.href}
+                to={item.href}
+                eventName="homepage_cta_click"
+                ctaLabel={`trust_path_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`}
+                trackingParams={{ section: 'trust_path', destination_type: item.href.startsWith('/tools') ? 'tool' : 'trust_page' }}
+                className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900/60"
+              >
+                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.body}</p>
+              </SurfaceTrackedLink>
+            ))}
+          </div>
+        </div>
       </section>
     </main>
   );

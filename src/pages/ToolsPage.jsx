@@ -5,6 +5,7 @@ import EducationalDisclaimer from "../components/EducationalDisclaimer";
 import FAQSchema from "../components/FAQSchema";
 
 const tools = [
+  { title: "Account Decision Tool", desc: "Answer a few questions to decide whether TFSA, RRSP, or FHSA deserves the next dollar before choosing products.", link: "/tools/account-decision-tool", badge: "Start Here", category: "Savings", color: "border-emerald-200 hover:border-emerald-400" },
   { title: "Tip Calculator", desc: "Calculate the tip, split the bill, and compare pre-tax vs after-tax tipping with simple input boxes.", link: "/tools/tip-calculator", badge: "New", category: "Budget", color: "border-amber-200 hover:border-amber-400" },
   { title: "GST/HST Calculator", desc: "Add sales tax or reverse it from a final price for every Canadian province and territory.", link: "/tools/gst-hst-calculator", badge: "New", category: "Tax", color: "border-emerald-200 hover:border-emerald-400" },
   { title: "Salary to Hourly Calculator", desc: "Turn annual salary into hourly, bi-weekly, semi-monthly, and monthly gross pay with vacation-week assumptions.", link: "/tools/salary-to-hourly-calculator", badge: "New", category: "Budget", color: "border-sky-200 hover:border-sky-400" },
@@ -35,14 +36,14 @@ const categories = ["All", "Savings", "Real Estate", "Tax", "Retirement", "Inves
 const decisionPaths = [
   {
     title: "Should I use a TFSA, RRSP, or FHSA first?",
-    body: "Use the account comparison guide before opening a calculator if the account order is still unclear.",
-    href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada",
+    body: "Use the decision tool before opening a calculator if the account order is still unclear.",
+    href: "/tools/account-decision-tool",
     ctaLabel: "decision_path_tfsa_rrsp_fhsa",
   },
   {
     title: "Where should my next registered-account dollar go?",
-    body: "Start with TFSA vs RRSP, then use the FHSA calculator if a first home is part of the plan.",
-    href: "/blog/tfsa-vs-rrsp-canada-2026",
+    body: "Start with the decision tool, then use the FHSA or RRSP calculator if either account is still competing.",
+    href: "/tools/account-decision-tool",
     ctaLabel: "decision_path_registered_accounts",
   },
   {
