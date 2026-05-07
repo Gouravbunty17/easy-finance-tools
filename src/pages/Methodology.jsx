@@ -71,6 +71,21 @@ export default function Methodology() {
               </div>
             </div>
 
+            <div className="surface-card p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">How calculators are built, tested, and updated</h2>
+              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+                <p>
+                  Each calculator starts with the practical question a Canadian user is trying to answer: contribution room, tax estimate, mortgage payment, dividend income, savings path, or household budget. We then map the required inputs, identify the governing Canadian assumptions, and keep the calculation client-side wherever possible.
+                </p>
+                <p>
+                  For rule-based calculators, we check formulas and limits against official sources. For scenario calculators, we disclose that returns, rates, inflation, and timing are user assumptions rather than predictions. Before publishing or updating a calculator, we test common cases, zero or edge values, mobile layout, and whether the result explanation still matches the formula.
+                </p>
+                <p>
+                  Updates are prioritized when CRA limits, tax brackets, mortgage rules, Bank of Canada data sources, CMHC/FCAC guidance, or core assumptions change. Pages that cannot be kept current or that do not contain enough original explanation should be improved or noindexed rather than treated as finished core content.
+                </p>
+              </div>
+            </div>
+
             <div className="grid gap-4 md:grid-cols-3">
               {[
                 {

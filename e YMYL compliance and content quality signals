@@ -1,0 +1,39 @@
+warning: in the working copy of 'public/sitemap.xml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/generate-sitemap.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/prerender.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/site-routes.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/App.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/Footer.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/ReferralSection.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/SEO.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/WealthsimpleBanner.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/components/WealthsimpleWidget.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/pages/About.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/pages/AffiliateDisclosure.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/pages/EditorialStandards.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/pages/Methodology.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/pages/PrivacyPolicy.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/pages/blog/articleMedia.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/pages/blog/best-canadian-dividend-etfs-2026.jsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/pages/blog/tfsa-vs-rrsp-canada-2026.jsx', LF will be replaced by CRLF the next time Git touches it
+ public/sitemap.xml                                 | 120 [32m++++[m[31m-----------------[m
+ scripts/generate-sitemap.mjs                       |   4 [32m+[m[31m-[m
+ scripts/prerender.mjs                              |   3 [32m+[m[31m-[m
+ scripts/site-routes.mjs                            |   5 [32m+[m
+ src/App.jsx                                        |  11 [32m++[m
+ src/components/Footer.jsx                          |  19 [32m++[m[31m--[m
+ src/components/ReferralSection.jsx                 |  42 [32m+++++[m[31m---[m
+ src/components/SEO.jsx                             |   6 [32m+[m[31m-[m
+ src/components/WealthsimpleBanner.jsx              |   6 [32m+[m[31m-[m
+ src/components/WealthsimpleWidget.jsx              |  32 [32m+++[m[31m---[m
+ src/pages/About.jsx                                |  10 [32m+[m[31m-[m
+ src/pages/AffiliateDisclosure.jsx                  |   3 [32m+[m
+ src/pages/Blog.jsx                                 |  16 [32m+[m[31m--[m
+ src/pages/EditorialStandards.jsx                   |  30 [32m++++++[m
+ src/pages/InvestingCategory.jsx                    |   6 [32m+[m[31m-[m
+ src/pages/Methodology.jsx                          |  15 [32m+++[m
+ src/pages/PrivacyPolicy.jsx                        |   6 [32m+[m[31m-[m
+ src/pages/blog/articleMedia.js                     |   8 [32m+[m[31m-[m
+ .../blog/best-canadian-dividend-etfs-2026.jsx      |   4 [32m+[m[31m-[m
+ src/pages/blog/tfsa-vs-rrsp-canada-2026.jsx        |   9 [32m++[m
+ 20 files changed, 187 insertions(+), 168 deletions(-)

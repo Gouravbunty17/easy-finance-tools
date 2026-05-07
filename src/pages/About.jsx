@@ -68,8 +68,8 @@ export default function About() {
                   body: "Everything you type into a calculator stays in your browser. Inputs are never sent to a server.",
                 },
                 {
-                  title: "Rule-accurate",
-                  body: "Calculators mirror the governing CRA, Interest Act, or CMHC rule, including edge cases.",
+                  title: "Source-aware",
+                  body: "Calculators are built around Canadian source material and disclose important assumptions and limitations.",
                 },
                 {
                   title: "Made for Canada",
@@ -87,10 +87,10 @@ export default function About() {
               <h2 className="text-2xl font-bold text-primary dark:text-accent">How we build calculators</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
-                  Every calculator on this site follows the same process. First, we identify the underlying rule — the CRA publication, the Interest Act section, the CMHC premium schedule, or the Bank of Canada release that governs the calculation. Second, we write a reference implementation that mirrors the rule exactly, including edge cases such as Canadian semi-annual compounding, partial-year residency, or TFSA withdrawal-reinstatement lag. Third, we document the assumptions on the page itself in a methodology panel that names the source and the update date.
+                  Every calculator on this site follows the same process. First, we identify the underlying rule or assumption, such as CRA guidance, a mortgage convention, a CMHC premium schedule, or a Bank of Canada data source. Second, we build the estimate and test common scenarios and edge cases. Third, we document the assumptions on the page itself in a methodology panel that names the source and the update date.
                 </p>
                 <p>
-                  Calculators are rebuilt whenever the rules change. When CRA announces the annual TFSA or RRSP limit each fall, the related calculator is updated within a week. When the federal government changes insured-mortgage rules — for example the December 2024 increase to the $1.5 million insurable ceiling — the mortgage calculator is revised with a visible "last updated" stamp and a link to the policy announcement.
+                  Calculators are reviewed when important rules change. When CRA announces annual registered-account limits or when mortgage rules change, related calculators should be checked and updated with a visible "last updated" stamp when the calculation or explanation changes.
                 </p>
                 <p>
                   Inputs are never transmitted off your device. Contributions, balances, income, and dates entered into any calculator remain in your browser's memory and are discarded when you close the tab.
@@ -129,7 +129,7 @@ export default function About() {
               <h2 className="text-2xl font-bold text-primary dark:text-accent">About the editor</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
-                  EasyFinanceTools is built and edited by <strong>Gourav Kumar</strong>. The site grew out of personal research into Canadian tax, registered accounts, and household financial decisions — which is why every calculator is designed to surface the rule behind the result, not just the number. Each tool starts as a private planning worksheet and is released publicly only after the underlying rule has been verified against the CRA, Department of Finance Canada, Bank of Canada, or CMHC source that governs it.
+                  EasyFinanceTools is built and edited by <strong>Gourav Kumar</strong>. The site grew out of personal research into Canadian tax, registered accounts, and household financial decisions, which is why each calculator is designed to surface the assumption behind the result, not just the number.
                 </p>
                 <p>
                   For editorial questions, factual corrections, or partnership inquiries, please use the <Link to="/contact" className="text-secondary underline-offset-2 hover:underline">Contact page</Link>. Privacy and data-subject requests are handled through the same channel and are responded to within 30 days as required by PIPEDA.

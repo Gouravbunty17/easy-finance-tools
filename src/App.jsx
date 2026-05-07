@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'rea
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import PageDisclaimer from './components/PageDisclaimer';
 import { trackPageView } from './lib/analytics';
 import { lazyWithPreload } from './lib/lazyWithPreload';
 
@@ -21,6 +22,7 @@ const EditorialStandards = lazyWithPreload(() => import('./pages/EditorialStanda
 const PrivacyPolicy = lazyWithPreload(() => import('./pages/PrivacyPolicy'));
 const Terms = lazyWithPreload(() => import('./pages/Terms'));
 const AffiliateDisclosure = lazyWithPreload(() => import('./pages/AffiliateDisclosure'));
+const Disclaimer = lazyWithPreload(() => import('./pages/Disclaimer'));
 
 const DividendCalculator = lazyWithPreload(() => import('./pages/tools/DividendCalculator'));
 const TFSACalculator = lazyWithPreload(() => import('./pages/tools/TFSACalculator'));
@@ -94,8 +96,10 @@ const routeEntries = [
   ['/contact', Contact],
   ['/methodology', Methodology],
   ['/editorial-standards', EditorialStandards],
+  ['/privacy', PrivacyPolicy],
   ['/privacy-policy', PrivacyPolicy],
   ['/terms', Terms],
+  ['/disclaimer', Disclaimer],
   ['/affiliate-disclosure', AffiliateDisclosure],
   ['/tools/dividend-calculator', DividendCalculator],
   ['/tools/tfsa-calculator', TFSACalculator],
@@ -190,6 +194,8 @@ function useSpaPageTracking() {
 export default function App() {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const routes = useMemo(() => routeEntries, []);
+  const location = useLocation();
+  const isToolPage = location.pathname.startsWith('/tools/');
 
   useSpaPageTracking();
 
@@ -232,6 +238,11 @@ export default function App() {
           />
         </Routes>
       </div>
+      {isToolPage ? (
+        <div className="mx-auto w-full max-w-6xl px-4 pb-8">
+          <PageDisclaimer compact />
+        </div>
+      ) : null}
       <Footer />
     </div>
   );

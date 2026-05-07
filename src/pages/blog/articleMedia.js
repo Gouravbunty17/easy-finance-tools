@@ -19,6 +19,10 @@ export const articleMediaBySlug = {
     image: "/article-images/tfsa-investing.svg",
     alt: "TFSA contribution room editorial illustration with growth line and account label",
   },
+  "tfsa-vs-rrsp-canada-2026": {
+    image: "/article-images/tfsa-vs-rrsp-canada-2026.webp",
+    alt: "Canadian TFSA and RRSP planning scale with savings jar, retirement folder, and Toronto skyline",
+  },
   "how-much-tfsa-room-2026": {
     image: "/article-images/tfsa-investing.svg",
     alt: "TFSA room planning illustration for Canadian investors",
@@ -52,8 +56,8 @@ export const articleMediaBySlug = {
     alt: "FHSA first home buyer planning illustration",
   },
   "fhsa-rules-canada-2026": {
-    image: "/article-images/fhsa-home-buying.svg",
-    alt: "FHSA account rules illustration for first home buyers in Canada",
+    image: "/article-images/fhsa-rules-canada-2026.webp",
+    alt: "Canadian FHSA rules planning desk with home key, savings coins, transfer arrows, and Toronto skyline",
   },
   "how-to-start-investing-canada-2026": {
     image: "/article-images/beginner-investing-canada.svg",

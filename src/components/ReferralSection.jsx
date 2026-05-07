@@ -6,17 +6,29 @@ const REFERRAL_URL = `https://wealthsimple.com/invite/${REFERRAL_CODE}`;
 
 export default function ReferralSection({
   placement = "referral_section",
-  disclosure = "Affiliate disclosure: We may earn a referral bonus if you sign up using this code. This does not change how we explain or rank tools.",
-  badge = "Limited Offer",
-  title = "Get $25 free with Wealthsimple",
-  highlight = "$25 free",
-  description = "Sign up and deposit just $100 to claim a $25 cash bonus. Use the referral code below at signup.",
-  details = "No fee to open | Takes about 5 minutes | Bonus usually arrives within days",
+  disclosure = "This may be a referral link. We may earn a commission or bonus, but this does not affect our educational content.",
+  badge = "Referral disclosure",
+  title = "Wealthsimple referral link",
+  highlight = "referral",
+  description = "Only consider a platform after comparing fees, account features, risks, and your own needs. The referral code is optional.",
+  details = "Provider terms, promotions, eligibility, and fees can change. Verify details with Wealthsimple before opening an account.",
   fitHeading = "Why this may fit",
   fitPoints = [],
-  buttonLabel = "Sign Up and Claim Bonus",
+  buttonLabel = "View Wealthsimple terms",
 }) {
   const [copied, setCopied] = useState(false);
+  const safeDisclosure =
+    "This may be a referral link. We may earn a commission or bonus, but this does not affect our educational content.";
+  const safeTitle = /bonus|\$25|free|sign up|open a/i.test(title)
+    ? "Wealthsimple referral link"
+    : title;
+  const safeHighlight = safeTitle.includes(highlight) ? highlight : "referral";
+  const safeButtonLabel = /sign up|claim|open/i.test(buttonLabel)
+    ? "View provider terms"
+    : buttonLabel;
+  const safeDetails = /bonus usually|use the bonus|signup|sign up/i.test(details)
+    ? "Provider terms, promotions, eligibility, and fees can change. Verify details with Wealthsimple before opening or funding an account."
+    : details;
 
   const copyCode = () => {
     navigator.clipboard.writeText(REFERRAL_CODE).then(() => {
@@ -33,7 +45,7 @@ export default function ReferralSection({
   return (
     <section className="my-10">
       <p className="mb-3 text-center text-xs text-gray-500">
-        {disclosure}
+        {safeDisclosure}
       </p>
 
       <div className="rounded-2xl border border-[#007f79]/35 bg-gradient-to-br from-[#007f79]/10 to-[#003366]/10 p-6 dark:border-[#007f79]/25 dark:from-[#007f79]/5 dark:to-[#003366]/5">
@@ -47,14 +59,14 @@ export default function ReferralSection({
               {badge}
             </div>
             <h3 className="mb-1 text-lg font-bold text-gray-900 dark:text-white">
-              {title.includes(highlight) ? (
+              {safeTitle.includes(safeHighlight) ? (
                 <>
-                  {title.split(highlight)[0]}
-                  <span className="text-[#006b66] dark:text-[#4fd1c5]">{highlight}</span>
-                  {title.split(highlight)[1]}
+                  {safeTitle.split(safeHighlight)[0]}
+                  <span className="text-[#006b66] dark:text-[#4fd1c5]">{safeHighlight}</span>
+                  {safeTitle.split(safeHighlight)[1]}
                 </>
               ) : (
-                title
+                safeTitle
               )}
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -70,7 +82,7 @@ export default function ReferralSection({
                 </ul>
               </div>
             )}
-            <p className="mt-1.5 text-xs text-gray-500">{details}</p>
+            <p className="mt-1.5 text-xs text-gray-500">{safeDetails}</p>
           </div>
 
           <div className="flex shrink-0 flex-col items-center gap-2">
@@ -103,7 +115,7 @@ export default function ReferralSection({
                 });
               }}
             >
-              {buttonLabel}
+              {safeButtonLabel}
             </a>
           </div>
         </div>

@@ -1,3 +1,5 @@
+import { isNoindexRoute } from "./quality-routes.mjs";
+
 export const SITE_URL = "https://easyfinancetools.com";
 
 export const STATIC_ROUTES = [
@@ -7,8 +9,10 @@ export const STATIC_ROUTES = [
   { route: "/blog/investing", sourcePath: "src/pages/InvestingCategory.jsx", group: "pages" },
   { route: "/about", sourcePath: "src/pages/About.jsx", group: "pages" },
   { route: "/contact", sourcePath: "src/pages/Contact.jsx", group: "pages" },
+  { route: "/privacy", sourcePath: "src/pages/PrivacyPolicy.jsx", group: "pages" },
   { route: "/privacy-policy", sourcePath: "src/pages/PrivacyPolicy.jsx", group: "pages" },
   { route: "/terms", sourcePath: "src/pages/Terms.jsx", group: "pages" },
+  { route: "/disclaimer", sourcePath: "src/pages/Disclaimer.jsx", group: "pages" },
   { route: "/affiliate-disclosure", sourcePath: "src/pages/AffiliateDisclosure.jsx", group: "pages" },
   { route: "/editorial-standards", sourcePath: "src/pages/EditorialStandards.jsx", group: "pages" },
   { route: "/methodology", sourcePath: "src/pages/Methodology.jsx", group: "pages" },
@@ -83,3 +87,4 @@ export const BLOG_ROUTES = [
 
 export const SITE_ROUTES = [...STATIC_ROUTES, ...TOOL_ROUTES, ...BLOG_ROUTES];
 export const PRERENDER_ROUTES = SITE_ROUTES.map((entry) => entry.route);
+export const INDEXABLE_SITE_ROUTES = SITE_ROUTES.filter((entry) => !isNoindexRoute(entry.route));

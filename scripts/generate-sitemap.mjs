@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { SITE_ROUTES, SITE_URL } from "./site-routes.mjs";
+import { INDEXABLE_SITE_ROUTES, SITE_URL } from "./site-routes.mjs";
 
 const PROJECT_ROOT = process.cwd();
 const OUTPUT_PATH = path.join(PROJECT_ROOT, "public", "sitemap.xml");
@@ -116,7 +116,7 @@ async function getLastModified(sourcePath) {
 
 async function buildSitemap() {
   const entries = await Promise.all(
-    SITE_ROUTES.map(async (entry) => ({
+    INDEXABLE_SITE_ROUTES.map(async (entry) => ({
       loc: normalizeSiteUrl(entry.route),
       lastmod: await getLastModified(entry.sourcePath),
       changefreq: getChangefreq(entry),

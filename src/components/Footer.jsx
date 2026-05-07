@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { SITEWIDE_FINANCIAL_DISCLAIMER } from "./PageDisclaimer";
 
 export default function Footer() {
   return (
@@ -31,16 +32,20 @@ export default function Footer() {
               <li><Link to="/methodology" className="hover:text-white">Methodology</Link></li>
               <li><Link to="/editorial-standards" className="hover:text-white">Editorial Standards</Link></li>
               <li><Link to="/affiliate-disclosure" className="hover:text-white">Affiliate Disclosure</Link></li>
-              <li><Link to="/terms" className="hover:text-white">Terms and Disclaimer</Link></li>
-              <li><Link to="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
+              <li><Link to="/disclaimer" className="hover:text-white">Disclaimer</Link></li>
+              <li><Link to="/terms" className="hover:text-white">Terms</Link></li>
+              <li><Link to="/privacy" className="hover:text-white">Privacy Policy</Link></li>
             </ul>
           </div>
         </div>
 
         <div className="mb-8 rounded-2xl border border-blue-800 bg-white/5 p-4 text-sm text-blue-100">
-          <p className="font-semibold text-white">Methodology and disclosure</p>
+          <p className="font-semibold text-white">Financial disclaimer</p>
           <p className="mt-2">
-            Tool outputs are educational estimates based on current assumptions, published limits, and visible methodology on each calculator page. We do not store calculator inputs in our database. Some pages may contain referral links, and any partner relationship should be disclosed on-page before a recommendation appears.
+            {SITEWIDE_FINANCIAL_DISCLAIMER}
+          </p>
+          <p className="mt-2">
+            Tool outputs are educational estimates based on current assumptions, published limits, and visible methodology on each calculator page. We do not store calculator inputs in our database. Some pages may contain referral links, and any partner relationship should be disclosed near the relevant callout.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <Link to="/methodology" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
@@ -52,14 +57,14 @@ export default function Footer() {
             <Link to="/affiliate-disclosure" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
               Affiliate disclosure
             </Link>
-            <Link to="/terms" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
-              Read terms
+            <Link to="/disclaimer" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
+              Full disclaimer
             </Link>
           </div>
         </div>
 
         <div className="border-t border-blue-800 pt-6 text-center text-blue-100 text-sm">
-          <p>Copyright 2026 EasyFinanceTools. All rights reserved. Not financial advice.</p>
+          <p>Copyright 2026 EasyFinanceTools. All rights reserved.</p>
           <p className="mt-1">Built in Canada for Canadian savers, investors, and households.</p>
         </div>
       </div>

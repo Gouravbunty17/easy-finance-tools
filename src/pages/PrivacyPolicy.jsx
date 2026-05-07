@@ -10,12 +10,16 @@ const COOKIES = [
 ];
 
 export default function PrivacyPolicy() {
+  const isLegacyPrivacyPath =
+    typeof window !== "undefined" && window.location.pathname.replace(/\/+$/, "") === "/privacy-policy";
+
   return (
     <section className="max-w-3xl mx-auto px-4 py-16">
       <SEO
         title="Privacy Policy"
         description="How EasyFinanceTools handles data, cookies, advertising disclosures, and the rights available to you under PIPEDA, Quebec's Law 25, the GDPR, and the CCPA."
-        canonical="https://easyfinancetools.com/privacy-policy"
+        canonical="https://easyfinancetools.com/privacy"
+        robots={isLegacyPrivacyPath ? "noindex,follow,max-image-preview:large" : undefined}
       />
       <h1 className="text-4xl font-bold text-primary dark:text-accent mb-2">Privacy Policy</h1>
       <p className="text-gray-500 mb-10">Last updated: April 28, 2026</p>

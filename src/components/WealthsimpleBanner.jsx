@@ -35,7 +35,7 @@ const WealthsimpleWidget = () => {
     <div className="wealthsimple-container my-4">
       <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded">
         <p className="text-blue-700">
-          <strong>Special Offer:</strong> Use referral code <span className="font-mono bg-blue-100 px-2 py-1 rounded">R8F7ZW</span> when signing up for bonus rewards
+          <strong>Referral disclosure:</strong> This may be a referral link. We may earn a commission or bonus, but this does not affect our educational content. Verify Wealthsimple's current terms before opening an account. Referral code: <span className="font-mono bg-blue-100 px-2 py-1 rounded">R8F7ZW</span>
         </p>
       </div>
       
@@ -48,7 +48,7 @@ const WealthsimpleWidget = () => {
       </div>
       
       <p className="text-sm text-gray-500 mt-3 text-center">
-        Powered by Wealthsimple • Sign up required • Fees may apply
+        Wealthsimple is a third-party platform. Sign-up may be required, fees may apply, and terms can change.
       </p>
     </div>
   );

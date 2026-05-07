@@ -5,6 +5,7 @@ import { createServer } from "node:http";
 import puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
 import { PRERENDER_ROUTES, SITE_URL } from "./site-routes.mjs";
+import { isNoindexRoute } from "./quality-routes.mjs";
 
 const isVercel = process.env.VERCEL === "1";
 
@@ -204,7 +205,7 @@ async function prerenderRoute(browser, route) {
     throw new Error(`Missing canonical URL after prerendering ${routeLabel}`);
   }
 
-  if (normalizeCanonical(snapshot.canonical) !== expectedCanonical) {
+  if (!isNoindexRoute(route) && normalizeCanonical(snapshot.canonical) !== expectedCanonical) {
     throw new Error(
       `Canonical mismatch for ${routeLabel}: expected ${expectedCanonical}, received ${snapshot.canonical}`
     );

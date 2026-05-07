@@ -1,4 +1,5 @@
 import React from "react";
+import { shouldNoindexPath } from "../config/qualityRoutes";
 
 export default function SEO({
   title,
@@ -22,6 +23,9 @@ export default function SEO({
       "Free 2026 Canadian finance calculators for TFSA, RRSP, FHSA, dividends, mortgage, and tax. Plain-English guides, no sign-up, built for Canadians.";
     const normalizedPath = window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/+$/, "");
     const url = canonical || `${siteOrigin}${normalizedPath}`;
+    const robotsValue = shouldNoindexPath(normalizedPath)
+      ? "noindex,follow,max-image-preview:large"
+      : robots;
     const imageUrl = image || "https://easyfinancetools.com/og-image.svg";
     const imageType = imageUrl.endsWith(".webp")
       ? "image/webp"
@@ -49,7 +53,7 @@ export default function SEO({
 
     setMeta("description", desc);
     setMeta("author", "Gourav Kumar");
-    setMeta("robots", robots);
+    setMeta("robots", robotsValue);
     setMeta("og:title", fullTitle, true);
     setMeta("og:description", desc, true);
     setMeta("og:url", url, true);

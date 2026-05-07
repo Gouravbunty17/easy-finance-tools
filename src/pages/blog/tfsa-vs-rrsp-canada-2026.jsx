@@ -15,6 +15,11 @@ import {
   RRSP_RULES,
   TFSA_ANNUAL_LIMITS,
 } from '../../config/financial';
+import { getAbsoluteArticleImage, getArticleMedia } from './articleMedia';
+
+const ARTICLE_SLUG = 'tfsa-vs-rrsp-canada-2026';
+const ARTICLE_IMAGE = getAbsoluteArticleImage(ARTICLE_SLUG);
+const ARTICLE_IMAGE_ALT = getArticleMedia(ARTICLE_SLUG).alt;
 
 function formatCurrency(value, digits = 0) {
   return Number(value || 0).toLocaleString('en-CA', {
@@ -125,6 +130,8 @@ export default function TFSAvsRRSPCanada2026() {
         title="TFSA vs RRSP 2026: Which Should You Fund First?"
         description="Use your income, tax rate, and goals to see whether TFSA or RRSP should get the next dollar in 2026."
         canonical="https://easyfinancetools.com/blog/tfsa-vs-rrsp-canada-2026"
+        image={ARTICLE_IMAGE}
+        imageAlt={ARTICLE_IMAGE_ALT}
       />
       <ArticleSchema
         headline="TFSA vs RRSP in Canada (2026): Which Should You Max First?"
@@ -132,6 +139,7 @@ export default function TFSAvsRRSPCanada2026() {
         url="https://easyfinancetools.com/blog/tfsa-vs-rrsp-canada-2026"
         datePublished="2026-04-23"
         dateModified="2026-04-23"
+        imageUrl={ARTICLE_IMAGE}
       />
       <FAQSchema faqs={FAQS} />
 
@@ -142,6 +150,7 @@ export default function TFSAvsRRSPCanada2026() {
         date="April 23, 2026"
         readTime="11 min read"
         gradient="from-blue-500 to-indigo-700"
+        slug={ARTICLE_SLUG}
       />
 
       <section className="mx-auto max-w-5xl px-4 py-12">

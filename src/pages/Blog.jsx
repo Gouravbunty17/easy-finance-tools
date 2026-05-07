@@ -101,7 +101,7 @@ const posts = [
   },
   {
     slug: "best-canadian-dividend-etfs-2026",
-    title: "Best Canadian Dividend ETFs 2026: Income, Fees & Risks",
+    title: "Canadian Dividend ETFs 2026: Income, Fees & Risks",
     date: "2026-04-29",
     category: "Dividends",
     readTime: "11 min",
@@ -149,7 +149,7 @@ const posts = [
   },
   {
     slug: "best-dividend-investing-platforms-canada",
-    title: "Best Dividend Investing Platforms in Canada (2026)",
+    title: "Dividend Investing Platforms in Canada (2026)",
     date: "2026-04-04",
     category: "Investing",
     readTime: "10 min",
@@ -157,7 +157,7 @@ const posts = [
   },
   {
     slug: "best-investing-apps-canada",
-    title: "Best Investing Apps in Canada (2026)",
+    title: "Investing Apps in Canada (2026)",
     date: "2026-04-04",
     category: "Investing",
     readTime: "11 min",
@@ -165,7 +165,7 @@ const posts = [
   },
   {
     slug: "best-rrsp-accounts-canada",
-    title: "Best RRSP Accounts in Canada (2026)",
+    title: "RRSP Accounts in Canada (2026)",
     date: "2026-04-04",
     category: "Investing",
     readTime: "11 min",
@@ -173,7 +173,7 @@ const posts = [
   },
   {
     slug: "best-tfsa-brokers-canada",
-    title: "Best TFSA Brokers in Canada (2026)",
+    title: "TFSA Brokers in Canada (2026)",
     date: "2026-04-04",
     category: "Investing",
     readTime: "11 min",
@@ -197,7 +197,7 @@ const posts = [
   },
   {
     slug: "best-hisa-canada-2026",
-    title: "Best High-Interest Savings Accounts in Canada (2026)",
+    title: "High-Interest Savings Accounts in Canada (2026)",
     date: "2026-04-02",
     category: "Savings",
     readTime: "8 min",
@@ -261,7 +261,7 @@ const posts = [
   },
   {
     slug: "best-gic-rates-canada-2026",
-    title: "Best GIC Rates in Canada (March 2026)",
+    title: "GIC Rates in Canada (March 2026)",
     date: "2026-03-29",
     category: "Savings",
     readTime: "7 min",
@@ -285,7 +285,7 @@ const posts = [
   },
   {
     slug: "best-etfs-for-tfsa-canada-2026",
-    title: "Best ETFs for Your TFSA in Canada (2026)",
+    title: "ETFs for Your TFSA in Canada (2026)",
     date: "2026-03-28",
     category: "Investing",
     readTime: "9 min",

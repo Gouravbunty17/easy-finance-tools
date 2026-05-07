@@ -81,6 +81,36 @@ export default function EditorialStandards() {
                 </p>
               </div>
             </div>
+
+            <div className="surface-card p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Source selection, updates, and corrections</h2>
+              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+                <p>
+                  Primary sources come first. For tax, registered accounts, and benefits, we prefer CRA, Government of Canada, Department of Finance Canada, and official program pages. For interest rates, inflation, and exchange-rate data, we prefer Bank of Canada sources. For mortgage and consumer finance guidance, we prefer CMHC and FCAC sources where relevant.
+                </p>
+                <p>
+                  Pages are updated when a rule, limit, rate source, calculation, example, or material explanation changes. We do not invent freshness dates. If a page has only received minor formatting changes, the update date should not imply a full financial review.
+                </p>
+                <p>
+                  Corrections can be submitted through the Contact page. When a correction changes a number, formula, source, or recommendation context, the page should be reviewed, updated, and dated so readers can see that the change was handled.
+                </p>
+              </div>
+            </div>
+
+            <div className="surface-card p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Calculator testing and AI-assisted drafting</h2>
+              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+                <p>
+                  Calculator pages should be tested with simple examples, edge cases, and known official values where those are available. High-risk pages such as tax, mortgage, and registered-account calculators should show limitations and source links close to the methodology section.
+                </p>
+                <p>
+                  AI tools may be used to draft, reorganize, or summarize educational content, but the site should not publish invented credentials, fake reviews, fabricated traffic numbers, or unsupported claims. AI-assisted content is reviewed for Canadian context, source alignment, tone, and obvious calculation errors before publishing.
+                </p>
+                <p>
+                  Affiliate independence is required. Referral compensation cannot decide calculator formulas, methodology notes, source selection, or whether risks and limitations are shown.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="space-y-5">

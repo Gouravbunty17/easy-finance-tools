@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 const WealthsimpleWidget = () => {
   useEffect(() => {
     const initWealthsimple = () => {
-      if (window.ws && typeof window.ws === 'function') {
+      if (window.ws && typeof window.ws === "function") {
         try {
-          window.ws('destroy');
-          window.ws('init', window.wealthsimpleRedesignSettings);
+          window.ws("destroy");
+          window.ws("init", window.wealthsimpleRedesignSettings);
         } catch (e) {
-          console.error('Wealthsimple error:', e);
+          console.error("Wealthsimple error:", e);
         }
       } else {
         setTimeout(initWealthsimple, 500);
@@ -18,38 +18,38 @@ const WealthsimpleWidget = () => {
     initWealthsimple();
 
     return () => {
-      if (window.ws && typeof window.ws === 'function') {
-        window.ws('destroy');
+      if (window.ws && typeof window.ws === "function") {
+        window.ws("destroy");
       }
     };
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto my-12 px-4">
-      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-md text-blue-800">
+    <div className="mx-auto my-12 max-w-4xl px-4">
+      <div className="rounded-md border-l-4 border-blue-500 bg-blue-50 p-4 text-blue-800">
         <p>
-          💸 <strong>Special Offer:</strong> Use referral code{' '}
-          <span className="font-mono bg-white px-2 py-1 rounded border border-blue-300">R8F7ZW</span> to get $25 when you sign up.
+          <strong>Referral disclosure:</strong> This may be a referral link. We may earn a commission or bonus, but this does not affect our educational content. Verify Wealthsimple's current terms before opening an account. Referral code{" "}
+          <span className="rounded border border-blue-300 bg-white px-2 py-1 font-mono">R8F7ZW</span>.
         </p>
       </div>
 
       <div
         id="wealthsimple-widget"
-        className="min-h-[300px] border rounded-lg bg-white shadow-sm mt-6 flex items-center justify-center"
+        className="mt-6 flex min-h-[300px] items-center justify-center rounded-lg border bg-white shadow-sm"
       >
         <div className="text-center text-gray-400">
-          <div className="animate-spin h-10 w-10 border-b-2 border-blue-500 rounded-full mx-auto mb-3" />
+          <div className="mx-auto mb-3 h-10 w-10 animate-spin rounded-full border-b-2 border-blue-500" />
           <p>Loading Wealthsimple investment tools...</p>
         </div>
       </div>
 
-      <p className="text-center text-sm mt-4 text-blue-600 underline">
+      <p className="mt-4 text-center text-sm text-blue-600 underline">
         <a
           href="https://wealthsimple.com/invite/R8F7ZW"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer sponsored"
         >
-          Or click here to claim your $25 bonus →
+          View Wealthsimple terms
         </a>
       </p>
     </div>

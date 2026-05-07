@@ -3,8 +3,8 @@ import CanadianEducationArticle from "./CanadianEducationArticle";
 
 const article = {
   slug: "best-canadian-dividend-etfs-2026",
-  title: "Best Canadian Dividend ETFs 2026: Income, Fees & Risks",
-  seoTitle: "Best Canadian Dividend ETFs 2026 | Income, Fees & Risks",
+  title: "Canadian Dividend ETFs 2026: Income, Fees & Risks",
+  seoTitle: "Canadian Dividend ETFs 2026 | Income, Fees & Risks",
   metaDescription: "Compare Canadian dividend ETFs for 2026 by income focus, fees, diversification, covered-call risk, tax treatment, and TFSA or RRSP fit.",
   canonical: "https://easyfinancetools.com/blog/best-canadian-dividend-etfs-2026",
   category: "Dividends | Canada",

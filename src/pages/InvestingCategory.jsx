@@ -28,7 +28,7 @@ const guides = [
         excerpt: "Understand why covered call ETF yields can be higher, what upside tradeoffs exist, and how to compare income and total return.",
       },
       {
-        title: "Best ETFs for Your TFSA in Canada (2026)",
+        title: "ETFs for Your TFSA in Canada (2026)",
         href: "/blog/best-etfs-for-tfsa-canada-2026",
         date: "2026-03-28",
         readTime: "9 min",
@@ -80,7 +80,7 @@ const guides = [
         excerpt: "Decide when reinvesting dividends makes sense and when taking cash may be better for taxes, rebalancing, or income.",
       },
       {
-        title: "Best Canadian Dividend ETFs 2026: Income, Fees & Risks",
+        title: "Canadian Dividend ETFs 2026: Income, Fees & Risks",
         href: "/blog/best-canadian-dividend-etfs-2026",
         date: "2026-04-29",
         readTime: "11 min",
@@ -113,7 +113,7 @@ const guides = [
         excerpt: "Step-by-step guidance for first-time Canadian investors choosing accounts, ETFs, and common mistakes to avoid.",
       },
       {
-        title: "Best Investing Apps in Canada (2026)",
+        title: "Investing Apps in Canada (2026)",
         href: "/blog/best-investing-apps-canada",
         date: "2026-04-04",
         readTime: "11 min",

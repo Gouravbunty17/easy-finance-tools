@@ -20,6 +20,9 @@ export default function AffiliateDisclosure() {
           promo-code boxes, or sponsored-style links to financial platforms. If you click one of those links or use a
           referral code, we may earn compensation at no extra cost to you.
         </p>
+        <p>
+          Current referral relationships may include Wealthsimple links or the Wealthsimple referral code R8F7ZW. Wealthsimple can change its promotions, eligibility rules, fees, and account terms, so verify details directly with the provider before opening or funding an account.
+        </p>
 
         <h2>How affiliate relationships affect content</h2>
         <p>
