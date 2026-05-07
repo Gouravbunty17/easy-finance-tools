@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import EnhancedAuthorBox from "../components/EnhancedAuthorBox";
+import TopicClusterMap from "../components/TopicClusterMap";
 
 export default function About() {
   return (
@@ -61,6 +63,10 @@ export default function About() {
               </div>
             </div>
 
+            <div className="mt-8">
+              <EnhancedAuthorBox lastUpdated="May 7, 2026" focus="Canadian finance tools and education" />
+            </div>
+
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {[
                 {
@@ -81,6 +87,10 @@ export default function About() {
                   <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-8">
+              <TopicClusterMap title="The education library is organized around real Canadian decisions" />
             </div>
 
             <div className="mt-8 surface-card p-6 md:p-8">

@@ -79,6 +79,40 @@ const article = {
       "If Alex were not buying a home, the decision changes. At $85,000 of income, Alex might compare RRSP deduction value with TFSA flexibility. If retirement is the priority and the deduction is meaningful, RRSP could get more of the contribution. If plans are uncertain, TFSA may be the cleaner first account.",
     ],
   },
+  misunderstood: [
+    {
+      title: "The account is a job description",
+      body: "TFSA, RRSP, and FHSA are not just containers with different limits. Each account should have a job: flexibility, retirement deduction, or first-home planning. The best account changes when the job changes.",
+    },
+    {
+      title: "A refund is not the same as being ahead",
+      body: "An RRSP refund can feel like a win immediately, but the long-term result depends on withdrawal tax later and whether the refund is reinvested or used intentionally.",
+    },
+    {
+      title: "FHSA eligibility can outrank a simple tax comparison",
+      body: "For an eligible first-time buyer, the FHSA may deserve attention even when the TFSA feels simpler, because it can combine deduction value with a qualifying tax-free withdrawal.",
+    },
+    {
+      title: "Splitting contributions can be rational",
+      body: "When home timing, income, and flexibility are all uncertain, splitting across accounts can be more practical than waiting for a perfect answer.",
+    },
+  ],
+  notAFit: [
+    "You have high-interest debt or no emergency buffer, making account optimization less urgent than cash-flow stability.",
+    "You are not FHSA-eligible, in which case the decision usually returns to TFSA vs RRSP.",
+    "Your expected retirement income is not meaningfully lower than current income, which can weaken the RRSP advantage.",
+    "You need the money soon and would have to invest in risky assets to justify a registered-account choice.",
+  ],
+  pathway: {
+    eyebrow: "Account decision pathway",
+    title: "Turn the comparison into a next-dollar decision",
+    intro: "Use the guide to pick an account priority, then run the calculator that matches the account competing for your next contribution.",
+    steps: [
+      { title: "Check TFSA room", href: "/tools/tfsa-calculator", body: "Model contribution room and tax-free growth if flexibility is the leading reason." },
+      { title: "Estimate RRSP refund", href: "/tools/rrsp-calculator", body: "Compare current deduction value with future withdrawal tax assumptions." },
+      { title: "Plan FHSA contributions", href: "/tools/fhsa-calculator", body: "If a first home is realistic, test the FHSA deduction and down-payment path." },
+    ],
+  },
   mistakes: [
     { title: "Ignoring FHSA when buying is realistic", body: "Eligible first-time home buyers may miss a valuable account if they only compare TFSA and RRSP." },
     { title: "Using RRSP for short-term flexibility", body: "Normal RRSP withdrawals are generally taxable and room is not restored like TFSA room." },

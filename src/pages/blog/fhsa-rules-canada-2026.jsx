@@ -86,6 +86,40 @@ const article = {
       "If Maya instead opens the account but only contributes $3,000 in 2026, she should track the unused room carefully. Carryforward rules can help, but they are not unlimited. Using the FHSA calculator can make the timing, deduction, and down-payment path easier to compare with TFSA or RRSP options.",
     ],
   },
+  misunderstood: [
+    {
+      title: "FHSA room does not appear until the account exists",
+      body: "TFSA room accumulates automatically after eligibility, but FHSA participation room starts only after opening the first FHSA. That timing difference is easy to miss when someone is still a few years from buying.",
+    },
+    {
+      title: "RRSP transfers are not a bonus limit",
+      body: "Moving RRSP money to an FHSA can be useful in the right situation, but the transfer still uses FHSA participation room. It is a funding method, not extra contribution space.",
+    },
+    {
+      title: "The withdrawal paperwork matters",
+      body: "A qualifying withdrawal is not just a normal withdrawal from a savings account. The issuer process and qualifying-home conditions help determine whether the tax-free treatment applies.",
+    },
+    {
+      title: "The FHSA is not only about the refund",
+      body: "The deduction is attractive, but the real value comes from matching the account to a realistic home timeline, emergency cash, investment risk, and closing-cost needs.",
+    },
+  ],
+  notAFit: [
+    "Your first-home timeline is very uncertain and you do not yet have a basic emergency buffer.",
+    "Eligibility is unclear because of prior home ownership or spouse/common-law partner home ownership details.",
+    "You need the money for a non-home goal and cannot handle the taxable-withdrawal risk if plans change.",
+    "You are close to buying and would need to invest aggressively just to chase a small amount of extra growth.",
+  ],
+  pathway: {
+    eyebrow: "First-home pathway",
+    title: "Move from rules to a usable home-buying plan",
+    intro: "The FHSA decision is stronger when it connects account rules to a realistic down-payment timeline and mortgage budget.",
+    steps: [
+      { title: "Estimate FHSA tax savings", href: "/tools/fhsa-calculator", body: "See how contribution room, deduction value, and growth assumptions affect the down-payment path." },
+      { title: "Compare FHSA vs RRSP", href: "/blog/fhsa-vs-rrsp-down-payment-canada-2026", body: "Check whether the FHSA should beat RRSP Home Buyers' Plan planning for your situation." },
+      { title: "Stress-test the mortgage", href: "/tools/mortgage-affordability-calculator", body: "Connect the down-payment plan to monthly payment pressure before treating the home as affordable." },
+    ],
+  },
   mistakes: [
     { title: "Waiting too long to open", body: "FHSA room starts when the first account is opened. Waiting can delay when participation room begins." },
     { title: "Assuming RRSP transfers create extra room", body: "RRSP-to-FHSA transfers count toward FHSA participation room; they are not an extra limit." },

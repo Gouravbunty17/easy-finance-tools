@@ -18,6 +18,9 @@ import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
+import ResultInsightCard from '../../components/ResultInsightCard';
+import OptimizationTips from '../../components/OptimizationTips';
+import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import {
   CONTENT_LAST_REVIEWED,
   DEFAULT_ASSUMPTIONS,
@@ -386,6 +389,43 @@ export default function MortgageCalculator() {
                 Qualifying at the stress-test rate adds about {formatCurrency(result.finalMonthlyBuffer)} to the payment benchmark versus the contract-rate payment.
               </p>
             </div>
+          </div>
+
+          <div className="mt-8 grid gap-4">
+            <ResultInsightCard title="Affordability is about pressure, not only payment size" tone="blue">
+              <p>
+                The contract payment is the starting point. The stronger decision check is whether the payment still works after closing costs, stress-test pressure, renewal risk, property tax, insurance, repairs, and loss of flexibility are considered together.
+              </p>
+            </ResultInsightCard>
+            <ScenarioBreakdown
+              title="What this mortgage result is really comparing"
+              rows={[
+                {
+                  label: 'Regular payment',
+                  value: formatCurrency(result.frequencyDetails.scheduledPayment),
+                  body: 'The scheduled payment based on the frequency and mortgage assumptions entered.',
+                },
+                {
+                  label: 'Stress-test pressure',
+                  value: formatCurrency(result.rateShockIncrease),
+                  body: 'Extra monthly payment benchmark between the contract-rate payment and stress-test payment.',
+                },
+                {
+                  label: 'Interest saved',
+                  value: formatCurrency(result.interestSaved),
+                  body: 'Estimated interest reduction from the extra-payment and frequency assumptions.',
+                },
+              ]}
+            />
+            <OptimizationTips
+              title="Ways to stress-test the mortgage decision"
+              items={[
+                { title: 'Run a lower-price scenario', body: 'A slightly cheaper home can improve approval room, emergency cash, and renewal resilience more than a tiny rate change.' },
+                { title: 'Keep closing cash separate', body: 'Down payment is not the only cash need. Land transfer tax, legal costs, moving costs, inspections, and repairs can matter immediately.' },
+                { title: 'Compare amortization tradeoffs', body: 'A longer amortization can lower the payment but may increase total interest and extend risk into future renewals.' },
+                { title: 'Link it to FHSA planning', body: 'If the home goal is still being funded, compare the mortgage result with FHSA room and timing before locking the purchase path.' },
+              ]}
+            />
           </div>
 
           <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">

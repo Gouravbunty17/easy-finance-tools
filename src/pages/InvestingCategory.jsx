@@ -1,6 +1,7 @@
 import React from "react";
 import SEO from "../components/SEO";
 import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
+import TopicClusterMap from "../components/TopicClusterMap";
 
 const guides = [
   {
@@ -167,6 +168,28 @@ export default function InvestingCategory() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
+        <div className="mb-8">
+          <TopicClusterMap
+            title="Investing topics connected to the calculators"
+            clusters={[
+              {
+                title: "Beginner investing",
+                body: "Start with accounts, emergency cash, and a plain ETF workflow before choosing products.",
+                links: [["Start investing", "/blog/how-to-start-investing-canada-2026"], ["Choose ETFs", "/blog/how-to-choose-etfs-canada"], ["Compound growth", "/tools/compound-interest-calculator"]],
+              },
+              {
+                title: "TFSA investing",
+                body: "Use TFSA room carefully, avoid withdrawal mistakes, and match holdings to the account job.",
+                links: [["TFSA calculator", "/tools/tfsa-calculator"], ["TFSA mistakes", "/blog/tfsa-investing-mistakes-canada"], ["TFSA room", "/blog/tfsa-contribution-room-canada-2026"]],
+              },
+              {
+                title: "Dividend income",
+                body: "Compare yield, DRIP, covered-call tradeoffs, and account fit before relying on monthly income.",
+                links: [["Dividend calculator", "/tools/dividend-calculator"], ["Dividend ETFs", "/blog/best-canadian-dividend-etfs-2026"], ["DRIP strategy", "/blog/drip-strategy-canada"]],
+              },
+            ]}
+          />
+        </div>
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div className="space-y-8">
             {guides.map((section) => (

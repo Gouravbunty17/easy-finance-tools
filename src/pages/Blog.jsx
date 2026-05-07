@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import SEO from "../components/SEO";
 import ArticleImage from "../components/ArticleImage";
 import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
+import TopicClusterMap from "../components/TopicClusterMap";
 
 const categoryStyle = {
   Retirement: { gradient: "from-purple-500 to-purple-700", icon: "CA" },
@@ -856,13 +857,13 @@ export default function Blog() {
             </div>
 
             <div className="surface-soft p-5">
-              <h3 className="text-lg font-bold text-primary dark:text-accent">Start with comparisons</h3>
+              <h3 className="text-lg font-bold text-primary dark:text-accent">Start with account decisions</h3>
               <div className="mt-3 grid gap-3">
                 {[
-                  { label: "Wealthsimple vs Questrade", href: "/blog/wealthsimple-vs-questrade-canada" },
-                  { label: "Best TFSA Brokers", href: "/blog/best-tfsa-brokers-canada" },
-                  { label: "Best RRSP Accounts", href: "/blog/best-rrsp-accounts-canada" },
-                  { label: "Best Investing Apps", href: "/blog/best-investing-apps-canada" },
+                  { label: "TFSA vs RRSP", href: "/blog/tfsa-vs-rrsp-canada-2026" },
+                  { label: "TFSA vs RRSP vs FHSA", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada" },
+                  { label: "FHSA rules", href: "/blog/fhsa-rules-canada-2026" },
+                  { label: "Dividend ETF income", href: "/blog/500-month-dividend-canada" },
                 ].map((item) => (
                   <SurfaceTrackedLink
                     key={item.href}
@@ -933,6 +934,10 @@ export default function Blog() {
             </div>
           </aside>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <TopicClusterMap title="Use the blog as a guided library" />
       </section>
     </div>
   );

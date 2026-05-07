@@ -7,6 +7,9 @@ import ArticleSchema from "../../components/ArticleSchema";
 import FAQSchema from "../../components/FAQSchema";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import TrackedLink from "../../components/TrackedLink";
+import EnhancedAuthorBox from "../../components/EnhancedAuthorBox";
+import EditorialReviewNote from "../../components/EditorialReviewNote";
+import ContinueLearning from "../../components/ContinueLearning";
 import { getAbsoluteArticleImage, getArticleMedia } from "./articleMedia";
 
 function slugify(value) {
@@ -105,6 +108,36 @@ export default function CanadianEducationArticle({ article }) {
           ))}
         </article>
 
+        {article.misunderstood?.length ? (
+          <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">What people misunderstand</p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What actually matters for Canadians</h2>
+            <div className="mt-5 grid gap-4 md:grid-cols-2">
+              {article.misunderstood.map((item) => (
+                <div key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                  <h3 className="font-bold text-primary dark:text-accent">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {article.notAFit?.length ? (
+          <section className="mt-10 rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-900/20">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Before you decide</p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">When this strategy may not fit</h2>
+            <ul className="mt-4 space-y-3 text-sm leading-7 text-amber-900 dark:text-amber-100">
+              {article.notAFit.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span className="mt-0.5 font-bold">-</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
         <section className="mt-10 rounded-3xl border border-blue-200 bg-blue-50 p-6 dark:border-blue-800 dark:bg-blue-900/20">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-300">Example scenario</p>
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">{article.example.title}</h2>
@@ -154,6 +187,25 @@ export default function CanadianEducationArticle({ article }) {
           sources={article.methodology.sources}
           note={article.methodology.note}
         />
+
+        <div className="mt-10">
+          <EditorialReviewNote updated={article.lastUpdated} />
+        </div>
+
+        <div className="mt-10">
+          <EnhancedAuthorBox lastUpdated={article.lastUpdated} focus={article.category} />
+        </div>
+
+        {article.pathway ? (
+          <div className="mt-10">
+            <ContinueLearning
+              eyebrow={article.pathway.eyebrow}
+              title={article.pathway.title}
+              intro={article.pathway.intro}
+              steps={article.pathway.steps}
+            />
+          </div>
+        ) : null}
 
         <section className="mt-10 rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-900/20">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Educational disclaimer</p>

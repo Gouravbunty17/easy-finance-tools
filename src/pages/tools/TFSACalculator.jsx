@@ -19,6 +19,10 @@ import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
+import ResultInsightCard from '../../components/ResultInsightCard';
+import OptimizationTips from '../../components/OptimizationTips';
+import ImportantConsiderations from '../../components/ImportantConsiderations';
+import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import {
   CANADIAN_PROVINCES,
   CONTENT_LAST_REVIEWED,
@@ -289,6 +293,51 @@ export default function TFSACalculator() {
               </div>
             </div>
           </section>
+
+          <div className="mt-8 grid gap-4">
+            <ResultInsightCard title="Use the room result before choosing investments" tone="emerald">
+              <p>
+                The first job of this result is avoiding an accidental over-contribution. The second job is deciding what role the TFSA should play: flexible savings, long-term ETF growth, dividend income, or a mix. The same balance target can be sensible or awkward depending on that account job.
+              </p>
+            </ResultInsightCard>
+            <ScenarioBreakdown
+              title="Three ways to read this TFSA scenario"
+              rows={[
+                {
+                  label: 'Room protection',
+                  value: formatCurrency(result.estimatedRoomNow),
+                  body: 'Treat this as a planning estimate until CRA room and recent withdrawals are verified.',
+                },
+                {
+                  label: 'Contribution habit',
+                  value: formatCurrency(result.contributionUsedYearOne),
+                  body: 'This is the amount the model can use in year one without exceeding the room estimate entered.',
+                },
+                {
+                  label: 'Tax-free growth',
+                  value: formatCurrency(result.projectedGrowth),
+                  body: 'This is the projected growth sheltered from annual tax if the assumptions hold.',
+                },
+              ]}
+            />
+            <OptimizationTips
+              title="How to make the TFSA result more useful"
+              items={[
+                { title: 'Verify before large deposits', body: 'CRA room can lag real activity. If you recently contributed, withdrew, or used multiple institutions, check your own records too.' },
+                { title: 'Match risk to timeline', body: 'A TFSA can hold investments, but money needed soon should not be forced into stock-market risk just because the account is tax-free.' },
+                { title: 'Define the account job', body: 'Dividend ETFs, all-in-one ETFs, cash savings, and emergency money can all live in a TFSA, but each serves a different purpose.' },
+                { title: 'Compare RRSP and FHSA', body: 'If the next dollar has multiple account options, run the RRSP or FHSA calculator before treating TFSA as the default.' },
+              ]}
+            />
+            <ImportantConsiderations
+              title="TFSA watch-outs"
+              items={[
+                'Same-year withdrawals are usually not safe to re-contribute unless you already have other unused room.',
+                'Growth inside the TFSA does not create extra contribution room.',
+                'Business-like trading activity can create tax risk even inside a TFSA.',
+              ]}
+            />
+          </div>
 
           <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
             <div className="flex flex-wrap items-center justify-between gap-3">

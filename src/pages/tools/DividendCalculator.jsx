@@ -21,6 +21,9 @@ import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
 import TrackedLink from '../../components/TrackedLink';
+import ResultInsightCard from '../../components/ResultInsightCard';
+import OptimizationTips from '../../components/OptimizationTips';
+import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import {
   CONTENT_LAST_REVIEWED,
   DATA_SNAPSHOT_LABEL,
@@ -674,6 +677,43 @@ export default function DividendCalculator() {
               ))}
             </div>
           </section>
+
+          <div className="mt-8 grid gap-4">
+            <ResultInsightCard title="Dividend income needs a quality check, not just a yield input" tone="emerald">
+              <p>
+                The income estimate is useful only if the payout source is sustainable enough for the goal. For Canadian dividend ETFs, compare the yield with sector concentration, covered-call use, MER, distribution history, and whether the TFSA should be used for income or broader long-term growth.
+              </p>
+            </ResultInsightCard>
+            <ScenarioBreakdown
+              title="Income, compounding, and account fit"
+              rows={[
+                {
+                  label: 'Income now',
+                  value: formatDividendCurrency(results.afterTaxFirstYearIncome),
+                  body: 'Estimated first-year income using the current yield and account-type assumptions.',
+                },
+                {
+                  label: 'Income later',
+                  value: formatDividendCurrency(results.finalAnnualIncome),
+                  body: dripEnabled ? 'DRIP is helping future income by reinvesting distributions.' : 'Cash flow is being taken today, which can slow future income growth.',
+                },
+                {
+                  label: 'Account value',
+                  value: formatDividendCurrency(results.projectedBalance),
+                  body: 'Projected value after contributions, income treatment, and price-growth assumptions.',
+                },
+              ]}
+            />
+            <OptimizationTips
+              title="Questions to answer before relying on the income"
+              items={[
+                { title: 'Can the yield survive?', body: 'High yield should trigger a review of covered-call policy, holdings, distribution history, and whether the fund is paying from income or other sources.' },
+                { title: 'Does DRIP still fit?', body: 'DRIP can build future income, but cash distributions may be better if you need spending money, rebalancing control, or tax cash.' },
+                { title: 'Is TFSA room being used well?', body: 'Tax-free income is attractive, but long-term investors should still compare income ETFs against broad growth ETFs.' },
+                { title: 'What happens if price growth is lower?', body: 'A high monthly payout can hide weak capital growth. Test a lower price-growth assumption before treating the plan as stable.' },
+              ]}
+            />
+          </div>
 
           <section className="mt-8 grid gap-4 lg:grid-cols-2">
             <div className="surface-card p-6">

@@ -5,6 +5,7 @@ import SurfaceTrackedLink from '../components/SurfaceTrackedLink';
 import ReferralSection from '../components/ReferralSection';
 import EducationalDisclaimer from '../components/EducationalDisclaimer';
 import FAQSchema from '../components/FAQSchema';
+import TopicClusterMap from '../components/TopicClusterMap';
 
 const GOAL_CARDS = [
   {
@@ -137,13 +138,13 @@ const CALCULATOR_CARDS = [
 const ACCOUNT_COMPARISON_LINKS = [
   {
     title: 'Compare TFSA vs RRSP vs FHSA',
-    description: 'Best starting point when your home, retirement, and flexible investing goals are all competing.',
+    description: 'Useful starting point when your home, retirement, and flexible investing goals are all competing.',
     href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
     ctaLabel: 'comparison_strip_tfsa_rrsp_fhsa',
   },
   {
     title: 'Compare TFSA vs RRSP first',
-    description: 'Best starting point when the next registered-account contribution is still undecided.',
+    description: 'Useful starting point when the next registered-account contribution is still undecided.',
     href: '/blog/tfsa-vs-rrsp-canada-2026',
     ctaLabel: 'comparison_strip_tfsa_vs_rrsp',
   },
@@ -299,6 +300,10 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <TopicClusterMap title="Choose a topic path instead of a random calculator" />
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12">

@@ -19,6 +19,10 @@ import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
+import ResultInsightCard from '../../components/ResultInsightCard';
+import OptimizationTips from '../../components/OptimizationTips';
+import ImportantConsiderations from '../../components/ImportantConsiderations';
+import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import {
   CANADIAN_PROVINCES,
   CONTENT_LAST_REVIEWED,
@@ -314,6 +318,51 @@ export default function RRSPCalculator() {
               </div>
             </div>
           </section>
+
+          <div className="mt-8 grid gap-4">
+            <ResultInsightCard title="The refund is only one part of the RRSP decision" tone="blue">
+              <p>
+                A larger refund can be helpful, but the RRSP works best when the deduction today is paired with a realistic withdrawal-tax plan later. The most useful question is whether this contribution beats the TFSA or FHSA after room, flexibility, refund use, and retirement income are considered together.
+              </p>
+            </ResultInsightCard>
+            <ScenarioBreakdown
+              title="Read the RRSP result from three angles"
+              rows={[
+                {
+                  label: 'Tax value today',
+                  value: formatCurrency(result.taxRefundYearOne),
+                  body: 'Estimated current-year refund from the contribution used in year one.',
+                },
+                {
+                  label: 'Tax tradeoff later',
+                  value: `${Math.round(result.taxRateGap * 1000) / 10} pts`,
+                  body: 'Difference between estimated current marginal rate and retirement-rate assumption.',
+                },
+                {
+                  label: 'After-tax lens',
+                  value: formatCurrency(result.afterTaxRetirementValue),
+                  body: 'Simplified retirement value after applying the withdrawal-rate assumption.',
+                },
+              ]}
+            />
+            <OptimizationTips
+              title="Ways to strengthen the RRSP plan"
+              items={[
+                { title: 'Give the refund a job', body: 'Reinvest it, reduce debt, or redirect it intentionally. Letting it disappear into spending can weaken the RRSP advantage.' },
+                { title: 'Check retirement income layers', body: 'CPP, OAS, pensions, RRIF withdrawals, and taxable investing can all change the future tax-rate assumption.' },
+                { title: 'Use real room numbers', body: 'The Notice of Assessment matters more than a rough annual-limit estimate when you are close to the limit.' },
+                { title: 'Compare against FHSA', body: 'If buying a first home is realistic, the FHSA may deserve priority before a standard RRSP contribution.' },
+              ]}
+            />
+            <ImportantConsiderations
+              title="RRSP watch-outs"
+              items={[
+                'Normal RRSP withdrawals are taxable and contribution room is not restored.',
+                'The RRSP can be weaker when your future tax rate is similar to or higher than your current rate.',
+                'Spousal RRSP, pension adjustment, and carryforward details can change the actual room and tax result.',
+              ]}
+            />
+          </div>
 
           <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
             <div className="flex flex-wrap items-center justify-between gap-3">
