@@ -4,7 +4,7 @@ import SEO from "../components/SEO";
 import EnhancedAuthorBox from "../components/EnhancedAuthorBox";
 import TopicClusterMap from "../components/TopicClusterMap";
 
-const FOUNDER_HEADSHOT_URL = "";
+const FOUNDER_HEADSHOT_URL = "/founder/gourav-kumar.webp";
 const FOUNDER_LINKEDIN_URL = "";
 
 export default function About() {

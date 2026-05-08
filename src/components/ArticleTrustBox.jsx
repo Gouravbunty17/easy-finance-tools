@@ -4,7 +4,7 @@ import TrackedLink from './TrackedLink';
 export default function ArticleTrustBox({
   articleSlug = 'article',
   lastUpdated,
-  reviewer = 'EasyFinanceTools editorial review',
+  reviewer = 'Gourav Kumar; checked against official Canadian source material where applicable',
   sources = [],
   className = '',
 }) {

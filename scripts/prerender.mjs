@@ -160,6 +160,7 @@ async function prerenderRoute(browser, route) {
   });
 
   await page.evaluateOnNewDocument(() => {
+    window.__EFT_PRERENDERING__ = true;
     localStorage.setItem("theme", "light");
   });
 

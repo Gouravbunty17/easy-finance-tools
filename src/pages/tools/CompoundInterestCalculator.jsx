@@ -18,6 +18,8 @@ import ToolByline from "../../components/ToolByline";
 import ActionableNextSteps from "../../components/ActionableNextSteps";
 import EducationalDisclaimer from "../../components/EducationalDisclaimer";
 import FAQSchema from "../../components/FAQSchema";
+import OfficialSourceNote from "../../components/OfficialSourceNote";
+import CalculatorCaseStudy from "../../components/CalculatorCaseStudy";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -38,8 +40,8 @@ const contributionPresets = [
 
 const COMPOUND_FAQS = [
   {
-    q: "Is this compound interest calculator for Canada?",
-    a: "Yes. The math is universal, but the surrounding guidance points Canadian users toward TFSA, RRSP, FHSA, and taxable-account decisions after the growth estimate is clear.",
+    q: "How should I choose a return assumption?",
+    a: "Test a lower, base, and higher range instead of relying on one number. The calculator is most useful when the plan still works under a weaker-return scenario.",
   },
   {
     q: "Should I use this for TFSA compound interest?",
@@ -177,6 +179,15 @@ export default function CompoundInterestCalculator() {
           <div className="mt-6">
             <EducationalDisclaimer />
           </div>
+
+          <OfficialSourceNote
+            title="Source check for inflation and rates"
+            body="Compound-growth math is universal, but inflation and interest-rate assumptions should be sanity-checked against Canadian data before using a projection as a plan."
+            sources={[
+              { label: "Bank of Canada: Rates", href: "https://www.bankofcanada.ca/rates/" },
+              { label: "Statistics Canada: Consumer Price Index", href: "https://www150.statcan.gc.ca/n1/en/type/data?text=consumer%20price%20index" },
+            ]}
+          />
 
           <div className="mt-6 rounded-3xl border border-blue-100 bg-blue-50 p-5 dark:border-blue-900/60 dark:bg-blue-950/30">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Quick answer</p>
@@ -451,6 +462,21 @@ export default function CompoundInterestCalculator() {
         </aside>
       </div>
 
+      <CalculatorCaseStudy
+        title="Canadian investor testing a $500 monthly ETF habit"
+        scenario="Assume a 30-year-old Canadian investor starts with $10,000, adds $500/month, tests a 20-year horizon, and wants to see how fees and inflation change the headline number."
+        inputs={[
+          "Opening amount: $10,000",
+          "Monthly contribution: $500",
+          "Return assumption: 6% before a 0.4% annual fee",
+          "Inflation assumption: 2%",
+          "Time horizon: 20 years",
+        ]}
+        result={`${formatCurrency(Math.round(projection.endingBalance))} projected nominal balance and ${formatCurrency(Math.round(projection.realEndingBalance))} inflation-adjusted balance under the current inputs.`}
+        interpretation="The gap between nominal and inflation-adjusted values is the part many people miss. The plan may look large in future dollars but feel smaller after purchasing power is considered."
+        limitation="Returns are smoothed and do not model market crashes, contribution pauses, taxes, product changes, or investor behaviour."
+      />
+
       <MethodologyPanel
         title="How this calculator works: compound interest assumptions"
         summary="This calculator applies a monthly compounding model using your opening amount, monthly contributions, expected annual return, annual fee drag, and an inflation adjustment. It is designed for educational planning, not account-specific forecasting."
@@ -465,7 +491,7 @@ export default function CompoundInterestCalculator() {
           { label: "Government of Canada registered accounts overview", href: "https://www.canada.ca/en/services/finance.html" },
         ]}
         updated="April 29, 2026"
-        reviewer="EasyFinanceTools editorial team"
+        reviewer="Gourav Kumar"
         note="Educational estimate only. Real returns vary year to year, and taxes may apply depending on whether you invest inside a TFSA, RRSP, FHSA, or non-registered account."
       />
 

@@ -5,6 +5,7 @@ import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import SourceList from "../../components/SourceList";
 import ToolPageSchema from "../../components/ToolPageSchema";
+import OfficialSourceNote from "../../components/OfficialSourceNote";
 import { Bar, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -156,6 +157,12 @@ export default function CPPOASEstimator() {
         description="Estimator for Canadian government retirement income, including CPP, OAS, clawback context, and collection-age comparisons."
         canonical="https://easyfinancetools.com/tools/cpp-oas-estimator"
         category="FinanceApplication"
+      />
+
+      <OfficialSourceNote
+        title="Source check for CPP and OAS"
+        body="CPP and OAS estimates should be checked against Service Canada and Government of Canada records before retirement-income decisions."
+        sources={retirementOfficialSources}
       />
 
       <div className="mb-8">

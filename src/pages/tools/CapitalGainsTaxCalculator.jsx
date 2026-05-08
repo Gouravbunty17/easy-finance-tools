@@ -5,6 +5,8 @@ import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import SourceList from "../../components/SourceList";
 import ToolPageSchema from "../../components/ToolPageSchema";
+import OfficialSourceNote from "../../components/OfficialSourceNote";
+import CalculatorCaseStudy from "../../components/CalculatorCaseStudy";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
@@ -169,6 +171,12 @@ export default function CapitalGainsTaxCalculator() {
           <strong>Important:</strong> This calculator applies a simplified two-tier inclusion-rate model for planning. Confirm current tax rules and timing with CRA guidance or a qualified tax professional before filing or selling.
         </p>
       </div>
+
+      <OfficialSourceNote
+        title="Source check before selling"
+        body="Capital-gains inclusion rules, loss use, and registered-account treatment can change. Check CRA guidance before treating this as a filing number."
+        sources={[dividendTaxOfficialSources[2], taxOfficialSources[0]]}
+      />
 
       <div className="mb-8 grid gap-4 md:grid-cols-3">
         {[
@@ -386,6 +394,20 @@ export default function CapitalGainsTaxCalculator() {
           { label: "CRA: Capital gains", href: "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/t4037/capital-gains.html" },
         ]}
         note="Educational estimate only. Verify current tax rules and your asset-specific treatment before filing or selling."
+      />
+
+      <CalculatorCaseStudy
+        title="Ontario ETF investor selling after a $49,500 gain"
+        scenario="Assume an Ontario resident earning $80,000 bought an ETF for $50,000, sold it for $100,000, and paid $500 in selling costs. The calculator treats the $49,500 gain as a taxable-account estimate, not a tax return."
+        inputs={[
+          "Province: Ontario",
+          "Employment income entered: $80,000",
+          "Adjusted cost base: $50,000",
+          "Sale price: $100,000 and selling costs: $500",
+        ]}
+        result="The taxable portion is estimated using the calculator's current capital-gains model and the selected marginal-rate assumption."
+        interpretation="The result is useful for deciding whether the sale is material enough to review before year-end, especially if other gains, losses, or income changes are also in play."
+        limitation="This does not model every adjusted-cost-base issue, superficial loss rule, crypto recordkeeping issue, principal-residence rule, or business-share exemption detail."
       />
 
       <SourceList

@@ -110,7 +110,7 @@ export default function ReferralSection({
                 trackReferralAction("click", {
                   offer_name: "wealthsimple",
                   placement,
-                  cta_label: "sign_up_and_claim_bonus",
+                  cta_label: "view_provider_terms",
                   destination: REFERRAL_URL,
                 });
               }}

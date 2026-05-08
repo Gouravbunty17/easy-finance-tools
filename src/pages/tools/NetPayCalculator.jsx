@@ -4,6 +4,8 @@ import CalculatorLayout, { ResultCard, fmtCAD, fmtNum } from "../../components/C
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import NumberInput from "../../components/NumberInput";
+import OfficialSourceNote from "../../components/OfficialSourceNote";
+import { taxOfficialSources } from "../../config/officialSources";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 const CPP_RATE = 0.0595;
@@ -166,6 +168,12 @@ export default function NetPayCalculator() {
       ]}
       footerNote="Educational estimate only. Employer-specific payroll rules, benefits, taxable benefits, and local credits can change your real pay stub."
     >
+      <OfficialSourceNote
+        title="Source check for payroll estimates"
+        body="Payroll tax, CPP, EI, and provincial tax assumptions should be checked against CRA or employer payroll details before budgeting from a pay stub estimate."
+        sources={[taxOfficialSources[0], taxOfficialSources[1]]}
+      />
+
       <div className="space-y-5 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
         <div className="flex gap-3">
           {[

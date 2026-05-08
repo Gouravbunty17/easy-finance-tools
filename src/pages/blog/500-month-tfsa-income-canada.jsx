@@ -162,7 +162,7 @@ export default function FiveHundredMonthTFSAIncomeCanada() {
         <ArticleTrustBox
           articleSlug={ARTICLE_SLUG}
           lastUpdated={PAGE_LAST_UPDATED}
-          reviewer="Gourav Kumar / EasyFinanceTools editorial review"
+          reviewer="Gourav Kumar; checked against official Canadian source material where applicable"
           sources={TRUST_SOURCES}
         />
 

@@ -10,6 +10,8 @@ import OptimizationTips from '../../components/OptimizationTips';
 import ImportantConsiderations from '../../components/ImportantConsiderations';
 import NextStepLinks from '../../components/NextStepLinks';
 import SourceList from '../../components/SourceList';
+import OfficialSourceNote from '../../components/OfficialSourceNote';
+import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import { CONTENT_LAST_REVIEWED } from '../../config/financial';
 import { fhsaOfficialSources, rrspOfficialSources, tfsaOfficialSources } from '../../config/officialSources';
 
@@ -131,6 +133,11 @@ export default function AccountDecisionTool() {
       warnings,
       highIncome,
       monthlyAmount: Math.round(Math.max(0, safeIncome * 0.1) / 12),
+      fitScores: {
+        TFSA: primary.includes('TFSA') ? 88 : secondary.includes('TFSA') ? 68 : 48,
+        RRSP: primary.includes('RRSP') ? 88 : secondary.includes('RRSP') ? 68 : highIncome ? 74 : 42,
+        FHSA: primary.includes('FHSA') ? 92 : homeRelevant ? 74 : 28,
+      },
     };
   }, [firstHomeEligible, goal, hasEmergencyFund, income, needsFlexibility, timeframe]);
 
@@ -162,6 +169,12 @@ export default function AccountDecisionTool() {
             <EducationalDisclaimer />
           </div>
 
+          <OfficialSourceNote
+            title="Source check before choosing an account"
+            body="TFSA, RRSP, and FHSA room and withdrawal rules should be verified against CRA before funding an account."
+            sources={[tfsaOfficialSources[0], rrspOfficialSources[0], fhsaOfficialSources[0]]}
+          />
+
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             <div className="rounded-3xl border border-slate-200 bg-gradient-to-br from-primary to-secondary p-6 text-white shadow-sm">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">Likely first account</p>
@@ -192,6 +205,26 @@ export default function AccountDecisionTool() {
                 { label: 'Flexibility', value: needsFlexibility ? 'Important' : 'Less important', body: 'The more uncertain the plan, the more TFSA flexibility can matter.' },
               ]}
             />
+            <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Visual comparison</p>
+              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">How the accounts score for this scenario</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                This is a directional fit score, not advice. It helps show why the tool prefers one account instead of treating TFSA, RRSP, and FHSA as interchangeable.
+              </p>
+              <div className="mt-5 space-y-4" aria-label="Directional account fit scores">
+                {Object.entries(result.fitScores).map(([label, score]) => (
+                  <div key={label}>
+                    <div className="mb-1 flex items-center justify-between text-sm font-semibold">
+                      <span>{label}</span>
+                      <span>{score}/100</span>
+                    </div>
+                    <div className="h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-900">
+                      <div className="h-full rounded-full bg-secondary" style={{ width: `${score}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
             <OptimizationTips
               title="How to turn this into a real decision"
               items={[
@@ -286,6 +319,20 @@ export default function AccountDecisionTool() {
           sources={[tfsaOfficialSources[0], rrspOfficialSources[0], fhsaOfficialSources[0]]}
         />
       </section>
+
+      <CalculatorCaseStudy
+        title="Ontario resident earning $65,000 comparing the next $500/month"
+        scenario="Assume a 32-year-old Ontario resident has emergency savings, some TFSA room, RRSP room, and no first-home purchase planned. The account decision is less about the largest annual limit and more about flexibility versus deduction value."
+        inputs={[
+          'Goal: flexible investing with retirement still in the background',
+          'Income: $65,000 before tax',
+          'Contribution habit tested: about $500/month',
+          'FHSA: not relevant because no first-home goal is active',
+        ]}
+        result="The tool usually leans TFSA first or TFSA/RRSP split, then asks the user to run the TFSA and RRSP calculators with the same contribution amount."
+        interpretation="At this income level, RRSP deductions can matter, but the TFSA may still be more practical if the money might be needed before retirement or if the refund would simply be spent."
+        limitation="Actual CRA room, province, workplace pension adjustments, debt, and future tax rate can change the answer."
+      />
 
       <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Decision logic</p>

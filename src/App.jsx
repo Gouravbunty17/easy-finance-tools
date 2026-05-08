@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import PageDisclaimer from './components/PageDisclaimer';
+import LegacyRedirect from './components/LegacyRedirect';
 import { trackPageView } from './lib/analytics';
 import { lazyWithPreload } from './lib/lazyWithPreload';
 
@@ -24,6 +25,7 @@ const PrivacyPolicy = lazyWithPreload(() => import('./pages/PrivacyPolicy'));
 const Terms = lazyWithPreload(() => import('./pages/Terms'));
 const AffiliateDisclosure = lazyWithPreload(() => import('./pages/AffiliateDisclosure'));
 const Disclaimer = lazyWithPreload(() => import('./pages/Disclaimer'));
+const Corrections = lazyWithPreload(() => import('./pages/Corrections'));
 
 const DividendCalculator = lazyWithPreload(() => import('./pages/tools/DividendCalculator'));
 const TFSACalculator = lazyWithPreload(() => import('./pages/tools/TFSACalculator'));
@@ -105,10 +107,21 @@ const routeEntries = [
   ['/methodology', Methodology],
   ['/editorial-standards', EditorialStandards],
   ['/privacy', PrivacyPolicy],
-  ['/privacy-policy', PrivacyPolicy],
+  ['/privacy-policy', () => <LegacyRedirect to="/privacy" />],
   ['/terms', Terms],
   ['/disclaimer', Disclaimer],
+  ['/corrections', Corrections],
   ['/affiliate-disclosure', AffiliateDisclosure],
+  ['/disclosure', () => <LegacyRedirect to="/affiliate-disclosure" />],
+  ['/tfsa-calculator', () => <LegacyRedirect to="/tools/tfsa-calculator" />],
+  ['/rrsp-calculator', () => <LegacyRedirect to="/tools/rrsp-calculator" />],
+  ['/fhsa-calculator', () => <LegacyRedirect to="/tools/fhsa-calculator" />],
+  ['/mortgage-calculator', () => <LegacyRedirect to="/tools/mortgage-calculator" />],
+  ['/compound-interest-calculator', () => <LegacyRedirect to="/tools/compound-interest-calculator" />],
+  ['/dividend-calculator', () => <LegacyRedirect to="/tools/dividend-calculator" />],
+  ['/income-tax-calculator', () => <LegacyRedirect to="/tools/income-tax-calculator" />],
+  ['/savings-calculator', () => <LegacyRedirect to="/tools/savings-goal" />],
+  ['/blog/how-to-invest-in-canada', () => <LegacyRedirect to="/blog/how-to-start-investing-canada-2026" />],
   ['/tools/dividend-calculator', DividendCalculator],
   ['/tools/tfsa-calculator', TFSACalculator],
   ['/tools/rrsp-calculator', RRSPCalculator],

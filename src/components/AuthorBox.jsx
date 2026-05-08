@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function AuthorBox({ className = "", lastReviewed = "", linkedinUrl = "", headshotUrl = "" }) {
+const DEFAULT_HEADSHOT_URL = "/founder/gourav-kumar.webp";
+
+export default function AuthorBox({ className = "", lastReviewed = "", linkedinUrl = "", headshotUrl = DEFAULT_HEADSHOT_URL }) {
+  const [imageAvailable, setImageAvailable] = useState(Boolean(headshotUrl));
+
   return (
     <section className={`rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800 ${className}`}>
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Author and review</p>
       <div className="mt-3 flex items-center gap-4">
-        {headshotUrl ? (
-          <img src={headshotUrl} alt="Gourav Kumar" className="h-16 w-16 rounded-2xl object-cover" loading="lazy" />
+        {imageAvailable && headshotUrl ? (
+          <img
+            src={headshotUrl}
+            alt="Gourav Kumar"
+            className="h-16 w-16 rounded-2xl object-cover"
+            loading="lazy"
+            onError={() => setImageAvailable(false)}
+          />
         ) : (
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-xl font-black text-white">GK</div>
         )}

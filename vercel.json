@@ -56,6 +56,61 @@
       "permanent": true
     },
     {
+      "source": "/tfsa-calculator",
+      "destination": "/tools/tfsa-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/rrsp-calculator",
+      "destination": "/tools/rrsp-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/fhsa-calculator",
+      "destination": "/tools/fhsa-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/mortgage-calculator",
+      "destination": "/tools/mortgage-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/compound-interest-calculator",
+      "destination": "/tools/compound-interest-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/dividend-calculator",
+      "destination": "/tools/dividend-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/income-tax-calculator",
+      "destination": "/tools/income-tax-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/savings-calculator",
+      "destination": "/tools/savings-goal",
+      "permanent": true
+    },
+    {
+      "source": "/blog/how-to-invest-in-canada",
+      "destination": "/blog/how-to-start-investing-canada-2026",
+      "permanent": true
+    },
+    {
+      "source": "/disclosure",
+      "destination": "/affiliate-disclosure",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
       "source": "/shop",
       "destination": "/",
       "permanent": true

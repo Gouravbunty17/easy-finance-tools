@@ -4,6 +4,7 @@ import CalculatorLayout, { ResultCard, fmtCAD, fmtNum } from "../../components/C
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import NumberInput from "../../components/NumberInput";
+import OfficialSourceNote from "../../components/OfficialSourceNote";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 function getWorkWeeks(vacationWeeks, paidVacation) {
@@ -124,6 +125,14 @@ export default function SalaryToHourlyCalculator() {
       ]}
       footerNote="This is a gross-pay conversion tool. It does not include income tax, CPP, EI, or employer-specific deductions."
     >
+      <OfficialSourceNote
+        title="Source check for pay planning"
+        body="This page converts gross pay only. For take-home pay, payroll deductions, CPP, and EI, check CRA payroll guidance or use the net pay calculator."
+        sources={[
+          { label: "CRA: Payroll deductions", href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/calculating-deductions.html" },
+        ]}
+      />
+
       <div className="grid gap-5 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
         <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
           <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">What do you want to convert?</p>

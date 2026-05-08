@@ -19,6 +19,8 @@ import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
 import SourceList from '../../components/SourceList';
+import OfficialSourceNote from '../../components/OfficialSourceNote';
+import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import {
   CONTENT_LAST_REVIEWED,
   DEFAULT_ASSUMPTIONS,
@@ -238,6 +240,12 @@ export default function MortgageAffordabilityCalculator() {
             <EducationalDisclaimer />
           </div>
 
+          <OfficialSourceNote
+            title="Source check for affordability rules"
+            body="Mortgage qualification depends on stress-test rules, lender underwriting, insured-mortgage requirements, and borrower details. Verify against official consumer and regulator guidance."
+            sources={mortgageOfficialSources}
+          />
+
           <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <MetricCard
               label="Estimated max home price"
@@ -413,6 +421,21 @@ export default function MortgageAffordabilityCalculator() {
           { label: 'Government of Canada: Mortgage affordability measures', href: 'https://www.canada.ca/en/department-finance/news/2024/09/making-mortgages-more-affordable.html' },
         ]}
         note="Educational planning estimate only. Actual lender approval depends on credit, product choice, documentation, and institution-specific underwriting."
+      />
+
+      <CalculatorCaseStudy
+        title="Ontario household testing a $650,000 purchase ceiling"
+        scenario="Assume a household earning $120,000, carrying $450/month of non-mortgage debt, and saving a $75,000 down payment wants to know whether the listing price or the stress test is the real constraint."
+        inputs={[
+          'Province: Ontario',
+          'Household income: $120,000',
+          'Down payment: $75,000',
+          'Other debt payments: $450/month',
+          'Rate tested against the qualifying stress-test rate',
+        ]}
+        result="The planner estimates a maximum home-price range and shows how that range changes as the tested rate rises."
+        interpretation="If the stress-test line is meaningfully lower than the quoted-rate line, the buyer should treat the result as an approval ceiling, not a comfortable monthly budget."
+        limitation="Actual approval depends on lender underwriting, credit, documentation, property type, insurance rules, and exact debt treatment."
       />
 
       <SourceList

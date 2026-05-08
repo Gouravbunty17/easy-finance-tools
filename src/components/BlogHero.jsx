@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ArticleImage from "./ArticleImage";
 import { getArticleMedia } from "../pages/blog/articleMedia";
@@ -16,9 +16,11 @@ export default function BlogHero({
   standardsHref = "/editorial-standards",
   slug,
   linkedinUrl = "",
+  headshotUrl = "/founder/gourav-kumar.webp",
 }) {
   const media = slug ? getArticleMedia(slug) : null;
   const hasPhotoBackground = Boolean(media?.image && !media.image.endsWith(".svg"));
+  const [imageAvailable, setImageAvailable] = useState(Boolean(headshotUrl));
 
   return (
     <section
@@ -62,9 +64,19 @@ export default function BlogHero({
 
             <div className="mt-6 max-w-2xl rounded-2xl border border-white/15 bg-white/10 p-4 text-left text-sm leading-6 text-white/85 backdrop-blur">
               <div className="flex items-start gap-3">
-                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-white/15 text-sm font-black text-white">
-                  GK
-                </div>
+                {imageAvailable && headshotUrl ? (
+                  <img
+                    src={headshotUrl}
+                    alt="Gourav Kumar"
+                    className="h-11 w-11 flex-shrink-0 rounded-xl object-cover"
+                    loading="lazy"
+                    onError={() => setImageAvailable(false)}
+                  />
+                ) : (
+                  <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-white/15 text-sm font-black text-white">
+                    GK
+                  </div>
+                )}
                 <div>
                   <p className="font-bold text-white">Gourav Kumar, Founder of Easy Finance Tools</p>
                   <p className="mt-1">

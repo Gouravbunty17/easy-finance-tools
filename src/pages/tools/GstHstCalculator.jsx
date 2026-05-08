@@ -4,6 +4,7 @@ import NumberInput from "../../components/NumberInput";
 import CalculatorLayout, { ResultCard, fmtCAD, fmtNum } from "../../components/CalculatorLayout";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
+import OfficialSourceNote from "../../components/OfficialSourceNote";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 const TAX_RATES = {
@@ -114,6 +115,15 @@ export default function GstHstCalculator() {
       ]}
       footerNote="Rates shown are standard provincial sales tax rates and do not reflect every exemption or product-specific rule."
     >
+      <OfficialSourceNote
+        title="Source check for sales tax"
+        body="Sales-tax rates and exemptions can vary by province, product, and business context. Check CRA or provincial guidance before using this for invoices."
+        sources={[
+          { label: "CRA: GST/HST for businesses", href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses.html" },
+          { label: "CRA: GST/HST rates", href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses/charge-collect-which-rate.html" },
+        ]}
+      />
+
       <div className="grid gap-5 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
         <div className="flex flex-wrap gap-3">
           {[

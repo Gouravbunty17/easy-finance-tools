@@ -6,7 +6,7 @@ export default function MethodologyPanel({
   assumptions = [],
   sources = [],
   updated = "April 2, 2026",
-  reviewer = "EasyFinanceTools editorial team",
+  reviewer = "Gourav Kumar",
   note = "Educational estimate only. Verify important figures against your CRA account, lender, or tax slips before acting.",
 }) {
   return (
@@ -44,7 +44,10 @@ export default function MethodologyPanel({
           </h3>
           <div className="mt-3 rounded-xl bg-white p-4 text-sm text-slate-600 dark:bg-slate-800 dark:text-slate-300">
             <p>
-              Reviewed by: <strong>{reviewer}</strong>
+              Self-reviewed by: <strong>{reviewer}</strong>
+            </p>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+              Checked against official Canadian source material where applicable; not reviewed by a licensed financial advisor, accountant, mortgage broker, or tax professional unless explicitly stated.
             </p>
             <p className="mt-3">{note}</p>
             {sources.length > 0 && (

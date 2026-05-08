@@ -16,12 +16,26 @@ export const STATIC_ROUTES = [
   { route: "/about", sourcePath: "src/pages/About.jsx", group: "pages" },
   { route: "/contact", sourcePath: "src/pages/Contact.jsx", group: "pages" },
   { route: "/privacy", sourcePath: "src/pages/PrivacyPolicy.jsx", group: "pages" },
-  { route: "/privacy-policy", sourcePath: "src/pages/PrivacyPolicy.jsx", group: "pages" },
+  { route: "/privacy-policy", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
   { route: "/terms", sourcePath: "src/pages/Terms.jsx", group: "pages" },
   { route: "/disclaimer", sourcePath: "src/pages/Disclaimer.jsx", group: "pages" },
+  { route: "/corrections", sourcePath: "src/pages/Corrections.jsx", group: "pages" },
   { route: "/affiliate-disclosure", sourcePath: "src/pages/AffiliateDisclosure.jsx", group: "pages" },
   { route: "/editorial-standards", sourcePath: "src/pages/EditorialStandards.jsx", group: "pages" },
   { route: "/methodology", sourcePath: "src/pages/Methodology.jsx", group: "pages" },
+];
+
+export const LEGACY_REDIRECT_ROUTES = [
+  { route: "/disclosure", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
+  { route: "/tfsa-calculator", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
+  { route: "/rrsp-calculator", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
+  { route: "/fhsa-calculator", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
+  { route: "/mortgage-calculator", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
+  { route: "/compound-interest-calculator", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
+  { route: "/dividend-calculator", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
+  { route: "/income-tax-calculator", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
+  { route: "/savings-calculator", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
+  { route: "/blog/how-to-invest-in-canada", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
 ];
 
 export const TOOL_ROUTES = [
@@ -92,6 +106,6 @@ export const BLOG_ROUTES = [
   { route: "/blog/canada-child-benefit-2026", sourcePath: "src/pages/blog/canada-child-benefit-2026.jsx", group: "blog" },
 ];
 
-export const SITE_ROUTES = [...STATIC_ROUTES, ...TOOL_ROUTES, ...BLOG_ROUTES];
+export const SITE_ROUTES = [...STATIC_ROUTES, ...TOOL_ROUTES, ...BLOG_ROUTES, ...LEGACY_REDIRECT_ROUTES];
 export const PRERENDER_ROUTES = SITE_ROUTES.map((entry) => entry.route);
 export const INDEXABLE_SITE_ROUTES = SITE_ROUTES.filter((entry) => !isNoindexRoute(entry.route));
