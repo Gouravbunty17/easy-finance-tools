@@ -1,7 +1,9 @@
 import React from "react";
+import { SITE_ORIGIN, canonicalizeSiteUrl } from "../config/site";
 
 export default function ToolPageSchema({ name, description, canonical, category }) {
   if (!name || !canonical) return null;
+  const canonicalUrl = canonicalizeSiteUrl(canonical);
 
   const schema = {
     "@context": "https://schema.org",
@@ -18,19 +20,19 @@ export default function ToolPageSchema({ name, description, canonical, category 
           priceCurrency: "CAD",
         },
         description,
-        url: canonical,
+        url: canonicalUrl,
         author: {
           "@type": "Person",
           name: "Gourav Kumar",
-          url: "https://easyfinancetools.com/about",
+          url: `${SITE_ORIGIN}/about`,
         },
         publisher: {
           "@type": "Organization",
           name: "Easy Finance Tools",
-          url: "https://easyfinancetools.com",
+          url: SITE_ORIGIN,
           logo: {
             "@type": "ImageObject",
-            url: "https://easyfinancetools.com/logo.svg",
+            url: `${SITE_ORIGIN}/logo.svg`,
           },
         },
       },
@@ -41,19 +43,19 @@ export default function ToolPageSchema({ name, description, canonical, category 
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://easyfinancetools.com/",
+            item: `${SITE_ORIGIN}/`,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Tools",
-            item: "https://easyfinancetools.com/tools",
+            item: `${SITE_ORIGIN}/tools`,
           },
           {
             "@type": "ListItem",
             position: 3,
             name,
-            item: canonical,
+            item: canonicalUrl,
           },
         ],
       },

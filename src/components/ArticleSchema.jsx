@@ -1,4 +1,5 @@
 import React from "react";
+import { SITE_ORIGIN, canonicalizeSiteUrl } from "../config/site";
 
 /**
  * ArticleSchema — injects Article JSON-LD structured data.
@@ -27,14 +28,16 @@ export default function ArticleSchema({
   breadcrumbs,
 }) {
   if (!headline || !url) return null;
-  const schemaImageUrl = /\.(png|jpe?g)(\?.*)?$/i.test(imageUrl)
-    ? imageUrl
-    : "https://easyfinancetools.com/og-image.png";
+  const canonicalUrl = canonicalizeSiteUrl(url);
+  const normalizedImageUrl = canonicalizeSiteUrl(imageUrl);
+  const schemaImageUrl = /\.(png|jpe?g)(\?.*)?$/i.test(normalizedImageUrl)
+    ? normalizedImageUrl
+    : `${SITE_ORIGIN}/og-image.png`;
 
   const defaultBreadcrumbs = [
-    { name: "Home", item: "https://easyfinancetools.com/" },
-    { name: "Blog", item: "https://easyfinancetools.com/blog" },
-    { name: headline, item: url },
+    { name: "Home", item: `${SITE_ORIGIN}/` },
+    { name: "Blog", item: `${SITE_ORIGIN}/blog` },
+    { name: headline, item: canonicalUrl },
   ];
 
   const schema = {
@@ -44,18 +47,18 @@ export default function ArticleSchema({
         "@type": "Article",
         headline,
         description,
-        url,
+        url: canonicalUrl,
         datePublished,
         dateModified: dateModified || datePublished,
         author: {
           "@type": "Person",
           name: authorName,
-          url: "https://easyfinancetools.com/about",
+          url: `${SITE_ORIGIN}/about`,
         },
         publisher: {
           "@type": "Organization",
           name: "Easy Finance Tools",
-          url: "https://easyfinancetools.com",
+          url: SITE_ORIGIN,
           logo: {
             "@type": "ImageObject",
             url: schemaImageUrl,
@@ -67,7 +70,7 @@ export default function ArticleSchema({
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": url,
+          "@id": canonicalUrl,
         },
       },
       {
@@ -76,7 +79,7 @@ export default function ArticleSchema({
           "@type": "ListItem",
           position: index + 1,
           name: item.name,
-          item: item.item,
+          item: canonicalizeSiteUrl(item.item),
         })),
       },
     ],

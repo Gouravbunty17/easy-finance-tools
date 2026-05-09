@@ -35,6 +35,17 @@
   },
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.easyfinancetools.com"
+        }
+      ],
+      "destination": "https://easyfinancetools.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {

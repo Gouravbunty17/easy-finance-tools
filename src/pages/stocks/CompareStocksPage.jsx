@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import SEO from "../../components/SEO";
+import { canonicalizeSiteUrl } from "../../config/site";
 import { COMPARISON_PRESETS, getPresetBySlug, getPresetComparison, makeComparisonSlug, shortTickerLabel } from "./stockCollections";
 
 function formatPrice(value) {
@@ -70,7 +71,7 @@ export default function CompareStocksPage() {
       <SEO
         title={`${shortTickerLabel(left)} vs ${shortTickerLabel(right)} Comparison`}
         description={`Compare ${left} and ${right} with a quick price, change, range, and volume snapshot on EasyFinanceTools.`}
-        canonical={`${window.location.origin}${canonicalPath}`}
+        canonical={canonicalizeSiteUrl(canonicalPath)}
       />
 
       <section className="bg-gradient-to-r from-[#123f73] via-[#15538f] to-[#0ea5e9] text-white">

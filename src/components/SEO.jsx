@@ -1,5 +1,6 @@
 import React from "react";
 import { shouldNoindexPath } from "../config/qualityRoutes";
+import { SITE_ORIGIN, canonicalizeSiteUrl } from "../config/site";
 
 export default function SEO({
   title,
@@ -15,19 +16,18 @@ export default function SEO({
 }) {
   React.useEffect(() => {
     const siteName = "Easy Finance Tools";
-    const siteOrigin = "https://easyfinancetools.com";
     const defaultTitle = "Free Canadian TFSA, RRSP & FHSA Calculators 2026 | EasyFinanceTools";
     const fullTitle = title || defaultTitle;
     const desc =
       description ||
       "Free 2026 Canadian finance calculators for TFSA, RRSP, FHSA, dividends, mortgage, and tax. Plain-English guides, no sign-up, built for Canadians.";
     const normalizedPath = window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/+$/, "");
-    const url = canonical || `${siteOrigin}${normalizedPath}`;
+    const url = canonicalizeSiteUrl(canonical || normalizedPath);
     const robotsValue = shouldNoindexPath(normalizedPath)
       ? "noindex,follow,max-image-preview:large"
       : robots;
-    const defaultImageUrl = "https://easyfinancetools.com/og-image.png";
-    const requestedImageUrl = image || defaultImageUrl;
+    const defaultImageUrl = `${SITE_ORIGIN}/og-image.png`;
+    const requestedImageUrl = canonicalizeSiteUrl(image || defaultImageUrl);
     const imageUrl = /\.(png|jpe?g)(\?.*)?$/i.test(requestedImageUrl)
       ? requestedImageUrl
       : defaultImageUrl;

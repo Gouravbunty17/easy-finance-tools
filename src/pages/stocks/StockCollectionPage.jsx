@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SEO from "../../components/SEO";
+import { canonicalizeSiteUrl } from "../../config/site";
 import { getCollection, shortTickerLabel } from "./stockCollections";
 
 function formatNumber(value) {
@@ -72,7 +73,7 @@ export default function StockCollectionPage({ collectionKey }) {
   if (!collection) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-950">
-        <SEO title="Stock Collection Not Found" description="Requested stock collection was not found." canonical={`${window.location.origin}/stocks`} />
+        <SEO title="Stock Collection Not Found" description="Requested stock collection was not found." canonical={canonicalizeSiteUrl("/stocks")} />
         <div className="mx-auto max-w-5xl px-4 py-20 text-center">
           <h1 className="text-4xl font-bold text-primary dark:text-white">Collection not found</h1>
           <p className="mt-4 text-gray-600 dark:text-gray-300">Try the main stocks hub instead.</p>
@@ -92,7 +93,7 @@ export default function StockCollectionPage({ collectionKey }) {
       <SEO
         title={collection.title}
         description={collection.description}
-        canonical={`${window.location.origin}/stocks/${collectionKey}`}
+        canonical={canonicalizeSiteUrl(`/stocks/${collectionKey}`)}
       />
 
       <section className="bg-gradient-to-r from-[#123f73] via-[#15538f] to-[#0ea5e9] text-white">
