@@ -19,7 +19,7 @@ export default function ArticleTrustBox({
             Important disclaimer
           </p>
           <h2 className="mt-2 text-xl font-bold text-amber-950 dark:text-amber-100">
-            Educational content only — not personal financial advice
+            Educational content only - not personal financial advice
           </h2>
           <p className="mt-3">
             This article is for general education only. It is not financial, investment, tax, legal, mortgage, or accounting advice. The examples and calculations are estimates based on stated assumptions and may not fit your personal situation.

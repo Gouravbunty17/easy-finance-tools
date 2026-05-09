@@ -51,6 +51,7 @@ const GICCalculator = lazyWithPreload(() => import('./pages/tools/GICCalculator'
 const DebtPayoffCalculator = lazyWithPreload(() => import('./pages/tools/DebtPayoffCalculator'));
 const SavingsGoalCalculator = lazyWithPreload(() => import('./pages/tools/SavingsGoalCalculator'));
 const NetPayCalculator = lazyWithPreload(() => import('./pages/tools/NetPayCalculator'));
+const PortfolioAnalyzerFoundation = lazyWithPreload(() => import('./pages/tools/PortfolioAnalyzerFoundation'));
 
 const WeeklyDividendETFs = lazyWithPreload(() => import('./pages/blog/weekly-dividend-etfs'));
 const FiveHundredMonthDividendCanada = lazyWithPreload(() => import('./pages/blog/500-month-dividend-canada'));
@@ -90,6 +91,11 @@ const HowToChooseETFsCanada = lazyWithPreload(() => import('./pages/blog/how-to-
 const TFSAInvestingMistakesCanada = lazyWithPreload(() => import('./pages/blog/tfsa-investing-mistakes-canada'));
 const DRIPStrategyCanada = lazyWithPreload(() => import('./pages/blog/drip-strategy-canada'));
 const CoveredCallETFsCanadaExplained = lazyWithPreload(() => import('./pages/blog/covered-call-etfs-canada-explained'));
+const WhyPrioritizeFHSABeforeTFSA = lazyWithPreload(() => import('./pages/blog/why-prioritize-fhsa-before-tfsa-canada'));
+const RRSPMistakeMiddleIncomeCanadians = lazyWithPreload(() => import('./pages/blog/rrsp-mistake-middle-income-canadians'));
+const TFSAWithdrawalsContributionRoomCanada = lazyWithPreload(() => import('./pages/blog/tfsa-withdrawals-contribution-room-canada'));
+const HighYieldDividendETFsHurtWealthCanada = lazyWithPreload(() => import('./pages/blog/high-yield-dividend-etfs-hurt-wealth-canada'));
+const MortgagePrepaymentsVsInvestingCanada = lazyWithPreload(() => import('./pages/blog/mortgage-prepayments-vs-investing-canada'));
 
 const routeEntries = [
   ['/', Home],
@@ -146,6 +152,7 @@ const routeEntries = [
   ['/tools/debt-payoff', DebtPayoffCalculator],
   ['/tools/savings-goal', SavingsGoalCalculator],
   ['/tools/net-pay-calculator', NetPayCalculator],
+  ['/tools/portfolio-analyzer', PortfolioAnalyzerFoundation],
   ['/blog/weekly-dividend-etfs', WeeklyDividendETFs],
   ['/blog/500-month-dividend-canada', FiveHundredMonthDividendCanada],
   ['/blog/500-month-tfsa-income-canada', FiveHundredMonthTFSAIncomeCanada],
@@ -179,6 +186,11 @@ const routeEntries = [
   ['/blog/tfsa-investing-mistakes-canada', TFSAInvestingMistakesCanada],
   ['/blog/drip-strategy-canada', DRIPStrategyCanada],
   ['/blog/covered-call-etfs-canada-explained', CoveredCallETFsCanadaExplained],
+  ['/blog/why-prioritize-fhsa-before-tfsa-canada', WhyPrioritizeFHSABeforeTFSA],
+  ['/blog/rrsp-mistake-middle-income-canadians', RRSPMistakeMiddleIncomeCanadians],
+  ['/blog/tfsa-withdrawals-contribution-room-canada', TFSAWithdrawalsContributionRoomCanada],
+  ['/blog/high-yield-dividend-etfs-hurt-wealth-canada', HighYieldDividendETFsHurtWealthCanada],
+  ['/blog/mortgage-prepayments-vs-investing-canada', MortgagePrepaymentsVsInvestingCanada],
   ['/blog/how-to-invest-in-canada-beginners-2026', HowToInvestBeginners],
   ['/blog/best-hisa-canada-2026', BestHISACanada2026],
   ['/blog/emergency-fund-canada', EmergencyFundCanada],

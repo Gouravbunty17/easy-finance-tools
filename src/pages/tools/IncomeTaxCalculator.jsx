@@ -8,6 +8,8 @@ import CalculatorCaseStudy from "../../components/CalculatorCaseStudy";
 import SourceList from "../../components/SourceList";
 import ToolByline from "../../components/ToolByline";
 import ToolPageSchema from "../../components/ToolPageSchema";
+import InlineSourceTrust from "../../components/InlineSourceTrust";
+import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from "../../components/ToolTrustBlocks";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
@@ -257,6 +259,24 @@ export default function IncomeTaxCalculator() {
                 </div>
               ))}
             </div>
+          </div>
+
+          <InlineSourceTrust
+            label="Tax-rate source check"
+            note="Federal/provincial tax rates and payroll deductions should be verified with CRA before filing or making tax decisions."
+            sources={[taxOfficialSources[0], taxOfficialSources[1]]}
+          />
+
+          <div className="grid gap-4 lg:grid-cols-3">
+            <WhyThisToolExists>
+              This tool exists to make tax pressure visible before a full return is prepared, especially when comparing RRSP deductions, province, and payroll deductions.
+            </WhyThisToolExists>
+            <WhenThisToolIsWeakest>
+              The estimate is weakest for self-employment, taxable benefits, credits, deductions, split income, business income, or unusual province-specific tax situations.
+            </WhenThisToolIsWeakest>
+            <StressTestYourInputs>
+              Test income with and without bonuses or RRSP deductions. Marginal rate decisions are more useful when you compare more than one income path.
+            </StressTestYourInputs>
           </div>
         </div>
       </div>

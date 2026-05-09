@@ -22,6 +22,46 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "mortgage-prepayments-vs-investing-canada",
+    title: "Mortgage Prepayments vs Investing in Canada",
+    date: "2026-05-09",
+    category: "Real Estate",
+    readTime: "12 min",
+    excerpt: "A practical Canadian framework for comparing guaranteed mortgage interest savings with uncertain investment returns, taxes, liquidity, and renewal risk.",
+  },
+  {
+    slug: "high-yield-dividend-etfs-hurt-wealth-canada",
+    title: "When High-Yield Dividend ETFs Can Hurt Long-Term Wealth",
+    date: "2026-05-09",
+    category: "Dividends",
+    readTime: "11 min",
+    excerpt: "Understand when large ETF payouts can hide covered-call tradeoffs, concentration, tax complexity, capital erosion, or weak total return.",
+  },
+  {
+    slug: "tfsa-withdrawals-contribution-room-canada",
+    title: "How TFSA Withdrawals Really Affect Contribution Room",
+    date: "2026-05-09",
+    category: "TFSA",
+    readTime: "10 min",
+    excerpt: "Learn why TFSA withdrawal room usually returns next January, how same-year recontributions go wrong, and how to verify room with CRA records.",
+  },
+  {
+    slug: "rrsp-mistake-middle-income-canadians",
+    title: "The RRSP Mistake Middle-Income Canadians Make",
+    date: "2026-05-09",
+    category: "RRSP",
+    readTime: "10 min",
+    excerpt: "A practical look at refund-first RRSP thinking, tax-rate gaps, TFSA comparison, benefit interactions, and how to use the refund intentionally.",
+  },
+  {
+    slug: "why-prioritize-fhsa-before-tfsa-canada",
+    title: "Why Many Canadians Should Prioritize FHSA Before TFSA",
+    date: "2026-05-09",
+    category: "FHSA",
+    readTime: "11 min",
+    excerpt: "A Canadian account-priority framework for first-home savers comparing FHSA deductions, TFSA flexibility, eligibility, and home timeline risk.",
+  },
+  {
     slug: "covered-call-etfs-canada-explained",
     title: "Covered Call ETFs in Canada Explained",
     date: "2026-05-06",

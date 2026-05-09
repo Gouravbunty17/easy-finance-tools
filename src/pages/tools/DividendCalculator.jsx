@@ -28,6 +28,8 @@ import ResultInsightCard from '../../components/ResultInsightCard';
 import OptimizationTips from '../../components/OptimizationTips';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import DecisionFramework from '../../components/DecisionFramework';
+import InlineSourceTrust from '../../components/InlineSourceTrust';
+import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
   DATA_SNAPSHOT_LABEL,
@@ -628,6 +630,24 @@ export default function DividendCalculator() {
               </div>
             </div>
           </section>
+
+          <InlineSourceTrust
+            label="Dividend tax source check"
+            note="Taxable dividend and investment-income treatment depends on account type and should be verified with CRA for taxable accounts."
+            sources={[dividendTaxOfficialSources[0], dividendTaxOfficialSources[1]]}
+          />
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <WhyThisToolExists>
+              This tool exists because dividend planning often starts with a yield target and skips the harder question: whether the payout, account type, and total-return tradeoff fit the goal.
+            </WhyThisToolExists>
+            <WhatCanBreakThisEstimate>
+              Distribution cuts, covered-call upside limits, return of capital, sector concentration, taxes, and a price decline can all make the income result less useful.
+            </WhatCanBreakThisEstimate>
+            <StressTestYourInputs>
+              Test yields at 3%, 5%, and 7%, then lower price growth. If the plan only works at high yield, the income target may be carrying too much risk.
+            </StressTestYourInputs>
+          </div>
 
           <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
             <div className="flex flex-wrap items-center justify-between gap-3">

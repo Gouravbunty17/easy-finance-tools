@@ -24,6 +24,8 @@ import SourceList from '../../components/SourceList';
 import ResultInsightCard from '../../components/ResultInsightCard';
 import OptimizationTips from '../../components/OptimizationTips';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
+import InlineSourceTrust from '../../components/InlineSourceTrust';
+import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
   DEFAULT_ASSUMPTIONS,
@@ -338,6 +340,24 @@ export default function MortgageCalculator() {
               hint={`Qualifying rate used: ${formatPercent(result.stressRate, 2)}`}
               tone="success"
             />
+          </div>
+
+          <InlineSourceTrust
+            label="Mortgage rule references"
+            note="Stress-test, mortgage-insurance, and rate-context notes reference Canadian consumer and housing sources."
+            sources={[mortgageOfficialSources[0], mortgageOfficialSources[2]]}
+          />
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <WhyThisToolExists>
+              This tool exists because the payment is only one part of a Canadian mortgage decision. Insurance, closing costs, renewal risk, and prepayment behaviour can change the real pressure.
+            </WhyThisToolExists>
+            <WhatCanBreakThisEstimate>
+              Lender underwriting, property tax, condo fees, insurance, penalties, rate holds, and renewal rates can make a real offer differ from this estimate.
+            </WhatCanBreakThisEstimate>
+            <StressTestYourInputs>
+              Increase the rate by one or two points and lower the amortization. If the budget breaks quickly, the listing price may be doing too much work.
+            </StressTestYourInputs>
           </div>
 
           <div className="surface-card mt-8 p-6">

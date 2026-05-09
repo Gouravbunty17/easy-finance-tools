@@ -13,6 +13,8 @@ import SourceList from '../../components/SourceList';
 import OfficialSourceNote from '../../components/OfficialSourceNote';
 import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import DecisionFramework from '../../components/DecisionFramework';
+import InlineSourceTrust from '../../components/InlineSourceTrust';
+import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import { CONTENT_LAST_REVIEWED } from '../../config/financial';
 import { fhsaOfficialSources, rrspOfficialSources, tfsaOfficialSources } from '../../config/officialSources';
 
@@ -202,6 +204,24 @@ export default function AccountDecisionTool() {
               <p className="mt-3 text-2xl font-bold text-primary dark:text-accent">{formatCurrency(result.monthlyAmount)}/mo</p>
               <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">A rough 10% of income habit, only for scenario testing.</p>
             </div>
+          </div>
+
+          <InlineSourceTrust
+            label="Account-rule source check"
+            note="This account priority result depends on CRA TFSA, RRSP, and FHSA rules. Confirm your actual room before contributing."
+            sources={[tfsaOfficialSources[0], rrspOfficialSources[0]]}
+          />
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <WhyThisToolExists>
+              This tool exists because account order often matters more than platform choice. It keeps the focus on goal, tax rate, timeline, flexibility, and room.
+            </WhyThisToolExists>
+            <WhenThisToolIsWeakest>
+              The output is weakest when contribution room, FHSA eligibility, employer matching, debt pressure, or near-term cash needs are not reflected honestly.
+            </WhenThisToolIsWeakest>
+            <StressTestYourInputs>
+              Change the goal, timeline, and flexibility toggle. If the recommendation flips, the real decision is sensitive and deserves a slower review.
+            </StressTestYourInputs>
           </div>
 
           <div className="mt-8 grid gap-4">

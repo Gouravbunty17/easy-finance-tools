@@ -22,6 +22,8 @@ import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
 import SourceList from '../../components/SourceList';
+import InlineSourceTrust from '../../components/InlineSourceTrust';
+import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
   CONTENT_LAST_REVIEWED,
@@ -189,6 +191,24 @@ export default function FHSACalculator() {
               hint={`Includes ${formatCurrency(result.projectedGrowth)} of projected growth over ${yearsToPurchase} years.`}
               tone="warning"
             />
+          </div>
+
+          <InlineSourceTrust
+            label="FHSA room source"
+            note="The annual participation room, lifetime limit, and qualifying-withdrawal context reference CRA FHSA guidance."
+            sources={[fhsaOfficialSources[0], fhsaOfficialSources[1]]}
+          />
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <WhyThisToolExists>
+              This tool exists because FHSA value depends on eligibility, room timing, tax rate, and home timeline together. A refund estimate alone is not enough.
+            </WhyThisToolExists>
+            <WhenThisToolIsWeakest>
+              The estimate is weakest when first-time buyer status, partner ownership facts, purchase timing, or RRSP-to-FHSA transfer handling is uncertain.
+            </WhenThisToolIsWeakest>
+            <StressTestYourInputs>
+              Test a shorter purchase date and lower return. First-home money usually needs more caution than long-term retirement investing.
+            </StressTestYourInputs>
           </div>
 
           <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">

@@ -63,6 +63,7 @@ export const TOOL_ROUTES = [
   { route: "/tools/debt-payoff", sourcePath: "src/pages/tools/DebtPayoffCalculator.jsx", group: "tools" },
   { route: "/tools/savings-goal", sourcePath: "src/pages/tools/SavingsGoalCalculator.jsx", group: "tools" },
   { route: "/tools/net-pay-calculator", sourcePath: "src/pages/tools/NetPayCalculator.jsx", group: "tools" },
+  { route: "/tools/portfolio-analyzer", sourcePath: "src/pages/tools/PortfolioAnalyzerFoundation.jsx", group: "tools" },
 ];
 
 export const BLOG_ROUTES = [
@@ -104,6 +105,11 @@ export const BLOG_ROUTES = [
   { route: "/blog/emergency-fund-canada", sourcePath: "src/pages/blog/emergency-fund-canada.jsx", group: "blog" },
   { route: "/blog/pay-off-mortgage-faster-canada", sourcePath: "src/pages/blog/pay-off-mortgage-faster-canada.jsx", group: "blog" },
   { route: "/blog/canada-child-benefit-2026", sourcePath: "src/pages/blog/canada-child-benefit-2026.jsx", group: "blog" },
+  { route: "/blog/why-prioritize-fhsa-before-tfsa-canada", sourcePath: "src/pages/blog/why-prioritize-fhsa-before-tfsa-canada.jsx", group: "blog" },
+  { route: "/blog/rrsp-mistake-middle-income-canadians", sourcePath: "src/pages/blog/rrsp-mistake-middle-income-canadians.jsx", group: "blog" },
+  { route: "/blog/tfsa-withdrawals-contribution-room-canada", sourcePath: "src/pages/blog/tfsa-withdrawals-contribution-room-canada.jsx", group: "blog" },
+  { route: "/blog/high-yield-dividend-etfs-hurt-wealth-canada", sourcePath: "src/pages/blog/high-yield-dividend-etfs-hurt-wealth-canada.jsx", group: "blog" },
+  { route: "/blog/mortgage-prepayments-vs-investing-canada", sourcePath: "src/pages/blog/mortgage-prepayments-vs-investing-canada.jsx", group: "blog" },
 ];
 
 export const SITE_ROUTES = [...STATIC_ROUTES, ...TOOL_ROUTES, ...BLOG_ROUTES, ...LEGACY_REDIRECT_ROUTES];

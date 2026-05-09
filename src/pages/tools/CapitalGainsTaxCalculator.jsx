@@ -7,6 +7,8 @@ import SourceList from "../../components/SourceList";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import OfficialSourceNote from "../../components/OfficialSourceNote";
 import CalculatorCaseStudy from "../../components/CalculatorCaseStudy";
+import InlineSourceTrust from "../../components/InlineSourceTrust";
+import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from "../../components/ToolTrustBlocks";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
@@ -285,6 +287,24 @@ export default function CapitalGainsTaxCalculator() {
                     <div className="mt-2 text-2xl font-bold text-primary dark:text-accent">{item.value}</div>
                   </div>
                 ))}
+              </div>
+
+              <InlineSourceTrust
+                label="Capital-gains source check"
+                note="Capital-gains inclusion, losses, and taxable-account treatment should be verified against CRA before selling or filing."
+                sources={[dividendTaxOfficialSources[2], taxOfficialSources[2]]}
+              />
+
+              <div className="grid gap-4 lg:grid-cols-3">
+                <WhyThisToolExists>
+                  This tool exists because the pre-sale question is often “what might I keep after tax?” not just “what is my gain?”
+                </WhyThisToolExists>
+                <WhatCanBreakThisEstimate>
+                  Adjusted cost base errors, superficial losses, principal residence issues, crypto records, business shares, and changing inclusion rules can alter the result.
+                </WhatCanBreakThisEstimate>
+                <StressTestYourInputs>
+                  Test the sale across different income years and provinces if a move or income change is realistic. Timing can matter when marginal rates change.
+                </StressTestYourInputs>
               </div>
 
               <div className="surface-card p-6">

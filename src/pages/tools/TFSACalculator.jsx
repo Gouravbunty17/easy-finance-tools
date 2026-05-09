@@ -27,6 +27,8 @@ import OptimizationTips from '../../components/OptimizationTips';
 import ImportantConsiderations from '../../components/ImportantConsiderations';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import DecisionFramework from '../../components/DecisionFramework';
+import InlineSourceTrust from '../../components/InlineSourceTrust';
+import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
   CONTENT_LAST_REVIEWED,
@@ -278,6 +280,24 @@ export default function TFSACalculator() {
               hint={`Uses ${Math.round(result.annualLimitUsage * 100)}% of the 2026 annual limit.`}
               tone="warning"
             />
+          </div>
+
+          <InlineSourceTrust
+            label="2026 TFSA limit source"
+            note="The annual limit and withdrawal-room timing referenced in this result are sourced from CRA TFSA guidance."
+            sources={[tfsaOfficialSources[0], tfsaOfficialSources[1]]}
+          />
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <WhyThisToolExists>
+              This tool exists because TFSA mistakes usually come from room timing, not investment selection. Withdrawal timing and CRA record lag can matter as much as the return assumption.
+            </WhyThisToolExists>
+            <WhenThisToolIsWeakest>
+              The estimate is weakest when current-year deposits, withdrawals, transfers, non-residency periods, or multiple TFSA accounts are not reconciled against your own records.
+            </WhenThisToolIsWeakest>
+            <StressTestYourInputs>
+              Try a lower return, a shorter timeline, and a smaller annual contribution. If the plan only works with optimistic growth, the TFSA is carrying too much of the plan.
+            </StressTestYourInputs>
           </div>
 
           <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">

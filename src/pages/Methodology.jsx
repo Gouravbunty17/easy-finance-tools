@@ -32,6 +32,14 @@ const toolGroups = [
   },
 ];
 
+const methodologyNav = [
+  { label: "Decision-first philosophy", href: "#decision-first" },
+  { label: "How calculators are built", href: "#calculator-build" },
+  { label: "Quality control", href: "#quality-control" },
+  { label: "Privacy and independence", href: "#privacy-independence" },
+  { label: "Assumptions and sources", href: "#assumptions-sources" },
+];
+
 export default function Methodology() {
   return (
     <div className="min-h-screen">
@@ -50,12 +58,42 @@ export default function Methodology() {
           <p className="mx-auto mt-4 max-w-3xl text-lg text-blue-100">
             Every calculator should explain what it does, what it does not do, where key assumptions come from, and when the page was last meaningfully reviewed.
           </p>
+          <p className="mt-4 text-sm font-semibold text-blue-100">Last reviewed: May 9, 2026</p>
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
           <div className="space-y-8">
+            <nav className="surface-soft p-4" aria-label="Methodology sections">
+              <div className="flex flex-wrap gap-2">
+                {methodologyNav.map((item) => (
+                  <a key={item.href} href={item.href} className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-accent">
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </nav>
+
+            <div id="decision-first" className="surface-card scroll-mt-24 p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Decision-first philosophy</h2>
+              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+                <p>
+                  EasyFinanceTools is built around decision quality before product selection. A calculator should help a Canadian understand account selection, tax efficiency, behavioral sustainability, planning clarity, and source transparency before any platform, ETF, or referral link enters the conversation.
+                </p>
+                <p>
+                  Many finance pages optimize for clicks: get the user to a product page, a sign-up button, or a long keyword article. This site tries to optimize for understanding. The useful outcome is not that a user clicks faster; it is that they know what to verify, which assumption matters, and what tradeoff they are actually making.
+                </p>
+              </div>
+              <div className="mt-5 grid gap-3 md:grid-cols-5">
+                {["Account selection", "Tax efficiency", "Behavioral sustainability", "Planning clarity", "Source transparency"].map((item) => (
+                  <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm font-semibold text-primary dark:border-slate-700 dark:bg-slate-900 dark:text-accent">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="surface-card p-6 md:p-8">
               <h2 className="text-2xl font-bold text-primary dark:text-accent">How we approach calculator content</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
@@ -71,7 +109,7 @@ export default function Methodology() {
               </div>
             </div>
 
-            <div className="surface-card p-6 md:p-8">
+            <div id="calculator-build" className="surface-card scroll-mt-24 p-6 md:p-8">
               <h2 className="text-2xl font-bold text-primary dark:text-accent">How calculators are built, tested, and updated</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
@@ -82,6 +120,36 @@ export default function Methodology() {
                 </p>
                 <p>
                   Updates are prioritized when CRA limits, tax brackets, mortgage rules, Bank of Canada data sources, CMHC/FCAC guidance, or core assumptions change. Pages that cannot be kept current or that do not contain enough original explanation should be improved or noindexed rather than treated as finished core content.
+                </p>
+              </div>
+            </div>
+
+            <div id="quality-control" className="surface-card scroll-mt-24 p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Quality control and intentional noindexing</h2>
+              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+                <p>
+                  Some utilities remain intentionally excluded from search indexing until they provide enough educational depth, Canadian-specific context, or decision-support value. Noindexing is editorial restraint: it keeps thin or narrow pages from pretending to be core authority pages.
+                </p>
+                <p>
+                  An indexable tool should answer a real planning question, show assumptions, explain where the output becomes weak, include relevant Canadian context, and point to official sources when rules drive the result. A simple widget can still be useful to visitors, but usefulness does not automatically mean it should be promoted as search content.
+                </p>
+                <p>
+                  Edge cases are reviewed by asking: what would make this output misleading? Recent withdrawals, stale CRA records, province changes, income volatility, mortgage renewal risk, tax-slip treatment, and aggressive return assumptions are examples of issues that deserve visible caveats near the result.
+                </p>
+              </div>
+            </div>
+
+            <div id="privacy-independence" className="surface-card scroll-mt-24 p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Privacy-first and independent outputs</h2>
+              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+                <p>
+                  Calculator inputs are designed to stay client-side unless a feature clearly says otherwise. EasyFinanceTools does not store calculator inputs in a financial profile, and calculator results are not used to build advertising profiles.
+                </p>
+                <p>
+                  Product or referral links, when present, come after education and do not influence calculator formulas, source selection, risk language, or result interpretation. A useful calculator should give the same output whether or not a referral relationship exists.
+                </p>
+                <p>
+                  Future upload-style features, such as a portfolio analyzer, should explain privacy behaviour before a user selects a file. No brokerage-login requirement should be introduced for a basic educational analysis.
                 </p>
               </div>
             </div>
@@ -108,7 +176,7 @@ export default function Methodology() {
               ))}
             </div>
 
-            <div className="surface-card p-6 md:p-8">
+            <div id="assumptions-sources" className="surface-card scroll-mt-24 p-6 md:p-8">
               <h2 className="text-2xl font-bold text-primary dark:text-accent">Where core assumptions come from</h2>
               <div className="mt-4 grid gap-4 md:grid-cols-2">
                 {[
@@ -129,6 +197,9 @@ export default function Methodology() {
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
                   Core Canadian rule pages should be checked when CRA, Government of Canada, Bank of Canada, CMHC, FCAC, or lender qualification guidance changes. Registered-account limits, tax brackets, CPP/OAS figures, and mortgage rules get priority because stale assumptions can mislead users quickly.
+                </p>
+                <p>
+                  Source freshness is handled by category. CRA account limits and tax brackets get checked around annual updates; Bank of Canada data integrations are checked when the source or API behaviour changes; CMHC, FCAC, and mortgage-rule references are checked when qualification or insurance guidance changes materially.
                 </p>
                 <p>
                   A calculator update should pass four checks before it is treated as current: official-source verification, formula sanity testing, result-explanation review, and mobile layout review. If a page cannot meet that standard, the safer choice is to improve it, keep it noindexed, or remove it from prominent journeys.
@@ -163,7 +234,16 @@ export default function Methodology() {
             </div>
           </div>
 
-          <div className="space-y-5">
+            <div className="space-y-5">
+            <div className="surface-card p-5">
+              <h3 className="text-lg font-bold text-primary dark:text-accent">What changed recently</h3>
+              <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                <li>Added inline official-source context inside major calculator result areas.</li>
+                <li>Added correction and usefulness feedback loops to education articles.</li>
+                <li>Added a noindexed portfolio analyzer foundation before building a live analyzer.</li>
+              </ul>
+            </div>
+
             <div className="surface-soft p-5">
               <h3 className="text-lg font-bold text-primary dark:text-accent">Good rules of thumb</h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">

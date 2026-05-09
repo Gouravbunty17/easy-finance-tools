@@ -6,6 +6,7 @@ export const NOINDEX_ROUTES = new Set([
   "/tools/inflation-calculator",
   "/tools/savings-goal",
   "/tools/net-pay-calculator",
+  "/tools/portfolio-analyzer",
   "/privacy-policy",
   "/disclosure",
   "/tfsa-calculator",

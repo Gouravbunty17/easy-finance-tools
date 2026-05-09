@@ -6,6 +6,8 @@ import MethodologyPanel from "../../components/MethodologyPanel";
 import SourceList from "../../components/SourceList";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import OfficialSourceNote from "../../components/OfficialSourceNote";
+import InlineSourceTrust from "../../components/InlineSourceTrust";
+import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from "../../components/ToolTrustBlocks";
 import { Bar, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -261,6 +263,24 @@ export default function CPPOASEstimator() {
                     <div className="mt-2 text-2xl font-bold text-primary dark:text-accent">{item.value}</div>
                   </div>
                 ))}
+              </div>
+
+              <InlineSourceTrust
+                label="Government benefit references"
+                note="CPP and OAS estimates should be compared with Government of Canada pages and your My Service Canada records."
+                sources={[retirementOfficialSources[0], retirementOfficialSources[1]]}
+              />
+
+              <div className="grid gap-4 lg:grid-cols-3">
+                <WhyThisToolExists>
+                  This tool exists because CPP and OAS timing decisions are easier to understand when monthly benefit estimates, clawback risk, and break-even timing are shown together.
+                </WhyThisToolExists>
+                <WhenThisToolIsWeakest>
+                  The estimate is weakest when contribution history, residency years, marital status, GIS eligibility, or taxable retirement income differs from the simplified inputs.
+                </WhenThisToolIsWeakest>
+                <StressTestYourInputs>
+                  Compare starting CPP at 60, 65, and 70, then test higher retirement income. Benefit timing should be checked against both cash flow and tax impact.
+                </StressTestYourInputs>
               </div>
 
               <div className="surface-card p-6">

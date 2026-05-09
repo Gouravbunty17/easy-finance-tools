@@ -27,6 +27,8 @@ import OptimizationTips from '../../components/OptimizationTips';
 import ImportantConsiderations from '../../components/ImportantConsiderations';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import DecisionFramework from '../../components/DecisionFramework';
+import InlineSourceTrust from '../../components/InlineSourceTrust';
+import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
   CONTENT_LAST_REVIEWED,
@@ -301,6 +303,24 @@ export default function RRSPCalculator() {
               hint={`Using a ${Math.round(result.retirementRate * 1000) / 10}% retirement-rate assumption.`}
               tone="warning"
             />
+          </div>
+
+          <InlineSourceTrust
+            label="RRSP deduction source"
+            note="Deduction-room and contribution-timing notes in this result reference CRA RRSP guidance."
+            sources={[rrspOfficialSources[1], rrspOfficialSources[2]]}
+          />
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <WhyThisToolExists>
+              This tool exists because the RRSP decision is not just “how big is my refund?” It helps compare refund value, future withdrawal tax, room limits, and whether the refund gets reinvested.
+            </WhyThisToolExists>
+            <WhatCanBreakThisEstimate>
+              Pension adjustments, unused carryforward room, spousal RRSP rules, benefit interactions, and a very different retirement tax rate can change the interpretation.
+            </WhatCanBreakThisEstimate>
+            <StressTestYourInputs>
+              Toggle refund reinvestment and test a higher retirement income. If the RRSP only looks good when the refund is reinvested, make that behaviour part of the plan.
+            </StressTestYourInputs>
           </div>
 
           <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">

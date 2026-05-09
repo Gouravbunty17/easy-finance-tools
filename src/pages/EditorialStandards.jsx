@@ -39,12 +39,25 @@ export default function EditorialStandards() {
           <p className="mx-auto mt-4 max-w-3xl text-lg text-blue-100">
             EasyFinanceTools is built to be useful first. These standards explain how we approach Canadian finance tools, comparisons, updates, and disclosures.
           </p>
+          <p className="mt-4 text-sm font-semibold text-blue-100">Last reviewed: May 9, 2026</p>
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
           <div className="space-y-8">
+            <div className="surface-card p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Decision-first editorial philosophy</h2>
+              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+                <p>
+                  The editorial priority is decision support before product recommendation. We try to help a reader understand account selection, tax efficiency, behavioral sustainability, planning clarity, and source transparency before presenting any provider or monetized next step.
+                </p>
+                <p>
+                  Finance content can easily drift toward click optimization. EasyFinanceTools should instead make the decision easier to reason about: what assumption drives the answer, what official source should be checked, what edge case could change the result, and when a professional should be involved.
+                </p>
+              </div>
+            </div>
+
             <div className="surface-card p-6 md:p-8">
               <h2 className="text-2xl font-bold text-primary dark:text-accent">What we want each page to do</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
@@ -79,6 +92,9 @@ export default function EditorialStandards() {
                 <p>
                   Comparison pages should explain who each option fits, what assumptions matter, and when a calculator or planning step should happen before choosing a provider.
                 </p>
+                <p>
+                  Pages that are useful but too narrow, generic, or unfinished may remain noindexed. That is a quality-control choice, not a technical penalty. A page should earn indexability by adding Canadian context, original explanation, source support, and a clear decision pathway.
+                </p>
               </div>
             </div>
 
@@ -93,6 +109,9 @@ export default function EditorialStandards() {
                 </p>
                 <p>
                   Corrections can be submitted through the Contact page. When a correction changes a number, formula, source, or recommendation context, the page should be reviewed, updated, and dated so readers can see that the change was handled.
+                </p>
+                <p>
+                  Source freshness is handled by risk level. CRA registered-account and tax pages, Government of Canada benefit pages, Bank of Canada rate data, and CMHC/FCAC mortgage references are checked first because stale assumptions there can directly change a user's interpretation.
                 </p>
               </div>
             </div>
@@ -123,6 +142,18 @@ export default function EditorialStandards() {
                 </p>
                 <p>
                   EasyFinanceTools is currently founder-operated, so the site avoids implying professional certification or institutional review. The content system is designed to support future external expert review notes without fabricating them today.
+                </p>
+              </div>
+            </div>
+
+            <div className="surface-card p-6 md:p-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Privacy and affiliate independence</h2>
+              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
+                <p>
+                  Calculator inputs should remain private and client-side unless a specific feature explains otherwise. Outputs should not be shaped around advertising profiles, and the site should avoid asking for personal financial data when a simple scenario input is enough.
+                </p>
+                <p>
+                  Affiliate or referral relationships cannot affect formulas, source links, risk explanations, rankings, or whether negative tradeoffs are shown. Product links should appear after educational value, not before the reader understands the decision.
                 </p>
               </div>
             </div>

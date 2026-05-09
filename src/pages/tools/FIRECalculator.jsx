@@ -8,6 +8,7 @@ import ResultInsightCard from "../../components/ResultInsightCard";
 import CalculatorCaseStudy from "../../components/CalculatorCaseStudy";
 import DecisionFramework from "../../components/DecisionFramework";
 import OfficialSourceNote from "../../components/OfficialSourceNote";
+import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from "../../components/ToolTrustBlocks";
 import { retirementOfficialSources } from "../../config/officialSources";
 import { Line } from "react-chartjs-2";
 import {
@@ -419,6 +420,18 @@ export default function FIRECalculator() {
             },
           ]}
         />
+      </div>
+
+      <div className="mb-8 grid gap-4 lg:grid-cols-3">
+        <WhyThisToolExists>
+          This tool exists because a single FIRE number can hide Canadian timing issues: CPP/OAS start ages, RRSP withdrawals, TFSA flexibility, housing costs, and bridge years before 65.
+        </WhyThisToolExists>
+        <WhatCanBreakThisEstimate>
+          Return sequence, inflation, tax drag, health costs, housing changes, part-time income, and benefit timing can make a clean FIRE projection too tidy.
+        </WhatCanBreakThisEstimate>
+        <StressTestYourInputs>
+          Re-run with a lower return, higher expenses, and a lower withdrawal rate. A resilient plan should not depend on one optimistic path.
+        </StressTestYourInputs>
       </div>
 
       <div className="mb-8 rounded-xl border border-gray-100 bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800">

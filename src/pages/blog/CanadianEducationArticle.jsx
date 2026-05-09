@@ -12,6 +12,10 @@ import TrackedLink from "../../components/TrackedLink";
 import EnhancedAuthorBox from "../../components/EnhancedAuthorBox";
 import EditorialReviewNote from "../../components/EditorialReviewNote";
 import ContinueLearning from "../../components/ContinueLearning";
+import SuggestCorrectionCTA from "../../components/SuggestCorrectionCTA";
+import WasThisHelpful from "../../components/WasThisHelpful";
+import UpdatedForRulesBadge from "../../components/UpdatedForRulesBadge";
+import RelatedDecisionTools from "../../components/RelatedDecisionTools";
 import {
   dividendTaxOfficialSources,
   fhsaOfficialSources,
@@ -53,6 +57,15 @@ function getArticleOfficialSources(article) {
   return [];
 }
 
+function getDecisionToolTopic(article) {
+  const text = `${article.slug} ${article.category} ${article.title}`.toLowerCase();
+  if (text.includes("mortgage") || text.includes("home")) return "mortgage";
+  if (text.includes("dividend") || text.includes("yield")) return "dividends";
+  if (text.includes("fhsa")) return "fhsa";
+  if (text.includes("rrsp")) return "rrsp";
+  return "tfsa";
+}
+
 export default function CanadianEducationArticle({ article }) {
   const tocItems = article.sections.map((section) => ({ id: slugify(section.heading), label: section.heading }));
   const imageUrl = article.imageUrl || getAbsoluteArticleImage(article.slug);
@@ -90,6 +103,9 @@ export default function CanadianEducationArticle({ article }) {
       />
 
       <section className="mx-auto max-w-4xl px-4 py-12">
+        <div className="mb-5">
+          <UpdatedForRulesBadge />
+        </div>
         <TLDRBox headline={article.shortAnswerHeadline} answer={article.shortAnswer} points={article.keyPoints} />
 
         <OfficialSourceNote
@@ -245,6 +261,10 @@ export default function CanadianEducationArticle({ article }) {
         />
 
         <div className="mt-10">
+          <RelatedDecisionTools topic={article.decisionToolTopic || getDecisionToolTopic(article)} />
+        </div>
+
+        <div className="mt-10">
           <EditorialReviewNote updated={article.lastUpdated} />
         </div>
 
@@ -267,6 +287,11 @@ export default function CanadianEducationArticle({ article }) {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Educational disclaimer</p>
           <p className="mt-3 text-sm leading-7 text-amber-800 dark:text-amber-200">{article.disclaimer}</p>
         </section>
+
+        <div className="mt-10 grid gap-5 lg:grid-cols-[1fr_1fr]">
+          <SuggestCorrectionCTA context={article.title} />
+          <WasThisHelpful id={article.slug} />
+        </div>
 
         <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">FAQ</p>

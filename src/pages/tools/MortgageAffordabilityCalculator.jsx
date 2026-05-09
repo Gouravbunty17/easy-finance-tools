@@ -21,6 +21,8 @@ import ReferenceSection from '../../components/ReferenceSection';
 import SourceList from '../../components/SourceList';
 import OfficialSourceNote from '../../components/OfficialSourceNote';
 import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
+import InlineSourceTrust from '../../components/InlineSourceTrust';
+import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
   DEFAULT_ASSUMPTIONS,
@@ -270,6 +272,24 @@ export default function MortgageAffordabilityCalculator() {
               hint={`Closing costs only: ${formatCurrency(result.closingCosts)}`}
               tone="success"
             />
+          </div>
+
+          <InlineSourceTrust
+            label="Affordability source check"
+            note="Debt-service, stress-test, and insured-mortgage context should be checked against official mortgage guidance and lender criteria."
+            sources={[mortgageOfficialSources[0], mortgageOfficialSources[1]]}
+          />
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <WhyThisToolExists>
+              This tool exists because preapproval headlines can feel larger than a comfortable household budget. It translates income, debt, and rate pressure into a planning boundary.
+            </WhyThisToolExists>
+            <WhenThisToolIsWeakest>
+              The estimate is weakest when income is variable, debt payments are changing, property taxes are unknown, or lender-specific rules are not reflected.
+            </WhenThisToolIsWeakest>
+            <StressTestYourInputs>
+              Test a higher qualifying rate, higher property tax, and a smaller down payment. A resilient purchase range should survive more than one version of the inputs.
+            </StressTestYourInputs>
           </div>
 
           <div className="surface-card mt-8 p-6">
