@@ -301,6 +301,36 @@ export default function TFSAvsRRSPCanada2026() {
           </div>
         </section>
 
+        <section className="mt-8 rounded-3xl border border-indigo-200 bg-indigo-50 p-6 dark:border-indigo-900/60 dark:bg-indigo-950/20">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">Common edge cases</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Where a TFSA vs RRSP calculator can mislead you</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {[
+              {
+                title: 'Your province changes the tax spread',
+                body: 'RRSP refund estimates depend on combined federal and provincial marginal tax rates. A national example can point you in the right direction but still miss the exact tax value in your province.',
+              },
+              {
+                title: 'You have workplace pension adjustments',
+                body: 'Pension adjustments can reduce RRSP room. If you only enter salary and ignore your Notice of Assessment, the RRSP contribution estimate can be too high.',
+              },
+              {
+                title: 'The refund is not reinvested',
+                body: 'RRSP comparisons often look better when the refund is saved, invested, or used for a planned debt payoff. If the refund is spent casually, the long-term advantage can shrink.',
+              },
+              {
+                title: 'Future income is not actually lower',
+                body: 'The RRSP is strongest when withdrawals happen at a lower tax rate. If pensions, CPP, OAS, RRIF withdrawals, or part-time work keep taxable income high, the TFSA may deserve more weight.',
+              },
+            ].map((item) => (
+              <div key={item.title} className="rounded-2xl border border-indigo-200 bg-white p-5 dark:border-indigo-900/60 dark:bg-slate-900">
+                <h3 className="font-bold text-primary dark:text-accent">{item.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <MethodologyPanel
           title="Assumptions behind this TFSA vs RRSP comparison"
           summary="This page is a planning guide, not personalized tax advice. It compares the broad mechanics of TFSA and RRSP decisions for Canadian investors and shows where income level and goals usually change the answer."

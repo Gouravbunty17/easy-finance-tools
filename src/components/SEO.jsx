@@ -26,14 +26,18 @@ export default function SEO({
     const robotsValue = shouldNoindexPath(normalizedPath)
       ? "noindex,follow,max-image-preview:large"
       : robots;
-    const imageUrl = image || "https://easyfinancetools.com/og-image.svg";
+    const defaultImageUrl = "https://easyfinancetools.com/og-image.png";
+    const requestedImageUrl = image || defaultImageUrl;
+    const imageUrl = /\.(png|jpe?g)(\?.*)?$/i.test(requestedImageUrl)
+      ? requestedImageUrl
+      : defaultImageUrl;
     const imageType = imageUrl.endsWith(".webp")
       ? "image/webp"
       : imageUrl.endsWith(".png")
         ? "image/png"
-        : imageUrl.endsWith(".jpg") || imageUrl.endsWith(".jpeg")
-          ? "image/jpeg"
-          : "image/svg+xml";
+          : imageUrl.endsWith(".jpg") || imageUrl.endsWith(".jpeg")
+            ? "image/jpeg"
+          : "image/png";
     const imageAltText =
       imageAlt ||
       "EasyFinanceTools - free Canadian TFSA, RRSP, FHSA and dividend calculators";

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 
 const updateEntries = [
@@ -43,11 +44,11 @@ export default function Corrections() {
         <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
           <h2 className="text-2xl font-bold text-primary dark:text-accent">How to report an error</h2>
           <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            If you notice a broken link, outdated limit, unclear explanation, or calculator issue, email the page URL, the input values used, and what looked wrong.
+            If you notice a broken link, outdated limit, unclear explanation, or calculator issue, send the page URL, the input values used, and what looked wrong through the contact page.
           </p>
-          <a className="mt-4 inline-flex rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-secondary" href="mailto:easyfinancetools@gmail.com?subject=Easy%20Finance%20Tools%20correction">
+          <Link className="mt-4 inline-flex rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-secondary" to="/contact">
             Report a correction
-          </a>
+          </Link>
         </div>
         <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
           <h2 className="text-2xl font-bold text-primary dark:text-accent">How updates are reviewed</h2>

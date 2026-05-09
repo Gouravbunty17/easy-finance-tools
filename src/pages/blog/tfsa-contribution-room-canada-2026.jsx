@@ -95,6 +95,12 @@ const article = {
     { title: "Ignoring multiple accounts", body: "TFSA room applies across all your TFSAs combined. Opening a second TFSA does not create a second limit." },
     { title: "Forgetting investment losses", body: "Losses inside a TFSA do not restore contribution room. Room comes back through withdrawals, not through poor performance." },
   ],
+  edgeCases: [
+    { title: "You became a Canadian resident after age 18", body: "Cumulative room tables can be wrong if you were not a Canadian resident for every eligible year. Verify your residency years before using the full lifetime total." },
+    { title: "You transferred between TFSA issuers", body: "A direct qualified transfer is different from withdrawing and recontributing. If you moved money manually, the same-year recontribution can still create an excess contribution." },
+    { title: "You traded actively inside the TFSA", body: "Frequent or business-like trading can create tax issues that a contribution-room calculator will not detect. Room math and account tax treatment are separate questions." },
+    { title: "Your broker has not reported recent activity", body: "CRA room can lag issuer reporting. During the year, your own transaction log is often more reliable for same-year contributions and withdrawals." },
+  ],
   related: [
     { type: "Tool", label: "TFSA calculator", href: "/tools/tfsa-calculator", body: "Estimate contribution room, tax-free growth, and future TFSA value." },
     { type: "Guide", label: "TFSA vs RRSP guide", href: "/blog/tfsa-vs-rrsp-canada-2026", body: "Compare whether your next dollar belongs in a TFSA or RRSP first." },

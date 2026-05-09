@@ -3,6 +3,7 @@ import SEO from "../components/SEO";
 import ArticleImage from "../components/ArticleImage";
 import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
 import TopicClusterMap from "../components/TopicClusterMap";
+import NewsletterSignup from "../components/NewsletterSignup";
 
 const categoryStyle = {
   Retirement: { gradient: "from-purple-500 to-purple-700", icon: "CA" },
@@ -690,24 +691,12 @@ export default function Blog() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 dark:border-emerald-900 dark:bg-emerald-950/30">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">Newsletter</p>
-              <h2 className="mt-2 text-xl font-bold text-primary dark:text-accent">Get Canadian investing guides weekly</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                ETF explainers, TFSA strategy, dividend income ideas, and new calculator updates. No hype, no crypto spam.
-              </p>
-              <form className="mt-4 grid gap-3" onSubmit={(event) => event.preventDefault()}>
-                <input
-                  type="email"
-                  placeholder="Email address"
-                  aria-label="Email address"
-                  className="focus-ring rounded-xl border border-emerald-200 bg-white px-4 py-3 text-sm dark:border-emerald-900 dark:bg-slate-900"
-                />
-                <button className="rounded-xl bg-primary px-4 py-3 text-sm font-bold text-white transition hover:bg-secondary" type="submit">
-                  Join the list
-                </button>
-              </form>
-            </section>
+            <NewsletterSignup
+              compact
+              eyebrow="Tool updates"
+              title="Get Canadian finance tool updates."
+              description="New calculator releases, source updates, and major guide improvements. Email collection is not connected yet."
+            />
 
             <section className="surface-card p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Platforms and partners</p>

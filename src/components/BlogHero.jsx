@@ -16,7 +16,7 @@ export default function BlogHero({
   standardsHref = "/editorial-standards",
   slug,
   linkedinUrl = "",
-  headshotUrl = "/founder/gourav-kumar.webp",
+  headshotUrl = "",
 }) {
   const media = slug ? getArticleMedia(slug) : null;
   const hasPhotoBackground = Boolean(media?.image && !media.image.endsWith(".svg"));

@@ -110,6 +110,12 @@ const article = {
     "You need the money for a non-home goal and cannot handle the taxable-withdrawal risk if plans change.",
     "You are close to buying and would need to invest aggressively just to chase a small amount of extra growth.",
   ],
+  edgeCases: [
+    { title: "You owned a home through a spouse or partner", body: "First-time home buyer status can be affected by spouse or common-law partner facts. Do not rely on a simple 'I never owned' shortcut without checking the official conditions." },
+    { title: "You open late in the year", body: "Opening in December can start FHSA participation room, but contribution, transfer, and tax-slip timing still need clean records." },
+    { title: "You transfer from an RRSP close to purchase", body: "RRSP-to-FHSA transfers use FHSA room and can create paperwork timing issues. The transfer should be completed through the issuer, not treated like a casual withdrawal." },
+    { title: "Your purchase stops qualifying", body: "A withdrawal that fails the qualifying conditions can become taxable. Verify the home, occupancy, residency, and form requirements before withdrawing." },
+  ],
   pathway: {
     eyebrow: "First-home pathway",
     title: "Move from rules to a usable home-buying plan",

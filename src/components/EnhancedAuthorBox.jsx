@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const DEFAULT_HEADSHOT_URL = '/founder/gourav-kumar.webp';
+const DEFAULT_HEADSHOT_URL = '';
 
 export default function EnhancedAuthorBox({
   lastUpdated,

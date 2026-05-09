@@ -100,6 +100,12 @@ const article = {
     { title: "Ignoring TFSA or FHSA alternatives", body: "A deadline does not mean the RRSP is always first. Income level, home goals, and flexibility still matter." },
     { title: "Missing first-60-days receipts", body: "Contributions in the first 60 days of 2026 need to be reported correctly even if you do not deduct all of them right away." },
   ],
+  edgeCases: [
+    { title: "You have a pension adjustment", body: "Workplace pension participation can reduce new RRSP room. A salary-only calculation may overstate room if the pension adjustment is ignored." },
+    { title: "You use a spousal RRSP", body: "Spousal RRSP contributions use the contributor's room, but withdrawal attribution rules can affect tax treatment if money comes out too soon." },
+    { title: "You contributed but want to deduct later", body: "A contribution and a deduction are not always used in the same year. Carrying a deduction forward can help in a higher-income year, but it should be tracked carefully." },
+    { title: "Your refund estimate looks too high", body: "Refund calculators can be wrong when credits, payroll withholding, province, deductions, or self-employment income are simplified. Verify with tax software or CRA records before filing." },
+  ],
   related: [
     { type: "Tool", label: "RRSP calculator", href: "/tools/rrsp-calculator", body: "Estimate deduction value, refund impact, and future RRSP growth." },
     { type: "Tool", label: "Net pay calculator", href: "/tools/net-pay-calculator", body: "Compare paycheque impact when RRSP deductions happen through payroll." },

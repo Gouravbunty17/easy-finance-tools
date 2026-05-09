@@ -103,6 +103,12 @@ const article = {
     "Your expected retirement income is not meaningfully lower than current income, which can weaken the RRSP advantage.",
     "You need the money soon and would have to invest in risky assets to justify a registered-account choice.",
   ],
+  edgeCases: [
+    { title: "A near-term home purchase changes everything", body: "An FHSA can look strongest on tax treatment, but if the money is needed within months, investment risk and withdrawal paperwork may matter more than projected growth." },
+    { title: "RRSP looks best only because the refund is spent", body: "If the refund disappears into regular spending, the RRSP may not improve long-term wealth as much as the calculator output implies." },
+    { title: "TFSA room is already full", body: "A TFSA-first answer can be correct in theory but unavailable in practice. Actual room, not preference, controls the next contribution." },
+    { title: "Province changes the tax spread", body: "RRSP deduction value depends on combined federal and provincial marginal rates. A national example can be directionally useful but still wrong for a specific province." },
+  ],
   pathway: {
     eyebrow: "Account decision pathway",
     title: "Turn the comparison into a next-dollar decision",

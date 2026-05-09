@@ -23,10 +23,13 @@ export default function ArticleSchema({
   datePublished,
   dateModified,
   authorName = "Gourav Kumar",
-  imageUrl = "https://easyfinancetools.com/og-image.svg",
+  imageUrl = "https://easyfinancetools.com/og-image.png",
   breadcrumbs,
 }) {
   if (!headline || !url) return null;
+  const schemaImageUrl = /\.(png|jpe?g)(\?.*)?$/i.test(imageUrl)
+    ? imageUrl
+    : "https://easyfinancetools.com/og-image.png";
 
   const defaultBreadcrumbs = [
     { name: "Home", item: "https://easyfinancetools.com/" },
@@ -55,12 +58,12 @@ export default function ArticleSchema({
           url: "https://easyfinancetools.com",
           logo: {
             "@type": "ImageObject",
-            url: imageUrl,
+            url: schemaImageUrl,
           },
         },
         image: {
           "@type": "ImageObject",
-          url: imageUrl,
+          url: schemaImageUrl,
         },
         mainEntityOfPage: {
           "@type": "WebPage",

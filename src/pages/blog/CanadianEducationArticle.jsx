@@ -173,6 +173,21 @@ export default function CanadianEducationArticle({ article }) {
           </section>
         ) : null}
 
+        {article.edgeCases?.length ? (
+          <section className="mt-10 rounded-3xl border border-indigo-200 bg-indigo-50 p-6 dark:border-indigo-900/60 dark:bg-indigo-950/20">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-700 dark:text-indigo-300">Common edge cases</p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Where the simple answer can be wrong</h2>
+            <div className="mt-5 grid gap-4 md:grid-cols-2">
+              {article.edgeCases.map((item) => (
+                <div key={item.title} className="rounded-2xl border border-indigo-200 bg-white p-5 dark:border-indigo-900/60 dark:bg-slate-900">
+                  <h3 className="font-bold text-primary dark:text-accent">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         <section className="mt-10 rounded-3xl border border-blue-200 bg-blue-50 p-6 dark:border-blue-800 dark:bg-blue-900/20">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-300">Example scenario</p>
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">{article.example.title}</h2>

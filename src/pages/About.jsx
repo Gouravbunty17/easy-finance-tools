@@ -4,26 +4,41 @@ import SEO from "../components/SEO";
 import EnhancedAuthorBox from "../components/EnhancedAuthorBox";
 import TopicClusterMap from "../components/TopicClusterMap";
 
-const FOUNDER_HEADSHOT_URL = "/founder/gourav-kumar.webp";
+const FOUNDER_HEADSHOT_URL = "";
 const FOUNDER_LINKEDIN_URL = "";
+
+const TRUST_POINTS = [
+  {
+    title: "Canadian-first assumptions",
+    body: "Tools are written around Canadian account rules, tax context, mortgage conventions, and official source material rather than US defaults.",
+  },
+  {
+    title: "Transparent methodology",
+    body: "Calculator pages explain the formulas, assumptions, examples, limitations, and official references behind the result.",
+  },
+  {
+    title: "Privacy-respecting tools",
+    body: "Calculator inputs are processed in the browser. The site is designed so you can test scenarios without creating an account.",
+  },
+];
 
 export default function About() {
   return (
     <main className="min-h-screen" aria-labelledby="about-page-title">
       <SEO
         title="About EasyFinanceTools"
-        description="How EasyFinanceTools is built and edited, how we source and review Canadian finance calculators, and the editorial standards that guide every tool and article."
+        description="Meet Gourav Kumar, founder of EasyFinanceTools, and learn how the site builds Canadian finance calculators, source checks, and educational guides."
         canonical="https://easyfinancetools.com/about"
       />
 
       <section className="border-b bg-gradient-to-br from-primary via-[#0a4c89] to-secondary px-4 py-16 text-white">
         <div className="mx-auto max-w-4xl text-center">
           <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.18em] text-blue-50">
-            About and methodology
+            Founder-led Canadian finance tools
           </div>
           <h1 id="about-page-title" className="text-4xl font-bold md:text-5xl">About EasyFinanceTools</h1>
           <p className="mx-auto mt-4 max-w-3xl text-lg text-blue-50">
-            A free, independent resource that helps Canadians make clearer financial decisions — built around the rules, assumptions, and tradeoffs behind every number.
+            EasyFinanceTools helps Canadians understand financial tradeoffs with calculators, plain-language guides, source links, and transparent assumptions.
           </p>
         </div>
       </section>
@@ -31,83 +46,51 @@ export default function About() {
       <section className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
           <div>
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
-              <p>
-                <strong className="text-slate-800 dark:text-slate-100">By Gourav Kumar</strong> · Founder and Editor
-                <span className="mx-2 text-slate-300 dark:text-slate-600">|</span>
-                Last updated April 19, 2026
-              </p>
-            </div>
-
-            <div className="mt-6 surface-card p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-primary dark:text-accent">What EasyFinanceTools is</h2>
+            <div className="surface-card p-6 md:p-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Founder and operator</p>
+              <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Built and maintained by Gourav Kumar</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
-                  EasyFinanceTools is a free, independent site that helps Canadians make clearer financial decisions. We publish two kinds of content: interactive calculators for major tax, registered-account, mortgage, and investing decisions, and written guides that explain the rules, tradeoffs, and common mistakes behind those decisions.
+                  EasyFinanceTools is an independent Canadian personal finance education and calculator platform founded by Gourav Kumar. The site is built for people who want to test TFSA, RRSP, FHSA, mortgage, dividend, tax, and retirement scenarios without being pushed into a product first.
                 </p>
                 <p>
-                  Every calculator is built for the Canadian context. That means Canadian tax brackets by province, Canadian registered-account limits (TFSA, RRSP, FHSA, RRIF), Canadian mortgage conventions (semi-annual compounding, CMHC insurance, the stress test), and Canadian benefit programs (CPP, OAS, CCB). US-focused tools look superficially similar but apply different rules — a mortgage calculator that compounds monthly instead of semi-annually will consistently overstate a Canadian monthly payment.
+                  Gourav focuses on building practical tools, maintaining calculator logic, reviewing pages against official Canadian sources where applicable, and improving the site when rules or user needs change.
                 </p>
                 <p>
-                  We do not hide the math. Every tool links to a methodology panel that names the formula, the assumptions, and the primary government source used.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8 surface-card p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-primary dark:text-accent">Why we built this</h2>
-              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
-                <p>
-                  Most Canadian finance calculators fall into one of two camps. They are either built by banks and brokerages that have a product to sell, or they are US tools relabelled with a maple leaf. The first group sidesteps uncomfortable tradeoffs because those tradeoffs might cost them a sale. The second group misses the rules that actually shape a Canadian decision.
-                </p>
-                <p>
-                  We built this site to give people a neutral third option: a tool that shows the number, explains where it came from, and links to the official government source so you can verify it yourself. The site is free, funded by contextual advertising and a small number of clearly disclosed affiliate links. None of those relationships change the assumptions, the formulas, or the math.
+                  EasyFinanceTools does not provide personalized financial, tax, legal, mortgage, or investment advice. Gourav is not a licensed financial advisor, CPA, CFP, CFA, mortgage broker, or tax preparer.
                 </p>
               </div>
             </div>
 
             <div className="mt-8">
               <EnhancedAuthorBox
-                lastUpdated="May 7, 2026"
-                focus="Canadian finance tools and education"
+                lastUpdated="May 9, 2026"
+                focus="Canadian finance calculators and education"
                 headshotUrl={FOUNDER_HEADSHOT_URL}
                 linkedinUrl={FOUNDER_LINKEDIN_URL}
               />
             </div>
 
             <div className="mt-8 surface-card p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-primary dark:text-accent">Founder identity and role</h2>
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Why this site exists</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
-                  EasyFinanceTools is built and edited by Gourav Kumar, an independent Canadian finance tools creator. The site exists to make Canadian money decisions easier to understand by pairing calculators with assumptions, official sources, and plain-language tradeoffs.
+                  Many finance pages answer the easy definition question but skip the harder planning question: what changes the decision? EasyFinanceTools is designed around that second question.
                 </p>
                 <p>
-                  Gourav is not a licensed financial advisor, accountant, mortgage broker, tax professional, CPA, CFA, or CFP. The site's authority comes from transparent calculator logic, Canada-specific assumptions, visible official sources, and a willingness to noindex or improve pages that are not strong enough.
+                  A calculator result should not stand alone. Each major tool explains what the number means, which assumptions drive it, where it can be wrong, and which official source or related guide helps verify the next step.
                 </p>
                 <p>
-                  The content system is built so future guest reviewers or licensed professionals can be credited clearly when that review actually happens. Until then, pages should not imply institutional approval or professional certification.
+                  The site may use contextual advertising and clearly disclosed referral relationships, but those relationships do not change calculator formulas, source selection, or educational conclusions.
                 </p>
               </div>
             </div>
 
             <div className="mt-8 grid gap-4 md:grid-cols-3">
-              {[
-                {
-                  title: "Privacy first",
-                  body: "Everything you type into a calculator stays in your browser. Inputs are never sent to a server.",
-                },
-                {
-                  title: "Source-aware",
-                  body: "Calculators are built around Canadian source material and disclose important assumptions and limitations.",
-                },
-                {
-                  title: "Made for Canada",
-                  body: "Canadian tax brackets, registered-account limits, and mortgage conventions — not US defaults.",
-                },
-              ].map((item) => (
+              {TRUST_POINTS.map((item) => (
                 <div key={item.title} className="surface-card p-5">
                   <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
-                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
+                  <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
                 </div>
               ))}
             </div>
@@ -117,105 +100,56 @@ export default function About() {
             </div>
 
             <div className="mt-8 surface-card p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-primary dark:text-accent">How we build calculators</h2>
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">How calculators are built and maintained</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
-                  Every calculator on this site follows the same process. First, we identify the underlying rule or assumption, such as CRA guidance, a mortgage convention, a CMHC premium schedule, or a Bank of Canada data source. Second, we build the estimate and test common scenarios and edge cases. Third, we document the assumptions on the page itself in a methodology panel that names the source and the update date.
+                  Calculator work starts with the decision being modeled: contribution room, deduction value, mortgage payment pressure, dividend income target, retirement timing, or another Canadian household finance question.
                 </p>
                 <p>
-                  Calculators are reviewed when important rules change. When CRA announces annual registered-account limits or when mortgage rules change, related calculators should be checked and updated with a visible "last updated" stamp when the calculation or explanation changes.
+                  When a calculation depends on public rules, the page points to official references such as CRA, Government of Canada, FCAC, CMHC, Bank of Canada, or Statistics Canada. Methodology sections explain assumptions, limitations, and practical examples so users can sanity-check the output.
                 </p>
                 <p>
-                  Inputs are never transmitted off your device. Contributions, balances, income, and dates entered into any calculator remain in your browser's memory and are discarded when you close the tab.
+                  Pages are updated when important rules, limits, source links, or calculator behavior changes. Material corrections and maintenance notes are tracked on the <Link to="/corrections" className="text-secondary underline-offset-2 hover:underline">Corrections and Updates</Link> page.
                 </p>
               </div>
             </div>
 
             <div className="mt-8 surface-card p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-primary dark:text-accent">How we write and review content</h2>
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Editorial approach</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
-                  Articles on this site go through a three-step process: drafted with primary sources cited inline, reviewed for numerical accuracy against the underlying rule, and dated with a visible "last updated" stamp when published.
+                  Articles and tool pages are written for education first. The goal is to explain the tradeoff, show realistic Canadian examples, identify common mistakes, and link to the calculator or official source that helps the reader verify the next step.
                 </p>
                 <p>
-                  We prioritize primary sources. For tax rules: canada.ca, the CRA publications library, and Department of Finance news releases. For monetary policy and interest rates: bankofcanada.ca. For mortgage and insurance: cmhc-schl.gc.ca. For statutory definitions: laws-lois.justice.gc.ca. Secondary sources such as bank blogs or brokerage research are used only to illustrate examples, never as the authoritative source for a rule.
+                  Source-heavy pages are checked against current Canadian source material where applicable. Future external reviewers can be credited on individual pages when that review is actually completed.
                 </p>
                 <p>
-                  When a rule is ambiguous or rapidly changing, we say so on the page. When a calculation involves a material simplification, it is disclosed in the methodology panel. When an affiliate or advertising relationship exists for a product mentioned on a page, it is disclosed next to the mention itself — not buried in a footer.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8 surface-card p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-primary dark:text-accent">Editorial standards</h2>
-              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
-                <p>
-                  We follow a short set of standards that keep the site useful rather than promotional. Articles and tool pages carry the same substance whether or not they mention a sponsored product. We never recommend an account, broker, or advisor based on commission structure alone. Ad placements are contextual, not personalized using values typed into calculators.
-                </p>
-                <p>
-                  If you believe any figure on this site is wrong, outdated, or misleading, please tell us through the <Link to="/contact" className="text-secondary underline-offset-2 hover:underline">Contact page</Link>. Corrections are logged with a visible update date and an explanation of what changed. The full standards document is published on the <Link to="/editorial-standards" className="text-secondary underline-offset-2 hover:underline">editorial standards</Link> page.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8 surface-card p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-primary dark:text-accent">About the editor</h2>
-              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
-                <p>
-                  EasyFinanceTools is built and edited by <strong>Gourav Kumar</strong>. The site grew out of personal research into Canadian tax, registered accounts, and household financial decisions, which is why each calculator is designed to surface the assumption behind the result, not just the number.
-                </p>
-                <p>
-                  For editorial questions, factual corrections, or partnership inquiries, please use the <Link to="/contact" className="text-secondary underline-offset-2 hover:underline">Contact page</Link>. Privacy and data-subject requests are handled through the same channel and are responded to within 30 days as required by PIPEDA.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8 surface-card p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-primary dark:text-accent">Who runs this site?</h2>
-              <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
-                <p>
-                  EasyFinanceTools is built and maintained by <strong>Gourav Kumar</strong>, a software developer based in Brampton, Ontario, Canada.
-                </p>
-                <p>
-                  I created this site in 2025 because I was frustrated with Canadian finance calculators that required sign-ups, sold user data, or were buried behind paywalls. EasyFinanceTools is my answer: a free, privacy-first alternative that respects your time and data.
-                </p>
-                <p>
-                  <strong>What I do:</strong> I'm a full-stack developer with expertise in web applications and GPU computing. I run Maple Silicon Inc., a Canadian AI infrastructure company, but EasyFinanceTools is a separate personal project focused entirely on accessible financial education.
-                </p>
-                <p>
-                  <strong>What this site is NOT:</strong> I am not a financial advisor, accountant, or licensed investment professional. I do not work for any bank, brokerage, or financial institution. I do not sell financial products, manage money, or earn commissions from financial recommendations.
-                </p>
-                <ul className="mt-2 space-y-1 text-sm">
-                  <li><strong>Contact:</strong> Use the <Link to="/contact" className="text-secondary underline-offset-2 hover:underline">contact form</Link> for questions, bug reports, or feedback.</li>
-                  <li><strong>Location:</strong> Brampton, Ontario, Canada</li>
-                </ul>
-                <p>
-                  This site will always remain free. I may add non-intrusive ads in the future to cover hosting costs, but your data will never be sold or shared with third parties.
+                  The full process is documented on the <Link to="/editorial-standards" className="text-secondary underline-offset-2 hover:underline">Editorial Standards</Link> and <Link to="/methodology" className="text-secondary underline-offset-2 hover:underline">Methodology</Link> pages.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="space-y-5">
+          <aside className="space-y-5">
             <div className="surface-soft p-5">
-              <h3 className="text-lg font-bold text-primary dark:text-accent">What you can use today</h3>
-              <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                <li>TFSA, RRSP, FHSA, and savings tools for registered-account planning</li>
-                <li>Income tax and paycheque calculators for take-home pay estimates</li>
-                <li>Mortgage, rent-vs-buy, and debt payoff tools for major household decisions</li>
-                <li>Supporting guides that explain assumptions, tradeoffs, and common mistakes</li>
+              <h2 className="text-lg font-bold text-primary dark:text-accent">What you can use today</h2>
+              <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                <li>Registered account tools for TFSA, RRSP, and FHSA planning</li>
+                <li>Mortgage, affordability, rent-vs-buy, and debt payoff tools</li>
+                <li>Income tax, net pay, CPP/OAS, and retirement calculators</li>
+                <li>Guides that explain assumptions, tradeoffs, and source checks</li>
               </ul>
             </div>
 
             <div className="surface-card p-5">
-              <h3 className="text-lg font-bold text-primary dark:text-accent">Good next pages</h3>
+              <h2 className="text-lg font-bold text-primary dark:text-accent">Good next pages</h2>
               <div className="mt-3 grid gap-3">
                 {[
                   { label: "Browse all tools", href: "/tools" },
                   { label: "Read the latest guides", href: "/blog" },
                   { label: "See methodology and sources", href: "/methodology" },
                   { label: "Read editorial standards", href: "/editorial-standards" },
-                  { label: "Read terms and disclaimer", href: "/terms" },
+                  { label: "Review corrections and updates", href: "/corrections" },
                   { label: "Send feedback", href: "/contact" },
                 ].map((item) => (
                   <Link
@@ -228,7 +162,7 @@ export default function About() {
                 ))}
               </div>
             </div>
-          </div>
+          </aside>
         </div>
       </section>
     </main>

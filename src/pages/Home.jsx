@@ -6,6 +6,7 @@ import EducationalDisclaimer from '../components/EducationalDisclaimer';
 import FAQSchema from '../components/FAQSchema';
 import TopicClusterMap from '../components/TopicClusterMap';
 import DecisionFramework from '../components/DecisionFramework';
+import NewsletterSignup from '../components/NewsletterSignup';
 
 const GOAL_CARDS = [
   {
@@ -513,18 +514,8 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 pb-4">
-        <div className="mb-10 rounded-3xl border border-emerald-200 bg-emerald-50 p-6 shadow-sm dark:border-emerald-900/60 dark:bg-emerald-950/20">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">Tool updates</p>
-          <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Get Canadian finance tool updates</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-700 dark:text-slate-300">
-            Follow new calculator releases, source updates, and Canadian finance guide improvements. This is intentionally simple while the site avoids collecting calculator data or forcing sign-ups into the tools.
-          </p>
-          <a
-            href="mailto:easyfinancetools@gmail.com?subject=EasyFinanceTools%20updates"
-            className="mt-5 inline-flex rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-secondary"
-          >
-            Request update emails
-          </a>
+        <div className="mb-10">
+          <NewsletterSignup />
         </div>
 
         <div className="mb-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
