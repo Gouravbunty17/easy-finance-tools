@@ -12,6 +12,7 @@ import NextStepLinks from '../../components/NextStepLinks';
 import SourceList from '../../components/SourceList';
 import OfficialSourceNote from '../../components/OfficialSourceNote';
 import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
+import DecisionFramework from '../../components/DecisionFramework';
 import { CONTENT_LAST_REVIEWED } from '../../config/financial';
 import { fhsaOfficialSources, rrspOfficialSources, tfsaOfficialSources } from '../../config/officialSources';
 
@@ -26,6 +27,14 @@ const TIMEFRAMES = [
   { value: 'short', label: '0 to 3 years' },
   { value: 'medium', label: '3 to 7 years' },
   { value: 'long', label: '7+ years' },
+];
+
+const PROVINCE_CONTEXT = [
+  { value: 'ON', label: 'Ontario', note: 'Middle-income RRSP comparisons can be sensitive to combined federal and Ontario brackets.' },
+  { value: 'BC', label: 'British Columbia', note: 'Use this as a planning filter, then verify the tax impact with a province-specific tax calculator.' },
+  { value: 'AB', label: 'Alberta', note: 'Provincial tax differences can change the refund estimate, but flexibility and timeline still matter.' },
+  { value: 'QC', label: 'Quebec', note: 'Quebec has distinct provincial tax administration, so confirm tax assumptions carefully.' },
+  { value: 'Other', label: 'Other province', note: 'Province affects tax estimates. Treat the account fit score as directional until the exact province is modeled.' },
 ];
 
 function formatCurrency(value) {
@@ -59,6 +68,7 @@ export default function AccountDecisionTool() {
   const [firstHomeEligible, setFirstHomeEligible] = useState(true);
   const [needsFlexibility, setNeedsFlexibility] = useState(true);
   const [hasEmergencyFund, setHasEmergencyFund] = useState(false);
+  const [province, setProvince] = useState('ON');
 
   const result = useMemo(() => {
     const safeIncome = Math.max(0, Number(income || 0));
@@ -138,8 +148,9 @@ export default function AccountDecisionTool() {
         RRSP: primary.includes('RRSP') ? 88 : secondary.includes('RRSP') ? 68 : highIncome ? 74 : 42,
         FHSA: primary.includes('FHSA') ? 92 : homeRelevant ? 74 : 28,
       },
+      provinceNote: PROVINCE_CONTEXT.find((item) => item.value === province)?.note || PROVINCE_CONTEXT[4].note,
     };
-  }, [firstHomeEligible, goal, hasEmergencyFund, income, needsFlexibility, timeframe]);
+  }, [firstHomeEligible, goal, hasEmergencyFund, income, needsFlexibility, timeframe, province]);
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
@@ -235,6 +246,42 @@ export default function AccountDecisionTool() {
               ]}
             />
             {result.warnings.length ? <ImportantConsiderations title="Before you use this result" items={result.warnings} /> : null}
+            <DecisionFramework
+              eyebrow="What changes the answer?"
+              title="Five checks that can flip the account priority"
+              intro="This tool avoids crowning one universal account because the same person can get a different answer after one real-life detail changes."
+              items={[
+                {
+                  title: 'Income rises or falls',
+                  badge: 'Tax rate',
+                  signal: 'RRSP value depends on the deduction today versus withdrawal tax later.',
+                  whenItHelps: 'current income is meaningfully higher than expected retirement income.',
+                  watchOut: 'a refund is spent instead of used intentionally.',
+                },
+                {
+                  title: 'A first-home goal appears',
+                  badge: 'FHSA',
+                  signal: 'FHSA timing matters because room starts after the account is opened.',
+                  whenItHelps: 'eligibility is clear and the home timeline is realistic.',
+                  watchOut: 'the money may be needed too soon for market risk.',
+                },
+                {
+                  title: 'Cash flexibility matters',
+                  badge: 'TFSA',
+                  signal: 'TFSA access can be worth more than tax optimization.',
+                  whenItHelps: 'job, housing, family, or timing uncertainty is high.',
+                  watchOut: 'room is used for frequent spending instead of a planned purpose.',
+                },
+                {
+                  title: 'Emergency savings are missing',
+                  badge: 'Priority',
+                  signal: 'The best registered account may not be the first problem.',
+                  whenItHelps: 'cash reserves protect the plan from debt or forced selling.',
+                  watchOut: 'optimization hides a basic liquidity gap.',
+                },
+              ]}
+              footer={result.provinceNote}
+            />
             <NextStepLinks
               title="Run the calculator that matches the account"
               intro="This decision tool is intentionally a router. The next page should test the numbers, not sell a product."
@@ -273,6 +320,17 @@ export default function AccountDecisionTool() {
                 onChange={(event) => setIncome(Number(event.target.value || 0))}
                 className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
               />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">Province context</label>
+              <div className="grid grid-cols-2 gap-2">
+                {PROVINCE_CONTEXT.map((item) => (
+                  <OptionButton key={item.value} selected={province === item.value} onClick={() => setProvince(item.value)}>
+                    {item.label}
+                  </OptionButton>
+                ))}
+              </div>
             </div>
 
             <div>

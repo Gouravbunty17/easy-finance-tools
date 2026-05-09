@@ -5,6 +5,7 @@ import SurfaceTrackedLink from '../components/SurfaceTrackedLink';
 import EducationalDisclaimer from '../components/EducationalDisclaimer';
 import FAQSchema from '../components/FAQSchema';
 import TopicClusterMap from '../components/TopicClusterMap';
+import DecisionFramework from '../components/DecisionFramework';
 
 const GOAL_CARDS = [
   {
@@ -273,32 +274,42 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-10">
-        <div className="rounded-3xl border border-blue-100 bg-blue-50 p-6 dark:border-blue-900/60 dark:bg-blue-950/30">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Quick answer</p>
-          <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Start with the account decision, then run the calculator</h2>
-          <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-700 dark:text-slate-300">
-            Most Canadian finance choices get easier in this order: choose the account, estimate the numbers, then compare products. If the next dollar could go into a TFSA, RRSP, or FHSA, use the account guides first. If the account is already clear, use the matching calculator to test the contribution, growth, tax, or income scenario.
-          </p>
-          <div className="mt-5 grid gap-3 md:grid-cols-3">
-            {[
-              { title: 'Account choice unclear', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', label: 'Compare TFSA, RRSP, FHSA' },
-              { title: 'Growth target unclear', href: '/tools/compound-interest-calculator', label: 'Run compound growth' },
-              { title: 'TFSA room unclear', href: '/blog/tfsa-contribution-room-canada-2026', label: 'Check TFSA room rules' },
-            ].map((item) => (
-              <SurfaceTrackedLink
-                key={item.href}
-                to={item.href}
-                eventName="homepage_cta_click"
-                ctaLabel={`quick_answer_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`}
-                trackingParams={{ section: 'quick_answer', destination_type: item.href.startsWith('/blog') ? 'article' : 'tool' }}
-                className="rounded-2xl bg-white p-5 text-sm shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-slate-900"
-              >
-                <p className="font-bold text-primary dark:text-accent">{item.title}</p>
-                <p className="mt-2 font-semibold text-secondary">{item.label}</p>
-              </SurfaceTrackedLink>
-            ))}
-          </div>
-        </div>
+        <DecisionFramework
+          eyebrow="Decision-first planning"
+          title="Start with the tradeoff, then use the calculator"
+          intro="EasyFinanceTools is organized around the question Canadians usually face before the math: which account, timeline, risk, or tax tradeoff changes the decision?"
+          items={[
+            {
+              title: 'Account choice is still open',
+              badge: 'Step 1',
+              signal: 'Use the TFSA, RRSP, FHSA framework before comparing products.',
+              whenItHelps: 'the same dollar could go into more than one registered account.',
+              watchOut: 'a tax refund, first-home goal, or short timeline makes the obvious answer less obvious.',
+            },
+            {
+              title: 'The account is clear',
+              badge: 'Step 2',
+              signal: 'Run the calculator and stress-test the assumptions.',
+              whenItHelps: 'you already know the account, contribution, rate, or income target being tested.',
+              watchOut: 'one input, such as yield or return, is carrying the whole result.',
+            },
+            {
+              title: 'The result feels too tidy',
+              badge: 'Step 3',
+              signal: 'Read the warnings, official sources, and case studies below the result.',
+              whenItHelps: 'you need to know what would break the estimate before acting.',
+              watchOut: 'calculator output starts sounding like a product recommendation.',
+            },
+            {
+              title: 'You need a next path',
+              badge: 'Step 4',
+              signal: 'Follow the beginner, home buyer, dividend, or retirement journey.',
+              whenItHelps: 'you want fewer tabs open and a clearer learning order.',
+              watchOut: 'a page sends you to a referral before it explains the decision.',
+            },
+          ]}
+          footer="The site is intentionally education-first: calculators estimate outcomes, guides explain the tradeoffs, and official source links are included where rules matter."
+        />
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-12">

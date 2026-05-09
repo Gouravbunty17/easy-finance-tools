@@ -26,6 +26,7 @@ import ResultInsightCard from '../../components/ResultInsightCard';
 import OptimizationTips from '../../components/OptimizationTips';
 import ImportantConsiderations from '../../components/ImportantConsiderations';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
+import DecisionFramework from '../../components/DecisionFramework';
 import {
   CANADIAN_PROVINCES,
   CONTENT_LAST_REVIEWED,
@@ -308,6 +309,41 @@ export default function TFSACalculator() {
                 The first job of this result is avoiding an accidental over-contribution. The second job is deciding what role the TFSA should play: flexible savings, long-term ETF growth, dividend income, or a mix. The same balance target can be sensible or awkward depending on that account job.
               </p>
             </ResultInsightCard>
+            <DecisionFramework
+              eyebrow="When TFSA beats RRSP"
+              title="The TFSA is strongest when flexibility is part of the value"
+              intro="A TFSA is not automatically better than an RRSP, but it often wins when the future use of the money is still uncertain."
+              items={[
+                {
+                  title: 'Income may rise later',
+                  badge: 'Tax timing',
+                  signal: 'Save RRSP room for higher-income years.',
+                  whenItHelps: 'current tax bracket is modest and career income could climb.',
+                  watchOut: 'TFSA room is used for short-term spending without a plan to rebuild it.',
+                },
+                {
+                  title: 'Withdrawals are possible',
+                  badge: 'Flexibility',
+                  signal: 'TFSA withdrawals can be replaced in a later calendar year.',
+                  whenItHelps: 'housing, job, family, or emergency needs could change.',
+                  watchOut: 'same-year recontributions create overcontribution risk.',
+                },
+                {
+                  title: 'Dividend income is the goal',
+                  badge: 'Cash flow',
+                  signal: 'Tax-free distributions can be simple when TFSA room exists.',
+                  whenItHelps: 'income is secondary to a diversified long-term plan.',
+                  watchOut: 'high yield hides weak total return or concentrated ETF exposure.',
+                },
+                {
+                  title: 'RRSP refund would be spent',
+                  badge: 'Behavior',
+                  signal: 'A refund only improves the RRSP case if it is used intentionally.',
+                  whenItHelps: 'the TFSA keeps the plan simple and accessible.',
+                  watchOut: 'the RRSP comparison ignores future withdrawal tax.',
+                },
+              ]}
+            />
             <ScenarioBreakdown
               title="Three ways to read this TFSA scenario"
               rows={[

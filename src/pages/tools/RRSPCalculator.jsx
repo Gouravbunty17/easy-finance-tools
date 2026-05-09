@@ -26,6 +26,7 @@ import ResultInsightCard from '../../components/ResultInsightCard';
 import OptimizationTips from '../../components/OptimizationTips';
 import ImportantConsiderations from '../../components/ImportantConsiderations';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
+import DecisionFramework from '../../components/DecisionFramework';
 import {
   CANADIAN_PROVINCES,
   CONTENT_LAST_REVIEWED,
@@ -333,6 +334,41 @@ export default function RRSPCalculator() {
                 A larger refund can be helpful, but the RRSP works best when the deduction today is paired with a realistic withdrawal-tax plan later. The most useful question is whether this contribution beats the TFSA or FHSA after room, flexibility, refund use, and retirement income are considered together.
               </p>
             </ResultInsightCard>
+            <DecisionFramework
+              eyebrow="When RRSP becomes risky"
+              title="The RRSP decision gets weaker when the refund is the whole story"
+              intro="The RRSP can be excellent, but the calculator result should be read alongside future tax, liquidity, and behavior."
+              items={[
+                {
+                  title: 'Refund is spent casually',
+                  badge: 'Behavior',
+                  signal: 'The deduction looks good, but the household balance sheet may not improve.',
+                  whenItHelps: 'the refund is invested, used for debt reduction, or reserved for a planned goal.',
+                  watchOut: 'the contribution is treated like a purchase discount.',
+                },
+                {
+                  title: 'Future income may be similar',
+                  badge: 'Tax spread',
+                  signal: 'RRSP value depends on the gap between contribution and withdrawal tax rates.',
+                  whenItHelps: 'current taxable income is clearly higher than expected retirement withdrawals.',
+                  watchOut: 'pension, CPP, OAS, RRIF, or part-time income stack up later.',
+                },
+                {
+                  title: 'Liquidity is still needed',
+                  badge: 'Access',
+                  signal: 'RRSP withdrawals can create taxable income at an awkward time.',
+                  whenItHelps: 'the money is genuinely retirement-oriented.',
+                  watchOut: 'the contribution competes with emergency savings or a near-term home goal.',
+                },
+                {
+                  title: 'FHSA eligibility exists',
+                  badge: 'First home',
+                  signal: 'A first-home goal can change the account order.',
+                  whenItHelps: 'FHSA room and purchase timeline are verified first.',
+                  watchOut: 'RRSP is funded before checking the FHSA fit.',
+                },
+              ]}
+            />
             <ScenarioBreakdown
               title="Read the RRSP result from three angles"
               rows={[

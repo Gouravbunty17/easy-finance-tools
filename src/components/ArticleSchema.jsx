@@ -13,7 +13,7 @@ import React from "react";
  *   url             — canonical URL (string)
  *   datePublished   — ISO date string, e.g. "2026-03-29" (string)
  *   dateModified    — ISO date string (string, defaults to datePublished)
- *   authorName      — author display name (string, defaults to "EasyFinanceTools Editorial Team")
+ *   authorName      - author display name (string, defaults to "Gourav Kumar")
  *   imageUrl        — og-image URL (string)
  */
 export default function ArticleSchema({

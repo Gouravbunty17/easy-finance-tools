@@ -8,9 +8,16 @@ export default function OfficialSourceNote({
   if (!sources.length) return null;
 
   return (
-    <aside className="my-6 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm leading-7 text-blue-950 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-100">
-      <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">{title}</p>
-      <p className="mt-2">{body}</p>
+    <aside className="my-6 rounded-[1.5rem] border border-blue-200/80 bg-gradient-to-br from-blue-50 via-white to-emerald-50/40 p-5 text-sm leading-7 text-blue-950 shadow-[0_14px_40px_rgba(15,23,42,0.06)] dark:border-blue-800 dark:from-blue-950/35 dark:via-slate-900 dark:to-emerald-950/20 dark:text-blue-100">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">{title}</p>
+          <p className="mt-2">{body}</p>
+        </div>
+        <span className="shrink-0 rounded-full border border-blue-200 bg-white px-3 py-1 text-xs font-bold text-primary dark:border-blue-800 dark:bg-slate-900 dark:text-blue-100">
+          Official reference
+        </span>
+      </div>
       <div className="mt-3 flex flex-wrap gap-2">
         {sources.slice(0, 3).map((source) => (
           <a

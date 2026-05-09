@@ -35,7 +35,7 @@ export function ResultCard({ label, value, hint, tone = "default" }) {
   };
 
   return (
-    <div className={`rounded-2xl border border-slate-200 p-5 dark:border-slate-700 ${toneClasses[tone] || toneClasses.default}`}>
+    <div className={`rounded-[1.35rem] border border-slate-200/80 p-5 shadow-[0_12px_35px_rgba(15,23,42,0.06)] ring-1 ring-white/60 dark:border-slate-700 dark:ring-slate-800/60 ${toneClasses[tone] || toneClasses.default}`}>
       <p className={`text-xs font-semibold uppercase tracking-[0.18em] ${dimClasses[tone] || dimClasses.default}`}>{label}</p>
       <p className="mt-3 text-3xl font-bold">{value}</p>
       {hint ? <p className={`mt-2 text-sm ${dimClasses[tone] || dimClasses.default}`}>{hint}</p> : null}
@@ -78,13 +78,13 @@ export default function CalculatorLayout({
           <div className="mt-8">{children}</div>
         </div>
 
-        <aside className="space-y-4">
+        <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
           {results}
         </aside>
       </div>
 
       {relatedTools.length > 0 ? (
-        <div className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
+        <div className="surface-soft mt-10 p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary dark:text-secondary">Related calculators</p>
           <div className="mt-4 grid gap-4 md:grid-cols-3">
             {relatedTools.map((tool) => (
@@ -94,7 +94,7 @@ export default function CalculatorLayout({
                 eventName="calculator_related_tool_click"
                 ctaLabel={tool.title}
                 trackingParams={{ source_title: title, destination_type: "tool", section: "related_tools" }}
-                className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-700 dark:bg-slate-900"
+                className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md dark:border-slate-700 dark:bg-slate-900"
               >
                 <h2 className="text-lg font-bold text-primary dark:text-accent">{tool.title}</h2>
                 <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{tool.body}</p>

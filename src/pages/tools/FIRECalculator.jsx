@@ -4,6 +4,11 @@ import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
+import ResultInsightCard from "../../components/ResultInsightCard";
+import CalculatorCaseStudy from "../../components/CalculatorCaseStudy";
+import DecisionFramework from "../../components/DecisionFramework";
+import OfficialSourceNote from "../../components/OfficialSourceNote";
+import { retirementOfficialSources } from "../../config/officialSources";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -58,8 +63,8 @@ const FIRE_TYPES = [
 
 const FAQS = [
   {
-    q: "What does FIRE mean?",
-    a: "FIRE means Financial Independence, Retire Early. The goal is to estimate the portfolio size needed to cover expenses before traditional retirement age.",
+    q: "What can break a Canadian FIRE plan fastest?",
+    a: "The biggest pressure points are usually spending creep, sequence-of-returns risk, taxes, housing costs, healthcare and insurance assumptions, and relying on CPP or OAS numbers that have not been checked against official records.",
   },
   {
     q: "Is the 4% rule safe for early retirement in Canada?",
@@ -70,12 +75,12 @@ const FAQS = [
     a: "CPP and OAS can reduce the portfolio withdrawals needed after age 65, but the amounts depend on official records and future program rules.",
   },
   {
-    q: "Should FIRE savings go in a TFSA or RRSP?",
-    a: "Many Canadians use both. TFSA withdrawals are flexible, while RRSP contributions can be useful in higher-income years. The right mix depends on income, tax rate, and retirement timing.",
+    q: "When can an RRSP make early retirement harder?",
+    a: "An RRSP can be powerful in higher-income years, but it can create less flexibility if withdrawals, benefits, taxable income, and bridge years are not modeled. Early retirees often need to compare TFSA access, RRSP drawdown timing, and taxable savings together.",
   },
   {
-    q: "Does this calculator replace retirement planning advice?",
-    a: "No. It is a planning estimate. Tax, pension, insurance, healthcare, housing, and investment-risk decisions should be reviewed carefully.",
+    q: "How should I verify CPP and OAS assumptions?",
+    a: "Use Service Canada records and Government of Canada program pages for official CPP and OAS information. This calculator lets you enter estimates, but it does not know your contribution record or future eligibility.",
   },
 ];
 
@@ -200,6 +205,11 @@ export default function FIRECalculator() {
         <p className="max-w-3xl text-gray-600 dark:text-gray-300">
           Estimate the portfolio size, savings rate, and retirement-age tradeoffs behind a Canadian Financial Independence, Retire Early plan. This calculator includes CPP, OAS, inflation, and part-time income assumptions, but it does not promise that a retirement plan is safe.
         </p>
+        <OfficialSourceNote
+          title="Retirement benefit source check"
+          body="CPP and OAS inputs should be treated as estimates until you verify your own records and official program rules."
+          sources={[retirementOfficialSources[0], retirementOfficialSources[1]]}
+        />
       </div>
 
       <div className="mb-8 grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -369,6 +379,48 @@ export default function FIRECalculator() {
         <p className="mt-2 text-xs text-gray-400">Red dashed line = your FIRE number. Chart values are modeled in real, inflation-adjusted terms.</p>
       </div>
 
+      <div className="mb-8 grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+        <ResultInsightCard title="The FIRE number is a stress test, not a finish line" tone={calc.achievesFIRE ? "emerald" : "amber"}>
+          <p>
+            This scenario is most useful when it shows which assumption is doing the most work. If the target only works with a high return, high withdrawal rate, or optimistic CPP/OAS estimate, the plan needs a second pass before the retirement age becomes meaningful.
+          </p>
+        </ResultInsightCard>
+        <DecisionFramework
+          eyebrow="Original FIRE checks"
+          title="Where generic FIRE advice breaks in Canada"
+          items={[
+            {
+              title: 'Bridge years before 65',
+              badge: 'Timing',
+              signal: 'The years before CPP and OAS can carry more withdrawal pressure.',
+              whenItHelps: 'TFSA, taxable savings, or part-time income cover the early years cleanly.',
+              watchOut: 'RRSP withdrawals create taxable income earlier than expected.',
+            },
+            {
+              title: 'Housing cost changes',
+              badge: 'Spending',
+              signal: 'Rent, mortgage renewal, repairs, and moving costs can matter more than the portfolio return.',
+              whenItHelps: 'core expenses are modeled with a realistic margin.',
+              watchOut: 'the annual expense input excludes irregular housing costs.',
+            },
+            {
+              title: 'Withdrawal rate sensitivity',
+              badge: 'Risk',
+              signal: 'A 0.5% change in withdrawal rate can move the target by years.',
+              whenItHelps: 'you compare 3.25%, 3.5%, and 4% instead of one tidy number.',
+              watchOut: 'a long retirement is modeled with a short-retirement rule of thumb.',
+            },
+            {
+              title: 'Taxable income stacking',
+              badge: 'Tax',
+              signal: 'Withdrawals, benefits, and part-time income can stack into the same tax year.',
+              whenItHelps: 'RRSP, TFSA, taxable, CPP, and OAS income are planned together.',
+              watchOut: 'pre-tax and after-tax dollars are mixed in one simple projection.',
+            },
+          ]}
+        />
+      </div>
+
       <div className="mb-8 rounded-xl border border-gray-100 bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800">
         <h2 className="mb-4 text-lg font-bold">FIRE Scenarios at Your Savings Rate</h2>
         <div className="overflow-x-auto">
@@ -425,6 +477,20 @@ export default function FIRECalculator() {
           </p>
         </div>
       </section>
+
+      <CalculatorCaseStudy
+        title="Couple testing whether age 52 is realistic before counting CPP and OAS"
+        scenario="A Canadian household wants to leave full-time work before age 55, but most public retirement benefits are modeled from age 65. The key question is whether the portfolio can survive the bridge years without assuming every market year is average."
+        inputs={[
+          `Target retirement age: ${calc.targetAgeUsed}`,
+          `Annual spending target: ${fmt(calc.adjustedExpenses)}`,
+          `Withdrawal rate tested: ${withdrawalRate}%`,
+          `Projected portfolio at target age: ${fmtK(calc.portfolioAtRetirement)}`,
+        ]}
+        result={calc.achievesFIRE ? "The selected scenario reaches the modeled target before drawdown begins." : "The selected scenario does not reach the modeled target by the chosen age."}
+        interpretation="The useful part is not the pass/fail label. It is the gap between the FIRE number and the projected portfolio, plus whether the chart runs out before age 95 under the selected assumptions."
+        limitation="This does not model exact account withdrawal order, tax brackets, health spending, insurance needs, future CPP/OAS rules, or sequence-of-returns volatility."
+      />
 
       <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Inputs explained</p>

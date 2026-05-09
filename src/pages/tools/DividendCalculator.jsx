@@ -27,6 +27,7 @@ import TrackedLink from '../../components/TrackedLink';
 import ResultInsightCard from '../../components/ResultInsightCard';
 import OptimizationTips from '../../components/OptimizationTips';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
+import DecisionFramework from '../../components/DecisionFramework';
 import {
   CONTENT_LAST_REVIEWED,
   DATA_SNAPSHOT_LABEL,
@@ -692,6 +693,41 @@ export default function DividendCalculator() {
                 The income estimate is useful only if the payout source is sustainable enough for the goal. For Canadian dividend ETFs, compare the yield with sector concentration, covered-call use, MER, distribution history, and whether the TFSA should be used for income or broader long-term growth.
               </p>
             </ResultInsightCard>
+            <DecisionFramework
+              eyebrow="What high-yield investors underestimate"
+              title="A higher yield can lower the capital target and still make the plan weaker"
+              intro="The calculator shows the math. This framework shows the tradeoffs that the yield input can hide."
+              items={[
+                {
+                  title: 'Covered-call drag',
+                  badge: 'Tradeoff',
+                  signal: 'Covered-call income can trade away some upside.',
+                  whenItHelps: 'income stability matters more than maximum growth potential.',
+                  watchOut: 'the ETF is compared only by headline yield.',
+                },
+                {
+                  title: 'Sector concentration',
+                  badge: 'Risk',
+                  signal: 'Canadian dividend funds can lean heavily on banks, energy, telecom, and utilities.',
+                  whenItHelps: 'the rest of the portfolio offsets that concentration.',
+                  watchOut: 'the dividend sleeve becomes the whole portfolio.',
+                },
+                {
+                  title: 'Distribution cuts',
+                  badge: 'Income',
+                  signal: 'A target income plan should survive lower payouts.',
+                  whenItHelps: 'you test 3%, 5%, and 7% yield scenarios instead of one number.',
+                  watchOut: 'fixed spending depends on a variable distribution.',
+                },
+                {
+                  title: 'Account location',
+                  badge: 'Tax',
+                  signal: 'TFSA, RRSP, and taxable accounts can treat the same cash flow differently.',
+                  whenItHelps: 'account room and tax treatment are checked before yield chasing.',
+                  watchOut: 'the ETF is chosen before the account decision.',
+                },
+              ]}
+            />
             <ScenarioBreakdown
               title="Income, compounding, and account fit"
               rows={[
