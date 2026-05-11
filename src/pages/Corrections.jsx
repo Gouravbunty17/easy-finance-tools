@@ -20,6 +20,21 @@ const updateEntries = [
   },
 ];
 
+const correctionPolicy = [
+  {
+    title: "Material correction",
+    body: "A wrong formula, stale official limit, broken source interpretation, or misleading example should be logged with the affected page and reviewed date.",
+  },
+  {
+    title: "Clarification",
+    body: "If wording was technically accurate but easy to misunderstand, the page should be clarified and the change noted when it affects user interpretation.",
+  },
+  {
+    title: "Minor edit",
+    body: "Typo, formatting, and layout fixes do not automatically become financial review updates or freshness claims.",
+  },
+];
+
 export default function Corrections() {
   return (
     <main className="mx-auto max-w-4xl px-4 py-12">
@@ -70,6 +85,22 @@ export default function Corrections() {
               <h3 className="mt-2 text-lg font-bold text-primary dark:text-accent">{entry.title}</h3>
               <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{entry.body}</p>
             </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Correction categories</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">How visible updates should be labelled</h2>
+        <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+          Not every edit deserves the same label. This prevents the site from using routine formatting work as a fake freshness signal.
+        </p>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {correctionPolicy.map((item) => (
+            <div key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+              <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+            </div>
           ))}
         </div>
       </section>

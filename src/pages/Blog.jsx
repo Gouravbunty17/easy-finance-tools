@@ -3,7 +3,7 @@ import SEO from "../components/SEO";
 import ArticleImage from "../components/ArticleImage";
 import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
 import TopicClusterMap from "../components/TopicClusterMap";
-import NewsletterSignup from "../components/NewsletterSignup";
+import NewsletterSection from "../components/NewsletterSection";
 
 const categoryStyle = {
   Retirement: { gradient: "from-purple-500 to-purple-700", icon: "CA" },
@@ -375,11 +375,9 @@ const categories = [
 ];
 
 const featuredComparisonSlugs = [
-  "wealthsimple-vs-questrade-canada",
-  "best-tfsa-brokers-canada",
-  "best-rrsp-accounts-canada",
-  "best-investing-apps-canada",
-  "best-dividend-investing-platforms-canada",
+  // Commercial comparison pages are intentionally not promoted in the main archive.
+  // They remain accessible for readers who search for them, but the blog should lead
+  // with education-first decision content rather than high-intent provider pages.
 ];
 
 const decisionTracks = [
@@ -490,8 +488,8 @@ export default function Blog() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Canadian Investing Guides & Account Comparisons"
-        description="Read Canadian guides for TFSA, RRSP, FHSA, dividend income, ETFs, and account decisions before using the tools."
+        title="Canadian Financial Decision Guides"
+        description="Read Canadian guides for TFSA, RRSP, FHSA, dividend income, ETFs, tax, mortgage, and account decisions before using the calculators."
         canonical="https://easyfinancetools.com/blog"
       />
 
@@ -500,9 +498,9 @@ export default function Blog() {
           <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">
             Guides and explainers
           </div>
-          <h1 className="text-4xl font-bold md:text-5xl">EasyFinanceTools Blog</h1>
+          <h1 className="text-4xl font-bold md:text-5xl">Canadian financial decision guides</h1>
           <p className="mx-auto mt-4 max-w-3xl text-lg text-blue-100">
-            Canadian finance guides for tax, savings, registered accounts, retirement, ETFs, and household planning decisions.
+            Education-first Canadian finance guides for tax, savings, registered accounts, retirement, ETFs, and household planning decisions.
           </p>
         </div>
       </section>
@@ -731,27 +729,27 @@ export default function Blog() {
               </div>
             </section>
 
-            <NewsletterSignup
+            <NewsletterSection
               compact
-              eyebrow="Tool updates"
-              title="Get Canadian finance tool updates."
-              description="New calculator releases, source updates, and major guide improvements. Email collection is not connected yet."
+              eyebrow="Optional source updates"
+              title="Follow calculator and rule changes."
+              description="CRA limits, source updates, corrected assumptions, and major guide improvements. Email collection is not connected yet."
             />
 
             <section className="surface-card p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Platforms and partners</p>
-              <h2 className="mt-2 text-xl font-bold text-primary dark:text-accent">Compare before choosing</h2>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Commercial-content boundary</p>
+              <h2 className="mt-2 text-xl font-bold text-primary dark:text-accent">Provider pages are secondary</h2>
               <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                Brokerage and app pages are framed as education-first comparisons, with affiliate disclosure kept visible.
+                Brokerage, app, and product-comparison pages should not be the main reading path. The archive leads with account, tax, risk, and planning explainers first.
               </p>
               <SurfaceTrackedLink
-                to="/blog/best-investing-apps-canada"
+                to="/affiliate-disclosure"
                 eventName="blog_index_cta_click"
-                ctaLabel="partner_section_best_investing_apps"
-                trackingParams={{ section: "partner_education", destination_type: "article" }}
+                ctaLabel="commercial_boundary_affiliate_disclosure"
+                trackingParams={{ section: "commercial_boundary", destination_type: "trust_page" }}
                 className="mt-4 block rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
               >
-                Best investing apps in Canada
+                Read affiliate disclosure
               </SurfaceTrackedLink>
             </section>
           </aside>
@@ -794,10 +792,10 @@ export default function Blog() {
               <div className="surface-soft p-5">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Highest-intent comparisons</p>
-                    <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Best pages to choose an investing platform</h2>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Provider comparisons</p>
+                    <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Commercial pages stay below the education layer</h2>
                     <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                      Start here if you are deciding where to open a TFSA, RRSP, or beginner investing account.
+                      These pages are not the main archive priority. Use them only after the account, risk, and planning decision is clear.
                     </p>
                   </div>
                 </div>

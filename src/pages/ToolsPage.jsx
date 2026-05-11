@@ -76,6 +76,21 @@ const decisionPaths = [
   },
 ];
 
+const qualitySignals = [
+  {
+    title: "Core tools earn prominence",
+    body: "Registered-account, tax, mortgage, retirement, and dividend tools are treated as the main decision-support layer because they need assumptions, sources, and interpretation.",
+  },
+  {
+    title: "Small utilities are intentionally quieter",
+    body: "Narrow widgets such as tip, currency, or simple pay conversions stay out of the default hub view unless a reader searches or filters for them.",
+  },
+  {
+    title: "Noindex is an editorial control",
+    body: "A useful tool is not automatically an indexable authority page. Thin utilities should stay noindexed until they add Canadian context and real decision value.",
+  },
+];
+
 const toolHubFaqs = [
   {
     q: "Which finance calculator should I start with?",
@@ -112,8 +127,8 @@ export default function ToolsPage() {
   return (
     <main aria-labelledby="tools-page-title">
       <SEO
-        title="Free Canadian Finance Calculators 2026 | All Tools"
-        description="Browse free Canadian finance calculators for TFSA, RRSP, FHSA, dividend, mortgage, tax, GIC, FIRE, debt payoff, and more. No sign-up required."
+        title="Canadian Financial Decision Tools"
+        description="Use Canadian financial decision tools for TFSA, RRSP, FHSA, dividend, mortgage, tax, GIC, debt payoff, and retirement planning. No sign-up required."
         canonical="https://easyfinancetools.com/tools"
       />
       <FAQSchema faqs={toolHubFaqs} />
@@ -121,11 +136,11 @@ export default function ToolsPage() {
       <div className="bg-gradient-to-br from-primary to-secondary px-4 py-16 text-white">
         <div className="mx-auto max-w-5xl text-center">
           <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.18em] text-blue-50">
-            Search by decision, not just category
+            Decision tools, not a widget pile
           </div>
           <h1 id="tools-page-title" className="mb-4 text-4xl font-bold md:text-5xl">Canadian money decision tools</h1>
           <p className="mx-auto max-w-3xl text-lg text-blue-50">
-            Pick the question you are trying to answer, compare scenarios, and move into the guide or next calculator that makes the decision clearer.
+            Pick the question you are trying to answer, compare scenarios, and move into the guide or next calculator only when it makes the decision clearer.
           </p>
           <p className="mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-blue-100">
             Last updated April 29, 2026
@@ -138,8 +153,8 @@ export default function ToolsPage() {
         <EducationalDisclaimer />
 
         <section className="mb-8 rounded-3xl border border-blue-100 bg-blue-50 p-6 dark:border-blue-900/60 dark:bg-blue-950/30">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Quick answer</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the tools page as a decision map</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use this hub</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Start with the decision that could change your next step</h2>
           <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-700 dark:text-slate-300">
             If the account choice is unclear, start with TFSA, RRSP, or FHSA comparisons. If the account is already clear, open the calculator that models the number you need: contribution room, future growth, take-home pay, tax, mortgage cost, dividend income, or debt payoff.
           </p>
@@ -188,6 +203,22 @@ export default function ToolsPage() {
             <p className="mt-1">Tax, home-buying, ETF income, retirement, and registered-account workflows for Canadian users.</p>
           </div>
         </div>
+
+        <section className="mt-8 rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-900/60 dark:bg-amber-950/20">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Quality filter</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Not every calculator deserves the same visibility</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-amber-950 dark:text-amber-100">
+            The hub deliberately puts deeper Canadian planning tools first and keeps narrow utilities lower in the experience. That reduces thin-content signals and makes the site feel more like a planning platform than a collection of keyword widgets.
+          </p>
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {qualitySignals.map((item) => (
+              <div key={item.title} className="rounded-2xl border border-amber-200 bg-white/80 p-5 dark:border-amber-900 dark:bg-slate-900/70">
+                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-700 dark:text-slate-300">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Decision paths</p>

@@ -96,7 +96,7 @@ export default function Terms() {
               <div className="mt-3 grid gap-3">
                 {[
                   { label: "Methodology and sources", href: "/methodology" },
-                  { label: "Privacy policy", href: "/privacy-policy" },
+                  { label: "Privacy policy", href: "/privacy" },
                   { label: "About", href: "/about" },
                   { label: "Contact", href: "/contact" },
                 ].map((item) => (

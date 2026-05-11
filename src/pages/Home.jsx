@@ -6,7 +6,7 @@ import EducationalDisclaimer from '../components/EducationalDisclaimer';
 import FAQSchema from '../components/FAQSchema';
 import TopicClusterMap from '../components/TopicClusterMap';
 import DecisionFramework from '../components/DecisionFramework';
-import NewsletterSignup from '../components/NewsletterSignup';
+import NewsletterSection from '../components/NewsletterSection';
 
 const GOAL_CARDS = [
   {
@@ -206,12 +206,27 @@ const HOME_FAQS = [
   },
 ];
 
+const PLATFORM_BOUNDARIES = [
+  {
+    title: 'Inputs stay out of marketing',
+    body: 'The calculators are designed for browser-side scenario testing. Input values are not a lead form and are not used to pressure users into a product path.',
+  },
+  {
+    title: 'Official sources come before shortcuts',
+    body: 'CRA, Bank of Canada, CMHC, FCAC, and Government of Canada references are surfaced when published rules or source data affect the interpretation.',
+  },
+  {
+    title: 'Thin utilities are not the authority layer',
+    body: 'Small utilities can be useful, but the site is intentionally organized around deeper Canadian decisions: accounts, tax, home buying, retirement, debt, and risk.',
+  },
+];
+
 export default function Home() {
   return (
     <main className="min-h-screen">
       <SEO
-        title="Free Canadian Finance Calculators | TFSA, RRSP & Dividend Tools"
-        description="Use free Canadian finance calculators for TFSA, RRSP, compound interest, dividends, and savings planning. Simple tools, no sign-up required."
+        title="Canadian Financial Decision Tools | EasyFinanceTools"
+        description="Use Canadian financial decision tools for TFSA, RRSP, FHSA, dividends, tax, mortgage, and retirement planning. Educational, source-linked, and no sign-up required."
         canonical="https://easyfinancetools.com/"
       />
       <FAQSchema faqs={HOME_FAQS} />
@@ -228,10 +243,10 @@ export default function Home() {
               </div>
 
               <h1 className="text-4xl font-bold leading-tight md:text-6xl">
-                Make better money decisions in Canada
+                Understand Canadian money decisions before choosing products
               </h1>
               <p className="mt-6 max-w-3xl text-lg text-blue-100 md:text-xl">
-                Compare TFSA, RRSP, and FHSA decisions, estimate compound growth in CAD, check contribution-room basics, and plan dividend income with practical, source-linked tools built for Canadians.
+                Compare TFSA, RRSP, and FHSA tradeoffs, estimate compound growth in CAD, check contribution-room basics, and plan dividend income with practical, source-linked tools built for Canadians.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -311,6 +326,24 @@ export default function Home() {
           ]}
           footer="The site is intentionally education-first: calculators estimate outcomes, guides explain the tradeoffs, and official source links are included where rules matter."
         />
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-900">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Trust boundaries</p>
+          <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">What keeps this from becoming an affiliate calculator site</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+            The site still has weaknesses to improve, but the operating rule is simple: explain the decision first, show the assumptions, cite official sources when rules matter, and keep commercial links secondary to the education.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {PLATFORM_BOUNDARIES.map((item) => (
+              <div key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-12">
@@ -515,7 +548,7 @@ export default function Home() {
 
       <section className="mx-auto max-w-5xl px-4 pb-4">
         <div className="mb-10">
-          <NewsletterSignup />
+          <NewsletterSection />
         </div>
 
         <div className="mb-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">

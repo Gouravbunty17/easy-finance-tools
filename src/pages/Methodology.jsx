@@ -38,6 +38,7 @@ const methodologyNav = [
   { label: "Quality control", href: "#quality-control" },
   { label: "Privacy and independence", href: "#privacy-independence" },
   { label: "Assumptions and sources", href: "#assumptions-sources" },
+  { label: "Known weaknesses", href: "#known-weaknesses" },
 ];
 
 export default function Methodology() {
@@ -136,6 +137,38 @@ export default function Methodology() {
                 <p>
                   Edge cases are reviewed by asking: what would make this output misleading? Recent withdrawals, stale CRA records, province changes, income volatility, mortgage renewal risk, tax-slip treatment, and aggressive return assumptions are examples of issues that deserve visible caveats near the result.
                 </p>
+              </div>
+            </div>
+
+            <div id="known-weaknesses" className="rounded-3xl border border-amber-200 bg-amber-50 p-6 md:p-8 dark:border-amber-800 dark:bg-amber-950/20">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Known weaknesses we actively check for</h2>
+              <p className="mt-4 text-sm leading-7 text-amber-950 dark:text-amber-100">
+                A finance site can look technically polished and still feel untrustworthy. These are the failure modes EasyFinanceTools should keep reducing instead of hiding behind generic trust language.
+              </p>
+              <div className="mt-5 grid gap-4 md:grid-cols-2">
+                {[
+                  {
+                    title: "Repetitive calculator structure",
+                    body: "Major tools need page-specific examples, weak-scenario notes, and source references so they do not read like the same template with different inputs.",
+                  },
+                  {
+                    title: "Commercial comparison drag",
+                    body: "Brokerage and product-comparison pages can create an affiliate-first signal if they are promoted before the underlying account or risk decision is explained.",
+                  },
+                  {
+                    title: "Founder-operated limits",
+                    body: "The site has real accountability, but not external professional review across every high-risk page yet. Pages should not imply credentials that do not exist.",
+                  },
+                  {
+                    title: "Freshness without substance",
+                    body: "Dates should mean rules, assumptions, source links, examples, formulas, or explanations were actually reviewed, not merely reformatted.",
+                  },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-2xl border border-amber-200 bg-white/80 p-5 dark:border-amber-900 dark:bg-slate-900/70">
+                    <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-slate-700 dark:text-slate-300">{item.body}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -261,7 +294,7 @@ export default function Methodology() {
                   { label: "About EasyFinanceTools", href: "/about" },
                   { label: "Editorial standards", href: "/editorial-standards" },
                   { label: "Terms and disclaimer", href: "/terms" },
-                  { label: "Privacy policy", href: "/privacy-policy" },
+                  { label: "Privacy policy", href: "/privacy" },
                   { label: "Contact", href: "/contact" },
                 ].map((item) => (
                   <Link

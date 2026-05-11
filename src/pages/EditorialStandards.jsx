@@ -21,6 +21,14 @@ const standards = [
   },
 ];
 
+const rejectionChecks = [
+  "Could a skeptical Canadian user tell who is accountable for the page?",
+  "Does the page explain what would make the calculator output misleading?",
+  "Are official sources visible near the rule-based claim, not only in the footer?",
+  "Would the page still be useful if all ads and referral links were removed?",
+  "Is this page adding original Canadian decision context, or only rephrasing generic finance basics?",
+];
+
 export default function EditorialStandards() {
   return (
     <div className="min-h-screen">
@@ -146,6 +154,20 @@ export default function EditorialStandards() {
               </div>
             </div>
 
+            <div className="rounded-3xl border border-rose-200 bg-rose-50 p-6 md:p-8 dark:border-rose-900/70 dark:bg-rose-950/20">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Quality reviewer rejection checks</h2>
+              <p className="mt-4 text-sm leading-7 text-rose-950 dark:text-rose-100">
+                Before a major page is treated as core content, it should survive these skeptical questions. A weak answer is a signal to rewrite, noindex, or demote the page.
+              </p>
+              <ul className="mt-5 space-y-3 text-sm leading-7 text-rose-950 dark:text-rose-100">
+                {rejectionChecks.map((item) => (
+                  <li key={item} className="rounded-2xl border border-rose-200 bg-white/80 p-4 dark:border-rose-900 dark:bg-slate-900/70">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <div className="surface-card p-6 md:p-8">
               <h2 className="text-2xl font-bold text-primary dark:text-accent">Privacy and affiliate independence</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
@@ -167,7 +189,7 @@ export default function EditorialStandards() {
                   { label: "About EasyFinanceTools", href: "/about" },
                   { label: "Methodology and sources", href: "/methodology" },
                   { label: "Terms and disclaimer", href: "/terms" },
-                  { label: "Privacy policy", href: "/privacy-policy" },
+                  { label: "Privacy policy", href: "/privacy" },
                   { label: "Contact", href: "/contact" },
                 ].map((item) => (
                   <Link

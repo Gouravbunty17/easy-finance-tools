@@ -108,6 +108,32 @@ export default function CanadianEducationArticle({ article }) {
         </div>
         <TLDRBox headline={article.shortAnswerHeadline} answer={article.shortAnswer} points={article.keyPoints} />
 
+        <section className="mb-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use this guide</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Read for the decision, then verify the rule</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {[
+              {
+                title: "What changes the answer?",
+                body: "Look for the income, timeline, account-room, province, tax, or risk assumption that would make the conclusion weaker.",
+              },
+              {
+                title: "What source applies?",
+                body: "Use the official links below for rules, limits, tax treatment, benefit dates, or mortgage guidance before acting.",
+              },
+              {
+                title: "What is not covered?",
+                body: "Personal tax history, contribution-room records, employer plans, debt terms, and household constraints may change the practical decision.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <OfficialSourceNote
           title="Source check before you act"
           body="This guide is educational. Use the official references below to verify account rules, tax treatment, benefit rules, or mortgage guidance before making a personal decision."

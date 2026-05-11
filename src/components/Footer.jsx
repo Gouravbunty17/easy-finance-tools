@@ -11,10 +11,10 @@ export default function Footer() {
           <div>
             <p className="text-xl font-bold mb-3 text-accent">EasyFinanceTools</p>
             <p className="text-blue-100 text-sm">
-              Free, private financial calculators for Canadians. No sign-up required.
+              Canadian financial decision tools with source-linked assumptions. No sign-up required.
             </p>
             <p className="mt-3 text-sm text-blue-100">
-              Founder-operated by Gourav Kumar in Canada. Educational tools only, not licensed financial advice.
+              Founder-operated by Gourav Kumar in Canada. Educational planning support only, not licensed financial advice.
             </p>
           </div>
           <div>
@@ -23,7 +23,7 @@ export default function Footer() {
               <li><Link to="/tools/tfsa-calculator" className="hover:text-white">TFSA Calculator</Link></li>
               <li><Link to="/tools/rrsp-calculator" className="hover:text-white">RRSP Calculator</Link></li>
               <li><Link to="/tools/dividend-calculator" className="hover:text-white">Dividend Calculator</Link></li>
-              <li><Link to="/tools/budget-tracker" className="hover:text-white">Budget Tracker</Link></li>
+              <li><Link to="/tools/account-decision-tool" className="hover:text-white">Account Decision Tool</Link></li>
             </ul>
           </div>
           <div>
@@ -49,7 +49,7 @@ export default function Footer() {
             {SITEWIDE_FINANCIAL_DISCLAIMER}
           </p>
           <p className="mt-2">
-            Tool outputs are educational estimates based on current assumptions, published limits, and visible methodology on each calculator page. We do not store calculator inputs in our database. Some pages may contain referral links, and any partner relationship should be disclosed near the relevant callout.
+            Tool outputs are educational estimates based on current assumptions, published limits, and visible methodology on each calculator page. We do not store calculator inputs in our database or use them for newsletter targeting. Some pages may contain referral links, and any partner relationship should be disclosed near the relevant callout.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <Link to="/methodology" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
