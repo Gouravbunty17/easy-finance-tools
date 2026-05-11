@@ -6,6 +6,7 @@ import TopicClusterMap from "../components/TopicClusterMap";
 
 const FOUNDER_HEADSHOT_URL = "";
 const FOUNDER_LINKEDIN_URL = "";
+const FOUNDER_LOCATION = "Brampton, Ontario, Canada";
 
 const TRUST_POINTS = [
   {
@@ -22,24 +23,125 @@ const TRUST_POINTS = [
   },
 ];
 
+const ACCOUNTABILITY_POINTS = [
+  {
+    title: "What Gourav does",
+    body: "Builds the calculators, writes and edits the educational pages, checks source links, reviews assumptions, and updates content when Canadian rules or user needs change.",
+  },
+  {
+    title: "What the site does not claim",
+    body: "No licensed financial-advisor, CPA, CFP, CFA, mortgage-broker, tax-preparer, or institutional-review credential is implied.",
+  },
+  {
+    title: "How readers can challenge the work",
+    body: "Every core page points to methodology, official sources, contact, and corrections so issues can be reviewed publicly instead of quietly buried.",
+  },
+];
+
+const DECISION_FIRST_EXAMPLES = [
+  "Should the next dollar go to TFSA, RRSP, FHSA, debt, mortgage prepayment, cash, or taxable investing?",
+  "What assumption would change the result?",
+  "Which official rule needs to be checked before acting?",
+  "What mistake would make a good-looking calculator result misleading?",
+];
+
 export default function About() {
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        name: "About EasyFinanceTools",
+        url: "https://easyfinancetools.com/about",
+        description:
+          "Founder and editorial accountability page for EasyFinanceTools, an independent Canadian financial education and calculator platform.",
+        mainEntity: {
+          "@type": "Person",
+          name: "Gourav Kumar",
+          jobTitle: "Founder and editor of EasyFinanceTools",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Brampton",
+            addressRegion: "Ontario",
+            addressCountry: "CA",
+          },
+        },
+      },
+      {
+        "@type": "Organization",
+        name: "EasyFinanceTools",
+        url: "https://easyfinancetools.com",
+        founder: {
+          "@type": "Person",
+          name: "Gourav Kumar",
+        },
+        ...(FOUNDER_LINKEDIN_URL ? { sameAs: [FOUNDER_LINKEDIN_URL] } : {}),
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen" aria-labelledby="about-page-title">
       <SEO
         title="About EasyFinanceTools"
-        description="Meet Gourav Kumar, founder of EasyFinanceTools, and learn how the site builds Canadian finance calculators, source checks, and educational guides."
+        description="Meet Gourav Kumar, founder of EasyFinanceTools, and learn how the site builds Canadian financial decision tools, source checks, corrections, and educational guides."
         canonical="https://easyfinancetools.com/about"
+        schema={aboutSchema}
       />
 
-      <section className="border-b bg-gradient-to-br from-primary via-[#0a4c89] to-secondary px-4 py-16 text-white">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.18em] text-blue-50">
-            Founder-led Canadian finance tools
+      <section className="border-b bg-slate-50 px-4 py-16 dark:border-slate-800 dark:bg-slate-900/40">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Founder-led Canadian finance education</p>
+            <h1 id="about-page-title" className="mt-3 text-4xl font-bold text-primary dark:text-accent md:text-5xl">
+              About EasyFinanceTools
+            </h1>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
+              EasyFinanceTools helps Canadians understand financial tradeoffs before products, rankings, or referral links enter the conversation.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
+              <Link to="/tools/account-decision-tool" className="rounded-xl bg-primary px-4 py-2 text-white transition hover:bg-secondary">
+                Start with the decision framework
+              </Link>
+              <Link to="/editorial-standards" className="rounded-xl border border-slate-300 px-4 py-2 text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:text-accent">
+                Editorial standards
+              </Link>
+            </div>
           </div>
-          <h1 id="about-page-title" className="text-4xl font-bold md:text-5xl">About EasyFinanceTools</h1>
-          <p className="mx-auto mt-4 max-w-3xl text-lg text-blue-50">
-            EasyFinanceTools helps Canadians understand financial tradeoffs with calculators, plain-language guides, source links, and transparent assumptions.
-          </p>
+
+          <aside className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-900">
+            <div className="flex items-center gap-4">
+              {FOUNDER_HEADSHOT_URL ? (
+                <img
+                  src={FOUNDER_HEADSHOT_URL}
+                  alt="Gourav Kumar"
+                  className="h-20 w-20 rounded-2xl object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-primary text-2xl font-black text-white">
+                  GK
+                </div>
+              )}
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Founder</p>
+                <h2 className="mt-1 text-2xl font-bold text-primary dark:text-accent">Gourav Kumar</h2>
+                <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{FOUNDER_LOCATION}</p>
+              </div>
+            </div>
+            <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+              Independent site operator, calculator builder, and editor. Not a licensed financial advisor, accountant, mortgage broker, or tax professional.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
+              {FOUNDER_LINKEDIN_URL ? (
+                <a href={FOUNDER_LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-primary underline dark:text-secondary">
+                  LinkedIn
+                </a>
+              ) : null}
+              <Link to="/contact" className="text-primary underline dark:text-secondary">Contact</Link>
+              <Link to="/corrections" className="text-primary underline dark:text-secondary">Corrections</Link>
+            </div>
+          </aside>
         </div>
       </section>
 
@@ -51,10 +153,10 @@ export default function About() {
               <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Built and maintained by Gourav Kumar</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
-                  EasyFinanceTools is an independent Canadian personal finance education and calculator platform founded by Gourav Kumar. The site is built for people who want to test TFSA, RRSP, FHSA, mortgage, dividend, tax, and retirement scenarios without being pushed into a product first.
+                  EasyFinanceTools is an independent Canadian personal finance education and calculator platform founded by Gourav Kumar in {FOUNDER_LOCATION}. The site is built for people who want to test TFSA, RRSP, FHSA, mortgage, dividend, tax, and retirement scenarios without being pushed into a product first.
                 </p>
                 <p>
-                  Gourav focuses on building practical tools, maintaining calculator logic, reviewing pages against official Canadian sources where applicable, and improving the site when rules or user needs change.
+                  The strongest point of the site is not that it has calculators. It is that the calculators are connected to practical decision questions: what changes the answer, what assumptions matter, and what should be verified before acting.
                 </p>
                 <p>
                   EasyFinanceTools does not provide personalized financial, tax, legal, mortgage, or investment advice. Gourav is not a licensed financial advisor, CPA, CFP, CFA, mortgage broker, or tax preparer.
@@ -86,9 +188,33 @@ export default function About() {
               </div>
             </div>
 
+            <div className="mt-8 surface-card p-6 md:p-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Decision-first positioning</p>
+              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Understand the tradeoffs before the products</h2>
+              <p className="mt-4 text-slate-600 dark:text-slate-300">
+                EasyFinanceTools is intentionally not built around product rankings as the first step. The site starts with the underlying decision, then routes readers to calculators, source references, and guides.
+              </p>
+              <div className="mt-5 grid gap-3">
+                {DECISION_FIRST_EXAMPLES.map((item) => (
+                  <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm leading-7 text-slate-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {TRUST_POINTS.map((item) => (
                 <div key={item.title} className="surface-card p-5">
+                  <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {ACCOUNTABILITY_POINTS.map((item) => (
+                <div key={item.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
                   <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
                   <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
                 </div>
@@ -125,6 +251,22 @@ export default function About() {
                 </p>
                 <p>
                   The full process is documented on the <Link to="/editorial-standards" className="text-secondary underline-offset-2 hover:underline">Editorial Standards</Link> and <Link to="/methodology" className="text-secondary underline-offset-2 hover:underline">Methodology</Link> pages.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 rounded-3xl border border-amber-200 bg-amber-50 p-6 text-amber-950 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-100">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em]">Current trust roadmap</p>
+              <h2 className="mt-2 text-2xl font-bold">What still needs to improve</h2>
+              <div className="mt-4 space-y-3 text-sm leading-7">
+                <p>
+                  The site is founder-operated today. Over time, the highest-risk pages should receive external review from qualified Canadian tax, accounting, planning, or mortgage professionals where appropriate.
+                </p>
+                <p>
+                  A real founder headshot and verified public LinkedIn link should be added here when available. Those assets should be real, current, and not stock imagery.
+                </p>
+                <p>
+                  Reader corrections and source updates are handled through the contact and corrections process rather than pretending the site is finished.
                 </p>
               </div>
             </div>
