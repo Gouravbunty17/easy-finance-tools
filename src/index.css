@@ -86,5 +86,28 @@ textarea {
 input,
 select,
 textarea {
-  @apply dark:bg-gray-800 dark:text-white dark:border-gray-600;
+  @apply bg-white text-slate-900 dark:bg-gray-800 dark:text-white dark:border-gray-600;
+  color-scheme: light;
+}
+
+.dark input,
+.dark select,
+.dark textarea {
+  color-scheme: dark;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #0f172a;
+  box-shadow: 0 0 0 1000px #ffffff inset;
+  caret-color: #0f172a;
+}
+
+.dark input:-webkit-autofill,
+.dark textarea:-webkit-autofill,
+.dark select:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff;
+  box-shadow: 0 0 0 1000px #1f2937 inset;
+  caret-color: #ffffff;
 }
