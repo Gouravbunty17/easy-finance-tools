@@ -6,6 +6,7 @@ import SourceList from '../../components/SourceList';
 import OfficialSourceNote from '../../components/OfficialSourceNote';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
 import SurfaceTrackedLink from '../../components/SurfaceTrackedLink';
+import ProgressiveDisclosure from '../../components/ProgressiveDisclosure';
 import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   dividendTaxOfficialSources,
@@ -457,42 +458,37 @@ export default function InvestmentFitFramework() {
       />
       <FAQSchema faqs={faqs} />
 
-      <section className="bg-gradient-to-br from-slate-950 via-primary to-slate-800 px-4 py-16 text-white">
+      <section className="bg-gradient-to-br from-slate-950 via-primary to-slate-800 px-4 py-10 text-white md:py-14">
         <div className="mx-auto max-w-6xl">
           <div className="max-w-4xl">
             <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-blue-50">
-              Educational account-fit and risk-context framework
+              Educational account-fit framework
             </p>
-            <h1 className="mt-5 text-4xl font-bold tracking-tight md:text-5xl">
+            <h1 className="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
               Canadian Investment Fit Framework
             </h1>
-            <p className="mt-5 max-w-3xl text-lg leading-8 text-blue-50">
-              Evaluate how an investment may fit inside TFSA, RRSP, FHSA, taxable, or long-term planning contexts using Canadian account rules, tax-location questions, time horizon, income reliance, concentration, and liquidity tradeoffs.
+            <p className="mt-4 max-w-3xl text-base leading-7 text-blue-50 md:text-lg">
+              Compare account location, timeline, income reliance, concentration, currency, and liquidity tradeoffs. This does not rate or recommend investments.
             </p>
           </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {[
-              ['Non-advisory', 'This framework does not tell you to enter, exit, or keep any investment position.'],
-              ['Private by design', 'No account creation. Inputs stay in the browser and are not used for marketing.'],
-              ['Canadian context', 'Built around TFSA, RRSP, FHSA, taxable-account, CRA, and CAD planning questions.'],
-            ].map(([title, body]) => (
-              <div key={title} className="rounded-2xl border border-white/15 bg-white/10 p-5 text-sm leading-7 text-blue-50">
-                <p className="font-bold text-white">{title}</p>
-                <p className="mt-2">{body}</p>
-              </div>
+          <div className="mt-6 flex flex-wrap items-center gap-2 text-sm text-blue-50">
+            <a
+              href="#investment-fit-inputs"
+              className="rounded-xl bg-white px-4 py-2 font-bold text-primary transition hover:bg-blue-50"
+            >
+              Start framework
+            </a>
+            {['Non-advisory', 'Inputs stay in the browser', 'Canadian account context'].map((item) => (
+              <span key={item} className="rounded-full border border-white/15 bg-white/10 px-3 py-1.5">
+                {item}
+              </span>
             ))}
           </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 py-12">
-        <OfficialSourceNote
-          title="Account and tax context"
-          body="This framework uses educational account-location prompts and links to official Canadian sources. It cannot verify your contribution room, tax return, account documents, fund structure, or personal suitability."
-          sources={[tfsaOfficialSources[0], rrspOfficialSources[0], fhsaOfficialSources[0]]}
-        />
-
+      <div id="investment-fit-inputs" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-8 md:py-10">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
           <section className="rounded-3xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">Step-by-step inputs</p>
@@ -559,23 +555,46 @@ export default function InvestmentFitFramework() {
           </section>
         </div>
 
-        <section className="mt-10 grid gap-5 lg:grid-cols-3">
-          <WhyThisToolExists>
-            <p>
-              Many Canadian investing decisions are framed around the security first. This framework starts with account location, tax treatment, timeline, liquidity, concentration, and risk because those can change the planning context before product details are considered.
-            </p>
-          </WhyThisToolExists>
-          <WhatCanBreakThisEstimate title="What could break this plan?">
-            <BulletedList items={result.breakers} />
-          </WhatCanBreakThisEstimate>
-          <StressTestYourInputs>
-            <BulletedList items={result.stressTests} />
-          </StressTestYourInputs>
-        </section>
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="Sources and tool limits"
+          title="Official account context and non-advice boundaries"
+          summary="Open this when you want source links or the full explanation of what this framework cannot verify."
+        >
+          <OfficialSourceNote
+            title="Account and tax context"
+            body="This framework uses educational account-location prompts and links to official Canadian sources. It cannot verify your contribution room, tax return, account documents, fund structure, or personal suitability."
+            sources={[tfsaOfficialSources[0], rrspOfficialSources[0], fhsaOfficialSources[0]]}
+          />
+        </ProgressiveDisclosure>
 
-        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">Account-fit matrix</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Compare account context without ranking accounts</h2>
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="Stress testing"
+          title="What could break this plan?"
+          summary="Detailed stress-test prompts are available without turning the default page into a warning wall."
+        >
+          <div className="grid gap-5 lg:grid-cols-3">
+            <WhyThisToolExists>
+              <p>
+                Many Canadian investing decisions are framed around the security first. This framework starts with account location, tax treatment, timeline, liquidity, concentration, and risk because those can change the planning context before product details are considered.
+              </p>
+            </WhyThisToolExists>
+            <WhatCanBreakThisEstimate title="What could break this plan?">
+              <BulletedList items={result.breakers} />
+            </WhatCanBreakThisEstimate>
+            <StressTestYourInputs>
+              <BulletedList items={result.stressTests} />
+            </StressTestYourInputs>
+          </div>
+        </ProgressiveDisclosure>
+
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="Account-fit matrix"
+          title="Compare account context without ranking accounts"
+          summary="A neutral table for users who want the full TFSA, RRSP, FHSA, and taxable-account comparison."
+        >
           <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
             This matrix is not a scorecard. It shows why TFSA, RRSP, FHSA, and taxable accounts can create different tradeoffs for the same investment.
           </p>
@@ -603,7 +622,7 @@ export default function InvestmentFitFramework() {
               </tbody>
             </table>
           </div>
-        </section>
+        </ProgressiveDisclosure>
 
         <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">Next step routing</p>
@@ -628,9 +647,12 @@ export default function InvestmentFitFramework() {
           </div>
         </section>
 
-        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">Educational guide</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Planning context behind the framework</h2>
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="Educational guide"
+          title="Planning context behind the framework"
+          summary="Concise background sections are collapsed until the user wants the explanation."
+        >
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             {guideSections.map((section) => (
               <article key={section.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
@@ -639,11 +661,14 @@ export default function InvestmentFitFramework() {
               </article>
             ))}
           </div>
-        </section>
+        </ProgressiveDisclosure>
 
-        <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">FAQ</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Questions this framework is meant to answer carefully</h2>
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="FAQ"
+          title="Questions this framework is meant to answer carefully"
+          summary="Schema remains present while the visible page stays lighter."
+        >
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             {faqs.map((faq) => (
               <div key={faq.q} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
@@ -652,13 +677,20 @@ export default function InvestmentFitFramework() {
               </div>
             ))}
           </div>
-        </section>
+        </ProgressiveDisclosure>
 
-        <SourceList
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="References"
           title="Sources and investor-education references"
-          intro="These references support the account-rule, investment-income, currency, and diversification context used by this educational framework."
-          sources={investmentSources}
-        />
+          summary="Official and investor-education references stay accessible without occupying the default flow."
+        >
+          <SourceList
+            title="Sources and investor-education references"
+            intro="These references support the account-rule, investment-income, currency, and diversification context used by this educational framework."
+            sources={investmentSources}
+          />
+        </ProgressiveDisclosure>
       </div>
     </main>
   );

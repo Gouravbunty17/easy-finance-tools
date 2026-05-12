@@ -9,6 +9,7 @@ import NextStepLinks from '../../components/NextStepLinks';
 import SourceList from '../../components/SourceList';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
 import OfficialSourceNote from '../../components/OfficialSourceNote';
+import ProgressiveDisclosure from '../../components/ProgressiveDisclosure';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import { CONTENT_LAST_REVIEWED } from '../../config/financial';
 import {
@@ -505,28 +506,16 @@ export default function AccountDecisionTool() {
             <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
               Answer the questions to see what currently favours TFSA, RRSP, or FHSA, why the tradeoff changes, and which calculator or guide should come next.
             </p>
-            <div className="mt-6 grid min-w-0 gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-secondary">Privacy</p>
-                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">Inputs stay in this browser session. No account sign-in is required.</p>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-secondary">Calculation style</p>
-                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">The scoring is directional and client-side, not a precise tax model.</p>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-secondary">Method</p>
-                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                  <Link to="/methodology" className="font-semibold text-primary hover:underline dark:text-accent">Methodology</Link>
-                  {' '}and{' '}
-                  <Link to="/corrections" className="font-semibold text-primary hover:underline dark:text-accent">corrections</Link>
-                  {' '}are visible.
-                </p>
-              </div>
+            <div className="mt-6 flex flex-wrap gap-2 text-sm text-slate-600 dark:text-slate-300">
+              {['Inputs stay in your browser', 'Directional framework, not advice', 'Methodology and corrections are public'].map((item) => (
+                <span key={item} className="rounded-full border border-slate-200 bg-white px-3 py-1.5 dark:border-slate-700 dark:bg-slate-900">
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
 
-          <aside className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-gray-900">
+          <aside className="hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-gray-900 lg:block">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Current directional leader</p>
             <p className="mt-3 text-4xl font-bold text-primary dark:text-accent">{tradeoffs.lead}</p>
             <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
@@ -545,14 +534,7 @@ export default function AccountDecisionTool() {
       </section>
 
       <div className="mx-auto max-w-6xl px-4 py-10">
-        <EducationalDisclaimer />
-        <OfficialSourceNote
-          title="Verify account rules before contributing"
-          body="TFSA, RRSP, and FHSA limits, deductions, withdrawals, and eligibility should be checked against CRA before acting on any planning result."
-          sources={[tfsaOfficialSources[0], rrspOfficialSources[0], fhsaOfficialSources[0]]}
-        />
-
-        <section className="mt-8 grid gap-6 lg:grid-cols-[390px_minmax(0,1fr)]">
+        <section className="grid gap-6 lg:grid-cols-[360px_minmax(0,1fr)]">
           <aside className="h-fit min-w-0 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-gray-900">
             <div className="flex items-center justify-between gap-3">
               <div>
@@ -625,6 +607,29 @@ export default function AccountDecisionTool() {
           </section>
         </section>
 
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="Before acting"
+          title="Important notes and official account sources"
+          summary="Open this when you need the full disclaimer, CRA source links, methodology, or corrections process."
+        >
+          <div className="space-y-5">
+            <EducationalDisclaimer />
+            <OfficialSourceNote
+              title="Verify account rules before contributing"
+              body="TFSA, RRSP, and FHSA limits, deductions, withdrawals, and eligibility should be checked against CRA before acting on any planning result."
+              sources={[tfsaOfficialSources[0], rrspOfficialSources[0], fhsaOfficialSources[0]]}
+            />
+            <p className="text-sm leading-7 text-slate-600 dark:text-slate-300">
+              See the{' '}
+              <Link to="/methodology" className="font-semibold text-primary underline dark:text-accent">methodology</Link>
+              {' '}and{' '}
+              <Link to="/corrections" className="font-semibold text-primary underline dark:text-accent">corrections process</Link>
+              {' '}for how rules, sources, and fixes are handled.
+            </p>
+          </div>
+        </ProgressiveDisclosure>
+
         <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Tradeoff engine</p>
           <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">What currently favours each account</h2>
@@ -638,7 +643,13 @@ export default function AccountDecisionTool() {
           </div>
         </section>
 
-        <section className="mt-10 grid gap-4 lg:grid-cols-3">
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="Deeper comparison"
+          title="Account comparison details"
+          summary="Usually stronger / less useful notes are collapsed so the calculator flow stays light."
+        >
+          <div className="grid gap-4 lg:grid-cols-3">
           {ACCOUNT_CARDS.map((account) => (
             <article key={account.key} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-gray-900">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">{account.key}</p>
@@ -661,11 +672,15 @@ export default function AccountDecisionTool() {
               </div>
             </article>
           ))}
-        </section>
+          </div>
+        </ProgressiveDisclosure>
 
-        <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-900">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">What can change this answer?</p>
-          <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">The result is sensitive by design</h2>
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="What can change this answer?"
+          title="The result is sensitive by design"
+          summary="Use this when your income, timeline, pension, home plan, or contribution room may change."
+        >
           <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
             A trustworthy account framework should explain its weak points. These are the changes most likely to move the answer later.
           </p>
@@ -684,30 +699,38 @@ export default function AccountDecisionTool() {
               </ul>
             </div>
           ) : null}
-        </section>
+        </ProgressiveDisclosure>
 
-        <section className="mt-10 grid gap-4 lg:grid-cols-3">
-          <WhyThisToolExists>
-            The tool exists to organize TFSA, RRSP, and FHSA tradeoffs before product or platform choices enter the conversation.
-          </WhyThisToolExists>
-          <WhenThisToolIsWeakest>
-            It is weakest when CRA room, actual tax bracket, FHSA eligibility, pension details, debt pressure, or cash needs are unknown.
-          </WhenThisToolIsWeakest>
-          <StressTestYourInputs>
-            Change timeline, income, tax reduction, and flexibility. If the result moves, the real-world decision needs more careful modelling.
-          </StressTestYourInputs>
-        </section>
-
-        <InlineSourceTrust
-          label="Inline source reference"
-          note="TFSA, RRSP, and FHSA contribution and withdrawal rules are sourced from CRA guidance. Mortgage stress-test context should be verified against CMHC, FCAC, and OSFI-related lender rules."
-          sources={[tfsaOfficialSources[0], fhsaOfficialSources[0]]}
-        />
-        <InlineSourceTrust
-          label="Tax and mortgage context"
-          note="Province, tax-rate, and mortgage assumptions are planning context only. Use official tax references and lender/CMHC rules before acting."
-          sources={[taxOfficialSources[0], mortgageOfficialSources[2]]}
-        />
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="Methodology notes"
+          title="Weak points, stress tests, and inline sources"
+          summary="Detailed trust material remains available without dominating the main result."
+        >
+          <div className="grid gap-4 lg:grid-cols-3">
+            <WhyThisToolExists>
+              The tool exists to organize TFSA, RRSP, and FHSA tradeoffs before product or platform choices enter the conversation.
+            </WhyThisToolExists>
+            <WhenThisToolIsWeakest>
+              It is weakest when CRA room, actual tax bracket, FHSA eligibility, pension details, debt pressure, or cash needs are unknown.
+            </WhenThisToolIsWeakest>
+            <StressTestYourInputs>
+              Change timeline, income, tax reduction, and flexibility. If the result moves, the real-world decision needs more careful modelling.
+            </StressTestYourInputs>
+          </div>
+          <div className="mt-5 space-y-4">
+            <InlineSourceTrust
+              label="Inline source reference"
+              note="TFSA, RRSP, and FHSA contribution and withdrawal rules are sourced from CRA guidance. Mortgage stress-test context should be verified against CMHC, FCAC, and OSFI-related lender rules."
+              sources={[tfsaOfficialSources[0], fhsaOfficialSources[0]]}
+            />
+            <InlineSourceTrust
+              label="Tax and mortgage context"
+              note="Province, tax-rate, and mortgage assumptions are planning context only. Use official tax references and lender/CMHC rules before acting."
+              sources={[taxOfficialSources[0], mortgageOfficialSources[2]]}
+            />
+          </div>
+        </ProgressiveDisclosure>
 
         <NextStepLinks
           title="Calculator routing based on this framework"
@@ -715,9 +738,12 @@ export default function AccountDecisionTool() {
           links={nextSteps}
         />
 
-        <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-900">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Suggested learning path</p>
-          <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Read these before going deeper</h2>
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="Suggested learning path"
+          title="Read these before going deeper"
+          summary="A compact next-reading path based on the goal selected."
+        >
           <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
             This path is based on the goal you selected. It is meant to improve context, not push a product.
           </p>
@@ -729,11 +755,14 @@ export default function AccountDecisionTool() {
               </Link>
             ))}
           </div>
-        </section>
+        </ProgressiveDisclosure>
 
-        <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Assumptions to verify</p>
-          <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Do not skip these checks</h2>
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="Assumptions to verify"
+          title="Checks that can change the interpretation"
+          summary="Kept secondary so the main decision flow stays readable."
+        >
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {tradeoffs.assumptions.map((item) => (
               <p key={item} className="rounded-xl bg-white p-4 text-sm leading-7 text-slate-600 dark:bg-slate-800 dark:text-slate-300">
@@ -741,24 +770,30 @@ export default function AccountDecisionTool() {
               </p>
             ))}
           </div>
-        </section>
+        </ProgressiveDisclosure>
 
-        <SourceList
-          title="Official sources used as rule references"
-          intro="These references are shown here because account decisions are YMYL-sensitive. Use them to verify limits, eligibility, deductions, withdrawal rules, and public benefit context."
-          sources={[
-            tfsaOfficialSources[0],
-            rrspOfficialSources[0],
-            fhsaOfficialSources[0],
-            taxOfficialSources[0],
-            mortgageOfficialSources[2],
-            mortgageOfficialSources[3],
-            retirementOfficialSources[0],
-            dividendTaxOfficialSources[0],
-          ]}
-        />
-
-        <FAQ items={FAQS} />
+        <ProgressiveDisclosure
+          className="mt-8"
+          eyebrow="Sources and FAQ"
+          title="Official references and common questions"
+          summary="Useful for verification, but no longer part of the default reading path."
+        >
+          <SourceList
+            title="Official sources used as rule references"
+            intro="These references are shown here because account decisions are YMYL-sensitive. Use them to verify limits, eligibility, deductions, withdrawal rules, and public benefit context."
+            sources={[
+              tfsaOfficialSources[0],
+              rrspOfficialSources[0],
+              fhsaOfficialSources[0],
+              taxOfficialSources[0],
+              mortgageOfficialSources[2],
+              mortgageOfficialSources[3],
+              retirementOfficialSources[0],
+              dividendTaxOfficialSources[0],
+            ]}
+          />
+          <FAQ items={FAQS} />
+        </ProgressiveDisclosure>
       </div>
     </main>
   );
