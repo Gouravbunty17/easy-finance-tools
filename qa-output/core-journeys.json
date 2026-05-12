@@ -1,0 +1,47 @@
+[
+  {
+    "name": "home primary CTA",
+    "found": true,
+    "before": "https://easyfinancetools.com/",
+    "after": "https://easyfinancetools.com/tools/account-decision-tool",
+    "h1": "TFSA vs RRSP vs FHSA decision framework for Canadians",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "name": "home tools CTA",
+    "found": true,
+    "before": "https://easyfinancetools.com/",
+    "after": "https://easyfinancetools.com/tools",
+    "h1": "Canadian money decision tools",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "name": "tools investment fit link",
+    "found": true,
+    "before": "https://easyfinancetools.com/tools",
+    "after": "https://easyfinancetools.com/tools/investment-fit-framework",
+    "h1": "Canadian Investment Fit Framework",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "name": "investment fit start anchor",
+    "found": true,
+    "before": "https://easyfinancetools.com/tools/investment-fit-framework",
+    "after": "https://easyfinancetools.com/tools/investment-fit-framework#investment-fit-inputs",
+    "h1": "Canadian Investment Fit Framework",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "name": "account next question button",
+    "found": true,
+    "before": "https://easyfinancetools.com/tools/account-decision-tool",
+    "after": "https://easyfinancetools.com/tools/account-decision-tool",
+    "h1": "TFSA vs RRSP vs FHSA decision framework for Canadians",
+    "errors": [],
+    "pass": true
+  }
+]

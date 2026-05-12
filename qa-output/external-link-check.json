@@ -1,0 +1,1242 @@
+[
+  {
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/I-15/page-1.html",
+    "status": 200,
+    "finalUrl": "https://laws-lois.justice.gc.ca/eng/acts/I-15/page-1.html",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/pay-off-mortgage-faster-canada",
+        "text": "Canada Interest Act — section 6 (semi-annual compounding requirement)"
+      }
+    ]
+  },
+  {
+    "url": "https://myaccount.google.com/data-and-privacy",
+    "status": 200,
+    "finalUrl": "https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fmyaccount.google.com%2Fgeneral-light&dsh=S-1559572980%3A1778582969118157&followup=https%3A%2F%2Fmyaccount.google.com%2Fgeneral-light&osid=1&passive=1209600&flowName=WebLiteSignIn&flowEntry=ServiceLogin&ifkv=AWa2PavQCnUKVZpIFkZ-JU8BRsyGw4QwTosYDOYAfwrbGt9JqCwXAUCgWunPBPueZ7a9CZMrWsO9rA",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "myaccount.google.com/data-and-privacy"
+      }
+    ]
+  },
+  {
+    "url": "https://policies.google.com/privacy",
+    "status": 200,
+    "finalUrl": "https://policies.google.com/privacy",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "policies.google.com/privacy"
+      }
+    ]
+  },
+  {
+    "url": "https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac",
+    "status": 200,
+    "finalUrl": "https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "Safari"
+      }
+    ]
+  },
+  {
+    "url": "https://support.google.com/chrome/answer/95647",
+    "status": 404,
+    "finalUrl": "https://support.google.com/chrome/answer/95647",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "Chrome"
+      }
+    ]
+  },
+  {
+    "url": "https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09",
+    "status": 200,
+    "finalUrl": "https://support.microsoft.com/en-us/windows/manage-cookies-in-microsoft-edge-view-allow-block-delete-and-use-168dab11-0753-043d-7c16-ede5947fc64d",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "Edge"
+      }
+    ]
+  },
+  {
+    "url": "https://support.mozilla.org/en-US/kb/block-websites-storing-cookies-site-data",
+    "status": 200,
+    "finalUrl": "https://support.mozilla.org/en-US/kb/block-websites-storing-cookies-site-data",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "Firefox"
+      }
+    ]
+  },
+  {
+    "url": "https://tools.google.com/dlpage/gaoptout",
+    "status": 200,
+    "finalUrl": "https://tools.google.com/dlpage/gaoptout",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "Google Analytics Opt-out Browser Add-on"
+      }
+    ]
+  },
+  {
+    "url": "https://vercel.com/legal/privacy-policy",
+    "status": 200,
+    "finalUrl": "https://vercel.com/legal/privacy-policy",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "vercel.com/legal/privacy-policy"
+      }
+    ]
+  },
+  {
+    "url": "https://wealthsimple.com/invite/R8F7ZW",
+    "status": 404,
+    "finalUrl": "https://app.wealthsimple.com/74rd/3i2t30pp?referralcode=R8F7ZW",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/compound-interest-calculator",
+        "text": "Start with Wealthsimple"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/tfsa-calculator",
+        "text": "View provider terms"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/rrsp-calculator",
+        "text": "View provider terms"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/dividend-calculator",
+        "text": "Start ETF plan with Wealthsimple"
+      }
+    ]
+  },
+  {
+    "url": "https://www.bankofcanada.ca/core-functions/monetary-policy/inflation/",
+    "status": 200,
+    "finalUrl": "https://www.bankofcanada.ca/core-functions/monetary-policy/inflation/",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/compound-interest-calculator",
+        "text": "Bank of Canada inflation resources"
+      }
+    ]
+  },
+  {
+    "url": "https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/",
+    "status": 200,
+    "finalUrl": "https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/emergency-fund-canada",
+        "text": "Bank of Canada's overnight rate"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/emergency-fund-canada",
+        "text": "Bank of Canada — key interest rate"
+      }
+    ]
+  },
+  {
+    "url": "https://www.bankofcanada.ca/rates/",
+    "status": 200,
+    "finalUrl": "https://www.bankofcanada.ca/rates/",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/mortgages",
+        "text": "Bank of Canada: Rates Reference point for Canadian interest-rate context and rate data."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/compound-interest-calculator",
+        "text": "Bank of Canada: Rates"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-calculator",
+        "text": "Bank of Canada: Rates"
+      }
+    ]
+  },
+  {
+    "url": "https://www.bankofcanada.ca/rates/exchange/",
+    "status": 200,
+    "finalUrl": "https://www.bankofcanada.ca/rates/exchange/",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/investment-fit-framework",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "url": "https://www.bankofcanada.ca/valet/docs",
+    "status": 200,
+    "finalUrl": "https://www.bankofcanada.ca/valet/docs",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "Bank of Canada Valet API"
+      }
+    ]
+  },
+  {
+    "url": "https://www.cai.gouv.qc.ca/",
+    "status": 200,
+    "finalUrl": "https://www.cai.gouv.qc.ca/",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "Commission d'acces a l'information du Quebec"
+      },
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "Commission d'acces a l'information du Quebec"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/content/canadasite/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/withdraw.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/500-month-tfsa-income-canada",
+        "text": "CRA TFSA withdrawals"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/500-month-tfsa-income-canada",
+        "text": "CRA TFSA withdrawals"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/500-month-tfsa-income-canada",
+        "text": "Open source"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/tfsa-passive-income-canada-2026",
+        "text": "CRA: Withdrawing from a TFSA"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/department-finance/news/2022/08/design-of-the-tax-free-first-home-savings-account.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/fhsa-calculator",
+        "text": "Department of Finance Canada: FHSA background"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/fhsa-calculator",
+        "text": "Open source"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/fhsa-calculator-canada-2026",
+        "text": "Department of Finance Canada: FHSA background"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/fhsa-calculator-canada-2026",
+        "text": "Open source"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/department-finance/news/2024/09/making-mortgages-more-affordable.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-calculator",
+        "text": "Government of Canada: Making mortgages more affordable"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-affordability-calculator",
+        "text": "Government of Canada: Mortgage affordability measures"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/financial-consumer-agency/services/banking/deposit-insurance.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/gic-calculator",
+        "text": "Government of Canada: Deposit insurance basics"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/financial-consumer-agency/services/debt.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/debt-payoff",
+        "text": "FCAC: Debt repayment strategies"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/financial-consumer-agency/services/mortgages.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/mortgages",
+        "text": "FCAC: Mortgages Government consumer guidance on mortgage basics, payments, affordability, and borrower responsibilities."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-calculator",
+        "text": "FCAC: Mortgages"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-calculator",
+        "text": "FCAC: Mortgages"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-calculator",
+        "text": "FCAC: Mortgages Government consumer guidance on mortgage basics, payments, affordability, and borrower responsibilities."
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/financial-consumer-agency/services/mortgages/buying-home.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/rent-vs-buy",
+        "text": "FCAC: Buying a home"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-affordability-calculator",
+        "text": "FCAC: Buying a home"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/financial-consumer-agency/services/mortgages/preparing-mortgage.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/mortgages",
+        "text": "FCAC: Getting preapproved for a mortgage Consumer-facing guidance on preapproval, qualification, and comparing mortgage "
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-calculator",
+        "text": "FCAC: Getting preapproved for a mortgage Consumer-facing guidance on preapproval, qualification, and comparing mortgage "
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-affordability-calculator",
+        "text": "FCAC: Getting preapproved for a mortgage"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-affordability-calculator",
+        "text": "FCAC: Getting preapproved for a mortgage"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/financial-consumer-agency/services/savings-investments/guaranteed-investment-certificates.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/gic-calculator",
+        "text": "FCAC: Guaranteed investment certificates"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/t4037/capital-gains.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/capital-gains-tax",
+        "text": "CRA: Capital gains"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/calculating-deductions.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/income-tax-calculator",
+        "text": "CRA: Payroll deductions"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/income-tax-calculator",
+        "text": "CRA: Payroll deductions"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/income-tax-calculator",
+        "text": "CRA: CPP and EI payroll deductions"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/income-tax-calculator",
+        "text": "CRA: Payroll deductions CPP, EI, and payroll deduction guidance used for directional pay and tax estimates."
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/payroll-deductions-contributions/income-tax/federal-provincial-territorial-tax-rates-income-earned-canada.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/canadian-tax-brackets-2026",
+        "text": "CRA: Tax rates on income"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/frequently-asked-questions-individuals/canadian-income-tax-rates-individuals-current-previous-years.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/income-tax-calculator",
+        "text": "CRA: Canadian income tax rates"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/income-tax-calculator",
+        "text": "CRA: Canadian income tax rates"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/income-tax-calculator",
+        "text": "CRA: Canadian income tax rates Federal and provincial or territorial income tax rate reference for individuals."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-rates.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/income-tax-calculator",
+        "text": "CRA: Personal income tax rates"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/income-tax-calculator",
+        "text": "CRA: Completing a tax return Official starting point for filing-line treatment, credits, deductions, and income reportin"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/line-20800-rrsp-deduction.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/rrsp",
+        "text": "CRA: Line 20800 RRSP deduction How RRSP deductions are claimed on a Canadian tax return."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/rrsp-calculator",
+        "text": "CRA: Line 20800 RRSP deduction"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/rrsp-calculator",
+        "text": "CRA: Line 20800 RRSP deduction How RRSP deductions are claimed on a Canadian tax return."
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/what-is-a-dividend-etf-canada",
+        "text": "CRA: RRSP deduction rules"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/line-40425-federal-dividend-tax-credit.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/dividend-reinvestment-plans-canada",
+        "text": "CRA: federal dividend tax credit"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/income/line-12000-taxable-amount-dividends-taxable-canadian-corporations.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/dividends",
+        "text": "CRA: Taxable Canadian dividends Official reporting guidance for taxable dividends from Canadian corporations."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/investment-fit-framework",
+        "text": "CRA: Taxable Canadian dividends"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/investment-fit-framework",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/income/line-12100-interest-other-investment-income.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/dividends",
+        "text": "CRA: Interest and other investment income Useful for comparing dividend income with other taxable investment income cate"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/investment-fit-framework",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/dividend-calculator",
+        "text": "CRA: Interest and other investment income"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/dividend-calculator",
+        "text": "CRA: Interest and other investment income"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/income/line-12700-capital-gains.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/dividends",
+        "text": "CRA: Capital gains Official guidance for capital gains, losses, and taxable investment disposition context."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/investment-fit-framework",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/dividend-calculator",
+        "text": "CRA: Capital gains Official guidance for capital gains, losses, and taxable investment disposition context."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/capital-gains-tax",
+        "text": "CRA: Capital gains"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/line-12000-taxable-amount-dividends-eligible-other-than-eligible-taxable-canadian-corporations.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/dividend-reinvestment-plans-canada",
+        "text": "CRA: taxable amount of dividends from taxable Canadian corporations"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/line-12100-interest-other-investment-income.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/emergency-fund-canada",
+        "text": "T5 slip"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/emergency-fund-canada",
+        "text": "CRA — Line 12100 interest and other investment income (T5 slip rules)"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/personal-income/line-12700-capital-gains/completing-schedule-3/tax-treatment-mutual-funds.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/dividend-reinvestment-plans-canada",
+        "text": "CRA: tax treatment of mutual funds and adjusted cost base"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/fhsa",
+        "text": "CRA: First Home Savings Account Official FHSA eligibility, annual room, lifetime limits, withdrawals, and transfer rules"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account/contributing-your-fhsa.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/fhsa",
+        "text": "CRA: Contributing to your FHSAs Annual limits, carryforward treatment, deductible contributions, and participation room."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/fhsa-calculator",
+        "text": "CRA: Contributing to your FHSAs"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/fhsa-calculator",
+        "text": "CRA: Contributing to your FHSAs"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/fhsa-calculator",
+        "text": "CRA: Contributing to your FHSAs Annual limits, carryforward treatment, deductible contributions, and participation room."
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account/withdrawals-transfers-out-your-fhsas.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/fhsa",
+        "text": "CRA: Withdrawals and transfers from FHSAs Qualifying withdrawal rules, taxable withdrawals, and transfer treatment."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/fhsa-calculator",
+        "text": "CRA: Withdrawals and transfers from FHSAs"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/fhsa-calculator",
+        "text": "CRA: Withdrawals and transfers from FHSAs Qualifying withdrawal rules, taxable withdrawals, and transfer treatment."
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/fhsa-rules-canada-2026",
+        "text": "CRA: Withdrawals and transfers from FHSAs"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/registered-retirement-income-fund-rrif/receiving-income-a-rrif.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/retirement",
+        "text": "CRA: RRIF income Official RRIF withdrawal and retirement-account income guidance."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/rrsp-calculator",
+        "text": "CRA: RRIF minimum withdrawal factors"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/rrsp-calculator",
+        "text": "Open source"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/cpp-oas-estimator",
+        "text": "CRA: RRIF income"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/rrsp",
+        "text": "CRA: RRSPs and related plans Official RRSP rules, deduction room, contributions, withdrawals, and related plan guidance."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/investment-fit-framework",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/contributing-a-rrsp-prpp/whats-your-rrsp-prpp-deduction-limit.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/canadian-tax-brackets-2026",
+        "text": "CRA: RRSP deduction limit"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/contributions.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/rrsp",
+        "text": "CRA: RRSP contributions Contribution deadlines, deduction timing, and how RRSP contributions are reported."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/rrsp-calculator",
+        "text": "CRA: RRSP contributions"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/rrsp-calculator",
+        "text": "CRA: RRSP contributions"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/rrsp-calculator",
+        "text": "CRA: RRSP contributions Contribution deadlines, deduction timing, and how RRSP contributions are reported."
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/what-home-buyers-plan/participate-home-buyers-plan.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/fhsa-vs-rrsp-down-payment-canada-2026",
+        "text": "CRA: How to participate in the Home Buyers Plan"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/fhsa-vs-rrsp-down-payment-canada-2026",
+        "text": "Open source"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/what-home-buyers-plan/repay-funds-withdrawn-rrsp-s-under-home-buyers-plan.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/fhsa-vs-rrsp-down-payment-canada-2026",
+        "text": "Open source"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/tfsa",
+        "text": "CRA: Tax-Free Savings Account Official TFSA overview, eligibility, contribution room, withdrawals, and tax treatment."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/contributing/calculate-room.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/500-month-tfsa-income-canada",
+        "text": "CRA TFSA room"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/500-month-tfsa-income-canada",
+        "text": "CRA TFSA room"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/500-month-tfsa-income-canada",
+        "text": "Open source"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/tfsa-passive-income-canada-2026",
+        "text": "CRA: Calculate your TFSA contribution room"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/contributions.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/tfsa",
+        "text": "CRA: TFSA contributions Contribution room, timing, annual limits, and how withdrawals affect future room."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/tfsa-calculator",
+        "text": "CRA: TFSA contributions"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/tfsa-calculator",
+        "text": "CRA: TFSA contributions"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/tfsa-calculator",
+        "text": "CRA: TFSA contributions"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/tax-payable-tfsa.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/tfsa",
+        "text": "CRA: Tax payable on excess TFSA amounts Useful when checking over-contribution risk or same-year recontribution mistakes"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/tfsa-calculator",
+        "text": "CRA: Tax payable on excess TFSA amounts Useful when checking over-contribution risk or same-year recontribution mistakes"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/tfsa-calculator",
+        "text": "Open source"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/tfsa-investing-mistakes-canada",
+        "text": "CRA: Tax payable on excess TFSA amounts"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/types-investments.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/500-month-tfsa-income-canada",
+        "text": "CRA TFSA contributions"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/500-month-tfsa-income-canada",
+        "text": "CRA TFSA contributions"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/500-month-tfsa-income-canada",
+        "text": "Open source"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/tfsa-passive-income-canada-2026",
+        "text": "CRA: Before you contribute to a TFSA"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/what.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/tfsa-vs-rrsp-canada-2026",
+        "text": "CRA: What is a TFSA"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/tfsa-vs-rrsp-canada-2026",
+        "text": "Open source"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/how-to-start-investing-canada-2026",
+        "text": "CRA: What is a TFSA"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/pspa/mp-rrsp-dpsp-tfsa-limits-ympe.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/tfsa-vs-rrsp-canada-2026",
+        "text": "CRA: RRSP and TFSA limits table"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/tfsa-vs-rrsp-canada-2026",
+        "text": "Open source"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/services/benefits/publicpensions/cpp.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/retirement",
+        "text": "Government of Canada: Canada Pension Plan Official CPP eligibility, payment, contribution, and retirement benefit inform"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/cpp-oas-estimator",
+        "text": "Government of Canada: Canada Pension Plan"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/cpp-oas-estimator",
+        "text": "Government of Canada: CPP overview"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/services/benefits/publicpensions/cpp/old-age-security.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/retirement",
+        "text": "Government of Canada: Old Age Security Official OAS eligibility, payment, deferral, recovery tax, and benefit informatio"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/cpp-oas-estimator",
+        "text": "Government of Canada: Old Age Security"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/cpp-oas-estimator",
+        "text": "Government of Canada: OAS overview"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/cpp-oas-estimator",
+        "text": "Government of Canada: Old Age Security Official OAS eligibility, payment, deferral, recovery tax, and benefit informatio"
+      }
+    ]
+  },
+  {
+    "url": "https://www.canada.ca/en/services/finance.html",
+    "status": null,
+    "finalUrl": null,
+    "error": "timeout",
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/compound-interest-calculator",
+        "text": "Government of Canada registered accounts overview"
+      }
+    ]
+  },
+  {
+    "url": "https://www.cdic.ca/",
+    "status": 200,
+    "finalUrl": "https://www.cdic.ca/",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/gic-calculator",
+        "text": "Open source"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/emergency-fund-canada",
+        "text": "Canada Deposit Insurance Corporation"
+      }
+    ]
+  },
+  {
+    "url": "https://www.cdic.ca/your-coverage/",
+    "status": 200,
+    "finalUrl": "https://www.cdic.ca/depositors/whats-covered/",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/emergency-fund-canada",
+        "text": "Canada Deposit Insurance Corporation (CDIC) coverage"
+      }
+    ]
+  },
+  {
+    "url": "https://www.ciro.ca/investors",
+    "status": 403,
+    "finalUrl": "https://www.ciro.ca/investors",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/what-is-a-dividend-etf-canada",
+        "text": "Canadian Investment Regulatory Organization investor resources"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/how-to-choose-etfs-canada",
+        "text": "Canadian Investment Regulatory Organization investor resources"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/tfsa-investing-mistakes-canada",
+        "text": "Canadian Investment Regulatory Organization investor resources"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/drip-strategy-canada",
+        "text": "Canadian Investment Regulatory Organization investor resources"
+      }
+    ]
+  },
+  {
+    "url": "https://www.cmhc-schl.gc.ca/",
+    "status": 200,
+    "finalUrl": "https://www.cmhc-schl.gc.ca/",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-calculator",
+        "text": "Open source"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/rent-vs-buy",
+        "text": "CMHC home-buying resources"
+      }
+    ]
+  },
+  {
+    "url": "https://www.cmhc-schl.gc.ca/buying-a-home/homebuyer-incentive-and-tools/mortgage-loan-insurance-homebuying-guide",
+    "status": 404,
+    "finalUrl": "https://www.cmhc-schl.gc.ca/404",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/pay-off-mortgage-faster-canada",
+        "text": "CMHC — Mortgage default insurance premiums and eligibility"
+      }
+    ]
+  },
+  {
+    "url": "https://www.cmhc-schl.gc.ca/consumers/home-buying/mortgage-loan-insurance-for-consumers",
+    "status": 200,
+    "finalUrl": "https://www.cmhc-schl.gc.ca/consumers/home-buying/mortgage-loan-insurance-for-consumers",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/topics/mortgages",
+        "text": "CMHC: Mortgage loan insurance Official consumer explanation of mortgage default insurance and insured mortgage basics."
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/account-decision-tool",
+        "text": ""
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-calculator",
+        "text": "CMHC: Mortgage loan insurance"
+      }
+    ]
+  },
+  {
+    "url": "https://www.cmhc-schl.gc.ca/consumers/home-buying/mortgage-loan-insurance-for-consumers/what-is-cmhc-mortgage-loan-insurance",
+    "status": 404,
+    "finalUrl": "https://www.cmhc-schl.gc.ca/404",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-calculator",
+        "text": "CMHC: Mortgage loan insurance for consumers"
+      }
+    ]
+  },
+  {
+    "url": "https://www.fsrao.ca/industry/credit-unions-and-caisses-populaires/deposit-insurance",
+    "status": 200,
+    "finalUrl": "https://www.fsrao.ca/industry/credit-unions-and-caisses-populaires/deposit-insurance",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/blog/emergency-fund-canada",
+        "text": "FSRA Ontario — deposit insurance for credit unions"
+      }
+    ]
+  },
+  {
+    "url": "https://www.getsmarteraboutmoney.ca/learning-path/understanding-risk/diversification/",
+    "status": 200,
+    "finalUrl": "https://www.getsmarteraboutmoney.ca/learning-path/understanding-risk/diversification/",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/investment-fit-framework",
+        "text": ""
+      }
+    ]
+  },
+  {
+    "url": "https://www.osfi-bsif.gc.ca/",
+    "status": 200,
+    "finalUrl": "https://www.osfi-bsif.gc.ca/en",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-calculator",
+        "text": "Open source"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-affordability-calculator",
+        "text": "Open source"
+      }
+    ]
+  },
+  {
+    "url": "https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/residential-mortgage-underwriting-practices-procedures-guideline-b-20",
+    "status": 404,
+    "finalUrl": "https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/residential-mortgage-underwriting-practices-procedures-guideline-b-20",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-calculator",
+        "text": "OSFI Guideline B-20: Residential mortgage underwriting practices and procedures"
+      },
+      {
+        "from": "https://easyfinancetools.com/tools/mortgage-affordability-calculator",
+        "text": "OSFI Guideline B-20"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/pay-off-mortgage-faster-canada",
+        "text": "OSFI Guideline B-20"
+      },
+      {
+        "from": "https://easyfinancetools.com/blog/pay-off-mortgage-faster-canada",
+        "text": "OSFI Guideline B-20 — Residential Mortgage Underwriting Practices"
+      }
+    ]
+  },
+  {
+    "url": "https://www.priv.gc.ca/",
+    "status": 200,
+    "finalUrl": "https://www.priv.gc.ca/",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "Office of the Privacy Commissioner of Canada"
+      },
+      {
+        "from": "https://easyfinancetools.com/privacy",
+        "text": "Office of the Privacy Commissioner of Canada"
+      }
+    ]
+  },
+  {
+    "url": "https://www150.statcan.gc.ca/n1/en/type/data?text=consumer%20price%20index",
+    "status": 200,
+    "finalUrl": "https://www150.statcan.gc.ca/n1/en/type/data",
+    "error": null,
+    "refs": [
+      {
+        "from": "https://easyfinancetools.com/tools/compound-interest-calculator",
+        "text": "Statistics Canada: Consumer Price Index"
+      }
+    ]
+  }
+]

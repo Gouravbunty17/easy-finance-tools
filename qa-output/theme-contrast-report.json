@@ -1,0 +1,998 @@
+[
+  {
+    "mode": "light",
+    "url": "https://easyfinancetools.com/",
+    "status": 200,
+    "errors": [],
+    "overflow": false,
+    "title": "Canadian Financial Decision Tools | EasyFinanceTools",
+    "h1": "Canadian financial tools designed to help you think before you invest.",
+    "lowContrast": [
+      {
+        "tag": "ASIDE",
+        "text": "SIMPLE STARTING ORDER\n\n1. Decide the account or planning context.\n2. Run one cal",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 16,
+        "selector": "rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur",
+        "ratio": 1
+      },
+      {
+        "tag": "P",
+        "text": "SIMPLE STARTING ORDER",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 12,
+        "selector": "text-xs font-semibold uppercase tracking-[0.16em] text-blue-100",
+        "ratio": 1.2200582686022765
+      },
+      {
+        "tag": "OL",
+        "text": "1. Decide the account or planning context.\n2. Run one calculator with realistic ",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "mt-5 space-y-3 text-sm leading-6 text-blue-50",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "LI",
+        "text": "1. Decide the account or planning context.",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "rounded-2xl bg-white/10 p-4",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "LI",
+        "text": "2. Run one calculator with realistic assumptions.",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "rounded-2xl bg-white/10 p-4",
+        "ratio": 1.088283002187878
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "light",
+    "url": "https://easyfinancetools.com/tools",
+    "status": 200,
+    "errors": [],
+    "overflow": false,
+    "title": "Canadian Financial Decision Tools",
+    "h1": "Canadian money decision tools",
+    "lowContrast": [
+      {
+        "tag": "DIV",
+        "text": "DECISION TOOLS, NOT A WIDGET PILE\nCanadian money decision tools\n\nPick the questi",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 16,
+        "selector": "bg-gradient-to-br from-primary to-secondary px-4 py-16 text-white",
+        "ratio": 1
+      },
+      {
+        "tag": "DIV",
+        "text": "DECISION TOOLS, NOT A WIDGET PILE\nCanadian money decision tools\n\nPick the questi",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 16,
+        "selector": "mx-auto max-w-5xl text-center",
+        "ratio": 1
+      },
+      {
+        "tag": "DIV",
+        "text": "DECISION TOOLS, NOT A WIDGET PILE",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold uppe",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "H1",
+        "text": "Canadian money decision tools",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 36,
+        "selector": "#tools-page-title",
+        "ratio": 1
+      },
+      {
+        "tag": "P",
+        "text": "Pick the question you are trying to answer, compare scenarios, and move into the",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 18,
+        "selector": "mx-auto max-w-3xl text-lg text-blue-50",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "P",
+        "text": "LAST UPDATED APRIL 29, 2026",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 14,
+        "selector": "mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-blue-100",
+        "ratio": 1.2200582686022765
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "light",
+    "url": "https://easyfinancetools.com/tools/account-decision-tool",
+    "status": 200,
+    "errors": [],
+    "overflow": false,
+    "title": "TFSA vs RRSP vs FHSA Decision Framework Canada",
+    "h1": "TFSA vs RRSP vs FHSA decision framework for Canadians",
+    "lowContrast": [
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(203, 213, 225)",
+        "bg": "rgb(248, 250, 252)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 1.4190352179009549
+      },
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(203, 213, 225)",
+        "bg": "rgb(248, 250, 252)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 1.4190352179009549
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "light",
+    "url": "https://easyfinancetools.com/tools/investment-fit-framework",
+    "status": 200,
+    "errors": [],
+    "overflow": false,
+    "title": "Canadian Investment Fit Framework",
+    "h1": "Canadian Investment Fit Framework",
+    "lowContrast": [
+      {
+        "tag": "SECTION",
+        "text": "EDUCATIONAL ACCOUNT-FIT FRAMEWORK\n\nCanadian Investment Fit Framework\n\nCompare ac",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 16,
+        "selector": "bg-gradient-to-br from-slate-950 via-primary to-slate-800 px-4 py-10 text-white ",
+        "ratio": 1
+      },
+      {
+        "tag": "DIV",
+        "text": "EDUCATIONAL ACCOUNT-FIT FRAMEWORK\n\nCanadian Investment Fit Framework\n\nCompare ac",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 16,
+        "selector": "mx-auto max-w-6xl",
+        "ratio": 1
+      },
+      {
+        "tag": "DIV",
+        "text": "EDUCATIONAL ACCOUNT-FIT FRAMEWORK\n\nCanadian Investment Fit Framework\n\nCompare ac",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 16,
+        "selector": "max-w-4xl",
+        "ratio": 1
+      },
+      {
+        "tag": "P",
+        "text": "EDUCATIONAL ACCOUNT-FIT FRAMEWORK",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 12,
+        "selector": "inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs ",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "H1",
+        "text": "Canadian Investment Fit Framework",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 36,
+        "selector": "mt-4 text-4xl font-bold tracking-tight md:text-5xl",
+        "ratio": 1
+      },
+      {
+        "tag": "P",
+        "text": "Compare account location, timeline, income reliance, concentration, currency, an",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 16,
+        "selector": "mt-4 max-w-3xl text-base leading-7 text-blue-50 md:text-lg",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "DIV",
+        "text": "Start framework\nNon-advisory\nInputs stay in the browser\nCanadian account context",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 14,
+        "selector": "mt-6 flex flex-wrap items-center gap-2 text-sm text-blue-50",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "SPAN",
+        "text": "Non-advisory",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "rounded-full border border-white/15 bg-white/10 px-3 py-1.5",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "SPAN",
+        "text": "Inputs stay in the browser",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "rounded-full border border-white/15 bg-white/10 px-3 py-1.5",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "SPAN",
+        "text": "Canadian account context",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "rounded-full border border-white/15 bg-white/10 px-3 py-1.5",
+        "ratio": 1.088283002187878
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "light",
+    "url": "https://easyfinancetools.com/tools/tfsa-calculator",
+    "status": 200,
+    "errors": [],
+    "overflow": false,
+    "title": "TFSA Calculator Canada 2026: Room & Tax-Free Growth",
+    "h1": "TFSA room and tax-free growth planner",
+    "lowContrast": [
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(203, 213, 225)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 1.48470221380943
+      },
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(203, 213, 225)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 1.48470221380943
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "light",
+    "url": "https://easyfinancetools.com/tools/rrsp-calculator",
+    "status": 200,
+    "errors": [],
+    "overflow": false,
+    "title": "RRSP Calculator Canada 2026: Tax Refund & Retirement",
+    "h1": "RRSP refund and retirement-income planner",
+    "lowContrast": [
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(203, 213, 225)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 1.48470221380943
+      },
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(203, 213, 225)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 1.48470221380943
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "light",
+    "url": "https://easyfinancetools.com/tools/dividend-calculator",
+    "status": 200,
+    "errors": [],
+    "overflow": true,
+    "title": "Dividend Calculator Canada 2026: Income, Yield & DRIP",
+    "h1": "ETF income and dividend simulator",
+    "lowContrast": [
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(203, 213, 225)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 1.48470221380943
+      },
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(203, 213, 225)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 1.48470221380943
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "light",
+    "url": "https://easyfinancetools.com/blog",
+    "status": 200,
+    "errors": [],
+    "overflow": false,
+    "title": "Canadian Financial Decision Guides",
+    "h1": "Canadian financial decision guides",
+    "lowContrast": [
+      {
+        "tag": "SECTION",
+        "text": "GUIDES AND EXPLAINERS\nCanadian financial decision guides\n\nEducation-first Canadi",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 16,
+        "selector": "border-b bg-gradient-to-br from-primary via-[#0a4c89] to-secondary px-4 py-16 te",
+        "ratio": 1
+      },
+      {
+        "tag": "DIV",
+        "text": "GUIDES AND EXPLAINERS\nCanadian financial decision guides\n\nEducation-first Canadi",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 16,
+        "selector": "mx-auto max-w-4xl text-center",
+        "ratio": 1
+      },
+      {
+        "tag": "DIV",
+        "text": "GUIDES AND EXPLAINERS",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 12,
+        "selector": "mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppe",
+        "ratio": 1.2200582686022765
+      },
+      {
+        "tag": "H1",
+        "text": "Canadian financial decision guides",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 36,
+        "selector": "text-4xl font-bold md:text-5xl",
+        "ratio": 1
+      },
+      {
+        "tag": "P",
+        "text": "Education-first Canadian finance guides for tax, savings, registered accounts, r",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 18,
+        "selector": "mx-auto mt-4 max-w-3xl text-lg text-blue-100",
+        "ratio": 1.2200582686022765
+      },
+      {
+        "tag": "SPAN",
+        "text": "Dividends",
+        "color": "rgb(148, 163, 184)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 12,
+        "selector": "font-semibold text-slate-400",
+        "ratio": 2.5640413904962034
+      },
+      {
+        "tag": "SPAN",
+        "text": "/",
+        "color": "rgb(203, 213, 225)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 12,
+        "selector": "text-slate-300",
+        "ratio": 1.48470221380943
+      },
+      {
+        "tag": "SPAN",
+        "text": "11 min",
+        "color": "rgb(148, 163, 184)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 12,
+        "selector": "font-semibold text-slate-400",
+        "ratio": 2.5640413904962034
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "light",
+    "url": "https://easyfinancetools.com/about",
+    "status": 200,
+    "errors": [],
+    "overflow": false,
+    "title": "About EasyFinanceTools",
+    "h1": "About EasyFinanceTools",
+    "lowContrast": [],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "light",
+    "url": "https://easyfinancetools.com/methodology",
+    "status": 200,
+    "errors": [],
+    "overflow": false,
+    "title": "Methodology and Sources",
+    "h1": "Methodology and Sources",
+    "lowContrast": [
+      {
+        "tag": "SECTION",
+        "text": "TRUST AND TRANSPARENCY\nMethodology and Sources\n\nEvery calculator should explain ",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 16,
+        "selector": "border-b bg-gradient-to-br from-primary via-[#0a4c89] to-secondary px-4 py-16 te",
+        "ratio": 1
+      },
+      {
+        "tag": "DIV",
+        "text": "TRUST AND TRANSPARENCY\nMethodology and Sources\n\nEvery calculator should explain ",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 16,
+        "selector": "mx-auto max-w-4xl text-center",
+        "ratio": 1
+      },
+      {
+        "tag": "DIV",
+        "text": "TRUST AND TRANSPARENCY",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 12,
+        "selector": "mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppe",
+        "ratio": 1.2200582686022765
+      },
+      {
+        "tag": "H1",
+        "text": "Methodology and Sources",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 36,
+        "selector": "text-4xl font-bold md:text-5xl",
+        "ratio": 1
+      },
+      {
+        "tag": "P",
+        "text": "Every calculator should explain what it does, what it does not do, where key ass",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 18,
+        "selector": "mx-auto mt-4 max-w-3xl text-lg text-blue-100",
+        "ratio": 1.2200582686022765
+      },
+      {
+        "tag": "P",
+        "text": "Last reviewed: May 9, 2026",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 14,
+        "selector": "mt-4 text-sm font-semibold text-blue-100",
+        "ratio": 1.2200582686022765
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "light",
+    "url": "https://easyfinancetools.com/contact",
+    "status": 200,
+    "errors": [],
+    "overflow": false,
+    "title": "Contact EasyFinanceTools",
+    "h1": "Contact EasyFinanceTools",
+    "lowContrast": [
+      {
+        "tag": "SECTION",
+        "text": "CONTACT AND SUPPORT\nContact EasyFinanceTools\n\nQuestions, bug reports, calculator",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 16,
+        "selector": "border-b bg-gradient-to-br from-primary via-[#0a4c89] to-secondary px-4 py-16 te",
+        "ratio": 1
+      },
+      {
+        "tag": "DIV",
+        "text": "CONTACT AND SUPPORT\nContact EasyFinanceTools\n\nQuestions, bug reports, calculator",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 16,
+        "selector": "mx-auto max-w-4xl text-center",
+        "ratio": 1
+      },
+      {
+        "tag": "DIV",
+        "text": "CONTACT AND SUPPORT",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 12,
+        "selector": "mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppe",
+        "ratio": 1.2200582686022765
+      },
+      {
+        "tag": "H1",
+        "text": "Contact EasyFinanceTools",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 36,
+        "selector": "text-4xl font-bold md:text-5xl",
+        "ratio": 1
+      },
+      {
+        "tag": "P",
+        "text": "Questions, bug reports, calculator feedback, or partnership ideas. Send a messag",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgb(255, 255, 255)",
+        "fontSize": 18,
+        "selector": "mx-auto mt-4 max-w-2xl text-lg text-blue-100",
+        "ratio": 1.2200582686022765
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 2
+  },
+  {
+    "mode": "dark",
+    "url": "https://easyfinancetools.com/",
+    "status": 304,
+    "errors": [],
+    "overflow": false,
+    "title": "Canadian Financial Decision Tools | EasyFinanceTools",
+    "h1": "Canadian financial tools designed to help you think before you invest.",
+    "lowContrast": [
+      {
+        "tag": "ASIDE",
+        "text": "SIMPLE STARTING ORDER\n\n1. Decide the account or planning context.\n2. Run one cal",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 16,
+        "selector": "rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur",
+        "ratio": 1
+      },
+      {
+        "tag": "P",
+        "text": "SIMPLE STARTING ORDER",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 12,
+        "selector": "text-xs font-semibold uppercase tracking-[0.16em] text-blue-100",
+        "ratio": 1.2200582686022765
+      },
+      {
+        "tag": "OL",
+        "text": "1. Decide the account or planning context.\n2. Run one calculator with realistic ",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "mt-5 space-y-3 text-sm leading-6 text-blue-50",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "LI",
+        "text": "1. Decide the account or planning context.",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "rounded-2xl bg-white/10 p-4",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "LI",
+        "text": "2. Run one calculator with realistic assumptions.",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "rounded-2xl bg-white/10 p-4",
+        "ratio": 1.088283002187878
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "dark",
+    "url": "https://easyfinancetools.com/tools",
+    "status": 304,
+    "errors": [],
+    "overflow": false,
+    "title": "Canadian Financial Decision Tools",
+    "h1": "Canadian money decision tools",
+    "lowContrast": [
+      {
+        "tag": "DIV",
+        "text": "DECISION TOOLS, NOT A WIDGET PILE",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold uppe",
+        "ratio": 1.088283002187878
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "dark",
+    "url": "https://easyfinancetools.com/tools/account-decision-tool",
+    "status": 304,
+    "errors": [],
+    "overflow": false,
+    "title": "TFSA vs RRSP vs FHSA Decision Framework Canada",
+    "h1": "TFSA vs RRSP vs FHSA decision framework for Canadians",
+    "lowContrast": [
+      {
+        "tag": "P",
+        "text": "CANADIAN ACCOUNT DECISION SUPPORT",
+        "color": "rgb(0, 85, 122)",
+        "bg": "rgba(15, 23, 42, 0.4)",
+        "fontSize": 12,
+        "selector": "text-xs font-semibold uppercase tracking-[0.18em] text-secondary",
+        "ratio": 2.19367527631025
+      },
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(71, 85, 105)",
+        "bg": "rgba(15, 23, 42, 0.4)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 2.3559417615334315
+      },
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(71, 85, 105)",
+        "bg": "rgba(15, 23, 42, 0.4)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 2.3559417615334315
+      },
+      {
+        "tag": "P",
+        "text": "QUESTION FLOW",
+        "color": "rgb(0, 85, 122)",
+        "bg": "rgb(17, 24, 39)",
+        "fontSize": 12,
+        "selector": "text-xs font-semibold uppercase tracking-[0.18em] text-secondary",
+        "ratio": 2.1798124849630782
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "dark",
+    "url": "https://easyfinancetools.com/tools/investment-fit-framework",
+    "status": 304,
+    "errors": [],
+    "overflow": false,
+    "title": "Canadian Investment Fit Framework",
+    "h1": "Canadian Investment Fit Framework",
+    "lowContrast": [
+      {
+        "tag": "P",
+        "text": "EDUCATIONAL ACCOUNT-FIT FRAMEWORK",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 12,
+        "selector": "inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs ",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "SPAN",
+        "text": "Non-advisory",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "rounded-full border border-white/15 bg-white/10 px-3 py-1.5",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "SPAN",
+        "text": "Inputs stay in the browser",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "rounded-full border border-white/15 bg-white/10 px-3 py-1.5",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "SPAN",
+        "text": "Canadian account context",
+        "color": "rgb(239, 246, 255)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 14,
+        "selector": "rounded-full border border-white/15 bg-white/10 px-3 py-1.5",
+        "ratio": 1.088283002187878
+      },
+      {
+        "tag": "P",
+        "text": "STEP-BY-STEP INPUTS",
+        "color": "rgb(0, 85, 122)",
+        "bg": "rgba(15, 23, 42, 0.6)",
+        "fontSize": 12,
+        "selector": "text-xs font-bold uppercase tracking-[0.18em] text-secondary",
+        "ratio": 2.19367527631025
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "dark",
+    "url": "https://easyfinancetools.com/tools/tfsa-calculator",
+    "status": 304,
+    "errors": [],
+    "overflow": false,
+    "title": "TFSA Calculator Canada 2026: Room & Tax-Free Growth",
+    "h1": "TFSA room and tax-free growth planner",
+    "lowContrast": [
+      {
+        "tag": "DIV",
+        "text": "TFSA PLANNING FOR CANADIAN INVESTORS",
+        "color": "rgb(0, 85, 122)",
+        "bg": "rgb(30, 41, 59)",
+        "fontSize": 12,
+        "selector": "mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold upp",
+        "ratio": 1.7975406429003158
+      },
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(71, 85, 105)",
+        "bg": "rgb(3, 7, 18)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 2.657054960589346
+      },
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(71, 85, 105)",
+        "bg": "rgb(3, 7, 18)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 2.657054960589346
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "dark",
+    "url": "https://easyfinancetools.com/tools/rrsp-calculator",
+    "status": 304,
+    "errors": [],
+    "overflow": false,
+    "title": "RRSP Calculator Canada 2026: Tax Refund & Retirement",
+    "h1": "RRSP refund and retirement-income planner",
+    "lowContrast": [
+      {
+        "tag": "DIV",
+        "text": "RRSP PLANNING FOR CANADIAN INVESTORS",
+        "color": "rgb(0, 85, 122)",
+        "bg": "rgb(30, 41, 59)",
+        "fontSize": 12,
+        "selector": "mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold upp",
+        "ratio": 1.7975406429003158
+      },
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(71, 85, 105)",
+        "bg": "rgb(3, 7, 18)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 2.657054960589346
+      },
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(71, 85, 105)",
+        "bg": "rgb(3, 7, 18)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 2.657054960589346
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "dark",
+    "url": "https://easyfinancetools.com/tools/dividend-calculator",
+    "status": 304,
+    "errors": [],
+    "overflow": true,
+    "title": "Dividend Calculator Canada 2026: Income, Yield & DRIP",
+    "h1": "ETF income and dividend simulator",
+    "lowContrast": [
+      {
+        "tag": "DIV",
+        "text": "CANADIAN ETF INCOME PLANNING",
+        "color": "rgb(0, 85, 122)",
+        "bg": "rgb(30, 41, 59)",
+        "fontSize": 12,
+        "selector": "mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold upp",
+        "ratio": 1.7975406429003158
+      },
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(71, 85, 105)",
+        "bg": "rgb(3, 7, 18)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 2.657054960589346
+      },
+      {
+        "tag": "SPAN",
+        "text": "|",
+        "color": "rgb(71, 85, 105)",
+        "bg": "rgb(3, 7, 18)",
+        "fontSize": 14,
+        "selector": "text-slate-300 dark:text-slate-600",
+        "ratio": 2.657054960589346
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "dark",
+    "url": "https://easyfinancetools.com/blog",
+    "status": 304,
+    "errors": [],
+    "overflow": false,
+    "title": "Canadian Financial Decision Guides",
+    "h1": "Canadian financial decision guides",
+    "lowContrast": [
+      {
+        "tag": "DIV",
+        "text": "GUIDES AND EXPLAINERS",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 12,
+        "selector": "mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppe",
+        "ratio": 1.2200582686022765
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "dark",
+    "url": "https://easyfinancetools.com/about",
+    "status": 304,
+    "errors": [],
+    "overflow": false,
+    "title": "About EasyFinanceTools",
+    "h1": "About EasyFinanceTools",
+    "lowContrast": [
+      {
+        "tag": "P",
+        "text": "FOUNDER-LED CANADIAN FINANCE EDUCATION",
+        "color": "rgb(0, 85, 122)",
+        "bg": "rgba(15, 23, 42, 0.4)",
+        "fontSize": 12,
+        "selector": "text-xs font-semibold uppercase tracking-[0.18em] text-secondary",
+        "ratio": 2.19367527631025
+      },
+      {
+        "tag": "P",
+        "text": "FOUNDER",
+        "color": "rgb(0, 85, 122)",
+        "bg": "rgb(17, 24, 39)",
+        "fontSize": 12,
+        "selector": "text-xs font-semibold uppercase tracking-[0.18em] text-secondary",
+        "ratio": 2.1798124849630782
+      },
+      {
+        "tag": "A",
+        "text": "Contact",
+        "color": "rgb(0, 85, 122)",
+        "bg": "rgb(17, 24, 39)",
+        "fontSize": 14,
+        "selector": "text-primary underline dark:text-secondary",
+        "ratio": 2.1798124849630782
+      },
+      {
+        "tag": "A",
+        "text": "Corrections",
+        "color": "rgb(0, 85, 122)",
+        "bg": "rgb(17, 24, 39)",
+        "fontSize": 14,
+        "selector": "text-primary underline dark:text-secondary",
+        "ratio": 2.1798124849630782
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "dark",
+    "url": "https://easyfinancetools.com/methodology",
+    "status": 304,
+    "errors": [],
+    "overflow": false,
+    "title": "Methodology and Sources",
+    "h1": "Methodology and Sources",
+    "lowContrast": [
+      {
+        "tag": "DIV",
+        "text": "TRUST AND TRANSPARENCY",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 12,
+        "selector": "mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppe",
+        "ratio": 1.2200582686022765
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 0
+  },
+  {
+    "mode": "dark",
+    "url": "https://easyfinancetools.com/contact",
+    "status": 304,
+    "errors": [],
+    "overflow": false,
+    "title": "Contact EasyFinanceTools",
+    "h1": "Contact EasyFinanceTools",
+    "lowContrast": [
+      {
+        "tag": "DIV",
+        "text": "CONTACT AND SUPPORT",
+        "color": "rgb(219, 234, 254)",
+        "bg": "rgba(255, 255, 255, 0.1)",
+        "fontSize": 12,
+        "selector": "mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppe",
+        "ratio": 1.2200582686022765
+      }
+    ],
+    "inputContrast": [],
+    "inputCount": 2
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "before": {
+    "dark": false,
+    "bodyBg": "rgb(248, 250, 252)"
+  },
+  "clicked": {
+    "label": "Switch to dark mode",
+    "html": "<button aria-label=\"Switch to dark mode\" class=\"focus-ring rounded-lg bg-gray-100 p-2 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700\"><svg aria-hidden=\"true"
+  },
+  "after": {
+    "dark": true,
+    "stored": "dark",
+    "bodyBg": "rgb(3, 7, 18)"
+  },
+  "pass": true
+}
