@@ -6,6 +6,7 @@ import FAQSchema from "../components/FAQSchema";
 
 const tools = [
   { title: "Account Decision Tool", desc: "Answer a few questions to decide whether TFSA, RRSP, or FHSA deserves the next dollar before choosing products.", link: "/tools/account-decision-tool", badge: "Start Here", category: "Savings", color: "border-emerald-200 hover:border-emerald-400" },
+  { title: "Investment Fit Framework", desc: "Compare account-fit, tax-location, yield, concentration, currency, timeline, and liquidity tradeoffs without stock ratings.", link: "/tools/investment-fit-framework", badge: "Framework", category: "Investing", color: "border-slate-200 hover:border-slate-400" },
   { title: "Tip Calculator", desc: "Calculate the tip, split the bill, and compare pre-tax vs after-tax tipping with simple input boxes.", link: "/tools/tip-calculator", badge: "New", category: "Budget", color: "border-amber-200 hover:border-amber-400" },
   { title: "GST/HST Calculator", desc: "Add sales tax or reverse it from a final price for every Canadian province and territory.", link: "/tools/gst-hst-calculator", badge: "New", category: "Tax", color: "border-emerald-200 hover:border-emerald-400" },
   { title: "Salary to Hourly Calculator", desc: "Turn annual salary into hourly, bi-weekly, semi-monthly, and monthly gross pay with vacation-week assumptions.", link: "/tools/salary-to-hourly-calculator", badge: "New", category: "Budget", color: "border-sky-200 hover:border-sky-400" },
@@ -61,6 +62,12 @@ const decisionPaths = [
     body: "Use compound interest first, then check whether the TFSA, RRSP, or FHSA wrapper changes the result.",
     href: "/tools/compound-interest-calculator",
     ctaLabel: "decision_path_compound_growth",
+  },
+  {
+    title: "Where does an investment fit in my account plan?",
+    body: "Use the investment fit framework to compare account location, tax context, yield reliance, concentration, and timeline risk before deeper modeling.",
+    href: "/tools/investment-fit-framework",
+    ctaLabel: "decision_path_investment_fit",
   },
   {
     title: "Is dividend income realistic for my portfolio?",

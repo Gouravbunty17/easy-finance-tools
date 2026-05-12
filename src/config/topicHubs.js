@@ -28,6 +28,7 @@ export const topicHubs = {
     calculators: [
       ['TFSA calculator', '/tools/tfsa-calculator'],
       ['Account decision tool', '/tools/account-decision-tool'],
+      ['Investment fit framework', '/tools/investment-fit-framework'],
       ['Compound interest calculator', '/tools/compound-interest-calculator'],
     ],
     guides: [
@@ -58,6 +59,7 @@ export const topicHubs = {
     calculators: [
       ['RRSP calculator', '/tools/rrsp-calculator'],
       ['Account decision tool', '/tools/account-decision-tool'],
+      ['Investment fit framework', '/tools/investment-fit-framework'],
       ['Income tax calculator', '/tools/income-tax-calculator'],
     ],
     guides: [
@@ -88,6 +90,7 @@ export const topicHubs = {
     calculators: [
       ['FHSA calculator', '/tools/fhsa-calculator'],
       ['Account decision tool', '/tools/account-decision-tool'],
+      ['Investment fit framework', '/tools/investment-fit-framework'],
       ['Mortgage affordability calculator', '/tools/mortgage-affordability-calculator'],
     ],
     guides: [
@@ -117,6 +120,7 @@ export const topicHubs = {
     ],
     calculators: [
       ['Dividend calculator', '/tools/dividend-calculator'],
+      ['Investment fit framework', '/tools/investment-fit-framework'],
       ['Compound interest calculator', '/tools/compound-interest-calculator'],
       ['Investment tracker', '/tools/investment-tracker'],
     ],
