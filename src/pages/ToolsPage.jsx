@@ -5,7 +5,7 @@ import EducationalDisclaimer from "../components/EducationalDisclaimer";
 import FAQSchema from "../components/FAQSchema";
 
 const tools = [
-  { title: "Account Decision Tool", desc: "Answer a few questions to decide whether TFSA, RRSP, or FHSA deserves the next dollar before choosing products.", link: "/tools/account-decision-tool", badge: "Start Here", category: "Savings", color: "border-emerald-200 hover:border-emerald-400" },
+  { title: "Account Decision Tool", desc: "Compare TFSA, RRSP, and FHSA priorities with a guided Canadian account framework.", link: "/tools/account-decision-tool", badge: "Start Here", category: "Savings", color: "border-emerald-200 hover:border-emerald-400" },
   { title: "Investment Fit Framework", desc: "Compare account-fit, tax-location, yield, concentration, currency, timeline, and liquidity tradeoffs without stock ratings.", link: "/tools/investment-fit-framework", badge: "Framework", category: "Investing", color: "border-slate-200 hover:border-slate-400" },
   { title: "Tip Calculator", desc: "Calculate the tip, split the bill, and compare pre-tax vs after-tax tipping with simple input boxes.", link: "/tools/tip-calculator", badge: "New", category: "Budget", color: "border-amber-200 hover:border-amber-400" },
   { title: "GST/HST Calculator", desc: "Add sales tax or reverse it from a final price for every Canadian province and territory.", link: "/tools/gst-hst-calculator", badge: "New", category: "Tax", color: "border-emerald-200 hover:border-emerald-400" },
@@ -419,6 +419,16 @@ export default function ToolsPage() {
             {toolHubFaqs.map((item) => (
               <div key={item.q} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
                 <h3 className="text-lg font-bold text-primary dark:text-accent">{item.q}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}
+
                 <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.a}</p>
               </div>
             ))}

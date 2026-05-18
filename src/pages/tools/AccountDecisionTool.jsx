@@ -1,476 +1,489 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  ShieldCheckIcon,
+  ArrowLeftIcon,
+  ArrowPathIcon,
+  CheckCircleIcon,
+  ExclamationTriangleIcon,
+  LockClosedIcon,
+  ArrowRightIcon,
+  HomeIcon,
+  BanknotesIcon,
+  ScaleIcon,
+  ClockIcon,
+  BuildingLibraryIcon,
+} from '@heroicons/react/24/outline';
 import SEO from '../../components/SEO';
 import FAQ from '../../components/FAQ';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
-import NextStepLinks from '../../components/NextStepLinks';
-import SourceList from '../../components/SourceList';
-import InlineSourceTrust from '../../components/InlineSourceTrust';
-import OfficialSourceNote from '../../components/OfficialSourceNote';
-import ProgressiveDisclosure from '../../components/ProgressiveDisclosure';
-import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import { CONTENT_LAST_REVIEWED } from '../../config/financial';
-import {
-  dividendTaxOfficialSources,
-  fhsaOfficialSources,
-  mortgageOfficialSources,
-  retirementOfficialSources,
-  rrspOfficialSources,
-  taxOfficialSources,
-  tfsaOfficialSources,
-} from '../../config/officialSources';
 
 const CANONICAL = 'https://easyfinancetools.com/tools/account-decision-tool';
 
+/* ------------------------------------------------------------------ */
+/* Quiz definition                                                     */
+/* ------------------------------------------------------------------ */
+
 const QUESTIONS = [
   {
-    key: 'goal',
-    section: 'Primary financial goal',
-    title: 'What is the main job for the next dollar?',
-    helper: 'This keeps the tool focused on the purpose of the money instead of treating every registered account as interchangeable.',
-    why: 'A first-home goal can make FHSA relevant. Retirement can strengthen RRSP analysis. Flexibility and income goals often make TFSA tradeoffs more visible.',
+    key: 'resident',
+    section: 'Step 1 of 9',
+    title: 'Are you a Canadian resident age 18 or older?',
+    helper:
+      'TFSA, RRSP, and FHSA accounts are designed for Canadian residents. Most also require you to be at least the age of majority in your province (18 or 19).',
     options: [
-      { value: 'firstHome', label: 'First home' },
-      { value: 'retirement', label: 'Retirement' },
-      { value: 'flexibility', label: 'Flexible investing' },
-      { value: 'income', label: 'Passive or dividend income' },
-      { value: 'beginner', label: 'I am still learning' },
+      { value: 'yes', label: 'Yes' },
+      { value: 'no', label: 'No' },
     ],
   },
   {
-    key: 'timeline',
-    section: 'Timeline',
-    title: 'When might this money be needed?',
-    helper: 'The shorter the timeline, the more liquidity and capital preservation matter.',
-    why: 'Short timelines can weaken long-term investment assumptions. Long timelines give tax-sheltered growth more time to matter.',
+    key: 'firstHomePlan',
+    section: 'Step 2 of 9',
+    title: 'Are you planning to buy your first home in Canada?',
+    helper:
+      'FHSA eligibility hinges on being a qualifying first-time home buyer. Answer "Yes" only if a home purchase is genuinely on your radar.',
     options: [
-      { value: 'under3', label: 'Within 3 years' },
-      { value: '3to7', label: '3 to 7 years' },
-      { value: '7plus', label: '7+ years' },
-      { value: 'unknown', label: 'Not sure yet' },
+      { value: 'yes', label: 'Yes' },
+      { value: 'maybe', label: 'Maybe / not sure yet' },
+      { value: 'no', label: 'No' },
     ],
   },
   {
-    key: 'incomeRange',
-    section: 'Income range',
-    title: 'What income range best describes the current year?',
-    helper: 'A range is enough here. This tool is not calculating a precise tax refund.',
-    why: 'RRSP deduction value depends on today tax rate compared with later withdrawal tax rate. A higher income year can make the deduction more meaningful.',
+    key: 'homeTimeline',
+    section: 'Step 3 of 9',
+    title: 'If yes, when do you plan to buy?',
+    helper:
+      'Timing matters: FHSA contributions and investment growth need enough runway to grow but must still be ready when you buy.',
+    skipIf: (answers) => answers.firstHomePlan === 'no',
     options: [
-      { value: 'under50', label: 'Under $50,000' },
-      { value: '50to90', label: '$50,000 to $90,000' },
-      { value: '90to140', label: '$90,000 to $140,000' },
-      { value: '140plus', label: '$140,000+' },
-    ],
-  },
-  {
-    key: 'province',
-    section: 'Province',
-    title: 'Which province should frame the tax context?',
-    helper: 'Province matters because combined federal and provincial tax rates are not identical across Canada.',
-    why: 'This page stays directional, but province can change how valuable an RRSP deduction looks in a specific year.',
-    options: [
-      { value: 'ON', label: 'Ontario' },
-      { value: 'BC', label: 'British Columbia' },
-      { value: 'AB', label: 'Alberta' },
-      { value: 'QC', label: 'Quebec' },
-      { value: 'Other', label: 'Other province or territory' },
-    ],
-  },
-  {
-    key: 'firstHome',
-    section: 'First-home status',
-    title: 'Is a first home a realistic goal and are you likely FHSA-eligible?',
-    helper: 'FHSA is powerful only when the eligibility and home-purchase conditions fit.',
-    why: 'FHSA can combine a deduction with a qualifying tax-free withdrawal, but eligibility and timing are real constraints.',
-    options: [
-      { value: 'eligibleSoon', label: 'Likely eligible and planning a first home' },
-      { value: 'maybe', label: 'Maybe, but not confirmed' },
-      { value: 'notEligible', label: 'Probably not eligible or not buying' },
-    ],
-  },
-  {
-    key: 'pension',
-    section: 'Employer pension status',
-    title: 'Do you already have a workplace pension or employer retirement plan?',
-    helper: 'A pension does not remove the need to save, but it can change the RRSP room and retirement-tax picture.',
-    why: 'Pension adjustments, employer matching, and future retirement income can affect how RRSP contributions compare with TFSA contributions.',
-    options: [
-      { value: 'none', label: 'No workplace pension' },
-      { value: 'match', label: 'Employer match or group plan' },
-      { value: 'definedBenefit', label: 'Defined benefit pension' },
+      { value: '0to2', label: '0 – 2 years' },
+      { value: '3to5', label: '3 – 5 years' },
+      { value: '6plus', label: '6+ years' },
       { value: 'unsure', label: 'Not sure' },
     ],
   },
   {
-    key: 'emergencyFund',
-    section: 'Emergency fund readiness',
-    title: 'Do you have basic emergency cash outside long-term investments?',
-    helper: 'Account optimization is less useful if a surprise bill would force debt or withdrawals.',
-    why: 'A missing emergency buffer can make TFSA liquidity or plain cash more important than chasing tax optimization.',
+    key: 'fhsaOpened',
+    section: 'Step 4 of 9',
+    title: 'Do you already have an FHSA?',
+    helper:
+      'Opening an FHSA starts your 15-year participation clock. Knowing if you already have one changes the priority order.',
     options: [
-      { value: 'ready', label: 'Yes, a basic buffer exists' },
-      { value: 'partial', label: 'Some, but not enough' },
-      { value: 'none', label: 'Not yet' },
+      { value: 'yes', label: 'Yes' },
+      { value: 'no', label: 'No' },
     ],
   },
   {
-    key: 'flexibility',
-    section: 'Flexibility preference',
-    title: 'How important is easy access to the money?',
-    helper: 'Flexibility is not a side detail. It can be the deciding factor when the plan is uncertain.',
-    why: 'TFSA withdrawals are generally more flexible than RRSP withdrawals. FHSA access depends on qualifying first-home rules.',
+    key: 'employerMatch',
+    section: 'Step 5 of 9',
+    title: 'Does your employer offer RRSP matching or a group retirement plan?',
+    helper:
+      'Employer matching is usually treated as priority money because the match is an immediate, near-guaranteed return on contribution.',
     options: [
-      { value: 'high', label: 'Very important' },
-      { value: 'medium', label: 'Somewhat important' },
-      { value: 'low', label: 'Less important' },
+      { value: 'yes', label: 'Yes, with a match' },
+      { value: 'group', label: 'Group plan, no match' },
+      { value: 'no', label: 'No' },
+      { value: 'unsure', label: 'Not sure' },
     ],
   },
   {
-    key: 'taxReduction',
-    section: 'Tax reduction importance',
-    title: 'How important is reducing taxable income this year?',
-    helper: 'This does not mean the RRSP is automatically stronger. It only shows whether the deduction deserves more attention.',
-    why: 'RRSP and FHSA contributions may create deductions. TFSA contributions do not, but TFSA withdrawals are generally tax-free.',
+    key: 'income',
+    section: 'Step 6 of 9',
+    title: 'What is your approximate annual income?',
+    helper:
+      'Higher marginal tax rates can make RRSP and FHSA deductions more valuable. Lower income years often favour TFSA flexibility.',
     options: [
-      { value: 'high', label: 'Very important this year' },
-      { value: 'medium', label: 'Helpful, but not the only goal' },
-      { value: 'low', label: 'Not a major factor' },
+      { value: 'under50', label: 'Under $50,000' },
+      { value: '50to90', label: '$50,000 – $90,000' },
+      { value: '90to130', label: '$90,000 – $130,000' },
+      { value: '130plus', label: '$130,000+' },
     ],
   },
   {
-    key: 'retirementPriority',
-    section: 'Long-term retirement priority',
-    title: 'How central is retirement planning to this decision?',
-    helper: 'A retirement-first decision can justify less flexibility if the tax tradeoff is clear.',
-    why: 'RRSPs are built around retirement deferral. TFSAs can still support retirement, but without the upfront deduction.',
+    key: 'goal',
+    section: 'Step 7 of 9',
+    title: 'What is your main financial goal right now?',
+    helper:
+      'Each registered account is built around a different goal. Naming yours keeps the framework focused.',
     options: [
-      { value: 'high', label: 'Very central' },
-      { value: 'medium', label: 'One goal among others' },
-      { value: 'low', label: 'Not the main reason' },
+      { value: 'firstHome', label: 'First home' },
+      { value: 'retirement', label: 'Retirement' },
+      { value: 'flexibility', label: 'Flexibility / emergency access' },
+      { value: 'taxCut', label: 'Tax reduction' },
+    ],
+  },
+  {
+    key: 'timeline',
+    section: 'Step 8 of 9',
+    title: 'What is your investment timeline?',
+    helper:
+      'A longer runway gives tax-sheltered growth more time to matter. A short runway raises the value of liquidity and capital preservation.',
+    options: [
+      { value: 'under3', label: 'Under 3 years' },
+      { value: '3to10', label: '3 – 10 years' },
+      { value: '10plus', label: '10+ years' },
+    ],
+  },
+  {
+    key: 'access',
+    section: 'Step 9 of 9',
+    title: 'Do you need easy access to the money?',
+    helper:
+      'TFSA withdrawals are flexible. RRSP withdrawals are generally taxable. FHSA withdrawals must be qualifying to remain tax-free.',
+    options: [
+      { value: 'yes', label: 'Yes, I may need it' },
+      { value: 'maybe', label: 'Maybe, but probably not' },
+      { value: 'no', label: 'No, it can stay invested' },
     ],
   },
 ];
 
-const DEFAULT_ANSWERS = {
-  goal: 'firstHome',
-  timeline: '3to7',
-  incomeRange: '50to90',
-  province: 'ON',
-  firstHome: 'eligibleSoon',
-  pension: 'none',
-  emergencyFund: 'partial',
-  flexibility: 'medium',
-  taxReduction: 'medium',
-  retirementPriority: 'medium',
+/* ------------------------------------------------------------------ */
+/* Account metadata                                                    */
+/* ------------------------------------------------------------------ */
+
+const ACCOUNT_LIBRARY = {
+  EMPLOYER_MATCH: {
+    key: 'EMPLOYER_MATCH',
+    label: 'Employer RRSP match',
+    short: 'Capture the match first',
+    icon: BuildingLibraryIcon,
+    badge: 'Free money first',
+    href: '/tools/rrsp-calculator',
+  },
+  FHSA: {
+    key: 'FHSA',
+    label: 'FHSA',
+    short: 'First Home Savings Account',
+    icon: HomeIcon,
+    badge: 'Best of both worlds for first homes',
+    href: '/tools/fhsa-calculator',
+  },
+  TFSA: {
+    key: 'TFSA',
+    label: 'TFSA',
+    short: 'Tax-Free Savings Account',
+    icon: BanknotesIcon,
+    badge: 'Flexible & tax-free',
+    href: '/tools/tfsa-calculator',
+  },
+  RRSP: {
+    key: 'RRSP',
+    label: 'RRSP',
+    short: 'Registered Retirement Savings Plan',
+    icon: ScaleIcon,
+    badge: 'Retirement & tax deferral',
+    href: '/tools/rrsp-calculator',
+  },
 };
+
+const RELATED_CALCULATORS = [
+  { href: '/tools/tfsa-calculator', label: 'TFSA Calculator' },
+  { href: '/tools/rrsp-calculator', label: 'RRSP Calculator' },
+  { href: '/tools/fhsa-calculator', label: 'FHSA Calculator' },
+  { href: '/tools/compound-interest-calculator', label: 'Compound Interest Calculator' },
+];
 
 const FAQS = [
   {
-    q: 'Does this tool recommend a TFSA, RRSP, or FHSA?',
-    a: 'No. It organizes account tradeoffs for education. It does not recommend products, investments, or a final contribution decision.',
+    q: 'Should I use TFSA, RRSP, or FHSA first?',
+    a: 'It depends on your goals, income, and timeline. As a general framework, capture any employer RRSP match first (the match is essentially free money), then consider an FHSA if a first-home purchase is realistic within the next five years, a TFSA if flexibility or a lower tax bracket make tax-free withdrawals more attractive, and an RRSP when a higher marginal tax rate today makes the deduction more valuable than tax-free withdrawals later.',
   },
   {
-    q: 'Why can the account result change when income changes?',
-    a: 'RRSP and FHSA deductions depend on taxable income. A higher or lower income year can change how valuable a deduction appears compared with TFSA flexibility.',
+    q: 'Is FHSA better than RRSP for a first home?',
+    a: 'For most first-time buyers, the FHSA combines an RRSP-style tax deduction with TFSA-style tax-free qualifying withdrawals, which is a strong combination. It also does not need to be repaid like the RRSP Home Buyers\' Plan. However, the FHSA has lifetime and annual contribution limits, a 15-year participation window, and strict eligibility rules, so the Home Buyers\' Plan can still be useful in specific situations. This tool surfaces the framework — verify your personal details with CRA.',
   },
   {
-    q: 'Why is FHSA not always first for a home buyer?',
-    a: 'FHSA can be useful for eligible first-home buyers, but timing, eligibility, room, investment risk, and the possibility of not buying still matter.',
+    q: 'Should I take employer RRSP matching before TFSA?',
+    a: 'In most cases yes. Contributing enough to capture a full employer RRSP match is usually treated as priority money because the match is an immediate, near-guaranteed return on contribution. After the match is captured, TFSA, FHSA, or additional RRSP room can be compared on their own merits.',
   },
   {
-    q: 'Should I verify contribution room before acting?',
-    a: 'Yes. Always check CRA records and account rules before contributing. This page is a planning framework, not a room confirmation tool.',
+    q: 'Is this tool financial advice?',
+    a: 'No. This tool is for education only. It organizes account tradeoffs so you can have an informed conversation with a qualified Canadian financial professional. Nothing here is personal financial, tax, legal, or investment advice.',
+  },
+  {
+    q: 'Are my answers stored?',
+    a: 'No. Your answers are processed entirely in your browser. They are not sent to a server, not saved to a database, and not associated with you in any way. Refresh the page and the answers are gone.',
   },
 ];
 
-const ACCOUNT_CARDS = [
-  {
-    key: 'TFSA',
-    title: 'TFSA',
-    subtitle: 'Flexible tax-sheltered account',
-    useful: ['Flexibility matters', 'Withdrawals may be needed before retirement', 'Current income makes RRSP deduction less compelling'],
-    lessUseful: ['Upfront tax deduction is the main objective', 'TFSA room is already used', 'Frequent withdrawals would disrupt the plan'],
-    points: ['Tax-free withdrawals', 'Room can return after withdrawals', 'No upfront deduction'],
-  },
-  {
-    key: 'RRSP',
-    title: 'RRSP',
-    subtitle: 'Retirement-focused deduction account',
-    useful: ['Current income is relatively high', 'Retirement is the main goal', 'Refund will be used intentionally'],
-    lessUseful: ['Money may be needed soon', 'Future tax rate may be similar or higher', 'Emergency savings are missing'],
-    points: ['Deduction can matter', 'Withdrawals are taxable', 'Pension and future income affect the analysis'],
-  },
-  {
-    key: 'FHSA',
-    title: 'FHSA',
-    subtitle: 'First-home account for eligible buyers',
-    useful: ['First-home goal is realistic', 'Eligibility appears clear', 'Timeframe allows thoughtful use of room'],
-    lessUseful: ['Not eligible', 'Home purchase is not likely', 'Money is needed for a non-qualifying purpose'],
-    points: ['Deduction plus qualifying tax-free withdrawal', 'Eligibility limitations', 'Room rules need CRA verification'],
-  },
-];
+/* ------------------------------------------------------------------ */
+/* Result engine                                                       */
+/* ------------------------------------------------------------------ */
 
-const LEARNING_PATHS = {
-  beginner: [
-    { title: 'How to start investing in Canada', href: '/blog/how-to-start-investing-canada-2026' },
-    { title: 'TFSA contribution room', href: '/blog/tfsa-contribution-room-canada-2026' },
-    { title: 'How to use the FHSA', href: '/blog/how-to-use-fhsa-canada' },
-  ],
-  retirement: [
-    { title: 'RRSP deadline and deduction guide', href: '/blog/rrsp-deadline-canada-2026' },
-    { title: 'CPP and OAS estimator', href: '/tools/cpp-oas-estimator' },
-    { title: 'FIRE calculator', href: '/tools/fire-calculator' },
-  ],
-  income: [
-    { title: 'TFSA passive income strategy', href: '/blog/tfsa-passive-income-canada-2026' },
-    { title: 'Dividend reinvestment plans', href: '/blog/drip-strategy-canada' },
-    { title: 'Dividend calculator', href: '/tools/dividend-calculator' },
-  ],
-  home: [
-    { title: 'FHSA calculator', href: '/tools/fhsa-calculator' },
-    { title: 'FHSA vs RRSP for a down payment', href: '/blog/fhsa-vs-rrsp-down-payment-canada-2026' },
-    { title: 'Mortgage affordability calculator', href: '/tools/mortgage-affordability-calculator' },
-  ],
-};
+function buildRecommendation(answers) {
+  const ranked = [];
+  const reasons = [];
+  const risks = [];
+  const nextSteps = [];
 
-function OptionButton({ selected, children, onClick }) {
+  const incomeTier = answers.income;
+  const isHigherIncome = incomeTier === '90to130' || incomeTier === '130plus';
+  const isLowerIncome = incomeTier === 'under50' || incomeTier === '50to90';
+  const wantsFirstHome = answers.firstHomePlan === 'yes' || answers.firstHomePlan === 'maybe';
+  const soonHome = answers.homeTimeline === '0to2' || answers.homeTimeline === '3to5';
+  const longHorizon = answers.timeline === '10plus';
+  const shortHorizon = answers.timeline === 'under3';
+  const needsAccess = answers.access === 'yes';
+  const taxFocused = answers.goal === 'taxCut';
+  const retirementGoal = answers.goal === 'retirement';
+  const flexibilityGoal = answers.goal === 'flexibility';
+  const firstHomeGoal = answers.goal === 'firstHome';
+
+  /* 1) Employer match always first if available */
+  if (answers.employerMatch === 'yes') {
+    ranked.push({
+      ...ACCOUNT_LIBRARY.EMPLOYER_MATCH,
+      rationale:
+        'Capture the full employer RRSP match before anything else. An employer match is essentially an instant return that other accounts cannot replicate.',
+    });
+    nextSteps.push(
+      'Confirm the exact contribution percentage required to receive the full employer match and set up payroll deductions to hit it.'
+    );
+  }
+
+  /* 2) FHSA priority for realistic near-term first-home buyers */
+  if (wantsFirstHome && (soonHome || answers.homeTimeline === '6plus' || firstHomeGoal)) {
+    const strong = soonHome || firstHomeGoal;
+    ranked.push({
+      ...ACCOUNT_LIBRARY.FHSA,
+      rationale: strong
+        ? 'An FHSA can combine an RRSP-style tax deduction with a tax-free qualifying withdrawal for a first home — and unlike the Home Buyers\' Plan, the FHSA does not need to be repaid.'
+        : 'Even on a longer horizon, opening an FHSA starts the 15-year participation clock and unlocks future contribution room.',
+    });
+    if (answers.fhsaOpened === 'no') {
+      nextSteps.push('Open an FHSA with a Canadian institution to start your 15-year participation window even if you do not contribute the maximum this year.');
+    } else {
+      nextSteps.push('Confirm your remaining FHSA contribution room for the current year (annual cap of $8,000 and lifetime cap of $40,000).');
+    }
+    if (answers.homeTimeline === '0to2') {
+      risks.push('A 0–2 year home timeline leaves little time for market growth — most planners hold short-horizon FHSA money in lower-risk investments like HISAs or GICs inside the FHSA.');
+    }
+  }
+
+  /* 3) TFSA for flexibility / access / lower-mid income with no home goal */
+  if (
+    flexibilityGoal ||
+    needsAccess ||
+    (isLowerIncome && !firstHomeGoal && !retirementGoal) ||
+    shortHorizon
+  ) {
+    ranked.push({
+      ...ACCOUNT_LIBRARY.TFSA,
+      rationale:
+        'A TFSA gives tax-free growth with flexible, tax-free withdrawals at any time. That makes it well-suited when you may need access, when your income makes the RRSP deduction less powerful, or when you are still building an emergency buffer.',
+    });
+    nextSteps.push('Verify your TFSA contribution room in CRA "My Account" before depositing — overcontributions trigger a 1% per month penalty.');
+  }
+
+  /* 4) RRSP for higher income + retirement / tax-cut goal */
+  if (
+    isHigherIncome &&
+    (retirementGoal || taxFocused || answers.employerMatch === 'yes' || longHorizon)
+  ) {
+    ranked.push({
+      ...ACCOUNT_LIBRARY.RRSP,
+      rationale:
+        'At a higher marginal tax rate, an RRSP deduction reduces taxable income now, and your withdrawals are designed to happen in retirement when your tax bracket may be lower.',
+    });
+    nextSteps.push('Check your RRSP deduction limit in CRA "My Account" (Notice of Assessment) and consider whether to contribute and deduct in the same year or carry the deduction forward.');
+  } else if (retirementGoal && !ranked.some((r) => r.key === 'RRSP')) {
+    ranked.push({
+      ...ACCOUNT_LIBRARY.RRSP,
+      rationale:
+        'Retirement is your stated goal, so an RRSP earns a place in the priority list — the deduction value depends on your marginal tax rate today versus in retirement.',
+    });
+  }
+
+  /* Fill the rest of the ranking so the user always sees a complete order */
+  const fillers = ['TFSA', 'FHSA', 'RRSP'];
+  for (const key of fillers) {
+    if (!ranked.some((r) => r.key === key)) {
+      const filler = { ...ACCOUNT_LIBRARY[key] };
+      if (key === 'TFSA') {
+        filler.rationale = 'A TFSA still belongs in the picture as a flexible secondary bucket — tax-free growth and withdrawal-room recovery keep it useful for almost any goal.';
+      } else if (key === 'FHSA') {
+        filler.rationale = wantsFirstHome
+          ? 'FHSA stays in the list because eligibility may apply later — opening one starts the 15-year clock even with a small deposit.'
+          : 'If a first-home purchase is unlikely, the FHSA may not apply to you — but it is included for completeness in case your plans change.';
+      } else if (key === 'RRSP') {
+        filler.rationale = isLowerIncome
+          ? 'At a lower current income, RRSP deductions are less powerful, but RRSP space can still be valuable in higher-earning years later.'
+          : 'RRSP space is worth tracking even when it is not the top priority — your future marginal tax rate may make it more valuable.';
+      }
+      ranked.push(filler);
+    }
+  }
+
+  /* Build main reasoning summary */
+  if (answers.employerMatch === 'yes') {
+    reasons.push('You have access to an employer RRSP match, so capturing the match should generally come before any other account.');
+  }
+  if (wantsFirstHome && soonHome) {
+    reasons.push('A first-home goal within the next five years lines up well with the FHSA, which is purpose-built for this exact situation.');
+  } else if (wantsFirstHome) {
+    reasons.push('Even on a longer home-buying horizon, opening an FHSA may be worth considering to start the 15-year participation window.');
+  }
+  if (isHigherIncome && (retirementGoal || taxFocused)) {
+    reasons.push('Your income level and retirement / tax-reduction goal make the RRSP deduction more financially meaningful.');
+  }
+  if (flexibilityGoal || needsAccess) {
+    reasons.push('Because you may need access to this money, a TFSA — where withdrawals are tax-free and contribution room is restored the next year — is highly relevant.');
+  }
+  if (isLowerIncome && !firstHomeGoal && !retirementGoal) {
+    reasons.push('At your current income level and goal, TFSA flexibility usually outranks RRSP deductions, since deductions are less valuable in lower tax brackets.');
+  }
+
+  if (!reasons.length) {
+    reasons.push('Based on your answers, the framework points to using a flexible default order while you confirm contribution room and eligibility with CRA.');
+  }
+
+  /* Risks / warnings */
+  if (answers.resident === 'no') {
+    risks.push('You indicated you may not be a Canadian resident age 18+. TFSA, RRSP, and FHSA accounts have residency and age requirements — verify eligibility with CRA before contributing.');
+  }
+  if (shortHorizon) {
+    risks.push('A timeline under 3 years generally means market-based investing is too risky — favour HISA or short GIC holdings inside the chosen account.');
+  }
+  if (answers.employerMatch === 'unsure') {
+    risks.push('You were unsure about employer matching — ask HR. A missed match can be the costliest mistake on this list.');
+  }
+  if (answers.fhsaOpened === 'no' && wantsFirstHome) {
+    risks.push('Without an FHSA opened, you do not yet have a contribution clock running — even a $0 account starts your 15-year participation window.');
+  }
+  if (isHigherIncome && answers.goal === 'flexibility') {
+    risks.push('At a higher tax bracket, choosing TFSA-only over RRSP may leave significant tax savings on the table — weigh flexibility vs. deferred tax carefully.');
+  }
+  if (answers.timeline === '10plus' && needsAccess) {
+    risks.push('You said you have a long timeline but may need access — these can conflict. Consider splitting between an emergency buffer (TFSA / HISA) and longer-term growth.');
+  }
+
+  /* Always-on risk: rules and limits */
+  risks.push('TFSA, RRSP, and FHSA limits, eligibility, and tax treatment can change year to year — always confirm current rules with CRA before contributing.');
+
+  /* Always-on next steps */
+  nextSteps.push('Run the numbers in the linked TFSA, RRSP, FHSA, and compound interest calculators to test the dollar impact for your situation.');
+  nextSteps.push('Consider speaking with a qualified Canadian financial planner or tax professional before making large or irreversible contributions.');
+
+  return {
+    ranked: ranked.slice(0, 4),
+    reasons,
+    risks,
+    nextSteps,
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* UI helpers                                                          */
+/* ------------------------------------------------------------------ */
+
+function getVisibleQuestions(answers) {
+  return QUESTIONS.filter((q) => !q.skipIf || !q.skipIf(answers));
+}
+
+function OptionButton({ selected, children, onClick, disabled }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-xl border px-4 py-3 text-left text-sm font-semibold transition ${
+      disabled={disabled}
+      aria-pressed={selected}
+      className={`w-full rounded-xl border px-4 py-3 text-left text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-secondary/60 ${
         selected
-          ? 'border-primary bg-primary text-white shadow-sm'
-          : 'border-slate-200 bg-white text-slate-700 hover:border-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200'
-      }`}
+          ? 'border-primary bg-primary text-white shadow-sm dark:border-accent dark:bg-accent dark:text-primary'
+          : 'border-slate-200 bg-white text-slate-700 hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-accent'
+      } ${disabled ? 'cursor-not-allowed opacity-60' : ''}`}
     >
       {children}
     </button>
   );
 }
 
-function ScoreBar({ label, score, reasons }) {
+function ProgressBar({ current, total }) {
+  const percent = Math.round(((current + 1) / total) * 100);
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-      <div className="flex items-center justify-between gap-3">
-        <h3 className="text-lg font-bold text-primary dark:text-accent">{label}</h3>
-        <span className="text-sm font-bold text-slate-600 dark:text-slate-300">{score}/100</span>
+    <div>
+      <div className="flex items-center justify-between text-xs font-semibold text-slate-500 dark:text-slate-400">
+        <span>
+          Question {current + 1} of {total}
+        </span>
+        <span>{percent}%</span>
       </div>
-      <div className="mt-3 h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
-        <div className="h-full rounded-full bg-secondary" style={{ width: `${score}%` }} />
+      <div
+        className="mt-2 h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800"
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={percent}
+        aria-label="Quiz progress"
+      >
+        <div
+          className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-emerald-600 transition-all"
+          style={{ width: `${percent}%` }}
+        />
       </div>
-      <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-        {reasons.slice(0, 3).map((reason) => (
-          <li key={reason}>{reason}</li>
-        ))}
-      </ul>
     </div>
   );
 }
 
-function buildTradeoffs(answers) {
-  const score = { TFSA: 45, RRSP: 42, FHSA: 20 };
-  const favors = { TFSA: [], RRSP: [], FHSA: [] };
-  const cautions = [];
-  const assumptions = [];
-  const changes = [
-    'Income changes can alter RRSP deduction value and future withdrawal comparisons.',
-    'A province move can change combined tax rates and refund estimates.',
-    'Withdrawal timing can make flexibility more valuable than tax optimization.',
-    'A home purchase timeline can strengthen or weaken FHSA usefulness.',
-    'Pension changes can affect RRSP room and retirement-income assumptions.',
-    'Contribution room history can override a simplified account-priority framework.',
-    'Tax-law updates can change limits, eligibility, deductions, or stress-test assumptions.',
-  ];
-
-  if (answers.goal === 'firstHome') {
-    assumptions.push('A first-home goal is being treated as relevant, but eligibility still needs confirmation.');
-    if (answers.firstHome === 'eligibleSoon') {
-      score.FHSA += 42;
-      favors.FHSA.push('First-home goal and likely eligibility give FHSA a clear role to examine.');
-      favors.FHSA.push('FHSA can combine a deduction with a qualifying tax-free withdrawal.');
-    } else if (answers.firstHome === 'maybe') {
-      score.FHSA += 18;
-      favors.FHSA.push('FHSA deserves a rules check before being dismissed.');
-      cautions.push('FHSA eligibility is uncertain, so this result should not be treated as a green light.');
-    } else {
-      cautions.push('FHSA may not be available if the first-home conditions are not met.');
-    }
-  }
-
-  if (answers.goal === 'retirement' || answers.retirementPriority === 'high') {
-    score.RRSP += 22;
-    favors.RRSP.push('Retirement is central enough that tax deferral deserves attention.');
-  }
-
-  if (answers.goal === 'income' || answers.goal === 'flexibility' || answers.flexibility === 'high') {
-    score.TFSA += 20;
-    favors.TFSA.push('Flexibility and tax-free withdrawals are important in this scenario.');
-  }
-
-  if (answers.goal === 'beginner') {
-    score.TFSA += 12;
-    favors.TFSA.push('A simpler, flexible account comparison may be easier to learn from first.');
-    assumptions.push('The beginner path prioritizes learning and reversibility over maximum tax optimization.');
-  }
-
-  if (answers.timeline === 'under3' || answers.timeline === 'unknown') {
-    score.TFSA += 18;
-    score.RRSP -= 8;
-    favors.TFSA.push('Short or uncertain timing increases the value of liquidity.');
-    cautions.push('Short timelines can make market-risk assumptions weaker, regardless of account type.');
-  }
-
-  if (answers.timeline === '7plus') {
-    score.RRSP += 10;
-    score.TFSA += 8;
-    favors.RRSP.push('A longer timeline gives tax deferral more room to matter.');
-    favors.TFSA.push('A longer timeline also gives tax-free growth more time to compound.');
-  }
-
-  if (answers.incomeRange === '90to140' || answers.incomeRange === '140plus') {
-    score.RRSP += answers.incomeRange === '140plus' ? 28 : 18;
-    favors.RRSP.push('Higher current income can make an RRSP deduction more meaningful.');
-    assumptions.push('This assumes current income may be higher than income when withdrawals happen.');
-  }
-
-  if (answers.incomeRange === 'under50') {
-    score.TFSA += 16;
-    score.RRSP -= 8;
-    favors.TFSA.push('Lower current income can reduce the immediate value of an RRSP deduction.');
-  }
-
-  if (answers.taxReduction === 'high') {
-    score.RRSP += 14;
-    score.FHSA += answers.firstHome === 'eligibleSoon' ? 10 : 0;
-    favors.RRSP.push('Reducing taxable income this year is an explicit priority.');
-    if (answers.firstHome === 'eligibleSoon') favors.FHSA.push('Tax reduction also supports checking FHSA room before choosing between accounts.');
-  }
-
-  if (answers.emergencyFund === 'none' || answers.emergencyFund === 'partial') {
-    score.TFSA += answers.emergencyFund === 'none' ? 14 : 8;
-    score.RRSP -= answers.emergencyFund === 'none' ? 12 : 4;
-    cautions.push('A basic emergency buffer may matter more than maximizing registered-account optimization.');
-    favors.TFSA.push('Liquidity may matter while emergency savings are incomplete.');
-  }
-
-  if (answers.pension === 'definedBenefit') {
-    score.RRSP -= 6;
-    score.TFSA += 8;
-    cautions.push('A defined benefit pension can change future retirement-income and RRSP withdrawal assumptions.');
-  }
-
-  if (answers.pension === 'match') {
-    score.RRSP += 8;
-    favors.RRSP.push('Employer matching or group-plan benefits should usually be checked before ignoring retirement contributions.');
-  }
-
-  if (answers.flexibility === 'low') {
-    score.RRSP += 8;
-    favors.RRSP.push('Lower need for access can make retirement-focused accounts easier to consider.');
-  }
-
-  if (answers.province === 'QC') {
-    assumptions.push('Quebec has distinct provincial tax administration, so province-specific tax verification matters.');
-  } else {
-    assumptions.push('Province affects combined tax rates; this page keeps the tax treatment directional.');
-  }
-
-  const normalizedScores = Object.fromEntries(
-    Object.entries(score).map(([key, value]) => [key, Math.max(10, Math.min(95, value))])
-  );
-  const sorted = Object.entries(normalizedScores).sort((a, b) => b[1] - a[1]);
-  const lead = sorted[0][0];
-
-  return {
-    lead,
-    sorted,
-    scores: normalizedScores,
-    favors,
-    cautions,
-    assumptions,
-    changes,
-  };
-}
-
-function buildNextSteps(answers, tradeoffs) {
-  const links = [
-    {
-      title: 'TFSA calculator',
-      href: '/tools/tfsa-calculator',
-      body: 'Use this when flexibility, tax-free withdrawals, or contribution-room planning is central to the result.',
-    },
-    {
-      title: 'RRSP calculator',
-      href: '/tools/rrsp-calculator',
-      body: 'Use this to test deduction value, refund use, retirement assumptions, and contribution timing.',
-    },
-    {
-      title: 'FHSA calculator',
-      href: '/tools/fhsa-calculator',
-      body: 'Use this if first-home eligibility or down-payment timing is part of the decision.',
-    },
-  ];
-
-  if (answers.goal === 'firstHome' || tradeoffs.lead === 'FHSA') {
-    links.push({
-      title: 'Mortgage affordability calculator',
-      href: '/tools/mortgage-affordability-calculator',
-      body: 'Connect the account decision to the home-price, income, debt, and stress-test side of the plan.',
-    });
-  }
-
-  if (answers.goal === 'retirement' || answers.retirementPriority === 'high') {
-    links.push({
-      title: 'FIRE calculator',
-      href: '/tools/fire-calculator',
-      body: 'Use this to test whether the contribution habit supports a long-term retirement target.',
-    });
-  }
-
-  if (answers.goal === 'income') {
-    links.push({
-      title: 'Dividend calculator',
-      href: '/tools/dividend-calculator',
-      body: 'Use this to separate dividend yield, total return, and account location tradeoffs.',
-    });
-  }
-
-  return links.slice(0, 6);
-}
-
-function getLearningPath(answers) {
-  if (answers.goal === 'beginner') return LEARNING_PATHS.beginner;
-  if (answers.goal === 'retirement' || answers.retirementPriority === 'high') return LEARNING_PATHS.retirement;
-  if (answers.goal === 'income') return LEARNING_PATHS.income;
-  if (answers.goal === 'firstHome') return LEARNING_PATHS.home;
-  return LEARNING_PATHS.beginner;
-}
+/* ------------------------------------------------------------------ */
+/* Page                                                                */
+/* ------------------------------------------------------------------ */
 
 export default function AccountDecisionTool() {
-  const [answers, setAnswers] = useState(DEFAULT_ANSWERS);
-  const [step, setStep] = useState(0);
-  const currentQuestion = QUESTIONS[step];
-  const progress = Math.round(((step + 1) / QUESTIONS.length) * 100);
+  const [answers, setAnswers] = useState({});
+  const [stepIndex, setStepIndex] = useState(0);
+  const [showResult, setShowResult] = useState(false);
 
-  const tradeoffs = useMemo(() => buildTradeoffs(answers), [answers]);
-  const nextSteps = useMemo(() => buildNextSteps(answers, tradeoffs), [answers, tradeoffs]);
-  const learningPath = useMemo(() => getLearningPath(answers), [answers]);
+  const visibleQuestions = useMemo(() => getVisibleQuestions(answers), [answers]);
+  const currentQuestion = visibleQuestions[stepIndex] ?? visibleQuestions[visibleQuestions.length - 1];
+  const isLastQuestion = stepIndex >= visibleQuestions.length - 1;
+  const currentAnswer = currentQuestion ? answers[currentQuestion.key] : undefined;
+  const ineligible = answers.resident === 'no';
 
-  const updateAnswer = (key, value) => {
-    setAnswers((current) => ({ ...current, [key]: value }));
+  const recommendation = useMemo(() => (showResult ? buildRecommendation(answers) : null), [showResult, answers]);
+
+  const handleAnswer = (key, value) => {
+    setAnswers((prev) => ({ ...prev, [key]: value }));
   };
 
-  const selectedLabel = (question) => question.options.find((option) => option.value === answers[question.key])?.label;
+  const handleNext = () => {
+    if (ineligible) {
+      setShowResult(true);
+      return;
+    }
+    if (isLastQuestion) {
+      setShowResult(true);
+      return;
+    }
+    setStepIndex((idx) => Math.min(idx + 1, visibleQuestions.length - 1));
+  };
+
+  const handleBack = () => {
+    if (showResult) {
+      setShowResult(false);
+      return;
+    }
+    setStepIndex((idx) => Math.max(0, idx - 1));
+  };
+
+  const handleRestart = () => {
+    setAnswers({});
+    setStepIndex(0);
+    setShowResult(false);
+  };
 
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: 'TFSA vs RRSP vs FHSA Decision Framework Canada',
-    description: 'Educational Canadian account decision-support framework for comparing TFSA, RRSP, and FHSA tradeoffs.',
+    '@type': 'WebApplication',
+    name: 'TFSA vs RRSP vs FHSA Decision Tool',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    description:
+      'Educational Canadian quiz that compares TFSA, RRSP, and FHSA contribution priorities based on your goals, income, and timeline.',
     url: CANONICAL,
     isAccessibleForFree: true,
     about: ['TFSA', 'RRSP', 'FHSA', 'Canadian financial planning'],
@@ -479,322 +492,407 @@ export default function AccountDecisionTool() {
   return (
     <main className="overflow-x-hidden bg-white text-slate-900 dark:bg-gray-950 dark:text-white">
       <SEO
-        title="TFSA vs RRSP vs FHSA Decision Framework Canada"
-        description="Compare TFSA, RRSP, and FHSA tradeoffs with a transparent Canadian planning framework that explains what favours each account and what can change the result."
+        title="TFSA vs RRSP vs FHSA Decision Tool Canada 2026 | Easy Finance Tools"
+        description="Answer a few questions to compare TFSA, RRSP, and FHSA contribution priorities for Canadian investors in 2026. Educational tool only."
         canonical={CANONICAL}
         schema={schema}
       />
       <ToolPageSchema
-        name="TFSA vs RRSP vs FHSA Decision Framework Canada"
-        description="Educational Canadian account-priority decision-support tool for comparing TFSA, RRSP, and FHSA tradeoffs."
+        name="TFSA vs RRSP vs FHSA Decision Tool"
+        description="Educational Canadian quiz that compares TFSA, RRSP, and FHSA contribution priorities based on goals, income, employer matching, and timeline."
         canonical={CANONICAL}
         category="FinanceApplication"
       />
 
-      <section className="border-b border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/40">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 lg:grid-cols-[minmax(0,1fr)_360px]">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Canadian account decision support</p>
-            <h1 className="mt-3 max-w-4xl text-3xl font-bold text-primary dark:text-accent sm:text-4xl md:text-5xl">
-              TFSA vs RRSP vs FHSA decision framework for Canadians
-            </h1>
-            <ToolByline
-              lastUpdated={CONTENT_LAST_REVIEWED}
-              reviewer="Reviewed against Canadian account rules"
-              trustNote="This tool does not recommend financial products or investments. It helps organize Canadian account tradeoffs using published rules and educational planning assumptions."
-            />
-            <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-              Answer the questions to see what currently favours TFSA, RRSP, or FHSA, why the tradeoff changes, and which calculator or guide should come next.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2 text-sm text-slate-600 dark:text-slate-300">
-              {['Inputs stay in your browser', 'Directional framework, not advice', 'Methodology and corrections are public'].map((item) => (
-                <span key={item} className="rounded-full border border-slate-200 bg-white px-3 py-1.5 dark:border-slate-700 dark:bg-slate-900">
-                  {item}
-                </span>
-              ))}
-            </div>
+      {/* ---------------- Hero ---------------- */}
+      <section className="border-b border-slate-200 bg-gradient-to-br from-emerald-50 via-white to-amber-50 dark:border-slate-800 dark:from-emerald-950/20 dark:via-gray-950 dark:to-amber-950/10">
+        <div className="mx-auto max-w-5xl px-4 py-10 sm:py-14">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300/60 bg-emerald-100/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-800 dark:border-emerald-700/60 dark:bg-emerald-900/40 dark:text-emerald-200">
+            <ShieldCheckIcon className="h-3.5 w-3.5" aria-hidden="true" />
+            Canadian account decision tool — 2026
           </div>
-
-          <aside className="hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-gray-900 lg:block">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Current directional leader</p>
-            <p className="mt-3 text-4xl font-bold text-primary dark:text-accent">{tradeoffs.lead}</p>
-            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-              Read this as a planning signal, not an instruction. The sections below show what favours each account and what could change the answer.
-            </p>
-            <div className="mt-5 min-w-0 space-y-2">
-              {tradeoffs.sorted.map(([label, score]) => (
-                <div key={label} className="flex min-w-0 items-center justify-between gap-3 rounded-xl bg-slate-50 px-3 py-2 text-sm font-semibold dark:bg-slate-800">
-                  <span>{label}</span>
-                  <span className="shrink-0">{score}/100</span>
-                </div>
-              ))}
-            </div>
-          </aside>
+          <h1 className="mt-4 text-3xl font-bold text-primary dark:text-accent sm:text-4xl md:text-5xl">
+            TFSA vs RRSP vs FHSA: which account should I prioritize first?
+          </h1>
+          <ToolByline
+            lastUpdated={CONTENT_LAST_REVIEWED}
+            reviewer="Reviewed against Canadian account rules"
+            trustNote="This tool is for educational planning only and does not recommend products or investments."
+          />
+          <p className="mt-5 max-w-3xl text-base leading-7 text-slate-700 dark:text-slate-300 sm:text-lg">
+            Answer 9 short questions to see a personalized contribution-priority order across TFSA, RRSP, FHSA, and employer matching — built for Canadian residents in 2026.
+          </p>
+          <div className="mt-5 flex flex-wrap items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+            <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1 font-semibold dark:border-slate-700 dark:bg-slate-900">
+              <LockClosedIcon className="h-3.5 w-3.5" aria-hidden="true" />
+              Answers stay in your browser
+            </span>
+            <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1 font-semibold dark:border-slate-700 dark:bg-slate-900">
+              No sign-up
+            </span>
+            <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1 font-semibold dark:border-slate-700 dark:bg-slate-900">
+              Educational, not advice
+            </span>
+          </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 py-10">
-        <section className="grid gap-6 lg:grid-cols-[360px_minmax(0,1fr)]">
-          <aside className="h-fit min-w-0 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-gray-900">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Question flow</p>
-                <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">{currentQuestion.section}</h2>
-              </div>
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-bold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
-                {step + 1}/{QUESTIONS.length}
-              </span>
-            </div>
-            <div className="mt-5 h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
-              <div className="h-full rounded-full bg-secondary" style={{ width: `${progress}%` }} />
-            </div>
-            <div className="mt-5 space-y-2">
-              {QUESTIONS.map((question, index) => (
-                <button
-                  key={question.key}
-                  type="button"
-                  onClick={() => setStep(index)}
-                  className={`flex w-full min-w-0 items-center justify-between gap-3 rounded-xl px-3 py-2 text-left text-sm transition ${
-                    index === step
-                      ? 'bg-primary text-white'
-                      : 'bg-slate-50 text-slate-700 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'
-                  }`}
-                >
-                  <span className="min-w-0 font-semibold">{question.section}</span>
-                  <span className="ml-3 max-w-[150px] truncate text-xs opacity-85">{selectedLabel(question)}</span>
-                </button>
-              ))}
-            </div>
-          </aside>
+      <div className="mx-auto max-w-5xl px-4 py-10">
+        {/* ---------------- Privacy + disclaimer ---------------- */}
+        <div className="mb-8 grid gap-4 md:grid-cols-2">
+          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm leading-6 text-emerald-900 dark:border-emerald-800/60 dark:bg-emerald-950/30 dark:text-emerald-100">
+            <p className="flex items-center gap-2 font-bold">
+              <LockClosedIcon className="h-4 w-4" aria-hidden="true" />
+              Your privacy
+            </p>
+            <p className="mt-1">
+              Your answers are processed in your browser and are not stored. Nothing is sent to a server, saved to a database, or tied to your identity.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/30 dark:text-amber-100">
+            <p className="flex items-center gap-2 font-bold">
+              <ExclamationTriangleIcon className="h-4 w-4" aria-hidden="true" />
+              Educational, not financial advice
+            </p>
+            <p className="mt-1">
+              Based on your answers, this framework may help you compare TFSA, RRSP, and FHSA priorities — but it is educational, not financial advice. Always verify with CRA and a qualified professional.
+            </p>
+          </div>
+        </div>
 
-          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-900">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">{currentQuestion.section}</p>
-            <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">{currentQuestion.title}</h2>
-            <p className="mt-3 text-base leading-7 text-slate-600 dark:text-slate-300">{currentQuestion.helper}</p>
-            <div className="mt-4 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm leading-7 text-blue-900 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-100">
-              <span className="font-bold">Why this matters: </span>
-              {currentQuestion.why}
-            </div>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {currentQuestion.options.map((option) => (
-                <OptionButton
-                  key={option.value}
-                  selected={answers[currentQuestion.key] === option.value}
-                  onClick={() => updateAnswer(currentQuestion.key, option.value)}
+        {/* ---------------- Quiz / Result ---------------- */}
+        {!showResult ? (
+          <section
+            className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-8"
+            aria-labelledby="quiz-heading"
+          >
+            <ProgressBar current={stepIndex} total={visibleQuestions.length} />
+            <p className="mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">
+              {currentQuestion.section}
+            </p>
+            <h2 id="quiz-heading" className="mt-2 text-2xl font-bold text-primary dark:text-accent sm:text-3xl">
+              {currentQuestion.title}
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{currentQuestion.helper}</p>
+
+            <fieldset className="mt-6">
+              <legend className="sr-only">{currentQuestion.title}</legend>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {currentQuestion.options.map((option) => (
+                  <OptionButton
+                    key={option.value}
+                    selected={currentAnswer === option.value}
+                    onClick={() => handleAnswer(currentQuestion.key, option.value)}
+                  >
+                    {option.label}
+                  </OptionButton>
+                ))}
+              </div>
+            </fieldset>
+
+            {/* Eligibility warning */}
+            {currentQuestion.key === 'resident' && answers.resident === 'no' ? (
+              <div className="mt-5 flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/30 dark:text-amber-100">
+                <ExclamationTriangleIcon className="mt-0.5 h-5 w-5 flex-shrink-0" aria-hidden="true" />
+                <p>
+                  TFSA, RRSP, and FHSA accounts have Canadian residency and age requirements. You can still continue to learn how the accounts compare — but verify eligibility with CRA before opening one.
+                </p>
+              </div>
+            ) : null}
+
+            <div className="mt-7 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={handleBack}
+                  disabled={stepIndex === 0}
+                  className="inline-flex items-center gap-1 rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
+                  aria-label="Go to previous question"
                 >
-                  {option.label}
-                </OptionButton>
-              ))}
-            </div>
-            <div className="mt-6 flex flex-wrap justify-between gap-3">
+                  <ArrowLeftIcon className="h-4 w-4" aria-hidden="true" />
+                  Back
+                </button>
+                <button
+                  type="button"
+                  onClick={handleRestart}
+                  className="inline-flex items-center gap-1 rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
+                  aria-label="Restart the quiz"
+                >
+                  <ArrowPathIcon className="h-4 w-4" aria-hidden="true" />
+                  Restart
+                </button>
+              </div>
               <button
                 type="button"
-                onClick={() => setStep((current) => Math.max(0, current - 1))}
-                disabled={step === 0}
-                className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 disabled:opacity-40 dark:border-slate-700 dark:text-slate-200"
+                onClick={handleNext}
+                disabled={!currentAnswer}
+                className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-emerald-500 dark:hover:bg-emerald-400"
               >
-                Back
-              </button>
-              <button
-                type="button"
-                onClick={() => setStep((current) => Math.min(QUESTIONS.length - 1, current + 1))}
-                disabled={step === QUESTIONS.length - 1}
-                className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white disabled:opacity-40"
-              >
-                Next question
+                {isLastQuestion ? 'See my recommendation' : 'Next question'}
+                <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
           </section>
-        </section>
+        ) : (
+          <ResultCard
+            recommendation={recommendation}
+            answers={answers}
+            ineligible={ineligible}
+            onRestart={handleRestart}
+            onBack={handleBack}
+          />
+        )}
 
-        <ProgressiveDisclosure
-          className="mt-8"
-          eyebrow="Before acting"
-          title="Important notes and official account sources"
-          summary="Open this when you need the full disclaimer, CRA source links, methodology, or corrections process."
-        >
-          <div className="space-y-5">
-            <EducationalDisclaimer />
-            <OfficialSourceNote
-              title="Verify account rules before contributing"
-              body="TFSA, RRSP, and FHSA limits, deductions, withdrawals, and eligibility should be checked against CRA before acting on any planning result."
-              sources={[tfsaOfficialSources[0], rrspOfficialSources[0], fhsaOfficialSources[0]]}
-            />
-            <p className="text-sm leading-7 text-slate-600 dark:text-slate-300">
-              See the{' '}
-              <Link to="/methodology" className="font-semibold text-primary underline dark:text-accent">methodology</Link>
-              {' '}and{' '}
-              <Link to="/corrections" className="font-semibold text-primary underline dark:text-accent">corrections process</Link>
-              {' '}for how rules, sources, and fixes are handled.
-            </p>
-          </div>
-        </ProgressiveDisclosure>
-
-        <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Tradeoff engine</p>
-          <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">What currently favours each account</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-            The tool does not force one winner. It shows which facts currently lean toward each account, then lists the assumptions that need checking.
+        {/* ---------------- Related calculators ---------------- */}
+        <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-900/60">
+          <h2 className="text-xl font-bold text-primary dark:text-accent">Related Canadian calculators</h2>
+          <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+            Use a calculator to test the dollar impact of any account in your ranking.
           </p>
-          <div className="mt-6 grid gap-4 lg:grid-cols-3">
-            <ScoreBar label="TFSA" score={tradeoffs.scores.TFSA} reasons={tradeoffs.favors.TFSA.length ? tradeoffs.favors.TFSA : ['No strong TFSA signal from the current answers.']} />
-            <ScoreBar label="RRSP" score={tradeoffs.scores.RRSP} reasons={tradeoffs.favors.RRSP.length ? tradeoffs.favors.RRSP : ['No strong RRSP signal from the current answers.']} />
-            <ScoreBar label="FHSA" score={tradeoffs.scores.FHSA} reasons={tradeoffs.favors.FHSA.length ? tradeoffs.favors.FHSA : ['FHSA appears less central unless eligibility and a first-home goal are relevant.']} />
-          </div>
-        </section>
-
-        <ProgressiveDisclosure
-          className="mt-8"
-          eyebrow="Deeper comparison"
-          title="Account comparison details"
-          summary="Usually stronger / less useful notes are collapsed so the calculator flow stays light."
-        >
-          <div className="grid gap-4 lg:grid-cols-3">
-          {ACCOUNT_CARDS.map((account) => (
-            <article key={account.key} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-gray-900">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">{account.key}</p>
-              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">{account.title}</h2>
-              <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">{account.subtitle}</p>
-              <div className="mt-4 space-y-4 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                <div>
-                  <p className="font-bold text-emerald-700 dark:text-emerald-300">Usually stronger when</p>
-                  <ul className="mt-2 space-y-1">{account.useful.map((item) => <li key={item}>{item}</li>)}</ul>
-                </div>
-                <div>
-                  <p className="font-bold text-amber-700 dark:text-amber-300">Less useful when</p>
-                  <ul className="mt-2 space-y-1">{account.lessUseful.map((item) => <li key={item}>{item}</li>)}</ul>
-                </div>
-                <div className="rounded-xl bg-slate-50 p-3 dark:bg-slate-800">
-                  {account.points.map((item) => (
-                    <p key={item}>{item}</p>
-                  ))}
-                </div>
-              </div>
-            </article>
-          ))}
-          </div>
-        </ProgressiveDisclosure>
-
-        <ProgressiveDisclosure
-          className="mt-8"
-          eyebrow="What can change this answer?"
-          title="The result is sensitive by design"
-          summary="Use this when your income, timeline, pension, home plan, or contribution room may change."
-        >
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-            A trustworthy account framework should explain its weak points. These are the changes most likely to move the answer later.
-          </p>
-          <div className="mt-6 grid gap-3 md:grid-cols-2">
-            {tradeoffs.changes.map((item) => (
-              <div key={item} className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-7 text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
-                {item}
-              </div>
-            ))}
-          </div>
-          {tradeoffs.cautions.length ? (
-            <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-7 text-amber-900 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-100">
-              <p className="font-bold">Current caution flags</p>
-              <ul className="mt-2 space-y-1">
-                {tradeoffs.cautions.map((item) => <li key={item}>{item}</li>)}
-              </ul>
-            </div>
-          ) : null}
-        </ProgressiveDisclosure>
-
-        <ProgressiveDisclosure
-          className="mt-8"
-          eyebrow="Methodology notes"
-          title="Weak points, stress tests, and inline sources"
-          summary="Detailed trust material remains available without dominating the main result."
-        >
-          <div className="grid gap-4 lg:grid-cols-3">
-            <WhyThisToolExists>
-              The tool exists to organize TFSA, RRSP, and FHSA tradeoffs before product or platform choices enter the conversation.
-            </WhyThisToolExists>
-            <WhenThisToolIsWeakest>
-              It is weakest when CRA room, actual tax bracket, FHSA eligibility, pension details, debt pressure, or cash needs are unknown.
-            </WhenThisToolIsWeakest>
-            <StressTestYourInputs>
-              Change timeline, income, tax reduction, and flexibility. If the result moves, the real-world decision needs more careful modelling.
-            </StressTestYourInputs>
-          </div>
-          <div className="mt-5 space-y-4">
-            <InlineSourceTrust
-              label="Inline source reference"
-              note="TFSA, RRSP, and FHSA contribution and withdrawal rules are sourced from CRA guidance. Mortgage stress-test context should be verified against CMHC, FCAC, and OSFI-related lender rules."
-              sources={[tfsaOfficialSources[0], fhsaOfficialSources[0]]}
-            />
-            <InlineSourceTrust
-              label="Tax and mortgage context"
-              note="Province, tax-rate, and mortgage assumptions are planning context only. Use official tax references and lender/CMHC rules before acting."
-              sources={[taxOfficialSources[0], mortgageOfficialSources[2]]}
-            />
-          </div>
-        </ProgressiveDisclosure>
-
-        <NextStepLinks
-          title="Calculator routing based on this framework"
-          intro="Use the next calculator to test dollars and timing. The same answers here should guide which assumptions you enter next."
-          links={nextSteps}
-        />
-
-        <ProgressiveDisclosure
-          className="mt-8"
-          eyebrow="Suggested learning path"
-          title="Read these before going deeper"
-          summary="A compact next-reading path based on the goal selected."
-        >
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-            This path is based on the goal you selected. It is meant to improve context, not push a product.
-          </p>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {learningPath.map((item, index) => (
-              <Link key={item.href} to={item.href} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-800">
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-secondary">Step {index + 1}</p>
-                <p className="mt-2 text-lg font-bold text-primary dark:text-accent">{item.title}</p>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            {RELATED_CALCULATORS.map((calc) => (
+              <Link
+                key={calc.href}
+                to={calc.href}
+                className="group flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-primary transition hover:border-emerald-400 hover:shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-accent dark:hover:border-emerald-400"
+              >
+                <span>{calc.label}</span>
+                <ArrowRightIcon className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
               </Link>
             ))}
           </div>
-        </ProgressiveDisclosure>
+        </section>
 
-        <ProgressiveDisclosure
-          className="mt-8"
-          eyebrow="Assumptions to verify"
-          title="Checks that can change the interpretation"
-          summary="Kept secondary so the main decision flow stays readable."
-        >
-          <div className="mt-5 grid gap-3 md:grid-cols-2">
-            {tradeoffs.assumptions.map((item) => (
-              <p key={item} className="rounded-xl bg-white p-4 text-sm leading-7 text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-                {item}
-              </p>
-            ))}
-          </div>
-        </ProgressiveDisclosure>
+        {/* ---------------- Full educational disclaimer ---------------- */}
+        <div className="mt-10">
+          <EducationalDisclaimer />
+        </div>
 
-        <ProgressiveDisclosure
-          className="mt-8"
-          eyebrow="Sources and FAQ"
-          title="Official references and common questions"
-          summary="Useful for verification, but no longer part of the default reading path."
-        >
-          <SourceList
-            title="Official sources used as rule references"
-            intro="These references are shown here because account decisions are YMYL-sensitive. Use them to verify limits, eligibility, deductions, withdrawal rules, and public benefit context."
-            sources={[
-              tfsaOfficialSources[0],
-              rrspOfficialSources[0],
-              fhsaOfficialSources[0],
-              taxOfficialSources[0],
-              mortgageOfficialSources[2],
-              mortgageOfficialSources[3],
-              retirementOfficialSources[0],
-              dividendTaxOfficialSources[0],
-            ]}
-          />
-          <FAQ items={FAQS} />
-        </ProgressiveDisclosure>
+        {/* ---------------- FAQ ---------------- */}
+        <FAQ items={FAQS} />
       </div>
     </main>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Result card                                                         */
+/* ------------------------------------------------------------------ */
+
+function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) {
+  if (!recommendation) return null;
+  const lead = recommendation.ranked[0];
+  const LeadIcon = lead.icon;
+
+  return (
+    <section className="space-y-6" aria-labelledby="result-heading">
+      {/* Main recommendation */}
+      <div className="rounded-3xl border border-emerald-300 bg-gradient-to-br from-emerald-50 to-amber-50 p-6 shadow-sm dark:border-emerald-700/50 dark:from-emerald-950/30 dark:to-amber-950/20 sm:p-8">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-300">
+          Your top priority
+        </p>
+        <div className="mt-3 flex flex-wrap items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white dark:bg-emerald-500">
+            <LeadIcon className="h-6 w-6" aria-hidden="true" />
+          </div>
+          <h2 id="result-heading" className="text-2xl font-bold text-primary dark:text-accent sm:text-3xl">
+            {lead.label}
+          </h2>
+          <span className="rounded-full bg-emerald-600/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">
+            {lead.badge}
+          </span>
+        </div>
+        <p className="mt-4 text-sm leading-7 text-slate-700 dark:text-slate-200 sm:text-base">{lead.rationale}</p>
+        <p className="mt-4 text-xs italic leading-6 text-slate-500 dark:text-slate-400">
+          Based on your answers, this framework may help you compare account priorities. It is educational, not personal financial advice.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {lead.href ? (
+            <Link
+              to={lead.href}
+              className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-400"
+            >
+              Open the {lead.label} calculator
+              <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          ) : null}
+          <button
+            type="button"
+            onClick={onBack}
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-white dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
+          >
+            <ArrowLeftIcon className="h-4 w-4" aria-hidden="true" />
+            Edit answers
+          </button>
+          <button
+            type="button"
+            onClick={onRestart}
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-white dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
+          >
+            <ArrowPathIcon className="h-4 w-4" aria-hidden="true" />
+            Start over
+          </button>
+        </div>
+      </div>
+
+      {/* Ineligibility note */}
+      {ineligible ? (
+        <div className="rounded-2xl border border-amber-300 bg-amber-50 p-5 text-sm leading-7 text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/30 dark:text-amber-100">
+          <p className="font-bold">Heads up — eligibility check</p>
+          <p className="mt-1">
+            You indicated you may not be a Canadian resident age 18+. TFSA, RRSP, and FHSA accounts have residency and age requirements. The ranking below is shown so you can learn how the accounts compare, but eligibility must be verified with CRA before opening or contributing to any of them.
+          </p>
+        </div>
+      ) : null}
+
+      {/* Why this fits */}
+      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <h3 className="text-lg font-bold text-primary dark:text-accent">Why this account likely fits</h3>
+        <ul className="mt-4 space-y-3">
+          {recommendation.reasons.map((reason) => (
+            <li key={reason} className="flex items-start gap-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
+              <CheckCircleIcon className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+              <span>{reason}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Ranked contribution order */}
+      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <h3 className="text-lg font-bold text-primary dark:text-accent">Your ranked contribution order</h3>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          Work down the list from priority 1 — fund the higher-priority account first before moving to the next one.
+        </p>
+        <ol className="mt-5 space-y-3">
+          {recommendation.ranked.map((account, index) => {
+            const Icon = account.icon;
+            return (
+              <li
+                key={account.key}
+                className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 transition dark:border-slate-700 dark:bg-slate-800/60 sm:flex-row sm:items-start"
+              >
+                <div className="flex items-center gap-3">
+                  <span
+                    aria-hidden="true"
+                    className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+                      index === 0
+                        ? 'bg-emerald-600 text-white dark:bg-emerald-500'
+                        : 'bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-200'
+                    }`}
+                  >
+                    {index + 1}
+                  </span>
+                  <Icon className="h-5 w-5 text-secondary dark:text-emerald-300" aria-hidden="true" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="text-base font-bold text-primary dark:text-accent">{account.label}</p>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">{account.short}</span>
+                  </div>
+                  <p className="mt-1 text-sm leading-6 text-slate-700 dark:text-slate-200">{account.rationale}</p>
+                  {account.href ? (
+                    <Link
+                      to={account.href}
+                      className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 hover:underline dark:text-emerald-300"
+                    >
+                      Open calculator
+                      <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
+                    </Link>
+                  ) : null}
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+
+      {/* Risks / warnings */}
+      <div className="rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-700/50 dark:bg-amber-950/30">
+        <h3 className="flex items-center gap-2 text-lg font-bold text-amber-900 dark:text-amber-100">
+          <ExclamationTriangleIcon className="h-5 w-5" aria-hidden="true" />
+          Risks &amp; things to watch
+        </h3>
+        <ul className="mt-3 space-y-2 text-sm leading-6 text-amber-900 dark:text-amber-100">
+          {recommendation.risks.map((risk) => (
+            <li key={risk} className="flex items-start gap-2">
+              <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-700 dark:bg-amber-300" />
+              <span>{risk}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Next steps */}
+      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <h3 className="flex items-center gap-2 text-lg font-bold text-primary dark:text-accent">
+          <ClockIcon className="h-5 w-5" aria-hidden="true" />
+          Your next steps
+        </h3>
+        <ol className="mt-4 space-y-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
+          {recommendation.nextSteps.map((step, index) => (
+            <li key={step} className="flex items-start gap-3">
+              <span
+                aria-hidden="true"
+                className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-secondary text-xs font-bold text-white dark:bg-emerald-500"
+              >
+                {index + 1}
+              </span>
+              <span>{step}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+                      <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
+                    </Link>
+                  ) : null}
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+
+      {/* Risks / warnings */}
+      <div className="rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-700/50 dark:bg-amber-950/30">
+        <h3 className="flex items-center gap-2 text-lg font-bold text-amber-900 dark:text-amber-100">
+          <ExclamationTriangleIcon className="h-5 w-5" aria-hidden="true" />
+          Risks &amp; things to watch
+        </h3>
+        <ul className="mt-3 space-y-2 text-sm leading-6 text-amber-900 dark:text-amber-100">
+          {recommendation.risks.map((risk) => (
+            <li key={risk} className="flex items-start gap-2">
+              <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-700 dark:bg-amber-300" />
+              <span>{risk}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Next steps */}
+      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <h3 className="flex items-center gap-2 text-lg font-bold text-primary dark:text-accent">
+          <ClockIcon className="h-5 w-5" aria-hidden="true" />
+          Your next steps
+        </h3>
+        <ol className="mt-4 space-y-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
+          {recommendation.nextSteps.map((step, index) => (
+            <li key={step} className="flex items-start gap-3">
+              <span
+                aria-hidden="true"
+                className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-secondary text-xs font-bold text-white dark:bg-emerald-500"
+              >
+                {index + 1}
+              </span>
+              <span>{step}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
   );
 }
