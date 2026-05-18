@@ -1,78 +1,108 @@
 import React from 'react';
+import {
+  ArrowRightIcon,
+  BanknotesIcon,
+  BuildingLibraryIcon,
+  ChartBarIcon,
+  HomeModernIcon,
+  ScaleIcon,
+  ShieldCheckIcon,
+} from '@heroicons/react/24/outline';
 import SEO from '../components/SEO';
 import SurfaceTrackedLink from '../components/SurfaceTrackedLink';
 import FAQSchema from '../components/FAQSchema';
 import ProgressiveDisclosure from '../components/ProgressiveDisclosure';
+import DecisionFramework from '../components/DecisionFramework';
+import TrustStrip from '../components/TrustStrip';
+import AffiliateDisclosureBox from '../components/AffiliateDisclosureBox';
 
-const DECISION_PATHS = [
+const GOAL_ROUTES = [
   {
-    title: 'Choose between TFSA, RRSP, and FHSA',
-    body: 'Start here when the next dollar could go into more than one registered account.',
+    title: 'Pay less tax',
+    body: 'Compare RRSP deductions, TFSA flexibility, FHSA eligibility, and income-tax assumptions before choosing where the next dollar goes.',
     href: '/tools/account-decision-tool',
-    label: 'Start account framework',
-    ctaLabel: 'path_account_decision',
+    ctaLabel: 'goal_pay_less_tax',
+    icon: BanknotesIcon,
   },
   {
-    title: 'Plan retirement',
-    body: 'Test savings rate, time horizon, inflation, and withdrawal assumptions without pretending precision.',
-    href: '/tools/fire-calculator',
-    label: 'Open retirement tool',
-    ctaLabel: 'path_retirement',
+    title: 'Buy a first home',
+    body: 'Start with FHSA tradeoffs, then pressure-test affordability and mortgage payments before stretching the purchase.',
+    href: '/tools/fhsa-calculator',
+    ctaLabel: 'goal_first_home',
+    icon: HomeModernIcon,
   },
   {
     title: 'Build dividend income',
-    body: 'Estimate income targets while keeping yield, concentration, and tax-location risk visible.',
+    body: 'Turn yield into monthly income, capital needed, DRIP effects, and account-location questions.',
     href: '/tools/dividend-calculator',
-    label: 'Open dividend tool',
-    ctaLabel: 'path_dividends',
+    ctaLabel: 'goal_dividend_income',
+    icon: ChartBarIcon,
   },
   {
-    title: 'Understand mortgages',
-    body: 'Check affordability and payment pressure before turning a home price into a commitment.',
+    title: 'Plan retirement',
+    body: 'Model long-term contributions, inflation, withdrawals, and retirement timing without pretending the future is exact.',
+    href: '/tools/fire-calculator',
+    ctaLabel: 'goal_retirement',
+    icon: BuildingLibraryIcon,
+  },
+  {
+    title: 'Compare TFSA vs RRSP vs FHSA',
+    body: 'Use a guided account-priority framework when more than one registered account could make sense.',
+    href: '/tools/account-decision-tool',
+    ctaLabel: 'goal_account_comparison',
+    icon: ScaleIcon,
+  },
+  {
+    title: 'Estimate mortgage affordability',
+    body: 'Check income, debt ratios, stress-test pressure, and monthly payment reality before comparing lenders.',
     href: '/tools/mortgage-affordability-calculator',
-    label: 'Open mortgage tool',
-    ctaLabel: 'path_mortgage',
-  },
-  {
-    title: 'Explore investment fit',
-    body: 'Review account location, timeline, liquidity, currency, and risk context without stock-picking language.',
-    href: '/tools/investment-fit-framework',
-    label: 'Open fit framework',
-    ctaLabel: 'path_investment_fit',
+    ctaLabel: 'goal_mortgage_affordability',
+    icon: HomeModernIcon,
   },
 ];
 
 const FEATURED_TOOLS = [
   {
     title: 'Account Decision Tool',
-    body: 'A guided framework for TFSA, RRSP, and FHSA tradeoffs.',
+    body: 'Route TFSA, RRSP, and FHSA decisions by goal, income, timeline, and flexibility.',
     href: '/tools/account-decision-tool',
+    badge: 'Start here',
     ctaLabel: 'featured_account_decision',
   },
   {
-    title: 'Investment Fit Framework',
-    body: 'Account-fit and risk-context checks for Canadian investors.',
-    href: '/tools/investment-fit-framework',
-    ctaLabel: 'featured_investment_fit',
-  },
-  {
     title: 'TFSA Calculator',
-    body: 'Estimate room, growth, and withdrawal flexibility.',
+    body: 'Estimate room, growth, withdrawals, and how TFSA flexibility compares with other accounts.',
     href: '/tools/tfsa-calculator',
+    badge: 'Core tool',
     ctaLabel: 'featured_tfsa',
   },
   {
     title: 'RRSP Calculator',
-    body: 'Model deduction value, refund assumptions, and retirement impact.',
+    body: 'Model deduction value, refund assumptions, and retirement-account tradeoffs.',
     href: '/tools/rrsp-calculator',
+    badge: 'Tax planning',
     ctaLabel: 'featured_rrsp',
   },
   {
-    title: 'Portfolio Analyzer',
-    body: 'A future planning layer for allocation, concentration, and assumptions.',
-    href: '/tools',
-    ctaLabel: 'featured_portfolio_preview',
-    muted: true,
+    title: 'FHSA Calculator',
+    body: 'Compare first-home tax savings, room usage, and down-payment timeline assumptions.',
+    href: '/tools/fhsa-calculator',
+    badge: 'First home',
+    ctaLabel: 'featured_fhsa',
+  },
+  {
+    title: 'Dividend Calculator',
+    body: 'Test income goals, yield sensitivity, DRIP, and account-fit questions.',
+    href: '/tools/dividend-calculator',
+    badge: 'Income',
+    ctaLabel: 'featured_dividend',
+  },
+  {
+    title: 'Mortgage Calculator',
+    body: 'Estimate payments, amortization pressure, and borrowing tradeoffs with Canadian context.',
+    href: '/tools/mortgage-calculator',
+    badge: 'Housing',
+    ctaLabel: 'featured_mortgage',
   },
 ];
 
@@ -103,12 +133,6 @@ const GUIDE_HIGHLIGHTS = [
   },
 ];
 
-const TRUST_POINTS = [
-  'No account required to use the tools.',
-  'Calculator inputs are not used as marketing lead forms.',
-  'Official sources are linked when Canadian rules matter.',
-];
-
 const HOME_FAQS = [
   {
     q: 'What is EasyFinanceTools for?',
@@ -120,7 +144,7 @@ const HOME_FAQS = [
   },
   {
     q: 'Where should I start?',
-    a: 'If you are choosing between accounts, start with the Account Decision Tool. If the account is already clear, use the matching calculator.',
+    a: 'Start with your goal. If the account choice is unclear, use the Account Decision Tool before opening a calculator.',
   },
   {
     q: 'Do I need to sign up?',
@@ -128,182 +152,214 @@ const HOME_FAQS = [
   },
 ];
 
+function SectionHeader({ eyebrow, title, body }) {
+  return (
+    <div className="max-w-3xl">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">{eyebrow}</p>
+      <h2 className="mt-2 text-3xl font-bold leading-tight text-primary dark:text-accent md:text-4xl">{title}</h2>
+      {body ? <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{body}</p> : null}
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-white dark:bg-gray-950">
       <SEO
         title="Canadian Financial Decision Tools | EasyFinanceTools"
-        description="Use calm Canadian financial decision tools for TFSA, RRSP, FHSA, dividends, mortgages, retirement, and investment-fit planning. Educational, source-linked, and no sign-up required."
+        description="Make better Canadian money decisions with free TFSA, RRSP, FHSA, dividend, mortgage, retirement, and account decision tools. No login required."
         canonical="https://easyfinancetools.com/"
       />
       <FAQSchema faqs={HOME_FAQS} />
 
       <section className="hero-home relative overflow-hidden bg-slate-950 px-4 py-16 text-white md:py-24">
-        <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
-          <div>
-            <p className="inline-flex rounded-full bg-white/12 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-blue-100">
-              Canadian decision-first planning
+        <div className="relative mx-auto max-w-6xl">
+          <div className="max-w-4xl">
+            <p className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-100">
+              Canadian decision-support platform
             </p>
-            <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
-              Canadian financial tools designed to help you think before you invest.
+            <h1 className="mt-6 text-4xl font-bold leading-tight md:text-6xl">
+              Make better Canadian money decisions
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-blue-100">
-              Compare accounts, test assumptions, and choose a clearer next step without product-first pressure or noisy finance dashboards.
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-blue-100">
+              Free Canadian calculators, account guides, and decision tools for TFSA, RRSP, FHSA, dividends, mortgages, and retirement.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <SurfaceTrackedLink
-                to="/tools/account-decision-tool"
-                eventName="homepage_cta_click"
-                ctaLabel="hero_account_decision_tool"
-                trackingParams={{ section: 'hero', destination_type: 'tool' }}
-                className="rounded-xl bg-white px-5 py-3 text-base font-bold text-primary transition hover:bg-blue-50"
+              <a
+                href="#start-with-goal"
+                className="focus-ring inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-base font-bold text-primary transition hover:bg-emerald-50"
               >
-                Start with account choice
-              </SurfaceTrackedLink>
+                Start with your goal
+                <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
+              </a>
               <SurfaceTrackedLink
                 to="/tools"
                 eventName="homepage_cta_click"
-                ctaLabel="hero_tools_hub"
+                ctaLabel="hero_browse_all_tools"
                 trackingParams={{ section: 'hero', destination_type: 'hub' }}
-                className="rounded-xl border border-white/25 px-5 py-3 text-base font-bold text-white transition hover:bg-white/10"
+                className="focus-ring rounded-xl border border-white/25 px-5 py-3 text-base font-bold text-white transition hover:bg-white/10"
               >
-                View tools
+                Browse all tools
               </SurfaceTrackedLink>
             </div>
           </div>
-
-          <aside className="rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-100">Simple starting order</p>
-            <ol className="mt-5 space-y-3 text-sm leading-6 text-blue-50">
-              <li className="rounded-2xl bg-white/10 p-4">1. Decide the account or planning context.</li>
-              <li className="rounded-2xl bg-white/10 p-4">2. Run one calculator with realistic assumptions.</li>
-              <li className="rounded-2xl bg-white/10 p-4">3. Open the deeper notes only when the result depends on them.</li>
-            </ol>
-          </aside>
+          <TrustStrip className="mt-10 max-w-5xl bg-white/95 text-slate-900 dark:bg-slate-900/90" />
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <div className="max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Main decision paths</p>
-          <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Choose the question you are actually trying to answer</h2>
-        </div>
-        <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-          {DECISION_PATHS.map((path) => (
-            <SurfaceTrackedLink
-              key={path.href}
-              to={path.href}
-              eventName="homepage_decision_path_click"
-              ctaLabel={path.ctaLabel}
-              trackingParams={{ section: 'decision_paths', destination_type: 'tool' }}
-              className="group rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-gray-900"
-            >
-              <h3 className="text-lg font-bold text-primary group-hover:text-secondary dark:text-accent">{path.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{path.body}</p>
-              <span className="mt-4 inline-flex text-sm font-semibold text-secondary">{path.label}</span>
-            </SurfaceTrackedLink>
-          ))}
+      <section id="start-with-goal" className="mx-auto max-w-6xl px-4 py-16">
+        <SectionHeader
+          eyebrow="Start with the decision"
+          title="Choose the goal that matches the money question"
+          body="The fastest path is usually not another generic calculator. Start with the decision, then open the tool or guide that tests the next assumption."
+        />
+        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {GOAL_ROUTES.map((goal) => {
+            const Icon = goal.icon;
+            return (
+              <SurfaceTrackedLink
+                key={goal.title}
+                to={goal.href}
+                eventName="homepage_goal_router_click"
+                ctaLabel={goal.ctaLabel}
+                trackingParams={{ section: 'goal_router', destination_type: goal.href.startsWith('/blog') ? 'article' : 'tool' }}
+                className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-emerald-300 hover:shadow-lg dark:border-slate-800 dark:bg-gray-900"
+              >
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 transition group-hover:bg-emerald-600 group-hover:text-white dark:bg-emerald-950/40 dark:text-emerald-300">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <h3 className="mt-5 text-xl font-bold text-primary dark:text-accent">{goal.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{goal.body}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-secondary dark:text-emerald-300">
+                  Open path
+                  <ArrowRightIcon className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
+                </span>
+              </SurfaceTrackedLink>
+            );
+          })}
         </div>
       </section>
 
-      <section className="border-y border-slate-100 bg-slate-50 px-4 py-14 dark:border-slate-800 dark:bg-slate-900/50">
+      <section className="border-y border-slate-100 bg-slate-50 px-4 py-16 dark:border-slate-800 dark:bg-slate-900/50">
         <div className="mx-auto max-w-6xl">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div className="max-w-3xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Featured tools</p>
-              <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Keep the visible toolset small</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                The full library still exists, but these are the highest-value places to start.
-              </p>
-            </div>
-            <SurfaceTrackedLink
-              to="/tools"
-              eventName="homepage_cta_click"
-              ctaLabel="featured_tools_view_all"
-              trackingParams={{ section: 'featured_tools', destination_type: 'hub' }}
-              className="text-sm font-semibold text-primary underline dark:text-secondary"
-            >
-              All tools
-            </SurfaceTrackedLink>
-          </div>
-          <div className="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+          <SectionHeader
+            eyebrow="Featured tools"
+            title="The core Canadian planning tools"
+            body="These are the main tools that support the platform: accounts, tax, home buying, dividend income, retirement, and mortgage planning."
+          />
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {FEATURED_TOOLS.map((tool) => (
               <SurfaceTrackedLink
                 key={tool.title}
                 to={tool.href}
                 eventName="homepage_featured_tool_click"
                 ctaLabel={tool.ctaLabel}
-                trackingParams={{ section: 'featured_tools', destination_type: tool.muted ? 'hub' : 'tool' }}
-                className={`rounded-2xl border p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-sm ${
-                  tool.muted
-                    ? 'border-dashed border-slate-300 bg-white/70 dark:border-slate-700 dark:bg-gray-900/60'
-                    : 'border-slate-200 bg-white dark:border-slate-700 dark:bg-gray-900'
-                }`}
+                trackingParams={{ section: 'featured_tools', destination_type: 'tool' }}
+                className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-secondary hover:shadow-lg dark:border-slate-700 dark:bg-gray-900"
               >
-                <h3 className="text-lg font-bold text-primary dark:text-accent">{tool.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{tool.body}</p>
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-secondary dark:bg-slate-800 dark:text-emerald-300">
+                  {tool.badge}
+                </span>
+                <h3 className="mt-4 text-xl font-bold text-primary dark:text-accent">{tool.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{tool.body}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-secondary dark:text-emerald-300">
+                  Open tool
+                  <ArrowRightIcon className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
+                </span>
               </SurfaceTrackedLink>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <div className="max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Educational highlights</p>
-          <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">A few guides worth reading slowly</h2>
-        </div>
-        <div className="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {GUIDE_HIGHLIGHTS.map((guide) => (
-            <SurfaceTrackedLink
-              key={guide.href}
-              to={guide.href}
-              eventName="homepage_guide_click"
-              ctaLabel={guide.ctaLabel}
-              trackingParams={{ section: 'guide_highlights', destination_type: 'article' }}
-              className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-gray-900"
-            >
-              <h3 className="text-lg font-bold text-primary dark:text-accent">{guide.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{guide.body}</p>
-            </SurfaceTrackedLink>
-          ))}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <DecisionFramework />
+      </section>
+
+      <section className="border-y border-slate-100 bg-white px-4 py-16 dark:border-slate-800 dark:bg-gray-950">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeader
+            eyebrow="Popular Canadian guides"
+            title="Read the context before the product comparison"
+            body="These guides support the calculators with Canadian rules, mistakes, and tradeoffs that can change a result."
+          />
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {GUIDE_HIGHLIGHTS.map((guide) => (
+              <SurfaceTrackedLink
+                key={guide.href}
+                to={guide.href}
+                eventName="homepage_guide_click"
+                ctaLabel={guide.ctaLabel}
+                trackingParams={{ section: 'guide_highlights', destination_type: 'article' }}
+                className="rounded-3xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-sm dark:border-slate-700 dark:bg-gray-900"
+              >
+                <h3 className="text-lg font-bold text-primary dark:text-accent">{guide.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{guide.body}</p>
+              </SurfaceTrackedLink>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 pb-16">
-        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-900">
-          <div className="grid gap-6 md:grid-cols-[1fr_1.2fr] md:items-start">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Quiet trust</p>
-              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Trust should be easy to verify, not exhausting to read.</h2>
-            </div>
-            <div className="grid gap-3">
-              {TRUST_POINTS.map((point) => (
-                <p key={point} className="rounded-xl bg-slate-50 px-4 py-3 text-sm leading-6 text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-                  {point}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-900">
+            <div className="flex items-start gap-3">
+              <ShieldCheckIcon className="mt-1 h-6 w-6 shrink-0 text-emerald-700 dark:text-emerald-300" aria-hidden="true" />
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Methodology and trust</p>
+                <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Quietly transparent, not overexplained</h2>
+                <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                  Core tools are educational estimates with visible assumptions, privacy-aware calculation patterns, and official-source references where Canadian rules matter.
                 </p>
-              ))}
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <SurfaceTrackedLink to="/methodology" eventName="homepage_trust_click" ctaLabel="methodology" trackingParams={{ section: 'trust' }} className="rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white transition hover:bg-secondary">
+                    Read methodology
+                  </SurfaceTrackedLink>
+                  <SurfaceTrackedLink to="/editorial-standards" eventName="homepage_trust_click" ctaLabel="editorial_standards" trackingParams={{ section: 'trust' }} className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-bold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:text-accent">
+                    Editorial standards
+                  </SurfaceTrackedLink>
+                </div>
+              </div>
             </div>
           </div>
-
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            <SurfaceTrackedLink to="/methodology" eventName="homepage_trust_click" ctaLabel="methodology" trackingParams={{ section: 'quiet_trust' }} className="text-sm font-semibold text-primary underline dark:text-secondary">
-              Methodology
-            </SurfaceTrackedLink>
-            <SurfaceTrackedLink to="/editorial-standards" eventName="homepage_trust_click" ctaLabel="editorial_standards" trackingParams={{ section: 'quiet_trust' }} className="text-sm font-semibold text-primary underline dark:text-secondary">
-              Editorial standards
-            </SurfaceTrackedLink>
-            <SurfaceTrackedLink to="/about" eventName="homepage_trust_click" ctaLabel="about_founder" trackingParams={{ section: 'quiet_trust' }} className="text-sm font-semibold text-primary underline dark:text-secondary">
-              Founder note
-            </SurfaceTrackedLink>
-          </div>
+          <AffiliateDisclosureBox
+            title="Subtle referral disclosure"
+            body="Referral links, where present, are shown after the educational decision context. They should not change the ordering of tools, examples, assumptions, or guidance."
+          >
+            <a
+              href="https://www.wealthsimple.com/en-ca"
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="inline-flex rounded-xl border border-amber-300 bg-white px-4 py-2 text-sm font-bold text-primary transition hover:border-amber-500 hover:text-secondary dark:border-amber-800 dark:bg-slate-900 dark:text-amber-100"
+            >
+              Review provider details
+            </a>
+          </AffiliateDisclosureBox>
         </div>
+      </section>
 
+      <section className="bg-slate-950 px-4 py-14 text-white">
+        <div className="mx-auto flex max-w-6xl flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-200">Next step</p>
+            <h2 className="mt-2 text-3xl font-bold">Start with one decision, not every calculator.</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-7 text-blue-100">
+              Pick the goal that matches your situation, then use the next tool only when it clarifies the tradeoff.
+            </p>
+          </div>
+          <a href="#start-with-goal" className="focus-ring inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-primary transition hover:bg-emerald-50">
+            Start with your goal
+            <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 py-10">
         <ProgressiveDisclosure
-          className="mt-6"
           eyebrow="FAQ"
           title="Common questions"
-          summary="Kept available without turning the homepage into a help-center wall."
+          summary="Helpful details are available without making the homepage feel like a long finance manual."
         >
           <div className="grid gap-4 md:grid-cols-2">
             {HOME_FAQS.map((item) => (

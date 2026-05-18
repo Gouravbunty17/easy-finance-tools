@@ -19,6 +19,7 @@ import FAQ from '../../components/FAQ';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
+import DecisionFramework from '../../components/DecisionFramework';
 import { CONTENT_LAST_REVIEWED } from '../../config/financial';
 
 const CANONICAL = 'https://easyfinancetools.com/tools/account-decision-tool';
@@ -560,6 +561,15 @@ export default function AccountDecisionTool() {
           </div>
         </div>
 
+        <div className="mb-8">
+          <DecisionFramework
+            eyebrow="How to read this tool"
+            title="This is a decision framework, not a product recommendation"
+            intro="The tool organizes the tradeoff, the Canadian account rules, the warning signs, and the next calculator to open. It does not decide what investment to buy."
+            compact
+          />
+        </div>
+
         {/* ---------------- Quiz / Result ---------------- */}
         {!showResult ? (
           <section
@@ -797,55 +807,6 @@ function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) 
                       className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 hover:underline dark:text-emerald-300"
                     >
                       Open calculator
-                      <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
-                    </Link>
-                  ) : null}
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-      </div>
-
-      {/* Risks / warnings */}
-      <div className="rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-700/50 dark:bg-amber-950/30">
-        <h3 className="flex items-center gap-2 text-lg font-bold text-amber-900 dark:text-amber-100">
-          <ExclamationTriangleIcon className="h-5 w-5" aria-hidden="true" />
-          Risks &amp; things to watch
-        </h3>
-        <ul className="mt-3 space-y-2 text-sm leading-6 text-amber-900 dark:text-amber-100">
-          {recommendation.risks.map((risk) => (
-            <li key={risk} className="flex items-start gap-2">
-              <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-700 dark:bg-amber-300" />
-              <span>{risk}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Next steps */}
-      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-        <h3 className="flex items-center gap-2 text-lg font-bold text-primary dark:text-accent">
-          <ClockIcon className="h-5 w-5" aria-hidden="true" />
-          Your next steps
-        </h3>
-        <ol className="mt-4 space-y-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
-          {recommendation.nextSteps.map((step, index) => (
-            <li key={step} className="flex items-start gap-3">
-              <span
-                aria-hidden="true"
-                className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-secondary text-xs font-bold text-white dark:bg-emerald-500"
-              >
-                {index + 1}
-              </span>
-              <span>{step}</span>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
 
                       <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
                     </Link>

@@ -651,21 +651,21 @@ export default function CompoundInterestCalculator() {
         ]}
         referral={{
           placement: "compound_interest_calculator_referral",
-          badge: "Beginner-friendly offer",
-          title: "Get $25 free with Wealthsimple",
-          highlight: "$25 free",
+          badge: "Optional next step",
+          title: "Compare platform details after the growth plan is clear",
+          highlight: "platform details",
           description:
-            "If the contribution plan looks realistic and you want a simple place to start investing, this can be a reasonable next step after you compare account types and providers.",
+            "If the contribution plan looks realistic, compare account types, fees, and platform features before choosing where contributions will go.",
           fitHeading: "Why this may fit after the growth plan",
           fitPoints: [
-            "You want a simple account opening flow and recurring contributions.",
-            "Your plan is long-term ETF investing, not frequent trading.",
+            "You want to compare recurring contribution workflows and fees.",
+            "Your plan is long-term investing, not frequent trading.",
             "You have already checked whether the TFSA or RRSP should be the account wrapper.",
           ],
-          details: "Use the referral code at signup | Keep comparing fees, account types, and features before choosing",
+          details: "Provider terms, promotions, eligibility, and fees can change. Verify details with the provider before opening or funding an account.",
           disclosure:
-            "Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change how we explain compounding, fee drag, or account comparisons.",
-          buttonLabel: "Start with Wealthsimple",
+            "Affiliate disclosure: We may earn a referral bonus if you use this code. That does not change how we explain compounding, fee drag, or account comparisons.",
+          buttonLabel: "Review provider details",
         }}
       />
 

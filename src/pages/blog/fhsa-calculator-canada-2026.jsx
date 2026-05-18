@@ -527,7 +527,7 @@ export default function FHSACalculatorCanada2026() {
             ],
             details: 'Use the referral code at signup | Keep comparing account features, fees, and product options before deciding',
             disclosure: 'Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change the account comparisons, examples, or rule explanations on this page.',
-            buttonLabel: 'Open FHSA with Wealthsimple',
+            buttonLabel: 'Review provider details',
           }}
         />
 

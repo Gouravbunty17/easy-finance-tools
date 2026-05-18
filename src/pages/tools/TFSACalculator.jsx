@@ -748,18 +748,18 @@ export default function TFSACalculator() {
         referral={{
           placement: 'tfsa_decision_page',
           badge: 'Logical next step',
-          title: 'Open a TFSA and start investing with Wealthsimple',
+          title: 'Compare platform details after reviewing TFSA assumptions',
           highlight: 'TFSA',
-          description: 'If the TFSA still looks like the right home for the next contribution, a simple workflow can be a reasonable next step after the account decision is settled.',
+          description: 'If the TFSA still looks like the right home for the next contribution, compare Canadian platform features only after contribution room, account fit, and holdings are clear.',
           fitHeading: 'Why this placement makes sense here',
           fitPoints: [
             'You have already checked TFSA room and the account still deserves the next contribution.',
-            'You want a simple place to hold broad ETFs or a clean long-term investing setup.',
+            'You want to compare fees, available account types, and investment options.',
             'You are choosing the provider after the strategy, not before it.',
           ],
-          details: 'Use the referral code at signup | Keep comparing account features, fees, and ETF choices before deciding',
-          disclosure: 'Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change the TFSA assumptions, room discussion, or account-comparison guidance on this page.',
-          buttonLabel: 'Open TFSA with Wealthsimple',
+          details: 'Provider terms, promotions, eligibility, and fees can change. Verify details with the provider before opening or funding an account.',
+          disclosure: 'Affiliate disclosure: We may earn a referral bonus if you use this code. That does not change the TFSA assumptions, room discussion, or account-comparison guidance on this page.',
+          buttonLabel: 'Review provider details',
         }}
       />
 

@@ -421,7 +421,7 @@ export default function TFSAvsRRSPCanada2026() {
             title: 'Open a TFSA or RRSP with Wealthsimple only after the account choice is clear',
             description: 'If you already know which account should get the next contribution, a simple platform can be a reasonable next step. The account comparison still comes first.',
             code: 'R8F7ZW',
-            href: 'https://wealthsimple.com/invite/R8F7ZW',
+            href: 'https://www.wealthsimple.com/en-ca',
             body: 'When this CTA makes sense',
             bullets: [
               'You already know whether the TFSA or RRSP should get the next dollar.',

@@ -3,6 +3,8 @@ import SEO from "./SEO";
 import ToolPageSchema from "./ToolPageSchema";
 import SurfaceTrackedLink from "./SurfaceTrackedLink";
 import ToolByline from "./ToolByline";
+import PrivacyNote from "./PrivacyNote";
+import SourceNote from "./SourceNote";
 
 export function fmtCAD(value, options = {}) {
   return Number(value || 0).toLocaleString("en-CA", {
@@ -75,6 +77,13 @@ export default function CalculatorLayout({
           <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">{title}</h1>
           <ToolByline />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">{description}</p>
+          <div className="mt-5 grid gap-3 md:grid-cols-2">
+            <PrivacyNote compact />
+            <SourceNote
+              title="Educational estimate"
+              body="Use this output as a planning estimate, then verify important tax, account, rate, or program rules with official Canadian sources."
+            />
+          </div>
           <div className="mt-8">{children}</div>
         </div>
 

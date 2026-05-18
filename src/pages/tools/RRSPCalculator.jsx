@@ -810,18 +810,18 @@ export default function RRSPCalculator() {
         referral={{
           placement: 'rrsp_decision_page',
           badge: 'Logical next step',
-          title: 'Open an RRSP and start investing with Wealthsimple',
+          title: 'Compare platform details after reviewing RRSP assumptions',
           highlight: 'RRSP',
-          description: 'If the RRSP still looks like the right home for the next contribution after the account comparison, a simple brokerage workflow can be a reasonable next step.',
+          description: 'If the RRSP still looks like the right home for the next contribution, compare Canadian platform features only after deduction room, refund use, and withdrawal tradeoffs are clear.',
           fitHeading: 'Why this placement makes sense here',
           fitPoints: [
-            'You already know the RRSP beats the TFSA or FHSA for the next contribution.',
-            'You want a simple place to hold broad ETFs or a straightforward long-term retirement plan.',
+            'You have compared the RRSP against TFSA and FHSA alternatives for this contribution.',
+            'You want to compare fees, account features, and available investment options.',
             'You have already checked deduction room and decided what the refund should do next.',
           ],
-          details: 'Use the referral code at signup | Keep comparing fees, account features, and investment options before deciding',
-          disclosure: 'Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change the RRSP assumptions, refund discussion, or account-comparison guidance on this page.',
-          buttonLabel: 'Open RRSP with Wealthsimple',
+          details: 'Provider terms, promotions, eligibility, and fees can change. Verify details with the provider before opening or funding an account.',
+          disclosure: 'Affiliate disclosure: We may earn a referral bonus if you use this code. That does not change the RRSP assumptions, refund discussion, or account-comparison guidance on this page.',
+          buttonLabel: 'Review provider details',
         }}
       />
 

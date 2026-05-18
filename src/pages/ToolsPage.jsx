@@ -1,440 +1,383 @@
 import React, { useMemo, useState } from "react";
+import {
+  ArrowRightIcon,
+  BanknotesIcon,
+  BuildingLibraryIcon,
+  ChartBarIcon,
+  HomeModernIcon,
+  ScaleIcon,
+  WrenchScrewdriverIcon,
+} from "@heroicons/react/24/outline";
 import SEO from "../components/SEO";
 import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
-import EducationalDisclaimer from "../components/EducationalDisclaimer";
 import FAQSchema from "../components/FAQSchema";
+import TrustStrip from "../components/TrustStrip";
+import PrivacyNote from "../components/PrivacyNote";
+import SourceNote from "../components/SourceNote";
 
-const tools = [
-  { title: "Account Decision Tool", desc: "Compare TFSA, RRSP, and FHSA priorities with a guided Canadian account framework.", link: "/tools/account-decision-tool", badge: "Start Here", category: "Savings", color: "border-emerald-200 hover:border-emerald-400" },
-  { title: "Investment Fit Framework", desc: "Compare account-fit, tax-location, yield, concentration, currency, timeline, and liquidity tradeoffs without stock ratings.", link: "/tools/investment-fit-framework", badge: "Framework", category: "Investing", color: "border-slate-200 hover:border-slate-400" },
-  { title: "Tip Calculator", desc: "Calculate the tip, split the bill, and compare pre-tax vs after-tax tipping with simple input boxes.", link: "/tools/tip-calculator", badge: "New", category: "Budget", color: "border-amber-200 hover:border-amber-400" },
-  { title: "GST/HST Calculator", desc: "Add sales tax or reverse it from a final price for every Canadian province and territory.", link: "/tools/gst-hst-calculator", badge: "New", category: "Tax", color: "border-emerald-200 hover:border-emerald-400" },
-  { title: "Salary to Hourly Calculator", desc: "Turn annual salary into hourly, bi-weekly, semi-monthly, and monthly gross pay with vacation-week assumptions.", link: "/tools/salary-to-hourly-calculator", badge: "New", category: "Budget", color: "border-sky-200 hover:border-sky-400" },
-  { title: "CAD USD Converter", desc: "Convert CAD and USD using the Bank of Canada reference rate with recent trend context.", link: "/tools/cad-usd-converter", badge: "New", category: "Investing", color: "border-cyan-200 hover:border-cyan-400" },
-  { title: "Inflation Calculator", desc: "Compare purchasing power across years using the Bank of Canada inflation-calculator series.", link: "/tools/inflation-calculator", badge: "New", category: "Budget", color: "border-fuchsia-200 hover:border-fuchsia-400" },
-  { title: "Mortgage Affordability Calculator", desc: "Estimate the home price your income can support with Canadian stress-test and debt-ratio assumptions.", link: "/tools/mortgage-affordability-calculator", badge: "New", category: "Real Estate", color: "border-rose-200 hover:border-rose-400" },
-  { title: "Income Tax Calculator", desc: "Calculate your exact take-home pay, federal + provincial tax, CPP, and EI for all provinces.", link: "/tools/income-tax-calculator", badge: "New", category: "Tax", color: "border-indigo-200 hover:border-indigo-400" },
-  { title: "Compound Interest Calculator", desc: "Project long-term growth in CAD with monthly contributions, fees, and inflation.", link: "/tools/compound-interest-calculator", badge: "High Demand", category: "Investing", color: "border-blue-200 hover:border-blue-400" },
-  { title: "TFSA Calculator", desc: "Model tax-free growth, compare contribution pace, and use it as a baseline when choosing between registered accounts.", link: "/tools/tfsa-calculator", badge: "Most Popular", category: "Savings", color: "border-blue-200 hover:border-blue-400" },
-  { title: "RRSP Calculator", desc: "Estimate refund value, compare contribution timing, and see when the deduction starts to matter more.", link: "/tools/rrsp-calculator", badge: "2026 Updated", category: "Savings", color: "border-green-200 hover:border-green-400" },
-  { title: "FHSA Planner", desc: "Estimate deduction value, room usage, and down-payment growth before deciding where the next contribution should go.", link: "/tools/fhsa-calculator", badge: "Featured", category: "Savings", color: "border-orange-200 hover:border-orange-400" },
-  { title: "Mortgage Calculator", desc: "Calculate your real Canadian mortgage payment with CMHC insurance and land transfer tax.", link: "/tools/mortgage-calculator", badge: "New", category: "Real Estate", color: "border-red-200 hover:border-red-400" },
-  { title: "Rent vs Buy Calculator", desc: "Compare renting vs buying with total costs, net worth, and the break-even year.", link: "/tools/rent-vs-buy", badge: "New", category: "Real Estate", color: "border-teal-200 hover:border-teal-400" },
-  { title: "Capital Gains Tax Calculator", desc: "Calculate capital gains tax on stocks, crypto, real estate, and small business shares.", link: "/tools/capital-gains-tax", badge: "New", category: "Tax", color: "border-pink-200 hover:border-pink-400" },
-  { title: "CPP and OAS Estimator", desc: "Estimate government retirement income and compare collection ages.", link: "/tools/cpp-oas-estimator", badge: "New", category: "Retirement", color: "border-red-200 hover:border-red-400" },
-  { title: "ETF Income Simulator", desc: "Compare Canadian dividend ETFs, DRIP assumptions, and the capital needed to target monthly income goals.", link: "/tools/dividend-calculator", badge: "Featured", category: "Investing", color: "border-yellow-200 hover:border-yellow-400" },
-  { title: "Budget Tracker", desc: "Track income and expenses so you can plan monthly cash flow with less guesswork.", link: "/tools/budget-tracker", badge: null, category: "Budget", color: "border-purple-200 hover:border-purple-400" },
-  { title: "Net Worth Calculator", desc: "Track assets and liabilities and see your longer-term financial picture.", link: "/tools/investment-tracker", badge: "Updated", category: "Investing", color: "border-cyan-200 hover:border-cyan-400" },
-  { title: "FIRE Calculator", desc: "Find your financial independence number, retirement date, and safe withdrawal strategy.", link: "/tools/fire-calculator", badge: "New", category: "Retirement", color: "border-orange-200 hover:border-orange-400" },
-  { title: "GIC Calculator", desc: "See how much your GIC could earn at maturity and compare rates from Canadian institutions.", link: "/tools/gic-calculator", badge: "New", category: "Savings", color: "border-green-200 hover:border-green-400" },
-  { title: "Debt Payoff Calculator", desc: "Compare avalanche vs snowball and see the fastest path to being debt-free.", link: "/tools/debt-payoff", badge: "New", category: "Budget", color: "border-red-200 hover:border-red-400" },
-  { title: "Savings Goal Calculator", desc: "Set your goal and timeline and get the monthly amount needed to reach it.", link: "/tools/savings-goal", badge: "New", category: "Savings", color: "border-blue-200 hover:border-blue-400" },
-  { title: "Pay Stub Calculator", desc: "Enter your salary or hourly rate and see your estimated Canadian pay stub.", link: "/tools/net-pay-calculator", badge: "New", category: "Tax", color: "border-indigo-200 hover:border-indigo-400" },
+const TOOL_CATEGORIES = [
+  {
+    title: "Account & Tax Tools",
+    icon: ScaleIcon,
+    tools: [
+      {
+        name: "Account Decision Tool",
+        href: "/tools/account-decision-tool",
+        who: "Canadians choosing between TFSA, RRSP, FHSA, and employer matching.",
+        decision: "Which account deserves the next contribution.",
+        status: "Live",
+      },
+      {
+        name: "TFSA Calculator",
+        href: "/tools/tfsa-calculator",
+        who: "People checking TFSA room, growth, withdrawals, and flexibility.",
+        decision: "Whether TFSA room should be used now or compared against RRSP/FHSA.",
+        status: "Live",
+      },
+      {
+        name: "RRSP Calculator",
+        href: "/tools/rrsp-calculator",
+        who: "Canadians comparing deduction value, refunds, and retirement tax deferral.",
+        decision: "Whether an RRSP contribution meaningfully changes the tax plan.",
+        status: "Live",
+      },
+      {
+        name: "FHSA Calculator",
+        href: "/tools/fhsa-calculator",
+        who: "First-time home buyers comparing FHSA, TFSA, and RRSP paths.",
+        decision: "Whether the FHSA fits the purchase timeline and tax situation.",
+        status: "Live",
+      },
+      {
+        name: "Income Tax Calculator",
+        href: "/tools/income-tax-calculator",
+        who: "Canadians estimating federal, provincial, CPP, and EI impacts.",
+        decision: "How income and province affect an estimated tax result.",
+        status: "Live",
+      },
+    ],
+  },
+  {
+    title: "Investing & Dividend Tools",
+    icon: ChartBarIcon,
+    tools: [
+      {
+        name: "Investment Fit Framework",
+        href: "/tools/investment-fit-framework",
+        who: "Investors checking account location, yield, concentration, and timeline risk.",
+        decision: "How an investment may fit inside a broader Canadian account plan.",
+        status: "Live",
+      },
+      {
+        name: "Dividend Calculator",
+        href: "/tools/dividend-calculator",
+        who: "Income-focused investors testing yield, DRIP, capital targets, and account fit.",
+        decision: "Whether a dividend-income assumption is realistic enough to explore further.",
+        status: "Live",
+      },
+      {
+        name: "Compound Interest Calculator",
+        href: "/tools/compound-interest-calculator",
+        who: "People modeling contribution habits, fees, inflation, and long-term growth.",
+        decision: "How much contribution pace and time horizon matter.",
+        status: "Live",
+      },
+      {
+        name: "Net Worth Calculator",
+        href: "/tools/investment-tracker",
+        who: "Households organizing assets, debts, and longer-term financial progress.",
+        decision: "Whether the balance sheet supports the next planning move.",
+        status: "Live",
+      },
+    ],
+  },
+  {
+    title: "Mortgage & Housing Tools",
+    icon: HomeModernIcon,
+    tools: [
+      {
+        name: "Mortgage Affordability Calculator",
+        href: "/tools/mortgage-affordability-calculator",
+        who: "Home buyers testing income, debt ratios, and stress-test pressure.",
+        decision: "What purchase range may be comfortable before lender comparison.",
+        status: "Live",
+      },
+      {
+        name: "Mortgage Calculator",
+        href: "/tools/mortgage-calculator",
+        who: "Buyers comparing payment, amortization, rate, and down-payment assumptions.",
+        decision: "How mortgage terms affect the monthly and long-term cost.",
+        status: "Live",
+      },
+      {
+        name: "Rent vs Buy Calculator",
+        href: "/tools/rent-vs-buy",
+        who: "Renters and buyers comparing total housing tradeoffs.",
+        decision: "Whether ownership economics still make sense after costs and timing.",
+        status: "Live",
+      },
+    ],
+  },
+  {
+    title: "Retirement Tools",
+    icon: BuildingLibraryIcon,
+    tools: [
+      {
+        name: "FIRE Calculator",
+        href: "/tools/fire-calculator",
+        who: "People testing savings rate, retirement date, and withdrawal assumptions.",
+        decision: "How far the current path is from financial independence.",
+        status: "Live",
+      },
+      {
+        name: "CPP and OAS Estimator",
+        href: "/tools/cpp-oas-estimator",
+        who: "Canadians estimating government retirement income context.",
+        decision: "How public benefits may fit into a retirement-income plan.",
+        status: "Live",
+      },
+    ],
+  },
+  {
+    title: "General Calculators",
+    icon: WrenchScrewdriverIcon,
+    tools: [
+      {
+        name: "GIC Calculator",
+        href: "/tools/gic-calculator",
+        who: "Savers comparing guaranteed-interest terms and maturity values.",
+        decision: "Whether a fixed-rate savings option fits the timeline.",
+        status: "Live",
+      },
+      {
+        name: "Debt Payoff Calculator",
+        href: "/tools/debt-payoff",
+        who: "Households comparing avalanche and snowball payoff strategies.",
+        decision: "Which payoff order reduces pressure or interest cost.",
+        status: "Live",
+      },
+      {
+        name: "Budget Tracker",
+        href: "/tools/budget-tracker",
+        who: "People organizing monthly income and spending categories.",
+        decision: "Where cash flow needs adjustment before bigger planning moves.",
+        status: "Live",
+      },
+      {
+        name: "Small utility calculators",
+        href: "/tools",
+        who: "Quick checks such as GST/HST, tips, currency, inflation, and pay conversion.",
+        decision: "Simple one-off estimates that are useful but not core planning pages.",
+        status: "Live",
+        muted: true,
+      },
+    ],
+  },
 ];
 
-const categories = ["All", "Savings", "Real Estate", "Tax", "Retirement", "Investing", "Budget"];
-
-const lowValueUtilityLinks = new Set([
-  "/tools/tip-calculator",
-  "/tools/gst-hst-calculator",
-  "/tools/salary-to-hourly-calculator",
-  "/tools/cad-usd-converter",
-  "/tools/inflation-calculator",
-  "/tools/savings-goal",
-  "/tools/net-pay-calculator",
-]);
-
-const decisionPaths = [
-  {
-    title: "Should I use a TFSA, RRSP, or FHSA first?",
-    body: "Use the decision tool before opening a calculator if the account order is still unclear.",
-    href: "/tools/account-decision-tool",
-    ctaLabel: "decision_path_tfsa_rrsp_fhsa",
-  },
-  {
-    title: "Where should my next registered-account dollar go?",
-    body: "Start with the decision tool, then use the FHSA or RRSP calculator if either account is still competing.",
-    href: "/tools/account-decision-tool",
-    ctaLabel: "decision_path_registered_accounts",
-  },
-  {
-    title: "How much could my investing habit grow?",
-    body: "Use compound interest first, then check whether the TFSA, RRSP, or FHSA wrapper changes the result.",
-    href: "/tools/compound-interest-calculator",
-    ctaLabel: "decision_path_compound_growth",
-  },
-  {
-    title: "Where does an investment fit in my account plan?",
-    body: "Use the investment fit framework to compare account location, tax context, yield reliance, concentration, and timeline risk before deeper modeling.",
-    href: "/tools/investment-fit-framework",
-    ctaLabel: "decision_path_investment_fit",
-  },
-  {
-    title: "Is dividend income realistic for my portfolio?",
-    body: "Model the capital, yield, DRIP, and account fit before choosing a dividend ETF or platform.",
-    href: "/tools/dividend-calculator",
-    ctaLabel: "decision_path_dividend_income",
-  },
-  {
-    title: "Can I afford the home, not just the payment?",
-    body: "Check affordability, mortgage cost, and rent-vs-buy tradeoffs before treating approval as the whole answer.",
-    href: "/tools/mortgage-affordability-calculator",
-    ctaLabel: "decision_path_home_affordability",
-  },
-];
-
-const qualitySignals = [
-  {
-    title: "Core tools earn prominence",
-    body: "Registered-account, tax, mortgage, retirement, and dividend tools are treated as the main decision-support layer because they need assumptions, sources, and interpretation.",
-  },
-  {
-    title: "Small utilities are intentionally quieter",
-    body: "Narrow widgets such as tip, currency, or simple pay conversions stay out of the default hub view unless a reader searches or filters for them.",
-  },
-  {
-    title: "Noindex is an editorial control",
-    body: "A useful tool is not automatically an indexable authority page. Thin utilities should stay noindexed until they add Canadian context and real decision value.",
-  },
+const DECISION_PROMPTS = [
+  { title: "Pay less tax", href: "/tools/account-decision-tool", icon: BanknotesIcon },
+  { title: "Buy a first home", href: "/tools/fhsa-calculator", icon: HomeModernIcon },
+  { title: "Build dividend income", href: "/tools/dividend-calculator", icon: ChartBarIcon },
+  { title: "Plan retirement", href: "/tools/fire-calculator", icon: BuildingLibraryIcon },
+  { title: "Compare accounts", href: "/tools/account-decision-tool", icon: ScaleIcon },
+  { title: "Estimate affordability", href: "/tools/mortgage-affordability-calculator", icon: HomeModernIcon },
 ];
 
 const toolHubFaqs = [
   {
-    q: "Which finance calculator should I start with?",
-    a: "If you are choosing between accounts, start with the TFSA, RRSP, or FHSA tools. If you are testing a savings habit, start with the compound interest calculator.",
+    q: "Which tool should I start with?",
+    a: "Start with the goal that matches your decision. If the account order is unclear, use the Account Decision Tool before opening TFSA, RRSP, or FHSA calculators.",
   },
   {
     q: "Are these calculators specific to Canada?",
-    a: "Yes. The hub is built around Canadian account types, tax concepts, CAD examples, provincial sales-tax workflows, and Canadian retirement or home-buying decisions.",
+    a: "Yes. The main tools are built around Canadian accounts, tax concepts, mortgage assumptions, and retirement or home-buying decisions.",
   },
   {
-    q: "Do the calculators replace official tax advice?",
-    a: "No. They are educational estimates. Use CRA, provincial, lender, or provider documents for official numbers and speak with a qualified professional for personal advice.",
+    q: "Do the calculators replace official advice?",
+    a: "No. They are educational estimates. Verify official numbers with CRA, provincial sources, lenders, or a qualified professional before making decisions.",
   },
   {
     q: "Do I need to create an account?",
-    a: "No. The tools are free to open and use without an email sign-up.",
+    a: "No. The tools are available without an email signup or login.",
   },
 ];
+
+function slug(text) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+}
 
 export default function ToolsPage() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filtered = useMemo(() => {
-    const q = search.toLowerCase();
-    return tools.filter((tool) => {
-      if (!q && activeCategory === "All" && lowValueUtilityLinks.has(tool.link)) return false;
-      const matchesSearch = !q || tool.title.toLowerCase().includes(q) || tool.desc.toLowerCase().includes(q);
-      const matchesCategory = activeCategory === "All" || tool.category === activeCategory;
-      return matchesSearch && matchesCategory;
-    });
+  const visibleCategories = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    return TOOL_CATEGORIES.map((category) => {
+      const tools = category.tools.filter((tool) => {
+        const matchesCategory = activeCategory === "All" || activeCategory === category.title;
+        const matchesSearch =
+          !query ||
+          [tool.name, tool.who, tool.decision, category.title].some((value) => value.toLowerCase().includes(query));
+        return matchesCategory && matchesSearch;
+      });
+      return { ...category, tools };
+    }).filter((category) => category.tools.length > 0);
   }, [search, activeCategory]);
 
+  const count = visibleCategories.reduce((sum, category) => sum + category.tools.length, 0);
+
   return (
-    <main aria-labelledby="tools-page-title">
+    <main className="bg-white dark:bg-gray-950" aria-labelledby="tools-page-title">
       <SEO
-        title="Canadian Financial Decision Tools"
-        description="Use Canadian financial decision tools for TFSA, RRSP, FHSA, dividend, mortgage, tax, GIC, debt payoff, and retirement planning. No sign-up required."
+        title="Canadian Finance Tools by Decision | EasyFinanceTools"
+        description="Browse Canadian TFSA, RRSP, FHSA, dividend, mortgage, retirement, tax, and account decision tools organized by financial goal. No login required."
         canonical="https://easyfinancetools.com/tools"
       />
       <FAQSchema faqs={toolHubFaqs} />
 
-      <div className="bg-gradient-to-br from-primary to-secondary px-4 py-16 text-white">
-        <div className="mx-auto max-w-5xl text-center">
-          <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold uppercase tracking-[0.18em] text-blue-50">
-            Decision tools, not a widget pile
-          </div>
-          <h1 id="tools-page-title" className="mb-4 text-4xl font-bold md:text-5xl">Canadian money decision tools</h1>
-          <p className="mx-auto max-w-3xl text-lg text-blue-50">
-            Pick the question you are trying to answer, compare scenarios, and move into the guide or next calculator only when it makes the decision clearer.
+      <section className="border-b border-slate-200 bg-slate-950 px-4 py-16 text-white dark:border-slate-800">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-200">Decision tool library</p>
+          <h1 id="tools-page-title" className="mt-3 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
+            Canadian finance tools organized by the decision they support
+          </h1>
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-blue-100">
+            Choose a goal, run the relevant calculator, then follow the next educational step only when it clarifies the tradeoff.
           </p>
-          <p className="mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-blue-100">
-            Last updated April 29, 2026
-          </p>
+          <TrustStrip className="mt-8 max-w-5xl bg-white/95 text-slate-900 dark:bg-slate-900/90" />
         </div>
-      </div>
+      </section>
 
-      <div className="mx-auto max-w-6xl px-4 py-16">
-
-        <EducationalDisclaimer />
-
-        <section className="mb-8 rounded-3xl border border-blue-100 bg-blue-50 p-6 dark:border-blue-900/60 dark:bg-blue-950/30">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use this hub</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Start with the decision that could change your next step</h2>
-          <p className="mt-3 max-w-4xl text-sm leading-7 text-slate-700 dark:text-slate-300">
-            If the account choice is unclear, start with TFSA, RRSP, or FHSA comparisons. If the account is already clear, open the calculator that models the number you need: contribution room, future growth, take-home pay, tax, mortgage cost, dividend income, or debt payoff.
-          </p>
-          <div className="mt-5 overflow-x-auto">
-            <table className="w-full min-w-[680px] overflow-hidden rounded-2xl border border-slate-200 bg-white text-left text-sm dark:border-slate-700 dark:bg-slate-900">
-              <thead className="bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
-                <tr>
-                  <th className="px-4 py-3 font-semibold">Decision</th>
-                  <th className="px-4 py-3 font-semibold">Start here</th>
-                  <th className="px-4 py-3 font-semibold">Then compare</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                {[
-                  ["Account priority", "TFSA vs RRSP vs FHSA guide", "TFSA, RRSP, and FHSA calculators"],
-                  ["Long-term growth", "Compound interest calculator", "TFSA or RRSP calculator"],
-                  ["Income goal", "Dividend calculator", "Canadian dividend ETF guide"],
-                  ["Home buying", "FHSA calculator", "Mortgage affordability and rent-vs-buy tools"],
-                ].map(([decision, start, compare]) => (
-                  <tr key={decision}>
-                    <td className="px-4 py-3 font-semibold text-primary dark:text-accent">{decision}</td>
-                    <td className="px-4 py-3 text-slate-700 dark:text-slate-300">{start}</td>
-                    <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{compare}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <div className="surface-soft grid gap-4 p-5 text-sm text-slate-700 dark:text-slate-300 md:grid-cols-4">
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
           <div>
-            <p className="font-semibold text-primary dark:text-accent">No sign-up</p>
-            <p className="mt-1">Open any tool and start modeling the decision immediately.</p>
-          </div>
-          <div>
-            <p className="font-semibold text-primary dark:text-accent">Privacy-first</p>
-            <p className="mt-1">We do not need your email to show results or pressure you into a funnel.</p>
-          </div>
-          <div>
-            <p className="font-semibold text-primary dark:text-accent">Methodology</p>
-            <p className="mt-1">Important tools should explain assumptions, limits, and update dates.</p>
-          </div>
-          <div>
-            <p className="font-semibold text-primary dark:text-accent">Built for Canada</p>
-            <p className="mt-1">Tax, home-buying, ETF income, retirement, and registered-account workflows for Canadian users.</p>
-          </div>
-        </div>
-
-        <section className="mt-8 rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-900/60 dark:bg-amber-950/20">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Quality filter</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Not every calculator deserves the same visibility</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-amber-950 dark:text-amber-100">
-            The hub deliberately puts deeper Canadian planning tools first and keeps narrow utilities lower in the experience. That reduces thin-content signals and makes the site feel more like a planning platform than a collection of keyword widgets.
-          </p>
-          <div className="mt-5 grid gap-4 md:grid-cols-3">
-            {qualitySignals.map((item) => (
-              <div key={item.title} className="rounded-2xl border border-amber-200 bg-white/80 p-5 dark:border-amber-900 dark:bg-slate-900/70">
-                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-700 dark:text-slate-300">{item.body}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Decision paths</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Start with the question, then open the calculator</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-            These paths group calculators by the real decision a Canadian reader is trying to make, so the tools page feels like a guided hub instead of a loose list.
-          </p>
-          <div className="mt-5 grid gap-4 md:grid-cols-2">
-            {decisionPaths.map((item) => (
-              <SurfaceTrackedLink
-                key={item.href}
-                to={item.href}
-                eventName="tools_hub_decision_path_click"
-                ctaLabel={item.ctaLabel}
-                trackingParams={{ section: "decision_paths", destination_type: item.href.startsWith("/blog") ? "article" : "tool" }}
-                className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900/60"
-              >
-                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
-              </SurfaceTrackedLink>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related guides</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use a guide when the calculator needs context</h2>
-          <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              { title: "TFSA contribution room", href: "/blog/tfsa-contribution-room-canada-2026" },
-              { title: "TFSA vs RRSP vs FHSA", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada" },
-              { title: "FHSA rules", href: "/blog/fhsa-rules-canada-2026" },
-              { title: "Canadian dividend ETFs", href: "/blog/best-canadian-dividend-etfs-2026" },
-            ].map((item) => (
-              <SurfaceTrackedLink
-                key={item.href}
-                to={item.href}
-                eventName="tools_hub_cta_click"
-                ctaLabel={`related_guide_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
-                trackingParams={{ section: "related_guides", destination_type: "article" }}
-                className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900/60 dark:text-accent"
-              >
-                {item.title}
-              </SurfaceTrackedLink>
-            ))}
-          </div>
-        </section>
-
-        <div className="mt-6 grid gap-3 lg:grid-cols-[1.35fr_repeat(3,minmax(0,1fr))]">
-          <SurfaceTrackedLink
-            to="/tools/compound-interest-calculator"
-            eventName="tools_hub_cta_click"
-            ctaLabel="featured_card_compound_interest_calculator"
-            trackingParams={{ section: "featured_cards", destination_type: "tool", emphasis: "primary" }}
-            className="rounded-2xl bg-gradient-to-br from-primary via-[#0a4c89] to-secondary p-5 text-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
-          >
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-50">Core planning tool</p>
-            <h2 className="mt-3 text-3xl font-bold leading-tight">Compound interest and contribution planning</h2>
-            <p className="mt-3 max-w-sm text-sm leading-6 text-blue-50">
-              Project long-term growth, contribution pace, inflation drag, and the compounding base that supports every other account decision.
-            </p>
-            <div className="mt-5 inline-flex rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white">
-              Open featured calculator
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Start with your goal</p>
+            <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Decision-first paths</h2>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {DECISION_PROMPTS.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <SurfaceTrackedLink
+                    key={item.title}
+                    to={item.href}
+                    eventName="tools_goal_router_click"
+                    ctaLabel={`goal_${slug(item.title)}`}
+                    trackingParams={{ section: "tools_goal_router", destination_type: "tool" }}
+                    className="group rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:-translate-y-0.5 hover:border-emerald-300 hover:bg-white hover:shadow-sm dark:border-slate-700 dark:bg-slate-900"
+                  >
+                    <Icon className="h-5 w-5 text-emerald-700 dark:text-emerald-300" aria-hidden="true" />
+                    <span className="mt-3 block font-bold text-primary dark:text-accent">{item.title}</span>
+                  </SurfaceTrackedLink>
+                );
+              })}
             </div>
-          </SurfaceTrackedLink>
-
-          {[
-            { label: "First-home planning", title: "FHSA", href: "/tools/fhsa-calculator" },
-            { label: "Income planning", title: "ETF income", href: "/tools/dividend-calculator" },
-            { label: "Registered accounts", title: "TFSA", href: "/tools/tfsa-calculator" },
-          ].map((item) => (
-            <SurfaceTrackedLink
-              key={item.title}
-              to={item.href}
-              eventName="tools_hub_cta_click"
-              ctaLabel={`featured_card_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
-              trackingParams={{ section: "featured_cards", destination_type: "tool", emphasis: "secondary" }}
-              className="surface-card p-4 transition hover:-translate-y-0.5 hover:shadow-md"
-            >
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-600 dark:text-slate-300">{item.label}</p>
-              <h3 className="mt-2 text-lg font-bold text-primary dark:text-accent">{item.title} tool</h3>
-            </SurfaceTrackedLink>
-          ))}
+          </div>
+          <div className="space-y-4">
+            <PrivacyNote />
+            <SourceNote />
+          </div>
         </div>
 
-        <div className="surface-card mb-6 mt-8 p-3">
-          <div className="grid gap-3 md:grid-cols-[1fr_auto]">
+        <div className="mt-10 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-900">
+          <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto]">
             <input
-              type="text"
-              placeholder="Search tools such as FHSA, ETF income, TFSA, mortgage, tax, debt..."
+              type="search"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              aria-label="Search finance tools"
-              className="focus-ring w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 placeholder-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Search TFSA, RRSP, dividend, mortgage, retirement..."
+              className="focus-ring w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder-slate-400 dark:border-slate-700 dark:bg-gray-800 dark:text-white"
+              aria-label="Search Canadian finance tools"
             />
-            <div className="flex items-center rounded-xl bg-slate-50 px-4 py-3 text-sm text-slate-500 dark:bg-slate-800 dark:text-slate-300">
-              {filtered.length} matching tools
+            <div className="rounded-2xl bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+              {count} matching tools
             </div>
           </div>
-        </div>
-
-        <div className="mb-8 flex flex-wrap gap-2">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition-all ${
-                activeCategory === category
-                  ? "border-primary bg-primary text-white shadow-sm"
-                  : "border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        {filtered.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {filtered.map((tool) => (
-              <SurfaceTrackedLink
-                key={tool.title}
-                to={tool.link}
-                eventName="tools_hub_cta_click"
-                ctaLabel={`tool_card_${tool.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
-                trackingParams={{
-                  section: "tool_cards",
-                  destination_type: "tool",
-                  tool_title: tool.title,
-                  tool_category: tool.category,
-                  active_category: activeCategory,
-                  search_query: search || "",
-                }}
-                className={`group rounded-2xl border-2 bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-xl dark:bg-gray-800 ${tool.color}`}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {["All", ...TOOL_CATEGORIES.map((category) => category.title)].map((category) => (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setActiveCategory(category)}
+                className={`focus-ring rounded-full border px-4 py-2 text-xs font-bold transition ${
+                  activeCategory === category
+                    ? "border-primary bg-primary text-white"
+                    : "border-slate-200 bg-white text-slate-600 hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+                }`}
               >
-                <div className="mb-4 flex items-start justify-between gap-3">
-                  <span className="text-sm font-semibold uppercase tracking-wide text-secondary">{tool.category}</span>
-                  {tool.badge && <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">{tool.badge}</span>}
-                </div>
-                <h2 className="mb-2 text-xl font-bold text-primary dark:text-white">{tool.title}</h2>
-                <p className="text-sm text-gray-700 dark:text-gray-300">{tool.desc}</p>
-                <div className="mt-5 flex items-center justify-between text-sm font-semibold text-secondary">
-                  <span>Open tool and see next steps</span>
-                  <span className="transition-transform group-hover:translate-x-1">More</span>
-                </div>
-              </SurfaceTrackedLink>
+                {category}
+              </button>
             ))}
           </div>
-        ) : (
-          <div className="py-16 text-center text-gray-600 dark:text-gray-300">
-            <div className="mb-4 text-sm font-black uppercase tracking-[0.3em] text-secondary">No Match</div>
-            <p className="text-lg">
-              No tools found for "<span className="font-semibold">{search}</span>"
-            </p>
+        </div>
+
+        <div className="mt-10 space-y-10">
+          {visibleCategories.map((category) => {
+            const Icon = category.icon;
+            return (
+              <section key={category.title} aria-labelledby={`${slug(category.title)}-heading`}>
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </div>
+                  <h2 id={`${slug(category.title)}-heading`} className="text-2xl font-bold text-primary dark:text-accent">
+                    {category.title}
+                  </h2>
+                </div>
+                <div className="mt-5 grid gap-4 md:grid-cols-2">
+                  {category.tools.map((tool) => (
+                    <SurfaceTrackedLink
+                      key={`${category.title}-${tool.name}`}
+                      to={tool.href}
+                      eventName="tools_card_click"
+                      ctaLabel={`tool_${slug(tool.name)}`}
+                      trackingParams={{ section: "categorized_tools", tool_category: category.title, destination_type: "tool" }}
+                      className={`group rounded-3xl border p-5 transition hover:-translate-y-1 hover:border-emerald-300 hover:shadow-lg dark:border-slate-700 dark:bg-gray-900 ${
+                        tool.muted ? "border-dashed border-slate-300 bg-slate-50/70" : "border-slate-200 bg-white"
+                      }`}
+                    >
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <h3 className="text-xl font-bold text-primary dark:text-accent">{tool.name}</h3>
+                        <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] ${
+                          tool.status === "Live"
+                            ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200"
+                            : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"
+                        }`}>
+                          {tool.status}
+                        </span>
+                      </div>
+                      <p className="mt-4 text-sm font-semibold text-slate-700 dark:text-slate-200">Who it helps</p>
+                      <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{tool.who}</p>
+                      <p className="mt-4 text-sm font-semibold text-slate-700 dark:text-slate-200">Decision it supports</p>
+                      <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{tool.decision}</p>
+                      <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-secondary dark:text-emerald-300">
+                        Open tool
+                        <ArrowRightIcon className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
+                      </span>
+                    </SurfaceTrackedLink>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
+        </div>
+
+        {count === 0 ? (
+          <div className="mt-12 rounded-3xl border border-slate-200 bg-slate-50 p-8 text-center dark:border-slate-700 dark:bg-slate-900">
+            <p className="font-bold text-primary dark:text-accent">No matching tools found.</p>
             <button
+              type="button"
               onClick={() => {
                 setSearch("");
                 setActiveCategory("All");
               }}
-              className="mt-4 text-sm text-primary underline"
+              className="mt-3 text-sm font-semibold text-secondary underline"
             >
-              Clear search
+              Clear filters
             </button>
           </div>
-        )}
-
-        <div className="mt-12 grid gap-4 md:grid-cols-3">
-          {[
-            { title: "Start with the account decision", body: "FHSA, TFSA, and RRSP tools work best when you compare the next dollar instead of looking at one account in isolation.", href: "/tools/fhsa-calculator" },
-            { title: "Model income goals", body: "The ETF income simulator helps turn a yield idea into a monthly-income and capital requirement plan.", href: "/tools/dividend-calculator" },
-            { title: "Compare housing tradeoffs", body: "Mortgage, affordability, and rent-vs-buy tools are stronger when you use them together instead of as isolated checks.", href: "/tools/mortgage-calculator" },
-          ].map((item) => (
-            <SurfaceTrackedLink
-              key={item.title}
-              to={item.href}
-              eventName="tools_hub_cta_click"
-              ctaLabel={`cluster_card_${item.title.toLowerCase().replace(/[^a-z0-9]+/g, "_")}`}
-              trackingParams={{ section: "cluster_cards", destination_type: "tool" }}
-              className="surface-card p-5 transition hover:-translate-y-0.5 hover:shadow-md"
-            >
-              <h2 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h2>
-              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">{item.body}</p>
-            </SurfaceTrackedLink>
-          ))}
-        </div>
-
-        <section className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">FAQ</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Questions about the calculator hub</h2>
-          <div className="mt-5 grid gap-4 md:grid-cols-2">
-            {toolHubFaqs.map((item) => (
-              <div key={item.q} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
-                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.q}</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
-    </main>
-  );
-}
-
-                <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
+        ) : null}
+      </section>
     </main>
   );
 }

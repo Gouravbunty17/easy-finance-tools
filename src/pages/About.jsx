@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import EnhancedAuthorBox from "../components/EnhancedAuthorBox";
 import TopicClusterMap from "../components/TopicClusterMap";
+import DecisionFramework from "../components/DecisionFramework";
 
 const FOUNDER_HEADSHOT_URL = "";
 const FOUNDER_LINKEDIN_URL = "";
@@ -170,6 +171,14 @@ export default function About() {
                 focus="Canadian finance calculators and education"
                 headshotUrl={FOUNDER_HEADSHOT_URL}
                 linkedinUrl={FOUNDER_LINKEDIN_URL}
+              />
+            </div>
+
+            <div className="mt-8">
+              <DecisionFramework
+                eyebrow="How the site thinks"
+                title="Decision support before product selection"
+                intro="EasyFinanceTools is meant to help users understand the tradeoff, rule, warning, and next path before any provider or product comparison appears."
               />
             </div>
 

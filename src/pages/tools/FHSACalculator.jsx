@@ -569,18 +569,18 @@ export default function FHSACalculator() {
         referral={{
           placement: 'fhsa_decision_page',
           badge: 'Logical next step',
-          title: 'Open an FHSA and start investing with Wealthsimple',
+          title: 'Compare platform details after reviewing FHSA assumptions',
           highlight: 'FHSA',
-          description: 'If the FHSA still looks like the right account after you compare it with TFSA and RRSP scenarios, a simple investing workflow can be a reasonable next step.',
+          description: 'If the FHSA still looks like the right account after you compare it with TFSA and RRSP scenarios, compare Canadian platform features only after eligibility, timeline, and asset risk are clear.',
           fitHeading: 'Why this placement makes sense here',
           fitPoints: [
-            'You already know the FHSA should get the next contribution.',
-            'You want an easy path to hold cash, ETFs, or a simple investing mix inside the FHSA.',
+            'You have checked that the FHSA is eligible and useful for your home-buying timeline.',
+            'You want to compare fees, account features, and cash or investment options.',
             'You have already checked room, timeline, and home-buyer eligibility before opening the account.',
           ],
-          details: 'Use the referral code at signup | Keep comparing account features, fees, and product choices before deciding',
-          disclosure: 'Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change the FHSA assumptions, tax discussion, or account-comparison guidance on this page.',
-          buttonLabel: 'Open FHSA with Wealthsimple',
+          details: 'Provider terms, promotions, eligibility, and fees can change. Verify details with the provider before opening or funding an account.',
+          disclosure: 'Affiliate disclosure: We may earn a referral bonus if you use this code. That does not change the FHSA assumptions, tax discussion, or account-comparison guidance on this page.',
+          buttonLabel: 'Review provider details',
         }}
       />
 

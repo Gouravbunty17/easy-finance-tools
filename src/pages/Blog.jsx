@@ -733,7 +733,7 @@ export default function Blog() {
               compact
               eyebrow="Optional source updates"
               title="Follow calculator and rule changes."
-              description="CRA limits, source updates, corrected assumptions, and major guide improvements. Email collection is not connected yet."
+              description="CRA limits, source updates, corrected assumptions, and major guide improvements. This area explains the update policy without asking for personal information."
             />
 
             <section className="surface-card p-5">

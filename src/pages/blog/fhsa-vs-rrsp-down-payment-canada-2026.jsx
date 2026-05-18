@@ -488,7 +488,7 @@ export default function FHSAvsRRSPDownPaymentCanada2026() {
             title: 'Open an FHSA with Wealthsimple only after the account choice is clear',
             description: 'If the FHSA still looks like the right first account after you compare it with RRSP and TFSA alternatives, a simple investing platform can be a reasonable next step.',
             code: 'R8F7ZW',
-            href: 'https://wealthsimple.com/invite/R8F7ZW',
+            href: 'https://www.wealthsimple.com/en-ca',
             body: 'When this CTA makes sense',
             bullets: [
               'You already know the FHSA should get the next contribution.',

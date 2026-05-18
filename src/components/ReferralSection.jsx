@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { trackReferralAction } from "../lib/analytics";
 
 const REFERRAL_CODE = "R8F7ZW";
-const REFERRAL_URL = `https://wealthsimple.com/invite/${REFERRAL_CODE}`;
+const REFERRAL_URL = "https://www.wealthsimple.com/en-ca";
 
 export default function ReferralSection({
   placement = "referral_section",

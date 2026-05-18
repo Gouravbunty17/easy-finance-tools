@@ -1,11 +1,53 @@
 import React from 'react';
+import {
+  ArrowPathIcon,
+  BookOpenIcon,
+  ExclamationTriangleIcon,
+  MapIcon,
+} from '@heroicons/react/24/outline';
+
+const defaultSteps = [
+  {
+    title: 'The Tradeoff',
+    badge: 'Step 1',
+    signal: 'Name what you are choosing between.',
+    whenItHelps: 'The decision has competing goals: tax savings, flexibility, home buying, income, or retirement timing.',
+    watchOut: 'A calculator can look precise even when the real question is account fit or timing.',
+    icon: ArrowPathIcon,
+  },
+  {
+    title: 'The Rules',
+    badge: 'Step 2',
+    signal: 'Check the Canadian rules that shape the result.',
+    whenItHelps: 'CRA room, withdrawal timing, mortgage stress tests, account eligibility, or tax treatment drive the answer.',
+    watchOut: 'Outdated limits, province changes, and missed contribution-room history can change the result.',
+    icon: BookOpenIcon,
+  },
+  {
+    title: 'The Warnings',
+    badge: 'Step 3',
+    signal: 'Look for the assumption that could break the plan.',
+    whenItHelps: 'Returns, income, rates, yield, liquidity, job stability, or home timing are uncertain.',
+    watchOut: 'High yields, refund math, short timelines, and concentrated positions can hide risk.',
+    icon: ExclamationTriangleIcon,
+  },
+  {
+    title: 'The Next Path',
+    badge: 'Step 4',
+    signal: 'Move to the tool or guide that tests the next assumption.',
+    whenItHelps: 'The first result creates a clearer follow-up question instead of a final answer.',
+    watchOut: 'Jumping to a product before the decision is understood can make the site feel sales-first.',
+    icon: MapIcon,
+  },
+];
 
 export default function DecisionFramework({
   eyebrow = 'Decision framework',
-  title,
-  intro,
-  items = [],
+  title = 'A four-step way to make Canadian money decisions',
+  intro = 'EasyFinanceTools is built around tradeoffs, rules, warnings, and the next useful path. The goal is not to force one answer; it is to show which assumption matters next.',
+  items = defaultSteps,
   footer,
+  compact = false,
 }) {
   if (!items.length) return null;
 
@@ -17,14 +59,19 @@ export default function DecisionFramework({
         {intro ? <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{intro}</p> : null}
       </div>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
+      <div className={`mt-6 grid gap-4 ${compact ? 'md:grid-cols-4' : 'md:grid-cols-2 xl:grid-cols-4'}`}>
         {items.map((item) => (
           <article
             key={item.title}
-            className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-5 dark:border-slate-700 dark:from-slate-900 dark:to-gray-900"
+            className="group rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-5 transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-sm dark:border-slate-700 dark:from-slate-900 dark:to-gray-900"
           >
             <div className="flex items-start justify-between gap-4">
-              <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+              <div>
+                {item.icon ? (
+                  <item.icon className="mb-3 h-6 w-6 text-emerald-700 dark:text-emerald-300" aria-hidden="true" />
+                ) : null}
+                <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+              </div>
               {item.badge ? (
                 <span className="shrink-0 rounded-full bg-secondary/10 px-3 py-1 text-xs font-bold text-secondary">
                   {item.badge}

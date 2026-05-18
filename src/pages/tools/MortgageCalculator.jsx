@@ -673,17 +673,17 @@ export default function MortgageCalculator() {
         ]}
         referral={{
           placement: 'mortgage_tool_next_steps',
-          badge: 'Useful next step',
-          title: 'Still building the down payment? Get $25 free with Wealthsimple',
-          highlight: '$25 free',
-          description: 'If the purchase is not immediate, an FHSA or TFSA can be the better next move than stretching for the home today.',
-          details: 'Use the bonus only if the account fits your plan | Not a substitute for comparing rates or mortgage terms',
+          badge: 'Optional next step',
+          title: 'Compare account options after the affordability check',
+          highlight: 'account options',
+          description: 'If the purchase is not immediate, compare FHSA, TFSA, and cash options for the down payment before stretching for the home today.',
+          details: 'Provider terms, promotions, eligibility, and fees can change. Verify details with the provider before opening or funding an account.',
           fitHeading: 'Why this may fit',
           fitPoints: [
             'Useful if you still need to grow the down payment before buying.',
-            'Works better as a next step after a real savings plan, not as a reason to rush into an account.',
+            'Works better after a real savings plan, not as a reason to rush into an account.',
           ],
-          buttonLabel: 'Open an FHSA or TFSA',
+          buttonLabel: 'Review provider details',
         }}
       />
 

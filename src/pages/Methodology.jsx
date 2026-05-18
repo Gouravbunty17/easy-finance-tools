@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import DecisionFramework from "../components/DecisionFramework";
 
 const toolGroups = [
   {
@@ -75,6 +76,12 @@ export default function Methodology() {
                 ))}
               </div>
             </nav>
+
+            <DecisionFramework
+              eyebrow="Platform framework"
+              title="The decision flow behind the calculators"
+              intro="A premium finance tool should not simply output a number. It should show the tradeoff, the Canadian rule, the warning, and the next path."
+            />
 
             <div id="decision-first" className="surface-card scroll-mt-24 p-6 md:p-8">
               <h2 className="text-2xl font-bold text-primary dark:text-accent">Decision-first philosophy</h2>

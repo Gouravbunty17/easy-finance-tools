@@ -9,7 +9,7 @@ import TLDRBox from "../../components/TLDRBox";
 import FAQSchema from "../../components/FAQSchema";
 import ArticleSchema from "../../components/ArticleSchema";
 
-const WEALTHSIMPLE_REFERRAL_URL = "https://wealthsimple.com/invite/R8F7ZW";
+const WEALTHSIMPLE_REFERRAL_URL = "https://www.wealthsimple.com/en-ca";
 
 const accountChoices = [
   {

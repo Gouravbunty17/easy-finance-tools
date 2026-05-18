@@ -548,7 +548,7 @@ export default function DividendCalculator() {
   } = model;
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-12">
+    <main className="mx-auto max-w-6xl overflow-x-hidden px-4 py-12">
       <SEO
         title="Dividend Calculator Canada 2026: Income, Yield & DRIP"
         description="Free Canadian dividend calculator. Estimate annual income, monthly dividends, and DRIP growth for ETFs in TFSA, RRSP, or non-registered accounts."
@@ -562,12 +562,12 @@ export default function DividendCalculator() {
       />
       <FAQSchema faqs={ETF_FAQS} />
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
-        <div>
+      <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
+        <div className="min-w-0">
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             Canadian ETF income planning
           </div>
-          <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">ETF income and dividend simulator</h1>
+          <h1 className="break-words text-3xl font-bold leading-tight text-primary dark:text-accent sm:text-4xl md:text-5xl">ETF income and dividend simulator</h1>
           <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed for planning assumptions" />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             Compare popular Canadian dividend ETFs, test a custom yield assumption, and see how much capital and reinvestment it may take to reach practical income goals inside a TFSA or taxable account.
@@ -822,7 +822,7 @@ export default function DividendCalculator() {
           </section>
         </div>
 
-        <aside className="surface-card h-fit p-6">
+        <aside className="surface-card h-fit min-w-0 p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Input</p>
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Build your ETF income scenario</h2>
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
@@ -1103,18 +1103,18 @@ export default function DividendCalculator() {
         referral={{
           placement: 'etf_income_page',
           badge: 'Logical next step',
-          title: 'Start your ETF income plan with Wealthsimple',
-          highlight: 'ETF income',
-          description: 'If this simulator helps you settle on a simple ETF income approach, a low-friction investing account can be a reasonable next step after you compare strategy and account type.',
+          title: 'Compare platform details after the income assumptions make sense',
+          highlight: 'income assumptions',
+          description: 'If this simulator helps you settle on an income approach, compare fees, account types, and ETF availability after reviewing yield, concentration, and tax-location risk.',
           fitHeading: 'Why this placement makes sense here',
           fitPoints: [
             'You already know the income strategy fits your TFSA or investing plan.',
-            'You want an easy way to buy and hold dividend ETFs with recurring contributions.',
+            'You want to compare where the ETF can be held and what the platform charges.',
             'You have already compared the income ETF idea against a broader growth ETF option.',
           ],
-          details: 'Use the referral code at signup | Keep comparing features, fees, and account choices before deciding',
-          disclosure: 'Affiliate disclosure: We may earn a referral bonus if you sign up using this code. That does not change the ETF assumptions, TFSA discussion, or risk reminders on this page.',
-          buttonLabel: 'Start ETF plan with Wealthsimple',
+          details: 'Provider terms, promotions, eligibility, and fees can change. Verify details with the provider before opening or funding an account.',
+          disclosure: 'Affiliate disclosure: We may earn a referral bonus if you use this code. That does not change the ETF assumptions, TFSA discussion, or risk reminders on this page.',
+          buttonLabel: 'Review provider details',
         }}
       />
 

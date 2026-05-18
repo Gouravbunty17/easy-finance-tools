@@ -5,7 +5,7 @@ import MethodologyPanel from "../../components/MethodologyPanel";
 import TrackedLink from "../../components/TrackedLink";
 import OutboundTrackedLink from "../../components/OutboundTrackedLink";
 
-const WEALTHSIMPLE_REFERRAL_URL = "https://wealthsimple.com/invite/R8F7ZW";
+const WEALTHSIMPLE_REFERRAL_URL = "https://www.wealthsimple.com/en-ca";
 
 const platformChoices = [
   {
