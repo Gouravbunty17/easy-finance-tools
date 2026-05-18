@@ -19,6 +19,9 @@ import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
+import ResultInterpretation from '../../components/ResultInterpretation';
+import WatchOutBox from '../../components/WatchOutBox';
+import RelatedTools from '../../components/RelatedTools';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
 import SourceList from '../../components/SourceList';
@@ -233,6 +236,49 @@ export default function FHSACalculator() {
               </div>
             </div>
           </section>
+
+          <div className="mt-8 grid gap-4">
+            <ResultInterpretation
+              title="Decision read: what should this FHSA result change?"
+              summary={`This scenario estimates ${formatCurrency(result.totalTaxSavings)} of deduction value and a projected purchase balance of ${formatCurrency(result.projectedBalance)}. The useful question is whether eligibility and timeline make the FHSA stronger than TFSA flexibility or RRSP-only planning.`}
+              points={[
+                {
+                  title: result.likelyAgeEligible ? 'Eligibility still matters' : 'Eligibility needs review',
+                  body: result.likelyAgeEligible
+                    ? 'The age input appears compatible with the usual FHSA framework, but first-home status and qualifying-withdrawal rules still need confirmation.'
+                    : 'The birth year entered may not fit the usual FHSA age rules. Treat the result as exploratory until eligibility is verified.',
+                },
+                {
+                  title: yearsToPurchase <= 3 ? 'Short home timeline' : 'Planning runway',
+                  body: yearsToPurchase <= 3
+                    ? 'A short timeline makes asset volatility more important than chasing growth. Down-payment money usually needs caution.'
+                    : 'A longer timeline gives the FHSA more room to compound, but the home goal should still drive risk level.',
+                },
+                {
+                  title: 'Tax deduction tradeoff',
+                  body: 'The deduction can be valuable, but the account only works best when a qualifying home purchase remains realistic.',
+                },
+              ]}
+            />
+            <WatchOutBox
+              title="FHSA rules that can change the answer"
+              intro="FHSA value depends on eligibility, participation room, home timing, and proper withdrawal use."
+              items={[
+                'Confirm first-time home buyer eligibility before opening or contributing.',
+                'RRSP-to-FHSA transfers can be useful, but they still use FHSA room and need proper issuer handling.',
+                'A short purchase timeline can make volatile investments inappropriate even when the tax deduction looks strong.',
+                'If no qualifying home purchase happens, transfer and closure rules become part of the plan.',
+              ]}
+            />
+            <RelatedTools
+              trackingContext="fhsa_result_related"
+              tools={[
+                { title: 'Mortgage affordability calculator', href: '/tools/mortgage-affordability-calculator', body: 'Check whether the projected down payment supports a realistic home-price range.' },
+                { title: 'TFSA Calculator', href: '/tools/tfsa-calculator', body: 'Compare the FHSA against a more flexible account if the home timeline is uncertain.' },
+                { title: 'FHSA rules guide', href: '/blog/fhsa-rules-canada-2026', body: 'Review eligibility, limits, qualifying withdrawals, and transfer considerations.' },
+              ]}
+            />
+          </div>
 
           <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
             <div className="flex flex-wrap items-center justify-between gap-3">

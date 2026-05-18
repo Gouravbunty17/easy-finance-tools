@@ -22,6 +22,9 @@ import SourceList from '../../components/SourceList';
 import OfficialSourceNote from '../../components/OfficialSourceNote';
 import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
+import ResultInterpretation from '../../components/ResultInterpretation';
+import WatchOutBox from '../../components/WatchOutBox';
+import RelatedTools from '../../components/RelatedTools';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
@@ -346,6 +349,60 @@ export default function MortgageAffordabilityCalculator() {
                 Existing debt payments reduce the room further. In this case, the TDS-based payment cap is {formatCurrency(result.maxPaymentFromTds)}.
               </p>
             </div>
+          </div>
+
+          <div className="mt-8 grid gap-4">
+            <ResultInterpretation
+              title="Decision read: is this an approval range or a safe budget?"
+              summary={`This scenario estimates a maximum home price near ${formatCurrency(result.maxHomePrice)} using a qualifying payment of ${formatCurrency(result.affordableMortgagePayment)} at ${formatPercent(result.qualifyingRate, 2)}. Treat it as a planning boundary, not a spending target.`}
+              points={[
+                {
+                  title: result.gdsUsed > 0.36 || result.tdsUsed > 0.42 ? 'Ratios are tight' : 'Ratios have room',
+                  body: `GDS is about ${formatPercent(result.gdsUsed * 100)} and TDS is about ${formatPercent(result.tdsUsed * 100)}. The closer those ratios get to common lender limits, the less room remains for repairs, job changes, or renewal-rate pressure.`,
+                },
+                {
+                  title: Number(monthlyDebtPayments || 0) > 0 ? 'Debt affects approval' : 'Debt is not the blocker',
+                  body: Number(monthlyDebtPayments || 0) > 0
+                    ? `Existing monthly debt of ${formatCurrency(monthlyDebtPayments)} directly reduces the mortgage payment room in this model.`
+                    : 'With no monthly debt entered, the result is being shaped more by income, housing costs, down payment, and the stress-test rate.',
+                },
+                {
+                  title: 'Cash after closing',
+                  body: `Cash needed for down payment plus estimated closing costs is about ${formatCurrency(result.closingCosts + Number(downPayment || 0))}. Keep a repair and emergency buffer outside the down payment.`,
+                },
+              ]}
+            />
+            <WatchOutBox
+              title="Mortgage affordability warnings"
+              intro="A lender-style affordability estimate can still be too aggressive for a real household budget."
+              items={[
+                'Final approval depends on lender underwriting, credit history, income documentation, property type, and insurer rules.',
+                'The stress-test rate can be meaningfully higher than the contract mortgage rate.',
+                'A tight GDS or TDS result leaves less room for repairs, strata increases, job changes, and renewal-rate shocks.',
+                'Avoid using every liquid dollar for the down payment if it would leave no emergency fund after closing.',
+              ]}
+            />
+            <RelatedTools
+              title="Next mortgage planning steps"
+              tools={[
+                {
+                  title: 'Mortgage payment calculator',
+                  href: '/tools/mortgage-calculator',
+                  body: 'Translate the approval range into monthly payment, interest, and amortization pressure.',
+                },
+                {
+                  title: 'FHSA Calculator',
+                  href: '/tools/fhsa-calculator',
+                  body: 'Strengthen the down-payment path if cash to close is the constraint.',
+                },
+                {
+                  title: 'Mortgage prepayments vs investing',
+                  href: '/blog/mortgage-prepayments-vs-investing-canada',
+                  body: 'Compare mortgage decisions against investing tradeoffs after affordability is clear.',
+                },
+              ]}
+              trackingContext="mortgage_affordability_result"
+            />
           </div>
 
           <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">

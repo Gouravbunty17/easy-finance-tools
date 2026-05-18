@@ -29,6 +29,9 @@ import OptimizationTips from '../../components/OptimizationTips';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import DecisionFramework from '../../components/DecisionFramework';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
+import ResultInterpretation from '../../components/ResultInterpretation';
+import WatchOutBox from '../../components/WatchOutBox';
+import RelatedTools from '../../components/RelatedTools';
 import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
@@ -767,6 +770,61 @@ export default function DividendCalculator() {
                   body: 'Projected value after contributions, income treatment, and price-growth assumptions.',
                 },
               ]}
+            />
+            <ResultInterpretation
+              title="Decision read: what should the income estimate change?"
+              summary={`The model shows about ${formatDividendCurrency(results.afterTaxFirstYearIncome)} of first-year income and about ${formatDividendCurrency(results.finalAnnualIncome)} in year ${years}. That is useful only if the yield, account location, and concentration risk still make sense together.`}
+              points={[
+                {
+                  title: asNumber(yieldInput) >= 8 ? 'High yield needs extra review' : 'Yield assumption looks moderate',
+                  body: asNumber(yieldInput) >= 8
+                    ? 'A high yield can reduce the capital target on paper while hiding covered-call drag, concentration, falling unit prices, or distribution-cut risk.'
+                    : 'A moderate yield can still be risky, but the plan is less dependent on headline payout than a very high-yield scenario.',
+                },
+                {
+                  title: dripEnabled ? 'DRIP supports future income' : 'Cash flow slows compounding',
+                  body: dripEnabled
+                    ? 'Reinvesting distributions can help future income grow, but it still depends on payout stability and market returns.'
+                    : 'Taking cash now may fit an income goal, but it usually reduces the future compounding path compared with reinvestment.',
+                },
+                {
+                  title: useTfsa ? 'TFSA income is tax-free, not risk-free' : 'Taxable income needs more detail',
+                  body: useTfsa
+                    ? 'A TFSA can shelter eligible growth and withdrawals, but TFSA room should still be used for investments that fit the broader plan.'
+                    : 'A taxable account may involve dividend credits, foreign withholding, capital gains, and adjusted-cost-base tracking that this simplified model does not fully capture.',
+                },
+              ]}
+            />
+            <WatchOutBox
+              title="Dividend planning warnings"
+              intro="Dividend income can look stable in a calculator before the real portfolio risks are visible."
+              items={[
+                'A high yield can signal payout pressure, concentration risk, or a strategy that trades growth for income.',
+                'ETF distributions can change, and a dividend cut can affect both cash flow and investor behaviour.',
+                'Covered-call ETFs may cap some upside and can experience NAV erosion if distributions exceed sustainable returns.',
+                'Taxable-account distributions can be more complex than a simple after-tax income estimate.',
+              ]}
+            />
+            <RelatedTools
+              title="Next dividend planning steps"
+              tools={[
+                {
+                  title: 'TFSA Calculator',
+                  href: '/tools/tfsa-calculator',
+                  body: 'Check whether dividend income is the right job for your TFSA room.',
+                },
+                {
+                  title: 'Investment Fit Framework',
+                  href: '/tools/investment-fit-framework',
+                  body: 'Review account location, concentration, yield risk, and time-horizon fit before acting.',
+                },
+                {
+                  title: 'Covered-call ETF guide',
+                  href: '/blog/covered-call-etfs-canada-explained',
+                  body: 'Understand the income tradeoff before relying on a covered-call yield.',
+                },
+              ]}
+              trackingContext="dividend_calculator_result"
             />
             <OptimizationTips
               title="Questions to answer before relying on the income"

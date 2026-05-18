@@ -19,6 +19,10 @@ import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
+import ResultInterpretation from '../../components/ResultInterpretation';
+import WatchOutBox from '../../components/WatchOutBox';
+import NextStepLinks from '../../components/NextStepLinks';
+import RelatedTools from '../../components/RelatedTools';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
 import SourceList from '../../components/SourceList';
@@ -322,6 +326,59 @@ export default function TFSACalculator() {
               </div>
             </div>
           </section>
+
+          <div className="mt-8 grid gap-4">
+            <ResultInterpretation
+              title="Decision read: what should this TFSA result change?"
+              summary={`This scenario points to ${formatCurrency(result.estimatedRoomNow)} of estimated TFSA room and ${formatCurrency(result.projectedBalance)} after ${years} years. Use the room number to avoid contribution mistakes first, then use the projection to compare whether the TFSA should beat RRSP or FHSA contributions.`}
+              points={[
+                {
+                  title: result.estimatedRoomNow < annualContribution ? 'Room is tight' : 'Room appears available',
+                  body: result.estimatedRoomNow < annualContribution
+                    ? 'Your planned year-one contribution is larger than the estimated room shown. Verify CRA records before contributing.'
+                    : 'Your planned year-one contribution fits inside the room estimate entered, assuming recent activity is accurate.',
+                },
+                {
+                  title: years <= 3 ? 'Short timeline caution' : 'Longer timeline value',
+                  body: years <= 3
+                    ? 'A short TFSA timeline puts more weight on liquidity and capital preservation than return chasing.'
+                    : 'A longer timeline gives tax-free compounding more time to matter, but investment risk still belongs to the holdings you choose.',
+                },
+                {
+                  title: 'Account comparison',
+                  body: 'If your income is high or a first-home purchase is realistic, compare RRSP and FHSA before treating TFSA as the default next account.',
+                },
+              ]}
+            />
+            <WatchOutBox
+              title="TFSA mistakes to avoid before acting"
+              intro="Most serious TFSA problems come from timing and room tracking, not from the calculator math itself."
+              items={[
+                'Do not re-contribute a same-year withdrawal unless you have other unused room available.',
+                'CRA My Account can lag recent deposits, withdrawals, and transfers. Keep your own TFSA records.',
+                'TFSA rules can change yearly, and overcontributions can trigger a 1% monthly tax on the excess.',
+                'A tax-free account does not make a risky investment safer or a high yield more sustainable.',
+              ]}
+            />
+            <RelatedTools
+              trackingContext="tfsa_result_related"
+              tools={[
+                { title: 'Account Decision Tool', href: '/tools/account-decision-tool', body: 'Compare whether TFSA, RRSP, or FHSA should receive the next contribution.' },
+                { title: 'RRSP Calculator', href: '/tools/rrsp-calculator', body: 'Test whether the deduction and refund assumptions are strong enough to beat TFSA flexibility.' },
+                { title: 'TFSA contribution room guide', href: '/blog/tfsa-contribution-room-canada-2026', body: 'Review contribution-room rules, withdrawals, and common CRA timing mistakes.' },
+              ]}
+            />
+            <NextStepLinks
+              trackingContext="tfsa_result_next_steps"
+              title="Next step after this TFSA estimate"
+              intro="Move from room safety into the decision that actually changes behavior."
+              links={[
+                { title: 'Check account priority', href: '/tools/account-decision-tool', body: 'Best if RRSP or FHSA may compete with the TFSA for the next dollar.' },
+                { title: 'Model dividend income', href: '/tools/dividend-calculator', body: 'Best if you plan to use TFSA room for income-focused ETFs.' },
+                { title: 'Read TFSA vs RRSP', href: '/blog/tfsa-vs-rrsp-canada-2026', body: 'Best if the main tradeoff is tax deduction now versus withdrawal flexibility later.' },
+              ]}
+            />
+          </div>
 
           <div className="mt-8 grid gap-4">
             <ResultInsightCard title="Use the room result before choosing investments" tone="emerald">

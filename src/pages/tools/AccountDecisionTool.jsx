@@ -20,6 +20,9 @@ import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import DecisionFramework from '../../components/DecisionFramework';
+import ResultInterpretation from '../../components/ResultInterpretation';
+import WatchOutBox from '../../components/WatchOutBox';
+import RelatedTools from '../../components/RelatedTools';
 import { CONTENT_LAST_REVIEWED } from '../../config/financial';
 
 const CANONICAL = 'https://easyfinancetools.com/tools/account-decision-tool';
@@ -768,6 +771,25 @@ function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) 
         </ul>
       </div>
 
+      <ResultInterpretation
+        title="Decision read: why the top account changed"
+        summary={`The framework currently puts ${lead.label} first because your answers made its tradeoff stronger than the other account options. This is a planning order, not a product recommendation.`}
+        points={[
+          {
+            title: 'Tax tradeoff',
+            body: 'RRSP and FHSA value rises when current marginal tax rate and deduction usefulness are high.',
+          },
+          {
+            title: 'Flexibility tradeoff',
+            body: 'TFSA value rises when liquidity, uncertain timelines, or lower current income matter more than deduction value.',
+          },
+          {
+            title: 'Timeline tradeoff',
+            body: 'FHSA value rises when first-home eligibility and a realistic purchase timeline line up.',
+          },
+        ]}
+      />
+
       {/* Ranked contribution order */}
       <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
         <h3 className="text-lg font-bold text-primary dark:text-accent">Your ranked contribution order</h3>
@@ -818,21 +840,39 @@ function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) 
         </ol>
       </div>
 
-      {/* Risks / warnings */}
-      <div className="rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-700/50 dark:bg-amber-950/30">
-        <h3 className="flex items-center gap-2 text-lg font-bold text-amber-900 dark:text-amber-100">
-          <ExclamationTriangleIcon className="h-5 w-5" aria-hidden="true" />
-          Risks &amp; things to watch
-        </h3>
-        <ul className="mt-3 space-y-2 text-sm leading-6 text-amber-900 dark:text-amber-100">
-          {recommendation.risks.map((risk) => (
-            <li key={risk} className="flex items-start gap-2">
-              <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-700 dark:bg-amber-300" />
-              <span>{risk}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <WatchOutBox
+        title="What can change this account order"
+        intro="Account priority can shift when the tax, timeline, or eligibility assumptions change."
+        items={[
+          ...recommendation.risks,
+          'Income changes can alter the value of an RRSP or FHSA deduction.',
+          'Province changes can alter marginal tax-rate context and retirement planning assumptions.',
+          'Employer pension or matching details can make RRSP contributions more important than this tool can fully model.',
+          'Contribution-room history, withdrawal timing, and future tax-rule updates can change the clean ranking.',
+        ]}
+      />
+
+      <RelatedTools
+        title="Test the account order with calculators"
+        tools={[
+          {
+            title: 'TFSA Calculator',
+            href: '/tools/tfsa-calculator',
+            body: 'Check contribution room, withdrawal timing, and flexible investing tradeoffs.',
+          },
+          {
+            title: 'RRSP Calculator',
+            href: '/tools/rrsp-calculator',
+            body: 'Estimate whether the deduction and retirement tax tradeoff are meaningful.',
+          },
+          {
+            title: 'FHSA Calculator',
+            href: '/tools/fhsa-calculator',
+            body: 'Test first-home timing, contribution limits, and qualifying withdrawal assumptions.',
+          },
+        ]}
+        trackingContext="account_decision_result"
+      />
 
       {/* Next steps */}
       <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
