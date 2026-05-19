@@ -50,6 +50,9 @@ export default function Corrections() {
         <p className="mt-4 text-lg leading-8 text-slate-600 dark:text-slate-300">
           Easy Finance Tools is written and maintained by Gourav Kumar. This page explains how calculation issues, tax-year updates, source changes, and user-reported errors are handled.
         </p>
+        <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+          For accountability context, read the <Link to="/founder-transparency" className="font-semibold text-primary underline dark:text-secondary">Founder Transparency</Link> page. It explains who operates the site, what credentials are not claimed, and how methodology and updates are handled.
+        </p>
         <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-7 text-amber-950 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-100">
           No formal correction notices have been published yet. This page will list material updates, calculation corrections, and source changes going forward.
         </div>

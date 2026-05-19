@@ -107,6 +107,9 @@ export default function About() {
               <Link to="/editorial-standards" className="rounded-xl border border-slate-300 px-4 py-2 text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:text-accent">
                 Editorial standards
               </Link>
+              <Link to="/founder-transparency" className="rounded-xl border border-slate-300 px-4 py-2 text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:text-accent">
+                Founder transparency
+              </Link>
             </div>
           </div>
 
@@ -140,6 +143,7 @@ export default function About() {
                 </a>
               ) : null}
               <Link to="/contact" className="text-primary underline dark:text-secondary">Contact</Link>
+              <Link to="/founder-transparency" className="text-primary underline dark:text-secondary">Transparency</Link>
               <Link to="/corrections" className="text-primary underline dark:text-secondary">Corrections</Link>
             </div>
           </aside>

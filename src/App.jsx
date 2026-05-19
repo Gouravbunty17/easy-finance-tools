@@ -18,6 +18,7 @@ const Blog = lazyWithPreload(() => import('./pages/Blog'));
 const InvestingCategory = lazyWithPreload(() => import('./pages/InvestingCategory'));
 const TopicHub = lazyWithPreload(() => import('./pages/TopicHub'));
 const About = lazyWithPreload(() => import('./pages/About'));
+const FounderTransparency = lazyWithPreload(() => import('./pages/FounderTransparency'));
 const Contact = lazyWithPreload(() => import('./pages/Contact'));
 const Methodology = lazyWithPreload(() => import('./pages/Methodology'));
 const EditorialStandards = lazyWithPreload(() => import('./pages/EditorialStandards'));
@@ -115,6 +116,7 @@ const routeEntries = [
   ['/topics/mortgages', TopicHub],
   ['/topics/retirement', TopicHub],
   ['/about', About],
+  ['/founder-transparency', FounderTransparency],
   ['/contact', Contact],
   ['/methodology', Methodology],
   ['/editorial-standards', EditorialStandards],

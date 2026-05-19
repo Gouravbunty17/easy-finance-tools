@@ -46,6 +46,7 @@ export const topicHubs = {
       { q: 'Should I max my TFSA first?', a: 'Often, but not always. TFSA usually gets stronger when flexibility matters, while RRSP or FHSA can be stronger when tax deductions or first-home rules matter more.' },
       { q: 'Is TFSA money always invested?', a: 'No. TFSA is an account type. Cash, GICs, ETFs, and stocks can all sit inside it, with different risks.' },
       { q: 'When do TFSA withdrawals create new room?', a: 'Most withdrawals are added back on January 1 of the following calendar year. They generally do not create immediate same-year room.' },
+      { q: 'How should I verify TFSA rules before contributing?', a: 'Use this hub to understand the decision, then verify available room against CRA My Account, your own transaction records, and official CRA TFSA guidance before making a real contribution.' },
       { q: 'What should I verify each year?', a: 'Confirm annual limit, current contribution room, withdrawals that restored room, and any CRA guidance changes.' },
     ],
     nextPath: {

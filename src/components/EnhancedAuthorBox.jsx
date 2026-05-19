@@ -40,6 +40,7 @@ export default function EnhancedAuthorBox({
           </p>
           <div className="mt-3 flex flex-wrap gap-3 text-sm font-semibold">
             <Link to="/about" className="text-primary underline dark:text-secondary">About Gourav</Link>
+            <Link to="/founder-transparency" className="text-primary underline dark:text-secondary">Founder transparency</Link>
             {linkedinUrl ? (
               <a href={linkedinUrl} target="_blank" rel="noreferrer" className="text-primary underline dark:text-secondary">
                 LinkedIn

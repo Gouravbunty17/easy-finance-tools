@@ -30,6 +30,7 @@ export default function Footer() {
             <p className="font-bold mb-3 text-white">Company</p>
             <ul className="space-y-2 text-blue-100 text-sm">
               <li><Link to="/about" className="hover:text-white">About</Link></li>
+              <li><Link to="/founder-transparency" className="hover:text-white">Founder Transparency</Link></li>
               <li><Link to="/blog" className="hover:text-white">Blog</Link></li>
               <li><Link to="/contact" className="hover:text-white">Contact</Link></li>
               <li><Link to="/methodology" className="hover:text-white">Methodology</Link></li>
@@ -54,6 +55,9 @@ export default function Footer() {
           <div className="mt-4 flex flex-wrap gap-3">
             <Link to="/methodology" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
               Read methodology
+            </Link>
+            <Link to="/founder-transparency" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
+              Founder transparency
             </Link>
             <Link to="/editorial-standards" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
               Editorial standards

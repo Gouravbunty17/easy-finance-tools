@@ -129,6 +129,9 @@ export default function Methodology() {
                 <p>
                   Updates are prioritized when CRA limits, tax brackets, mortgage rules, Bank of Canada data sources, CMHC/FCAC guidance, or core assumptions change. Pages that cannot be kept current or that do not contain enough original explanation should be improved or noindexed rather than treated as finished core content.
                 </p>
+                <p>
+                  The founder-operated process and current credentials limits are explained on the <Link to="/founder-transparency" className="text-secondary underline-offset-2 hover:underline">Founder Transparency</Link> page. The site should not imply external review unless that review has actually happened.
+                </p>
               </div>
             </div>
 
@@ -299,6 +302,7 @@ export default function Methodology() {
               <div className="mt-3 grid gap-3">
                 {[
                   { label: "About EasyFinanceTools", href: "/about" },
+                  { label: "Founder transparency", href: "/founder-transparency" },
                   { label: "Editorial standards", href: "/editorial-standards" },
                   { label: "Terms and disclaimer", href: "/terms" },
                   { label: "Privacy policy", href: "/privacy" },

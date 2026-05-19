@@ -14,6 +14,7 @@ export const STATIC_ROUTES = [
   { route: "/topics/mortgages", sourcePath: "src/pages/TopicHub.jsx", group: "topics" },
   { route: "/topics/retirement", sourcePath: "src/pages/TopicHub.jsx", group: "topics" },
   { route: "/about", sourcePath: "src/pages/About.jsx", group: "pages" },
+  { route: "/founder-transparency", sourcePath: "src/pages/FounderTransparency.jsx", group: "pages" },
   { route: "/contact", sourcePath: "src/pages/Contact.jsx", group: "pages" },
   { route: "/privacy", sourcePath: "src/pages/PrivacyPolicy.jsx", group: "pages" },
   { route: "/privacy-policy", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },

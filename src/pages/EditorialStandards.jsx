@@ -151,6 +151,9 @@ export default function EditorialStandards() {
                 <p>
                   EasyFinanceTools is currently founder-operated, so the site avoids implying professional certification or institutional review. The content system is designed to support future external expert review notes without fabricating them today.
                 </p>
+                <p>
+                  Founder accountability is documented separately on the <Link to="/founder-transparency" className="text-secondary underline-offset-2 hover:underline">Founder Transparency</Link> page. If an external expert reviews a page in the future, that review should be identified clearly and only on the reviewed page.
+                </p>
               </div>
             </div>
 
@@ -187,6 +190,7 @@ export default function EditorialStandards() {
               <div className="mt-3 grid gap-3">
                 {[
                   { label: "About EasyFinanceTools", href: "/about" },
+                  { label: "Founder transparency", href: "/founder-transparency" },
                   { label: "Methodology and sources", href: "/methodology" },
                   { label: "Terms and disclaimer", href: "/terms" },
                   { label: "Privacy policy", href: "/privacy" },

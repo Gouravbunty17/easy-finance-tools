@@ -34,6 +34,7 @@ export default function AuthorBox({ className = "", lastReviewed = "", linkedinU
       </p>
       <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
         <Link to="/about" className="text-secondary underline-offset-2 hover:underline">Read more about Easy Finance Tools</Link>
+        <Link to="/founder-transparency" className="text-secondary underline-offset-2 hover:underline">Founder transparency</Link>
         {lastReviewed ? <span className="text-slate-500 dark:text-slate-400">Last reviewed: {lastReviewed}</span> : null}
         {linkedinUrl ? (
           <a href={linkedinUrl} target="_blank" rel="noreferrer" className="text-secondary underline-offset-2 hover:underline">LinkedIn</a>
