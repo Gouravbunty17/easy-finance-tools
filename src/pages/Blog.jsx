@@ -79,7 +79,7 @@ const posts = [
   },
   {
     slug: "tfsa-withdrawals-contribution-room-canada",
-    title: "How TFSA Withdrawals Really Affect Contribution Room",
+    title: "TFSA Withdrawal and Recontribution Rules in Canada",
     date: "2026-05-09",
     category: "TFSA",
     readTime: "10 min",
@@ -119,7 +119,7 @@ const posts = [
   },
   {
     slug: "tfsa-investing-mistakes-canada",
-    title: "TFSA Investing Mistakes Canadians Should Avoid",
+    title: "TFSA Mistakes Canadians Make",
     date: "2026-05-06",
     category: "TFSA",
     readTime: "9 min",

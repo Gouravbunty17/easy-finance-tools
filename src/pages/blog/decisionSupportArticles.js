@@ -255,9 +255,9 @@ export const decisionSupportArticles = {
 
   "tfsa-withdrawals-contribution-room-canada": {
     slug: "tfsa-withdrawals-contribution-room-canada",
-    title: "How TFSA Withdrawals Really Affect Contribution Room",
-    seoTitle: "How TFSA Withdrawals Affect Room in Canada",
-    metaDescription: "Understand how TFSA withdrawals affect contribution room in Canada, including same-year recontribution traps, CRA timing, transfers, and examples.",
+    title: "TFSA Withdrawal and Recontribution Rules in Canada",
+    seoTitle: "TFSA Withdrawal and Recontribution Rules Canada",
+    metaDescription: "Understand TFSA withdrawal and recontribution rules in Canada, including same-year recontribution traps, CRA timing, transfers, and practical examples.",
     canonical: "https://easyfinancetools.com/blog/tfsa-withdrawals-contribution-room-canada",
     category: "TFSA",
     icon: "TFSA",
@@ -357,6 +357,8 @@ export const decisionSupportArticles = {
       { type: "Tool", label: "Account Decision Tool", href: "/tools/account-decision-tool", body: "Compare TFSA, RRSP, and FHSA priority if the withdrawal changes your savings plan." },
       { type: "Guide", label: "TFSA vs RRSP", href: "/blog/tfsa-vs-rrsp-canada-2026", body: "Decide whether the next contribution belongs in TFSA or RRSP after room is verified." },
       { type: "Guide", label: "TFSA mistakes Canadians make", href: "/blog/tfsa-investing-mistakes-canada", body: "Review the broader set of TFSA room, investment, and account-use mistakes." },
+      { type: "Hub", label: "TFSA topic hub", href: "/topics/tfsa", body: "Continue through the full TFSA learning path, including room, withdrawals, account priority, and mistakes." },
+      { type: "Guide", label: "FHSA rules Canada", href: "/blog/fhsa-rules-canada-2026", body: "Review FHSA rules if withdrawn TFSA cash may now be used for a first-home goal." },
     ],
     pathway: {
       eyebrow: "Withdrawal workflow",

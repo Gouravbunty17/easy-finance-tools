@@ -911,7 +911,7 @@ function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) 
       <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
         <h3 className="text-lg font-bold text-primary dark:text-accent">Your ranked contribution order</h3>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-          Work down the list from priority 1 — fund the higher-priority account first before moving to the next one.
+          Review the list from priority 1, then compare the next account before making a contribution decision.
         </p>
         <ol className="mt-5 space-y-3">
           {recommendation.ranked.map((account, index) => {

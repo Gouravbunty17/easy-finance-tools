@@ -113,6 +113,8 @@ const article = {
     { type: "Guide", label: "TFSA vs RRSP guide", href: "/blog/tfsa-vs-rrsp-canada-2026", body: "Compare whether your next dollar belongs in a TFSA or RRSP first." },
     { type: "Tool", label: "Account Decision Tool", href: "/tools/account-decision-tool", body: "Compare TFSA, RRSP, and FHSA priority before funding one account by default." },
     { type: "Guide", label: "TFSA mistakes Canadians make", href: "/blog/tfsa-investing-mistakes-canada", body: "Review common contribution, trading, withdrawal, and investment-fit errors." },
+    { type: "Hub", label: "TFSA topic hub", href: "/topics/tfsa", body: "Use the hub to continue through contribution room, withdrawals, TFSA vs RRSP, and common mistakes." },
+    { type: "Guide", label: "FHSA rules guide", href: "/blog/fhsa-rules-canada-2026", body: "Check whether a first-home goal should change the account priority before using TFSA room." },
     { type: "Tool", label: "Compound interest calculator", href: "/tools/compound-interest-calculator", body: "Model long-term growth assumptions before investing TFSA money." },
   ],
   pathway: {

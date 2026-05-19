@@ -255,9 +255,9 @@ export const investingGuideArticles = {
 
   "tfsa-investing-mistakes-canada": {
     slug: "tfsa-investing-mistakes-canada",
-    title: "TFSA Investing Mistakes Canadians Should Avoid",
-    seoTitle: "TFSA Investing Mistakes Canada | Avoid These Errors",
-    metaDescription: "Learn common TFSA investing mistakes in Canada, including overcontributions, short-term money risk, day trading, withdrawals, foreign dividends, and contribution room confusion.",
+    title: "TFSA Mistakes Canadians Make",
+    seoTitle: "TFSA Mistakes Canadians Make | Room, Withdrawals & Risk",
+    metaDescription: "Learn common TFSA mistakes Canadians make, including overcontributions, short-term money risk, active trading, withdrawals, foreign dividends, and contribution room confusion.",
     canonical: "https://easyfinancetools.com/blog/tfsa-investing-mistakes-canada",
     category: "TFSA | Investing",
     icon: "TFSA",
@@ -347,6 +347,8 @@ export const investingGuideArticles = {
       { type: "Guide", label: "TFSA contribution room Canada 2026", href: "/blog/tfsa-contribution-room-canada-2026", body: "Review current limits, room calculations, and examples." },
       { type: "Guide", label: "TFSA withdrawal and recontribution guide", href: "/blog/tfsa-withdrawals-contribution-room-canada", body: "Avoid same-year recontribution mistakes after taking money out." },
       { type: "Tool", label: "Account Decision Tool", href: "/tools/account-decision-tool", body: "Decide whether TFSA, RRSP, or FHSA should receive the next contribution." },
+      { type: "Hub", label: "TFSA topic hub", href: "/topics/tfsa", body: "Use the full TFSA cluster to connect room, withdrawals, account priority, and investing risk." },
+      { type: "Guide", label: "TFSA vs RRSP guide", href: "/blog/tfsa-vs-rrsp-canada-2026", body: "Compare tax deduction value with TFSA flexibility before choosing the next account." },
       { type: "Guide", label: "TFSA vs RRSP vs FHSA", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada", body: "Compare registered-account priority when a home goal or tax deduction matters." },
     ],
     pathway: {

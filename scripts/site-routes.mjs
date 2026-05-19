@@ -37,6 +37,9 @@ export const LEGACY_REDIRECT_ROUTES = [
   { route: "/income-tax-calculator", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
   { route: "/savings-calculator", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
   { route: "/blog/how-to-invest-in-canada", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
+  { route: "/blog/tfsa-withdrawal-recontribution-rules-canada", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
+  { route: "/blog/tfsa-mistakes-canadians-make", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
+  { route: "/blog/tfsa-vs-rrsp-canada", sourcePath: "src/components/LegacyRedirect.jsx", group: "legacy" },
 ];
 
 export const TOOL_ROUTES = [

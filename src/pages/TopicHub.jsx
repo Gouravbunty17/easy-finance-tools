@@ -60,6 +60,24 @@ function DecisionList({ title, items = [] }) {
   );
 }
 
+function HubCardList({ eyebrow, title, items = [] }) {
+  if (!items.length) return null;
+  return (
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      {eyebrow ? <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">{eyebrow}</p> : null}
+      <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">{title}</h2>
+      <div className="mt-5 grid gap-4 md:grid-cols-2">
+        {items.map((item) => (
+          <div key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+            <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+            <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function HubFAQ({ items = [] }) {
   if (!items.length) return null;
   return (
@@ -134,7 +152,10 @@ export default function TopicHub() {
           </section>
 
           <LinkGrid title={`${hub.label} calculators and tools`} items={hub.calculators} cta="Use tool" />
+          <HubCardList eyebrow="Who this helps" title={`${hub.label} planning situations`} items={hub.audience} />
+          <HubCardList eyebrow="Key decisions" title={`Questions to answer before using a ${hub.label}`} items={hub.keyDecisions} />
           <LinkGrid title={`${hub.label} guides and explainers`} items={hub.guides} cta="Read guide" />
+          <HubCardList eyebrow="Learning path" title={`A practical ${hub.label} learning path`} items={hub.learningPath} />
           <DecisionList title={`${hub.label} decision pages`} items={hub.decisions} />
           <HubVisual slug={slug} />
           <HubFAQ items={hub.faqs} />
