@@ -107,6 +107,26 @@
       "permanent": true
     },
     {
+      "source": "/tfsa-vs-rrsp",
+      "destination": "/blog/tfsa-vs-rrsp-vs-fhsa-canada",
+      "permanent": true
+    },
+    {
+      "source": "/fhsa-guide",
+      "destination": "/blog/how-to-use-fhsa-canada",
+      "permanent": true
+    },
+    {
+      "source": "/dividend-income",
+      "destination": "/blog/best-canadian-dividend-etfs-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog/canadian-dividend-etfs-2026",
+      "destination": "/blog/best-canadian-dividend-etfs-2026",
+      "permanent": true
+    },
+    {
       "source": "/blog/how-to-invest-in-canada",
       "destination": "/blog/how-to-start-investing-canada-2026",
       "permanent": true

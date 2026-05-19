@@ -5,6 +5,7 @@ import SurfaceTrackedLink from "./SurfaceTrackedLink";
 import ToolByline from "./ToolByline";
 import PrivacyNote from "./PrivacyNote";
 import SourceNote from "./SourceNote";
+import CalculatorResultTrustPanel from "./CalculatorResultTrustPanel";
 
 export function fmtCAD(value, options = {}) {
   return Number(value || 0).toLocaleString("en-CA", {
@@ -89,6 +90,18 @@ export default function CalculatorLayout({
 
         <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
           {results}
+          <CalculatorResultTrustPanel
+            assumptions={[
+              "The output uses the numbers currently entered on this page.",
+              "Rates, limits, and tax treatment are simplified for planning.",
+              "Results should be checked against current Canadian rules before acting.",
+            ]}
+            caveats={[
+              "This is an educational estimate, not personalized financial, tax, legal, or investment advice.",
+              "Provincial rules, eligibility, fees, and timing can change the result.",
+            ]}
+            nextLinks={relatedTools.slice(0, 2).map((tool) => ({ label: tool.title, href: tool.href }))}
+          />
         </aside>
       </div>
 

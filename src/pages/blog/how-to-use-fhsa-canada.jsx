@@ -77,7 +77,7 @@ export default function HowToUseFHSA() {
           <li><strong>Qualifying withdrawals are tax-free</strong> — like a TFSA, you pay zero tax when you use the money to buy your first home</li>
         </ul>
         <p>
-          No other account in Canada offers both of these benefits simultaneously. It's genuinely one of the best tools ever created for first-time buyers.
+          No other registered account in Canada combines these two features in the same way. For eligible first-time buyers, that can make the FHSA a meaningful account to understand before choosing between TFSA and RRSP contributions.
         </p>
 
         <h2>FHSA Quick Facts (2026)</h2>
@@ -151,7 +151,7 @@ export default function HowToUseFHSA() {
           If you don't use the FHSA to buy a home within 15 years of opening it (or by age 71), you have two options:
         </p>
         <ul>
-          <li><strong>Transfer to your RRSP/RRIF</strong> — tax-free, without affecting your RRSP contribution room. This is the best option for most people.</li>
+          <li><strong>Transfer to your RRSP/RRIF</strong> — tax-free, without affecting your RRSP contribution room. This can be a practical fallback when a qualifying home purchase no longer fits the plan.</li>
           <li><strong>Withdraw as income</strong> — you'll pay tax on the full amount as regular income</li>
         </ul>
         <p>

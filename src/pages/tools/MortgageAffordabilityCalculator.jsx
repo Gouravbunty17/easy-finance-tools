@@ -26,6 +26,7 @@ import WatchOutBox from '../../components/WatchOutBox';
 import RelatedTools from '../../components/RelatedTools';
 import NextStepLinks from '../../components/NextStepLinks';
 import PrivacyNote from '../../components/PrivacyNote';
+import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
@@ -372,6 +373,23 @@ export default function MortgageAffordabilityCalculator() {
                   title: 'Cash after closing',
                   body: `Cash needed for down payment plus estimated closing costs is about ${formatCurrency(result.closingCosts + Number(downPayment || 0))}. Keep a repair and emergency buffer outside the down payment.`,
                 },
+              ]}
+            />
+            <CalculatorResultTrustPanel
+              assumptions={[
+                `Household income entered: ${formatCurrency(householdIncome)}; down payment entered: ${formatCurrency(downPayment)}.`,
+                'The qualifying rate uses the higher of the entered rate plus stress-test buffer or the floor assumption used by the tool.',
+                'Property tax, heat, condo fees, and existing debt payments are included only as entered.',
+              ]}
+              caveats={[
+                'Final approval depends on lender underwriting, credit history, documentation, property details, and insurer rules.',
+                'Stress-test and mortgage-insurance rules can change.',
+                'A maximum approval estimate is not the same as a comfortable household budget.',
+              ]}
+              sources={[mortgageOfficialSources[0], mortgageOfficialSources[1], mortgageOfficialSources[2]]}
+              nextLinks={[
+                { label: 'Translate affordability into a mortgage payment', href: '/tools/mortgage-calculator' },
+                { label: 'Read the mortgage affordability reality check', href: '/blog/mortgage-affordability-reality-check-canada' },
               ]}
             />
             <WatchOutBox

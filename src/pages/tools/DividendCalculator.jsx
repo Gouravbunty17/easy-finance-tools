@@ -32,6 +32,7 @@ import WatchOutBox from '../../components/WatchOutBox';
 import RelatedTools from '../../components/RelatedTools';
 import NextStepLinks from '../../components/NextStepLinks';
 import PrivacyNote from '../../components/PrivacyNote';
+import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
 import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
@@ -794,6 +795,23 @@ export default function DividendCalculator() {
                     ? 'A TFSA can shelter eligible growth and withdrawals, but TFSA room should still be used for investments that fit the broader plan.'
                     : 'A taxable account may involve dividend credits, foreign withholding, capital gains, and adjusted-cost-base tracking that this simplified model does not fully capture.',
                 },
+              ]}
+            />
+            <CalculatorResultTrustPanel
+              assumptions={[
+                `Income is based on a ${formatDividendPercent(asNumber(yieldInput))} yield and ${formatDividendPercent(asNumber(dividendGrowth))} dividend-growth assumption.`,
+                `The projection uses ${formatDividendPercent(asNumber(priceGrowth))} annual price growth over ${years} years.`,
+                dripEnabled ? 'Distributions are reinvested in this scenario.' : 'Distributions are taken as cash in this scenario.',
+              ]}
+              caveats={[
+                'Dividend and ETF distributions can change and are not guaranteed.',
+                'Taxable accounts can involve dividend gross-up, credits, foreign withholding tax, capital gains, and adjusted-cost-base tracking.',
+                'A high yield can hide concentration, covered-call, payout sustainability, or NAV erosion risk.',
+              ]}
+              sources={[dividendTaxOfficialSources[0], dividendTaxOfficialSources[1], tfsaOfficialSources[0]]}
+              nextLinks={[
+                { label: 'Read the Canadian dividend ETF guide', href: '/blog/best-canadian-dividend-etfs-2026' },
+                { label: 'Check investment fit before relying on yield', href: '/tools/investment-fit-framework' },
               ]}
             />
             <WatchOutBox

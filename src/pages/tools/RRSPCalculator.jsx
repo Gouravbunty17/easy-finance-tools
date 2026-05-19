@@ -28,6 +28,7 @@ import ImportantConsiderations from '../../components/ImportantConsiderations';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import DecisionFramework from '../../components/DecisionFramework';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
+import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
 import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
@@ -463,6 +464,25 @@ export default function RRSPCalculator() {
               />
             </div>
           </section>
+
+          <CalculatorResultTrustPanel
+            className="mt-8"
+            assumptions={[
+              `The refund estimate uses a ${Math.round(result.currentRate * 1000) / 10}% current marginal-rate estimate for ${province}.`,
+              `The retirement value uses a ${Math.round(result.retirementRate * 1000) / 10}% retirement-rate assumption.`,
+              `Growth uses a ${expectedReturn}% annual return assumption over ${yearsToRetirement} years.`,
+            ]}
+            caveats={[
+              'Actual RRSP deduction room should be confirmed on your CRA Notice of Assessment.',
+              'RRSP withdrawals are taxable later, and contribution room is usually not restored after ordinary withdrawals.',
+              'Refund value depends on credits, deductions, province, income timing, and whether the refund is reinvested.',
+            ]}
+            sources={[rrspOfficialSources[0], rrspOfficialSources[1], rrspOfficialSources[2]]}
+            nextLinks={[
+              { label: 'Read when RRSP makes sense', href: '/blog/when-rrsp-makes-sense-canada' },
+              { label: 'Compare RRSP with TFSA and FHSA', href: '/tools/account-decision-tool' },
+            ]}
+          />
 
           <section className="mt-8 grid gap-4 md:grid-cols-3">
             {[

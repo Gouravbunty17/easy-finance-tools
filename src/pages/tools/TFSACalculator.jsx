@@ -32,6 +32,7 @@ import ImportantConsiderations from '../../components/ImportantConsiderations';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import DecisionFramework from '../../components/DecisionFramework';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
+import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
@@ -349,6 +350,23 @@ export default function TFSACalculator() {
                   title: 'Account comparison',
                   body: 'If your income is high or a first-home purchase is realistic, compare RRSP and FHSA before treating TFSA as the default next account.',
                 },
+              ]}
+            />
+            <CalculatorResultTrustPanel
+              assumptions={[
+                `TFSA room is estimated from eligibility year ${result.eligibleYear}, accrued room, lifetime contributions, and restored withdrawals entered here.`,
+                `Growth uses a ${expectedReturn}% annual return assumption over ${years} years.`,
+                `Next-year room assumes the ${FINANCIAL_YEAR} annual TFSA limit remains ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.tfsaAnnualLimit)}.`,
+              ]}
+              caveats={[
+                'CRA records can lag recent deposits, withdrawals, and transfers.',
+                'Same-year re-contributions can create excess TFSA amounts if other unused room is not available.',
+                'Tax-free growth does not make the underlying investment risk-free.',
+              ]}
+              sources={[tfsaOfficialSources[0], tfsaOfficialSources[1], tfsaOfficialSources[2]]}
+              nextLinks={[
+                { label: 'Read the TFSA contribution room guide', href: '/blog/tfsa-contribution-room-canada-2026' },
+                { label: 'Compare TFSA, RRSP, and FHSA priority', href: '/tools/account-decision-tool' },
               ]}
             />
             <WatchOutBox

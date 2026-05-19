@@ -27,6 +27,7 @@ import PrivacyNote from '../../components/PrivacyNote';
 import ReferenceSection from '../../components/ReferenceSection';
 import SourceList from '../../components/SourceList';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
+import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
@@ -260,6 +261,23 @@ export default function FHSACalculator() {
                   title: 'Tax deduction tradeoff',
                   body: 'The deduction can be valuable, but the account only works best when a qualifying home purchase remains realistic.',
                 },
+              ]}
+            />
+            <CalculatorResultTrustPanel
+              assumptions={[
+                `The model uses ${province}, ${formatCurrency(income)} of income, and ${yearsToPurchase} years to purchase.`,
+                `FHSA room is estimated from available room, contributions to date, and the ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)} annual limit.`,
+                `Growth uses a ${expectedReturn}% annual return assumption before a possible qualifying home withdrawal.`,
+              ]}
+              caveats={[
+                'FHSA eligibility depends on first-time home buyer status and CRA rules.',
+                'Short home-buying timelines can make volatile investments less suitable even inside a registered account.',
+                'If no qualifying home purchase happens, transfer and taxable-withdrawal rules matter.',
+              ]}
+              sources={[fhsaOfficialSources[0], fhsaOfficialSources[1], fhsaOfficialSources[2]]}
+              nextLinks={[
+                { label: 'Read the FHSA guide', href: '/blog/how-to-use-fhsa-canada' },
+                { label: 'Compare FHSA with TFSA and RRSP', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada' },
               ]}
             />
             <WatchOutBox

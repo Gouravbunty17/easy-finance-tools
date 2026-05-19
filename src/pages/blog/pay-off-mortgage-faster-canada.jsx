@@ -11,7 +11,7 @@ import MethodologyPanel from "../../components/MethodologyPanel";
 const FAQS = [
   {
     q: "Should I prepay my mortgage or invest the money instead?",
-    a: "The right answer depends on rates, account type, and your personal situation. Prepaying a 5.25% mortgage earns you a guaranteed 5.25% return — better than most GICs and comparable to many balanced funds on a risk-adjusted basis. But inside a TFSA or RRSP, tax-free or tax-deferred investment returns at 7–8% typically beat 5.25% mortgage prepayment over a 25-year horizon. A practical rule: capture any employer RRSP match first (that's an immediate 50–100% return), fund your TFSA, then direct the remainder to prepayment. If your mortgage rate is 6%+, the balance shifts more decisively toward prepaying.",
+    a: "The right answer depends on rates, account type, tax treatment, and your personal situation. Prepaying a mortgage gives a certain interest-saving effect equal to the mortgage rate, while investing has uncertain returns. A practical sequence is to consider any employer RRSP match, maintain emergency savings, compare TFSA/RRSP room, and then test mortgage prepayments against conservative after-tax investment assumptions.",
   },
   {
     q: "What is a prepayment penalty and how is it calculated?",
@@ -145,7 +145,7 @@ export default function PayOffMortgageFasterCanada() {
           <div className="not-prose my-4 rounded-xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-800 dark:bg-blue-900/20">
             <p className="mb-1 font-bold text-blue-800 dark:text-blue-300">Example: $2,000/year tax refund applied as prepayment</p>
             <p className="text-sm text-blue-700 dark:text-blue-400">
-              On a $500K mortgage at 5.25%, applying a $2,000 annual lump sum saves approximately <strong>$45,000 in interest</strong> and cuts <strong>3 years</strong> from your amortization. That's a guaranteed 5.25% return — often better than a GIC, with no market risk.
+              On a $500K mortgage at 5.25%, applying a $2,000 annual lump sum may save approximately <strong>$45,000 in interest</strong> and cut <strong>3 years</strong> from your amortization under the assumptions shown. That is an interest-saving effect, not an investment return, and the comparison still depends on tax account, rate, liquidity, and risk tolerance.
             </p>
           </div>
 
@@ -294,7 +294,7 @@ export default function PayOffMortgageFasterCanada() {
 
           <h3>Should I prepay my mortgage or invest the money instead?</h3>
           <p>
-            The math depends on your mortgage rate vs. your expected after-tax investment return. Prepaying a 5.25% mortgage gives you a guaranteed 5.25% return — after tax, on a non-registered account earning 7%, you likely net 4–5% depending on your marginal rate. Capturing employer RRSP matching (free money), funding your TFSA (tax-free returns), and then prepaying is usually the right sequence. If your mortgage rate is 6%+, the balance shifts more clearly toward prepaying.
+            The math depends on your mortgage rate versus a realistic after-tax investment assumption. Mortgage prepayments reduce interest with more certainty than market investing, while TFSA or RRSP investing may offer higher or lower outcomes depending on returns, taxes, fees, and timing. Employer matching, emergency savings, registered account room, and liquidity should all be reviewed before treating prepayment as the only answer.
           </p>
 
           <h3>What is the Interest Rate Differential penalty?</h3>

@@ -25,6 +25,7 @@ import ResultInterpretation from '../../components/ResultInterpretation';
 import WatchOutBox from '../../components/WatchOutBox';
 import RelatedTools from '../../components/RelatedTools';
 import NextStepLinks from '../../components/NextStepLinks';
+import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
 import { CONTENT_LAST_REVIEWED } from '../../config/financial';
 import { fhsaOfficialSources, rrspOfficialSources, tfsaOfficialSources } from '../../config/officialSources';
 
@@ -895,6 +896,24 @@ function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) 
             title: 'Timeline tradeoff',
             body: 'FHSA value rises when first-home eligibility and a realistic purchase timeline line up.',
           },
+        ]}
+      />
+
+      <CalculatorResultTrustPanel
+        assumptions={[
+          'The ranking uses weighted educational factors, not a personalized tax calculation.',
+          'Inputs include goal, income, timeline, home eligibility, emergency savings, confidence, refund use, and flexibility needs.',
+          'The result compares account priority only; it does not choose investments or providers.',
+        ]}
+        caveats={[
+          'CRA contribution room, FHSA eligibility, and RRSP deduction room must be verified before contributing.',
+          'Province, future income, pension changes, withdrawal timing, and tax-law updates can change the ranking.',
+          'This tool does not provide personalized financial, tax, legal, or investment advice.',
+        ]}
+        sources={[tfsaOfficialSources[0], rrspOfficialSources[0], fhsaOfficialSources[0]]}
+        nextLinks={[
+          { label: 'Read TFSA vs RRSP vs FHSA', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada' },
+          { label: 'Review beginner investing basics', href: '/blog/how-to-start-investing-canada-2026' },
         ]}
       />
 
