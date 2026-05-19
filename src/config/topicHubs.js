@@ -14,7 +14,7 @@ export const topicHubs = {
     title: 'TFSA Hub for Canadians',
     description: 'Use this TFSA hub to understand contribution room, tax-free growth, account priority, investing mistakes, and when a TFSA may or may not fit.',
     eyebrow: 'Registered account hub',
-    intro: 'The TFSA is powerful because withdrawals are tax-free and contribution room can return, but the details matter. Start here if you need to confirm room, compare TFSA against RRSP or FHSA, or decide whether investing inside a TFSA fits your timeline.',
+    intro: 'The TFSA is powerful because withdrawals are tax-free and contribution room can return, but the details matter. Start here if you need to confirm room, compare TFSA against RRSP or FHSA, understand withdrawal timing, or decide whether investing inside a TFSA fits your timeline.',
     startHere: [
       'Confirm contribution room against CRA before making a real deposit.',
       'Use the TFSA calculator when room and growth are the main question.',
@@ -35,8 +35,28 @@ export const topicHubs = {
       ['TFSA contribution room Canada 2026', '/blog/tfsa-contribution-room-canada-2026'],
       ['TFSA vs RRSP in Canada', '/blog/tfsa-vs-rrsp-canada-2026'],
       ['TFSA investing mistakes', '/blog/tfsa-investing-mistakes-canada'],
-      ['Best ETFs for a TFSA', '/blog/best-etfs-for-tfsa-canada-2026'],
+      ['TFSA withdrawals and recontributions', '/blog/tfsa-withdrawals-contribution-room-canada'],
     ],
+    decisions: [
+      { title: 'TFSA vs RRSP decision', href: '/blog/tfsa-vs-rrsp-canada-2026', body: 'Compare flexibility against deduction value before choosing where the next dollar goes.' },
+      { title: 'TFSA vs RRSP vs FHSA', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', body: 'Bring first-home rules into the account-priority decision when FHSA eligibility matters.' },
+      { title: 'Withdrawal timing', href: '/blog/tfsa-withdrawals-contribution-room-canada', body: 'Avoid same-year recontribution mistakes by understanding when room actually returns.' },
+    ],
+    faqs: [
+      { q: 'Should I max my TFSA first?', a: 'Often, but not always. TFSA usually gets stronger when flexibility matters, while RRSP or FHSA can be stronger when tax deductions or first-home rules matter more.' },
+      { q: 'Is TFSA money always invested?', a: 'No. TFSA is an account type. Cash, GICs, ETFs, and stocks can all sit inside it, with different risks.' },
+      { q: 'When do TFSA withdrawals create new room?', a: 'Most withdrawals are added back on January 1 of the following calendar year. They generally do not create immediate same-year room.' },
+      { q: 'What should I verify each year?', a: 'Confirm annual limit, current contribution room, withdrawals that restored room, and any CRA guidance changes.' },
+    ],
+    nextPath: {
+      title: 'A practical TFSA path',
+      intro: 'Use this sequence before adding the next dollar.',
+      steps: [
+        { title: 'Check contribution room', body: 'Estimate room, then verify against CRA and your own contribution records.', href: '/blog/tfsa-contribution-room-canada-2026' },
+        { title: 'Compare account priority', body: 'Test whether RRSP or FHSA deserves the next dollar instead.', href: '/tools/account-decision-tool' },
+        { title: 'Avoid timing mistakes', body: 'Review withdrawal and recontribution rules before moving money in and out.', href: '/blog/tfsa-withdrawals-contribution-room-canada' },
+      ],
+    },
     sources: tfsaOfficialSources,
   },
   rrsp: {
@@ -68,6 +88,25 @@ export const topicHubs = {
       ['TFSA vs RRSP vs FHSA', '/blog/tfsa-vs-rrsp-vs-fhsa-canada'],
       ['RRSP accounts in Canada', '/blog/best-rrsp-accounts-canada'],
     ],
+    decisions: [
+      { title: 'When RRSP makes sense', href: '/blog/when-rrsp-makes-sense-canada', body: 'Use a tax-rate, refund-use, and retirement-income framework before contributing.' },
+      { title: 'RRSP mistake middle-income Canadians make', href: '/blog/rrsp-mistake-middle-income-canadians', body: 'Avoid treating the refund as proof the RRSP was the best account.' },
+      { title: 'TFSA vs RRSP vs FHSA', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', body: 'Compare RRSP against flexibility and first-home account choices.' },
+    ],
+    faqs: [
+      { q: 'Is an RRSP refund free money?', a: 'No. It is usually tax deferral. The RRSP works best when the tax rate avoided today is higher than the tax rate paid later.' },
+      { q: 'Should I reinvest the refund?', a: 'Often yes if the RRSP is meant to build retirement wealth. Spending the refund weakens the long-term benefit.' },
+      { q: 'What should I verify?', a: 'Check RRSP deduction room, contribution deadline, pension adjustments, employer match, and future withdrawal tax assumptions.' },
+    ],
+    nextPath: {
+      title: 'A practical RRSP path',
+      intro: 'Separate the refund from the real decision.',
+      steps: [
+        { title: 'Estimate deduction value', body: 'Model refund, tax-rate gap, and retirement assumptions.', href: '/tools/rrsp-calculator' },
+        { title: 'Compare against TFSA', body: 'Check whether flexibility or lower current tax rate changes priority.', href: '/blog/tfsa-vs-rrsp-canada-2026' },
+        { title: 'Assign the refund', body: 'Decide before filing whether refund goes to investing, debt, or cash reserves.', href: '/blog/pay-debt-vs-invest-canada' },
+      ],
+    },
     sources: rrspOfficialSources,
   },
   fhsa: {
@@ -99,6 +138,25 @@ export const topicHubs = {
       ['FHSA vs RRSP for down payment', '/blog/fhsa-vs-rrsp-down-payment-canada-2026'],
       ['TFSA vs RRSP vs FHSA', '/blog/tfsa-vs-rrsp-vs-fhsa-canada'],
     ],
+    decisions: [
+      { title: 'TFSA vs RRSP vs FHSA', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', body: 'See when FHSA should come before more flexible or retirement-focused accounts.' },
+      { title: 'FHSA vs RRSP for a down payment', href: '/blog/fhsa-vs-rrsp-down-payment-canada-2026', body: 'Compare FHSA against the RRSP Home Buyers Plan and repayment rules.' },
+      { title: 'Rent vs buy in Canada', href: '/blog/rent-vs-buy-canada', body: 'Check whether the home plan still works before optimizing the account choice.' },
+    ],
+    faqs: [
+      { q: 'Should FHSA always come before TFSA?', a: 'No. FHSA gets stronger when eligibility, taxable income, and first-home timeline are clear. TFSA wins when flexibility is more important.' },
+      { q: 'Can I invest FHSA money aggressively?', a: 'Only if the timeline and risk tolerance fit. Short down-payment timelines usually require more caution.' },
+      { q: 'What should I verify?', a: 'Confirm first-time buyer status, annual participation room, lifetime limit, qualifying withdrawal process, and transfer rules.' },
+    ],
+    nextPath: {
+      title: 'A practical FHSA path',
+      intro: 'Connect tax savings to a realistic purchase plan.',
+      steps: [
+        { title: 'Confirm eligibility', body: 'Check first-time buyer status and participation room.', href: '/blog/fhsa-rules-canada-2026' },
+        { title: 'Model the account', body: 'Estimate tax savings and projected down-payment value.', href: '/tools/fhsa-calculator' },
+        { title: 'Check affordability', body: 'Connect the down payment to mortgage qualification and cash to close.', href: '/tools/mortgage-affordability-calculator' },
+      ],
+    },
     sources: fhsaOfficialSources,
   },
   dividends: {
@@ -131,6 +189,25 @@ export const topicHubs = {
       ['DRIP strategy Canada', '/blog/drip-strategy-canada'],
       ['Covered call ETFs explained', '/blog/covered-call-etfs-canada-explained'],
     ],
+    decisions: [
+      { title: 'Should you DRIP dividends?', href: '/blog/should-you-drip-dividends-canada', body: 'Compare reinvestment, taxable reporting, cash-flow needs, and rebalancing control.' },
+      { title: 'High-yield ETF risks', href: '/blog/high-yield-dividend-etfs-hurt-wealth-canada', body: 'Understand when a large payout can hide weaker total-return tradeoffs.' },
+      { title: 'Investment fit framework', href: '/tools/investment-fit-framework', body: 'Check account location, yield risk, concentration, and timeline fit.' },
+    ],
+    faqs: [
+      { q: 'Is higher dividend yield better?', a: 'Not automatically. Yield must be compared with total return, distribution sustainability, fees, tax treatment, and concentration.' },
+      { q: 'Should dividend ETFs be in a TFSA?', a: 'They can fit a tax-free income goal, but the TFSA may still be better used for broad long-term growth depending on the plan.' },
+      { q: 'What should I verify?', a: 'Check ETF factsheets, distribution history, MER, holdings, tax character, and whether the income target survives lower-yield scenarios.' },
+    ],
+    nextPath: {
+      title: 'A practical dividend path',
+      intro: 'Test income before choosing products.',
+      steps: [
+        { title: 'Model the income target', body: 'Estimate required capital and yield sensitivity.', href: '/tools/dividend-calculator' },
+        { title: 'Review DRIP choice', body: 'Decide whether cash flow or reinvestment fits the account job.', href: '/blog/should-you-drip-dividends-canada' },
+        { title: 'Check investment fit', body: 'Review account location and concentration risk.', href: '/tools/investment-fit-framework' },
+      ],
+    },
     sources: dividendTaxOfficialSources,
   },
   mortgages: {
@@ -161,6 +238,25 @@ export const topicHubs = {
       ['FHSA vs RRSP for a down payment', '/blog/fhsa-vs-rrsp-down-payment-canada-2026'],
       ['FHSA rules Canada 2026', '/blog/fhsa-rules-canada-2026'],
     ],
+    decisions: [
+      { title: 'Mortgage affordability reality check', href: '/blog/mortgage-affordability-reality-check-canada', body: 'Separate lender approval from a budget that survives real ownership costs.' },
+      { title: 'Rent vs buy in Canada', href: '/blog/rent-vs-buy-canada', body: 'Compare ownership costs, flexibility, timelines, and opportunity cost.' },
+      { title: 'Mortgage prepayments vs investing', href: '/blog/mortgage-prepayments-vs-investing-canada', body: 'Compare guaranteed interest savings with uncertain investing returns.' },
+    ],
+    faqs: [
+      { q: 'Is mortgage approval the same as affordability?', a: 'No. Approval is a lender qualification view. Affordability also includes repairs, cash buffers, renewal risk, and household comfort.' },
+      { q: 'Should I buy as soon as I qualify?', a: 'Not necessarily. Qualification should be compared against rent, job stability, down-payment liquidity, and long-term plans.' },
+      { q: 'What should I verify?', a: 'Check lender stress-test assumptions, property tax, condo fees, heating, land transfer tax, insurance, and closing costs.' },
+    ],
+    nextPath: {
+      title: 'A practical mortgage path',
+      intro: 'Move from approval math to household resilience.',
+      steps: [
+        { title: 'Check affordability', body: 'Estimate maximum range from income, debt, and stress-test assumptions.', href: '/tools/mortgage-affordability-calculator' },
+        { title: 'Translate to payments', body: 'Model payment, interest, insurance, and amortization.', href: '/tools/mortgage-calculator' },
+        { title: 'Compare rent vs buy', body: 'Test whether ownership is still the stronger path.', href: '/blog/rent-vs-buy-canada' },
+      ],
+    },
     sources: mortgageOfficialSources,
   },
   retirement: {
@@ -192,6 +288,25 @@ export const topicHubs = {
       ['RRSP deadline Canada 2026', '/blog/rrsp-deadline-canada-2026'],
       ['TFSA vs RRSP in Canada', '/blog/tfsa-vs-rrsp-canada-2026'],
     ],
+    decisions: [
+      { title: 'When RRSP makes sense', href: '/blog/when-rrsp-makes-sense-canada', body: 'Understand deduction value, refund use, and future withdrawal tax.' },
+      { title: 'TFSA vs RRSP vs FHSA', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', body: 'Choose account priority before optimizing investments.' },
+      { title: 'Pay debt vs invest', href: '/blog/pay-debt-vs-invest-canada', body: 'Decide whether retirement investing should wait while debt risk is handled.' },
+    ],
+    faqs: [
+      { q: 'Is retirement planning just an RRSP number?', a: 'No. CPP, OAS, TFSA withdrawals, taxable assets, pensions, inflation, and spending all affect the plan.' },
+      { q: 'Should I use TFSA or RRSP for retirement?', a: 'It depends on current tax rate, future taxable income, flexibility needs, employer plans, and benefit interactions.' },
+      { q: 'What should I verify?', a: 'Check official CPP/OAS rules, RRSP/RRIF withdrawal rules, pension details, and current contribution room.' },
+    ],
+    nextPath: {
+      title: 'A practical retirement path',
+      intro: 'Layer accounts and income sources instead of chasing one number.',
+      steps: [
+        { title: 'Model RRSP tradeoff', body: 'Estimate deduction value and retirement tax assumptions.', href: '/tools/rrsp-calculator' },
+        { title: 'Estimate public benefits', body: 'Layer CPP and OAS into the income picture.', href: '/tools/cpp-oas-estimator' },
+        { title: 'Stress-test independence', body: 'Check savings rate, inflation, and withdrawal assumptions.', href: '/tools/fire-calculator' },
+      ],
+    },
     sources: retirementOfficialSources,
   },
 };

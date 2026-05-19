@@ -102,6 +102,11 @@ const PRIORITY_OVERRIDES = {
   "/blog/weekly-dividend-etfs": "0.7",
   "/blog/emergency-fund-canada": "0.7",
   "/blog/pay-off-mortgage-faster-canada": "0.7",
+  "/blog/pay-debt-vs-invest-canada": "0.8",
+  "/blog/rent-vs-buy-canada": "0.8",
+  "/blog/should-you-drip-dividends-canada": "0.8",
+  "/blog/when-rrsp-makes-sense-canada": "0.8",
+  "/blog/mortgage-affordability-reality-check-canada": "0.8",
 };
 
 function toIsoDate(date) {

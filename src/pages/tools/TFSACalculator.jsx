@@ -18,12 +18,12 @@ import OfficialSourceNote from '../../components/OfficialSourceNote';
 import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
-import ActionableNextSteps from '../../components/ActionableNextSteps';
 import ResultInterpretation from '../../components/ResultInterpretation';
 import WatchOutBox from '../../components/WatchOutBox';
 import NextStepLinks from '../../components/NextStepLinks';
 import RelatedTools from '../../components/RelatedTools';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
+import PrivacyNote from '../../components/PrivacyNote';
 import ReferenceSection from '../../components/ReferenceSection';
 import SourceList from '../../components/SourceList';
 import ResultInsightCard from '../../components/ResultInsightCard';
@@ -259,6 +259,7 @@ export default function TFSACalculator() {
 
           <div className="mt-6">
             <EducationalDisclaimer />
+            <PrivacyNote className="mt-4" />
             <OfficialSourceNote
               body="TFSA contribution room and withdrawal timing should be checked against CRA before making a real contribution."
               sources={[tfsaOfficialSources[0], tfsaOfficialSources[1]]}
@@ -770,54 +771,6 @@ export default function TFSACalculator() {
           },
         ]}
         note="Manual review needed each year: confirm TFSA annual limits, any CRA guidance updates, and related account-comparison content."
-      />
-
-      <ActionableNextSteps
-        toolName="tfsa_decision_tool"
-        title="What to do next with the TFSA result"
-        intro="The best use of this result is to move from a room estimate into an account decision. Confirm room, compare the TFSA against RRSP or FHSA if needed, then choose investments or a provider only after the strategy is clear."
-        meaning={`${formatCurrency(result.projectedBalance)} is the directional TFSA balance if your room estimate, contribution pace, and return assumptions hold up. The more valuable the account flexibility feels relative to an RRSP deduction, the more the TFSA deserves the next contribution.`}
-        steps={[
-          'Confirm the room estimate against CRA before making a real contribution.',
-          'Compare the TFSA against RRSP or FHSA if another registered account is competing for the next dollar.',
-          'Choose the holdings after the account job is clear: broad growth, income, or short-term safety.',
-        ]}
-        actions={[
-          {
-            title: 'Compare TFSA vs RRSP',
-            body: 'Pressure-test whether the TFSA should beat the RRSP for the next contribution.',
-            href: '/blog/tfsa-vs-rrsp-canada-2026',
-            ctaLabel: 'compare_tfsa_vs_rrsp',
-          },
-          {
-            title: 'Open the ETF income simulator',
-            body: 'If the TFSA is an income account, model the yield, DRIP, and capital target before you buy anything.',
-            href: '/tools/dividend-calculator',
-            ctaLabel: 'open_dividend_calculator',
-          },
-          {
-            title: 'Read the ETF guide',
-            body: 'Compare income-heavy ETFs against broader TFSA ETF defaults before you lock in the plan.',
-            href: '/blog/best-etfs-for-tfsa-canada-2026',
-            ctaLabel: 'read_tfsa_etf_guide',
-          },
-        ]}
-        referral={{
-          placement: 'tfsa_decision_page',
-          badge: 'Logical next step',
-          title: 'Compare platform details after reviewing TFSA assumptions',
-          highlight: 'TFSA',
-          description: 'If the TFSA still looks like the right home for the next contribution, compare Canadian platform features only after contribution room, account fit, and holdings are clear.',
-          fitHeading: 'Why this placement makes sense here',
-          fitPoints: [
-            'You have already checked TFSA room and the account still deserves the next contribution.',
-            'You want to compare fees, available account types, and investment options.',
-            'You are choosing the provider after the strategy, not before it.',
-          ],
-          details: 'Provider terms, promotions, eligibility, and fees can change. Verify details with the provider before opening or funding an account.',
-          disclosure: 'Affiliate disclosure: We may earn a referral bonus if you use this code. That does not change the TFSA assumptions, room discussion, or account-comparison guidance on this page.',
-          buttonLabel: 'Review provider details',
-        }}
       />
 
       <FAQ items={TFSA_FAQS} />

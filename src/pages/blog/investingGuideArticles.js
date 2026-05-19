@@ -345,9 +345,20 @@ export const investingGuideArticles = {
     related: [
       { type: "Tool", label: "TFSA calculator", href: "/tools/tfsa-calculator", body: "Estimate room, contributions, growth, and withdrawal scenarios." },
       { type: "Guide", label: "TFSA contribution room Canada 2026", href: "/blog/tfsa-contribution-room-canada-2026", body: "Review current limits, room calculations, and examples." },
-      { type: "Guide", label: "Best ETFs for TFSA Canada", href: "/blog/best-etfs-for-tfsa-canada-2026", body: "Compare ETF categories that may fit TFSA investors." },
-      { type: "Guide", label: "TFSA vs RRSP vs FHSA", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada", body: "Decide which registered account should get the next dollar." },
+      { type: "Guide", label: "TFSA withdrawal and recontribution guide", href: "/blog/tfsa-withdrawals-contribution-room-canada", body: "Avoid same-year recontribution mistakes after taking money out." },
+      { type: "Tool", label: "Account Decision Tool", href: "/tools/account-decision-tool", body: "Decide whether TFSA, RRSP, or FHSA should receive the next contribution." },
+      { type: "Guide", label: "TFSA vs RRSP vs FHSA", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada", body: "Compare registered-account priority when a home goal or tax deduction matters." },
     ],
+    pathway: {
+      eyebrow: "TFSA decision path",
+      title: "A safer TFSA workflow",
+      intro: "Use this order before choosing investments inside the account.",
+      steps: [
+        { title: "Confirm room first", body: "Room mistakes are usually more expensive than choosing the wrong ETF category.", href: "/blog/tfsa-contribution-room-canada-2026" },
+        { title: "Check withdrawal timing", body: "If money recently left the TFSA, confirm when the room comes back.", href: "/blog/tfsa-withdrawals-contribution-room-canada" },
+        { title: "Match investment to timeline", body: "Use the investment-fit framework before putting short-term money into volatile assets.", href: "/tools/investment-fit-framework" },
+      ],
+    },
     methodology: {
       ...commonMethodology,
       summary: "This article focuses on Canadian TFSA investing mistakes using current account concepts: contribution room, withdrawals, qualified investments, tax sheltering, trading risk, and account priority.",

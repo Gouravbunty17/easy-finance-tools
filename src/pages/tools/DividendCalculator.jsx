@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -19,7 +18,6 @@ import OfficialSourceNote from '../../components/OfficialSourceNote';
 import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import ToolByline from '../../components/ToolByline';
 import ToolPageSchema from '../../components/ToolPageSchema';
-import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
 import SourceList from '../../components/SourceList';
@@ -32,6 +30,8 @@ import InlineSourceTrust from '../../components/InlineSourceTrust';
 import ResultInterpretation from '../../components/ResultInterpretation';
 import WatchOutBox from '../../components/WatchOutBox';
 import RelatedTools from '../../components/RelatedTools';
+import NextStepLinks from '../../components/NextStepLinks';
+import PrivacyNote from '../../components/PrivacyNote';
 import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
@@ -578,6 +578,7 @@ export default function DividendCalculator() {
 
           <div className="mt-6">
             <EducationalDisclaimer />
+            <PrivacyNote className="mt-4" />
             <OfficialSourceNote
               body="Dividend income can have different tax treatment depending on account type. Verify taxable-account rules with CRA before relying on an income plan."
               sources={[dividendTaxOfficialSources[0], dividendTaxOfficialSources[1], tfsaOfficialSources[0]]}
@@ -825,6 +826,28 @@ export default function DividendCalculator() {
                 },
               ]}
               trackingContext="dividend_calculator_result"
+            />
+            <NextStepLinks
+              title="Use the income estimate before choosing a platform"
+              intro="Once the yield assumption looks realistic, compare account fit, concentration, and tax treatment before moving to provider details."
+              links={[
+                {
+                  title: 'Read the $500/month dividend guide',
+                  href: '/blog/500-month-dividend-canada',
+                  body: 'Compare realistic capital targets, DRIP tradeoffs, and income assumptions.',
+                },
+                {
+                  title: 'Compare TFSA vs RRSP',
+                  href: '/blog/tfsa-vs-rrsp-canada-2026',
+                  body: 'Use the account comparison guide if income investing competes with other registered-account priorities.',
+                },
+                {
+                  title: 'Review dividend reinvestment',
+                  href: '/blog/dividend-reinvestment-plans-canada',
+                  body: 'Understand DRIPs, taxable reporting, and compounding before relying on reinvestment.',
+                },
+              ]}
+              trackingContext="dividend_calculator_next_steps"
             />
             <OptimizationTips
               title="Questions to answer before relying on the income"
@@ -1128,93 +1151,7 @@ export default function DividendCalculator() {
         note="Manual review needed: confirm ETF product details, current yield context, and whether any covered-call or concentration warnings need to be tightened."
       />
 
-      <ActionableNextSteps
-        toolName="etf_income_dividend_simulator"
-        title="What to do next with the income estimate"
-        intro="Once the income math looks realistic, the next job is deciding whether the ETF belongs in your TFSA, how much concentration risk you can accept, and which platform fits the strategy."
-        meaning={`${formatDividendCurrency(results.finalAnnualIncome)} of projected annual income in year ${years} looks useful only if the ETF assumption is realistic and the account job is actually income. Compare the ETF idea against your broader TFSA plan before chasing yield.`}
-        steps={[
-          'Decide whether the account should prioritize growth, cash flow, or a blend of both.',
-          'Compare the dividend ETF idea against a broader TFSA ETF option before assuming income is the best use of the account.',
-          'Choose a platform after the ETF and account strategy are clear, not before.',
-        ]}
-        actions={[
-          {
-            title: 'Read the $500/month dividend guide',
-            body: 'Use the dividend guide to compare realistic capital targets, DRIP tradeoffs, and account-fit decisions before you buy anything.',
-            href: '/blog/500-month-dividend-canada',
-            ctaLabel: 'open_500_month_dividend_guide',
-          },
-          {
-            title: 'Compare TFSA vs RRSP',
-            body: 'Use the account comparison guide if the income ETF might live outside the TFSA or compete with other contribution priorities.',
-            href: '/blog/tfsa-vs-rrsp-canada-2026',
-            ctaLabel: 'open_tfsa_vs_rrsp_guide',
-          },
-          {
-            title: 'Open the TFSA decision tool',
-            body: 'Use the TFSA planner if the ETF income strategy needs to compete with broader account goals before you add new cash.',
-            href: '/tools/tfsa-calculator',
-            ctaLabel: 'open_tfsa_decision_tool',
-          },
-        ]}
-        referral={{
-          placement: 'etf_income_page',
-          badge: 'Logical next step',
-          title: 'Compare platform details after the income assumptions make sense',
-          highlight: 'income assumptions',
-          description: 'If this simulator helps you settle on an income approach, compare fees, account types, and ETF availability after reviewing yield, concentration, and tax-location risk.',
-          fitHeading: 'Why this placement makes sense here',
-          fitPoints: [
-            'You already know the income strategy fits your TFSA or investing plan.',
-            'You want to compare where the ETF can be held and what the platform charges.',
-            'You have already compared the income ETF idea against a broader growth ETF option.',
-          ],
-          details: 'Provider terms, promotions, eligibility, and fees can change. Verify details with the provider before opening or funding an account.',
-          disclosure: 'Affiliate disclosure: We may earn a referral bonus if you use this code. That does not change the ETF assumptions, TFSA discussion, or risk reminders on this page.',
-          buttonLabel: 'Review provider details',
-        }}
-      />
-
       <FAQ items={ETF_FAQS} />
-
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related reading</p>
-        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Keep the decision loop moving</h2>
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
-          {[
-            {
-              href: '/blog/dividend-reinvestment-plans-canada',
-              title: 'Dividend reinvestment plan guide',
-              body: 'Learn how DRIPs work in Canada, including synthetic DRIPs, taxable-account reporting, and adjusted cost base.',
-            },
-            {
-              href: '/blog/best-canadian-dividend-etfs-2026',
-              title: 'Weekly dividend ETF guide',
-              body: 'See why payout frequency can be attractive without assuming it makes the ETF a better long-term choice.',
-            },
-            {
-              href: '/tools/tfsa-calculator',
-              title: 'TFSA calculator',
-              body: 'Compare the ETF income idea against the broader job you want the TFSA to do over time.',
-            },
-            {
-              href: '/tools/rrsp-calculator',
-              title: 'RRSP decision tool',
-              body: 'If the income strategy competes with registered-account contribution room, compare it against the RRSP path before you act.',
-            },
-          ].map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900/60"
-            >
-              <p className="text-lg font-bold text-primary dark:text-accent">{item.title}</p>
-              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{item.body}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
     </main>
   );
 }

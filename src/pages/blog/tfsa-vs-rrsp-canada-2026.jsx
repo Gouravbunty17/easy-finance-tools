@@ -9,6 +9,10 @@ import ReferenceSection from '../../components/ReferenceSection';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
 import ToolByline from '../../components/ToolByline';
 import TrackedLink from '../../components/TrackedLink';
+import WatchOutBox from '../../components/WatchOutBox';
+import RelatedTools from '../../components/RelatedTools';
+import NextStepLinks from '../../components/NextStepLinks';
+import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import {
   CONTENT_LAST_REVIEWED,
   REGISTERED_ACCOUNT_LIMITS,
@@ -331,6 +335,42 @@ export default function TFSAvsRRSPCanada2026() {
           </div>
         </section>
 
+        <WatchOutBox
+          className="mt-8"
+          title="TFSA vs RRSP warnings that matter"
+          intro="A simple income-based answer can be useful, but it can also hide the exact facts that change the account priority."
+          items={[
+            'Do not contribute to a TFSA until contribution room has been checked against CRA and current-year records.',
+            'Do not judge an RRSP only by the refund; future taxable withdrawals are part of the tradeoff.',
+            'If a first home is realistic, FHSA eligibility can change the answer before TFSA or RRSP gets the next dollar.',
+            'If you may need the money before retirement, TFSA flexibility can be more valuable than a larger deduction.',
+          ]}
+        />
+
+        <RelatedTools
+          className="mt-8"
+          title="Related TFSA decision tools"
+          intro="Use these when the account choice depends on contribution room, first-home eligibility, or withdrawal flexibility."
+          trackingContext="tfsa_vs_rrsp_related_tools"
+          tools={[
+            { title: 'TFSA calculator', href: '/tools/tfsa-calculator', body: 'Estimate TFSA room, contribution pacing, and tax-free growth.' },
+            { title: 'Account Decision Tool', href: '/tools/account-decision-tool', body: 'Compare TFSA, RRSP, and FHSA with goal, income, and timeline context.' },
+            { title: 'RRSP calculator', href: '/tools/rrsp-calculator', body: 'Estimate deduction value and refund sensitivity before prioritizing RRSP.' },
+          ]}
+        />
+
+        <NextStepLinks
+          className="mt-8"
+          title="Continue the TFSA cluster"
+          intro="These guides answer the practical follow-up questions that usually come after TFSA vs RRSP."
+          trackingContext="tfsa_vs_rrsp_cluster_next_steps"
+          links={[
+            { title: 'TFSA contribution room guide', href: '/blog/tfsa-contribution-room-canada-2026', body: 'Verify the room mechanics before putting money into a TFSA.' },
+            { title: 'TFSA withdrawal guide', href: '/blog/tfsa-withdrawals-contribution-room-canada', body: 'Understand when withdrawn amounts come back as room.' },
+            { title: 'TFSA mistakes Canadians make', href: '/blog/tfsa-investing-mistakes-canada', body: 'Avoid common investing, room, and tax assumptions.' },
+          ]}
+        />
+
         <MethodologyPanel
           title="Assumptions behind this TFSA vs RRSP comparison"
           summary="This page is a planning guide, not personalized tax advice. It compares the broad mechanics of TFSA and RRSP decisions for Canadian investors and shows where income level and goals usually change the answer."
@@ -373,6 +413,8 @@ export default function TFSAvsRRSPCanada2026() {
           ]}
           note="Manual review needed each year: confirm TFSA annual limit, cumulative room examples, RRSP annual maximum, and any CRA wording changes that affect comparison guidance."
         />
+
+        <EducationalDisclaimer className="mt-8" />
 
         <ActionableNextSteps
           toolName="tfsa-vs-rrsp-canada-2026"

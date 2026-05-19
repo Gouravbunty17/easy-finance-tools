@@ -22,6 +22,46 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "mortgage-affordability-reality-check-canada",
+    title: "Mortgage Affordability Reality Check Canada",
+    date: "2026-05-18",
+    category: "Real Estate",
+    readTime: "10 min",
+    excerpt: "Separate mortgage approval from a safe household budget, including stress tests, cash to close, repairs, condo fees, and renewal risk.",
+  },
+  {
+    slug: "rent-vs-buy-canada",
+    title: "Rent vs Buy in Canada",
+    date: "2026-05-18",
+    category: "Real Estate",
+    readTime: "11 min",
+    excerpt: "Compare ownership costs, flexibility, down payment, opportunity cost, and timeline before treating buying as the default answer.",
+  },
+  {
+    slug: "pay-debt-vs-invest-canada",
+    title: "Pay Debt vs Invest in Canada",
+    date: "2026-05-18",
+    category: "Investing",
+    readTime: "10 min",
+    excerpt: "A practical framework for choosing between debt repayment, TFSA/RRSP investing, emergency cash, and lower-rate debt tradeoffs.",
+  },
+  {
+    slug: "when-rrsp-makes-sense-canada",
+    title: "When an RRSP Makes Sense in Canada",
+    date: "2026-05-18",
+    category: "RRSP",
+    readTime: "10 min",
+    excerpt: "Understand when RRSP contributions are strongest, including tax-rate gaps, employer match, refund use, and TFSA alternatives.",
+  },
+  {
+    slug: "should-you-drip-dividends-canada",
+    title: "Should You DRIP Dividends in Canada?",
+    date: "2026-05-18",
+    category: "Dividends",
+    readTime: "9 min",
+    excerpt: "Decide when dividend reinvestment supports compounding and when taking cash is cleaner for income, taxes, or rebalancing.",
+  },
+  {
     slug: "mortgage-prepayments-vs-investing-canada",
     title: "Mortgage Prepayments vs Investing in Canada",
     date: "2026-05-09",

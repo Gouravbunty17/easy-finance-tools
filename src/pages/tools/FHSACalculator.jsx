@@ -18,11 +18,12 @@ import OfficialSourceNote from '../../components/OfficialSourceNote';
 import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
-import ActionableNextSteps from '../../components/ActionableNextSteps';
 import ResultInterpretation from '../../components/ResultInterpretation';
 import WatchOutBox from '../../components/WatchOutBox';
 import RelatedTools from '../../components/RelatedTools';
+import NextStepLinks from '../../components/NextStepLinks';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
+import PrivacyNote from '../../components/PrivacyNote';
 import ReferenceSection from '../../components/ReferenceSection';
 import SourceList from '../../components/SourceList';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
@@ -169,6 +170,7 @@ export default function FHSACalculator() {
 
           <div className="mt-6">
             <EducationalDisclaimer />
+            <PrivacyNote className="mt-4" />
             <OfficialSourceNote
               body="FHSA eligibility, participation room, and qualifying withdrawal rules should be checked against CRA before opening or contributing."
               sources={[fhsaOfficialSources[0], fhsaOfficialSources[1], fhsaOfficialSources[2]]}
@@ -277,6 +279,28 @@ export default function FHSACalculator() {
                 { title: 'TFSA Calculator', href: '/tools/tfsa-calculator', body: 'Compare the FHSA against a more flexible account if the home timeline is uncertain.' },
                 { title: 'FHSA rules guide', href: '/blog/fhsa-rules-canada-2026', body: 'Review eligibility, limits, qualifying withdrawals, and transfer considerations.' },
               ]}
+            />
+            <NextStepLinks
+              title="Use the FHSA result carefully"
+              intro="Before opening or funding an FHSA, confirm eligibility, contribution room, and whether the home timeline is realistic."
+              links={[
+                {
+                  title: 'Confirm FHSA rules',
+                  href: '/blog/fhsa-rules-canada-2026',
+                  body: 'Review eligibility, annual room, lifetime room, and qualifying withdrawal rules.',
+                },
+                {
+                  title: 'Compare FHSA vs RRSP',
+                  href: '/blog/fhsa-vs-rrsp-down-payment-canada-2026',
+                  body: 'Check whether FHSA or RRSP Home Buyers Plan assumptions fit the down-payment plan.',
+                },
+                {
+                  title: 'Test mortgage affordability',
+                  href: '/tools/mortgage-affordability-calculator',
+                  body: 'Connect the savings result to a realistic purchase-price range.',
+                },
+              ]}
+              trackingContext="fhsa_next_steps"
             />
           </div>
 
@@ -580,54 +604,6 @@ export default function FHSACalculator() {
           },
         ]}
         note="Manual review needed each year: confirm annual FHSA limits, TFSA limits referenced in related links, and any updated CRA interpretation notes."
-      />
-
-      <ActionableNextSteps
-        toolName="fhsa_decision_tool"
-        title="What to do next with the FHSA result"
-        intro="The best use of this result is to move from a tax estimate into an account decision. Confirm room, compare account paths, then choose a provider only after the strategy is clear."
-        meaning={`${formatCurrency(result.projectedBalance)} is the directional FHSA balance if your contribution pace, room estimate, and purchase timeline hold up. The stronger the deduction is at your tax rate, the more the FHSA deserves comparison against your TFSA and RRSP before you open anything.`}
-        steps={[
-          'Confirm your current FHSA room with CRA before making a real contribution.',
-          'Compare the same contribution amount against TFSA and RRSP scenarios, not only the FHSA result in isolation.',
-          'Choose a provider after the account strategy is clear and the timeline still supports a qualifying home withdrawal.',
-        ]}
-        actions={[
-          {
-            title: 'Read the FHSA master guide',
-            body: 'See FHSA tax savings, rules, growth examples, and how the account compares with TFSA and RRSP choices.',
-            href: '/blog/fhsa-calculator-canada-2026',
-            ctaLabel: 'read_fhsa_master_guide',
-          },
-          {
-            title: 'Open the TFSA decision tool',
-            body: 'If the home timeline is uncertain, compare the same contribution against a more flexible TFSA path before you commit.',
-            href: '/tools/tfsa-calculator',
-            ctaLabel: 'open_tfsa_decision_tool',
-          },
-          {
-            title: 'Open the RRSP decision tool',
-            body: 'If the deduction is the main attraction, compare the FHSA against a pure RRSP contribution before making the next deposit.',
-            href: '/tools/rrsp-calculator',
-            ctaLabel: 'open_rrsp_decision_tool',
-          },
-        ]}
-        referral={{
-          placement: 'fhsa_decision_page',
-          badge: 'Logical next step',
-          title: 'Compare platform details after reviewing FHSA assumptions',
-          highlight: 'FHSA',
-          description: 'If the FHSA still looks like the right account after you compare it with TFSA and RRSP scenarios, compare Canadian platform features only after eligibility, timeline, and asset risk are clear.',
-          fitHeading: 'Why this placement makes sense here',
-          fitPoints: [
-            'You have checked that the FHSA is eligible and useful for your home-buying timeline.',
-            'You want to compare fees, account features, and cash or investment options.',
-            'You have already checked room, timeline, and home-buyer eligibility before opening the account.',
-          ],
-          details: 'Provider terms, promotions, eligibility, and fees can change. Verify details with the provider before opening or funding an account.',
-          disclosure: 'Affiliate disclosure: We may earn a referral bonus if you use this code. That does not change the FHSA assumptions, tax discussion, or account-comparison guidance on this page.',
-          buttonLabel: 'Review provider details',
-        }}
       />
 
       <FAQ items={FHSA_FAQS} />

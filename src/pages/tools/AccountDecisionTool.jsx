@@ -19,11 +19,14 @@ import FAQ from '../../components/FAQ';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
+import OfficialSourceNote from '../../components/OfficialSourceNote';
 import DecisionFramework from '../../components/DecisionFramework';
 import ResultInterpretation from '../../components/ResultInterpretation';
 import WatchOutBox from '../../components/WatchOutBox';
 import RelatedTools from '../../components/RelatedTools';
+import NextStepLinks from '../../components/NextStepLinks';
 import { CONTENT_LAST_REVIEWED } from '../../config/financial';
+import { fhsaOfficialSources, rrspOfficialSources, tfsaOfficialSources } from '../../config/officialSources';
 
 const CANONICAL = 'https://easyfinancetools.com/tools/account-decision-tool';
 
@@ -183,13 +186,6 @@ const ACCOUNT_LIBRARY = {
     href: '/tools/rrsp-calculator',
   },
 };
-
-const RELATED_CALCULATORS = [
-  { href: '/tools/tfsa-calculator', label: 'TFSA Calculator' },
-  { href: '/tools/rrsp-calculator', label: 'RRSP Calculator' },
-  { href: '/tools/fhsa-calculator', label: 'FHSA Calculator' },
-  { href: '/tools/compound-interest-calculator', label: 'Compound Interest Calculator' },
-];
 
 const FAQS = [
   {
@@ -564,7 +560,13 @@ export default function AccountDecisionTool() {
           </div>
         </div>
 
-        <div className="mb-8">
+        <OfficialSourceNote
+          title="Source check before choosing an account"
+          body="This framework uses CRA account rules as the reference point. Verify current TFSA, RRSP, and FHSA room and eligibility before contributing."
+          sources={[tfsaOfficialSources[0], rrspOfficialSources[0], fhsaOfficialSources[0]]}
+        />
+
+        <div className="mb-8 mt-8">
           <DecisionFramework
             eyebrow="How to read this tool"
             title="This is a decision framework, not a product recommendation"
@@ -655,26 +657,6 @@ export default function AccountDecisionTool() {
             onBack={handleBack}
           />
         )}
-
-        {/* ---------------- Related calculators ---------------- */}
-        <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-900/60">
-          <h2 className="text-xl font-bold text-primary dark:text-accent">Related Canadian calculators</h2>
-          <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-            Use a calculator to test the dollar impact of any account in your ranking.
-          </p>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            {RELATED_CALCULATORS.map((calc) => (
-              <Link
-                key={calc.href}
-                to={calc.href}
-                className="group flex items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-primary transition hover:border-emerald-400 hover:shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-accent dark:hover:border-emerald-400"
-              >
-                <span>{calc.label}</span>
-                <ArrowRightIcon className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
-              </Link>
-            ))}
-          </div>
-        </section>
 
         {/* ---------------- Full educational disclaimer ---------------- */}
         <div className="mt-10">
@@ -874,11 +856,34 @@ function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) 
         trackingContext="account_decision_result"
       />
 
-      {/* Next steps */}
+      <NextStepLinks
+        title="Use the account order without over-reading it"
+        intro="Treat the ranking as a planning sequence, then verify the exact rules and contribution room before moving money."
+        links={[
+          {
+            title: 'Read TFSA vs RRSP vs FHSA',
+            href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
+            body: 'Review the full Canadian account comparison behind this framework.',
+          },
+          {
+            title: 'Check FHSA rules',
+            href: '/blog/fhsa-rules-canada-2026',
+            body: 'Confirm first-home eligibility, annual room, lifetime room, and withdrawal conditions.',
+          },
+          {
+            title: 'Estimate compound growth',
+            href: '/tools/compound-interest-calculator',
+            body: 'Model the long-term effect after the account priority is clear.',
+          },
+        ]}
+        trackingContext="account_decision_next_steps"
+      />
+
+      {/* Usage guidance */}
       <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
         <h3 className="flex items-center gap-2 text-lg font-bold text-primary dark:text-accent">
           <ClockIcon className="h-5 w-5" aria-hidden="true" />
-          Your next steps
+          How to use this result
         </h3>
         <ol className="mt-4 space-y-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
           {recommendation.nextSteps.map((step, index) => (

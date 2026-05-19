@@ -97,6 +97,11 @@ const RRSPMistakeMiddleIncomeCanadians = lazyWithPreload(() => import('./pages/b
 const TFSAWithdrawalsContributionRoomCanada = lazyWithPreload(() => import('./pages/blog/tfsa-withdrawals-contribution-room-canada'));
 const HighYieldDividendETFsHurtWealthCanada = lazyWithPreload(() => import('./pages/blog/high-yield-dividend-etfs-hurt-wealth-canada'));
 const MortgagePrepaymentsVsInvestingCanada = lazyWithPreload(() => import('./pages/blog/mortgage-prepayments-vs-investing-canada'));
+const PayDebtVsInvestCanada = lazyWithPreload(() => import('./pages/blog/pay-debt-vs-invest-canada'));
+const RentVsBuyCanada = lazyWithPreload(() => import('./pages/blog/rent-vs-buy-canada'));
+const ShouldYouDripDividendsCanada = lazyWithPreload(() => import('./pages/blog/should-you-drip-dividends-canada'));
+const WhenRRSPMakesSenseCanada = lazyWithPreload(() => import('./pages/blog/when-rrsp-makes-sense-canada'));
+const MortgageAffordabilityRealityCheckCanada = lazyWithPreload(() => import('./pages/blog/mortgage-affordability-reality-check-canada'));
 
 const routeEntries = [
   ['/', Home],
@@ -193,6 +198,11 @@ const routeEntries = [
   ['/blog/tfsa-withdrawals-contribution-room-canada', TFSAWithdrawalsContributionRoomCanada],
   ['/blog/high-yield-dividend-etfs-hurt-wealth-canada', HighYieldDividendETFsHurtWealthCanada],
   ['/blog/mortgage-prepayments-vs-investing-canada', MortgagePrepaymentsVsInvestingCanada],
+  ['/blog/pay-debt-vs-invest-canada', PayDebtVsInvestCanada],
+  ['/blog/rent-vs-buy-canada', RentVsBuyCanada],
+  ['/blog/should-you-drip-dividends-canada', ShouldYouDripDividendsCanada],
+  ['/blog/when-rrsp-makes-sense-canada', WhenRRSPMakesSenseCanada],
+  ['/blog/mortgage-affordability-reality-check-canada', MortgageAffordabilityRealityCheckCanada],
   ['/blog/how-to-invest-in-canada-beginners-2026', HowToInvestBeginners],
   ['/blog/best-hisa-canada-2026', BestHISACanada2026],
   ['/blog/emergency-fund-canada', EmergencyFundCanada],

@@ -111,6 +111,11 @@ export const BLOG_ROUTES = [
   { route: "/blog/tfsa-withdrawals-contribution-room-canada", sourcePath: "src/pages/blog/tfsa-withdrawals-contribution-room-canada.jsx", group: "blog" },
   { route: "/blog/high-yield-dividend-etfs-hurt-wealth-canada", sourcePath: "src/pages/blog/high-yield-dividend-etfs-hurt-wealth-canada.jsx", group: "blog" },
   { route: "/blog/mortgage-prepayments-vs-investing-canada", sourcePath: "src/pages/blog/mortgage-prepayments-vs-investing-canada.jsx", group: "blog" },
+  { route: "/blog/pay-debt-vs-invest-canada", sourcePath: "src/pages/blog/pay-debt-vs-invest-canada.jsx", group: "blog" },
+  { route: "/blog/rent-vs-buy-canada", sourcePath: "src/pages/blog/rent-vs-buy-canada.jsx", group: "blog" },
+  { route: "/blog/should-you-drip-dividends-canada", sourcePath: "src/pages/blog/should-you-drip-dividends-canada.jsx", group: "blog" },
+  { route: "/blog/when-rrsp-makes-sense-canada", sourcePath: "src/pages/blog/when-rrsp-makes-sense-canada.jsx", group: "blog" },
+  { route: "/blog/mortgage-affordability-reality-check-canada", sourcePath: "src/pages/blog/mortgage-affordability-reality-check-canada.jsx", group: "blog" },
 ];
 
 export const SITE_ROUTES = [...STATIC_ROUTES, ...TOOL_ROUTES, ...BLOG_ROUTES, ...LEGACY_REDIRECT_ROUTES];

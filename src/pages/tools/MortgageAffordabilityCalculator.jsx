@@ -15,7 +15,6 @@ import FAQ from '../../components/FAQ';
 import MethodologyPanel from '../../components/MethodologyPanel';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
-import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
 import SourceList from '../../components/SourceList';
@@ -25,6 +24,8 @@ import InlineSourceTrust from '../../components/InlineSourceTrust';
 import ResultInterpretation from '../../components/ResultInterpretation';
 import WatchOutBox from '../../components/WatchOutBox';
 import RelatedTools from '../../components/RelatedTools';
+import NextStepLinks from '../../components/NextStepLinks';
+import PrivacyNote from '../../components/PrivacyNote';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
@@ -243,6 +244,7 @@ export default function MortgageAffordabilityCalculator() {
 
           <div className="mt-6">
             <EducationalDisclaimer />
+            <PrivacyNote className="mt-4" />
           </div>
 
           <OfficialSourceNote
@@ -403,6 +405,28 @@ export default function MortgageAffordabilityCalculator() {
               ]}
               trackingContext="mortgage_affordability_result"
             />
+            <NextStepLinks
+              title="Use the approval range to narrow the real decision"
+              intro="The next move depends on whether the result is limited by debt ratios, cash to close, or the stress test."
+              links={[
+                {
+                  href: '/tools/mortgage-calculator',
+                  title: 'Translate approval into payment',
+                  body: 'Test the monthly payment, interest, amortization, and prepayment pressure at the estimated price range.',
+                },
+                {
+                  href: '/tools/rent-vs-buy',
+                  title: 'Compare buying against renting',
+                  body: 'A qualifying price is not automatically the better choice if rent remains competitive.',
+                },
+                {
+                  href: '/tools/fhsa-calculator',
+                  title: 'Strengthen the down-payment path',
+                  body: 'If cash to close is the bottleneck, revisit FHSA or TFSA planning before moving the target price.',
+                },
+              ]}
+              trackingContext="mortgage_affordability_next_steps"
+            />
           </div>
 
           <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
@@ -541,38 +565,6 @@ export default function MortgageAffordabilityCalculator() {
           {
             label: 'Pre-approval or broker worksheet',
             body: 'This is the practical check for whether your document set, credit profile, and chosen product support the planning scenario.',
-          },
-        ]}
-      />
-
-      <ActionableNextSteps
-        toolName="mortgage_affordability_decision_tool"
-        title="Use the approval range to narrow the real decision"
-        intro="The smartest next move usually depends on whether the result is limited by debt ratios, cash to close, or the stress test itself."
-        meaning={result.interpretation}
-        steps={[
-          'If the price range is lower than expected, rerun the plan with lower debt payments or a bigger down payment before assuming the market is the only problem.',
-          'If approval is possible but the GDS/TDS result is tight, compare the same home in the mortgage-payment page before deciding it is safe.',
-          'If the down payment is the blocker, route the goal back through FHSA or TFSA planning rather than treating approval math as the whole problem.',
-        ]}
-        actions={[
-          {
-            href: '/tools/mortgage-calculator',
-            title: 'Translate approval into a real payment plan',
-            body: 'Take the upper-end home price and see how the mortgage behaves once insurance, closing costs, and prepayments are included.',
-            ctaLabel: 'mortgage_payment_followup',
-          },
-          {
-            href: '/tools/rent-vs-buy',
-            title: 'Compare the approval range against renting',
-            body: 'A qualifying price is not automatically the best choice, especially when rent remains competitive.',
-            ctaLabel: 'rent_vs_buy_followup',
-          },
-          {
-            href: '/tools/fhsa-calculator',
-            title: 'Strengthen the down-payment plan',
-            body: 'If cash to close is the real bottleneck, shift the next step back to savings-account strategy before moving the purchase target.',
-            ctaLabel: 'fhsa_followup',
           },
         ]}
       />

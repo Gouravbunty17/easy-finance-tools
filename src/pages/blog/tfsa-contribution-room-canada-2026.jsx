@@ -95,6 +95,12 @@ const article = {
     { title: "Ignoring multiple accounts", body: "TFSA room applies across all your TFSAs combined. Opening a second TFSA does not create a second limit." },
     { title: "Forgetting investment losses", body: "Losses inside a TFSA do not restore contribution room. Room comes back through withdrawals, not through poor performance." },
   ],
+  notAFit: [
+    "You are about to make a large contribution but have not reconciled current-year deposits across every TFSA.",
+    "You recently withdrew money and plan to replace it in the same calendar year without unused room.",
+    "Your CRA My Account number conflicts with bank or brokerage statements and you have not checked why.",
+    "You became or stopped being a Canadian resident during the years used in a cumulative room estimate.",
+  ],
   edgeCases: [
     { title: "You became a Canadian resident after age 18", body: "Cumulative room tables can be wrong if you were not a Canadian resident for every eligible year. Verify your residency years before using the full lifetime total." },
     { title: "You transferred between TFSA issuers", body: "A direct qualified transfer is different from withdrawing and recontributing. If you moved money manually, the same-year recontribution can still create an excess contribution." },
@@ -103,11 +109,22 @@ const article = {
   ],
   related: [
     { type: "Tool", label: "TFSA calculator", href: "/tools/tfsa-calculator", body: "Estimate contribution room, tax-free growth, and future TFSA value." },
+    { type: "Guide", label: "TFSA withdrawal guide", href: "/blog/tfsa-withdrawals-contribution-room-canada", body: "Understand when withdrawals restore room and when recontributions can become excess contributions." },
     { type: "Guide", label: "TFSA vs RRSP guide", href: "/blog/tfsa-vs-rrsp-canada-2026", body: "Compare whether your next dollar belongs in a TFSA or RRSP first." },
-    { type: "Guide", label: "Best TFSA ETFs", href: "/blog/best-etfs-for-tfsa-canada-2026", body: "Review common ETF categories once the TFSA is the right account." },
+    { type: "Tool", label: "Account Decision Tool", href: "/tools/account-decision-tool", body: "Compare TFSA, RRSP, and FHSA priority before funding one account by default." },
+    { type: "Guide", label: "TFSA mistakes Canadians make", href: "/blog/tfsa-investing-mistakes-canada", body: "Review common contribution, trading, withdrawal, and investment-fit errors." },
     { type: "Tool", label: "Compound interest calculator", href: "/tools/compound-interest-calculator", body: "Model long-term growth assumptions before investing TFSA money." },
-    { type: "Guide", label: "How to start investing in Canada", href: "/blog/how-to-start-investing-canada-2026", body: "Use this if you still need the beginner account and ETF workflow." },
   ],
+  pathway: {
+    eyebrow: "TFSA room workflow",
+    title: "A practical order before contributing",
+    intro: "Use this sequence before making a real TFSA deposit.",
+    steps: [
+      { title: "Reconcile your room", body: "Start with CRA, then adjust for current-year contributions and withdrawals from every TFSA.", href: "/tools/tfsa-calculator" },
+      { title: "Check withdrawal timing", body: "If money recently left the TFSA, confirm whether the room is available today or next January.", href: "/blog/tfsa-withdrawals-contribution-room-canada" },
+      { title: "Compare account priority", body: "If RRSP or FHSA is competing for the same dollar, run the account decision tool before contributing.", href: "/tools/account-decision-tool" },
+    ],
+  },
   methodology: {
     summary: "This article explains TFSA room using CRA contribution-room mechanics and EasyFinanceTools planning examples. It avoids personalized recommendations and focuses on room tracking, timing, and common mistakes.",
     assumptions: [
