@@ -37,7 +37,7 @@ const CANONICAL = 'https://easyfinancetools.com/tools/account-decision-tool';
 const QUESTIONS = [
   {
     key: 'resident',
-    section: 'Step 1 of 9',
+    section: 'Step 1 of 13',
     title: 'Are you a Canadian resident age 18 or older?',
     helper:
       'TFSA, RRSP, and FHSA accounts are designed for Canadian residents. Most also require you to be at least the age of majority in your province (18 or 19).',
@@ -48,7 +48,7 @@ const QUESTIONS = [
   },
   {
     key: 'firstHomePlan',
-    section: 'Step 2 of 9',
+    section: 'Step 2 of 13',
     title: 'Are you planning to buy your first home in Canada?',
     helper:
       'FHSA eligibility hinges on being a qualifying first-time home buyer. Answer "Yes" only if a home purchase is genuinely on your radar.',
@@ -60,7 +60,7 @@ const QUESTIONS = [
   },
   {
     key: 'homeTimeline',
-    section: 'Step 3 of 9',
+    section: 'Step 3 of 13',
     title: 'If yes, when do you plan to buy?',
     helper:
       'Timing matters: FHSA contributions and investment growth need enough runway to grow but must still be ready when you buy.',
@@ -74,7 +74,7 @@ const QUESTIONS = [
   },
   {
     key: 'fhsaOpened',
-    section: 'Step 4 of 9',
+    section: 'Step 4 of 13',
     title: 'Do you already have an FHSA?',
     helper:
       'Opening an FHSA starts your 15-year participation clock. Knowing if you already have one changes the priority order.',
@@ -85,10 +85,10 @@ const QUESTIONS = [
   },
   {
     key: 'employerMatch',
-    section: 'Step 5 of 9',
+    section: 'Step 5 of 13',
     title: 'Does your employer offer RRSP matching or a group retirement plan?',
     helper:
-      'Employer matching is usually treated as priority money because the match is an immediate, near-guaranteed return on contribution.',
+      'Employer matching is usually treated as priority money because the match can be a high-value benefit tied directly to your contribution.',
     options: [
       { value: 'yes', label: 'Yes, with a match' },
       { value: 'group', label: 'Group plan, no match' },
@@ -97,8 +97,20 @@ const QUESTIONS = [
     ],
   },
   {
+    key: 'emergencyFund',
+    section: 'Step 6 of 13',
+    title: 'Do you already have emergency savings for unexpected expenses?',
+    helper:
+      'Before optimizing tax deductions, most households need enough flexible cash to handle a sudden bill, job disruption, car repair, or family expense without borrowing.',
+    options: [
+      { value: 'yes', label: 'Yes — I already have emergency savings' },
+      { value: 'partial', label: 'Partially — I have some savings but not enough' },
+      { value: 'no', label: 'No — I would struggle with a sudden expense' },
+    ],
+  },
+  {
     key: 'income',
-    section: 'Step 6 of 9',
+    section: 'Step 7 of 13',
     title: 'What is your approximate annual income?',
     helper:
       'Higher marginal tax rates can make RRSP and FHSA deductions more valuable. Lower income years often favour TFSA flexibility.',
@@ -110,8 +122,21 @@ const QUESTIONS = [
     ],
   },
   {
+    key: 'futureTax',
+    section: 'Step 8 of 13',
+    title: 'Do you expect your future tax bracket to be higher, lower, or similar?',
+    helper:
+      'RRSP value often depends on the gap between your tax rate when contributing and your tax rate when withdrawing. This is uncertain, so the tool treats it as a planning assumption, not a prediction.',
+    options: [
+      { value: 'higher', label: 'Higher later — my income may rise' },
+      { value: 'similar', label: 'Similar to today' },
+      { value: 'lower', label: 'Lower later — especially in retirement' },
+      { value: 'unsure', label: 'Not sure' },
+    ],
+  },
+  {
     key: 'goal',
-    section: 'Step 7 of 9',
+    section: 'Step 9 of 13',
     title: 'What is your main financial goal right now?',
     helper:
       'Each registered account is built around a different goal. Naming yours keeps the framework focused.',
@@ -123,8 +148,21 @@ const QUESTIONS = [
     ],
   },
   {
+    key: 'refundPlan',
+    section: 'Step 10 of 13',
+    title: 'If an RRSP or FHSA contribution created a tax refund, what would you likely do with it?',
+    helper:
+      'A refund is not automatically a win. RRSP and FHSA deductions are stronger when the refund supports the plan instead of disappearing into regular spending.',
+    options: [
+      { value: 'reinvest', label: 'Reinvest it or contribute it again' },
+      { value: 'debt', label: 'Use it for debt or emergency savings' },
+      { value: 'spend', label: 'Probably spend most of it' },
+      { value: 'unsure', label: 'Not sure yet' },
+    ],
+  },
+  {
     key: 'timeline',
-    section: 'Step 8 of 9',
+    section: 'Step 11 of 13',
     title: 'What is your investment timeline?',
     helper:
       'A longer runway gives tax-sheltered growth more time to matter. A short runway raises the value of liquidity and capital preservation.',
@@ -136,7 +174,7 @@ const QUESTIONS = [
   },
   {
     key: 'access',
-    section: 'Step 9 of 9',
+    section: 'Step 12 of 13',
     title: 'Do you need easy access to the money?',
     helper:
       'TFSA withdrawals are flexible. RRSP withdrawals are generally taxable. FHSA withdrawals must be qualifying to remain tax-free.',
@@ -144,6 +182,18 @@ const QUESTIONS = [
       { value: 'yes', label: 'Yes, I may need it' },
       { value: 'maybe', label: 'Maybe, but probably not' },
       { value: 'no', label: 'No, it can stay invested' },
+    ],
+  },
+  {
+    key: 'confidence',
+    section: 'Step 13 of 13',
+    title: 'How confident are you managing investments yourself?',
+    helper:
+      'This does not change account rules, but it changes how much complexity is useful. Beginners usually benefit from simpler next steps and contribution-room reminders before tax optimization.',
+    options: [
+      { value: 'beginner', label: 'Beginner — I’m just starting' },
+      { value: 'intermediate', label: 'Intermediate — I understand basic investing' },
+      { value: 'advanced', label: 'Advanced — I already manage investments regularly' },
     ],
   },
 ];
@@ -166,7 +216,7 @@ const ACCOUNT_LIBRARY = {
     label: 'FHSA',
     short: 'First Home Savings Account',
     icon: HomeIcon,
-    badge: 'Best of both worlds for first homes',
+    badge: 'Built for first-home planning',
     href: '/tools/fhsa-calculator',
   },
   TFSA: {
@@ -190,7 +240,7 @@ const ACCOUNT_LIBRARY = {
 const FAQS = [
   {
     q: 'Should I use TFSA, RRSP, or FHSA first?',
-    a: 'It depends on your goals, income, and timeline. As a general framework, capture any employer RRSP match first (the match is essentially free money), then consider an FHSA if a first-home purchase is realistic within the next five years, a TFSA if flexibility or a lower tax bracket make tax-free withdrawals more attractive, and an RRSP when a higher marginal tax rate today makes the deduction more valuable than tax-free withdrawals later.',
+    a: 'It depends on your goals, income, timeline, flexibility needs, emergency savings, and future tax assumptions. As a general framework, capture a valuable employer RRSP match first if one exists, then compare FHSA, TFSA, and RRSP room using eligibility, liquidity, and tax-bracket tradeoffs.',
   },
   {
     q: 'Is FHSA better than RRSP for a first home?',
@@ -198,7 +248,7 @@ const FAQS = [
   },
   {
     q: 'Should I take employer RRSP matching before TFSA?',
-    a: 'In most cases yes. Contributing enough to capture a full employer RRSP match is usually treated as priority money because the match is an immediate, near-guaranteed return on contribution. After the match is captured, TFSA, FHSA, or additional RRSP room can be compared on their own merits.',
+    a: 'In many cases yes. Contributing enough to capture a full employer RRSP match is usually treated as priority money because the match can be a high-value workplace benefit. After the match is captured, TFSA, FHSA, or additional RRSP room can be compared on their own merits.',
   },
   {
     q: 'Is this tool financial advice?',
@@ -214,166 +264,214 @@ const FAQS = [
 /* Result engine                                                       */
 /* ------------------------------------------------------------------ */
 
-function buildRecommendation(answers) {
-  const ranked = [];
+const ACCOUNT_WEIGHT_MODEL = {
+  TFSA: {
+    baseline: 18,
+    rationale:
+      'TFSA is the flexible baseline because withdrawals are generally tax-free and room is restored the following year.',
+  },
+  RRSP: {
+    baseline: 10,
+    rationale:
+      'RRSP value depends on deduction usefulness today, expected withdrawal tax later, and whether the money can stay invested.',
+  },
+  FHSA: {
+    baseline: 4,
+    rationale:
+      'FHSA becomes powerful when first-home eligibility, timeline, and contribution room line up.',
+  },
+};
+
+function createWeightedAccounts() {
+  return Object.entries(ACCOUNT_WEIGHT_MODEL).reduce((acc, [key, model]) => {
+    acc[key] = {
+      ...ACCOUNT_LIBRARY[key],
+      score: model.baseline,
+      rationale: model.rationale,
+      why: [model.rationale],
+      tradeoffs: [],
+    };
+    return acc;
+  }, {});
+}
+
+function addWeight(accounts, key, weight, reason, tradeoff) {
+  accounts[key].score += weight;
+  if (reason) accounts[key].why.push(reason);
+  if (tradeoff) accounts[key].tradeoffs.push(tradeoff);
+}
+
+function accountRationale(account) {
+  const topReasons = account.why.slice(0, 3);
+  return topReasons.join(' ');
+}
+
+function buildWeightedRecommendation(answers) {
+  const accounts = createWeightedAccounts();
   const reasons = [];
   const risks = [];
   const nextSteps = [];
 
-  const incomeTier = answers.income;
-  const isHigherIncome = incomeTier === '90to130' || incomeTier === '130plus';
-  const isLowerIncome = incomeTier === 'under50' || incomeTier === '50to90';
-  const wantsFirstHome = answers.firstHomePlan === 'yes' || answers.firstHomePlan === 'maybe';
+  const wantsFirstHome = answers.firstHomePlan === 'yes' || answers.firstHomePlan === 'maybe' || answers.goal === 'firstHome';
   const soonHome = answers.homeTimeline === '0to2' || answers.homeTimeline === '3to5';
-  const longHorizon = answers.timeline === '10plus';
-  const shortHorizon = answers.timeline === 'under3';
-  const needsAccess = answers.access === 'yes';
-  const taxFocused = answers.goal === 'taxCut';
-  const retirementGoal = answers.goal === 'retirement';
-  const flexibilityGoal = answers.goal === 'flexibility';
-  const firstHomeGoal = answers.goal === 'firstHome';
+  const longHome = answers.homeTimeline === '6plus';
+  const shortTimeline = answers.timeline === 'under3';
+  const longTimeline = answers.timeline === '10plus';
+  const needsFlexibility = answers.access === 'yes' || answers.goal === 'flexibility';
+  const partialEmergency = answers.emergencyFund === 'partial';
+  const noEmergency = answers.emergencyFund === 'no';
+  const emergencyIncomplete = partialEmergency || noEmergency;
+  const higherIncome = answers.income === '90to130' || answers.income === '130plus';
+  const lowerIncome = answers.income === 'under50';
+  const retirementFocus = answers.goal === 'retirement';
+  const taxFocus = answers.goal === 'taxCut';
+  const beginner = answers.confidence === 'beginner';
+  const advanced = answers.confidence === 'advanced';
 
-  /* 1) Employer match always first if available */
-  if (answers.employerMatch === 'yes') {
-    ranked.push({
-      ...ACCOUNT_LIBRARY.EMPLOYER_MATCH,
-      rationale:
-        'Capture the full employer RRSP match before anything else. An employer match is essentially an instant return that other accounts cannot replicate.',
-    });
-    nextSteps.push(
-      'Confirm the exact contribution percentage required to receive the full employer match and set up payroll deductions to hit it.'
-    );
+  if (higherIncome) {
+    addWeight(accounts, 'RRSP', 16, 'Your current income may make RRSP deductions more relevant.', 'RRSP deductions are more useful when today\'s marginal tax rate is meaningfully high.');
+    addWeight(accounts, 'FHSA', 8, 'Higher income can also increase the value of an FHSA deduction if you are eligible.');
+  }
+  if (lowerIncome) {
+    addWeight(accounts, 'TFSA', 12, 'Lower current income often makes TFSA flexibility more useful than chasing an RRSP deduction now.');
+    addWeight(accounts, 'RRSP', -8, 'RRSP urgency is lower when the current deduction may be modest.');
+  }
+  if (answers.futureTax === 'higher') {
+    addWeight(accounts, 'TFSA', 14, 'If your future tax bracket may be higher, using TFSA room now can preserve RRSP room for later.');
+    addWeight(accounts, 'RRSP', -8, 'A higher expected future tax bracket can weaken the case for using RRSP room immediately.');
+  } else if (answers.futureTax === 'lower') {
+    addWeight(accounts, 'RRSP', 14, 'A lower expected retirement tax bracket can improve the RRSP tax-deferral tradeoff.');
+  } else if (answers.futureTax === 'similar') {
+    addWeight(accounts, 'TFSA', 5, 'If tax brackets may be similar, TFSA simplicity and flexibility deserve more weight.');
   }
 
-  /* 2) FHSA priority for realistic near-term first-home buyers */
-  if (wantsFirstHome && (soonHome || answers.homeTimeline === '6plus' || firstHomeGoal)) {
-    const strong = soonHome || firstHomeGoal;
-    ranked.push({
-      ...ACCOUNT_LIBRARY.FHSA,
-      rationale: strong
-        ? 'An FHSA can combine an RRSP-style tax deduction with a tax-free qualifying withdrawal for a first home — and unlike the Home Buyers\' Plan, the FHSA does not need to be repaid.'
-        : 'Even on a longer horizon, opening an FHSA starts the 15-year participation clock and unlocks future contribution room.',
-    });
+  if (needsFlexibility) {
+    addWeight(accounts, 'TFSA', 22, 'TFSA ranked higher because flexibility appears important for your situation.', 'TFSA withdrawals are generally simpler than RRSP withdrawals.');
+    addWeight(accounts, 'RRSP', -8, 'RRSP ranked lower because taxable withdrawals make it weaker for flexible access.');
+  }
+  if (shortTimeline) {
+    addWeight(accounts, 'TFSA', 12, 'A short timeline increases the value of liquidity and simple access.');
+    addWeight(accounts, 'RRSP', -8, 'A short timeline reduces the usefulness of RRSP lock-in and tax deferral.');
+    risks.push('A timeline under 3 years is sensitive to market volatility. Test cash-like or short-GIC assumptions before investing short-term money.');
+  }
+  if (longTimeline || retirementFocus) {
+    addWeight(accounts, 'RRSP', 10, 'A longer retirement-focused timeline increases RRSP suitability.');
+  }
+
+  if (wantsFirstHome) {
+    addWeight(accounts, 'FHSA', 32, 'FHSA ranked highly because you indicated a first-home goal.');
+    if (soonHome) addWeight(accounts, 'FHSA', 10, 'A 0-5 year home timeline lines up with the FHSA planning purpose.');
+    if (longHome) addWeight(accounts, 'FHSA', 5, 'A longer home timeline can still support opening an FHSA, but the 15-year clock matters.');
     if (answers.fhsaOpened === 'no') {
-      nextSteps.push('Open an FHSA with a Canadian institution to start your 15-year participation window even if you do not contribute the maximum this year.');
-    } else {
-      nextSteps.push('Confirm your remaining FHSA contribution room for the current year (annual cap of $8,000 and lifetime cap of $40,000).');
+      nextSteps.push('If eligible, confirm whether opening an FHSA now makes sense so the 15-year participation window is started intentionally.');
     }
-    if (answers.homeTimeline === '0to2') {
-      risks.push('A 0–2 year home timeline leaves little time for market growth — most planners hold short-horizon FHSA money in lower-risk investments like HISAs or GICs inside the FHSA.');
-    }
+  } else {
+    addWeight(accounts, 'FHSA', -18, 'FHSA ranked lower because you did not identify a clear first-home goal.');
   }
 
-  /* 3) TFSA for flexibility / access / lower-mid income with no home goal */
-  if (
-    flexibilityGoal ||
-    needsAccess ||
-    (isLowerIncome && !firstHomeGoal && !retirementGoal) ||
-    shortHorizon
-  ) {
-    ranked.push({
-      ...ACCOUNT_LIBRARY.TFSA,
-      rationale:
-        'A TFSA gives tax-free growth with flexible, tax-free withdrawals at any time. That makes it well-suited when you may need access, when your income makes the RRSP deduction less powerful, or when you are still building an emergency buffer.',
-    });
-    nextSteps.push('Verify your TFSA contribution room in CRA "My Account" before depositing — overcontributions trigger a 1% per month penalty.');
+  if (noEmergency) {
+    addWeight(accounts, 'TFSA', 28, 'No emergency savings strongly increases TFSA-style flexibility priority.');
+    addWeight(accounts, 'RRSP', -18, 'RRSP ranked lower because emergency withdrawals from an RRSP are generally taxable.');
+    addWeight(accounts, 'FHSA', -8, 'FHSA ranked lower for emergency access because tax-free withdrawals must be qualifying home withdrawals.');
+    risks.push('Without emergency savings, liquidity should usually come before long-term account optimization.');
+  } else if (partialEmergency) {
+    addWeight(accounts, 'TFSA', 16, 'Partial emergency savings still makes flexibility more important than pure tax optimization.');
+    addWeight(accounts, 'RRSP', -6, 'RRSP optimization is less convincing until emergency savings are stronger.');
   }
 
-  /* 4) RRSP for higher income + retirement / tax-cut goal */
-  if (
-    isHigherIncome &&
-    (retirementGoal || taxFocused || answers.employerMatch === 'yes' || longHorizon)
-  ) {
-    ranked.push({
-      ...ACCOUNT_LIBRARY.RRSP,
-      rationale:
-        'At a higher marginal tax rate, an RRSP deduction reduces taxable income now, and your withdrawals are designed to happen in retirement when your tax bracket may be lower.',
-    });
-    nextSteps.push('Check your RRSP deduction limit in CRA "My Account" (Notice of Assessment) and consider whether to contribute and deduct in the same year or carry the deduction forward.');
-  } else if (retirementGoal && !ranked.some((r) => r.key === 'RRSP')) {
-    ranked.push({
-      ...ACCOUNT_LIBRARY.RRSP,
-      rationale:
-        'Retirement is your stated goal, so an RRSP earns a place in the priority list — the deduction value depends on your marginal tax rate today versus in retirement.',
-    });
+  if (taxFocus) {
+    addWeight(accounts, 'RRSP', 10, 'RRSP relevance increased because you said tax reduction matters.');
+    addWeight(accounts, 'FHSA', wantsFirstHome ? 8 : 2, 'FHSA relevance increased because eligible contributions can also create a deduction.');
+  }
+  if (answers.refundPlan === 'reinvest') {
+    addWeight(accounts, 'RRSP', 8, 'RRSP confidence improves if a refund would be reinvested or contributed again.');
+    addWeight(accounts, 'FHSA', 5, 'FHSA deduction value is more useful if the refund strengthens the plan.');
+  } else if (answers.refundPlan === 'debt') {
+    addWeight(accounts, 'RRSP', 3, 'Using a refund for debt or emergency savings can still support financial stability.');
+    addWeight(accounts, 'TFSA', 3, 'Refund use for emergency savings reinforces the need for liquidity.');
+  } else if (answers.refundPlan === 'spend') {
+    addWeight(accounts, 'RRSP', -8, 'RRSP optimization confidence drops if the refund is likely to be spent rather than used intentionally.');
+    risks.push('A refund is not automatically beneficial. If it is spent without improving savings, debt, or contribution room, the RRSP/FHSA deduction may be less useful than it appears.');
+  } else if (answers.refundPlan === 'unsure') {
+    addWeight(accounts, 'TFSA', 4, 'Unclear refund plans make simpler TFSA flexibility more attractive.');
+    risks.push('If you use RRSP or FHSA deductions, decide ahead of time what the refund is meant to do.');
   }
 
-  /* Fill the rest of the ranking so the user always sees a complete order */
-  const fillers = ['TFSA', 'FHSA', 'RRSP'];
-  for (const key of fillers) {
-    if (!ranked.some((r) => r.key === key)) {
-      const filler = { ...ACCOUNT_LIBRARY[key] };
-      if (key === 'TFSA') {
-        filler.rationale = 'A TFSA still belongs in the picture as a flexible secondary bucket — tax-free growth and withdrawal-room recovery keep it useful for almost any goal.';
-      } else if (key === 'FHSA') {
-        filler.rationale = wantsFirstHome
-          ? 'FHSA stays in the list because eligibility may apply later — opening one starts the 15-year clock even with a small deposit.'
-          : 'If a first-home purchase is unlikely, the FHSA may not apply to you — but it is included for completeness in case your plans change.';
-      } else if (key === 'RRSP') {
-        filler.rationale = isLowerIncome
-          ? 'At a lower current income, RRSP deductions are less powerful, but RRSP space can still be valuable in higher-earning years later.'
-          : 'RRSP space is worth tracking even when it is not the top priority — your future marginal tax rate may make it more valuable.';
-      }
-      ranked.push(filler);
-    }
+  if (beginner) {
+    addWeight(accounts, 'TFSA', 10, 'Beginner status increases the value of simple rules, flexibility, and contribution-room reminders.');
+    addWeight(accounts, 'RRSP', -5, 'RRSP deduction timing and taxable withdrawals add complexity for beginners.');
+  }
+  if (advanced) {
+    addWeight(accounts, 'RRSP', higherIncome || retirementFocus || taxFocus ? 5 : 0, 'Advanced confidence can support more detailed tax-bracket and deduction-timing analysis.');
   }
 
-  /* Build main reasoning summary */
-  if (answers.employerMatch === 'yes') {
-    reasons.push('You have access to an employer RRSP match, so capturing the match should generally come before any other account.');
-  }
-  if (wantsFirstHome && soonHome) {
-    reasons.push('A first-home goal within the next five years lines up well with the FHSA, which is purpose-built for this exact situation.');
-  } else if (wantsFirstHome) {
-    reasons.push('Even on a longer home-buying horizon, opening an FHSA may be worth considering to start the 15-year participation window.');
-  }
-  if (isHigherIncome && (retirementGoal || taxFocused)) {
-    reasons.push('Your income level and retirement / tax-reduction goal make the RRSP deduction more financially meaningful.');
-  }
-  if (flexibilityGoal || needsAccess) {
-    reasons.push('Because you may need access to this money, a TFSA — where withdrawals are tax-free and contribution room is restored the next year — is highly relevant.');
-  }
-  if (isLowerIncome && !firstHomeGoal && !retirementGoal) {
-    reasons.push('At your current income level and goal, TFSA flexibility usually outranks RRSP deductions, since deductions are less valuable in lower tax brackets.');
-  }
-
-  if (!reasons.length) {
-    reasons.push('Based on your answers, the framework points to using a flexible default order while you confirm contribution room and eligibility with CRA.');
-  }
-
-  /* Risks / warnings */
-  if (answers.resident === 'no') {
-    risks.push('You indicated you may not be a Canadian resident age 18+. TFSA, RRSP, and FHSA accounts have residency and age requirements — verify eligibility with CRA before contributing.');
-  }
-  if (shortHorizon) {
-    risks.push('A timeline under 3 years generally means market-based investing is too risky — favour HISA or short GIC holdings inside the chosen account.');
-  }
   if (answers.employerMatch === 'unsure') {
-    risks.push('You were unsure about employer matching — ask HR. A missed match can be the costliest mistake on this list.');
+    risks.push('Employer matching is unknown. Ask HR, because a real match can change the account order before TFSA/RRSP/FHSA comparisons.');
   }
-  if (answers.fhsaOpened === 'no' && wantsFirstHome) {
-    risks.push('Without an FHSA opened, you do not yet have a contribution clock running — even a $0 account starts your 15-year participation window.');
-  }
-  if (isHigherIncome && answers.goal === 'flexibility') {
-    risks.push('At a higher tax bracket, choosing TFSA-only over RRSP may leave significant tax savings on the table — weigh flexibility vs. deferred tax carefully.');
-  }
-  if (answers.timeline === '10plus' && needsAccess) {
-    risks.push('You said you have a long timeline but may need access — these can conflict. Consider splitting between an emergency buffer (TFSA / HISA) and longer-term growth.');
+  if (answers.resident === 'no') {
+    risks.push('You may not meet Canadian residency or age requirements. Verify eligibility with CRA before opening or contributing to registered accounts.');
   }
 
-  /* Always-on risk: rules and limits */
-  risks.push('TFSA, RRSP, and FHSA limits, eligibility, and tax treatment can change year to year — always confirm current rules with CRA before contributing.');
+  const accountRank = Object.values(accounts).sort((a, b) => b.score - a.score);
+  const ranked = answers.employerMatch === 'yes'
+    ? [{
+        ...ACCOUNT_LIBRARY.EMPLOYER_MATCH,
+        rationale: 'Capture enough employer RRSP matching to avoid leaving a workplace benefit unused, then compare TFSA, FHSA, and RRSP room on their own merits.',
+        why: ['Employer matching sits outside the normal account ranking because it can change the economics before tax optimization starts.'],
+      }, ...accountRank]
+    : accountRank;
 
-  /* Always-on next steps */
-  nextSteps.push('Run the numbers in the linked TFSA, RRSP, FHSA, and compound interest calculators to test the dollar impact for your situation.');
+  reasons.push(...accountRank.slice(0, 3).map((account, index) => (
+    `${account.label} ranked #${index + 1}: ${account.why[account.why.length - 1]}`
+  )));
+  if (emergencyIncomplete) {
+    reasons.push('Because emergency savings are incomplete, the model intentionally gives extra weight to liquidity and flexibility.');
+  }
+  if (beginner) {
+    reasons.push('Because you are just starting, the educational path avoids aggressive optimization and starts with account rules, contribution room, and basic risk.');
+  }
+
+  risks.push('TFSA, RRSP, and FHSA limits, eligibility, and tax treatment can change year to year. Always confirm current CRA rules before contributing.');
+
+  nextSteps.push('Verify TFSA, RRSP, and FHSA contribution room before moving money.');
+  if (emergencyIncomplete) nextSteps.push('Review the emergency fund guide before making large registered-account contributions.');
+  if (beginner) nextSteps.push('Use the beginner investing guide before selecting investments inside any account.');
+  nextSteps.push('Run the linked calculators to test how much the account order changes the dollar outcome.');
   nextSteps.push('Consider speaking with a qualified Canadian financial planner or tax professional before making large or irreversible contributions.');
 
   return {
-    ranked: ranked.slice(0, 4),
-    reasons,
-    risks,
-    nextSteps,
+    ranked: ranked.slice(0, 4).map((account) => ({
+      ...account,
+      rationale: accountRationale(account),
+    })),
+    reasons: [...new Set(reasons)],
+    risks: [...new Set(risks)],
+    nextSteps: [...new Set(nextSteps)],
+    changeTriggers: [
+      'Income rises significantly or falls unexpectedly.',
+      'Your expected retirement tax bracket changes.',
+      'Your emergency fund improves or is depleted.',
+      'Your home-buying timeline changes.',
+      'Employer matching, pension details, or group-plan fees change.',
+      'You decide to reinvest, save, or spend a refund differently than expected.',
+      'CRA rules, contribution limits, or eligibility guidance changes.',
+    ],
+    guideLinks: [
+      { title: 'TFSA Hub', href: '/topics/tfsa', body: 'Learn contribution room, withdrawals, mistakes, and when TFSA flexibility helps.' },
+      { title: 'RRSP Hub', href: '/topics/rrsp', body: 'Compare deduction value, retirement planning, and withdrawal tradeoffs.' },
+      { title: 'FHSA Hub', href: '/topics/fhsa', body: 'Check first-home eligibility, room, and qualifying withdrawal rules.' },
+      { title: 'TFSA vs RRSP guide', href: '/blog/tfsa-vs-rrsp-canada-2026', body: 'Compare the two core Canadian accounts when FHSA is not the main issue.' },
+      { title: 'Emergency fund guide', href: '/blog/emergency-fund-canada', body: 'Understand why liquid savings can matter before tax optimization.' },
+      { title: 'Beginner investing guide', href: '/blog/how-to-invest-in-canada-beginners-2026', body: 'Review account basics, risk, and simple investing decisions before adding complexity.' },
+      { title: 'Retirement planning hub', href: '/topics/retirement', body: 'Connect account choice with longer-term retirement income planning.' },
+    ],
+    beginnerMode: beginner,
+    emergencyMode: emergencyIncomplete,
   };
+}
+
+function buildRecommendation(answers) {
+  return buildWeightedRecommendation(answers);
 }
 
 /* ------------------------------------------------------------------ */
@@ -520,7 +618,7 @@ export default function AccountDecisionTool() {
             trustNote="This tool is for educational planning only and does not recommend products or investments."
           />
           <p className="mt-5 max-w-3xl text-base leading-7 text-slate-700 dark:text-slate-300 sm:text-lg">
-            Answer 9 short questions to see a personalized contribution-priority order across TFSA, RRSP, FHSA, and employer matching — built for Canadian residents in 2026.
+            Answer 13 short questions to see an educational contribution-priority order across TFSA, RRSP, FHSA, and employer matching - built for Canadian residents in 2026.
           </p>
           <div className="mt-5 flex flex-wrap items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
             <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1 font-semibold dark:border-slate-700 dark:bg-slate-900">
@@ -643,7 +741,7 @@ export default function AccountDecisionTool() {
                 disabled={!currentAnswer}
                 className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-emerald-500 dark:hover:bg-emerald-400"
               >
-                {isLastQuestion ? 'See my recommendation' : 'Next question'}
+                {isLastQuestion ? 'See account order' : 'Next question'}
                 <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
@@ -681,10 +779,10 @@ function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) 
 
   return (
     <section className="space-y-6" aria-labelledby="result-heading">
-      {/* Main recommendation */}
+      {/* Main result */}
       <div className="rounded-3xl border border-emerald-300 bg-gradient-to-br from-emerald-50 to-amber-50 p-6 shadow-sm dark:border-emerald-700/50 dark:from-emerald-950/30 dark:to-amber-950/20 sm:p-8">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-300">
-          Your top priority
+          Your likely account priority
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white dark:bg-emerald-500">
@@ -742,7 +840,7 @@ function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) 
 
       {/* Why this fits */}
       <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-        <h3 className="text-lg font-bold text-primary dark:text-accent">Why this account likely fits</h3>
+        <h3 className="text-lg font-bold text-primary dark:text-accent">Why this ranking?</h3>
         <ul className="mt-4 space-y-3">
           {recommendation.reasons.map((reason) => (
             <li key={reason} className="flex items-start gap-3 text-sm leading-6 text-slate-700 dark:text-slate-200">
@@ -751,6 +849,34 @@ function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) 
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <h3 className="text-lg font-bold text-primary dark:text-accent">Why each account ranked where it did</h3>
+        <div className="mt-4 space-y-3">
+          {recommendation.ranked.map((account, index) => (
+            <details
+              key={`${account.key}-why`}
+              className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800/60"
+              open={index === 0}
+            >
+              <summary className="cursor-pointer text-sm font-bold text-primary dark:text-accent">
+                Why {account.label} ranked #{index + 1}
+              </summary>
+              <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-200">{account.rationale}</p>
+              {account.tradeoffs?.length ? (
+                <ul className="mt-3 space-y-1 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                  {account.tradeoffs.slice(0, 3).map((tradeoff) => (
+                    <li key={tradeoff}>- {tradeoff}</li>
+                  ))}
+                </ul>
+              ) : null}
+              <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                This ranking is conditional. It reflects your emergency-savings, income, timeline, home-buying, flexibility, and confidence answers; it is not a directive to contribute.
+              </p>
+            </details>
+          ))}
+        </div>
       </div>
 
       <ResultInterpretation
@@ -771,6 +897,15 @@ function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) 
           },
         ]}
       />
+
+      {recommendation.beginnerMode || recommendation.emergencyMode ? (
+        <div className="rounded-3xl border border-blue-200 bg-blue-50 p-6 text-sm leading-6 text-blue-950 dark:border-blue-800/60 dark:bg-blue-950/30 dark:text-blue-100">
+          <h3 className="text-base font-bold">Beginner-safe guardrail</h3>
+          <p className="mt-2">
+            Because your answers show either beginner confidence or an incomplete emergency fund, this result gives more weight to flexibility, liquidity, and learning. That means it intentionally avoids pushing dividend optimization, complex tax timing, or aggressive long-term assumptions before the basics are stable.
+          </p>
+        </div>
+      ) : null}
 
       {/* Ranked contribution order */}
       <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
@@ -823,14 +958,11 @@ function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) 
       </div>
 
       <WatchOutBox
-        title="What can change this account order"
-        intro="Account priority can shift when the tax, timeline, or eligibility assumptions change."
+        title="When your answer might change"
+        intro="Account priority can shift when stability, tax, timeline, or eligibility assumptions change."
         items={[
+          ...(recommendation.changeTriggers ?? []),
           ...recommendation.risks,
-          'Income changes can alter the value of an RRSP or FHSA deduction.',
-          'Province changes can alter marginal tax-rate context and retirement planning assumptions.',
-          'Employer pension or matching details can make RRSP contributions more important than this tool can fully model.',
-          'Contribution-room history, withdrawal timing, and future tax-rule updates can change the clean ranking.',
         ]}
       />
 
@@ -859,23 +991,7 @@ function ResultCard({ recommendation, answers, ineligible, onRestart, onBack }) 
       <NextStepLinks
         title="Use the account order without over-reading it"
         intro="Treat the ranking as a planning sequence, then verify the exact rules and contribution room before moving money."
-        links={[
-          {
-            title: 'Read TFSA vs RRSP vs FHSA',
-            href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
-            body: 'Review the full Canadian account comparison behind this framework.',
-          },
-          {
-            title: 'Check FHSA rules',
-            href: '/blog/fhsa-rules-canada-2026',
-            body: 'Confirm first-home eligibility, annual room, lifetime room, and withdrawal conditions.',
-          },
-          {
-            title: 'Estimate compound growth',
-            href: '/tools/compound-interest-calculator',
-            body: 'Model the long-term effect after the account priority is clear.',
-          },
-        ]}
+        links={recommendation.guideLinks ?? []}
         trackingContext="account_decision_next_steps"
       />
 
