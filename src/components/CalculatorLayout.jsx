@@ -1,11 +1,12 @@
 import React from "react";
 import SEO from "./SEO";
 import ToolPageSchema from "./ToolPageSchema";
-import SurfaceTrackedLink from "./SurfaceTrackedLink";
 import ToolByline from "./ToolByline";
 import PrivacyNote from "./PrivacyNote";
 import SourceNote from "./SourceNote";
-import CalculatorResultTrustPanel from "./CalculatorResultTrustPanel";
+import CalculatorResultGuidance from "./CalculatorResultGuidance";
+import RelatedContent from "./RelatedContent";
+import MobileCalculateBar from "./MobileCalculateBar";
 
 export function fmtCAD(value, options = {}) {
   return Number(value || 0).toLocaleString("en-CA", {
@@ -57,7 +58,7 @@ export default function CalculatorLayout({
   footerNote,
 }) {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12">
+    <section className="mx-auto max-w-6xl px-4 pb-28 pt-12 lg:py-12">
       <SEO title={title} description={description} canonical={canonical} />
       {canonical && title ? (
         <ToolPageSchema
@@ -88,9 +89,9 @@ export default function CalculatorLayout({
           <div className="mt-8">{children}</div>
         </div>
 
-        <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+        <aside id="calculator-results" className="scroll-mt-24 space-y-4 lg:sticky lg:top-24 lg:self-start">
           {results}
-          <CalculatorResultTrustPanel
+          <CalculatorResultGuidance
             assumptions={[
               "The output uses the numbers currently entered on this page.",
               "Rates, limits, and tax treatment are simplified for planning.",
@@ -106,27 +107,22 @@ export default function CalculatorLayout({
       </div>
 
       {relatedTools.length > 0 ? (
-        <div className="surface-soft mt-10 p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary dark:text-secondary">Related calculators</p>
-          <div className="mt-4 grid gap-4 md:grid-cols-3">
-            {relatedTools.map((tool) => (
-              <SurfaceTrackedLink
-                key={tool.href}
-                to={tool.href}
-                eventName="calculator_related_tool_click"
-                ctaLabel={tool.title}
-                trackingParams={{ source_title: title, destination_type: "tool", section: "related_tools" }}
-                className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:shadow-md dark:border-slate-700 dark:bg-slate-900"
-              >
-                <h2 className="text-lg font-bold text-primary dark:text-accent">{tool.title}</h2>
-                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{tool.body}</p>
-              </SurfaceTrackedLink>
-            ))}
-          </div>
-        </div>
+        <RelatedContent
+          className="mt-10"
+          title="Related calculators and guides"
+          intro="Use these next to compare the result against a related Canadian finance decision."
+          items={relatedTools.map((tool) => ({
+            type: tool.href.startsWith("/tools/") ? "Calculator" : "Guide",
+            title: tool.title,
+            href: tool.href,
+            body: tool.body,
+          }))}
+          trackingContext="calculator_related_content"
+        />
       ) : null}
 
       {footerNote ? <p className="mt-6 text-sm text-slate-500 dark:text-slate-400">{footerNote}</p> : null}
+      <MobileCalculateBar />
     </section>
   );
 }

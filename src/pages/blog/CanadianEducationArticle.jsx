@@ -8,7 +8,6 @@ import FAQSchema from "../../components/FAQSchema";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import OfficialSourceNote from "../../components/OfficialSourceNote";
 import SourceList from "../../components/SourceList";
-import TrackedLink from "../../components/TrackedLink";
 import EnhancedAuthorBox from "../../components/EnhancedAuthorBox";
 import EditorialReviewNote from "../../components/EditorialReviewNote";
 import ContinueLearning from "../../components/ContinueLearning";
@@ -16,6 +15,7 @@ import SuggestCorrectionCTA from "../../components/SuggestCorrectionCTA";
 import WasThisHelpful from "../../components/WasThisHelpful";
 import UpdatedForRulesBadge from "../../components/UpdatedForRulesBadge";
 import RelatedDecisionTools from "../../components/RelatedDecisionTools";
+import RelatedContent from "../../components/RelatedContent";
 import {
   dividendTaxOfficialSources,
   fhsaOfficialSources,
@@ -64,6 +64,43 @@ function getDecisionToolTopic(article) {
   if (text.includes("fhsa")) return "fhsa";
   if (text.includes("rrsp")) return "rrsp";
   return "tfsa";
+}
+
+function getBalancedRelatedContent(article) {
+  const related = article.related || [];
+  const calculator = related.find((item) => item.href?.startsWith("/tools/"));
+  const guides = related.filter((item) => item.href?.startsWith("/blog/") || item.href?.startsWith("/topics/"));
+  const fallbackCalculator = {
+    type: "Calculator",
+    label: "Account Decision Tool",
+    href: "/tools/account-decision-tool",
+    body: "Compare TFSA, RRSP, and FHSA priority before turning the guide into an account decision.",
+  };
+  const fallbackGuides = [
+    {
+      type: "Guide",
+      label: "TFSA vs RRSP vs FHSA",
+      href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada",
+      body: "Use a broader Canadian account-priority framework.",
+    },
+    {
+      type: "Guide",
+      label: "Beginner investing in Canada",
+      href: "/blog/how-to-start-investing-canada-2026",
+      body: "Review account order, emergency cash, fees, and simple portfolio choices.",
+    },
+  ];
+
+  return [calculator || fallbackCalculator, ...guides, ...fallbackGuides]
+    .filter((item, index, list) => list.findIndex((candidate) => candidate.href === item.href) === index)
+    .slice(0, 3)
+    .map((item) => ({
+      type: item.href.startsWith("/tools/") ? "Calculator" : "Guide",
+      title: item.label || item.title,
+      href: item.href,
+      body: item.body,
+      ctaLabel: `${article.slug}_${item.label || item.title}`.toLowerCase().replace(/[^a-z0-9]+/g, "_"),
+    }));
 }
 
 export default function CanadianEducationArticle({ article }) {
@@ -251,25 +288,13 @@ export default function CanadianEducationArticle({ article }) {
           </div>
         </section>
 
-        <section className="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related tools and guides</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use these next</h2>
-          <div className="mt-5 grid gap-4 md:grid-cols-2">
-            {article.related.map((item) => (
-              <TrackedLink
-                key={item.href}
-                to={item.href}
-                articleSlug={article.slug}
-                ctaLabel={item.label}
-                className="rounded-2xl border border-slate-200 bg-white p-5 text-sm transition hover:border-secondary hover:shadow-md dark:border-slate-700 dark:bg-gray-900"
-              >
-                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-secondary">{item.type}</span>
-                <h3 className="mt-2 text-lg font-bold text-primary dark:text-accent">{item.label}</h3>
-                <p className="mt-2 leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
-              </TrackedLink>
-            ))}
-          </div>
-        </section>
+        <RelatedContent
+          className="mt-10"
+          title="Use these next"
+          intro="Each guide points to one practical calculator and two related guides so the next step stays educational instead of promotional."
+          items={getBalancedRelatedContent(article)}
+          trackingContext={`${article.slug}_related_content`}
+        />
 
         <MethodologyPanel
           title="How this article was prepared"

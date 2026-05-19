@@ -10,6 +10,8 @@ import MortgageBreakdownChart from '../components/MortgageBreakdownChart';
 import RetirementProjectionTimeline from '../components/RetirementProjectionTimeline';
 import AccountComparisonTable from '../components/AccountComparisonTable';
 import DividendIncomeProjection from '../components/DividendIncomeProjection';
+import FAQJsonLd from '../components/FAQJsonLd';
+import BreadcrumbJsonLd from '../components/BreadcrumbJsonLd';
 import { topicHubs } from '../config/topicHubs';
 
 function LinkGrid({ title, items, cta = 'Open' }) {
@@ -107,6 +109,13 @@ export default function TopicHub() {
         title={hub.title}
         description={hub.description}
         canonical={`https://easyfinancetools.com${hub.path}`}
+      />
+      <FAQJsonLd faqs={hub.faqs || []} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', item: 'https://easyfinancetools.com/' },
+          { name: hub.title, item: `https://easyfinancetools.com${hub.path}` },
+        ]}
       />
 
       <section className="border-b bg-gradient-to-br from-primary via-[#0a4c89] to-secondary px-4 py-16 text-white">

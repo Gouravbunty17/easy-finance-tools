@@ -1169,7 +1169,7 @@ export default function DividendCalculator() {
         note="Manual review needed: confirm ETF product details, current yield context, and whether any covered-call or concentration warnings need to be tightened."
       />
 
-      <FAQ items={ETF_FAQS} />
+      <FAQ includeSchema={false} items={ETF_FAQS} />
     </main>
   );
 }

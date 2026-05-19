@@ -1,29 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import FAQJsonLd from "./FAQJsonLd";
 
-export default function FAQ({ items }) {
+export default function FAQ({ items = [], includeSchema = true }) {
   const [open, setOpen] = useState(null);
-
-  // Inject JSON-LD schema for Google featured snippets
-  useEffect(() => {
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": items.map(({ q, a }) => ({
-        "@type": "Question",
-        "name": q,
-        "acceptedAnswer": { "@type": "Answer", "text": a },
-      })),
-    };
-    const el = document.createElement("script");
-    el.type = "application/ld+json";
-    el.id = "faq-schema";
-    el.textContent = JSON.stringify(schema);
-    document.head.appendChild(el);
-    return () => { document.getElementById("faq-schema")?.remove(); };
-  }, [items]);
 
   return (
     <div className="mt-12">
+      {includeSchema ? <FAQJsonLd faqs={items} /> : null}
       <h2 className="text-2xl font-bold text-primary dark:text-accent mb-6">Frequently Asked Questions</h2>
       <div className="space-y-3">
         {items.map(({ q, a }, i) => (

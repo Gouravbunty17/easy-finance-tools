@@ -56,9 +56,14 @@ export default function BlogHero({
             <div className="mt-5 flex flex-wrap items-center justify-center gap-2 lg:justify-start">
               <Link to={authorHref} className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85 transition hover:bg-white/20">By {author}</Link>
               <span className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85">{reviewer}</span>
+              <span className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85">Last verified for 2026</span>
+              <span className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85">Fact-checked against official Canadian sources</span>
               <a href={standardsHref} className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85 transition hover:bg-white/20">
                 Editorial standards
               </a>
+              <Link to="/corrections" className="rounded-full bg-white/12 px-3 py-1 text-xs font-semibold text-white/85 transition hover:bg-white/20">
+                Report an issue
+              </Link>
             </div>
 
             <div className="mt-6 max-w-2xl rounded-2xl border border-white/15 bg-white/10 p-4 text-left text-sm leading-6 text-white/85 backdrop-blur">

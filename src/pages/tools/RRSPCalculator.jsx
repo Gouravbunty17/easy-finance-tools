@@ -845,7 +845,7 @@ export default function RRSPCalculator() {
         }}
       />
 
-      <FAQ items={RRSP_FAQS} />
+      <FAQ includeSchema={false} items={RRSP_FAQS} />
     </main>
   );
 }

@@ -791,7 +791,7 @@ export default function TFSACalculator() {
         note="Manual review needed each year: confirm TFSA annual limits, any CRA guidance updates, and related account-comparison content."
       />
 
-      <FAQ items={TFSA_FAQS} />
+      <FAQ includeSchema={false} items={TFSA_FAQS} />
     </main>
   );
 }

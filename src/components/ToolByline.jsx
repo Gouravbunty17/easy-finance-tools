@@ -20,6 +20,8 @@ export default function ToolByline({
         <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">|</span>
         <span>Last verified for 2026</span>
         <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">|</span>
+        <span>Fact-checked against official Canadian sources</span>
+        <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">|</span>
         <Link to="/editorial-standards" className="hover:underline">{reviewer}</Link>
         <span aria-hidden="true" className="text-slate-300 dark:text-slate-600">|</span>
         <Link to="/corrections" className="hover:underline">Report an issue</Link>

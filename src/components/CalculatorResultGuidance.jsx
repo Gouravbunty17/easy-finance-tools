@@ -1,59 +1,75 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function CalculatorResultTrustPanel({
+export default function CalculatorResultGuidance({
+  whatThisResultMeans,
   assumptions = [],
+  keyAssumptions,
+  canadianTaxCaveat,
   caveats = [],
+  source,
   sources = [],
+  nextStepLinks = [],
   nextLinks = [],
+  relatedCalculator,
   className = "",
 }) {
-  const hasContent = assumptions.length || caveats.length || sources.length || nextLinks.length;
-  if (!hasContent) return null;
+  const normalizedAssumptions = keyAssumptions || assumptions;
+  const normalizedCaveats = canadianTaxCaveat ? [canadianTaxCaveat, ...caveats] : caveats;
+  const normalizedNextLinks = nextStepLinks.length ? nextStepLinks : nextLinks;
+  const normalizedSources = source ? [source, ...sources] : sources;
 
   return (
     <section className={`rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60 ${className}`}>
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">Result quality check</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">Calculator guidance</p>
       <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What this result means</h2>
       <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-        Treat the output as a planning estimate. The sections below show the assumptions used, Canadian caveats, official source checks, and safer next steps.
+        {whatThisResultMeans || "Use this result as a planning estimate, then review the assumptions, Canadian caveats, official sources, and next-step links before acting on it."}
       </p>
+
       <div className="mt-5 grid gap-4 lg:grid-cols-3">
-        {assumptions.length ? (
+        {normalizedAssumptions.length ? (
           <div>
-            <h3 className="text-sm font-bold text-primary dark:text-accent">Assumptions used</h3>
+            <h3 className="text-sm font-bold text-primary dark:text-accent">Key assumptions</h3>
             <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-              {assumptions.map((item) => <li key={item}>- {item}</li>)}
+              {normalizedAssumptions.map((item) => <li key={item}>- {item}</li>)}
             </ul>
           </div>
         ) : null}
-        {caveats.length ? (
+
+        {normalizedCaveats.length ? (
           <div>
-            <h3 className="text-sm font-bold text-primary dark:text-accent">Canadian caveats</h3>
+            <h3 className="text-sm font-bold text-primary dark:text-accent">Canadian tax caveat</h3>
             <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-              {caveats.map((item) => <li key={item}>- {item}</li>)}
+              {normalizedCaveats.map((item) => <li key={item}>- {item}</li>)}
             </ul>
           </div>
         ) : null}
+
         <div>
-          <h3 className="text-sm font-bold text-primary dark:text-accent">Verify or continue</h3>
-          {sources.length ? (
+          <h3 className="text-sm font-bold text-primary dark:text-accent">Sources and next steps</h3>
+          {normalizedSources.length ? (
             <div className="mt-3 flex flex-wrap gap-2">
-              {sources.slice(0, 4).map((source) => (
+              {normalizedSources.slice(0, 4).map((item) => (
                 <a
-                  key={source.href || source.label}
-                  href={source.href}
+                  key={item.href || item.label}
+                  href={item.href}
                   target="_blank"
                   rel="noreferrer"
                   className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-primary shadow-sm transition hover:text-secondary dark:bg-slate-950 dark:text-emerald-100"
                 >
-                  {source.label}
+                  {item.label}
                 </a>
               ))}
             </div>
           ) : null}
           <div className="mt-4 space-y-2 text-sm leading-6">
-            {nextLinks.map((link) => (
+            {relatedCalculator ? (
+              <Link to={relatedCalculator.href} className="block font-semibold text-secondary underline-offset-2 hover:underline dark:text-emerald-300">
+                Compare with {relatedCalculator.label}
+              </Link>
+            ) : null}
+            {normalizedNextLinks.map((link) => (
               <Link key={link.href} to={link.href} className="block font-semibold text-secondary underline-offset-2 hover:underline dark:text-emerald-300">
                 {link.label}
               </Link>

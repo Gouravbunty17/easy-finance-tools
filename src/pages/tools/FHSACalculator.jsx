@@ -624,7 +624,7 @@ export default function FHSACalculator() {
         note="Manual review needed each year: confirm annual FHSA limits, TFSA limits referenced in related links, and any updated CRA interpretation notes."
       />
 
-      <FAQ items={FHSA_FAQS} />
+      <FAQ includeSchema={false} items={FHSA_FAQS} />
     </main>
   );
 }
