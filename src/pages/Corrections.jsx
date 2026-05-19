@@ -23,7 +23,7 @@ const updateEntries = [
 const correctionPolicy = [
   {
     title: "Material correction",
-    body: "A wrong formula, stale official limit, broken source interpretation, or misleading example should be logged with the affected page and reviewed date.",
+    body: "A wrong formula, stale official limit, broken source interpretation, or misleading example should be logged with the affected page, correction date, and plain-language summary of what changed.",
   },
   {
     title: "Clarification",
@@ -50,6 +50,7 @@ export default function Corrections() {
         <p className="mt-4 text-lg leading-8 text-slate-600 dark:text-slate-300">
           Easy Finance Tools is written and maintained by Gourav Kumar. This page explains how calculation issues, tax-year updates, source changes, and user-reported errors are handled.
         </p>
+        <p className="mt-3 text-sm font-semibold text-slate-500 dark:text-slate-400">Last reviewed: May 19, 2026</p>
         <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
           For accountability context, read the <Link to="/founder-transparency" className="font-semibold text-primary underline dark:text-secondary">Founder Transparency</Link> page. It explains who operates the site, what credentials are not claimed, and how methodology and updates are handled.
         </p>
@@ -63,6 +64,9 @@ export default function Corrections() {
           <h2 className="text-2xl font-bold text-primary dark:text-accent">How to report an error</h2>
           <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
             If you notice a broken link, outdated limit, unclear explanation, or calculator issue, send the page URL, the input values used, and what looked wrong through the contact page.
+          </p>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Useful reports include the page URL, the relevant source link, the expected result, and enough context to reproduce a calculator issue without sharing private financial documents.
           </p>
           <Link className="mt-4 inline-flex rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-secondary" to="/contact">
             Report a correction

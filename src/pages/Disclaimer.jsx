@@ -21,6 +21,7 @@ export default function Disclaimer() {
           <p className="mx-auto mt-4 max-w-3xl text-lg text-blue-100">
             Easy Finance Tools helps Canadians estimate and compare scenarios, but it does not provide personalized professional advice.
           </p>
+          <p className="mt-4 text-sm font-semibold text-blue-100">Last reviewed: May 19, 2026</p>
         </div>
       </section>
 
@@ -36,6 +37,9 @@ export default function Disclaimer() {
           <h2>Financial, tax, legal, and mortgage advice</h2>
           <p>
             Nothing on this site creates an advisor-client, tax preparer-client, broker-client, legal, fiduciary, or professional relationship. Before acting on a material decision, verify your numbers with official sources such as CRA, Government of Canada, Bank of Canada, FCAC, CMHC, your lender, your financial institution, or a qualified professional.
+          </p>
+          <p>
+            EasyFinanceTools is founder-operated by Gourav Kumar and does not claim CFP, CFA, CPA, mortgage-broker, legal, or tax-preparer credentials. Founder transparency, methodology, and editorial standards are provided so readers can understand who is accountable for the site and how its limits are handled.
           </p>
 
           <h2>Investing risk</h2>

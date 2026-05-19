@@ -8,7 +8,7 @@ import PrivacyNote from "../components/PrivacyNote";
 import { tfsaOfficialSources, rrspOfficialSources, fhsaOfficialSources, mortgageOfficialSources } from "../config/officialSources";
 
 const founderName = "Gourav Kumar";
-const founderLocation = "Brampton, Ontario, Canada";
+const founderLocation = "Greater Toronto Area (GTA), Canada";
 const linkedInUrl = "";
 
 const processSteps = [
@@ -84,9 +84,9 @@ export default function FounderTransparency() {
             Who built EasyFinanceTools, and how the work is handled
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-blue-100">
-            EasyFinanceTools is an independent Canadian financial education and calculator site. This page explains who is accountable for it, what the site is trying to do, and where its limits are.
+            EasyFinanceTools is a founder-operated Canadian financial education and calculator site. This page explains who is accountable for it, why it exists, how it is maintained, and where its limits are.
           </p>
-          <p className="mt-4 text-sm font-semibold text-blue-100">Last reviewed: May 18, 2026</p>
+          <p className="mt-4 text-sm font-semibold text-blue-100">Last reviewed: May 19, 2026</p>
         </div>
       </section>
 
@@ -97,10 +97,19 @@ export default function FounderTransparency() {
             <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Built and maintained by {founderName}</h2>
             <div className="mt-5 space-y-4 leading-8 text-slate-600 dark:text-slate-300">
               <p>
-                EasyFinanceTools is built and maintained by {founderName} in {founderLocation}. The site exists because many Canadian finance pages jump too quickly to products, rankings, or affiliate links before explaining the account rules and tradeoffs that actually change the decision.
+                My name is {founderName}. I am a programmer based in the {founderLocation}, with a strong interest in investing and financial education.
               </p>
               <p>
-                The site is meant to help Canadians reason through questions like TFSA vs RRSP vs FHSA, contribution room, mortgage affordability, dividend assumptions, retirement estimates, and tax-sensitive tradeoffs. It is not meant to replace a licensed professional who can review a full personal situation.
+                After moving to Canada in 2022, I found it difficult to understand many Canadian financial systems and account options like TFSA, RRSP, FHSA, investing, mortgages, and taxes. Much of the information online felt either overly technical or too focused on selling products instead of helping people make practical financial decisions.
+              </p>
+              <p>
+                I started EasyFinanceTools.com to create a simpler and more transparent educational platform where Canadians, especially beginners and newcomers, can better understand financial decisions through calculators, guides, and decision-support tools.
+              </p>
+              <p>
+                As a programmer, I wanted the platform to be privacy-conscious, straightforward, and source-linked wherever possible, using official Canadian sources and clearly explained tradeoffs instead of aggressive financial marketing.
+              </p>
+              <p>
+                I am not a licensed financial advisor, accountant, or tax professional. The purpose of this platform is educational: to organize researched Canadian financial information, explain tradeoffs clearly, and help people make more informed decisions before speaking with professionals or making important financial choices.
               </p>
               {linkedInUrl ? (
                 <p>
@@ -111,7 +120,7 @@ export default function FounderTransparency() {
                 </p>
               ) : (
                 <p>
-                  A verified public LinkedIn URL is not currently configured on the site. Rather than linking to an unverified profile, this page points to the public methodology, editorial standards, corrections, and contact process.
+                  A verified public LinkedIn URL is not currently configured on the site. Rather than linking to an unverified profile, this page points to the public methodology, editorial standards, corrections, and contact process. A real LinkedIn link can be added when it is ready to publish.
                 </p>
               )}
             </div>

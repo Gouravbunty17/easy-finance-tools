@@ -7,7 +7,7 @@ import DecisionFramework from "../components/DecisionFramework";
 
 const FOUNDER_HEADSHOT_URL = "";
 const FOUNDER_LINKEDIN_URL = "";
-const FOUNDER_LOCATION = "Brampton, Ontario, Canada";
+const FOUNDER_LOCATION = "Greater Toronto Area (GTA), Canada";
 
 const TRUST_POINTS = [
   {
@@ -44,6 +44,21 @@ const DECISION_FIRST_EXAMPLES = [
   "What assumption would change the result?",
   "Which official rule needs to be checked before acting?",
   "What mistake would make a good-looking calculator result misleading?",
+];
+
+const PLATFORM_AREAS = [
+  { title: "Registered accounts", body: "TFSA, RRSP, and FHSA calculators and guides focused on contribution room, tax tradeoffs, withdrawals, and account priority." },
+  { title: "Investing decisions", body: "Educational investing and dividend tools that explain risk, yield assumptions, account location, and what the tool cannot know." },
+  { title: "Mortgages and housing", body: "Mortgage payment, affordability, rent-vs-buy, and housing decision pages grounded in Canadian borrowing and stress-test context." },
+  { title: "Retirement and planning basics", body: "Retirement, CPP/OAS, compound growth, savings, debt, and tax tools designed to support practical next-step thinking." },
+];
+
+const TRUST_LINKS = [
+  { label: "Founder Transparency", href: "/founder-transparency", body: "Who built the site, why it exists, and what credentials are not claimed." },
+  { label: "Methodology", href: "/methodology", body: "How calculators are researched, built, tested, and updated." },
+  { label: "Editorial Standards", href: "/editorial-standards", body: "How the site handles sources, updates, monetization, and quality checks." },
+  { label: "Corrections Policy", href: "/corrections", body: "How errors, stale source links, and calculation issues can be reported and handled." },
+  { label: "Financial Disclaimer", href: "/disclaimer", body: "The educational limits of calculators, guides, and investing examples." },
 ];
 
 export default function About() {
@@ -98,7 +113,7 @@ export default function About() {
               About EasyFinanceTools
             </h1>
             <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-              EasyFinanceTools helps Canadians understand financial tradeoffs before products, rankings, or referral links enter the conversation.
+              EasyFinanceTools helps Canadians, including beginners and newcomers, understand financial tradeoffs before products, rankings, or referral links enter the conversation.
             </p>
             <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
               <Link to="/tools/account-decision-tool" className="rounded-xl bg-primary px-4 py-2 text-white transition hover:bg-secondary">
@@ -155,13 +170,13 @@ export default function About() {
           <div>
             <div className="surface-card p-6 md:p-8">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Founder and operator</p>
-              <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Built and maintained by Gourav Kumar</h2>
+              <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Why EasyFinanceTools exists</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
-                  EasyFinanceTools is an independent Canadian personal finance education and calculator platform founded by Gourav Kumar in {FOUNDER_LOCATION}. The site is built for people who want to test TFSA, RRSP, FHSA, mortgage, dividend, tax, and retirement scenarios without being pushed into a product first.
+                  EasyFinanceTools is an independent Canadian personal finance education and calculator platform founded by Gourav Kumar in {FOUNDER_LOCATION}. After moving to Canada in 2022, Gourav found many Canadian financial systems difficult to understand at first: TFSA, RRSP, FHSA, investing accounts, mortgage rules, taxes, and contribution-room details all had their own vocabulary and hidden traps.
                 </p>
                 <p>
-                  The strongest point of the site is not that it has calculators. It is that the calculators are connected to practical decision questions: what changes the answer, what assumptions matter, and what should be verified before acting.
+                  A lot of online finance content either felt overly technical or too focused on selling products before explaining the decision. This site was built to make the practical layer easier: what changes the answer, what assumption matters, what mistake should be avoided, and which official source should be checked before acting.
                 </p>
                 <p>
                   EasyFinanceTools does not provide personalized financial, tax, legal, mortgage, or investment advice. Gourav is not a licensed financial advisor, CPA, CFP, CFA, mortgage broker, or tax preparer.
@@ -190,7 +205,7 @@ export default function About() {
               <h2 className="text-2xl font-bold text-primary dark:text-accent">Why this site exists</h2>
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
-                  Many finance pages answer the easy definition question but skip the harder planning question: what changes the decision? EasyFinanceTools is designed around that second question.
+                  Canadian financial systems can be confusing, especially when someone is new to the country, new to investing, or trying to compare multiple accounts at once. EasyFinanceTools exists to explain the decision path in plain language before a user opens an account, chooses a platform, or acts on a calculator result.
                 </p>
                 <p>
                   A calculator result should not stand alone. Each major tool explains what the number means, which assumptions drive it, where it can be wrong, and which official source or related guide helps verify the next step.
@@ -198,6 +213,19 @@ export default function About() {
                 <p>
                   The site may use contextual advertising and clearly disclosed referral relationships, but those relationships do not change calculator formulas, source selection, or educational conclusions.
                 </p>
+              </div>
+            </div>
+
+            <div className="mt-8 surface-card p-6 md:p-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">What the platform covers</p>
+              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Canadian financial decisions, organized by goal</h2>
+              <div className="mt-5 grid gap-4 md:grid-cols-2">
+                {PLATFORM_AREAS.map((item) => (
+                  <div key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">
+                    <h3 className="text-lg font-bold text-primary dark:text-accent">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -250,6 +278,19 @@ export default function About() {
                 <p>
                   Pages are updated when important rules, limits, source links, or calculator behavior changes. Material corrections and maintenance notes are tracked on the <Link to="/corrections" className="text-secondary underline-offset-2 hover:underline">Corrections and Updates</Link> page.
                 </p>
+              </div>
+            </div>
+
+            <div className="mt-8 surface-card p-6 md:p-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Trust links</p>
+              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Transparency pages worth reading</h2>
+              <div className="mt-5 grid gap-4 md:grid-cols-2">
+                {TRUST_LINKS.map((item) => (
+                  <Link key={item.href} to={item.href} className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-900/60">
+                    <h3 className="text-lg font-bold text-primary dark:text-accent">{item.label}</h3>
+                    <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+                  </Link>
+                ))}
               </div>
             </div>
 

@@ -47,7 +47,7 @@ export default function EditorialStandards() {
           <p className="mx-auto mt-4 max-w-3xl text-lg text-blue-100">
             EasyFinanceTools is built to be useful first. These standards explain how we approach Canadian finance tools, comparisons, updates, and disclosures.
           </p>
-          <p className="mt-4 text-sm font-semibold text-blue-100">Last reviewed: May 9, 2026</p>
+          <p className="mt-4 text-sm font-semibold text-blue-100">Last reviewed: May 19, 2026</p>
         </div>
       </section>
 
@@ -179,6 +179,9 @@ export default function EditorialStandards() {
                 </p>
                 <p>
                   Affiliate or referral relationships cannot affect formulas, source links, risk explanations, rankings, or whether negative tradeoffs are shown. Product links should appear after educational value, not before the reader understands the decision.
+                </p>
+                <p>
+                  The site avoids guaranteed-return language, fake urgency, fake expert reviews, invented user counts, and claims that imply personalized advice. If a page discusses investing, yield, tax savings, or mortgage affordability, it should also describe the assumptions and the conditions that can make the estimate weaker.
                 </p>
               </div>
             </div>

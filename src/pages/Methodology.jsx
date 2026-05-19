@@ -60,7 +60,7 @@ export default function Methodology() {
           <p className="mx-auto mt-4 max-w-3xl text-lg text-blue-100">
             Every calculator should explain what it does, what it does not do, where key assumptions come from, and when the page was last meaningfully reviewed.
           </p>
-          <p className="mt-4 text-sm font-semibold text-blue-100">Last reviewed: May 9, 2026</p>
+          <p className="mt-4 text-sm font-semibold text-blue-100">Last reviewed: May 19, 2026</p>
         </div>
       </section>
 
@@ -122,6 +122,9 @@ export default function Methodology() {
               <div className="mt-4 space-y-4 text-slate-600 dark:text-slate-300">
                 <p>
                   Each calculator starts with the practical question a Canadian user is trying to answer: contribution room, tax estimate, mortgage payment, dividend income, savings path, or household budget. We then map the required inputs, identify the governing Canadian assumptions, and keep the calculation client-side wherever possible.
+                </p>
+                <p>
+                  Estimates are intentionally simplified. A TFSA room estimate cannot see every recent transaction, an RRSP refund estimate cannot know the user's full tax return, and a mortgage affordability estimate cannot replace lender underwriting. The page should explain what is modeled, what is assumed, and what should be verified with official records or a qualified professional.
                 </p>
                 <p>
                   For rule-based calculators, we check formulas and limits against official sources. For scenario calculators, we disclose that returns, rates, inflation, and timing are user assumptions rather than predictions. Before publishing or updating a calculator, we test common cases, zero or edge values, mobile layout, and whether the result explanation still matches the formula.
