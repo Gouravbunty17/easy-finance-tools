@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const DEFAULT_HEADSHOT_URL = "";
 
-export default function AuthorBox({ className = "", lastReviewed = "", linkedinUrl = "", headshotUrl = DEFAULT_HEADSHOT_URL }) {
+export default function AuthorBox({ className = "", lastReviewed = "", headshotUrl = DEFAULT_HEADSHOT_URL }) {
   const [imageAvailable, setImageAvailable] = useState(Boolean(headshotUrl));
 
   return (
@@ -36,9 +36,6 @@ export default function AuthorBox({ className = "", lastReviewed = "", linkedinU
         <Link to="/about" className="text-secondary underline-offset-2 hover:underline">Read more about Easy Finance Tools</Link>
         <Link to="/founder-transparency" className="text-secondary underline-offset-2 hover:underline">Founder transparency</Link>
         {lastReviewed ? <span className="text-slate-500 dark:text-slate-400">Last reviewed: {lastReviewed}</span> : null}
-        {linkedinUrl ? (
-          <a href={linkedinUrl} target="_blank" rel="noreferrer" className="text-secondary underline-offset-2 hover:underline">LinkedIn</a>
-        ) : null}
       </div>
     </section>
   );

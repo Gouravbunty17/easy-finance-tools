@@ -15,7 +15,6 @@ export default function BlogHero({
   reviewer = "Reviewed against current Canadian source material",
   standardsHref = "/editorial-standards",
   slug,
-  linkedinUrl = "",
   headshotUrl = "",
 }) {
   const media = slug ? getArticleMedia(slug) : null;
@@ -84,7 +83,6 @@ export default function BlogHero({
                   </p>
                   <div className="mt-2 flex flex-wrap gap-3 text-xs font-semibold">
                     <Link to={authorHref} className="underline underline-offset-2">About the author</Link>
-                    {linkedinUrl ? <a href={linkedinUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2">LinkedIn</a> : null}
                     <span>Last reviewed: {date}</span>
                   </div>
                 </div>

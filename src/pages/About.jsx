@@ -6,7 +6,6 @@ import TopicClusterMap from "../components/TopicClusterMap";
 import DecisionFramework from "../components/DecisionFramework";
 
 const FOUNDER_HEADSHOT_URL = "";
-const FOUNDER_LINKEDIN_URL = "";
 const FOUNDER_LOCATION = "Greater Toronto Area (GTA), Canada";
 
 const TRUST_POINTS = [
@@ -91,7 +90,6 @@ export default function About() {
           "@type": "Person",
           name: "Gourav Kumar",
         },
-        ...(FOUNDER_LINKEDIN_URL ? { sameAs: [FOUNDER_LINKEDIN_URL] } : {}),
       },
     ],
   };
@@ -152,11 +150,6 @@ export default function About() {
               Independent site operator, calculator builder, and editor. Not a licensed financial advisor, accountant, mortgage broker, or tax professional.
             </p>
             <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
-              {FOUNDER_LINKEDIN_URL ? (
-                <a href={FOUNDER_LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-primary underline dark:text-secondary">
-                  LinkedIn
-                </a>
-              ) : null}
               <Link to="/contact" className="text-primary underline dark:text-secondary">Contact</Link>
               <Link to="/founder-transparency" className="text-primary underline dark:text-secondary">Transparency</Link>
               <Link to="/corrections" className="text-primary underline dark:text-secondary">Corrections</Link>
@@ -189,7 +182,6 @@ export default function About() {
                 lastUpdated="May 9, 2026"
                 focus="Canadian finance calculators and education"
                 headshotUrl={FOUNDER_HEADSHOT_URL}
-                linkedinUrl={FOUNDER_LINKEDIN_URL}
               />
             </div>
 
@@ -317,7 +309,7 @@ export default function About() {
                   The site is founder-operated today. Over time, the highest-risk pages should receive external review from qualified Canadian tax, accounting, planning, or mortgage professionals where appropriate.
                 </p>
                 <p>
-                  A real founder headshot and verified public LinkedIn link should be added here when available. Those assets should be real, current, and not stock imagery.
+                  A real founder headshot may be added here when available. Any image should be real, current, and not stock imagery.
                 </p>
                 <p>
                   Reader corrections and source updates are handled through the contact and corrections process rather than pretending the site is finished.

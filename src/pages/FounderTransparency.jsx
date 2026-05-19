@@ -9,7 +9,6 @@ import { tfsaOfficialSources, rrspOfficialSources, fhsaOfficialSources, mortgage
 
 const founderName = "Gourav Kumar";
 const founderLocation = "Greater Toronto Area (GTA), Canada";
-const linkedInUrl = "";
 
 const processSteps = [
   {
@@ -62,7 +61,6 @@ export default function FounderTransparency() {
         addressRegion: "Ontario",
         addressCountry: "CA",
       },
-      ...(linkedInUrl ? { sameAs: [linkedInUrl] } : {}),
     },
   };
 
@@ -111,18 +109,9 @@ export default function FounderTransparency() {
               <p>
                 I am not a licensed financial advisor, accountant, or tax professional. The purpose of this platform is educational: to organize researched Canadian financial information, explain tradeoffs clearly, and help people make more informed decisions before speaking with professionals or making important financial choices.
               </p>
-              {linkedInUrl ? (
-                <p>
-                  You can also review the founder's public profile on{" "}
-                  <a href={linkedInUrl} target="_blank" rel="noreferrer" className="font-semibold text-primary underline dark:text-secondary">
-                    LinkedIn
-                  </a>.
-                </p>
-              ) : (
-                <p>
-                  A verified public LinkedIn URL is not currently configured on the site. Rather than linking to an unverified profile, this page points to the public methodology, editorial standards, corrections, and contact process. A real LinkedIn link can be added when it is ready to publish.
-                </p>
-              )}
+              <p>
+                For privacy and simplicity, this site does not link to personal social profiles. Accountability is handled through the public methodology, editorial standards, corrections, and contact process.
+              </p>
             </div>
           </section>
 

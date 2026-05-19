@@ -7,7 +7,6 @@ export default function EnhancedAuthorBox({
   lastUpdated,
   focus = 'Canadian personal finance education',
   headshotUrl = DEFAULT_HEADSHOT_URL,
-  linkedinUrl = '',
 }) {
   const [imageAvailable, setImageAvailable] = useState(Boolean(headshotUrl));
 
@@ -41,11 +40,6 @@ export default function EnhancedAuthorBox({
           <div className="mt-3 flex flex-wrap gap-3 text-sm font-semibold">
             <Link to="/about" className="text-primary underline dark:text-secondary">About Gourav</Link>
             <Link to="/founder-transparency" className="text-primary underline dark:text-secondary">Founder transparency</Link>
-            {linkedinUrl ? (
-              <a href={linkedinUrl} target="_blank" rel="noreferrer" className="text-primary underline dark:text-secondary">
-                LinkedIn
-              </a>
-            ) : null}
           </div>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60">

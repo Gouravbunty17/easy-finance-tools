@@ -224,7 +224,7 @@ Soft gate:
 
 ## 17. Launch strategy
 
-- **Channels:** Twitter/X, LinkedIn, IndieHackers, Product Hunt, r/PersonalFinanceCanada
+- **Channels:** Twitter/X, IndieHackers, Product Hunt, r/PersonalFinanceCanada
 - **r/PFC warning:** subreddit hostile to self-promotion. Build genuine post history first; post as "I built this free tool, would love feedback" from real account; be present in comments. Otherwise: removed and possibly banned.
 - **Shareability hook:** "Here's my portfolio breakdown" — make sure results page screenshots cleanly on mobile.
 
