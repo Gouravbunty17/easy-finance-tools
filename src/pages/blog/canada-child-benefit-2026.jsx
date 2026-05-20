@@ -2,6 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
+import ArticleSchema from "../../components/ArticleSchema";
+import FAQSchema from "../../components/FAQSchema";
+
+const PAGE_CANONICAL = "https://easyfinancetools.com/blog/canada-child-benefit-2026";
+const FAQS = [
+  {
+    q: "Is the CCB taxable?",
+    a: "No. The Canada Child Benefit is tax-free and is not included as income on your tax return.",
+  },
+  {
+    q: "Does the CCB affect OAS or GIS?",
+    a: "No. The CCB is not considered income for OAS clawback or GIS eligibility purposes.",
+  },
+  {
+    q: "What happens when my child turns 18?",
+    a: "CCB payments normally stop the month after a child turns 18. CRA records are used to manage the age cutoff.",
+  },
+  {
+    q: "What if I share custody?",
+    a: "For shared custody, generally at least 40% of the time with each parent, the CCB may be split between both parents.",
+  },
+];
 
 export default function CanadaChildBenefit2026() {
   return (
@@ -9,8 +31,16 @@ export default function CanadaChildBenefit2026() {
       <SEO
         title="Canada Child Benefit (CCB) 2026: Amounts, Dates & How to Apply"
         description="2026 Canada Child Benefit (CCB) guide: monthly amounts by income and child age, all 12 payment dates, eligibility, and how to maximize your CCB."
-        canonical="https://easyfinancetools.com/blog/canada-child-benefit-2026"
+        canonical={PAGE_CANONICAL}
       />
+      <ArticleSchema
+        headline="Canada Child Benefit (CCB) 2026: Amounts, Dates & How to Apply"
+        description="A Canadian guide to 2026 Canada Child Benefit amounts, payment dates, eligibility, income phaseouts, and CRA application options."
+        url={PAGE_CANONICAL}
+        datePublished="2026-04-02"
+        dateModified="2026-04-02"
+      />
+      <FAQSchema faqs={FAQS} />
 
       <BlogHero
         icon="👶"

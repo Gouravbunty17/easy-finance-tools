@@ -4,6 +4,9 @@ import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import TrackedLink from "../../components/TrackedLink";
+import ArticleSchema from "../../components/ArticleSchema";
+
+const PAGE_CANONICAL = "https://easyfinancetools.com/blog/how-to-invest-in-canada-beginners-2026";
 
 export default function HowToInvestBeginners2026() {
   return (
@@ -11,7 +14,14 @@ export default function HowToInvestBeginners2026() {
       <SEO
         title="How to Invest in Canada: Complete Beginner's Guide (2026)"
         description="Step-by-step guide to investing in Canada for the first time: which accounts to open, simple ETF choices, how much to start with, and common mistakes to avoid."
-        canonical="https://easyfinancetools.com/blog/how-to-invest-in-canada-beginners-2026"
+        canonical={PAGE_CANONICAL}
+      />
+      <ArticleSchema
+        headline="How to Invest in Canada: Complete Beginner's Guide (2026)"
+        description="Step-by-step guide to investing in Canada for the first time, including account choice, simple ETF examples, contribution habits, and beginner mistakes to avoid."
+        url={PAGE_CANONICAL}
+        datePublished="2026-04-02"
+        dateModified="2026-04-02"
       />
 
       <BlogHero

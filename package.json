@@ -8,7 +8,8 @@
     "generate:sitemap": "node scripts/generate-sitemap.mjs",
     "prerender": "node scripts/prerender.mjs",
     "preview": "vite preview",
-    "verify:live": "powershell -ExecutionPolicy Bypass -File scripts/verify-live.ps1"
+    "verify:live": "powershell -ExecutionPolicy Bypass -File scripts/verify-live.ps1",
+    "audit:seo": "node scripts/technical-seo-audit.mjs"
   },
   "dependencies": {
     "chart.js": "^4.4.0",
