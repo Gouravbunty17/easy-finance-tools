@@ -5,6 +5,9 @@ import BlogHero from "../../components/BlogHero";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import TrackedLink from "../../components/TrackedLink";
 import ArticleSchema from "../../components/ArticleSchema";
+import ContributorReviewBox from "../../components/ContributorReviewBox";
+import SourceVerificationBlock from "../../components/SourceVerificationBlock";
+import { fhsaOfficialSources, rrspOfficialSources, tfsaOfficialSources } from "../../config/officialSources";
 
 const PAGE_CANONICAL = "https://easyfinancetools.com/blog/how-to-invest-in-canada-beginners-2026";
 
@@ -38,6 +41,16 @@ export default function HowToInvestBeginners2026() {
           <p className="lead">
             Investing in Canada does not have to be complicated. Most Canadians can build long-term wealth with one or two registered accounts and a low-cost ETF instead of stock-picking or paying high mutual fund fees.
           </p>
+
+          <div className="not-prose my-6 grid gap-4">
+            <ContributorReviewBox />
+            <SourceVerificationBlock
+              lastUpdated="April 2, 2026"
+              sources={[tfsaOfficialSources[0], rrspOfficialSources[0], fhsaOfficialSources[0]]}
+              checked={["Registered-account source links", "Beginner risk and fee caveats", "No personalized investment recommendation language", "Related calculator links"]}
+              limitations={["This guide cannot determine a beginner's risk tolerance, debt situation, tax history, or contribution room.", "Brokerage fees, product availability, and official account rules can change."]}
+            />
+          </div>
 
           <h2>Step 1: Open the right account first</h2>
           <p>

@@ -6,6 +6,7 @@ import {
   calculateFhsaScenario,
   formatFhsaCurrency,
 } from '../lib/fhsaPlanning';
+import { parseNumericInput } from '../lib/numericInputs';
 
 function MetricCard({ label, value, hint, tone = 'default' }) {
   const tones = {
@@ -25,17 +26,22 @@ function MetricCard({ label, value, hint, tone = 'default' }) {
 }
 
 function InputField({ label, value, onChange, min, max, step, suffix, helpText }) {
+  const inputId = `embedded-fhsa-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+  const helpId = helpText ? `${inputId}-help` : undefined;
+
   return (
     <div>
-      <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+      <label htmlFor={inputId} className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
       <div className="relative">
         <input
+          id={inputId}
           type="number"
           value={value}
           onChange={onChange}
           min={min}
           max={max}
           step={step}
+          aria-describedby={helpId}
           className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 pr-14 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
         />
         {suffix ? (
@@ -44,7 +50,7 @@ function InputField({ label, value, onChange, min, max, step, suffix, helpText }
           </span>
         ) : null}
       </div>
-      {helpText ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
+      {helpText ? <p id={helpId} className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
     </div>
   );
 }
@@ -55,15 +61,15 @@ export default function EmbeddedFHSACalculator({
   intro = 'Start with a realistic home-saving example, then change your income, province, and contribution amount to see how the deduction and growth outlook shift.',
 }) {
   const initialState = useMemo(() => buildFhsaInitialState(initialValues), [initialValues]);
-  const [birthYear, setBirthYear] = useState(initialState.birthYear);
+  const [birthYear, setBirthYear] = useState(String(initialState.birthYear));
   const [province, setProvince] = useState(initialState.province);
-  const [income, setIncome] = useState(initialState.income);
-  const [availableRoomNow, setAvailableRoomNow] = useState(initialState.availableRoomNow);
-  const [contributedToDate, setContributedToDate] = useState(initialState.contributedToDate);
-  const [currentBalance, setCurrentBalance] = useState(initialState.currentBalance);
-  const [annualContribution, setAnnualContribution] = useState(initialState.annualContribution);
-  const [expectedReturn, setExpectedReturn] = useState(initialState.expectedReturn);
-  const [yearsToPurchase, setYearsToPurchase] = useState(initialState.yearsToPurchase);
+  const [income, setIncome] = useState(String(initialState.income));
+  const [availableRoomNow, setAvailableRoomNow] = useState(String(initialState.availableRoomNow));
+  const [contributedToDate, setContributedToDate] = useState(String(initialState.contributedToDate));
+  const [currentBalance, setCurrentBalance] = useState(String(initialState.currentBalance));
+  const [annualContribution, setAnnualContribution] = useState(String(initialState.annualContribution));
+  const [expectedReturn, setExpectedReturn] = useState(String(initialState.expectedReturn));
+  const [yearsToPurchase, setYearsToPurchase] = useState(String(initialState.yearsToPurchase));
 
   const result = useMemo(() => calculateFhsaScenario({
     birthYear,
@@ -143,7 +149,7 @@ export default function EmbeddedFHSACalculator({
             <InputField
               label="Annual income"
               value={income}
-              onChange={(event) => setIncome(Number(event.target.value || 0))}
+              onChange={(event) => setIncome(parseNumericInput(event.target.value))}
               min={0}
               step={1000}
               suffix="CAD"
@@ -151,7 +157,7 @@ export default function EmbeddedFHSACalculator({
             <InputField
               label="Planned contribution"
               value={annualContribution}
-              onChange={(event) => setAnnualContribution(Number(event.target.value || 0))}
+              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
               min={0}
               max={16000}
               step={500}
@@ -160,7 +166,7 @@ export default function EmbeddedFHSACalculator({
             <InputField
               label="Estimated room available now"
               value={availableRoomNow}
-              onChange={(event) => setAvailableRoomNow(Number(event.target.value || 0))}
+              onChange={(event) => setAvailableRoomNow(parseNumericInput(event.target.value))}
               min={0}
               max={16000}
               step={500}
@@ -169,7 +175,7 @@ export default function EmbeddedFHSACalculator({
             <InputField
               label="Current FHSA balance"
               value={currentBalance}
-              onChange={(event) => setCurrentBalance(Number(event.target.value || 0))}
+              onChange={(event) => setCurrentBalance(parseNumericInput(event.target.value))}
               min={0}
               step={500}
               suffix="CAD"
@@ -177,7 +183,7 @@ export default function EmbeddedFHSACalculator({
             <InputField
               label="Contributions already made"
               value={contributedToDate}
-              onChange={(event) => setContributedToDate(Number(event.target.value || 0))}
+              onChange={(event) => setContributedToDate(parseNumericInput(event.target.value))}
               min={0}
               max={40000}
               step={500}
@@ -186,7 +192,7 @@ export default function EmbeddedFHSACalculator({
             <InputField
               label="Expected annual growth"
               value={expectedReturn}
-              onChange={(event) => setExpectedReturn(Number(event.target.value || 0))}
+              onChange={(event) => setExpectedReturn(parseNumericInput(event.target.value))}
               min={0}
               max={12}
               step={0.5}
@@ -195,7 +201,7 @@ export default function EmbeddedFHSACalculator({
             <InputField
               label="Years until home purchase"
               value={yearsToPurchase}
-              onChange={(event) => setYearsToPurchase(Number(event.target.value || 0))}
+              onChange={(event) => setYearsToPurchase(parseNumericInput(event.target.value, { integer: true }))}
               min={1}
               max={15}
               step={1}
@@ -204,7 +210,7 @@ export default function EmbeddedFHSACalculator({
             <InputField
               label="Birth year"
               value={birthYear}
-              onChange={(event) => setBirthYear(Number(event.target.value || 0))}
+              onChange={(event) => setBirthYear(parseNumericInput(event.target.value, { integer: true }))}
               min={1950}
               max={2008}
               step={1}

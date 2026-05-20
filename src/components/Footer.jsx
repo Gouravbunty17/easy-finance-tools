@@ -36,7 +36,7 @@ export default function Footer() {
               <li><Link to="/methodology" className="hover:text-white">Methodology</Link></li>
               <li><Link to="/editorial-standards" className="hover:text-white">Editorial Standards</Link></li>
               <li><Link to="/affiliate-disclosure" className="hover:text-white">Affiliate Disclosure</Link></li>
-              <li><Link to="/corrections" className="hover:text-white">Corrections / Updates</Link></li>
+              <li><Link to="/corrections" className="hover:text-white">Corrections / Report Error</Link></li>
               <li><Link to="/disclaimer" className="hover:text-white">Disclaimer</Link></li>
               <li><Link to="/terms" className="hover:text-white">Terms</Link></li>
               <li><Link to="/privacy" className="hover:text-white">Privacy Policy</Link></li>
@@ -66,7 +66,7 @@ export default function Footer() {
               Affiliate disclosure
             </Link>
             <Link to="/corrections" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
-              Corrections / updates
+              Corrections / report error
             </Link>
             <Link to="/disclaimer" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
               Full disclaimer

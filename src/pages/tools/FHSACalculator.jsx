@@ -28,6 +28,10 @@ import ReferenceSection from '../../components/ReferenceSection';
 import SourceList from '../../components/SourceList';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
 import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
+import CalculatorResultGuidance from '../../components/CalculatorResultGuidance';
+import RelatedContent from '../../components/RelatedContent';
+import ContributorReviewBox from '../../components/ContributorReviewBox';
+import SourceVerificationBlock from '../../components/SourceVerificationBlock';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
@@ -37,6 +41,7 @@ import {
 } from '../../config/financial';
 import { fhsaOfficialSources } from '../../config/officialSources';
 import { calculateFhsaScenario, formatFhsaCurrency as formatCurrency } from '../../lib/fhsaPlanning';
+import { parseNumericInput } from '../../lib/numericInputs';
 
 ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
@@ -81,17 +86,22 @@ function ResultMetric({ label, value, hint, tone = 'default' }) {
 }
 
 function ScenarioInput({ label, value, onChange, type = 'number', step, min, max, suffix, helpText }) {
+  const inputId = `fhsa-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+  const helpId = helpText ? `${inputId}-help` : undefined;
+
   return (
     <div>
-      <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+      <label htmlFor={inputId} className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
       <div className="relative">
         <input
+          id={inputId}
           type={type}
           value={value}
           onChange={onChange}
           step={step}
           min={min}
           max={max}
+          aria-describedby={helpId}
           className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 pr-14 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
         />
         {suffix ? (
@@ -100,21 +110,21 @@ function ScenarioInput({ label, value, onChange, type = 'number', step, min, max
           </span>
         ) : null}
       </div>
-      {helpText ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
+      {helpText ? <p id={helpId} className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
     </div>
   );
 }
 
 export default function FHSACalculator() {
-  const [birthYear, setBirthYear] = useState(DEFAULT_ASSUMPTIONS.fhsa.birthYear);
+  const [birthYear, setBirthYear] = useState(String(DEFAULT_ASSUMPTIONS.fhsa.birthYear));
   const [province, setProvince] = useState(DEFAULT_ASSUMPTIONS.fhsa.province);
-  const [income, setIncome] = useState(DEFAULT_ASSUMPTIONS.fhsa.income);
-  const [availableRoomNow, setAvailableRoomNow] = useState(DEFAULT_ASSUMPTIONS.fhsa.availableRoomNow);
-  const [contributedToDate, setContributedToDate] = useState(DEFAULT_ASSUMPTIONS.fhsa.contributedToDate);
-  const [currentBalance, setCurrentBalance] = useState(DEFAULT_ASSUMPTIONS.fhsa.currentBalance);
-  const [annualContribution, setAnnualContribution] = useState(DEFAULT_ASSUMPTIONS.fhsa.annualContribution);
-  const [expectedReturn, setExpectedReturn] = useState(DEFAULT_ASSUMPTIONS.fhsa.expectedReturn);
-  const [yearsToPurchase, setYearsToPurchase] = useState(DEFAULT_ASSUMPTIONS.fhsa.yearsToPurchase);
+  const [income, setIncome] = useState(String(DEFAULT_ASSUMPTIONS.fhsa.income));
+  const [availableRoomNow, setAvailableRoomNow] = useState(String(DEFAULT_ASSUMPTIONS.fhsa.availableRoomNow));
+  const [contributedToDate, setContributedToDate] = useState(String(DEFAULT_ASSUMPTIONS.fhsa.contributedToDate));
+  const [currentBalance, setCurrentBalance] = useState(String(DEFAULT_ASSUMPTIONS.fhsa.currentBalance));
+  const [annualContribution, setAnnualContribution] = useState(String(DEFAULT_ASSUMPTIONS.fhsa.annualContribution));
+  const [expectedReturn, setExpectedReturn] = useState(String(DEFAULT_ASSUMPTIONS.fhsa.expectedReturn));
+  const [yearsToPurchase, setYearsToPurchase] = useState(String(DEFAULT_ASSUMPTIONS.fhsa.yearsToPurchase));
 
   const result = useMemo(() => calculateFhsaScenario({
     birthYear,
@@ -175,6 +185,14 @@ export default function FHSACalculator() {
             <OfficialSourceNote
               body="FHSA eligibility, participation room, and qualifying withdrawal rules should be checked against CRA before opening or contributing."
               sources={[fhsaOfficialSources[0], fhsaOfficialSources[1], fhsaOfficialSources[2]]}
+            />
+            <ContributorReviewBox className="mt-4" />
+            <SourceVerificationBlock
+              className="mt-4"
+              lastUpdated={CONTENT_LAST_REVIEWED}
+              sources={[fhsaOfficialSources[0], fhsaOfficialSources[1], fhsaOfficialSources[2]]}
+              checked={["FHSA eligibility source references", "Annual and lifetime room caveats", "Qualifying withdrawal limitations", "Home-purchase timeline warnings"]}
+              limitations={["First-time home buyer status and qualifying withdrawal rules must be verified before acting.", "The projection does not determine whether a volatile investment fits a short home timeline."]}
             />
           </div>
 
@@ -279,6 +297,31 @@ export default function FHSACalculator() {
                 { label: 'Read the FHSA guide', href: '/blog/how-to-use-fhsa-canada' },
                 { label: 'Compare FHSA with TFSA and RRSP', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada' },
               ]}
+            />
+            <CalculatorResultGuidance
+              whatThisResultMeans={`This result may help you decide whether the FHSA deduction and projected down-payment balance are useful enough to compare against TFSA flexibility and RRSP-only planning.`}
+              assumptions={[
+                `Income is modeled as ${formatCurrency(income)} in ${province}.`,
+                `The home timeline is ${yearsToPurchase || 0} years and growth is modeled at ${expectedReturn || 0}% annually.`,
+                `The annual contribution is capped against estimated FHSA room and the ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)} annual limit.`,
+              ]}
+              canadianTaxCaveat="FHSA benefits depend on qualifying first-home status, available participation room, and qualifying withdrawal rules. Verify eligibility with CRA before opening or funding an account."
+              sources={[fhsaOfficialSources[0], fhsaOfficialSources[1], fhsaOfficialSources[2]]}
+              relatedCalculator={{ label: 'Mortgage Affordability Calculator', href: '/tools/mortgage-affordability-calculator' }}
+              nextStepLinks={[
+                { label: 'Compare TFSA vs RRSP vs FHSA', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada' },
+                { label: 'Review how to use an FHSA in Canada', href: '/blog/how-to-use-fhsa-canada' },
+              ]}
+            />
+            <RelatedContent
+              title="Related FHSA decisions"
+              intro="Use these next if the FHSA result looks useful but the purchase timeline or account priority needs more context."
+              items={[
+                { type: 'calculator', title: 'Mortgage Affordability Calculator', href: '/tools/mortgage-affordability-calculator', body: 'Connect your projected down payment to a realistic purchase-price range.' },
+                { type: 'guide', title: 'TFSA vs RRSP vs FHSA guide', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', body: 'Compare the FHSA against other registered accounts before funding it.' },
+                { type: 'guide', title: 'How to use an FHSA in Canada', href: '/blog/how-to-use-fhsa-canada', body: 'Review eligibility, contribution room, and withdrawal conditions.' },
+              ]}
+              trackingContext="fhsa_calculator_related_content"
             />
             <WatchOutBox
               title="FHSA rules that can change the answer"
@@ -469,7 +512,7 @@ export default function FHSACalculator() {
             <ScenarioInput
               label="Annual income"
               value={income}
-              onChange={(event) => setIncome(Number(event.target.value || 0))}
+              onChange={(event) => setIncome(parseNumericInput(event.target.value))}
               min={0}
               step={1000}
               suffix="CAD"
@@ -477,7 +520,7 @@ export default function FHSACalculator() {
             <ScenarioInput
               label="Birth year"
               value={birthYear}
-              onChange={(event) => setBirthYear(Number(event.target.value || 0))}
+              onChange={(event) => setBirthYear(parseNumericInput(event.target.value, { integer: true }))}
               min={1950}
               max={2008}
               step={1}
@@ -485,7 +528,7 @@ export default function FHSACalculator() {
             <ScenarioInput
               label="Estimated FHSA room available now"
               value={availableRoomNow}
-              onChange={(event) => setAvailableRoomNow(Number(event.target.value || 0))}
+              onChange={(event) => setAvailableRoomNow(parseNumericInput(event.target.value))}
               min={0}
               max={16000}
               step={500}
@@ -495,7 +538,7 @@ export default function FHSACalculator() {
             <ScenarioInput
               label="Contributions already made"
               value={contributedToDate}
-              onChange={(event) => setContributedToDate(Number(event.target.value || 0))}
+              onChange={(event) => setContributedToDate(parseNumericInput(event.target.value))}
               min={0}
               max={REGISTERED_ACCOUNT_LIMITS.fhsaLifetimeLimit}
               step={500}
@@ -504,7 +547,7 @@ export default function FHSACalculator() {
             <ScenarioInput
               label="Current FHSA balance"
               value={currentBalance}
-              onChange={(event) => setCurrentBalance(Number(event.target.value || 0))}
+              onChange={(event) => setCurrentBalance(parseNumericInput(event.target.value))}
               min={0}
               step={500}
               suffix="CAD"
@@ -512,7 +555,7 @@ export default function FHSACalculator() {
             <ScenarioInput
               label="Planned annual contribution"
               value={annualContribution}
-              onChange={(event) => setAnnualContribution(Number(event.target.value || 0))}
+              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
               min={0}
               max={16000}
               step={500}
@@ -522,7 +565,7 @@ export default function FHSACalculator() {
             <ScenarioInput
               label="Expected annual growth"
               value={expectedReturn}
-              onChange={(event) => setExpectedReturn(Number(event.target.value || 0))}
+              onChange={(event) => setExpectedReturn(parseNumericInput(event.target.value))}
               min={0}
               max={12}
               step={0.5}
@@ -532,7 +575,7 @@ export default function FHSACalculator() {
             <ScenarioInput
               label="Years until purchase"
               value={yearsToPurchase}
-              onChange={(event) => setYearsToPurchase(Number(event.target.value || 0))}
+              onChange={(event) => setYearsToPurchase(parseNumericInput(event.target.value, { integer: true }))}
               min={1}
               max={15}
               step={1}

@@ -10,6 +10,7 @@ export default function ArticleJsonLd({
   authorName = "Gourav Kumar",
   imageUrl = `${SITE_ORIGIN}/og-image.png`,
   breadcrumbs,
+  reviewer,
 }) {
   if (!headline || !url) return null;
 
@@ -39,6 +40,13 @@ export default function ArticleJsonLd({
           name: authorName,
           url: `${SITE_ORIGIN}/about`,
         },
+        ...(reviewer?.name && reviewer?.credential ? {
+          reviewedBy: {
+            "@type": "Person",
+            name: reviewer.name,
+            jobTitle: reviewer.credential,
+          },
+        } : {}),
         publisher: {
           "@type": "Organization",
           name: "Easy Finance Tools",

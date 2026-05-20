@@ -4,6 +4,10 @@ import SEO from "../../components/SEO";
 import BlogHero from "../../components/BlogHero";
 import ArticleSchema from "../../components/ArticleSchema";
 import FAQSchema from "../../components/FAQSchema";
+import RelatedContent from "../../components/RelatedContent";
+import ContributorReviewBox from "../../components/ContributorReviewBox";
+import SourceVerificationBlock from "../../components/SourceVerificationBlock";
+import { taxOfficialSources } from "../../config/officialSources";
 
 const PAGE_CANONICAL = "https://easyfinancetools.com/blog/canada-child-benefit-2026";
 const FAQS = [
@@ -58,6 +62,20 @@ export default function CanadaChildBenefit2026() {
             The Canada Child Benefit (CCB) is a tax-free monthly payment from the CRA for families with children under 18. In 2026, eligible families can receive up to <strong>$7,786.92 per year</strong> per child under 6, and up to <strong>$6,570 per year</strong> per child aged 6–17. Here's everything you need to know.
           </p>
 
+          <div className="not-prose my-6 grid gap-4">
+            <ContributorReviewBox />
+            <SourceVerificationBlock
+              lastUpdated="April 2, 2026"
+              sources={[
+                { label: "CRA: Canada child benefit", href: "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit-overview.html" },
+                { label: "CRA: Benefit payment dates", href: "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/benefit-payment-dates.html" },
+                taxOfficialSources[0],
+              ]}
+              checked={["CCB amount and eligibility caveats", "Payment-date context", "Income and tax-planning links", "Educational disclaimer"]}
+              limitations={["CRA My Account is the official source for a family's actual benefit amount.", "This guide does not calculate every custody, disability, newcomer, or shared-care situation."]}
+            />
+          </div>
+
           <h2>2026 CCB Payment Amounts</h2>
           <p>
             CCB amounts are based on your family's <strong>adjusted family net income (AFNI)</strong> and the <strong>age of your children</strong>. Here are the maximum annual and monthly amounts for 2026:
@@ -80,7 +98,7 @@ export default function CanadaChildBenefit2026() {
                   <tr key={age} className="bg-white dark:bg-gray-900">
                     <td className="px-4 py-3 font-semibold">{age}</td>
                     <td className="px-4 py-3 font-bold text-primary dark:text-accent">{annual}</td>
-                    <td className="px-4 py-3 font-bold text-green-600">{monthly}</td>
+                    <td className="px-4 py-3 font-bold text-green-800 dark:text-green-300">{monthly}</td>
                   </tr>
                 ))}
               </tbody>
@@ -146,7 +164,7 @@ export default function CanadaChildBenefit2026() {
               ["December", "December 12, 2026"],
             ].map(([month, date]) => (
               <div key={month} className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl p-3 text-center">
-                <p className="text-xs font-bold text-gray-400 uppercase">{month}</p>
+                <p className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase">{month}</p>
                 <p className="font-semibold text-sm text-gray-800 dark:text-white mt-0.5">{date.replace(month + " ", "")}</p>
               </div>
             ))}
@@ -226,19 +244,17 @@ export default function CanadaChildBenefit2026() {
           </div>
         </article>
 
-        <div className="mt-10 pt-8 border-t dark:border-gray-700">
-          <h3 className="font-bold text-lg mb-4 text-primary dark:text-accent">Related Articles & Tools</h3>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Link to="/blog/canadian-tax-brackets-2026" className="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
-              <span className="text-sm text-gray-500">Tax</span>
-              <p className="font-semibold text-primary dark:text-accent mt-1">Canadian Tax Brackets 2026</p>
-            </Link>
-            <Link to="/blog/rrsp-deadline-canada-2026" className="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
-              <span className="text-sm text-gray-500">RRSP</span>
-              <p className="font-semibold text-primary dark:text-accent mt-1">RRSP Deadline 2026</p>
-            </Link>
-          </div>
-        </div>
+        <RelatedContent
+          className="mt-10"
+          title="Related CCB and tax planning tools"
+          intro="Use these next if family net income, RRSP deductions, or tax brackets could change the benefit estimate."
+          items={[
+            { type: "calculator", title: "Income Tax Calculator", href: "/tools/income-tax-calculator", body: "Estimate how income and deductions affect taxable income before checking CRA benefit amounts." },
+            { type: "calculator", title: "RRSP Calculator", href: "/tools/rrsp-calculator", body: "Compare how RRSP deductions may affect taxable income and refund planning." },
+            { type: "guide", title: "Canadian Tax Brackets 2026", href: "/blog/canadian-tax-brackets-2026", body: "Review the tax-bracket context behind income planning decisions." },
+          ]}
+          trackingContext="ccb_article_related_content"
+        />
         <Link to="/blog" className="inline-block mt-8 text-primary dark:text-accent font-semibold hover:underline">← Back to Blog</Link>
       </section>
     </div>

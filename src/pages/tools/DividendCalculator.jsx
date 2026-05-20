@@ -33,6 +33,10 @@ import RelatedTools from '../../components/RelatedTools';
 import NextStepLinks from '../../components/NextStepLinks';
 import PrivacyNote from '../../components/PrivacyNote';
 import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
+import CalculatorResultGuidance from '../../components/CalculatorResultGuidance';
+import RelatedContent from '../../components/RelatedContent';
+import ContributorReviewBox from '../../components/ContributorReviewBox';
+import SourceVerificationBlock from '../../components/SourceVerificationBlock';
 import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
@@ -122,17 +126,22 @@ function SummaryCard({ label, value, hint, tone = 'default' }) {
 }
 
 function NumericField({ label, value, onChange, step, min, max, suffix, helpText }) {
+  const inputId = `dividend-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+  const helpId = helpText ? `${inputId}-help` : undefined;
+
   return (
     <div>
-      <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+      <label htmlFor={inputId} className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
       <div className="relative">
         <input
+          id={inputId}
           type="number"
           value={value}
           onChange={onChange}
           step={step}
           min={min}
           max={max}
+          aria-describedby={helpId}
           className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 pr-14 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
         />
         {suffix ? (
@@ -141,7 +150,7 @@ function NumericField({ label, value, onChange, step, min, max, suffix, helpText
           </span>
         ) : null}
       </div>
-      {helpText ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
+      {helpText ? <p id={helpId} className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
     </div>
   );
 }
@@ -584,6 +593,14 @@ export default function DividendCalculator() {
               body="Dividend income can have different tax treatment depending on account type. Verify taxable-account rules with CRA before relying on an income plan."
               sources={[dividendTaxOfficialSources[0], dividendTaxOfficialSources[1], tfsaOfficialSources[0]]}
             />
+            <ContributorReviewBox className="mt-4" />
+            <SourceVerificationBlock
+              className="mt-4"
+              lastUpdated={CONTENT_LAST_REVIEWED}
+              sources={[dividendTaxOfficialSources[0], dividendTaxOfficialSources[1], dividendTaxOfficialSources[2], tfsaOfficialSources[0]]}
+              checked={["Dividend tax source references", "Yield sustainability warnings", "TFSA versus taxable-account caveats", "Related income and investment-fit links"]}
+              limitations={["ETF distributions, yields, prices, and taxes can change.", "The calculator does not provide investment ratings or determine whether an ETF fits a personal portfolio."]}
+            />
           </div>
 
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -790,7 +807,7 @@ export default function DividendCalculator() {
                     : 'Taking cash now may fit an income goal, but it usually reduces the future compounding path compared with reinvestment.',
                 },
                 {
-                  title: useTfsa ? 'TFSA income is tax-free, not risk-free' : 'Taxable income needs more detail',
+                  title: useTfsa ? 'TFSA income is tax-free, but investment risk remains' : 'Taxable income needs more detail',
                   body: useTfsa
                     ? 'A TFSA can shelter eligible growth and withdrawals, but TFSA room should still be used for investments that fit the broader plan.'
                     : 'A taxable account may involve dividend credits, foreign withholding, capital gains, and adjusted-cost-base tracking that this simplified model does not fully capture.',
@@ -804,7 +821,7 @@ export default function DividendCalculator() {
                 dripEnabled ? 'Distributions are reinvested in this scenario.' : 'Distributions are taken as cash in this scenario.',
               ]}
               caveats={[
-                'Dividend and ETF distributions can change and are not guaranteed.',
+                'Dividend and ETF distributions can change and should not be treated as fixed.',
                 'Taxable accounts can involve dividend gross-up, credits, foreign withholding tax, capital gains, and adjusted-cost-base tracking.',
                 'A high yield can hide concentration, covered-call, payout sustainability, or NAV erosion risk.',
               ]}
@@ -813,6 +830,31 @@ export default function DividendCalculator() {
                 { label: 'Read the Canadian dividend ETF guide', href: '/blog/best-canadian-dividend-etfs-2026' },
                 { label: 'Check investment fit before relying on yield', href: '/tools/investment-fit-framework' },
               ]}
+            />
+            <CalculatorResultGuidance
+              whatThisResultMeans={`This result may help you compare income targets, yield sensitivity, and account-location tradeoffs before relying on dividend income for a Canadian plan.`}
+              assumptions={[
+                `The model uses ${formatDividendCurrency(asNumber(investmentAmount))}, ${formatDividendPercent(asNumber(yieldInput))} yield, and ${formatDividendPercent(asNumber(priceGrowth))} price growth.`,
+                dripEnabled ? 'Distributions are reinvested in this scenario.' : 'Distributions are taken as cash in this scenario.',
+                useTfsa ? 'The scenario assumes TFSA sheltering for eligible growth and withdrawals.' : 'The scenario uses a simplified taxable-account dividend drag.',
+              ]}
+              canadianTaxCaveat="Dividend tax treatment depends on account type, eligible dividend status, foreign withholding, return of capital, and adjusted-cost-base tracking. Verify taxable-account details with CRA or a qualified tax professional."
+              sources={[dividendTaxOfficialSources[0], dividendTaxOfficialSources[1], tfsaOfficialSources[0]]}
+              relatedCalculator={{ label: 'Compound Interest Calculator', href: '/tools/compound-interest-calculator' }}
+              nextStepLinks={[
+                { label: 'Read the Canadian dividend ETF guide', href: '/blog/best-canadian-dividend-etfs-2026' },
+                { label: 'Review investment fit before relying on yield', href: '/tools/investment-fit-framework' },
+              ]}
+            />
+            <RelatedContent
+              title="Related dividend decisions"
+              intro="Use these next if the income number looks attractive but the yield, account type, or concentration risk needs more context."
+              items={[
+                { type: 'calculator', title: 'Compound Interest Calculator', href: '/tools/compound-interest-calculator', body: 'Compare dividend income against a broader growth-and-contribution path.' },
+                { type: 'guide', title: 'Canadian dividend ETF guide', href: '/blog/best-canadian-dividend-etfs-2026', body: 'Review dividend ETF tradeoffs without treating yield as the only metric.' },
+                { type: 'guide', title: 'Dividend reinvestment guide', href: '/blog/dividend-reinvestment-plans-canada', body: 'Understand how DRIPs change compounding, cash flow, and taxable tracking.' },
+              ]}
+              trackingContext="dividend_calculator_related_content"
             />
             <WatchOutBox
               title="Dividend planning warnings"
@@ -1097,7 +1139,7 @@ export default function DividendCalculator() {
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Common mistakes</p>
           <h2 className="mt-3 text-2xl font-bold text-primary dark:text-accent">Avoid chasing the biggest payout without checking the tradeoff</h2>
           <ul className="mt-3 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            <li>- Treating current yield as a guaranteed future payout.</li>
+            <li>- Treating current yield as a fixed future payout.</li>
             <li>- Ignoring MER, covered-call drag, concentration, or falling unit prices.</li>
             <li>- Comparing dividend ETFs without checking whether the TFSA should prioritize growth instead.</li>
             <li>- Forgetting that taxable-account dividend treatment is more complex than this simplified planning model.</li>
@@ -1116,7 +1158,7 @@ export default function DividendCalculator() {
         ]}
         result="The calculator translates the monthly income goal into required capital and shows how DRIP assumptions change the long-term path."
         interpretation="If the plan only works at a very high yield, the risk may be hidden in slower growth, covered-call tradeoffs, or falling unit prices. A lower-yield, better-diversified ETF may require more capital but less concentration risk."
-        limitation="ETF distributions are not guaranteed. The calculator does not model exact tax slips, adjusted cost base, foreign withholding, or issuer-specific distribution changes."
+        limitation="ETF distributions can change. The calculator does not model exact tax slips, adjusted cost base, foreign withholding, or issuer-specific distribution changes."
       />
 
       <MethodologyPanel

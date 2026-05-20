@@ -10,8 +10,8 @@ export default function Logo({ size = "md" }) {
   const s = sizes[size];
 
   return (
-    <Link to="/" className="group flex items-center gap-3" aria-label="EasyFinanceTools Home">
-      <svg width={s.icon} height={s.icon} viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <Link to="/" className="group flex items-center gap-3" aria-label="$0.00 Easy Finance Tools Free Canadian Calculators Home">
+      <svg aria-hidden="true" focusable="false" width={s.icon} height={s.icon} viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="22" cy="22" r="22" fill="#003366" />
         <rect x="10" y="7" width="24" height="30" rx="3" fill="white" opacity="0.95" />
         <rect x="12.5" y="9.5" width="19" height="8" rx="1.5" fill="#003366" />

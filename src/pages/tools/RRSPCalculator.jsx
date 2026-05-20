@@ -29,6 +29,10 @@ import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import DecisionFramework from '../../components/DecisionFramework';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
 import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
+import CalculatorResultGuidance from '../../components/CalculatorResultGuidance';
+import RelatedContent from '../../components/RelatedContent';
+import ContributorReviewBox from '../../components/ContributorReviewBox';
+import SourceVerificationBlock from '../../components/SourceVerificationBlock';
 import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
@@ -41,6 +45,7 @@ import {
   getRrspAnnualLimit,
 } from '../../config/financial';
 import { rrspOfficialSources } from '../../config/officialSources';
+import { asNumber, parseNumericInput } from '../../lib/numericInputs';
 
 ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
@@ -94,17 +99,22 @@ function ResultMetric({ label, value, hint, tone = 'default' }) {
 }
 
 function ScenarioInput({ label, value, onChange, type = 'number', step, min, max, suffix, helpText }) {
+  const inputId = `rrsp-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+  const helpId = helpText ? `${inputId}-help` : undefined;
+
   return (
     <div>
-      <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+      <label htmlFor={inputId} className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
       <div className="relative">
         <input
+          id={inputId}
           type={type}
           value={value}
           onChange={onChange}
           step={step}
           min={min}
           max={max}
+          aria-describedby={helpId}
           className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 pr-14 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
         />
         {suffix ? (
@@ -113,35 +123,43 @@ function ScenarioInput({ label, value, onChange, type = 'number', step, min, max
           </span>
         ) : null}
       </div>
-      {helpText ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
+      {helpText ? <p id={helpId} className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
     </div>
   );
 }
 
 export default function RRSPCalculator() {
   const [province, setProvince] = useState(DEFAULT_ASSUMPTIONS.rrsp.province);
-  const [taxableIncome, setTaxableIncome] = useState(DEFAULT_ASSUMPTIONS.rrsp.taxableIncome);
-  const [availableRoomNow, setAvailableRoomNow] = useState(DEFAULT_ASSUMPTIONS.rrsp.availableRoomNow);
-  const [annualContribution, setAnnualContribution] = useState(DEFAULT_ASSUMPTIONS.rrsp.annualContribution);
-  const [currentBalance, setCurrentBalance] = useState(DEFAULT_ASSUMPTIONS.rrsp.currentBalance);
-  const [expectedReturn, setExpectedReturn] = useState(DEFAULT_ASSUMPTIONS.rrsp.expectedReturn);
-  const [yearsToRetirement, setYearsToRetirement] = useState(DEFAULT_ASSUMPTIONS.rrsp.yearsToRetirement);
-  const [retirementIncome, setRetirementIncome] = useState(DEFAULT_ASSUMPTIONS.rrsp.retirementIncome);
-  const [spouseIncome, setSpouseIncome] = useState(DEFAULT_ASSUMPTIONS.rrsp.spouseIncome);
+  const [taxableIncome, setTaxableIncome] = useState(String(DEFAULT_ASSUMPTIONS.rrsp.taxableIncome));
+  const [availableRoomNow, setAvailableRoomNow] = useState(String(DEFAULT_ASSUMPTIONS.rrsp.availableRoomNow));
+  const [annualContribution, setAnnualContribution] = useState(String(DEFAULT_ASSUMPTIONS.rrsp.annualContribution));
+  const [currentBalance, setCurrentBalance] = useState(String(DEFAULT_ASSUMPTIONS.rrsp.currentBalance));
+  const [expectedReturn, setExpectedReturn] = useState(String(DEFAULT_ASSUMPTIONS.rrsp.expectedReturn));
+  const [yearsToRetirement, setYearsToRetirement] = useState(String(DEFAULT_ASSUMPTIONS.rrsp.yearsToRetirement));
+  const [retirementIncome, setRetirementIncome] = useState(String(DEFAULT_ASSUMPTIONS.rrsp.retirementIncome));
+  const [spouseIncome, setSpouseIncome] = useState(String(DEFAULT_ASSUMPTIONS.rrsp.spouseIncome));
   const [useSpousalComparison, setUseSpousalComparison] = useState(DEFAULT_ASSUMPTIONS.rrsp.useSpousalComparison);
   const [reinvestRefund, setReinvestRefund] = useState(DEFAULT_ASSUMPTIONS.rrsp.reinvestRefund);
 
   const result = useMemo(() => {
-    const currentRate = getEstimatedMarginalTaxRate(province, Number(taxableIncome || 0));
-    const retirementRate = getEstimatedMarginalTaxRate(province, Number(retirementIncome || 0));
-    const baseAnnualLimit = Math.round(getRrspAnnualLimit(Number(taxableIncome || 0)));
-    const roomThisYear = Math.max(0, Number(availableRoomNow || 0));
-    const yearlyContributionTarget = Math.max(0, Number(annualContribution || 0));
+    const safeTaxableIncome = asNumber(taxableIncome);
+    const safeAvailableRoomNow = asNumber(availableRoomNow);
+    const safeAnnualContribution = asNumber(annualContribution);
+    const safeCurrentBalance = asNumber(currentBalance);
+    const safeExpectedReturn = asNumber(expectedReturn);
+    const safeYearsToRetirement = asNumber(yearsToRetirement, 1);
+    const safeRetirementIncome = asNumber(retirementIncome);
+    const safeSpouseIncome = asNumber(spouseIncome);
+    const currentRate = getEstimatedMarginalTaxRate(province, safeTaxableIncome);
+    const retirementRate = getEstimatedMarginalTaxRate(province, safeRetirementIncome);
+    const baseAnnualLimit = Math.round(getRrspAnnualLimit(safeTaxableIncome));
+    const roomThisYear = Math.max(0, safeAvailableRoomNow);
+    const yearlyContributionTarget = Math.max(0, safeAnnualContribution);
     const yearlyContributionUsedYearOne = Math.min(yearlyContributionTarget, roomThisYear);
-    const yearlyRate = Number(expectedReturn || 0) / 100;
+    const yearlyRate = safeExpectedReturn / 100;
     const taxRefundYearOne = yearlyContributionUsedYearOne * currentRate;
 
-    let balance = Math.max(0, Number(currentBalance || 0));
+    let balance = Math.max(0, safeCurrentBalance);
     let roomAvailable = roomThisYear;
     let totalContributions = 0;
     let totalRefunds = 0;
@@ -149,7 +167,7 @@ export default function RRSPCalculator() {
     const chartValues = [];
     const yearlyBreakdown = [];
 
-    for (let year = 1; year <= Math.max(1, Number(yearsToRetirement || 1)); year += 1) {
+    for (let year = 1; year <= Math.max(1, safeYearsToRetirement); year += 1) {
       const roomForYear = year === 1 ? roomAvailable : roomAvailable;
       const plannedContribution = Math.min(yearlyContributionTarget, roomForYear);
       const refund = plannedContribution * currentRate;
@@ -183,7 +201,7 @@ export default function RRSPCalculator() {
     const projectedGrowth = Math.round(
       Math.max(
         0,
-        balance - Number(currentBalance || 0) - totalContributions - (reinvestRefund ? totalRefunds : 0)
+        balance - safeCurrentBalance - totalContributions - (reinvestRefund ? totalRefunds : 0)
       )
     );
     const afterTaxRetirementValue = Math.round(projectedBalance * (1 - retirementRate));
@@ -191,8 +209,8 @@ export default function RRSPCalculator() {
     const firstRrifMinimum = Math.round(projectedBalance * ((RRIF_MINIMUM_RATES[71] || 5.28) / 100));
     const splitRetirementRate = useSpousalComparison
       ? (
-          getEstimatedMarginalTaxRate(province, Number(retirementIncome || 0) / 2) +
-          getEstimatedMarginalTaxRate(province, Number(spouseIncome || 0) + Number(retirementIncome || 0) / 2)
+          getEstimatedMarginalTaxRate(province, safeRetirementIncome / 2) +
+          getEstimatedMarginalTaxRate(province, safeSpouseIncome + safeRetirementIncome / 2)
         ) / 2
       : retirementRate;
     const simplifiedSpousalBenefit = useSpousalComparison
@@ -282,6 +300,14 @@ export default function RRSPCalculator() {
             <OfficialSourceNote
               body="RRSP deduction room, contribution deadlines, and deduction treatment should be verified with CRA before contributing."
               sources={[rrspOfficialSources[0], rrspOfficialSources[1]]}
+            />
+            <ContributorReviewBox className="mt-4" />
+            <SourceVerificationBlock
+              className="mt-4"
+              lastUpdated={CONTENT_LAST_REVIEWED}
+              sources={[rrspOfficialSources[0], rrspOfficialSources[1], rrspOfficialSources[2]]}
+              checked={["RRSP contribution and deduction source references", "Refund and retirement-tax caveats", "RRIF context", "Next-step account comparison links"]}
+              limitations={["Actual RRSP room must be confirmed on CRA records or your Notice of Assessment.", "This tool does not prepare a tax return or model every credit, deduction, pension adjustment, or benefit interaction."]}
             />
           </div>
 
@@ -483,6 +509,33 @@ export default function RRSPCalculator() {
               { label: 'Compare RRSP with TFSA and FHSA', href: '/tools/account-decision-tool' },
             ]}
           />
+          <CalculatorResultGuidance
+            className="mt-8"
+            whatThisResultMeans={`This result may help you compare the current RRSP deduction against the later withdrawal tax assumption before deciding whether ${formatCurrency(asNumber(annualContribution))} belongs in an RRSP this year.`}
+            assumptions={[
+              `Current taxable income is modeled as ${formatCurrency(asNumber(taxableIncome))}.`,
+              `Retirement income is modeled as ${formatCurrency(asNumber(retirementIncome))}.`,
+              reinvestRefund ? 'The refund is modeled as reinvested capital.' : 'The refund is not modeled as reinvested, which weakens some RRSP optimization cases.',
+            ]}
+            canadianTaxCaveat="Actual RRSP room comes from CRA records and your Notice of Assessment. Ordinary RRSP withdrawals are taxable and usually do not restore contribution room."
+            sources={[rrspOfficialSources[0], rrspOfficialSources[1]]}
+            relatedCalculator={{ label: 'TFSA Calculator', href: '/tools/tfsa-calculator' }}
+            nextStepLinks={[
+              { label: 'Compare TFSA vs RRSP vs FHSA', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada' },
+              { label: 'Review when RRSP makes sense', href: '/blog/when-rrsp-makes-sense-canada' },
+            ]}
+          />
+          <RelatedContent
+            className="mt-8"
+            title="Related RRSP decisions"
+            intro="Use these next if the refund estimate looks meaningful but the account order is still uncertain."
+            items={[
+              { type: 'calculator', title: 'TFSA Calculator', href: '/tools/tfsa-calculator', body: 'Compare withdrawal flexibility and tax-free growth against RRSP deduction value.' },
+              { type: 'guide', title: 'TFSA vs RRSP vs FHSA guide', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', body: 'Put the RRSP result beside the other Canadian registered accounts.' },
+              { type: 'guide', title: 'When RRSP makes sense', href: '/blog/when-rrsp-makes-sense-canada', body: 'Review the conditions where RRSP deductions are usually more useful.' },
+            ]}
+            trackingContext="rrsp_calculator_related_content"
+          />
 
           <section className="mt-8 grid gap-4 md:grid-cols-3">
             {[
@@ -603,7 +656,7 @@ export default function RRSPCalculator() {
             <ScenarioInput
               label="Current taxable income"
               value={taxableIncome}
-              onChange={(event) => setTaxableIncome(Number(event.target.value || 0))}
+              onChange={(event) => setTaxableIncome(parseNumericInput(event.target.value))}
               min={0}
               step={1000}
               suffix="CAD"
@@ -611,7 +664,7 @@ export default function RRSPCalculator() {
             <ScenarioInput
               label="Available RRSP room now"
               value={availableRoomNow}
-              onChange={(event) => setAvailableRoomNow(Number(event.target.value || 0))}
+              onChange={(event) => setAvailableRoomNow(parseNumericInput(event.target.value))}
               min={0}
               step={500}
               suffix="CAD"
@@ -620,7 +673,7 @@ export default function RRSPCalculator() {
             <ScenarioInput
               label="Planned annual contribution"
               value={annualContribution}
-              onChange={(event) => setAnnualContribution(Number(event.target.value || 0))}
+              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
               min={0}
               step={500}
               suffix="CAD"
@@ -629,7 +682,7 @@ export default function RRSPCalculator() {
             <ScenarioInput
               label="Current RRSP balance"
               value={currentBalance}
-              onChange={(event) => setCurrentBalance(Number(event.target.value || 0))}
+              onChange={(event) => setCurrentBalance(parseNumericInput(event.target.value))}
               min={0}
               step={500}
               suffix="CAD"
@@ -637,7 +690,7 @@ export default function RRSPCalculator() {
             <ScenarioInput
               label="Expected annual growth"
               value={expectedReturn}
-              onChange={(event) => setExpectedReturn(Number(event.target.value || 0))}
+              onChange={(event) => setExpectedReturn(parseNumericInput(event.target.value))}
               min={0}
               max={12}
               step={0.5}
@@ -646,7 +699,7 @@ export default function RRSPCalculator() {
             <ScenarioInput
               label="Years to retirement"
               value={yearsToRetirement}
-              onChange={(event) => setYearsToRetirement(Number(event.target.value || 0))}
+              onChange={(event) => setYearsToRetirement(parseNumericInput(event.target.value, { integer: true }))}
               min={1}
               max={40}
               step={1}
@@ -655,7 +708,7 @@ export default function RRSPCalculator() {
             <ScenarioInput
               label="Retirement income assumption"
               value={retirementIncome}
-              onChange={(event) => setRetirementIncome(Number(event.target.value || 0))}
+              onChange={(event) => setRetirementIncome(parseNumericInput(event.target.value))}
               min={0}
               step={1000}
               suffix="CAD"
@@ -700,7 +753,7 @@ export default function RRSPCalculator() {
               <ScenarioInput
                 label="Spouse retirement income assumption"
                 value={spouseIncome}
-                onChange={(event) => setSpouseIncome(Number(event.target.value || 0))}
+                onChange={(event) => setSpouseIncome(parseNumericInput(event.target.value))}
                 min={0}
                 step={1000}
                 suffix="CAD"

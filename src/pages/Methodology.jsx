@@ -135,6 +135,9 @@ export default function Methodology() {
                 <p>
                   The founder-operated process and current credentials limits are explained on the <Link to="/founder-transparency" className="text-secondary underline-offset-2 hover:underline">Founder Transparency</Link> page. The site should not imply external review unless that review has actually happened.
                 </p>
+                <p>
+                  If you find a stale rule, broken source, unclear caveat, or calculator result that looks wrong, use the <Link to="/corrections" className="text-secondary underline-offset-2 hover:underline">Corrections and Updates</Link> page to report it with the affected URL and enough detail to reproduce the issue.
+                </p>
               </div>
             </div>
 

@@ -27,6 +27,8 @@ import RelatedTools from '../../components/RelatedTools';
 import NextStepLinks from '../../components/NextStepLinks';
 import PrivacyNote from '../../components/PrivacyNote';
 import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
+import CalculatorResultGuidance from '../../components/CalculatorResultGuidance';
+import RelatedContent from '../../components/RelatedContent';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
@@ -38,6 +40,7 @@ import {
   getMortgageStressTestRate,
 } from '../../config/financial';
 import { mortgageOfficialSources } from '../../config/officialSources';
+import { asNumber, parseNumericInput } from '../../lib/numericInputs';
 
 ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
@@ -95,63 +98,73 @@ function MetricCard({ label, value, hint, tone = 'default' }) {
 }
 
 function InputField({ label, value, onChange, step, min, suffix, helpText }) {
+  const inputId = `affordability-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+  const helpId = helpText ? `${inputId}-help` : undefined;
+
   return (
     <div>
-      <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+      <label htmlFor={inputId} className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
       <div className="relative">
         <input
+          id={inputId}
           type="number"
           value={value}
           onChange={onChange}
           step={step}
           min={min}
+          aria-describedby={helpId}
           className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 pr-14 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
         />
         {suffix ? <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-slate-500 dark:text-slate-400">{suffix}</span> : null}
       </div>
-      {helpText ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
+      {helpText ? <p id={helpId} className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
     </div>
   );
 }
 
 function SelectField({ label, value, onChange, options, helpText }) {
+  const selectId = `affordability-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+  const helpId = helpText ? `${selectId}-help` : undefined;
+
   return (
     <div>
-      <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+      <label htmlFor={selectId} className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
       <select
+        id={selectId}
         value={value}
         onChange={onChange}
+        aria-describedby={helpId}
         className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>{option.label}</option>
         ))}
       </select>
-      {helpText ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
+      {helpText ? <p id={helpId} className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
     </div>
   );
 }
 
 export default function MortgageAffordabilityCalculator() {
-  const [householdIncome, setHouseholdIncome] = useState(DEFAULT_ASSUMPTIONS.mortgageAffordability.householdIncome);
-  const [downPayment, setDownPayment] = useState(DEFAULT_ASSUMPTIONS.mortgageAffordability.downPayment);
-  const [monthlyDebtPayments, setMonthlyDebtPayments] = useState(DEFAULT_ASSUMPTIONS.mortgageAffordability.monthlyDebtPayments);
-  const [interestRate, setInterestRate] = useState(DEFAULT_ASSUMPTIONS.mortgageAffordability.interestRate);
+  const [householdIncome, setHouseholdIncome] = useState(String(DEFAULT_ASSUMPTIONS.mortgageAffordability.householdIncome));
+  const [downPayment, setDownPayment] = useState(String(DEFAULT_ASSUMPTIONS.mortgageAffordability.downPayment));
+  const [monthlyDebtPayments, setMonthlyDebtPayments] = useState(String(DEFAULT_ASSUMPTIONS.mortgageAffordability.monthlyDebtPayments));
+  const [interestRate, setInterestRate] = useState(String(DEFAULT_ASSUMPTIONS.mortgageAffordability.interestRate));
   const [amortization, setAmortization] = useState(DEFAULT_ASSUMPTIONS.mortgageAffordability.amortization);
   const [province, setProvince] = useState(DEFAULT_ASSUMPTIONS.mortgageAffordability.province);
-  const [propertyTaxMonthly, setPropertyTaxMonthly] = useState(DEFAULT_ASSUMPTIONS.mortgageAffordability.propertyTaxMonthly);
-  const [heatingMonthly, setHeatingMonthly] = useState(DEFAULT_ASSUMPTIONS.mortgageAffordability.heatingMonthly);
-  const [condoFeesMonthly, setCondoFeesMonthly] = useState(DEFAULT_ASSUMPTIONS.mortgageAffordability.condoFeesMonthly);
+  const [propertyTaxMonthly, setPropertyTaxMonthly] = useState(String(DEFAULT_ASSUMPTIONS.mortgageAffordability.propertyTaxMonthly));
+  const [heatingMonthly, setHeatingMonthly] = useState(String(DEFAULT_ASSUMPTIONS.mortgageAffordability.heatingMonthly));
+  const [condoFeesMonthly, setCondoFeesMonthly] = useState(String(DEFAULT_ASSUMPTIONS.mortgageAffordability.condoFeesMonthly));
 
   const result = useMemo(() => {
-    const safeIncome = Math.max(0, Number(householdIncome || 0));
-    const safeDownPayment = Math.max(0, Number(downPayment || 0));
-    const safeDebt = Math.max(0, Number(monthlyDebtPayments || 0));
-    const safeInterestRate = Math.max(0, Number(interestRate || 0));
-    const safeAmortization = Math.max(5, Number(amortization || 25));
-    const safeTax = Math.max(0, Number(propertyTaxMonthly || 0));
-    const safeHeating = Math.max(0, Number(heatingMonthly || 0));
-    const safeCondo = Math.max(0, Number(condoFeesMonthly || 0));
+    const safeIncome = Math.max(0, asNumber(householdIncome));
+    const safeDownPayment = Math.max(0, asNumber(downPayment));
+    const safeDebt = Math.max(0, asNumber(monthlyDebtPayments));
+    const safeInterestRate = Math.max(0, asNumber(interestRate));
+    const safeAmortization = Math.max(5, asNumber(amortization, 25));
+    const safeTax = Math.max(0, asNumber(propertyTaxMonthly));
+    const safeHeating = Math.max(0, asNumber(heatingMonthly));
+    const safeCondo = Math.max(0, asNumber(condoFeesMonthly));
 
     const monthlyIncome = safeIncome / 12;
     const qualifyingRate = getMortgageStressTestRate(safeInterestRate);
@@ -274,7 +287,7 @@ export default function MortgageAffordabilityCalculator() {
             />
             <MetricCard
               label="Cash to close estimate"
-              value={formatCurrency(result.closingCosts + Number(downPayment || 0))}
+              value={formatCurrency(result.closingCosts + asNumber(downPayment))}
               hint={`Closing costs only: ${formatCurrency(result.closingCosts)}`}
               tone="success"
             />
@@ -364,14 +377,14 @@ export default function MortgageAffordabilityCalculator() {
                   body: `GDS is about ${formatPercent(result.gdsUsed * 100)} and TDS is about ${formatPercent(result.tdsUsed * 100)}. The closer those ratios get to common lender limits, the less room remains for repairs, job changes, or renewal-rate pressure.`,
                 },
                 {
-                  title: Number(monthlyDebtPayments || 0) > 0 ? 'Debt affects approval' : 'Debt is not the blocker',
-                  body: Number(monthlyDebtPayments || 0) > 0
+                  title: asNumber(monthlyDebtPayments) > 0 ? 'Debt affects approval' : 'Debt is not the blocker',
+                  body: asNumber(monthlyDebtPayments) > 0
                     ? `Existing monthly debt of ${formatCurrency(monthlyDebtPayments)} directly reduces the mortgage payment room in this model.`
                     : 'With no monthly debt entered, the result is being shaped more by income, housing costs, down payment, and the stress-test rate.',
                 },
                 {
                   title: 'Cash after closing',
-                  body: `Cash needed for down payment plus estimated closing costs is about ${formatCurrency(result.closingCosts + Number(downPayment || 0))}. Keep a repair and emergency buffer outside the down payment.`,
+                  body: `Cash needed for down payment plus estimated closing costs is about ${formatCurrency(result.closingCosts + asNumber(downPayment))}. Keep a repair and emergency buffer outside the down payment.`,
                 },
               ]}
             />
@@ -391,6 +404,31 @@ export default function MortgageAffordabilityCalculator() {
                 { label: 'Translate affordability into a mortgage payment', href: '/tools/mortgage-calculator' },
                 { label: 'Read the mortgage affordability reality check', href: '/blog/mortgage-affordability-reality-check-canada' },
               ]}
+            />
+            <CalculatorResultGuidance
+              whatThisResultMeans={`This result may help you compare an estimated approval ceiling with a safer household budget before treating ${formatCurrency(result.maxHomePrice)} as a realistic purchase target.`}
+              assumptions={[
+                `Household income is modeled as ${formatCurrency(asNumber(householdIncome))}.`,
+                `Down payment is modeled as ${formatCurrency(asNumber(downPayment))}.`,
+                `Qualification uses a ${formatPercent(result.qualifyingRate, 2)} stress-test rate and simplified GDS/TDS limits.`,
+              ]}
+              canadianTaxCaveat="Mortgage qualification depends on lender underwriting, property details, credit profile, debts, documentation, and changing Canadian mortgage rules."
+              sources={[mortgageOfficialSources[0], mortgageOfficialSources[1], mortgageOfficialSources[2]]}
+              relatedCalculator={{ label: 'Mortgage Payment Calculator', href: '/tools/mortgage-calculator' }}
+              nextStepLinks={[
+                { label: 'Read the mortgage affordability reality check', href: '/blog/mortgage-affordability-reality-check-canada' },
+                { label: 'Compare rent vs buy in Canada', href: '/blog/rent-vs-buy-canada' },
+              ]}
+            />
+            <RelatedContent
+              title="Related affordability decisions"
+              intro="Use these next if the maximum price looks possible but you still need to check payment pressure, cash to close, or rent-vs-buy tradeoffs."
+              items={[
+                { type: 'calculator', title: 'Mortgage Payment Calculator', href: '/tools/mortgage-calculator', body: 'Translate an estimated purchase price into payment, insurance, interest, and closing-cost pressure.' },
+                { type: 'guide', title: 'Mortgage affordability reality check', href: '/blog/mortgage-affordability-reality-check-canada', body: 'Separate lender approval from a safer household budget.' },
+                { type: 'guide', title: 'Rent vs buy in Canada', href: '/blog/rent-vs-buy-canada', body: 'Compare ownership cost, flexibility, and opportunity cost before buying.' },
+              ]}
+              trackingContext="mortgage_affordability_related_content"
             />
             <WatchOutBox
               title="Mortgage affordability warnings"
@@ -493,18 +531,18 @@ export default function MortgageAffordabilityCalculator() {
           </p>
 
           <div className="mt-6 space-y-5">
-            <InputField label="Household gross income" value={householdIncome} onChange={(event) => setHouseholdIncome(event.target.value)} step="1000" min="0" suffix="CAD" />
-            <InputField label="Down payment" value={downPayment} onChange={(event) => setDownPayment(event.target.value)} step="1000" min="0" suffix="CAD" />
+            <InputField label="Household gross income" value={householdIncome} onChange={(event) => setHouseholdIncome(parseNumericInput(event.target.value))} step="1000" min="0" suffix="CAD" />
+            <InputField label="Down payment" value={downPayment} onChange={(event) => setDownPayment(parseNumericInput(event.target.value))} step="1000" min="0" suffix="CAD" />
             <InputField
               label="Monthly debt payments"
               value={monthlyDebtPayments}
-              onChange={(event) => setMonthlyDebtPayments(event.target.value)}
+              onChange={(event) => setMonthlyDebtPayments(parseNumericInput(event.target.value))}
               step="25"
               min="0"
               suffix="CAD"
               helpText="Include car loans, student loans, credit-card minimums, and any other fixed monthly debt obligations."
             />
-            <InputField label="Quoted mortgage rate" value={interestRate} onChange={(event) => setInterestRate(event.target.value)} step="0.05" min="0" suffix="%" />
+            <InputField label="Quoted mortgage rate" value={interestRate} onChange={(event) => setInterestRate(parseNumericInput(event.target.value))} step="0.05" min="0" suffix="%" />
             <SelectField
               label="Amortization"
               value={amortization}
@@ -517,9 +555,9 @@ export default function MortgageAffordabilityCalculator() {
               onChange={(event) => setProvince(event.target.value)}
               options={Object.entries(HOUSING_PROVINCE_DETAILS).map(([value, item]) => ({ value, label: item.label }))}
             />
-            <InputField label="Monthly property tax estimate" value={propertyTaxMonthly} onChange={(event) => setPropertyTaxMonthly(event.target.value)} step="25" min="0" suffix="CAD" />
-            <InputField label="Monthly heating estimate" value={heatingMonthly} onChange={(event) => setHeatingMonthly(event.target.value)} step="10" min="0" suffix="CAD" />
-            <InputField label="Monthly condo fees" value={condoFeesMonthly} onChange={(event) => setCondoFeesMonthly(event.target.value)} step="25" min="0" suffix="CAD" helpText="Enter 0 for detached or freehold scenarios with no condo fee." />
+            <InputField label="Monthly property tax estimate" value={propertyTaxMonthly} onChange={(event) => setPropertyTaxMonthly(parseNumericInput(event.target.value))} step="25" min="0" suffix="CAD" />
+            <InputField label="Monthly heating estimate" value={heatingMonthly} onChange={(event) => setHeatingMonthly(parseNumericInput(event.target.value))} step="10" min="0" suffix="CAD" />
+            <InputField label="Monthly condo fees" value={condoFeesMonthly} onChange={(event) => setCondoFeesMonthly(parseNumericInput(event.target.value))} step="25" min="0" suffix="CAD" helpText="Enter 0 for detached or freehold scenarios with no condo fee." />
           </div>
         </aside>
       </div>

@@ -16,6 +16,8 @@ import WasThisHelpful from "../../components/WasThisHelpful";
 import UpdatedForRulesBadge from "../../components/UpdatedForRulesBadge";
 import RelatedDecisionTools from "../../components/RelatedDecisionTools";
 import RelatedContent from "../../components/RelatedContent";
+import ContributorReviewBox from "../../components/ContributorReviewBox";
+import SourceVerificationBlock from "../../components/SourceVerificationBlock";
 import {
   dividendTaxOfficialSources,
   fhsaOfficialSources,
@@ -175,6 +177,14 @@ export default function CanadianEducationArticle({ article }) {
           title="Source check before you act"
           body="This guide is educational. Use the official references below to verify account rules, tax treatment, benefit rules, or mortgage guidance before making a personal decision."
           sources={officialSources}
+        />
+        <ContributorReviewBox className="mb-8" />
+        <SourceVerificationBlock
+          className="mb-8"
+          lastUpdated={article.lastUpdated || article.displayDate || "May 20, 2026"}
+          sources={officialSources}
+          checked={["Primary source links where applicable", "Educational disclaimer and decision caveats", "Related calculator and guide links", "No professional review claim unless explicitly provided"]}
+          limitations={["This guide cannot see personal account room, tax filing history, employment benefits, debts, or household constraints.", "Official rules and eligibility should be verified before acting."]}
         />
 
         <div className="mb-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">

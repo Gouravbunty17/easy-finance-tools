@@ -25,6 +25,10 @@ import ResultInsightCard from '../../components/ResultInsightCard';
 import OptimizationTips from '../../components/OptimizationTips';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
+import CalculatorResultGuidance from '../../components/CalculatorResultGuidance';
+import RelatedContent from '../../components/RelatedContent';
+import ContributorReviewBox from '../../components/ContributorReviewBox';
+import SourceVerificationBlock from '../../components/SourceVerificationBlock';
 import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
@@ -40,6 +44,7 @@ import {
   getPaymentFrequencyDetails,
 } from '../../config/financial';
 import { mortgageOfficialSources } from '../../config/officialSources';
+import { asNumber, parseNumericInput } from '../../lib/numericInputs';
 
 ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
@@ -97,17 +102,22 @@ function MetricCard({ label, value, hint, tone = 'default' }) {
 }
 
 function InputField({ label, value, onChange, step, min, max, suffix, helpText }) {
+  const inputId = `mortgage-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+  const helpId = helpText ? `${inputId}-help` : undefined;
+
   return (
     <div>
-      <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+      <label htmlFor={inputId} className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
       <div className="relative">
         <input
+          id={inputId}
           type="number"
           value={value}
           onChange={onChange}
           step={step}
           min={min}
           max={max}
+          aria-describedby={helpId}
           className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 pr-14 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
         />
         {suffix ? (
@@ -116,25 +126,30 @@ function InputField({ label, value, onChange, step, min, max, suffix, helpText }
           </span>
         ) : null}
       </div>
-      {helpText ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
+      {helpText ? <p id={helpId} className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
     </div>
   );
 }
 
 function SelectField({ label, value, onChange, options, helpText }) {
+  const selectId = `mortgage-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+  const helpId = helpText ? `${selectId}-help` : undefined;
+
   return (
     <div>
-      <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+      <label htmlFor={selectId} className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
       <select
+        id={selectId}
         value={value}
         onChange={onChange}
+        aria-describedby={helpId}
         className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>{option.label}</option>
         ))}
       </select>
-      {helpText ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
+      {helpText ? <p id={helpId} className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
     </div>
   );
 }
@@ -191,20 +206,20 @@ function simulateMortgage(balanceStart, annualRate, monthlyPayment, scheduledMon
 }
 
 export default function MortgageCalculator() {
-  const [homePrice, setHomePrice] = useState(DEFAULT_ASSUMPTIONS.mortgage.homePrice);
-  const [downPayment, setDownPayment] = useState(DEFAULT_ASSUMPTIONS.mortgage.downPayment);
-  const [rate, setRate] = useState(DEFAULT_ASSUMPTIONS.mortgage.rate);
+  const [homePrice, setHomePrice] = useState(String(DEFAULT_ASSUMPTIONS.mortgage.homePrice));
+  const [downPayment, setDownPayment] = useState(String(DEFAULT_ASSUMPTIONS.mortgage.downPayment));
+  const [rate, setRate] = useState(String(DEFAULT_ASSUMPTIONS.mortgage.rate));
   const [amortization, setAmortization] = useState(DEFAULT_ASSUMPTIONS.mortgage.amortization);
   const [frequency, setFrequency] = useState(DEFAULT_ASSUMPTIONS.mortgage.frequency);
   const [province, setProvince] = useState(DEFAULT_ASSUMPTIONS.mortgage.province);
-  const [extraMonthlyPayment, setExtraMonthlyPayment] = useState(DEFAULT_ASSUMPTIONS.mortgage.extraMonthlyPayment);
+  const [extraMonthlyPayment, setExtraMonthlyPayment] = useState(String(DEFAULT_ASSUMPTIONS.mortgage.extraMonthlyPayment));
 
   const result = useMemo(() => {
-    const safeHomePrice = Math.max(0, Number(homePrice || 0));
-    const safeDownPayment = Math.max(0, Number(downPayment || 0));
-    const safeRate = Math.max(0, Number(rate || 0));
-    const safeAmortization = Math.max(5, Number(amortization || 25));
-    const safeExtraMonthlyPayment = Math.max(0, Number(extraMonthlyPayment || 0));
+    const safeHomePrice = Math.max(0, asNumber(homePrice));
+    const safeDownPayment = Math.max(0, asNumber(downPayment));
+    const safeRate = Math.max(0, asNumber(rate));
+    const safeAmortization = Math.max(5, asNumber(amortization, 25));
+    const safeExtraMonthlyPayment = Math.max(0, asNumber(extraMonthlyPayment));
     const principal = Math.max(0, safeHomePrice - safeDownPayment);
     const downPaymentPct = safeHomePrice > 0 ? safeDownPayment / safeHomePrice : 0;
     const minimumDownPayment = getMortgageMinimumDownPayment(safeHomePrice);
@@ -314,6 +329,14 @@ export default function MortgageCalculator() {
               body="Mortgage payments, insurance, and qualification context should be checked against official Canadian consumer guidance and lender documents."
               sources={[mortgageOfficialSources[0], mortgageOfficialSources[2], mortgageOfficialSources[3]]}
             />
+            <ContributorReviewBox className="mt-4" />
+            <SourceVerificationBlock
+              className="mt-4"
+              lastUpdated={CONTENT_LAST_REVIEWED}
+              sources={[mortgageOfficialSources[0], mortgageOfficialSources[2], mortgageOfficialSources[3]]}
+              checked={["Mortgage payment and stress-test caveats", "CMHC insurance source reference", "Closing-cost limitation wording", "Related affordability links"]}
+              limitations={["Final approval depends on lender underwriting, credit profile, property details, and current product rules.", "The calculator does not replace a lender quote, mortgage broker review, or legal closing-cost statement."]}
+            />
           </div>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -359,6 +382,35 @@ export default function MortgageCalculator() {
               Increase the rate by one or two points and lower the amortization. If the budget breaks quickly, the listing price may be doing too much work.
             </StressTestYourInputs>
           </div>
+
+          <CalculatorResultGuidance
+            className="mt-8"
+            whatThisResultMeans={`This estimate may help you compare the scheduled payment, stress-tested payment, closing-cost cash, and insurance impact before deciding whether this home price is realistic.`}
+            assumptions={[
+              `Home price is ${formatCurrency(asNumber(homePrice))} with a ${formatCurrency(asNumber(downPayment))} down payment.`,
+              `Payment math uses a ${formatPercent(asNumber(rate), 2)} quoted rate and ${amortization}-year amortization.`,
+              `Closing costs include land transfer tax estimates plus standard legal/title and inspection assumptions.`,
+            ]}
+            canadianTaxCaveat="Mortgage approval depends on lender underwriting, debt ratios, credit profile, property details, and current qualification rules. This calculator is an educational estimate only."
+            sources={[mortgageOfficialSources[0], mortgageOfficialSources[2], mortgageOfficialSources[3]]}
+            relatedCalculator={{ label: 'Mortgage Affordability Calculator', href: '/tools/mortgage-affordability-calculator' }}
+            nextStepLinks={[
+              { label: 'Review the mortgage affordability reality check', href: '/blog/mortgage-affordability-reality-check-canada' },
+              { label: 'Compare rent vs buy tradeoffs', href: '/blog/rent-vs-buy-canada' },
+            ]}
+          />
+
+          <RelatedContent
+            className="mt-8"
+            title="Related mortgage decisions"
+            intro="Use these next if the payment estimate looks possible but the approval or buying decision still needs pressure-testing."
+            items={[
+              { type: 'calculator', title: 'Mortgage Affordability Calculator', href: '/tools/mortgage-affordability-calculator', body: 'Estimate a purchase-price range from income, debts, down payment, and stress-test assumptions.' },
+              { type: 'guide', title: 'Mortgage affordability reality check', href: '/blog/mortgage-affordability-reality-check-canada', body: 'Understand why approval can be based on a higher qualifying rate than the contract rate.' },
+              { type: 'guide', title: 'Rent vs buy in Canada', href: '/blog/rent-vs-buy-canada', body: 'Compare ownership costs against flexibility and opportunity cost.' },
+            ]}
+            trackingContext="mortgage_calculator_related_content"
+          />
 
           <div className="surface-card mt-8 p-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -529,17 +581,17 @@ export default function MortgageCalculator() {
           </p>
 
           <div className="mt-6 space-y-5">
-            <InputField label="Home price" value={homePrice} onChange={(event) => setHomePrice(event.target.value)} step="1000" min="0" suffix="CAD" />
+            <InputField label="Home price" value={homePrice} onChange={(event) => setHomePrice(parseNumericInput(event.target.value))} step="1000" min="0" suffix="CAD" />
             <InputField
               label="Down payment"
               value={downPayment}
-              onChange={(event) => setDownPayment(event.target.value)}
+              onChange={(event) => setDownPayment(parseNumericInput(event.target.value))}
               step="1000"
               min="0"
               suffix="CAD"
               helpText="If you are still building the down payment, compare this page with your FHSA and TFSA plan before deciding what is realistic."
             />
-            <InputField label="Quoted rate" value={rate} onChange={(event) => setRate(event.target.value)} step="0.05" min="0" suffix="%" />
+            <InputField label="Quoted rate" value={rate} onChange={(event) => setRate(parseNumericInput(event.target.value))} step="0.05" min="0" suffix="%" />
             <SelectField
               label="Amortization"
               value={amortization}
@@ -567,7 +619,7 @@ export default function MortgageCalculator() {
             <InputField
               label="Extra monthly prepayment"
               value={extraMonthlyPayment}
-              onChange={(event) => setExtraMonthlyPayment(event.target.value)}
+              onChange={(event) => setExtraMonthlyPayment(parseNumericInput(event.target.value))}
               step="50"
               min="0"
               suffix="CAD"

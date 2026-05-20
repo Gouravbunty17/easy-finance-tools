@@ -119,6 +119,9 @@ export default function EditorialStandards() {
                   Corrections can be submitted through the Contact page. When a correction changes a number, formula, source, or recommendation context, the page should be reviewed, updated, and dated so readers can see that the change was handled.
                 </p>
                 <p>
+                  Readers can also use the <Link to="/corrections" className="text-secondary underline-offset-2 hover:underline">Corrections and Updates</Link> page to report calculator logic issues, outdated source references, broken links, accessibility issues, or wording that needs clarification.
+                </p>
+                <p>
                   Source freshness is handled by risk level. CRA registered-account and tax pages, Government of Canada benefit pages, Bank of Canada rate data, and CMHC/FCAC mortgage references are checked first because stale assumptions there can directly change a user's interpretation.
                 </p>
               </div>

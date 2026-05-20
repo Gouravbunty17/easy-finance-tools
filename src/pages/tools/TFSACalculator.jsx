@@ -33,6 +33,10 @@ import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import DecisionFramework from '../../components/DecisionFramework';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
 import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
+import CalculatorResultGuidance from '../../components/CalculatorResultGuidance';
+import RelatedContent from '../../components/RelatedContent';
+import ContributorReviewBox from '../../components/ContributorReviewBox';
+import SourceVerificationBlock from '../../components/SourceVerificationBlock';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
@@ -45,6 +49,7 @@ import {
   getTfsaEligibleYear,
 } from '../../config/financial';
 import { tfsaOfficialSources } from '../../config/officialSources';
+import { asNumber, parseNumericInput } from '../../lib/numericInputs';
 
 ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
@@ -82,33 +87,51 @@ function formatCurrency(value, digits = 0) {
 
 function ResultMetric({ label, value, hint, tone = 'default' }) {
   const tones = {
-    default: 'bg-white text-primary dark:bg-gray-800 dark:text-accent',
-    success: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300',
-    warning: 'bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300',
-    primary: 'bg-gradient-to-br from-primary to-secondary text-white',
+    default: {
+      wrapper: 'bg-white text-primary dark:bg-gray-800 dark:text-accent',
+      detail: 'text-slate-600 dark:text-slate-300',
+    },
+    success: {
+      wrapper: 'bg-emerald-50 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200',
+      detail: 'text-emerald-900 dark:text-emerald-200',
+    },
+    warning: {
+      wrapper: 'bg-amber-50 text-amber-950 dark:bg-amber-950/40 dark:text-amber-200',
+      detail: 'text-amber-950 dark:text-amber-200',
+    },
+    primary: {
+      wrapper: 'bg-gradient-to-br from-primary to-secondary text-white',
+      detail: 'text-white',
+    },
   };
+  const toneClass = tones[tone] || tones.default;
 
   return (
-    <div className={`rounded-2xl border border-slate-200 p-5 dark:border-slate-700 ${tones[tone] || tones.default}`}>
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] opacity-80">{label}</p>
+    <div className={`rounded-2xl border border-slate-200 p-5 dark:border-slate-700 ${toneClass.wrapper}`}>
+      <p className={`text-xs font-bold uppercase tracking-[0.18em] ${toneClass.detail}`}>{label}</p>
       <p className="mt-3 text-3xl font-bold">{value}</p>
-      {hint ? <p className="mt-2 text-sm opacity-80">{hint}</p> : null}
+      {hint ? <p className={`mt-2 text-sm ${toneClass.detail}`}>{hint}</p> : null}
     </div>
   );
 }
 
 function ScenarioInput({ label, value, onChange, type = 'number', step, min, max, suffix, helpText }) {
+  const inputId = `tfsa-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+  const helpId = helpText ? `${inputId}-help` : undefined;
+
   return (
     <div>
-      <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+      <label htmlFor={inputId} className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
       <div className="relative">
         <input
+          id={inputId}
           type={type}
           value={value}
           onChange={onChange}
           step={step}
           min={min}
           max={max}
+          aria-describedby={helpId}
           className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 pr-14 text-base font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
         />
         {suffix ? (
@@ -117,40 +140,49 @@ function ScenarioInput({ label, value, onChange, type = 'number', step, min, max
           </span>
         ) : null}
       </div>
-      {helpText ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
+      {helpText ? <p id={helpId} className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helpText}</p> : null}
     </div>
   );
 }
 
 export default function TFSACalculator() {
-  const [birthYear, setBirthYear] = useState(DEFAULT_ASSUMPTIONS.tfsa.birthYear);
-  const [residencyYear, setResidencyYear] = useState(DEFAULT_ASSUMPTIONS.tfsa.residencyYear);
+  const [birthYear, setBirthYear] = useState(String(DEFAULT_ASSUMPTIONS.tfsa.birthYear));
+  const [residencyYear, setResidencyYear] = useState(String(DEFAULT_ASSUMPTIONS.tfsa.residencyYear));
   const [province, setProvince] = useState(DEFAULT_ASSUMPTIONS.tfsa.province);
-  const [taxableIncome, setTaxableIncome] = useState(DEFAULT_ASSUMPTIONS.tfsa.taxableIncome);
-  const [currentBalance, setCurrentBalance] = useState(DEFAULT_ASSUMPTIONS.tfsa.currentBalance);
-  const [lifetimeContributions, setLifetimeContributions] = useState(DEFAULT_ASSUMPTIONS.tfsa.lifetimeContributions);
-  const [restoredWithdrawals, setRestoredWithdrawals] = useState(DEFAULT_ASSUMPTIONS.tfsa.restoredWithdrawals);
-  const [annualContribution, setAnnualContribution] = useState(DEFAULT_ASSUMPTIONS.tfsa.annualContribution);
-  const [expectedReturn, setExpectedReturn] = useState(DEFAULT_ASSUMPTIONS.tfsa.expectedReturn);
-  const [years, setYears] = useState(DEFAULT_ASSUMPTIONS.tfsa.years);
+  const [taxableIncome, setTaxableIncome] = useState(String(DEFAULT_ASSUMPTIONS.tfsa.taxableIncome));
+  const [currentBalance, setCurrentBalance] = useState(String(DEFAULT_ASSUMPTIONS.tfsa.currentBalance));
+  const [lifetimeContributions, setLifetimeContributions] = useState(String(DEFAULT_ASSUMPTIONS.tfsa.lifetimeContributions));
+  const [restoredWithdrawals, setRestoredWithdrawals] = useState(String(DEFAULT_ASSUMPTIONS.tfsa.restoredWithdrawals));
+  const [annualContribution, setAnnualContribution] = useState(String(DEFAULT_ASSUMPTIONS.tfsa.annualContribution));
+  const [expectedReturn, setExpectedReturn] = useState(String(DEFAULT_ASSUMPTIONS.tfsa.expectedReturn));
+  const [years, setYears] = useState(String(DEFAULT_ASSUMPTIONS.tfsa.years));
 
   const result = useMemo(() => {
-    const eligibleYear = getTfsaEligibleYear(Number(birthYear || 0), Number(residencyYear || 0));
+    const safeBirthYear = asNumber(birthYear);
+    const safeResidencyYear = asNumber(residencyYear);
+    const safeTaxableIncome = asNumber(taxableIncome);
+    const safeCurrentBalance = asNumber(currentBalance);
+    const safeLifetimeContributions = asNumber(lifetimeContributions);
+    const safeRestoredWithdrawals = asNumber(restoredWithdrawals);
+    const safeAnnualContribution = asNumber(annualContribution);
+    const safeExpectedReturn = asNumber(expectedReturn);
+    const safeYears = asNumber(years, 1);
+    const eligibleYear = getTfsaEligibleYear(safeBirthYear, safeResidencyYear);
     const accruedRoom = getTfsaAccruedRoom(eligibleYear);
-    const netContributionsUsed = Math.max(0, Number(lifetimeContributions || 0) - Number(restoredWithdrawals || 0));
+    const netContributionsUsed = Math.max(0, safeLifetimeContributions - safeRestoredWithdrawals);
     const estimatedRoomNow = Math.max(0, accruedRoom - netContributionsUsed);
-    const currentRate = getEstimatedMarginalTaxRate(province, Number(taxableIncome || 0));
-    const yearlyContributionTarget = Math.max(0, Number(annualContribution || 0));
-    const yearlyRate = Number(expectedReturn || 0) / 100;
+    const currentRate = getEstimatedMarginalTaxRate(province, safeTaxableIncome);
+    const yearlyContributionTarget = Math.max(0, safeAnnualContribution);
+    const yearlyRate = safeExpectedReturn / 100;
 
-    let balance = Math.max(0, Number(currentBalance || 0));
+    let balance = Math.max(0, safeCurrentBalance);
     let roomAvailable = estimatedRoomNow;
     let totalFutureContributions = 0;
     const yearlyBreakdown = [];
     const chartLabels = [];
     const chartValues = [];
 
-    for (let year = 1; year <= Math.max(1, Number(years || 1)); year += 1) {
+    for (let year = 1; year <= Math.max(1, safeYears); year += 1) {
       const roomThisYear = roomAvailable;
       const contributionUsed = Math.min(yearlyContributionTarget, roomThisYear);
       const contributionPerMonth = contributionUsed / 12;
@@ -178,11 +210,11 @@ export default function TFSACalculator() {
     }
 
     const projectedBalance = Math.round(balance);
-    const projectedGrowth = Math.round(Math.max(0, balance - Number(currentBalance || 0) - totalFutureContributions));
+    const projectedGrowth = Math.round(Math.max(0, balance - safeCurrentBalance - totalFutureContributions));
     const contributionUsedYearOne = yearlyBreakdown[0]?.contributionUsed || 0;
     const roomUsage = contributionUsedYearOne / Math.max(estimatedRoomNow, 1);
     const annualLimitUsage = contributionUsedYearOne / REGISTERED_ACCOUNT_LIMITS.tfsaAnnualLimit;
-    const taxableContext = Math.round(Number(currentBalance || 0) * yearlyRate * currentRate);
+    const taxableContext = Math.round(safeCurrentBalance * yearlyRate * currentRate);
     const nextYearRoomEstimate = yearlyBreakdown[0]?.nextYearRoom || REGISTERED_ACCOUNT_LIMITS.tfsaAnnualLimit;
 
     let interpretation = 'The TFSA still looks useful, but the next dollar should be compared with RRSP or FHSA options if those accounts are also in play.';
@@ -264,6 +296,14 @@ export default function TFSACalculator() {
             <OfficialSourceNote
               body="TFSA contribution room and withdrawal timing should be checked against CRA before making a real contribution."
               sources={[tfsaOfficialSources[0], tfsaOfficialSources[1]]}
+            />
+            <ContributorReviewBox className="mt-4" />
+            <SourceVerificationBlock
+              className="mt-4"
+              lastUpdated={CONTENT_LAST_REVIEWED}
+              sources={[tfsaOfficialSources[0], tfsaOfficialSources[1], tfsaOfficialSources[2]]}
+              checked={["2026 TFSA annual limit context", "Withdrawal and recontribution timing", "Overcontribution caveats", "Result guidance and related links"]}
+              limitations={["CRA My Account and your own records remain the final source for personal TFSA room.", "The projection does not model market volatility or product-specific risk."]}
             />
           </div>
 
@@ -361,13 +401,38 @@ export default function TFSACalculator() {
               caveats={[
                 'CRA records can lag recent deposits, withdrawals, and transfers.',
                 'Same-year re-contributions can create excess TFSA amounts if other unused room is not available.',
-                'Tax-free growth does not make the underlying investment risk-free.',
+                'Tax-free growth does not reduce the investment risk of the holdings you choose.',
               ]}
               sources={[tfsaOfficialSources[0], tfsaOfficialSources[1], tfsaOfficialSources[2]]}
               nextLinks={[
                 { label: 'Read the TFSA contribution room guide', href: '/blog/tfsa-contribution-room-canada-2026' },
                 { label: 'Compare TFSA, RRSP, and FHSA priority', href: '/tools/account-decision-tool' },
               ]}
+            />
+            <CalculatorResultGuidance
+              whatThisResultMeans={`This result may help you compare TFSA room safety and tax-free growth before deciding whether the next ${formatCurrency(asNumber(annualContribution))} belongs in a TFSA, RRSP, or FHSA.`}
+              assumptions={[
+                `Room starts from eligibility year ${result.eligibleYear} and the contribution history entered on this page.`,
+                `The projection uses ${expectedReturn || 0}% annual growth for ${years || 0} years.`,
+                'Empty numeric inputs are treated as zero for calculation, but should be replaced with your own records before acting.',
+              ]}
+              canadianTaxCaveat="CRA My Account is the official room source, and TFSA withdrawals usually return to contribution room on January 1 of the following calendar year."
+              sources={[tfsaOfficialSources[0], tfsaOfficialSources[1]]}
+              relatedCalculator={{ label: 'RRSP Calculator', href: '/tools/rrsp-calculator' }}
+              nextStepLinks={[
+                { label: 'Compare TFSA vs RRSP vs FHSA', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada' },
+                { label: 'Review TFSA withdrawal and recontribution rules', href: '/blog/tfsa-withdrawal-recontribution-rules-canada' },
+              ]}
+            />
+            <RelatedContent
+              title="Related TFSA decisions"
+              intro="Use these next if the room estimate looks useful but the account priority is still unclear."
+              items={[
+                { type: 'calculator', title: 'RRSP Calculator', href: '/tools/rrsp-calculator', body: 'Compare whether an RRSP deduction may matter more than TFSA flexibility this year.' },
+                { type: 'guide', title: 'TFSA vs RRSP vs FHSA guide', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', body: 'Understand which registered account may deserve the next dollar.' },
+                { type: 'guide', title: 'TFSA withdrawal rules', href: '/blog/tfsa-withdrawal-recontribution-rules-canada', body: 'Avoid same-year recontribution mistakes after taking money out.' },
+              ]}
+              trackingContext="tfsa_calculator_related_content"
             />
             <WatchOutBox
               title="TFSA mistakes to avoid before acting"
@@ -613,7 +678,7 @@ export default function TFSACalculator() {
             <ScenarioInput
               label="Birth year"
               value={birthYear}
-              onChange={(event) => setBirthYear(Number(event.target.value || 0))}
+              onChange={(event) => setBirthYear(parseNumericInput(event.target.value, { integer: true }))}
               min={1950}
               max={2008}
               step={1}
@@ -621,15 +686,16 @@ export default function TFSACalculator() {
             <ScenarioInput
               label="Canadian residency start year"
               value={residencyYear}
-              onChange={(event) => setResidencyYear(Number(event.target.value || 0))}
+              onChange={(event) => setResidencyYear(parseNumericInput(event.target.value, { integer: true }))}
               min={2009}
               max={FINANCIAL_YEAR}
               step={1}
               helpText="TFSA room starts from the later of age 18 or Canadian tax residency."
             />
             <div>
-              <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Province</label>
+              <label htmlFor="tfsa-province" className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Province</label>
               <select
+                id="tfsa-province"
                 value={province}
                 onChange={(event) => setProvince(event.target.value)}
                 className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
@@ -642,7 +708,7 @@ export default function TFSACalculator() {
             <ScenarioInput
               label="Taxable income"
               value={taxableIncome}
-              onChange={(event) => setTaxableIncome(Number(event.target.value || 0))}
+              onChange={(event) => setTaxableIncome(parseNumericInput(event.target.value))}
               min={0}
               step={1000}
               suffix="CAD"
@@ -651,7 +717,7 @@ export default function TFSACalculator() {
             <ScenarioInput
               label="Current TFSA balance"
               value={currentBalance}
-              onChange={(event) => setCurrentBalance(Number(event.target.value || 0))}
+              onChange={(event) => setCurrentBalance(parseNumericInput(event.target.value))}
               min={0}
               step={500}
               suffix="CAD"
@@ -659,7 +725,7 @@ export default function TFSACalculator() {
             <ScenarioInput
               label="Lifetime contributions made"
               value={lifetimeContributions}
-              onChange={(event) => setLifetimeContributions(Number(event.target.value || 0))}
+              onChange={(event) => setLifetimeContributions(parseNumericInput(event.target.value))}
               min={0}
               step={500}
               suffix="CAD"
@@ -667,7 +733,7 @@ export default function TFSACalculator() {
             <ScenarioInput
               label="Prior withdrawals already restored to room"
               value={restoredWithdrawals}
-              onChange={(event) => setRestoredWithdrawals(Number(event.target.value || 0))}
+              onChange={(event) => setRestoredWithdrawals(parseNumericInput(event.target.value))}
               min={0}
               step={500}
               suffix="CAD"
@@ -676,7 +742,7 @@ export default function TFSACalculator() {
             <ScenarioInput
               label="Planned annual contribution"
               value={annualContribution}
-              onChange={(event) => setAnnualContribution(Number(event.target.value || 0))}
+              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
               min={0}
               step={500}
               suffix="CAD"
@@ -685,7 +751,7 @@ export default function TFSACalculator() {
             <ScenarioInput
               label="Expected annual growth"
               value={expectedReturn}
-              onChange={(event) => setExpectedReturn(Number(event.target.value || 0))}
+              onChange={(event) => setExpectedReturn(parseNumericInput(event.target.value))}
               min={0}
               max={12}
               step={0.5}
@@ -694,7 +760,7 @@ export default function TFSACalculator() {
             <ScenarioInput
               label="Projection years"
               value={years}
-              onChange={(event) => setYears(Number(event.target.value || 0))}
+              onChange={(event) => setYears(parseNumericInput(event.target.value, { integer: true }))}
               min={1}
               max={30}
               step={1}

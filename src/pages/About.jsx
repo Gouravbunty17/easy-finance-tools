@@ -161,6 +161,59 @@ export default function About() {
       <section className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
           <div>
+            <section className="grid gap-4 md:grid-cols-2">
+              {[
+                {
+                  title: "Our purpose",
+                  body: "Easy Finance Tools is an independent Canadian finance education and decision-support platform. It helps users understand account, tax, mortgage, investing, dividend, and retirement tradeoffs before acting.",
+                },
+                {
+                  title: "Who the site is for",
+                  body: "The site is built for Canadians, beginners, newcomers, and households who want plain-language planning tools without having to create an account or start with a product pitch.",
+                },
+                {
+                  title: "How our tools work",
+                  body: "Calculators use visible inputs, simplified formulas, official-source checks where applicable, and plain-English result guidance. They are decision aids, not final records.",
+                },
+                {
+                  title: "What we do not do",
+                  body: "We do not provide personalized financial, tax, legal, mortgage, or investment advice. We do not claim CPA, CFP, CFA, tax-preparer, or licensed advisor credentials.",
+                },
+                {
+                  title: "How we handle corrections",
+                  body: "Readers can report broken links, stale CRA/CMHC/Bank of Canada references, calculation issues, accessibility problems, and unclear explanations through the corrections flow.",
+                },
+                {
+                  title: "How we use sources",
+                  body: "Rule-based pages should point to CRA, Government of Canada, CMHC, FCAC, Bank of Canada, OSFI, or provincial references where those sources apply. Users should verify official rules before making decisions.",
+                },
+              ].map((item) => (
+                <div key={item.title} className="surface-card p-6">
+                  <h2 className="text-xl font-bold text-primary dark:text-accent">{item.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{item.body}</p>
+                </div>
+              ))}
+            </section>
+
+            <div className="mt-8 rounded-3xl border border-blue-200 bg-blue-50 p-6 dark:border-blue-900/60 dark:bg-blue-950/20">
+              <h2 className="text-2xl font-bold text-primary dark:text-accent">Contact or report an issue</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-700 dark:text-slate-300">
+                If a calculator result looks wrong, a source link is stale, or a rule reference needs review, send the affected URL and enough detail to reproduce the issue. Please avoid sharing private financial documents.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <Link to="/corrections" className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-secondary">
+                  Report a correction
+                </Link>
+                <Link to="/contact" className="rounded-xl border border-blue-300 px-4 py-2 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-blue-800 dark:text-emerald-300">
+                  Contact the site
+                </Link>
+              </div>
+            </div>
+
+            <div className="mt-8 rounded-3xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950 dark:border-amber-800 dark:bg-amber-950/20 dark:text-amber-100">
+              <strong>Important:</strong> Official account room, tax rules, benefit eligibility, and mortgage qualification should be verified with the relevant official source or a qualified professional before acting.
+            </div>
+
             <div className="surface-card p-6 md:p-8">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Founder and operator</p>
               <h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Why EasyFinanceTools exists</h2>

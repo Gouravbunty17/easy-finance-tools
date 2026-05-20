@@ -36,6 +36,8 @@ const correctionPolicy = [
 ];
 
 export default function Corrections() {
+  const mailto = "mailto:easyfinancetools@gmail.com?subject=Correction%20report%20%E2%80%94%20Easy%20Finance%20Tools";
+
   return (
     <main className="mx-auto max-w-4xl px-4 py-12">
       <SEO
@@ -59,6 +61,32 @@ export default function Corrections() {
         </div>
       </section>
 
+      <section className="mt-8 rounded-3xl border border-blue-200 bg-blue-50 p-6 dark:border-blue-900/60 dark:bg-blue-950/20">
+        <h2 className="text-2xl font-bold text-primary dark:text-accent">What you can report</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          {[
+            "Calculator logic issues or unexpected outputs",
+            "Outdated CRA, CMHC, Bank of Canada, OSFI, or tax-rule references",
+            "Broken internal or official-source links",
+            "Accessibility, mobile layout, or dark-mode readability issues",
+            "Unclear wording that could mislead a beginner",
+            "General content corrections or missing caveats",
+          ].map((item) => (
+            <div key={item} className="rounded-2xl border border-blue-200 bg-white p-4 text-sm font-semibold text-slate-700 dark:border-blue-900/60 dark:bg-slate-900 dark:text-slate-200">
+              {item}
+            </div>
+          ))}
+        </div>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <a className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-secondary" href={mailto}>
+            Email a correction report
+          </a>
+          <Link className="rounded-xl border border-blue-300 px-4 py-2 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-blue-800 dark:text-emerald-300" to="/contact">
+            Use contact page
+          </Link>
+        </div>
+      </section>
+
       <section className="mt-8 grid gap-4 md:grid-cols-2">
         <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
           <h2 className="text-2xl font-bold text-primary dark:text-accent">How to report an error</h2>
@@ -68,9 +96,7 @@ export default function Corrections() {
           <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
             Useful reports include the page URL, the relevant source link, the expected result, and enough context to reproduce a calculator issue without sharing private financial documents.
           </p>
-          <Link className="mt-4 inline-flex rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-secondary" to="/contact">
-            Report a correction
-          </Link>
+          <a className="mt-4 inline-flex rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-secondary" href={mailto}>Report a correction by email</a>
         </div>
         <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
           <h2 className="text-2xl font-bold text-primary dark:text-accent">How updates are reviewed</h2>

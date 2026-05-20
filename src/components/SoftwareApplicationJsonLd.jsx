@@ -7,6 +7,7 @@ export default function SoftwareApplicationJsonLd({
   canonical,
   category = "FinanceApplication",
   breadcrumbs,
+  reviewer,
 }) {
   if (!name || !canonical) return null;
 
@@ -47,6 +48,13 @@ export default function SoftwareApplicationJsonLd({
             url: `${SITE_ORIGIN}/logo.svg`,
           },
         },
+        ...(reviewer?.name && reviewer?.credential ? {
+          reviewedBy: {
+            "@type": "Person",
+            name: reviewer.name,
+            jobTitle: reviewer.credential,
+          },
+        } : {}),
       },
       {
         "@type": "BreadcrumbList",

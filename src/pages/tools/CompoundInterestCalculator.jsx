@@ -20,6 +20,10 @@ import EducationalDisclaimer from "../../components/EducationalDisclaimer";
 import FAQSchema from "../../components/FAQSchema";
 import OfficialSourceNote from "../../components/OfficialSourceNote";
 import CalculatorCaseStudy from "../../components/CalculatorCaseStudy";
+import CalculatorResultGuidance from "../../components/CalculatorResultGuidance";
+import RelatedContent from "../../components/RelatedContent";
+import ContributorReviewBox from "../../components/ContributorReviewBox";
+import SourceVerificationBlock from "../../components/SourceVerificationBlock";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -53,7 +57,7 @@ const COMPOUND_FAQS = [
   },
   {
     q: "What is a realistic return assumption for Canadian planning?",
-    a: "There is no guaranteed number. For a cautious long-term scenario, many people test several ranges, such as lower-return, base-case, and optimistic assumptions, then check whether the plan still works if returns are weaker.",
+    a: "There is no fixed number that applies to every plan. For a cautious long-term scenario, many people test several ranges, such as lower-return, base-case, and optimistic assumptions, then check whether the plan still works if returns are weaker.",
   },
   {
     q: "How do fees affect compound growth?",
@@ -188,6 +192,17 @@ export default function CompoundInterestCalculator() {
               { label: "Statistics Canada: Consumer Price Index", href: "https://www150.statcan.gc.ca/n1/en/type/data?text=consumer%20price%20index" },
             ]}
           />
+          <ContributorReviewBox className="mt-4" />
+          <SourceVerificationBlock
+            className="mt-4"
+            lastUpdated="May 20, 2026"
+            sources={[
+              { label: "Bank of Canada: Rates", href: "https://www.bankofcanada.ca/rates/" },
+              { label: "Statistics Canada: Consumer Price Index", href: "https://www150.statcan.gc.ca/n1/en/type/data?text=consumer%20price%20index" },
+            ]}
+            checked={["Compounding assumptions", "Fee and inflation caveats", "Related registered-account links", "No guaranteed-return wording"]}
+            limitations={["Returns are smoothed and do not model market volatility.", "The projection does not calculate tax differences between TFSA, RRSP, FHSA, and taxable accounts."]}
+          />
 
           <div className="mt-6 rounded-3xl border border-blue-100 bg-blue-50 p-5 dark:border-blue-900/60 dark:bg-blue-950/30">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Quick answer</p>
@@ -217,6 +232,38 @@ export default function CompoundInterestCalculator() {
               </p>
             </div>
           </div>
+
+          <CalculatorResultGuidance
+            className="mt-8"
+            whatThisResultMeans={`This result may help you compare whether your contribution pace, time horizon, fee drag, and inflation assumption are doing enough before choosing a TFSA, RRSP, FHSA, or taxable account.`}
+            assumptions={[
+              `${formatCurrency(initialAmount)} starts the plan and ${formatCurrency(monthlyContribution)} is added monthly.`,
+              `The projection uses ${formatPercent(annualReturn)} expected annual return, ${formatPercent(annualFee)} annual fee drag, and ${formatPercent(inflationRate)} inflation.`,
+              'Returns are smoothed into a constant monthly rate, so real market volatility is not modeled.',
+            ]}
+            canadianTaxCaveat="This growth estimate does not model tax. Canadian after-tax outcomes can change depending on whether the money is inside a TFSA, RRSP, FHSA, or taxable account."
+            sources={[
+              { label: "Bank of Canada: Rates", href: "https://www.bankofcanada.ca/rates/" },
+              { label: "Statistics Canada: CPI", href: "https://www150.statcan.gc.ca/n1/en/type/data?text=consumer%20price%20index" },
+            ]}
+            relatedCalculator={{ label: "TFSA Calculator", href: "/tools/tfsa-calculator" }}
+            nextStepLinks={[
+              { label: "Compare TFSA vs RRSP vs FHSA", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada" },
+              { label: "Review TFSA contribution room", href: "/blog/tfsa-contribution-room-canada-2026" },
+            ]}
+          />
+
+          <RelatedContent
+            className="mt-8"
+            title="Related growth decisions"
+            intro="Use these next once the contribution path looks realistic."
+            items={[
+              { type: "calculator", title: "TFSA Calculator", href: "/tools/tfsa-calculator", body: "Check whether the same compounding path fits available TFSA room." },
+              { type: "guide", title: "TFSA vs RRSP vs FHSA guide", href: "/blog/tfsa-vs-rrsp-vs-fhsa-canada", body: "Choose the account wrapper before focusing on products." },
+              { type: "guide", title: "Dividend reinvestment guide", href: "/blog/dividend-reinvestment-plans-canada", body: "Compare pure contribution growth with reinvested income assumptions." },
+            ]}
+            trackingContext="compound_calculator_related_content"
+          />
 
           <div className="surface-card mt-8 p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -698,13 +745,16 @@ export default function CompoundInterestCalculator() {
 }
 
 function RangeField({ label, value, display, min, max, step, onChange, footer }) {
+  const inputId = `compound-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+
   return (
     <div>
       <div className="mb-1 flex items-center justify-between gap-3">
-        <label className="text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
+        <label htmlFor={inputId} className="text-sm font-semibold text-slate-700 dark:text-slate-200">{label}</label>
         <span className="text-sm font-bold text-primary dark:text-accent">{display}</span>
       </div>
       <input
+        id={inputId}
         type="range"
         min={min}
         max={max}
