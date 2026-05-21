@@ -37,6 +37,7 @@ import CalculatorResultGuidance from '../../components/CalculatorResultGuidance'
 import RelatedContent from '../../components/RelatedContent';
 import ContributorReviewBox from '../../components/ContributorReviewBox';
 import SourceVerificationBlock from '../../components/SourceVerificationBlock';
+import YouTubeSupportSection from '../../components/YouTubeSupportSection';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
@@ -267,8 +268,8 @@ export default function TFSACalculator() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="TFSA Calculator Canada 2026: Room & Tax-Free Growth"
-        description="Free Canadian TFSA calculator. Estimate 2026 contribution room, tax-free growth, and TFSA vs RRSP fit with clear assumptions."
+        title="TFSA Calculator Canada 2026: Room, Growth & Account Fit"
+        description="Estimate TFSA room, carryforward, withdrawals, and tax-free growth in minutes with 2026 Canadian limits and source-linked caveats."
         canonical="https://easyfinancetools.com/tools/tfsa-calculator"
       />
       <ToolPageSchema
@@ -304,6 +305,13 @@ export default function TFSACalculator() {
               sources={[tfsaOfficialSources[0], tfsaOfficialSources[1], tfsaOfficialSources[2]]}
               checked={["2026 TFSA annual limit context", "Withdrawal and recontribution timing", "Overcontribution caveats", "Result guidance and related links"]}
               limitations={["CRA My Account and your own records remain the final source for personal TFSA room.", "The projection does not model market volatility or product-specific risk."]}
+            />
+            <YouTubeSupportSection
+              className="mt-4"
+              videoTitle="TFSA contribution room and growth explained"
+              videoDescription="Future video support can explain contribution room, withdrawals, CRA room lag, and tax-free growth without autoplay."
+              calculatorLinks={[{ label: 'TFSA contribution room calculator', href: '/blog/tfsa-contribution-room-calculator' }, { label: 'Account Decision Tool', href: '/tools/account-decision-tool' }]}
+              guideLinks={[{ label: 'TFSA withdrawal rules', href: '/blog/tfsa-withdrawal-rules-canada-2026' }, { label: 'TFSA overcontribution penalties', href: '/blog/tfsa-overcontribution-penalties-canada' }]}
             />
           </div>
 

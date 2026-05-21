@@ -18,6 +18,7 @@ import RelatedDecisionTools from "../../components/RelatedDecisionTools";
 import RelatedContent from "../../components/RelatedContent";
 import ContributorReviewBox from "../../components/ContributorReviewBox";
 import SourceVerificationBlock from "../../components/SourceVerificationBlock";
+import YouTubeSupportSection from "../../components/YouTubeSupportSection";
 import {
   dividendTaxOfficialSources,
   fhsaOfficialSources,
@@ -186,6 +187,19 @@ export default function CanadianEducationArticle({ article }) {
           checked={["Primary source links where applicable", "Educational disclaimer and decision caveats", "Related calculator and guide links", "No professional review claim unless explicitly provided"]}
           limitations={["This guide cannot see personal account room, tax filing history, employment benefits, debts, or household constraints.", "Official rules and eligibility should be verified before acting."]}
         />
+
+        {article.youtube ? (
+          <YouTubeSupportSection
+            className="mb-8"
+            title={article.youtube.title}
+            description={article.youtube.description}
+            videoTitle={article.youtube.videoTitle}
+            videoDescription={article.youtube.videoDescription}
+            embedUrl={article.youtube.embedUrl}
+            calculatorLinks={article.youtube.calculatorLinks}
+            guideLinks={article.youtube.guideLinks}
+          />
+        ) : null}
 
         <div className="mb-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Table of contents</p>

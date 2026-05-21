@@ -12,6 +12,8 @@ export default function ContributorReviewBox({
   name,
   credential,
   experienceYears,
+  focusAreas = [],
+  commentary,
   areaReviewed,
   dateReviewed,
   className = "",
@@ -25,7 +27,7 @@ export default function ContributorReviewBox({
     investor: {
       label: "Contributor perspective",
       title: `Investor perspective by ${name}`,
-      body: `${experienceYears}+ years of personal investing experience. This is an educational contributor perspective and does not replace professional financial, tax, legal, mortgage, or investment advice.`,
+      body: `${experienceYears}+ years of personal investing experience${focusAreas.length ? `, with focus areas including ${focusAreas.join(", ")}` : ""}. This is educational commentary only and does not replace professional financial, tax, legal, mortgage, or investment advice.`,
     },
     professional: {
       label: "Professional review",
@@ -39,6 +41,11 @@ export default function ContributorReviewBox({
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">{content.label}</p>
       <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">{content.title}</h2>
       <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{content.body}</p>
+      {state === "investor" && commentary ? (
+        <blockquote className="mt-4 rounded-2xl border-l-4 border-secondary bg-slate-50 p-4 text-sm leading-7 text-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
+          "{commentary}"
+        </blockquote>
+      ) : null}
       <div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold">
         <Link to="/founder-transparency" className="text-primary underline-offset-2 hover:underline dark:text-emerald-300">
           Founder transparency

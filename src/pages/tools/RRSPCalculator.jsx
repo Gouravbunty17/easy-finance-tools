@@ -33,6 +33,7 @@ import CalculatorResultGuidance from '../../components/CalculatorResultGuidance'
 import RelatedContent from '../../components/RelatedContent';
 import ContributorReviewBox from '../../components/ContributorReviewBox';
 import SourceVerificationBlock from '../../components/SourceVerificationBlock';
+import YouTubeSupportSection from '../../components/YouTubeSupportSection';
 import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
@@ -272,8 +273,8 @@ export default function RRSPCalculator() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="RRSP Calculator Canada 2026: Tax Refund & Retirement"
-        description="Free Canadian RRSP calculator. Estimate 2026 tax refund, contribution room, and retirement impact before your next deposit."
+        title="RRSP Calculator Canada 2026: Refund, Deduction Room & Retirement"
+        description="Estimate RRSP refund value, deduction-room impact, and retirement tradeoffs in minutes with Canadian caveats and source-linked next steps."
         canonical="https://easyfinancetools.com/tools/rrsp-calculator"
       />
       <ToolPageSchema
@@ -308,6 +309,13 @@ export default function RRSPCalculator() {
               sources={[rrspOfficialSources[0], rrspOfficialSources[1], rrspOfficialSources[2]]}
               checked={["RRSP contribution and deduction source references", "Refund and retirement-tax caveats", "RRIF context", "Next-step account comparison links"]}
               limitations={["Actual RRSP room must be confirmed on CRA records or your Notice of Assessment.", "This tool does not prepare a tax return or model every credit, deduction, pension adjustment, or benefit interaction."]}
+            />
+            <YouTubeSupportSection
+              className="mt-4"
+              videoTitle="RRSP refund and deduction tradeoffs explained"
+              videoDescription="Future video support can explain why the refund is only one part of the RRSP decision."
+              calculatorLinks={[{ label: 'Account Decision Tool', href: '/tools/account-decision-tool' }, { label: 'TFSA calculator', href: '/tools/tfsa-calculator' }]}
+              guideLinks={[{ label: 'TFSA vs RRSP vs FHSA guide', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada' }, { label: 'When RRSP makes sense', href: '/blog/when-rrsp-makes-sense-canada' }]}
             />
           </div>
 

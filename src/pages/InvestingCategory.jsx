@@ -49,7 +49,7 @@ const guides = [
       },
       {
         title: "TFSA Contribution Room Canada 2026: Limit, Rules & Common Mistakes",
-        href: "/blog/tfsa-contribution-room-canada-2026",
+        href: "/blog/tfsa-contribution-room-calculator",
         date: "2026-04-29",
         readTime: "9 min",
         excerpt: "Understand annual limits, unused room, withdrawals, CRA updates, and contribution-room examples.",
@@ -180,7 +180,7 @@ export default function InvestingCategory() {
               {
                 title: "TFSA investing",
                 body: "Use TFSA room carefully, avoid withdrawal mistakes, and match holdings to the account job.",
-                links: [["TFSA calculator", "/tools/tfsa-calculator"], ["TFSA mistakes", "/blog/tfsa-investing-mistakes-canada"], ["TFSA room", "/blog/tfsa-contribution-room-canada-2026"]],
+                links: [["TFSA calculator", "/tools/tfsa-calculator"], ["TFSA mistakes", "/blog/tfsa-investing-mistakes-canada"], ["TFSA room", "/blog/tfsa-contribution-room-calculator"]],
               },
               {
                 title: "Dividend income",

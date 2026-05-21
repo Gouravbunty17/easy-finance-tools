@@ -44,10 +44,12 @@ export const topicHubs = {
       { title: 'What could make the plan weaker?', body: 'Same-year recontributions, active trading, foreign withholding tax, and using scarce room for the wrong goal can all change the result.' },
     ],
     guides: [
+      ['TFSA contribution room calculator', '/blog/tfsa-contribution-room-calculator'],
       ['TFSA contribution room Canada 2026', '/blog/tfsa-contribution-room-canada-2026'],
       ['TFSA vs RRSP in Canada', '/blog/tfsa-vs-rrsp-canada-2026'],
       ['TFSA mistakes Canadians make', '/blog/tfsa-investing-mistakes-canada'],
-      ['TFSA withdrawal and recontribution rules', '/blog/tfsa-withdrawals-contribution-room-canada'],
+      ['TFSA withdrawal rules Canada 2026', '/blog/tfsa-withdrawal-rules-canada-2026'],
+      ['TFSA overcontribution penalties', '/blog/tfsa-overcontribution-penalties-canada'],
     ],
     learningPath: [
       { title: '1. Learn contribution room', body: 'Confirm annual limits, cumulative room, and why CRA My Account can lag current-year transactions.' },
@@ -71,10 +73,10 @@ export const topicHubs = {
       title: 'A practical TFSA path',
       intro: 'Use this sequence before adding the next dollar.',
       steps: [
-        { title: 'Check contribution room', body: 'Estimate room, then verify against CRA and your own contribution records.', href: '/blog/tfsa-contribution-room-canada-2026' },
-        { title: 'Compare account priority', body: 'Test whether RRSP or FHSA deserves the next dollar instead.', href: '/tools/account-decision-tool' },
-        { title: 'Avoid timing mistakes', body: 'Review withdrawal and recontribution rules before moving money in and out.', href: '/blog/tfsa-withdrawals-contribution-room-canada' },
-        { title: 'Review common mistakes', body: 'Check the most common TFSA errors before investing, transferring, or replacing withdrawn cash.', href: '/blog/tfsa-investing-mistakes-canada' },
+      { title: 'Check contribution room', body: 'Estimate room, then verify against CRA and your own contribution records.', href: '/blog/tfsa-contribution-room-calculator' },
+      { title: 'Compare account priority', body: 'Test whether RRSP or FHSA deserves the next dollar instead.', href: '/tools/account-decision-tool' },
+      { title: 'Avoid timing mistakes', body: 'Review withdrawal and recontribution rules before moving money in and out.', href: '/blog/tfsa-withdrawal-rules-canada-2026' },
+      { title: 'Review common mistakes', body: 'Check the most common TFSA errors before investing, transferring, or replacing withdrawn cash.', href: '/blog/tfsa-investing-mistakes-canada' },
       ],
     },
     sources: tfsaOfficialSources,

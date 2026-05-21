@@ -22,6 +22,30 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "tfsa-contribution-room-calculator",
+    title: "TFSA Contribution Room Calculator: 2026 Limit + Carryforward",
+    date: "2026-05-20",
+    category: "TFSA",
+    readTime: "12 min",
+    excerpt: "Estimate TFSA room using 2026 limits, carryforward, withdrawals, and current-year deposits, then verify against CRA records.",
+  },
+  {
+    slug: "tfsa-withdrawal-rules-canada-2026",
+    title: "TFSA Withdrawal Rules in Canada (2026)",
+    date: "2026-05-20",
+    category: "TFSA",
+    readTime: "8 min",
+    excerpt: "Learn when TFSA withdrawal room comes back and why same-year recontributions can accidentally create excess contributions.",
+  },
+  {
+    slug: "tfsa-overcontribution-penalties-canada",
+    title: "TFSA Overcontribution Penalties Explained",
+    date: "2026-05-20",
+    category: "TFSA",
+    readTime: "8 min",
+    excerpt: "Understand common TFSA overcontribution mistakes, the 1% monthly tax, and what to check before making another deposit.",
+  },
+  {
     slug: "mortgage-affordability-reality-check-canada",
     title: "Mortgage Affordability Reality Check Canada",
     date: "2026-05-18",
@@ -447,7 +471,7 @@ const decisionTracks = [
   },
 ];
 
-const mainStorySlug = "best-canadian-dividend-etfs-2026";
+const mainStorySlug = "tfsa-contribution-room-calculator";
 const secondaryFeatureSlugs = [
   "tfsa-investing-mistakes-canada",
   "covered-call-etfs-canada-explained",

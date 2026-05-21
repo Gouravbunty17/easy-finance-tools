@@ -83,6 +83,9 @@ const BestRRSPAccountsCanada = lazyWithPreload(() => import('./pages/blog/best-r
 const BestInvestingAppsCanada = lazyWithPreload(() => import('./pages/blog/best-investing-apps-canada'));
 const BestDividendInvestingPlatformsCanada = lazyWithPreload(() => import('./pages/blog/best-dividend-investing-platforms-canada'));
 const TFSAContributionRoomCanada2026 = lazyWithPreload(() => import('./pages/blog/tfsa-contribution-room-canada-2026'));
+const TFSAContributionRoomCalculatorPage = lazyWithPreload(() => import('./pages/blog/tfsa-contribution-room-calculator'));
+const TFSAWithdrawalRulesCanada2026 = lazyWithPreload(() => import('./pages/blog/tfsa-withdrawal-rules-canada-2026'));
+const TFSAOvercontributionPenaltiesCanada = lazyWithPreload(() => import('./pages/blog/tfsa-overcontribution-penalties-canada'));
 const RRSPDeadlineCanada2026 = lazyWithPreload(() => import('./pages/blog/rrsp-deadline-canada-2026'));
 const FHSARulesCanada2026 = lazyWithPreload(() => import('./pages/blog/fhsa-rules-canada-2026'));
 const TFSAvsRRSPvsFHSACanada = lazyWithPreload(() => import('./pages/blog/tfsa-vs-rrsp-vs-fhsa-canada'));
@@ -140,7 +143,7 @@ const routeEntries = [
   ['/dividend-income', () => <LegacyRedirect to="/blog/best-canadian-dividend-etfs-2026" />],
   ['/blog/canadian-dividend-etfs-2026', () => <LegacyRedirect to="/blog/best-canadian-dividend-etfs-2026" />],
   ['/blog/how-to-invest-in-canada', () => <LegacyRedirect to="/blog/how-to-start-investing-canada-2026" />],
-  ['/blog/tfsa-withdrawal-recontribution-rules-canada', () => <LegacyRedirect to="/blog/tfsa-withdrawals-contribution-room-canada" />],
+  ['/blog/tfsa-withdrawal-recontribution-rules-canada', () => <LegacyRedirect to="/blog/tfsa-withdrawal-rules-canada-2026" />],
   ['/blog/tfsa-mistakes-canadians-make', () => <LegacyRedirect to="/blog/tfsa-investing-mistakes-canada" />],
   ['/blog/tfsa-vs-rrsp-canada', () => <LegacyRedirect to="/blog/tfsa-vs-rrsp-canada-2026" />],
   ['/tools/dividend-calculator', DividendCalculator],
@@ -192,6 +195,9 @@ const routeEntries = [
   ['/blog/best-investing-apps-canada', BestInvestingAppsCanada],
   ['/blog/best-dividend-investing-platforms-canada', BestDividendInvestingPlatformsCanada],
   ['/blog/tfsa-contribution-room-canada-2026', TFSAContributionRoomCanada2026],
+  ['/blog/tfsa-contribution-room-calculator', TFSAContributionRoomCalculatorPage],
+  ['/blog/tfsa-withdrawal-rules-canada-2026', TFSAWithdrawalRulesCanada2026],
+  ['/blog/tfsa-overcontribution-penalties-canada', TFSAOvercontributionPenaltiesCanada],
   ['/blog/rrsp-deadline-canada-2026', RRSPDeadlineCanada2026],
   ['/blog/fhsa-rules-canada-2026', FHSARulesCanada2026],
   ['/blog/tfsa-vs-rrsp-vs-fhsa-canada', TFSAvsRRSPvsFHSACanada],

@@ -32,6 +32,7 @@ import CalculatorResultGuidance from '../../components/CalculatorResultGuidance'
 import RelatedContent from '../../components/RelatedContent';
 import ContributorReviewBox from '../../components/ContributorReviewBox';
 import SourceVerificationBlock from '../../components/SourceVerificationBlock';
+import YouTubeSupportSection from '../../components/YouTubeSupportSection';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
@@ -156,8 +157,8 @@ export default function FHSACalculator() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12">
       <SEO
-        title="FHSA Calculator Canada 2026: Tax Savings & Growth"
-        description="Free Canadian FHSA calculator. Estimate 2026 tax savings, contribution room, down-payment growth, and FHSA vs TFSA vs RRSP."
+        title="FHSA Calculator Canada 2026: Tax Savings, Room & Down Payment"
+        description="Estimate FHSA room, tax savings, and down-payment growth in minutes with Canadian eligibility caveats and account-comparison next steps."
         canonical="https://easyfinancetools.com/tools/fhsa-calculator"
       />
       <ToolPageSchema
@@ -193,6 +194,13 @@ export default function FHSACalculator() {
               sources={[fhsaOfficialSources[0], fhsaOfficialSources[1], fhsaOfficialSources[2]]}
               checked={["FHSA eligibility source references", "Annual and lifetime room caveats", "Qualifying withdrawal limitations", "Home-purchase timeline warnings"]}
               limitations={["First-time home buyer status and qualifying withdrawal rules must be verified before acting.", "The projection does not determine whether a volatile investment fits a short home timeline."]}
+            />
+            <YouTubeSupportSection
+              className="mt-4"
+              videoTitle="FHSA tax savings and first-home rules explained"
+              videoDescription="Future video support can explain eligibility, room, qualifying withdrawals, and when FHSA should be compared with TFSA or RRSP."
+              calculatorLinks={[{ label: 'Account Decision Tool', href: '/tools/account-decision-tool' }, { label: 'Mortgage affordability calculator', href: '/tools/mortgage-affordability-calculator' }]}
+              guideLinks={[{ label: 'FHSA rules guide', href: '/blog/fhsa-rules-canada-2026' }, { label: 'TFSA vs RRSP vs FHSA guide', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada' }]}
             />
           </div>
 
