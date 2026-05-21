@@ -1,110 +1,149 @@
-const https = require("https");
+const { Resend } = require("resend");
 
-function postJSON(url, body) {
-  return new Promise((resolve, reject) => {
-    const payload = JSON.stringify(body);
-    const parsed = new URL(url);
+const CONTACT_TO = "gouravkumarpb08@gmail.com";
+const DEFAULT_FROM = "Easy Finance Tools <onboarding@resend.dev>";
+const MAX_NAME_LENGTH = 120;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_MESSAGE_LENGTH = 5000;
+const MIN_MESSAGE_LENGTH = 10;
+const MIN_FORM_AGE_MS = 2500;
 
-    const req = https.request(
-      {
-        hostname: parsed.hostname,
-        path: parsed.pathname + parsed.search,
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Content-Length": Buffer.byteLength(payload),
-        },
-      },
-      (res) => {
-        let data = "";
-        res.on("data", (chunk) => {
-          data += chunk;
-        });
-        res.on("end", () => {
-          if (res.statusCode >= 200 && res.statusCode < 300) {
-            resolve(data);
-            return;
-          }
-          reject(new Error(`Email provider returned ${res.statusCode}: ${data.slice(0, 200)}`));
-        });
-      }
-    );
-
-    req.setTimeout(10000, () => {
-      req.destroy();
-      reject(new Error("Contact request timed out"));
-    });
-    req.on("error", reject);
-    req.write(payload);
-    req.end();
-  });
+function json(res, status, body) {
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  return res.status(status).json(body);
 }
 
-module.exports = async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "POST required" });
-  }
-
-  let body = req.body;
-  if (typeof body === "string") {
-    try {
-      body = JSON.parse(body);
-    } catch {
-      body = {};
-    }
-  }
-
-  const name = String(body?.name || "").trim();
-  const email = String(body?.email || "").trim();
-  const message = String(body?.message || "").trim();
-
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: "Name, email, and message are required" });
-  }
-
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return res.status(400).json({ error: "Please enter a valid email address" });
-  }
-
-  if (message.length < 10) {
-    return res.status(400).json({ error: "Message is too short" });
-  }
-
-  const serviceId = process.env.VITE_EMAILJS_SERVICE_ID || process.env.EMAILJS_SERVICE_ID;
-  const templateId = process.env.VITE_EMAILJS_TEMPLATE_ID || process.env.EMAILJS_TEMPLATE_ID;
-  const publicKey = process.env.VITE_EMAILJS_PUBLIC_KEY || process.env.EMAILJS_PUBLIC_KEY;
-
-  if (!serviceId || !templateId || !publicKey) {
-    return res.status(500).json({ error: "Contact email is not configured" });
+function parseBody(body) {
+  if (typeof body !== "string") {
+    return body && typeof body === "object" ? body : {};
   }
 
   try {
-    await postJSON("https://api.emailjs.com/api/v1.0/email/send", {
-      service_id: serviceId,
-      template_id: templateId,
-      user_id: publicKey,
-      template_params: {
-        name,
-        from_name: name,
-        email,
-        reply_to: email,
-        message,
-        website: "EasyFinanceTools",
-      },
+    return JSON.parse(body);
+  } catch {
+    return {};
+  }
+}
+
+function cleanText(value, maxLength) {
+  return String(value || "")
+    .replace(/\u0000/g, "")
+    .trim()
+    .slice(0, maxLength);
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function plainTextEmail({ name, email, message, timestamp }) {
+  return [
+    "New Easy Finance Tools contact form submission",
+    "",
+    `Sender name: ${name}`,
+    `Sender email: ${email}`,
+    `Timestamp: ${timestamp}`,
+    "",
+    "Message:",
+    message,
+  ].join("\n");
+}
+
+function htmlEmail({ name, email, message, timestamp }) {
+  const safeMessage = escapeHtml(message).replace(/\n/g, "<br />");
+
+  return `
+    <div style="font-family: Arial, sans-serif; color: #0f172a; line-height: 1.6; max-width: 640px;">
+      <h1 style="font-size: 20px; margin-bottom: 16px;">New Easy Finance Tools contact form submission</h1>
+      <table style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+        <tr>
+          <td style="font-weight: 700; padding: 8px 0; width: 140px;">Sender name</td>
+          <td style="padding: 8px 0;">${escapeHtml(name)}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: 700; padding: 8px 0;">Sender email</td>
+          <td style="padding: 8px 0;">${escapeHtml(email)}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: 700; padding: 8px 0;">Timestamp</td>
+          <td style="padding: 8px 0;">${escapeHtml(timestamp)}</td>
+        </tr>
+      </table>
+      <div style="border-top: 1px solid #e2e8f0; padding-top: 16px;">
+        <p style="font-weight: 700; margin-bottom: 8px;">Message</p>
+        <p style="white-space: normal; margin: 0;">${safeMessage}</p>
+      </div>
+    </div>
+  `;
+}
+
+module.exports = async function handler(req, res) {
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return json(res, 405, { ok: false, error: "POST required" });
+  }
+
+  const body = parseBody(req.body);
+  const name = cleanText(body?.name, MAX_NAME_LENGTH);
+  const email = cleanText(body?.email, MAX_EMAIL_LENGTH).toLowerCase();
+  const message = cleanText(body?.message, MAX_MESSAGE_LENGTH);
+  const honeypot = cleanText(body?.company, 200);
+  const formStartedAt = Number(body?.formStartedAt || 0);
+
+  if (honeypot) {
+    return json(res, 200, { ok: true });
+  }
+
+  if (formStartedAt && Date.now() - formStartedAt < MIN_FORM_AGE_MS) {
+    return json(res, 400, { ok: false, error: "Please wait a moment before sending your message." });
+  }
+
+  if (!name || !email || !message) {
+    return json(res, 400, { ok: false, error: "Name, email, and message are required." });
+  }
+
+  if (!isValidEmail(email)) {
+    return json(res, 400, { ok: false, error: "Please enter a valid email address." });
+  }
+
+  if (message.length < MIN_MESSAGE_LENGTH) {
+    return json(res, 400, { ok: false, error: "Message is too short." });
+  }
+
+  if (!process.env.RESEND_API_KEY) {
+    return json(res, 500, { ok: false, error: "Contact email is not configured." });
+  }
+
+  const timestamp = new Date().toISOString();
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  try {
+    const { error } = await resend.emails.send({
+      from: process.env.CONTACT_FROM_EMAIL || DEFAULT_FROM,
+      to: CONTACT_TO,
+      replyTo: email,
+      subject: "New Easy Finance Tools Contact Form Submission",
+      text: plainTextEmail({ name, email, message, timestamp }),
+      html: htmlEmail({ name, email, message, timestamp }),
     });
 
-    return res.status(200).json({ ok: true });
+    if (error) {
+      console.error("Resend contact form error", error);
+      return json(res, 502, { ok: false, error: "We could not send your message right now. Please try again in a moment." });
+    }
+
+    return json(res, 200, { ok: true });
   } catch (error) {
-    return res.status(500).json({
-      error: "We could not send your message right now. Please try again in a moment.",
-    });
+    console.error("Contact form send failed", error);
+    return json(res, 500, { ok: false, error: "We could not send your message right now. Please try again in a moment." });
   }
 };

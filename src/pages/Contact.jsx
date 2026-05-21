@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import SEO from "../components/SEO";
 
-const initialForm = {
+const createInitialForm = () => ({
   name: "",
   email: "",
   message: "",
-};
+  company: "",
+  formStartedAt: Date.now(),
+});
 
 export default function Contact() {
-  const [form, setForm] = useState(initialForm);
+  const [form, setForm] = useState(createInitialForm);
   const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -38,18 +40,19 @@ export default function Contact() {
         throw new Error(data?.error || "We could not send your message right now.");
       }
 
-      setForm(initialForm);
+      setForm(createInitialForm());
       setStatus({
         type: "success",
-        message: "Message sent successfully. Check your inbox destination and reply settings in EmailJS if you want to verify delivery.",
+        message: "Thanks — your message was sent successfully.",
       });
     } catch (error) {
       setStatus({
         type: "error",
         message: error.message || "We could not send your message right now.",
       });
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   return (
@@ -83,6 +86,17 @@ export default function Contact() {
             </div>
 
             <div className="grid gap-5">
+              <label className="hidden" aria-hidden="true">
+                <span>Company</span>
+                <input
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={form.company}
+                  onChange={updateField("company")}
+                />
+              </label>
+
               <label className="block">
                 <span className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-200">Your name</span>
                 <input
@@ -116,6 +130,8 @@ export default function Contact() {
                 />
               </label>
 
+              <input type="hidden" name="formStartedAt" value={form.formStartedAt} readOnly />
+
               {status.message && (
                 <div
                   className={`rounded-xl border px-4 py-3 text-sm ${
@@ -142,7 +158,7 @@ export default function Contact() {
             <div className="surface-soft p-5">
               <h3 className="text-lg font-bold text-primary dark:text-accent">What to expect</h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                <li>Messages are sent through the site contact backend instead of a fake success state.</li>
+                <li>Messages are sent through the site contact backend and are used only so we can reply.</li>
                 <li>Use a valid reply email so responses can reach you.</li>
                 <li>Bug reports are most helpful when you include the page URL and what went wrong.</li>
               </ul>
