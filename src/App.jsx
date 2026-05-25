@@ -87,6 +87,7 @@ const TFSAContributionRoomCalculatorPage = lazyWithPreload(() => import('./pages
 const TFSAWithdrawalRulesCanada2026 = lazyWithPreload(() => import('./pages/blog/tfsa-withdrawal-rules-canada-2026'));
 const TFSAOvercontributionPenaltiesCanada = lazyWithPreload(() => import('./pages/blog/tfsa-overcontribution-penalties-canada'));
 const RRSPDeadlineCanada2026 = lazyWithPreload(() => import('./pages/blog/rrsp-deadline-canada-2026'));
+const RRSPWithdrawalTaxCalculatorPage = lazyWithPreload(() => import('./pages/blog/rrsp-withdrawal-tax-calculator'));
 const FHSARulesCanada2026 = lazyWithPreload(() => import('./pages/blog/fhsa-rules-canada-2026'));
 const TFSAvsRRSPvsFHSACanada = lazyWithPreload(() => import('./pages/blog/tfsa-vs-rrsp-vs-fhsa-canada'));
 const BestCanadianDividendETFs2026 = lazyWithPreload(() => import('./pages/blog/best-canadian-dividend-etfs-2026'));
@@ -199,6 +200,7 @@ const routeEntries = [
   ['/blog/tfsa-withdrawal-rules-canada-2026', TFSAWithdrawalRulesCanada2026],
   ['/blog/tfsa-overcontribution-penalties-canada', TFSAOvercontributionPenaltiesCanada],
   ['/blog/rrsp-deadline-canada-2026', RRSPDeadlineCanada2026],
+  ['/blog/rrsp-withdrawal-tax-calculator', RRSPWithdrawalTaxCalculatorPage],
   ['/blog/fhsa-rules-canada-2026', FHSARulesCanada2026],
   ['/blog/tfsa-vs-rrsp-vs-fhsa-canada', TFSAvsRRSPvsFHSACanada],
   ['/blog/best-canadian-dividend-etfs-2026', BestCanadianDividendETFs2026],

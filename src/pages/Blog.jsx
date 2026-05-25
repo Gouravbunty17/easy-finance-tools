@@ -22,6 +22,14 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "rrsp-withdrawal-tax-calculator",
+    title: "RRSP Withdrawal Tax Calculator: What You Actually Keep After Tax",
+    date: "2026-05-24",
+    category: "RRSP",
+    readTime: "13 min",
+    excerpt: "Estimate how much of an RRSP withdrawal may remain after Canadian tax, withholding, province, income level, and retirement timing caveats.",
+  },
+  {
     slug: "tfsa-contribution-room-calculator",
     title: "TFSA Contribution Room Calculator: 2026 Limit + Carryforward",
     date: "2026-05-20",

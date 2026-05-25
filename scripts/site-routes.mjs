@@ -88,6 +88,7 @@ export const BLOG_ROUTES = [
   { route: "/blog/tfsa-withdrawal-rules-canada-2026", sourcePath: "src/pages/blog/tfsa-withdrawal-rules-canada-2026.jsx", group: "blog" },
   { route: "/blog/tfsa-overcontribution-penalties-canada", sourcePath: "src/pages/blog/tfsa-overcontribution-penalties-canada.jsx", group: "blog" },
   { route: "/blog/rrsp-deadline-canada-2026", sourcePath: "src/pages/blog/rrsp-deadline-canada-2026.jsx", group: "blog" },
+  { route: "/blog/rrsp-withdrawal-tax-calculator", sourcePath: "src/pages/blog/rrsp-withdrawal-tax-calculator.jsx", group: "blog" },
   { route: "/blog/fhsa-rules-canada-2026", sourcePath: "src/pages/blog/fhsa-rules-canada-2026.jsx", group: "blog" },
   { route: "/blog/tfsa-vs-rrsp-vs-fhsa-canada", sourcePath: "src/pages/blog/tfsa-vs-rrsp-vs-fhsa-canada.jsx", group: "blog" },
   { route: "/blog/best-canadian-dividend-etfs-2026", sourcePath: "src/pages/blog/best-canadian-dividend-etfs-2026.jsx", group: "blog" },

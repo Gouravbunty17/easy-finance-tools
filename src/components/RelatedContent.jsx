@@ -6,6 +6,7 @@ export default function RelatedContent({
   intro,
   items = [],
   trackingContext = "related_content",
+  limit = 3,
   className = "",
 }) {
   const normalizedItems = items.filter((item) => item?.href && item?.title);
@@ -17,7 +18,7 @@ export default function RelatedContent({
       <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">{title}</h2>
       {intro ? <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{intro}</p> : null}
       <div className="mt-5 grid gap-4 md:grid-cols-3">
-        {normalizedItems.slice(0, 3).map((item) => (
+        {normalizedItems.slice(0, limit).map((item) => (
           <SurfaceTrackedLink
             key={item.href}
             to={item.href}
