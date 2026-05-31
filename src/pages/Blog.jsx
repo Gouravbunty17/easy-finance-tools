@@ -23,6 +23,14 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "ai-api-costs-tokens-agent-loops-rag-cad-budgeting",
+    title: "AI API Costs Explained: Tokens, Agent Loops, RAG, and CAD Budgeting",
+    date: "2026-05-31",
+    category: "AI Planning",
+    readTime: "10 min",
+    excerpt: "Understand AI API cost mechanics before launch: tokens, cached tokens, agent loops, RAG, long context, CAD/USD budgeting, and hidden implementation costs.",
+  },
+  {
     slug: "ai-cost-calculator-estimate-api-spend",
     title: "AI Cost Calculator: Estimate Your AI API Spend Before Launching",
     date: "2026-05-31",
