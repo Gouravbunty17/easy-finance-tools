@@ -104,6 +104,13 @@ const FEATURED_TOOLS = [
     badge: 'Housing',
     ctaLabel: 'featured_mortgage',
   },
+  {
+    title: 'AI Cost Calculator',
+    body: 'Estimate AI API cost, agent loops, RAG usage, CAD planning, and margin pressure before pricing an AI workflow.',
+    href: '/tools/ai-cost-calculator',
+    badge: 'AI planning',
+    ctaLabel: 'featured_ai_cost',
+  },
 ];
 
 const GUIDE_HIGHLIGHTS = [

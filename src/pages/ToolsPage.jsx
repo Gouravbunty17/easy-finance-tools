@@ -150,6 +150,13 @@ const TOOL_CATEGORIES = [
         status: "Live",
       },
       {
+        name: "AI Cost Calculator",
+        href: "/tools/ai-cost-calculator",
+        who: "Founders, developers, and Canadian businesses estimating AI API usage and product margins.",
+        decision: "Whether an AI workflow is affordable before launch, pricing, or model selection.",
+        status: "Live",
+      },
+      {
         name: "Debt Payoff Calculator",
         href: "/tools/debt-payoff",
         who: "Households comparing avalanche and snowball payoff strategies.",

@@ -51,6 +51,7 @@ export const TOOL_ROUTES = [
   { route: "/tools/compound-interest-calculator", sourcePath: "src/pages/tools/CompoundInterestCalculator.jsx", group: "tools" },
   { route: "/tools/account-decision-tool", sourcePath: "src/pages/tools/AccountDecisionTool.jsx", group: "tools" },
   { route: "/tools/investment-fit-framework", sourcePath: "src/pages/tools/InvestmentFitFramework.jsx", group: "tools" },
+  { route: "/tools/ai-cost-calculator", sourcePath: "src/pages/tools/AICostCalculator.jsx", group: "tools" },
   { route: "/tools/tfsa-calculator", sourcePath: "src/pages/tools/TFSACalculator.jsx", group: "tools" },
   { route: "/tools/rrsp-calculator", sourcePath: "src/pages/tools/RRSPCalculator.jsx", group: "tools" },
   { route: "/tools/dividend-calculator", sourcePath: "src/pages/tools/DividendCalculator.jsx", group: "tools" },

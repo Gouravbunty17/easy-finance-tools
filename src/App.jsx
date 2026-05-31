@@ -43,6 +43,7 @@ const FIRECalculator = lazyWithPreload(() => import('./pages/tools/FIRECalculato
 const CompoundInterestCalculator = lazyWithPreload(() => import('./pages/tools/CompoundInterestCalculator'));
 const AccountDecisionTool = lazyWithPreload(() => import('./pages/tools/AccountDecisionTool'));
 const InvestmentFitFramework = lazyWithPreload(() => import('./pages/tools/InvestmentFitFramework'));
+const AICostCalculator = lazyWithPreload(() => import('./pages/tools/AICostCalculator'));
 const TipCalculator = lazyWithPreload(() => import('./pages/tools/TipCalculator'));
 const GstHstCalculator = lazyWithPreload(() => import('./pages/tools/GstHstCalculator'));
 const SalaryToHourlyCalculator = lazyWithPreload(() => import('./pages/tools/SalaryToHourlyCalculator'));
@@ -162,6 +163,7 @@ const routeEntries = [
   ['/tools/compound-interest-calculator', CompoundInterestCalculator],
   ['/tools/account-decision-tool', AccountDecisionTool],
   ['/tools/investment-fit-framework', InvestmentFitFramework],
+  ['/tools/ai-cost-calculator', AICostCalculator],
   ['/tools/tip-calculator', TipCalculator],
   ['/tools/gst-hst-calculator', GstHstCalculator],
   ['/tools/salary-to-hourly-calculator', SalaryToHourlyCalculator],
