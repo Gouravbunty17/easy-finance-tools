@@ -818,24 +818,48 @@ export default function AICostCalculator() {
             ]}
           />
 
-          <section className="mt-10 grid gap-6 lg:grid-cols-3">
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
-              <h2 className="text-xl font-bold text-primary dark:text-accent">Watch for token creep</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                System prompts, chat history, retrieved documents, tool results, retries, and longer outputs can quietly raise cost even when user traffic looks unchanged.
-              </p>
-            </div>
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
-              <h2 className="text-xl font-bold text-primary dark:text-accent">Plan guardrails early</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                Budget caps, request limits, caching, cheaper fallback models, and shorter context windows can protect margin better than simply hoping average usage stays low.
-              </p>
-            </div>
-            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900/60">
-              <h2 className="text-xl font-bold text-primary dark:text-accent">Verify before launch</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                Treat this as pre-launch planning. Provider dashboards, invoices, logs, and official pricing pages should become the final source once real users arrive.
-              </p>
+          <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">
+              Estimate limits
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">
+              What could break this estimate?
+            </h2>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {[
+                {
+                  title: "One input can change everything",
+                  body: "If your estimate depends heavily on one variable — such as monthly requests, average tokens per response, agent loop multiplier, or expected efficiency gain — small changes can materially change the result. Stress-test the estimate before using it for budgeting.",
+                },
+                {
+                  title: "Not a vendor recommendation",
+                  body: "This calculator is for educational estimation only. It does not recommend OpenAI, Anthropic, Google, xAI, or any other AI provider. Model comparisons are shown to help users understand tradeoffs, not to promote a specific platform.",
+                },
+                {
+                  title: "Verify official pricing before committing",
+                  body: "AI subscription tiers, API token costs, rate limits, caching discounts, and usage policies can change. Always verify the latest pricing and terms directly with the official provider before making financial commitments.",
+                },
+                {
+                  title: "Educational planning tool only",
+                  body: "This calculator is not professional business, financial, accounting, legal, or technical advice. The assumptions are simplified for planning and should be reviewed by a qualified professional before you act.",
+                },
+                {
+                  title: "Direct API cost is not the full cost",
+                  body: "The estimate focuses on direct usage costs. It may not include implementation time, employee training, prompt engineering, monitoring, data privacy compliance, security review, human-in-the-loop oversight, downtime risk, or support costs.",
+                },
+                {
+                  title: "Your inputs stay private",
+                  body: "EasyFinanceTools does not store your calculator inputs in a database. Calculations run client-side in your current session.",
+                },
+              ].map((warning) => (
+                <div
+                  key={warning.title}
+                  className="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60"
+                >
+                  <h3 className="text-base font-bold text-primary dark:text-accent">{warning.title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{warning.body}</p>
+                </div>
+              ))}
             </div>
           </section>
 
