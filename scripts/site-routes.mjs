@@ -129,6 +129,7 @@ export const BLOG_ROUTES = [
   { route: "/blog/should-you-drip-dividends-canada", sourcePath: "src/pages/blog/should-you-drip-dividends-canada.jsx", group: "blog" },
   { route: "/blog/when-rrsp-makes-sense-canada", sourcePath: "src/pages/blog/when-rrsp-makes-sense-canada.jsx", group: "blog" },
   { route: "/blog/mortgage-affordability-reality-check-canada", sourcePath: "src/pages/blog/mortgage-affordability-reality-check-canada.jsx", group: "blog" },
+  { route: "/blog/ai-cost-calculator-estimate-api-spend", sourcePath: "src/pages/blog/ai-cost-calculator-estimate-api-spend.jsx", group: "blog" },
 ];
 
 export const SITE_ROUTES = [...STATIC_ROUTES, ...TOOL_ROUTES, ...BLOG_ROUTES, ...LEGACY_REDIRECT_ROUTES];

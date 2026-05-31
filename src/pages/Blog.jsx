@@ -18,9 +18,18 @@ const categoryStyle = {
   "Real Estate": { gradient: "from-rose-500 to-red-700", icon: "Home" },
   Budget: { gradient: "from-slate-500 to-gray-700", icon: "Plan" },
   Beginners: { gradient: "from-sky-500 to-blue-700", icon: "Learn" },
+  "AI Planning": { gradient: "from-slate-700 to-emerald-700", icon: "AI" },
 };
 
 const posts = [
+  {
+    slug: "ai-cost-calculator-estimate-api-spend",
+    title: "AI Cost Calculator: Estimate Your AI API Spend Before Launching",
+    date: "2026-05-31",
+    category: "AI Planning",
+    readTime: "9 min",
+    excerpt: "Estimate AI API costs before launch using requests, tokens, agent loops, RAG, image usage, CAD/USD conversion, and business planning assumptions.",
+  },
   {
     slug: "rrsp-withdrawal-tax-calculator",
     title: "RRSP Withdrawal Tax Calculator: What You Actually Keep After Tax",

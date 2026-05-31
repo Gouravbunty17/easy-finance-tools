@@ -108,6 +108,7 @@ const RentVsBuyCanada = lazyWithPreload(() => import('./pages/blog/rent-vs-buy-c
 const ShouldYouDripDividendsCanada = lazyWithPreload(() => import('./pages/blog/should-you-drip-dividends-canada'));
 const WhenRRSPMakesSenseCanada = lazyWithPreload(() => import('./pages/blog/when-rrsp-makes-sense-canada'));
 const MortgageAffordabilityRealityCheckCanada = lazyWithPreload(() => import('./pages/blog/mortgage-affordability-reality-check-canada'));
+const AICostCalculatorEstimateApiSpend = lazyWithPreload(() => import('./pages/blog/ai-cost-calculator-estimate-api-spend'));
 
 const routeEntries = [
   ['/', Home],
@@ -222,6 +223,7 @@ const routeEntries = [
   ['/blog/should-you-drip-dividends-canada', ShouldYouDripDividendsCanada],
   ['/blog/when-rrsp-makes-sense-canada', WhenRRSPMakesSenseCanada],
   ['/blog/mortgage-affordability-reality-check-canada', MortgageAffordabilityRealityCheckCanada],
+  ['/blog/ai-cost-calculator-estimate-api-spend', AICostCalculatorEstimateApiSpend],
   ['/blog/how-to-invest-in-canada-beginners-2026', HowToInvestBeginners],
   ['/blog/best-hisa-canada-2026', BestHISACanada2026],
   ['/blog/emergency-fund-canada', EmergencyFundCanada],
