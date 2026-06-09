@@ -110,6 +110,7 @@ const WhenRRSPMakesSenseCanada = lazyWithPreload(() => import('./pages/blog/when
 const MortgageAffordabilityRealityCheckCanada = lazyWithPreload(() => import('./pages/blog/mortgage-affordability-reality-check-canada'));
 const AICostCalculatorEstimateApiSpend = lazyWithPreload(() => import('./pages/blog/ai-cost-calculator-estimate-api-spend'));
 const AIAPICostsTokensAgentLoopsRagCadBudgeting = lazyWithPreload(() => import('./pages/blog/ai-api-costs-tokens-agent-loops-rag-cad-budgeting'));
+const HowToBuySpaceXIPOStockInCanada = lazyWithPreload(() => import('./pages/blog/how-to-buy-spacex-ipo-stock-in-canada'));
 
 const routeEntries = [
   ['/', Home],
@@ -226,6 +227,7 @@ const routeEntries = [
   ['/blog/mortgage-affordability-reality-check-canada', MortgageAffordabilityRealityCheckCanada],
   ['/blog/ai-cost-calculator-estimate-api-spend', AICostCalculatorEstimateApiSpend],
   ['/blog/ai-api-costs-tokens-agent-loops-rag-cad-budgeting', AIAPICostsTokensAgentLoopsRagCadBudgeting],
+  ['/blog/how-to-buy-spacex-ipo-stock-in-canada', HowToBuySpaceXIPOStockInCanada],
   ['/blog/how-to-invest-in-canada-beginners-2026', HowToInvestBeginners],
   ['/blog/best-hisa-canada-2026', BestHISACanada2026],
   ['/blog/emergency-fund-canada', EmergencyFundCanada],

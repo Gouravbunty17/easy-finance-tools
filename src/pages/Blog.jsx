@@ -19,9 +19,18 @@ const categoryStyle = {
   Budget: { gradient: "from-slate-500 to-gray-700", icon: "Plan" },
   Beginners: { gradient: "from-sky-500 to-blue-700", icon: "Learn" },
   "AI Planning": { gradient: "from-slate-700 to-emerald-700", icon: "AI" },
+  "Investing / U.S. Stocks / IPOs": { gradient: "from-slate-800 to-blue-700", icon: "IPO" },
 };
 
 const posts = [
+  {
+    slug: "how-to-buy-spacex-ipo-stock-in-canada",
+    title: "How to Buy SpaceX IPO Stock in Canada: TFSA, RRSP, Wealthsimple, Questrade & Key Risks",
+    date: "2026-06-08",
+    category: "Investing / U.S. Stocks / IPOs",
+    readTime: "13 min",
+    excerpt: "A cautious Canadian guide to reported SpaceX IPO access, pre-IPO limits, Nasdaq trading, TFSA/RRSP eligibility, CAD/USD costs, brokers, and key risks.",
+  },
   {
     slug: "ai-api-costs-tokens-agent-loops-rag-cad-budgeting",
     title: "AI API Costs Explained: Tokens, Agent Loops, RAG, and CAD Budgeting",

@@ -216,33 +216,36 @@ export default function CanadianEducationArticle({ article }) {
           {renderParagraphs(article.intro)}
 
           {article.sections.map((section) => (
-            <section key={section.heading} id={slugify(section.heading)} className="scroll-mt-24">
-              <h2>{section.heading}</h2>
-              {renderParagraphs(section.paragraphs)}
-              {section.bullets ? (
-                <ul>
-                  {section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
-                </ul>
-              ) : null}
-              {section.table ? (
-                <div className="not-prose my-6 overflow-x-auto">
-                  <table className="w-full min-w-[680px] overflow-hidden rounded-xl border border-slate-200 text-sm dark:border-slate-700">
-                    <thead className="bg-slate-100 text-left dark:bg-slate-800">
-                      <tr>
-                        {section.table.headers.map((header) => <th key={header} className="px-4 py-3 font-semibold">{header}</th>)}
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                      {section.table.rows.map((row) => (
-                        <tr key={row.join("-")} className="bg-white dark:bg-gray-900">
-                          {row.map((cell, index) => <td key={`${cell}-${index}`} className="px-4 py-3">{cell}</td>)}
+            <React.Fragment key={section.heading}>
+              <section id={slugify(section.heading)} className="scroll-mt-24">
+                <h2>{section.heading}</h2>
+                {renderParagraphs(section.paragraphs)}
+                {section.bullets ? (
+                  <ul>
+                    {section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
+                  </ul>
+                ) : null}
+                {section.table ? (
+                  <div className="not-prose my-6 overflow-x-auto">
+                    <table className="w-full min-w-[680px] overflow-hidden rounded-xl border border-slate-200 text-sm dark:border-slate-700">
+                      <thead className="bg-slate-100 text-left dark:bg-slate-800">
+                        <tr>
+                          {section.table.headers.map((header) => <th key={header} className="px-4 py-3 font-semibold">{header}</th>)}
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ) : null}
-            </section>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                        {section.table.rows.map((row) => (
+                          <tr key={row.join("-")} className="bg-white dark:bg-gray-900">
+                            {row.map((cell, index) => <td key={`${cell}-${index}`} className="px-4 py-3">{cell}</td>)}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : null}
+              </section>
+              {article.sectionInserts?.[section.heading] || null}
+            </React.Fragment>
           ))}
         </article>
 

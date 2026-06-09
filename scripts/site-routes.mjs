@@ -131,6 +131,7 @@ export const BLOG_ROUTES = [
   { route: "/blog/mortgage-affordability-reality-check-canada", sourcePath: "src/pages/blog/mortgage-affordability-reality-check-canada.jsx", group: "blog" },
   { route: "/blog/ai-cost-calculator-estimate-api-spend", sourcePath: "src/pages/blog/ai-cost-calculator-estimate-api-spend.jsx", group: "blog" },
   { route: "/blog/ai-api-costs-tokens-agent-loops-rag-cad-budgeting", sourcePath: "src/pages/blog/ai-api-costs-tokens-agent-loops-rag-cad-budgeting.jsx", group: "blog" },
+  { route: "/blog/how-to-buy-spacex-ipo-stock-in-canada", sourcePath: "src/pages/blog/how-to-buy-spacex-ipo-stock-in-canada.jsx", group: "blog" },
 ];
 
 export const SITE_ROUTES = [...STATIC_ROUTES, ...TOOL_ROUTES, ...BLOG_ROUTES, ...LEGACY_REDIRECT_ROUTES];
