@@ -2,6 +2,8 @@ export const articleMediaBySlug = {
   "how-to-buy-spacex-ipo-stock-in-canada": {
     image: "/article-images/spacex-ipo-stock-canada.png",
     alt: "SpaceX IPO stock in Canada article graphic with rocket launch, Canadian maple leaf, market chart, and risk planning icons",
+    heroLayout: "card",
+    objectFit: "contain",
   },
   "best-canadian-dividend-etfs-2026": {
     image: "/article-images/best-canadian-dividend-etfs-2026.webp",

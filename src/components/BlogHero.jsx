@@ -18,7 +18,7 @@ export default function BlogHero({
   headshotUrl = "",
 }) {
   const media = slug ? getArticleMedia(slug) : null;
-  const hasPhotoBackground = Boolean(media?.image && !media.image.endsWith(".svg"));
+  const hasPhotoBackground = Boolean(media?.image && !media.image.endsWith(".svg") && media.heroLayout !== "card");
   const [imageAvailable, setImageAvailable] = useState(Boolean(headshotUrl));
 
   return (

@@ -9,6 +9,7 @@ export default function ArticleImage({
   loading = "lazy",
 }) {
   const media = getArticleMedia(slug);
+  const fitClass = media.objectFit === "contain" ? "object-contain" : "object-cover";
 
   return (
     <div className={`overflow-hidden bg-slate-100 dark:bg-slate-900 ${className}`}>
@@ -16,7 +17,7 @@ export default function ArticleImage({
         src={media.image}
         alt={alt || media.alt}
         loading={loading}
-        className={`h-full w-full object-cover ${imgClassName}`}
+        className={`h-full w-full ${fitClass} ${imgClassName}`}
       />
     </div>
   );
