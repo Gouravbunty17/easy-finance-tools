@@ -1,5 +1,58 @@
 import React from "react";
-import { CheckCircleIcon, LockClosedIcon, MapPinIcon, ClockIcon } from "@heroicons/react/24/outline";
+
+function IconBase({ children, className = "", ...props }) {
+  return (
+    <svg
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.8"
+      viewBox="0 0 24 24"
+      className={className}
+      {...props}
+    >
+      {children}
+    </svg>
+  );
+}
+
+function CheckCircleIcon(props) {
+  return (
+    <IconBase {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m8.5 12.5 2.3 2.3 4.7-5.2" />
+    </IconBase>
+  );
+}
+
+function LockClosedIcon(props) {
+  return (
+    <IconBase {...props}>
+      <rect x="5" y="10" width="14" height="10" rx="2" />
+      <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+      <path d="M12 14v2" />
+    </IconBase>
+  );
+}
+
+function MapPinIcon(props) {
+  return (
+    <IconBase {...props}>
+      <path d="M12 21s7-4.9 7-11a7 7 0 1 0-14 0c0 6.1 7 11 7 11Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </IconBase>
+  );
+}
+
+function ClockIcon(props) {
+  return (
+    <IconBase {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </IconBase>
+  );
+}
 
 const defaultItems = [
   { label: "Canadian-focused", icon: MapPinIcon },

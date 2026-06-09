@@ -1,13 +1,4 @@
 import React from 'react';
-import {
-  ArrowRightIcon,
-  BanknotesIcon,
-  BuildingLibraryIcon,
-  ChartBarIcon,
-  HomeModernIcon,
-  ScaleIcon,
-  ShieldCheckIcon,
-} from '@heroicons/react/24/outline';
 import SEO from '../components/SEO';
 import SurfaceTrackedLink from '../components/SurfaceTrackedLink';
 import FAQSchema from '../components/FAQSchema';
@@ -15,6 +6,95 @@ import ProgressiveDisclosure from '../components/ProgressiveDisclosure';
 import DecisionFramework from '../components/DecisionFramework';
 import TrustStrip from '../components/TrustStrip';
 import AffiliateDisclosureBox from '../components/AffiliateDisclosureBox';
+
+function IconBase({ children, className = '', ...props }) {
+  return (
+    <svg
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.8"
+      viewBox="0 0 24 24"
+      className={className}
+      {...props}
+    >
+      {children}
+    </svg>
+  );
+}
+
+function ArrowRightIcon(props) {
+  return (
+    <IconBase {...props}>
+      <path d="M5 12h14" />
+      <path d="m13 6 6 6-6 6" />
+    </IconBase>
+  );
+}
+
+function BanknotesIcon(props) {
+  return (
+    <IconBase {...props}>
+      <rect x="3" y="6" width="18" height="12" rx="2" />
+      <circle cx="12" cy="12" r="2.5" />
+      <path d="M6.5 9.5v5M17.5 9.5v5" />
+    </IconBase>
+  );
+}
+
+function BuildingLibraryIcon(props) {
+  return (
+    <IconBase {...props}>
+      <path d="M4 10h16" />
+      <path d="M6 10v8M10 10v8M14 10v8M18 10v8" />
+      <path d="M3 20h18" />
+      <path d="m12 4 8 4H4l8-4Z" />
+    </IconBase>
+  );
+}
+
+function ChartBarIcon(props) {
+  return (
+    <IconBase {...props}>
+      <path d="M4 19h16" />
+      <path d="M7 16V9" />
+      <path d="M12 16V5" />
+      <path d="M17 16v-6" />
+    </IconBase>
+  );
+}
+
+function HomeModernIcon(props) {
+  return (
+    <IconBase {...props}>
+      <path d="m4 11 8-7 8 7" />
+      <path d="M6 10.5V20h12v-9.5" />
+      <path d="M10 20v-5h4v5" />
+    </IconBase>
+  );
+}
+
+function ScaleIcon(props) {
+  return (
+    <IconBase {...props}>
+      <path d="M12 4v16" />
+      <path d="M6 7h12" />
+      <path d="m6 7-3 6h6L6 7Z" />
+      <path d="m18 7-3 6h6l-3-6Z" />
+      <path d="M9 20h6" />
+    </IconBase>
+  );
+}
+
+function ShieldCheckIcon(props) {
+  return (
+    <IconBase {...props}>
+      <path d="M12 3 5 6v5c0 4.5 2.8 7.8 7 10 4.2-2.2 7-5.5 7-10V6l-7-3Z" />
+      <path d="m9 12 2 2 4-5" />
+    </IconBase>
+  );
+}
 
 const GOAL_ROUTES = [
   {
