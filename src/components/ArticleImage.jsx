@@ -15,6 +15,8 @@ export default function ArticleImage({
     <div className={`overflow-hidden bg-slate-100 dark:bg-slate-900 ${className}`}>
       <img
         src={media.image}
+        srcSet={media.srcSet}
+        sizes={media.sizes}
         alt={alt || media.alt}
         loading={loading}
         className={`h-full w-full ${fitClass} ${imgClassName}`}

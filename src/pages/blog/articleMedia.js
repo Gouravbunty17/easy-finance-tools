@@ -1,6 +1,9 @@
 export const articleMediaBySlug = {
   "how-to-buy-spacex-ipo-stock-in-canada": {
     image: "/article-images/spacex-ipo-stock-canada.webp",
+    srcSet:
+      "/article-images/spacex-ipo-stock-canada-640.webp 640w, /article-images/spacex-ipo-stock-canada-960.webp 960w, /article-images/spacex-ipo-stock-canada.webp 1653w",
+    sizes: "(max-width: 768px) 100vw, 960px",
     alt: "SpaceX IPO stock in Canada article graphic with rocket launch, Canadian maple leaf, market chart, and risk planning icons",
     heroLayout: "card",
     objectFit: "contain",

@@ -136,22 +136,41 @@
     }
     </script>
 
-    <!-- Google Analytics GA4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3KQXRRRQFK"></script>
+    <!-- Google Analytics GA4: loaded after interaction or a long idle delay to protect mobile LCP -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-3KQXRRRQFK', {
-        page_title: document.title,
-        page_location: window.location.href,
-        send_page_view: true
-      });
+      window.gtag = gtag;
+      window.loadEasyFinanceAnalytics = function() {
+        if (window.__eftAnalyticsLoaded) return;
+        window.__eftAnalyticsLoaded = true;
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-3KQXRRRQFK';
+        document.head.appendChild(script);
+        gtag('js', new Date());
+        gtag('config', 'G-3KQXRRRQFK', {
+          page_title: document.title,
+          page_location: window.location.href,
+          send_page_view: true
+        });
+      };
+      window.addEventListener('load', function() {
+        var events = ['pointerdown', 'keydown', 'scroll', 'touchstart'];
+        var loadFromInteraction = function() {
+          events.forEach(function(eventName) {
+            window.removeEventListener(eventName, loadFromInteraction);
+          });
+          window.loadEasyFinanceAnalytics();
+        };
+        events.forEach(function(eventName) {
+          window.addEventListener(eventName, loadFromInteraction, { once: true, passive: true });
+        });
+        window.setTimeout(window.loadEasyFinanceAnalytics, 12000);
+      }, { once: true });
     </script>
 
-    <!-- Preconnect / DNS-prefetch for performance -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
-    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+    <!-- DNS-prefetch for delayed analytics -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://www.google-analytics.com" />
   </head>

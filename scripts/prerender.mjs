@@ -29,7 +29,9 @@ function findLocalChrome() {
   for (const p of candidates) {
     try {
       if (fsSync.existsSync(p)) return p;
-    } catch {}
+    } catch {
+      // Ignore inaccessible candidate paths and continue probing.
+    }
   }
   throw new Error(
     "No Chrome/Chromium found locally. Set CHROME_PATH to a Chrome executable or install Chrome.",

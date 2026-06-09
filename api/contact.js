@@ -27,7 +27,7 @@ function parseBody(body) {
 
 function cleanText(value, maxLength) {
   return String(value || "")
-    .replace(/\u0000/g, "")
+    .replaceAll("\u0000", "")
     .trim()
     .slice(0, maxLength);
 }

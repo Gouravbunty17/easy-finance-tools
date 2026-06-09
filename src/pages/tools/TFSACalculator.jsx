@@ -1,15 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  Filler,
-  Legend,
-  LineElement,
-  LinearScale,
-  PointElement,
-  Tooltip,
-} from 'chart.js';
 import SEO from '../../components/SEO';
 import FAQ from '../../components/FAQ';
 import FAQSchema from '../../components/FAQSchema';
@@ -38,6 +27,7 @@ import RelatedContent from '../../components/RelatedContent';
 import ContributorReviewBox from '../../components/ContributorReviewBox';
 import SourceVerificationBlock from '../../components/SourceVerificationBlock';
 import YouTubeSupportSection from '../../components/YouTubeSupportSection';
+import LazyLineChart from '../../components/LazyLineChart';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CANADIAN_PROVINCES,
@@ -51,8 +41,6 @@ import {
 } from '../../config/financial';
 import { tfsaOfficialSources } from '../../config/officialSources';
 import { asNumber, parseNumericInput } from '../../lib/numericInputs';
-
-ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
 
 const TFSA_FAQS = [
   {
@@ -564,7 +552,7 @@ export default function TFSACalculator() {
             </div>
 
             <div className="mt-6 h-[320px]">
-              <Line
+              <LazyLineChart
                 data={chartData}
                 options={{
                   maintainAspectRatio: false,

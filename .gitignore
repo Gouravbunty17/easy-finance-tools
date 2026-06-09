@@ -15,4 +15,6 @@ src/assets/tax-guide.png
 .vercel
 .env*.local
 .gstack/
+qa-output/
 easy-finance-tools-ai-cost-calculator-v3/
+ecc/

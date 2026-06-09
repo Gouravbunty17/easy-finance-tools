@@ -1127,6 +1127,7 @@ export default function StockPage({ view = "overview" }) {
             </div>
           </div>
 
+          {/* eslint-disable-next-line no-constant-binary-expression */}
           {false && (
             <>
 
