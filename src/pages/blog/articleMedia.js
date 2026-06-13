@@ -8,6 +8,15 @@ export const articleMediaBySlug = {
     heroLayout: "card",
     objectFit: "contain",
   },
+  "should-canadian-investors-chase-hot-ipos-spacex-case-study": {
+    image: "/article-images/spacex-ipo-stock-canada.webp",
+    srcSet:
+      "/article-images/spacex-ipo-stock-canada-640.webp 640w, /article-images/spacex-ipo-stock-canada-960.webp 960w, /article-images/spacex-ipo-stock-canada.webp 1653w",
+    sizes: "(max-width: 768px) 100vw, 960px",
+    alt: "SpaceX IPO case study graphic for Canadian investors comparing hype, price, account choice, and risk controls",
+    heroLayout: "card",
+    objectFit: "contain",
+  },
   "best-canadian-dividend-etfs-2026": {
     image: "/article-images/best-canadian-dividend-etfs-2026.webp",
     alt: "Canadian dividend planning calendar with finance app, portfolio folders, and maple leaf details",

@@ -24,6 +24,14 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "should-canadian-investors-chase-hot-ipos-spacex-case-study",
+    title: "Should Canadian Investors Chase Hot IPOs? The SpaceX Case Study",
+    date: "2026-06-12",
+    category: "Investing / U.S. Stocks / IPOs",
+    readTime: "10 min",
+    excerpt: "A Canadian investor framework for SpaceX IPO FOMO, first-day pricing, limit orders, account choice, diversification, and risk.",
+  },
+  {
     slug: "how-to-buy-spacex-ipo-stock-in-canada",
     title: "How to Buy SpaceX IPO Stock in Canada: TFSA, RRSP, Wealthsimple, Questrade & Key Risks",
     date: "2026-06-08",

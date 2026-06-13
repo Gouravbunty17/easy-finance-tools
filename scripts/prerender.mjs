@@ -85,6 +85,13 @@ async function fileExists(targetPath) {
 }
 
 async function readResponseFile(requestPath, fallbackBody) {
+  const normalizedPath = decodeURIComponent(requestPath.split("?")[0]);
+  const extension = path.extname(normalizedPath);
+
+  if (!extension) {
+    return { filePath: path.join(DIST_DIR, "index.html"), body: fallbackBody };
+  }
+
   const candidatePath = resolveFilePath(requestPath);
 
   if (await fileExists(candidatePath)) {
@@ -178,6 +185,31 @@ async function prerenderRoute(browser, route) {
   await page.waitForFunction(() => document.title && document.title.trim().length > 0, {
     timeout: 30000,
   });
+  if (!isNoindexRoute(route)) {
+    try {
+      await page.waitForFunction(
+        (canonicalUrl) => {
+          const canonical = document
+            .querySelector('link[rel="canonical"]')
+            ?.getAttribute("href")
+            ?.trim();
+          if (!canonical) return false;
+          const normalizedCanonical = canonical.endsWith("/") ? canonical.slice(0, -1) : canonical;
+          return normalizedCanonical === canonicalUrl;
+        },
+        { timeout: 30000 },
+        expectedCanonical
+      );
+    } catch (error) {
+      const actualCanonical = await page.evaluate(
+        () => document.querySelector('link[rel="canonical"]')?.getAttribute("href")?.trim() || ""
+      );
+      throw new Error(
+        `Canonical did not settle for ${routeLabel}: expected ${expectedCanonical}, received ${actualCanonical || "(missing)"}`,
+        { cause: error }
+      );
+    }
+  }
   await new Promise((resolve) => setTimeout(resolve, 250));
 
   const snapshot = await page.evaluate(() => {
