@@ -112,6 +112,8 @@ const AICostCalculatorEstimateApiSpend = lazyWithPreload(() => import('./pages/b
 const AIAPICostsTokensAgentLoopsRagCadBudgeting = lazyWithPreload(() => import('./pages/blog/ai-api-costs-tokens-agent-loops-rag-cad-budgeting'));
 const HowToBuySpaceXIPOStockInCanada = lazyWithPreload(() => import('./pages/blog/how-to-buy-spacex-ipo-stock-in-canada'));
 const ShouldCanadianInvestorsChaseHotIPOsSpaceXCaseStudy = lazyWithPreload(() => import('./pages/blog/should-canadian-investors-chase-hot-ipos-spacex-case-study'));
+const WhatAreCDRsCanada = lazyWithPreload(() => import('./pages/blog/what-are-cdrs-canada'));
+const HowToBuySpaceXCDRCanada = lazyWithPreload(() => import('./pages/blog/how-to-buy-spacex-cdr-canada'));
 
 const routeEntries = [
   ['/', Home],
@@ -228,6 +230,8 @@ const routeEntries = [
   ['/blog/mortgage-affordability-reality-check-canada', MortgageAffordabilityRealityCheckCanada],
   ['/blog/ai-cost-calculator-estimate-api-spend', AICostCalculatorEstimateApiSpend],
   ['/blog/ai-api-costs-tokens-agent-loops-rag-cad-budgeting', AIAPICostsTokensAgentLoopsRagCadBudgeting],
+  ['/blog/what-are-cdrs-canada', WhatAreCDRsCanada],
+  ['/blog/how-to-buy-spacex-cdr-canada', HowToBuySpaceXCDRCanada],
   ['/blog/how-to-buy-spacex-ipo-stock-in-canada', HowToBuySpaceXIPOStockInCanada],
   ['/blog/should-canadian-investors-chase-hot-ipos-spacex-case-study', ShouldCanadianInvestorsChaseHotIPOsSpaceXCaseStudy],
   ['/blog/how-to-invest-in-canada-beginners-2026', HowToInvestBeginners],

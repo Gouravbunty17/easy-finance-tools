@@ -131,6 +131,8 @@ export const BLOG_ROUTES = [
   { route: "/blog/mortgage-affordability-reality-check-canada", sourcePath: "src/pages/blog/mortgage-affordability-reality-check-canada.jsx", group: "blog" },
   { route: "/blog/ai-cost-calculator-estimate-api-spend", sourcePath: "src/pages/blog/ai-cost-calculator-estimate-api-spend.jsx", group: "blog" },
   { route: "/blog/ai-api-costs-tokens-agent-loops-rag-cad-budgeting", sourcePath: "src/pages/blog/ai-api-costs-tokens-agent-loops-rag-cad-budgeting.jsx", group: "blog" },
+  { route: "/blog/what-are-cdrs-canada", sourcePath: "src/pages/blog/what-are-cdrs-canada.jsx", group: "blog" },
+  { route: "/blog/how-to-buy-spacex-cdr-canada", sourcePath: "src/pages/blog/how-to-buy-spacex-cdr-canada.jsx", group: "blog" },
   { route: "/blog/how-to-buy-spacex-ipo-stock-in-canada", sourcePath: "src/pages/blog/how-to-buy-spacex-ipo-stock-in-canada.jsx", group: "blog" },
   { route: "/blog/should-canadian-investors-chase-hot-ipos-spacex-case-study", sourcePath: "src/pages/blog/should-canadian-investors-chase-hot-ipos-spacex-case-study.jsx", group: "blog" },
 ];

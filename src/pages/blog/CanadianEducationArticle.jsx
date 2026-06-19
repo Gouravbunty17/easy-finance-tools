@@ -43,6 +43,18 @@ function renderParagraphs(paragraphs = []) {
   ));
 }
 
+function UpdateCallout({ callout }) {
+  if (!callout) return null;
+
+  return (
+    <aside className="not-prose my-8 rounded-3xl border border-blue-200 bg-blue-50 p-6 shadow-sm dark:border-blue-900/60 dark:bg-blue-950/20">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-300">Market update</p>
+      <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">{callout.title}</h2>
+      <p className="mt-4 text-sm leading-7 text-slate-700 dark:text-slate-200">{callout.body}</p>
+    </aside>
+  );
+}
+
 function getArticleOfficialSources(article) {
   if (article.officialSources?.length) return article.officialSources;
 
@@ -214,6 +226,7 @@ export default function CanadianEducationArticle({ article }) {
 
         <article className="prose prose-lg max-w-none prose-neutral dark:prose-invert">
           {renderParagraphs(article.intro)}
+          <UpdateCallout callout={article.updateCallout} />
 
           {article.sections.map((section) => (
             <React.Fragment key={section.heading}>

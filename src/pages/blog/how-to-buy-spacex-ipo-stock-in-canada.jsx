@@ -4,6 +4,16 @@ import SpaceXRiskProfileQuiz from "../../components/SpaceXRiskProfileQuiz";
 
 const spacexSources = [
   {
+    label: "TechCrunch: SpaceX prices IPO at US$135",
+    body: "TechCrunch reporting that SpaceX priced 555.6 million shares at US$135 each, raising US$75 billion in the largest IPO ever.",
+    href: "https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/",
+  },
+  {
+    label: "Business Insider: SpaceX first-day trading",
+    body: "Business Insider live coverage of SpaceX's first trading day, including the US$150 opening trade and intraday move above US$176.",
+    href: "https://www.businessinsider.com/spacex-ipo-live-updates-pricing-spcx-stock-2026-6",
+  },
+  {
     label: "Reuters: SpaceX IPO playbook",
     body: "Reuters reporting on the reported fixed IPO price, offering size, timing, demand, and voting-control structure.",
     href: "https://www.reuters.com/legal/transactional/five-ways-elon-musks-spacex-upended-wall-streets-ipo-playbook-2026-06-08/",
@@ -46,9 +56,9 @@ const article = {
   icon: "IPO",
   gradient: "from-slate-800 to-blue-700",
   displayDate: "Published June 8, 2026",
-  lastUpdated: "June 8, 2026",
+  lastUpdated: "June 12, 2026",
   datePublished: "2026-06-08",
-  dateModified: "2026-06-08",
+  dateModified: "2026-06-12",
   readTime: "13 min read",
   decisionToolTopic: "investing",
   officialSources: spacexSources,
@@ -67,6 +77,10 @@ const article = {
     "The answer depends on timing. Buying shares through a pre-IPO allocation is not the same thing as buying public shares after trading starts. Pre-IPO access for Canadian retail investors may be limited or unavailable. After a public Nasdaq listing, access is usually simpler through Canadian brokerages that support U.S.-listed stocks, but investors still need to check ticker accuracy, order type, currency conversion, account eligibility, and risk.",
     "This article is for educational planning only and is not financial, tax, legal, accounting, or investment advice.",
   ],
+  updateCallout: {
+    title: "Day 1 update — June 12, 2026",
+    body: "SpaceX (SPCX) priced its IPO at US$135 per share, raising about US$75 billion and valuing the company at roughly US$1.77 trillion at pricing. On its first trading day, shares opened around US$150 — about 11% above the IPO price — and traded more than 20% above the IPO price intraday. That first-day jump is a useful reminder for Canadian investors: the IPO price is not always the price a public-market buyer can get once trading begins. Use limit orders, avoid chasing opening-day spikes, and give volatile new listings time to settle.",
+  },
   sections: [
     {
       heading: "SpaceX IPO Overview",

@@ -24,6 +24,22 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "how-to-buy-spacex-cdr-canada",
+    title: "How to Buy SpaceX CDR in Canada: SPCX Explained",
+    date: "2026-06-19",
+    category: "Investing / U.S. Stocks / IPOs",
+    readTime: "10 min",
+    excerpt: "A practical Canadian guide to SPCX.TO, CDR ratios, CAD trading, currency hedging, account choice, limit orders, and SpaceX CDR risks.",
+  },
+  {
+    slug: "what-are-cdrs-canada",
+    title: "What Are CDRs in Canada? Canadian Depositary Receipts Explained",
+    date: "2026-06-19",
+    category: "Investing",
+    readTime: "11 min",
+    excerpt: "Learn how Canadian Depositary Receipts work, including CAD trading, CDR ratios, currency hedging, costs, liquidity, benefits, and risks.",
+  },
+  {
     slug: "should-canadian-investors-chase-hot-ipos-spacex-case-study",
     title: "Should Canadian Investors Chase Hot IPOs? The SpaceX Case Study",
     date: "2026-06-12",

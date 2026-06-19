@@ -17,6 +17,19 @@ export const articleMediaBySlug = {
     heroLayout: "card",
     objectFit: "contain",
   },
+  "how-to-buy-spacex-cdr-canada": {
+    image: "/article-images/spacex-ipo-stock-canada.webp",
+    srcSet:
+      "/article-images/spacex-ipo-stock-canada-640.webp 640w, /article-images/spacex-ipo-stock-canada-960.webp 960w, /article-images/spacex-ipo-stock-canada.webp 1653w",
+    sizes: "(max-width: 768px) 100vw, 960px",
+    alt: "SpaceX CDR guide graphic for Canadian investors comparing TSX SPCX, Nasdaq SPCX, CAD trading, and risk controls",
+    heroLayout: "card",
+    objectFit: "contain",
+  },
+  "what-are-cdrs-canada": {
+    image: "/article-images/beginner-investing-canada.svg",
+    alt: "Canadian investing education illustration for Canadian Depositary Receipts and account planning",
+  },
   "best-canadian-dividend-etfs-2026": {
     image: "/article-images/best-canadian-dividend-etfs-2026.webp",
     alt: "Canadian dividend planning calendar with finance app, portfolio folders, and maple leaf details",
