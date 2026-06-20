@@ -1,34 +1,57 @@
 export const articleMediaBySlug = {
-  "how-to-buy-spacex-ipo-stock-in-canada": {
-    image: "/article-images/spacex-ipo-stock-canada.webp",
+  "ai-api-costs-tokens-agent-loops-rag-cad-budgeting": {
+    image: "/article-images/ai-api-costs-explained-canada-1280.webp",
     srcSet:
-      "/article-images/spacex-ipo-stock-canada-640.webp 640w, /article-images/spacex-ipo-stock-canada-960.webp 960w, /article-images/spacex-ipo-stock-canada.webp 1653w",
+      "/article-images/ai-api-costs-explained-canada-640.webp 640w, /article-images/ai-api-costs-explained-canada-960.webp 960w, /article-images/ai-api-costs-explained-canada-1280.webp 1280w",
     sizes: "(max-width: 768px) 100vw, 960px",
-    alt: "SpaceX IPO stock in Canada article graphic with rocket launch, Canadian maple leaf, market chart, and risk planning icons",
+    alt: "AI API costs explained graphic showing tokens, agent loops, RAG retrieval, CAD budgeting, and Canadian business planning dashboard",
+    heroLayout: "card",
+    objectFit: "contain",
+  },
+  "ai-cost-calculator-estimate-api-spend": {
+    image: "/article-images/ai-cost-calculator-estimate-api-spend-1280.webp",
+    srcSet:
+      "/article-images/ai-cost-calculator-estimate-api-spend-640.webp 640w, /article-images/ai-cost-calculator-estimate-api-spend-960.webp 960w, /article-images/ai-cost-calculator-estimate-api-spend-1280.webp 1280w",
+    sizes: "(max-width: 768px) 100vw, 960px",
+    alt: "AI cost calculator article graphic showing API spend planning, model usage, budget control, and Canadian dollar cost dashboard",
+    heroLayout: "card",
+    objectFit: "contain",
+  },
+  "how-to-buy-spacex-ipo-stock-in-canada": {
+    image: "/article-images/spacex-ipo-stock-canada-1280.webp",
+    srcSet:
+      "/article-images/spacex-ipo-stock-canada-640.webp 640w, /article-images/spacex-ipo-stock-canada-960.webp 960w, /article-images/spacex-ipo-stock-canada-1280.webp 1280w",
+    sizes: "(max-width: 768px) 100vw, 960px",
+    alt: "How to buy SpaceX IPO stock in Canada article graphic with rocket launch, Canadian flag, portfolio dashboard, and investor decision icons",
     heroLayout: "card",
     objectFit: "contain",
   },
   "should-canadian-investors-chase-hot-ipos-spacex-case-study": {
-    image: "/article-images/spacex-ipo-stock-canada.webp",
+    image: "/article-images/spacex-hot-ipo-case-study-canada-1280.webp",
     srcSet:
-      "/article-images/spacex-ipo-stock-canada-640.webp 640w, /article-images/spacex-ipo-stock-canada-960.webp 960w, /article-images/spacex-ipo-stock-canada.webp 1653w",
+      "/article-images/spacex-hot-ipo-case-study-canada-640.webp 640w, /article-images/spacex-hot-ipo-case-study-canada-960.webp 960w, /article-images/spacex-hot-ipo-case-study-canada-1280.webp 1280w",
     sizes: "(max-width: 768px) 100vw, 960px",
-    alt: "SpaceX IPO case study graphic for Canadian investors comparing hype, price, account choice, and risk controls",
+    alt: "SpaceX hot IPO case study graphic for Canadian investors showing risk warning, diversified portfolio chart, rocket, and market hype context",
     heroLayout: "card",
     objectFit: "contain",
   },
   "how-to-buy-spacex-cdr-canada": {
-    image: "/article-images/spacex-ipo-stock-canada.webp",
+    image: "/article-images/spacex-cdr-canada-1280.webp",
     srcSet:
-      "/article-images/spacex-ipo-stock-canada-640.webp 640w, /article-images/spacex-ipo-stock-canada-960.webp 960w, /article-images/spacex-ipo-stock-canada.webp 1653w",
+      "/article-images/spacex-cdr-canada-640.webp 640w, /article-images/spacex-cdr-canada-960.webp 960w, /article-images/spacex-cdr-canada-1280.webp 1280w",
     sizes: "(max-width: 768px) 100vw, 960px",
-    alt: "SpaceX CDR guide graphic for Canadian investors comparing TSX SPCX, Nasdaq SPCX, CAD trading, and risk controls",
+    alt: "How to buy SpaceX CDR in Canada graphic showing SPCX Canadian Depositary Receipt, CAD quote screen, rocket launch, and Canadian investing context",
     heroLayout: "card",
     objectFit: "contain",
   },
   "what-are-cdrs-canada": {
-    image: "/article-images/beginner-investing-canada.svg",
-    alt: "Canadian investing education illustration for Canadian Depositary Receipts and account planning",
+    image: "/article-images/what-are-cdrs-canada-1280.webp",
+    srcSet:
+      "/article-images/what-are-cdrs-canada-640.webp 640w, /article-images/what-are-cdrs-canada-960.webp 960w, /article-images/what-are-cdrs-canada-1280.webp 1280w",
+    sizes: "(max-width: 768px) 100vw, 960px",
+    alt: "Canadian Depositary Receipts explainer graphic showing a CDR certificate, CAD currency hedging, fractional exposure, and global stock access",
+    heroLayout: "card",
+    objectFit: "contain",
   },
   "best-canadian-dividend-etfs-2026": {
     image: "/article-images/best-canadian-dividend-etfs-2026.webp",
