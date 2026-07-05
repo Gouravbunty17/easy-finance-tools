@@ -114,6 +114,9 @@ const HowToBuySpaceXIPOStockInCanada = lazyWithPreload(() => import('./pages/blo
 const ShouldCanadianInvestorsChaseHotIPOsSpaceXCaseStudy = lazyWithPreload(() => import('./pages/blog/should-canadian-investors-chase-hot-ipos-spacex-case-study'));
 const WhatAreCDRsCanada = lazyWithPreload(() => import('./pages/blog/what-are-cdrs-canada'));
 const HowToBuySpaceXCDRCanada = lazyWithPreload(() => import('./pages/blog/how-to-buy-spacex-cdr-canada'));
+const ShouldIBuyUSStocksInMyTFSA = lazyWithPreload(() => import('./pages/blog/should-i-buy-us-stocks-in-my-tfsa'));
+const FHSAvsHBPCanada = lazyWithPreload(() => import('./pages/blog/fhsa-vs-hbp-canada'));
+const CoveredCallETFsInATFSACanada = lazyWithPreload(() => import('./pages/blog/covered-call-etfs-in-a-tfsa-canada'));
 
 const routeEntries = [
   ['/', Home],
@@ -234,6 +237,9 @@ const routeEntries = [
   ['/blog/how-to-buy-spacex-cdr-canada', HowToBuySpaceXCDRCanada],
   ['/blog/how-to-buy-spacex-ipo-stock-in-canada', HowToBuySpaceXIPOStockInCanada],
   ['/blog/should-canadian-investors-chase-hot-ipos-spacex-case-study', ShouldCanadianInvestorsChaseHotIPOsSpaceXCaseStudy],
+  ['/blog/should-i-buy-us-stocks-in-my-tfsa', ShouldIBuyUSStocksInMyTFSA],
+  ['/blog/fhsa-vs-hbp-canada', FHSAvsHBPCanada],
+  ['/blog/covered-call-etfs-in-a-tfsa-canada', CoveredCallETFsInATFSACanada],
   ['/blog/how-to-invest-in-canada-beginners-2026', HowToInvestBeginners],
   ['/blog/best-hisa-canada-2026', BestHISACanada2026],
   ['/blog/emergency-fund-canada', EmergencyFundCanada],

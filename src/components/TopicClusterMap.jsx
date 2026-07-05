@@ -10,6 +10,7 @@ const DEFAULT_CLUSTERS = [
       ['TFSA calculator', '/tools/tfsa-calculator'],
       ['TFSA contribution room', '/blog/tfsa-contribution-room-canada-2026'],
       ['TFSA investing mistakes', '/blog/tfsa-investing-mistakes-canada'],
+      ['U.S. stocks in TFSA', '/blog/should-i-buy-us-stocks-in-my-tfsa'],
     ],
   },
   {
@@ -30,6 +31,7 @@ const DEFAULT_CLUSTERS = [
       ['FHSA calculator', '/tools/fhsa-calculator'],
       ['FHSA rules', '/blog/fhsa-rules-canada-2026'],
       ['FHSA vs RRSP', '/blog/fhsa-vs-rrsp-down-payment-canada-2026'],
+      ['FHSA vs HBP', '/blog/fhsa-vs-hbp-canada'],
     ],
   },
   {

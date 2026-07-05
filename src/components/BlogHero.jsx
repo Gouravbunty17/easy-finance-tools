@@ -111,6 +111,7 @@ export default function BlogHero({
                   <ArticleImage
                     slug={slug}
                     loading="eager"
+                    fetchPriority="high"
                     className="min-h-[240px] rounded-[22px] border border-white/15 md:min-h-[280px]"
                     imgClassName="aspect-[16/10] md:aspect-[16/9]"
                   />

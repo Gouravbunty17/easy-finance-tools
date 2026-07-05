@@ -24,6 +24,30 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "covered-call-etfs-in-a-tfsa-canada",
+    title: "Covered Call ETFs in a TFSA: Income, Tradeoffs, and Risks",
+    date: "2026-07-05",
+    category: "TFSA",
+    readTime: "10 min",
+    excerpt: "A Canadian TFSA decision guide for covered call ETFs, including high-yield tradeoffs, capped upside, tax-free withdrawals, and total return.",
+  },
+  {
+    slug: "fhsa-vs-hbp-canada",
+    title: "FHSA vs Home Buyers' Plan: Which Should Canadians Use First?",
+    date: "2026-07-05",
+    category: "FHSA",
+    readTime: "11 min",
+    excerpt: "Compare FHSA and the RRSP Home Buyers' Plan, including deductions, tax-free withdrawals, repayment rules, timelines, and using both.",
+  },
+  {
+    slug: "should-i-buy-us-stocks-in-my-tfsa",
+    title: "Should I Buy U.S. Stocks in My TFSA?",
+    date: "2026-07-05",
+    category: "TFSA",
+    readTime: "10 min",
+    excerpt: "A Canadian account-fit guide for U.S. stocks in a TFSA, including withholding tax, FX costs, concentration, and contribution-room tradeoffs.",
+  },
+  {
     slug: "how-to-buy-spacex-cdr-canada",
     title: "How to Buy SpaceX CDR in Canada: SPCX Explained",
     date: "2026-06-19",

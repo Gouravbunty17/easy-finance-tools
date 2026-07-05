@@ -16,7 +16,7 @@ export default function ArticleJsonLd({
 
   const canonicalUrl = canonicalizeSiteUrl(url);
   const normalizedImageUrl = canonicalizeSiteUrl(imageUrl);
-  const schemaImageUrl = /\.(png|jpe?g)(\?.*)?$/i.test(normalizedImageUrl)
+  const schemaImageUrl = /\.(png|webp|jpe?g)(\?.*)?$/i.test(normalizedImageUrl)
     ? normalizedImageUrl
     : `${SITE_ORIGIN}/og-image.png`;
   const defaultBreadcrumbs = [

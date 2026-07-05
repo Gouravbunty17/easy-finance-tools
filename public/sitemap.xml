@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://easyfinancetools.com/blog</loc>
-    <lastmod>2026-06-19</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -326,7 +326,7 @@
   </url>
   <url>
     <loc>https://easyfinancetools.com/blog/how-to-use-fhsa-canada</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -465,6 +465,24 @@
   <url>
     <loc>https://easyfinancetools.com/blog/should-canadian-investors-chase-hot-ipos-spacex-case-study</loc>
     <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/should-i-buy-us-stocks-in-my-tfsa</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/fhsa-vs-hbp-canada</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://easyfinancetools.com/blog/covered-call-etfs-in-a-tfsa-canada</loc>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

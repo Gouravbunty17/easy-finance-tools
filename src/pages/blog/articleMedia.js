@@ -1,4 +1,16 @@
 export const articleMediaBySlug = {
+  "should-i-buy-us-stocks-in-my-tfsa": {
+    image: "/article-images/beginner-investing-canada.svg",
+    alt: "Canadian TFSA investor comparing U.S. stocks, currency exposure, account room, and investment fit",
+  },
+  "fhsa-vs-hbp-canada": {
+    image: "/article-images/fhsa-home-buying.svg",
+    alt: "Canadian first-home buyer comparing FHSA and RRSP Home Buyers Plan down payment options",
+  },
+  "covered-call-etfs-in-a-tfsa-canada": {
+    image: "/article-images/covered-call-etfs.svg",
+    alt: "Covered call ETF in a TFSA illustration showing income, upside cap, and account-fit tradeoffs",
+  },
   "ai-api-costs-tokens-agent-loops-rag-cad-budgeting": {
     image: "/article-images/ai-api-costs-explained-canada-1280.webp",
     srcSet:

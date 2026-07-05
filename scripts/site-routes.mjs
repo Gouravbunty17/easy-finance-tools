@@ -135,6 +135,9 @@ export const BLOG_ROUTES = [
   { route: "/blog/how-to-buy-spacex-cdr-canada", sourcePath: "src/pages/blog/how-to-buy-spacex-cdr-canada.jsx", group: "blog" },
   { route: "/blog/how-to-buy-spacex-ipo-stock-in-canada", sourcePath: "src/pages/blog/how-to-buy-spacex-ipo-stock-in-canada.jsx", group: "blog" },
   { route: "/blog/should-canadian-investors-chase-hot-ipos-spacex-case-study", sourcePath: "src/pages/blog/should-canadian-investors-chase-hot-ipos-spacex-case-study.jsx", group: "blog" },
+  { route: "/blog/should-i-buy-us-stocks-in-my-tfsa", sourcePath: "src/pages/blog/should-i-buy-us-stocks-in-my-tfsa.jsx", group: "blog" },
+  { route: "/blog/fhsa-vs-hbp-canada", sourcePath: "src/pages/blog/fhsa-vs-hbp-canada.jsx", group: "blog" },
+  { route: "/blog/covered-call-etfs-in-a-tfsa-canada", sourcePath: "src/pages/blog/covered-call-etfs-in-a-tfsa-canada.jsx", group: "blog" },
 ];
 
 export const SITE_ROUTES = [...STATIC_ROUTES, ...TOOL_ROUTES, ...BLOG_ROUTES, ...LEGACY_REDIRECT_ROUTES];

@@ -28,7 +28,7 @@ export default function SEO({
       : robots;
     const defaultImageUrl = `${SITE_ORIGIN}/og-image.png`;
     const requestedImageUrl = canonicalizeSiteUrl(image || defaultImageUrl);
-    const imageUrl = /\.(png|jpe?g)(\?.*)?$/i.test(requestedImageUrl)
+    const imageUrl = /\.(png|webp|jpe?g)(\?.*)?$/i.test(requestedImageUrl)
       ? requestedImageUrl
       : defaultImageUrl;
     const imageType = imageUrl.endsWith(".webp")

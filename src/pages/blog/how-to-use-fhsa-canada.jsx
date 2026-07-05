@@ -164,11 +164,11 @@ export default function HowToUseFHSA() {
         </p>
         <ul>
           <li>FHSA: up to $40,000 withdrawn tax-free (no repayment required)</li>
-          <li>RRSP HBP: up to $35,000 withdrawn tax-free (must repay over 15 years)</li>
-          <li><strong>Combined: up to $75,000 per person, $150,000 per couple</strong></li>
+          <li>RRSP HBP: up to $60,000 withdrawn tax-free under current HBP rules (must repay over 15 years)</li>
+          <li><strong>Combined: up to $100,000 per person, $200,000 per couple under current FHSA and HBP limits</strong></li>
         </ul>
         <p>
-          A couple who has both maxed their FHSA and uses the HBP could put $150,000 toward a down payment using pre-tax savings — an enormous advantage.
+          A couple who has both maxed their FHSA and uses the HBP could put up to $200,000 toward a down payment using pre-tax savings under current FHSA and HBP limits. Verify the current CRA limits before planning around the full amount.
         </p>
 
         <h2>FHSA vs RRSP HBP vs TFSA for a Home Down Payment</h2>
@@ -186,7 +186,7 @@ export default function HowToUseFHSA() {
             <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
               {[
                 ["FHSA", "✅ Yes", "✅ Yes", "❌ No", "$40,000"],
-                ["RRSP (HBP)", "✅ Yes", "✅ Yes", "✅ Yes (15 yrs)", "$35,000"],
+                ["RRSP (HBP)", "✅ Yes", "✅ Yes", "✅ Yes (15 yrs)", "$60,000"],
                 ["TFSA", "❌ No", "✅ Yes", "❌ No", "Your balance"],
               ].map(([acc, td, tfw, rep, max]) => (
                 <tr key={acc} className="bg-white dark:bg-gray-900">

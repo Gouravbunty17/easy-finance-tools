@@ -50,6 +50,9 @@ export const topicHubs = {
       ['TFSA mistakes Canadians make', '/blog/tfsa-investing-mistakes-canada'],
       ['TFSA withdrawal rules Canada 2026', '/blog/tfsa-withdrawal-rules-canada-2026'],
       ['TFSA overcontribution penalties', '/blog/tfsa-overcontribution-penalties-canada'],
+      ['U.S. stocks in a TFSA', '/blog/should-i-buy-us-stocks-in-my-tfsa'],
+      ['Covered call ETFs in a TFSA', '/blog/covered-call-etfs-in-a-tfsa-canada'],
+      ['CDRs in Canada', '/blog/what-are-cdrs-canada'],
     ],
     learningPath: [
       { title: '1. Learn contribution room', body: 'Confirm annual limits, cumulative room, and why CRA My Account can lag current-year transactions.' },
@@ -61,6 +64,8 @@ export const topicHubs = {
       { title: 'TFSA vs RRSP decision', href: '/blog/tfsa-vs-rrsp-canada-2026', body: 'Compare flexibility against deduction value before choosing where the next dollar goes.' },
       { title: 'TFSA vs RRSP vs FHSA', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', body: 'Bring first-home rules into the account-priority decision when FHSA eligibility matters.' },
       { title: 'Withdrawal timing', href: '/blog/tfsa-withdrawals-contribution-room-canada', body: 'Avoid same-year recontribution mistakes by understanding when room actually returns.' },
+      { title: 'U.S. stocks in a TFSA', href: '/blog/should-i-buy-us-stocks-in-my-tfsa', body: 'Compare withholding tax, FX, concentration, and account-location tradeoffs before buying U.S. exposure.' },
+      { title: 'Covered call ETFs in a TFSA', href: '/blog/covered-call-etfs-in-a-tfsa-canada', body: 'Check whether tax-free income is worth capped-upside and total-return tradeoffs.' },
     ],
     faqs: [
       { q: 'Should I max my TFSA first?', a: 'Often, but not always. TFSA usually gets stronger when flexibility matters, while RRSP or FHSA can be stronger when tax deductions or first-home rules matter more.' },
@@ -158,10 +163,12 @@ export const topicHubs = {
       ['FHSA rules Canada 2026', '/blog/fhsa-rules-canada-2026'],
       ['FHSA calculator guide', '/blog/fhsa-calculator-canada-2026'],
       ['FHSA vs RRSP for down payment', '/blog/fhsa-vs-rrsp-down-payment-canada-2026'],
+      ['FHSA vs Home Buyers Plan', '/blog/fhsa-vs-hbp-canada'],
       ['TFSA vs RRSP vs FHSA', '/blog/tfsa-vs-rrsp-vs-fhsa-canada'],
     ],
     decisions: [
       { title: 'TFSA vs RRSP vs FHSA', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', body: 'See when FHSA should come before more flexible or retirement-focused accounts.' },
+      { title: 'FHSA vs Home Buyers Plan', href: '/blog/fhsa-vs-hbp-canada', body: 'Compare clean FHSA withdrawals against RRSP HBP repayment obligations.' },
       { title: 'FHSA vs RRSP for a down payment', href: '/blog/fhsa-vs-rrsp-down-payment-canada-2026', body: 'Compare FHSA against the RRSP Home Buyers Plan and repayment rules.' },
       { title: 'Rent vs buy in Canada', href: '/blog/rent-vs-buy-canada', body: 'Check whether the home plan still works before optimizing the account choice.' },
     ],

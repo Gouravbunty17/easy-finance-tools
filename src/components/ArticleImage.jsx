@@ -7,6 +7,7 @@ export default function ArticleImage({
   className = "",
   imgClassName = "",
   loading = "lazy",
+  fetchPriority,
 }) {
   const media = getArticleMedia(slug);
   const fitClass = media.objectFit === "contain" ? "object-contain" : "object-cover";
@@ -19,6 +20,8 @@ export default function ArticleImage({
         sizes={media.sizes}
         alt={alt || media.alt}
         loading={loading}
+        decoding="async"
+        fetchPriority={fetchPriority}
         className={`h-full w-full ${fitClass} ${imgClassName}`}
       />
     </div>
