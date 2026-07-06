@@ -1,4 +1,21 @@
 export const articleMediaBySlug = {
+  "cdrs-in-a-tfsa-canada": {
+    image: "/article-images/what-are-cdrs-canada-1280.webp",
+    srcSet:
+      "/article-images/what-are-cdrs-canada-640.webp 640w, /article-images/what-are-cdrs-canada-960.webp 960w, /article-images/what-are-cdrs-canada-1280.webp 1280w",
+    sizes: "(max-width: 768px) 100vw, 960px",
+    alt: "Canadian Depositary Receipts in a TFSA graphic showing CDR certificate, CAD currency hedge, and account-fit planning",
+    heroLayout: "card",
+    objectFit: "contain",
+  },
+  "covered-call-etfs-in-an-rrsp-canada": {
+    image: "/article-images/covered-call-etfs.svg",
+    alt: "Covered call ETF in an RRSP illustration showing income distributions, retirement account fit, and capped-upside tradeoffs",
+  },
+  "covered-call-etf-taxes-canada": {
+    image: "/article-images/covered-call-etfs.svg",
+    alt: "Covered call ETF tax illustration showing distributions, return of capital, taxable accounts, TFSA, and RRSP account choices",
+  },
   "should-i-buy-us-stocks-in-my-tfsa": {
     image: "/article-images/beginner-investing-canada.svg",
     alt: "Canadian TFSA investor comparing U.S. stocks, currency exposure, account room, and investment fit",

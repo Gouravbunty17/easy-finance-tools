@@ -52,6 +52,7 @@ export const topicHubs = {
       ['TFSA overcontribution penalties', '/blog/tfsa-overcontribution-penalties-canada'],
       ['U.S. stocks in a TFSA', '/blog/should-i-buy-us-stocks-in-my-tfsa'],
       ['Covered call ETFs in a TFSA', '/blog/covered-call-etfs-in-a-tfsa-canada'],
+      ['CDRs in a TFSA', '/blog/cdrs-in-a-tfsa-canada'],
       ['CDRs in Canada', '/blog/what-are-cdrs-canada'],
     ],
     learningPath: [
@@ -66,6 +67,7 @@ export const topicHubs = {
       { title: 'Withdrawal timing', href: '/blog/tfsa-withdrawals-contribution-room-canada', body: 'Avoid same-year recontribution mistakes by understanding when room actually returns.' },
       { title: 'U.S. stocks in a TFSA', href: '/blog/should-i-buy-us-stocks-in-my-tfsa', body: 'Compare withholding tax, FX, concentration, and account-location tradeoffs before buying U.S. exposure.' },
       { title: 'Covered call ETFs in a TFSA', href: '/blog/covered-call-etfs-in-a-tfsa-canada', body: 'Check whether tax-free income is worth capped-upside and total-return tradeoffs.' },
+      { title: 'CDRs in a TFSA', href: '/blog/cdrs-in-a-tfsa-canada', body: 'Decide whether CAD-listed foreign-stock exposure deserves scarce tax-free room.' },
     ],
     faqs: [
       { q: 'Should I max my TFSA first?', a: 'Often, but not always. TFSA usually gets stronger when flexibility matters, while RRSP or FHSA can be stronger when tax deductions or first-home rules matter more.' },
@@ -114,11 +116,13 @@ export const topicHubs = {
       ['TFSA vs RRSP in Canada', '/blog/tfsa-vs-rrsp-canada-2026'],
       ['TFSA vs RRSP vs FHSA', '/blog/tfsa-vs-rrsp-vs-fhsa-canada'],
       ['RRSP accounts in Canada', '/blog/best-rrsp-accounts-canada'],
+      ['Covered call ETFs in an RRSP', '/blog/covered-call-etfs-in-an-rrsp-canada'],
     ],
     decisions: [
       { title: 'When RRSP makes sense', href: '/blog/when-rrsp-makes-sense-canada', body: 'Use a tax-rate, refund-use, and retirement-income framework before contributing.' },
       { title: 'RRSP mistake middle-income Canadians make', href: '/blog/rrsp-mistake-middle-income-canadians', body: 'Avoid treating the refund as proof the RRSP was the best account.' },
       { title: 'TFSA vs RRSP vs FHSA', href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada', body: 'Compare RRSP against flexibility and first-home account choices.' },
+      { title: 'Covered call ETFs in an RRSP', href: '/blog/covered-call-etfs-in-an-rrsp-canada', body: 'Check tax-deferral, yield, and retirement-withdrawal tradeoffs before using income ETFs.' },
     ],
     faqs: [
       { q: 'Is an RRSP refund free money?', a: 'No. It is usually tax deferral. The RRSP works best when the tax rate avoided today is higher than the tax rate paid later.' },
@@ -217,10 +221,12 @@ export const topicHubs = {
       ['What is a dividend ETF?', '/blog/what-is-a-dividend-etf-canada'],
       ['DRIP strategy Canada', '/blog/drip-strategy-canada'],
       ['Covered call ETFs explained', '/blog/covered-call-etfs-canada-explained'],
+      ['Covered call ETF taxes', '/blog/covered-call-etf-taxes-canada'],
     ],
     decisions: [
       { title: 'Should you DRIP dividends?', href: '/blog/should-you-drip-dividends-canada', body: 'Compare reinvestment, taxable reporting, cash-flow needs, and rebalancing control.' },
       { title: 'High-yield ETF risks', href: '/blog/high-yield-dividend-etfs-hurt-wealth-canada', body: 'Understand when a large payout can hide weaker total-return tradeoffs.' },
+      { title: 'Covered call ETF taxes', href: '/blog/covered-call-etf-taxes-canada', body: 'Review distribution character, return of capital, and account-location tax caveats.' },
       { title: 'Investment fit framework', href: '/tools/investment-fit-framework', body: 'Check account location, yield risk, concentration, and timeline fit.' },
     ],
     faqs: [

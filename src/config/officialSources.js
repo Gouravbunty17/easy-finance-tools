@@ -12,7 +12,7 @@ export const tfsaOfficialSources = [
   {
     label: 'CRA: Tax payable on excess TFSA amounts',
     body: 'Useful when checking over-contribution risk or same-year recontribution mistakes.',
-    href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/tax-payable-tfsa.html',
+    href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/owing-tax/excess.html',
   },
 ];
 

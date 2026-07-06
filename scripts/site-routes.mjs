@@ -138,6 +138,9 @@ export const BLOG_ROUTES = [
   { route: "/blog/should-i-buy-us-stocks-in-my-tfsa", sourcePath: "src/pages/blog/should-i-buy-us-stocks-in-my-tfsa.jsx", group: "blog" },
   { route: "/blog/fhsa-vs-hbp-canada", sourcePath: "src/pages/blog/fhsa-vs-hbp-canada.jsx", group: "blog" },
   { route: "/blog/covered-call-etfs-in-a-tfsa-canada", sourcePath: "src/pages/blog/covered-call-etfs-in-a-tfsa-canada.jsx", group: "blog" },
+  { route: "/blog/cdrs-in-a-tfsa-canada", sourcePath: "src/pages/blog/cdrs-in-a-tfsa-canada.jsx", group: "blog" },
+  { route: "/blog/covered-call-etfs-in-an-rrsp-canada", sourcePath: "src/pages/blog/covered-call-etfs-in-an-rrsp-canada.jsx", group: "blog" },
+  { route: "/blog/covered-call-etf-taxes-canada", sourcePath: "src/pages/blog/covered-call-etf-taxes-canada.jsx", group: "blog" },
 ];
 
 export const SITE_ROUTES = [...STATIC_ROUTES, ...TOOL_ROUTES, ...BLOG_ROUTES, ...LEGACY_REDIRECT_ROUTES];

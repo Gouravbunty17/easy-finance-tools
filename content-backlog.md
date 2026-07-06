@@ -1,6 +1,6 @@
 # EasyFinanceTools Content Backlog
 
-Last updated: 2026-07-05
+Last updated: 2026-07-06
 
 This backlog tracks Canadian investing-account content by search intent, publication status, and internal-link priority. It is intentionally conservative: do not publish duplicate pages when an existing page already satisfies the same user intent.
 
@@ -32,13 +32,19 @@ This backlog tracks Canadian investing-account content by search intent, publica
 | FHSA vs HBP | `/blog/fhsa-vs-hbp-canada` | Existing | Focused HBP comparison page added to avoid users landing only on a broader RRSP page. |
 | Should I buy U.S. stocks in my TFSA? | `/blog/should-i-buy-us-stocks-in-my-tfsa` | Existing | Account-fit page for U.S. stocks, withholding, FX, and concentration risk. |
 | Covered call ETFs in a TFSA | `/blog/covered-call-etfs-in-a-tfsa-canada` | Existing | TFSA-specific covered-call account-fit page. |
+| CDRs in a TFSA | `/blog/cdrs-in-a-tfsa-canada` | Existing | TFSA-specific account-fit page for Canadian Depositary Receipts, CDR ratios, CAD trading, and concentration risk. |
 | Covered call ETFs Canada explained | `/blog/covered-call-etfs-canada-explained` | Existing | General covered-call mechanics page. |
+| Covered call ETFs in an RRSP | `/blog/covered-call-etfs-in-an-rrsp-canada` | Existing | RRSP-specific account-fit page for covered-call income, tax deferral, and retirement-withdrawal tradeoffs. |
+| Covered call ETF taxes Canada | `/blog/covered-call-etf-taxes-canada` | Existing | Tax-location guide for covered-call ETF distributions, ROC, TFSA/RRSP, and taxable-account caveats. |
 | What are CDRs in Canada? | `/blog/what-are-cdrs-canada` | Existing | CDR mechanics page; supports the CDRs-in-TFSA gap. |
 
 ## Ready to Publish
 
 No unpublished drafts are currently staged. Newly published pages in this pass:
 
+- `/blog/cdrs-in-a-tfsa-canada`
+- `/blog/covered-call-etfs-in-an-rrsp-canada`
+- `/blog/covered-call-etf-taxes-canada`
 - `/blog/fhsa-vs-hbp-canada`
 - `/blog/should-i-buy-us-stocks-in-my-tfsa`
 - `/blog/covered-call-etfs-in-a-tfsa-canada`
@@ -57,10 +63,31 @@ No unpublished drafts are currently staged. Newly published pages in this pass:
 | Topic | Suggested Route | Why It Matters | Notes |
 | --- | --- | --- | --- |
 | Non-resident TFSA rules | `/blog/non-resident-tfsa-rules-canada` | High YMYL risk and high practical value for newcomers/leavers. | Needs careful CRA sourcing; do not publish from memory. |
-| CDRs in a TFSA | `/blog/cdrs-in-a-tfsa-canada` | Connects the CDR article with TFSA account-location decisions. | Avoid duplicating `/blog/what-are-cdrs-canada`; make it strictly TFSA/account-fit. |
 | RRSP withdrawal strategy before OAS | `/blog/rrsp-withdrawal-before-oas-canada` | Retirement cluster gap. | Needs CPP/OAS and RRIF source review. |
 | FHSA fallback if you do not buy | `/blog/what-happens-to-fhsa-if-you-do-not-buy-canada` | Practical FHSA edge case. | Could also be an FHSA guide section if not enough unique intent. |
 | TFSA active trading risk | `/blog/tfsa-active-trading-risk-canada` | Common TFSA mistake with high tax consequences. | Needs very cautious CRA wording. |
+| Non-registered ETF tax basics | `/blog/etf-taxes-non-registered-account-canada` | Useful bridge from covered-call ETF tax page to general taxable investing. | Needs careful CRA source review and should not become generic tax advice. |
+
+## Published
+
+The Canadian Investing Accounts cluster now covers the eight priority intents from the brief:
+
+1. TFSA over-contribution penalty: `/blog/tfsa-overcontribution-penalties-canada`
+2. TFSA withdrawals: `/blog/tfsa-withdrawal-rules-canada-2026`
+3. TFSA re-contribution rules: `/blog/tfsa-withdrawals-contribution-room-canada`
+4. CDRs in a TFSA: `/blog/cdrs-in-a-tfsa-canada`
+5. U.S. stocks in a TFSA: `/blog/should-i-buy-us-stocks-in-my-tfsa`
+6. Covered call ETFs in a TFSA: `/blog/covered-call-etfs-in-a-tfsa-canada`
+7. Covered call ETFs in an RRSP: `/blog/covered-call-etfs-in-an-rrsp-canada`
+8. Covered call ETF taxes: `/blog/covered-call-etf-taxes-canada`
+
+## Missing
+
+No remaining required pages from the Canadian Investing Accounts priority list are missing locally. Future expansion should be based on Search Console data rather than intuition.
+
+## Draft
+
+No draft-only pages are currently staged in the Canadian Investing Accounts cluster.
 
 ## Technical SEO Snapshot
 

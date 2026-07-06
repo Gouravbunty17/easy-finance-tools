@@ -11,6 +11,7 @@ const DEFAULT_CLUSTERS = [
       ['TFSA contribution room', '/blog/tfsa-contribution-room-canada-2026'],
       ['TFSA investing mistakes', '/blog/tfsa-investing-mistakes-canada'],
       ['U.S. stocks in TFSA', '/blog/should-i-buy-us-stocks-in-my-tfsa'],
+      ['CDRs in TFSA', '/blog/cdrs-in-a-tfsa-canada'],
     ],
   },
   {
@@ -21,6 +22,7 @@ const DEFAULT_CLUSTERS = [
       ['RRSP calculator', '/tools/rrsp-calculator'],
       ['RRSP deadline guide', '/blog/rrsp-deadline-canada-2026'],
       ['TFSA vs RRSP', '/blog/tfsa-vs-rrsp-canada-2026'],
+      ['Covered calls in RRSP', '/blog/covered-call-etfs-in-an-rrsp-canada'],
     ],
   },
   {
@@ -42,6 +44,7 @@ const DEFAULT_CLUSTERS = [
       ['Dividend calculator', '/tools/dividend-calculator'],
       ['$500/month guide', '/blog/500-month-dividend-canada'],
       ['Dividend ETFs', '/blog/best-canadian-dividend-etfs-2026'],
+      ['Covered call taxes', '/blog/covered-call-etf-taxes-canada'],
     ],
   },
   {

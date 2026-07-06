@@ -117,6 +117,9 @@ const HowToBuySpaceXCDRCanada = lazyWithPreload(() => import('./pages/blog/how-t
 const ShouldIBuyUSStocksInMyTFSA = lazyWithPreload(() => import('./pages/blog/should-i-buy-us-stocks-in-my-tfsa'));
 const FHSAvsHBPCanada = lazyWithPreload(() => import('./pages/blog/fhsa-vs-hbp-canada'));
 const CoveredCallETFsInATFSACanada = lazyWithPreload(() => import('./pages/blog/covered-call-etfs-in-a-tfsa-canada'));
+const CDRsInATFSACanada = lazyWithPreload(() => import('./pages/blog/cdrs-in-a-tfsa-canada'));
+const CoveredCallETFsInAnRRSPCanada = lazyWithPreload(() => import('./pages/blog/covered-call-etfs-in-an-rrsp-canada'));
+const CoveredCallETFTaxesCanada = lazyWithPreload(() => import('./pages/blog/covered-call-etf-taxes-canada'));
 
 const routeEntries = [
   ['/', Home],
@@ -240,6 +243,9 @@ const routeEntries = [
   ['/blog/should-i-buy-us-stocks-in-my-tfsa', ShouldIBuyUSStocksInMyTFSA],
   ['/blog/fhsa-vs-hbp-canada', FHSAvsHBPCanada],
   ['/blog/covered-call-etfs-in-a-tfsa-canada', CoveredCallETFsInATFSACanada],
+  ['/blog/cdrs-in-a-tfsa-canada', CDRsInATFSACanada],
+  ['/blog/covered-call-etfs-in-an-rrsp-canada', CoveredCallETFsInAnRRSPCanada],
+  ['/blog/covered-call-etf-taxes-canada', CoveredCallETFTaxesCanada],
   ['/blog/how-to-invest-in-canada-beginners-2026', HowToInvestBeginners],
   ['/blog/best-hisa-canada-2026', BestHISACanada2026],
   ['/blog/emergency-fund-canada', EmergencyFundCanada],

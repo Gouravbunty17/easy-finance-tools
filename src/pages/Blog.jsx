@@ -24,6 +24,30 @@ const categoryStyle = {
 
 const posts = [
   {
+    slug: "covered-call-etf-taxes-canada",
+    title: "Covered Call ETF Taxes in Canada: What Investors Should Check",
+    date: "2026-07-06",
+    category: "Dividends",
+    readTime: "11 min",
+    excerpt: "A Canadian tax-location guide for covered call ETFs, including distribution character, return of capital, TFSA/RRSP differences, and taxable-account caveats.",
+  },
+  {
+    slug: "covered-call-etfs-in-an-rrsp-canada",
+    title: "Covered Call ETFs in an RRSP: Income, Tax Deferral, and Tradeoffs",
+    date: "2026-07-06",
+    category: "RRSP",
+    readTime: "10 min",
+    excerpt: "A Canadian RRSP account-fit guide for covered call ETFs, including income, tax deferral, retirement withdrawals, and total-return tradeoffs.",
+  },
+  {
+    slug: "cdrs-in-a-tfsa-canada",
+    title: "CDRs in a TFSA: Canadian Account-Fit Guide",
+    date: "2026-07-06",
+    category: "TFSA",
+    readTime: "10 min",
+    excerpt: "A TFSA-focused guide to Canadian Depositary Receipts, including CAD trading, CDR ratios, withholding-tax caveats, concentration, and account fit.",
+  },
+  {
     slug: "covered-call-etfs-in-a-tfsa-canada",
     title: "Covered Call ETFs in a TFSA: Income, Tradeoffs, and Risks",
     date: "2026-07-05",
