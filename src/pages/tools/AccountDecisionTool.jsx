@@ -674,6 +674,42 @@ export default function AccountDecisionTool() {
           />
         </div>
 
+        <section className="mb-8 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">Decision guides that support this tool</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Read the rule context before moving money</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            The quiz gives a ranked planning order, but the underlying rules and tradeoffs deserve a separate read when the decision is material.
+          </p>
+          <div className="mt-5 grid gap-3 md:grid-cols-3">
+            {[
+              {
+                title: 'TFSA vs RRSP vs FHSA guide',
+                href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
+                body: 'Use the main comparison guide when all three account types may compete for the next dollar.',
+              },
+              {
+                title: 'TFSA hub',
+                href: '/topics/tfsa',
+                body: 'Review contribution room, withdrawals, CRA checks, and common TFSA mistakes before contributing.',
+              },
+              {
+                title: 'Beginner investing guide',
+                href: '/blog/how-to-start-investing-canada-2026',
+                body: 'Review emergency savings, account choice, fees, and risk before optimizing account priority.',
+              },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className="rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:border-secondary hover:shadow-sm dark:border-slate-700 dark:bg-slate-800/60"
+              >
+                <h3 className="font-bold text-primary dark:text-accent">{item.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.body}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* ---------------- Quiz / Result ---------------- */}
         {!showResult ? (
           <section

@@ -190,6 +190,32 @@ export default function InvestingCategory() {
             ]}
           />
         </div>
+        <section className="mb-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">How to use this archive</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Move from account choice to investment fit</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            This archive is meant to connect investing guides to the calculator system. Start with account order when the TFSA, RRSP, or FHSA decision is unclear, then use ETF, dividend, DRIP, and covered-call guides to understand what could change the result. A useful investing page should help you compare tradeoffs, check assumptions, and move to a calculator or source-linked guide before making a real contribution.
+            Revisit the path when your time horizon, income, account room, risk tolerance, or cash needs change.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            {[
+              { label: "TFSA hub", href: "/topics/tfsa" },
+              { label: "Dividend hub", href: "/topics/dividends" },
+              { label: "Account decision tool", href: "/tools/account-decision-tool" },
+            ].map((item) => (
+              <SurfaceTrackedLink
+                key={item.href}
+                to={item.href}
+                eventName="investing_archive_click"
+                ctaLabel={item.label.toLowerCase().replace(/[^a-z0-9]+/g, "_")}
+                trackingParams={{ section: "archive_how_to_use", destination_type: item.href.startsWith("/tools") ? "tool" : "hub" }}
+                className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+              >
+                {item.label}
+              </SurfaceTrackedLink>
+            ))}
+          </div>
+        </section>
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div className="space-y-8">
             {guides.map((section) => (

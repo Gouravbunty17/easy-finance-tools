@@ -441,6 +441,18 @@ export default function InvestmentFitFramework() {
       href: '/tools/fhsa-calculator',
       ctaLabel: 'investment_fit_fhsa_calculator',
     },
+    {
+      title: 'Compare TFSA, RRSP, and FHSA account fit',
+      body: 'Use the account-priority guide when the investment decision depends on deduction value, flexibility, or first-home rules.',
+      href: '/blog/tfsa-vs-rrsp-vs-fhsa-canada',
+      ctaLabel: 'investment_fit_account_priority_guide',
+    },
+    {
+      title: 'Review covered-call ETF tax caveats',
+      body: 'Use the covered-call tax guide when yield, return of capital, or taxable-account reporting may change the after-tax result.',
+      href: '/blog/covered-call-etf-taxes-canada',
+      ctaLabel: 'investment_fit_covered_call_tax_guide',
+    },
   ];
 
   return (

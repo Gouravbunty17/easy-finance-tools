@@ -85,6 +85,12 @@ const COMMON_MISTAKES = [
 
 const INTERNAL_LINKS = [
   {
+    href: '/topics/tfsa',
+    title: 'Start from the TFSA hub',
+    body: 'Use the hub to connect this income goal with contribution room, withdrawals, account priority, and common TFSA mistakes.',
+    ctaLabel: 'open_tfsa_hub_from_500_tfsa_income',
+  },
+  {
     href: '/tools/dividend-calculator',
     title: 'Use the dividend calculator',
     body: 'Model capital, yield, monthly income, DRIP, and contribution scenarios before choosing an ETF strategy.',

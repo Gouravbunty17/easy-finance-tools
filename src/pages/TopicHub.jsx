@@ -160,6 +160,29 @@ export default function TopicHub() {
             </div>
           </section>
 
+          <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">Before you act</p>
+            <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the hub as a decision map, not a final answer</h2>
+            <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
+              The useful pattern is to start with the decision, run the calculator that matches it, then verify the official rule or record before moving money. For {hub.label.toLowerCase()} planning, that usually means checking the relevant government source, your own account history, current rates or fees, and any personal constraints the simplified examples cannot see.
+            </p>
+            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+              If one assumption does most of the work, treat the result as fragile. Change the timeline, rate, tax bracket, contribution room, income need, or withdrawal plan and compare the next path before acting.
+              A good hub should make those checks easier to find, not replace the judgement needed for a personal decision.
+            </p>
+            <div className="mt-5 grid gap-3 md:grid-cols-3">
+              {[
+                'Confirm the official rule, limit, or eligibility test that applies to the decision.',
+                'Compare the calculator output against your own records, timeline, cash needs, and risk tolerance.',
+                'Use the next guide or tool below only after the current assumption still makes sense.',
+              ].map((item) => (
+                <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm leading-7 text-slate-700 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </section>
+
           <LinkGrid title={`${hub.label} calculators and tools`} items={hub.calculators} cta="Use tool" />
           <HubCardList eyebrow="Who this helps" title={`${hub.label} planning situations`} items={hub.audience} />
           <HubCardList eyebrow="Key decisions" title={`Questions to answer before using a ${hub.label}`} items={hub.keyDecisions} />

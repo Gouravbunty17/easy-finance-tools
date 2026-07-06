@@ -81,10 +81,65 @@ function getDecisionToolTopic(article) {
   return "tfsa";
 }
 
+function getTopicHubLink(article) {
+  const text = `${article.slug} ${article.category} ${article.title}`.toLowerCase();
+  if (text.includes("mortgage") || text.includes("rent-vs-buy")) {
+    return {
+      type: "Hub",
+      label: "Mortgage hub",
+      href: "/topics/mortgages",
+      body: "Move upward to the mortgage planning hub for affordability, payments, rent-vs-buy, and prepayment decisions.",
+    };
+  }
+  if (text.includes("cpp") || text.includes("oas") || text.includes("retirement") || text.includes("fire")) {
+    return {
+      type: "Hub",
+      label: "Retirement hub",
+      href: "/topics/retirement",
+      body: "Connect this guide with RRSP, CPP, OAS, FIRE, and retirement-income planning.",
+    };
+  }
+  if (text.includes("dividend") || text.includes("drip") || text.includes("yield") || text.includes("covered-call") || text.includes("covered call")) {
+    return {
+      type: "Hub",
+      label: "Dividend investing hub",
+      href: "/topics/dividends",
+      body: "Use the dividend hub for income targets, DRIP, covered calls, tax location, and yield-risk context.",
+    };
+  }
+  if (text.includes("fhsa") || text.includes("first-home") || text.includes("down payment")) {
+    return {
+      type: "Hub",
+      label: "FHSA hub",
+      href: "/topics/fhsa",
+      body: "Review FHSA eligibility, contribution room, withdrawals, transfers, and first-home account tradeoffs.",
+    };
+  }
+  if (text.includes("rrsp") && !text.includes("tfsa")) {
+    return {
+      type: "Hub",
+      label: "RRSP hub",
+      href: "/topics/rrsp",
+      body: "Review RRSP deductions, refund use, retirement tax assumptions, and account-priority tradeoffs.",
+    };
+  }
+  if (text.includes("tfsa")) {
+    return {
+      type: "Hub",
+      label: "TFSA hub",
+      href: "/topics/tfsa",
+      body: "Use the TFSA hub for room, withdrawals, account priority, investing mistakes, and CRA source checks.",
+    };
+  }
+
+  return null;
+}
+
 function getBalancedRelatedContent(article) {
   const related = article.related || [];
   const calculator = related.find((item) => item.href?.startsWith("/tools/"));
   const guides = related.filter((item) => item.href?.startsWith("/blog/") || item.href?.startsWith("/topics/"));
+  const topicHub = getTopicHubLink(article);
   const fallbackCalculator = {
     type: "Calculator",
     label: "Account Decision Tool",
@@ -106,7 +161,8 @@ function getBalancedRelatedContent(article) {
     },
   ];
 
-  return [calculator || fallbackCalculator, ...guides, ...fallbackGuides]
+  return [calculator || fallbackCalculator, topicHub, ...guides, ...fallbackGuides]
+    .filter(Boolean)
     .filter((item, index, list) => list.findIndex((candidate) => candidate.href === item.href) === index)
     .slice(0, 3)
     .map((item) => ({

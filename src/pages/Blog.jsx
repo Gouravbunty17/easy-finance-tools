@@ -280,6 +280,14 @@ const posts = [
     excerpt: "Learn how DRIPs work in Canada, including synthetic brokerage DRIPs, compounding examples, taxable-account reporting, adjusted cost base, and common mistakes.",
   },
   {
+    slug: "500-month-tfsa-income-canada",
+    title: "$500/Month TFSA Income Strategy Canada 2026",
+    date: "2026-05-05",
+    category: "TFSA",
+    readTime: "11 min",
+    excerpt: "Estimate how much capital a Canadian TFSA may need to target $500/month of income, with yield sensitivity, DRIP context, and TFSA room cautions.",
+  },
+  {
     slug: "tfsa-contribution-room-canada-2026",
     title: "TFSA Contribution Room Canada 2026: Limit, Rules & Common Mistakes",
     date: "2026-04-29",
