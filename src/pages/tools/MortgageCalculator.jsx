@@ -652,7 +652,7 @@ export default function MortgageCalculator() {
         assumptions={[
           'Fixed-rate mortgage math is converted to an effective monthly rate using a semi-annual compounding convention.',
           'Mortgage insurance is estimated using a simplified premium schedule and is only applied when the down payment is below 20% and the purchase is within insurable limits.',
-          'Closing costs include provincial land transfer tax, a default legal/title estimate, and a home-inspection placeholder. Municipal transfer taxes and rebates are not modeled here.',
+          'Closing costs include provincial land transfer tax, a default legal/title estimate, and a basic home-inspection estimate. Municipal transfer taxes and rebates are not modeled here.',
           'The stress-test comparison uses the greater of the contract rate plus 2% or the 5.25% minimum qualifying rate.',
         ]}
         sources={[

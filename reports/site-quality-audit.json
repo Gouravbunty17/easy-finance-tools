@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T07:08:29.112Z",
+  "generatedAt": "2026-07-06T10:09:32.357Z",
   "routeCount": 129,
   "indexableRouteCount": 84,
   "noindexRouteCount": 45,
@@ -2003,7 +2003,7 @@
       "canonical": "https://easyfinancetools.com/tools/mortgage-calculator",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 2772,
+      "wordCount": 2773,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -7693,7 +7693,7 @@
   ],
   "largestAssets": [
     {
-      "file": "index-5epifG6p.js",
+      "file": "index-SRVkgeZn.js",
       "sizeKb": 234.5
     },
     {
@@ -7709,19 +7709,19 @@
       "sizeKb": 73.6
     },
     {
-      "file": "Blog-CrveqfF_.js",
+      "file": "Blog-DmJGMSaP.js",
       "sizeKb": 44.5
     },
     {
-      "file": "DividendCalculator-rpVR1K0S.js",
+      "file": "DividendCalculator-BqnVyyaa.js",
       "sizeKb": 44.3
     },
     {
-      "file": "InvestingGuideArticlePage-BR8f0cI6.js",
+      "file": "InvestingGuideArticlePage-BiDUgEyv.js",
       "sizeKb": 41.4
     },
     {
-      "file": "TopicHub-BqDdLiOt.js",
+      "file": "TopicHub-aUtEAKid.js",
       "sizeKb": 40.5
     }
   ]
