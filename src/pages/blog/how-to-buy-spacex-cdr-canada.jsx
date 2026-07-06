@@ -279,10 +279,10 @@ const article = {
       body: "Compare TFSA, RRSP, FHSA, and taxable account tradeoffs.",
     },
     {
-      type: "Tools",
-      label: "All calculators",
-      href: "/tools",
-      body: "Use planning tools before turning a headline into a trade.",
+      type: "Tool",
+      label: "Investment Fit Framework",
+      href: "/tools/investment-fit-framework",
+      body: "Stress-test concentration, currency, timeline, and account-location fit before using a CDR.",
     },
   ],
   pathway: {
@@ -303,7 +303,7 @@ const article = {
       {
         title: "Set the account and size",
         body: "Choose the account and maximum position size before entering an order.",
-        href: "/tools/account-decision-tool",
+        href: "/tools/investment-fit-framework",
       },
     ],
   },

@@ -1,6 +1,10 @@
 import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import ToolPageSchema from '../../components/ToolPageSchema';
+import MethodologyPanel from '../../components/MethodologyPanel';
+import OfficialSourceNote from '../../components/OfficialSourceNote';
+import CalculatorDecisionCheck from '../../components/CalculatorDecisionCheck';
 import { Doughnut, Bar, Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS, ArcElement, BarElement, LineElement,
@@ -123,12 +127,18 @@ export default function InvestmentTracker() {
 
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-primary dark:text-accent mb-2">
-          📊 Net Worth Calculator
+          Net Worth Calculator
         </h1>
         <p className="text-gray-600 dark:text-gray-300">
           Track every asset and liability to see your true net worth — and project where you'll be in {projectionYears} years.
         </p>
       </div>
+      <OfficialSourceNote
+        title="Source check for net-worth benchmarks"
+        body="Benchmark tables are context only. Compare your own records with official household wealth data and avoid treating a median as a personal target."
+        sources={[{ label: "Statistics Canada: Survey of Financial Security", href: "https://www23.statcan.gc.ca/imdb/p2SV.pl?Function=getSurvey&SDDS=2620" }]}
+      />
+      <CalculatorDecisionCheck className="mb-8" />
 
       {/* Net worth hero */}
       <div className={`rounded-2xl p-8 mb-8 text-center ${calc.netWorth >= 0
@@ -535,6 +545,34 @@ export default function InvestmentTracker() {
           </div>
         </div>
       )}
+
+      <MethodologyPanel
+        title="Methodology and assumptions"
+        points={[
+          "Net worth is calculated as total entered assets minus total entered liabilities.",
+          "Projection scenarios apply a single annual growth assumption to the current net-worth snapshot.",
+          "Benchmarks are broad household context and do not adjust for location, family size, pensions, business ownership, or housing market differences.",
+          "Inputs are handled in the current browser session and should be checked against your own account statements before acting.",
+        ]}
+        note="Use this page as a balance-sheet snapshot, then compare the next decision against budget, debt, and account-priority tools."
+      />
+
+      <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related guides and tools</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Next net-worth decision</h2>
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          {[
+            { label: "Budget tracker", href: "/tools/budget-tracker", body: "Find the monthly cash flow that changes this balance sheet." },
+            { label: "Account decision tool", href: "/tools/account-decision-tool", body: "Decide whether the next dollar belongs in TFSA, RRSP, or FHSA." },
+            { label: "Compound interest calculator", href: "/tools/compound-interest-calculator", body: "Stress-test how contributions and return assumptions affect long-term growth." },
+          ].map((item) => (
+            <Link key={item.href} to={item.href} className="rounded-xl border border-slate-200 p-4 transition hover:border-secondary hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-900/60">
+              <span className="font-semibold text-primary dark:text-accent">{item.label}</span>
+              <span className="mt-2 block text-sm leading-6 text-slate-600 dark:text-slate-300">{item.body}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       {/* FAQ */}
       <div className="mt-12 space-y-4">

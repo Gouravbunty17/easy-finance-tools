@@ -268,10 +268,10 @@ const article = {
   ],
   related: [
     {
-      type: "Calculator",
-      label: "Account Decision Tool",
-      href: "/tools/account-decision-tool",
-      body: "Compare account containers before choosing where to hold an investment.",
+      type: "Tool",
+      label: "Investment Fit Framework",
+      href: "/tools/investment-fit-framework",
+      body: "Check account location, concentration, currency exposure, and time-horizon fit before using a CDR.",
     },
     {
       type: "Guide",
@@ -292,10 +292,10 @@ const article = {
       body: "Review account priority before placing a single-stock position.",
     },
     {
-      type: "Tools",
-      label: "All calculators",
-      href: "/tools",
-      body: "Use the broader calculator library for portfolio and account planning.",
+      type: "Calculator",
+      label: "Account Decision Tool",
+      href: "/tools/account-decision-tool",
+      body: "Compare TFSA, RRSP, FHSA, and taxable account containers before choosing where to hold an investment.",
     },
   ],
   pathway: {

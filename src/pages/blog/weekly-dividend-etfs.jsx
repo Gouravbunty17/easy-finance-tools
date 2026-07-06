@@ -382,7 +382,7 @@ export default function WeeklyDividendETFs() {
         />
 
         <ReferenceSection
-          eyebrow="Source shell"
+          eyebrow="Source review"
           title="Where to verify the payout story before you buy"
           intro="Weekly income products deserve more verification than a normal broad-market ETF. Use these source categories before relying on a headline yield or payout schedule."
           references={referenceCards}

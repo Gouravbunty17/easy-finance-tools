@@ -18,6 +18,7 @@ import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
+import CalculatorDecisionCheck from '../../components/CalculatorDecisionCheck';
 import {
   CONTENT_LAST_REVIEWED,
   DEFAULT_ASSUMPTIONS,
@@ -61,10 +62,6 @@ function formatCurrency(value, digits = 0) {
     maximumFractionDigits: digits,
     minimumFractionDigits: digits,
   });
-}
-
-function formatPercent(value, digits = 1) {
-  return `${Number(value || 0).toFixed(digits)}%`;
 }
 
 function MetricCard({ label, value, hint, tone = 'default' }) {
@@ -299,6 +296,7 @@ export default function RentVsBuyCalculator() {
           <div className="mt-6">
             <EducationalDisclaimer />
           </div>
+          <CalculatorDecisionCheck className="mt-4" />
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <MetricCard
@@ -450,7 +448,7 @@ export default function RentVsBuyCalculator() {
       />
 
       <ReferenceSection
-        title="Source and reference shell"
+        title="Sources and limitations"
         intro="Before using this result for a major decision or publishing related content, verify the assumptions that move the answer the most."
         references={[
           {

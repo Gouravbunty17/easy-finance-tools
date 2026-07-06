@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
@@ -10,6 +9,7 @@ import ToolByline from "../../components/ToolByline";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import InlineSourceTrust from "../../components/InlineSourceTrust";
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from "../../components/ToolTrustBlocks";
+import CalculatorDecisionCheck from "../../components/CalculatorDecisionCheck";
 import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
@@ -266,6 +266,7 @@ export default function IncomeTaxCalculator() {
             note="Federal/provincial tax rates and payroll deductions should be verified with CRA before filing or making tax decisions."
             sources={[taxOfficialSources[0], taxOfficialSources[1]]}
           />
+          <CalculatorDecisionCheck className="my-4" />
 
           <div className="grid gap-4 lg:grid-cols-3">
             <WhyThisToolExists>

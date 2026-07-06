@@ -454,7 +454,7 @@ export default function FHSACalculatorCanada2026() {
         />
 
         <ReferenceSection
-          eyebrow="Source shell"
+          eyebrow="Source review"
           title="Primary references to refresh when FHSA rules change"
           intro="If FHSA limits, carry-forward rules, or qualifying-withdrawal guidance change, update the local constants and then re-check these sources before republishing the page."
           references={[

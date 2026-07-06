@@ -391,7 +391,7 @@ export default function TFSAvsRRSPCanada2026() {
         />
 
         <ReferenceSection
-          eyebrow="Source shell"
+          eyebrow="Source review"
           title="Primary references to refresh when TFSA or RRSP limits change"
           intro="If 2026 limits, CRA wording, or room-calculation rules change, update this page after re-checking the primary references below."
           references={[

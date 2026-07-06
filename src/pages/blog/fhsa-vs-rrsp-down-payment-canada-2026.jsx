@@ -406,7 +406,7 @@ export default function FHSAvsRRSPDownPaymentCanada2026() {
         />
 
         <ReferenceSection
-          eyebrow="Source shell"
+          eyebrow="Source review"
           title="Primary references to refresh when FHSA or HBP rules change"
           intro="If FHSA limits, Home Buyers Plan limits, or repayment wording change, update the comparison page after re-checking these primary sources."
           references={[

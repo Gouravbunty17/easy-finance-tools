@@ -280,7 +280,7 @@ export default function HowToStartInvestingCanada2026() {
         />
 
         <ReferenceSection
-          eyebrow="Source shell"
+          eyebrow="Source review"
           title="Primary references to refresh when beginner account rules change"
           intro="If TFSA, RRSP, or FHSA rules change, refresh this page after updating the main account constants and re-checking the primary references below."
           references={[

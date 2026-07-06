@@ -8,6 +8,7 @@ import ToolPageSchema from "../../components/ToolPageSchema";
 import OfficialSourceNote from "../../components/OfficialSourceNote";
 import InlineSourceTrust from "../../components/InlineSourceTrust";
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from "../../components/ToolTrustBlocks";
+import CalculatorDecisionCheck from "../../components/CalculatorDecisionCheck";
 import { Bar, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -166,6 +167,7 @@ export default function CPPOASEstimator() {
         body="CPP and OAS estimates should be checked against Service Canada and Government of Canada records before retirement-income decisions."
         sources={retirementOfficialSources}
       />
+      <CalculatorDecisionCheck className="mb-8" />
 
       <div className="mb-8">
         <h1 className="mb-2 text-3xl font-bold text-primary dark:text-accent">CPP and OAS Estimator</h1>

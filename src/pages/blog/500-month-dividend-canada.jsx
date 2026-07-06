@@ -277,9 +277,9 @@ export default function FiveHundredMonthDividendCanada() {
         />
 
         <ReferenceSection
-          eyebrow="Source shell"
+          eyebrow="Source review"
           title="Primary references to refresh when dividend assumptions change"
-          intro="If the sample ETF yields, account guidance, or planning assumptions change, refresh this page after re-checking the references below."
+          intro="If the illustrative ETF yields, account guidance, or planning assumptions change, refresh this page after re-checking the references below."
           references={[
             {
               label: 'CRA: Tax-Free Savings Account',
@@ -291,7 +291,7 @@ export default function FiveHundredMonthDividendCanada() {
               body: 'Refresh any yield, distribution-frequency, or product commentary against the latest issuer materials before updating the table.',
             },
             {
-              label: 'Local ETF sample data',
+              label: 'Local illustrative ETF data',
               body: 'The illustrative ETF rows on this page are maintained in src/config/financial.js so the article and calculator stay aligned.',
             },
           ]}

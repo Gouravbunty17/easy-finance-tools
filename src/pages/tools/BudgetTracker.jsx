@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { Doughnut, Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS, ArcElement, BarElement, CategoryScale,
@@ -7,6 +8,9 @@ import {
 import SEO from "../../components/SEO";
 import ToolPageSchema from "../../components/ToolPageSchema";
 import FAQ from "../../components/FAQ";
+import MethodologyPanel from "../../components/MethodologyPanel";
+import OfficialSourceNote from "../../components/OfficialSourceNote";
+import CalculatorDecisionCheck from "../../components/CalculatorDecisionCheck";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -137,6 +141,12 @@ export default function BudgetTracker() {
         <h1 className="text-4xl font-bold text-primary dark:text-accent mb-2">Budget Tracker</h1>
         <p className="text-gray-600 dark:text-gray-300">Track your monthly spending, see where your money goes, and optimize your savings rate.</p>
       </div>
+      <OfficialSourceNote
+        title="Source check for budget planning"
+        body="Budget ratios and emergency-fund targets are planning aids. Compare the result with official FCAC budgeting guidance before treating it as a household plan."
+        sources={[{ label: "FCAC: Making a budget", href: "https://www.canada.ca/en/financial-consumer-agency/services/make-budget.html" }]}
+      />
+      <CalculatorDecisionCheck className="mb-6" />
 
       {/* Income input */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 mb-6">
@@ -486,6 +496,34 @@ export default function BudgetTracker() {
           </div>
         </div>
       )}
+
+      <MethodologyPanel
+        title="Methodology and assumptions"
+        points={[
+          "Monthly income is normalized from the pay-period selected on the page.",
+          "Expense categories are added into needs, wants, savings, and debt-style planning buckets.",
+          "Emergency-fund targets use one, three, and six months of entered expenses as simple planning ranges.",
+          "The calculator does not connect to bank accounts, verify statements, or store calculator inputs.",
+        ]}
+        note="Use the output as a planning conversation starter, then compare it with your actual bank statements and recurring bills."
+      />
+
+      <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related guides and tools</p>
+        <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Next budget decision</h2>
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          {[
+            { label: "Emergency fund guide", href: "/blog/emergency-fund-canada", body: "Turn the monthly expense number into a realistic cash buffer." },
+            { label: "Debt payoff calculator", href: "/tools/debt-payoff", body: "Compare whether surplus cash should attack high-interest balances first." },
+            { label: "Savings goal calculator", href: "/tools/savings-goal", body: "Translate monthly surplus into a timeline for a specific goal." },
+          ].map((item) => (
+            <Link key={item.href} to={item.href} className="rounded-xl border border-slate-200 p-4 transition hover:border-secondary hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-900/60">
+              <span className="font-semibold text-primary dark:text-accent">{item.label}</span>
+              <span className="mt-2 block text-sm leading-6 text-slate-600 dark:text-slate-300">{item.body}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       <div className="mt-12">
         <FAQ items={FAQS} />

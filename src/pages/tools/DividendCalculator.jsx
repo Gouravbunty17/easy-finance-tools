@@ -1186,13 +1186,13 @@ export default function DividendCalculator() {
       />
 
       <ReferenceSection
-        eyebrow="Source shell"
+        eyebrow="Source review"
         title="What should be refreshed when ETF data changes"
         intro="The ETF table is intentionally easy to maintain. Refresh the local ETF data object, then re-check the rest of the page against these reference points."
         references={[
           {
             label: 'Local ETF data object',
-            body: 'Update sample yields, MERs, growth assumptions, and fit notes in src/config/financial.js when your shortlist changes.',
+            body: 'Update planning yields, MERs, growth assumptions, and fit notes in src/config/financial.js when your shortlist changes.',
           },
           {
             label: 'Provider factsheets and ETF pages',

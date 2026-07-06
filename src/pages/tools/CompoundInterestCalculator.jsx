@@ -24,6 +24,7 @@ import CalculatorResultGuidance from "../../components/CalculatorResultGuidance"
 import RelatedContent from "../../components/RelatedContent";
 import ContributorReviewBox from "../../components/ContributorReviewBox";
 import SourceVerificationBlock from "../../components/SourceVerificationBlock";
+import CalculatorDecisionCheck from "../../components/CalculatorDecisionCheck";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -203,6 +204,7 @@ export default function CompoundInterestCalculator() {
             checked={["Compounding assumptions", "Fee and inflation caveats", "Related registered-account links", "No guaranteed-return wording"]}
             limitations={["Returns are smoothed and do not model market volatility.", "The projection does not calculate tax differences between TFSA, RRSP, FHSA, and taxable accounts."]}
           />
+          <CalculatorDecisionCheck className="mt-4" />
 
           <div className="mt-6 rounded-3xl border border-blue-100 bg-blue-50 p-5 dark:border-blue-900/60 dark:bg-blue-950/30">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Quick answer</p>

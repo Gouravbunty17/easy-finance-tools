@@ -3,30 +3,24 @@ import SEO from '../../components/SEO';
 import FAQ from '../../components/FAQ';
 import FAQSchema from '../../components/FAQSchema';
 import MethodologyPanel from '../../components/MethodologyPanel';
-import OfficialSourceNote from '../../components/OfficialSourceNote';
 import CalculatorCaseStudy from '../../components/CalculatorCaseStudy';
 import ToolPageSchema from '../../components/ToolPageSchema';
 import ToolByline from '../../components/ToolByline';
 import ResultInterpretation from '../../components/ResultInterpretation';
 import WatchOutBox from '../../components/WatchOutBox';
 import NextStepLinks from '../../components/NextStepLinks';
-import RelatedTools from '../../components/RelatedTools';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import PrivacyNote from '../../components/PrivacyNote';
-import ReferenceSection from '../../components/ReferenceSection';
 import SourceList from '../../components/SourceList';
 import ResultInsightCard from '../../components/ResultInsightCard';
 import OptimizationTips from '../../components/OptimizationTips';
 import ImportantConsiderations from '../../components/ImportantConsiderations';
 import ScenarioBreakdown from '../../components/ScenarioBreakdown';
 import DecisionFramework from '../../components/DecisionFramework';
-import InlineSourceTrust from '../../components/InlineSourceTrust';
-import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
 import CalculatorResultGuidance from '../../components/CalculatorResultGuidance';
 import RelatedContent from '../../components/RelatedContent';
 import ContributorReviewBox from '../../components/ContributorReviewBox';
 import SourceVerificationBlock from '../../components/SourceVerificationBlock';
-import YouTubeSupportSection from '../../components/YouTubeSupportSection';
 import LazyLineChart from '../../components/LazyLineChart';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
@@ -282,10 +276,6 @@ export default function TFSACalculator() {
           <div className="mt-6">
             <EducationalDisclaimer />
             <PrivacyNote className="mt-4" />
-            <OfficialSourceNote
-              body="TFSA contribution room and withdrawal timing should be checked against CRA before making a real contribution."
-              sources={[tfsaOfficialSources[0], tfsaOfficialSources[1]]}
-            />
             <ContributorReviewBox className="mt-4" />
             <SourceVerificationBlock
               className="mt-4"
@@ -293,13 +283,6 @@ export default function TFSACalculator() {
               sources={[tfsaOfficialSources[0], tfsaOfficialSources[1], tfsaOfficialSources[2]]}
               checked={["2026 TFSA annual limit context", "Withdrawal and recontribution timing", "Overcontribution caveats", "Result guidance and related links"]}
               limitations={["CRA My Account and your own records remain the final source for personal TFSA room.", "The projection does not model market volatility or product-specific risk."]}
-            />
-            <YouTubeSupportSection
-              className="mt-4"
-              videoTitle="TFSA contribution room and growth explained"
-              videoDescription="Future video support can explain contribution room, withdrawals, CRA room lag, and tax-free growth without autoplay."
-              calculatorLinks={[{ label: 'TFSA contribution room calculator', href: '/blog/tfsa-contribution-room-calculator' }, { label: 'Account Decision Tool', href: '/tools/account-decision-tool' }]}
-              guideLinks={[{ label: 'TFSA withdrawal rules', href: '/blog/tfsa-withdrawal-rules-canada-2026' }, { label: 'TFSA overcontribution penalties', href: '/blog/tfsa-overcontribution-penalties-canada' }]}
             />
           </div>
 
@@ -323,12 +306,6 @@ export default function TFSACalculator() {
               tone="warning"
             />
           </div>
-
-          <InlineSourceTrust
-            label="2026 TFSA limit source"
-            note="The annual limit and withdrawal-room timing referenced in this result are sourced from CRA TFSA guidance."
-            sources={[tfsaOfficialSources[0], tfsaOfficialSources[1]]}
-          />
 
           <div className="mt-6 grid gap-4 lg:grid-cols-3">
             <WhyThisToolExists>
@@ -388,23 +365,6 @@ export default function TFSACalculator() {
                 },
               ]}
             />
-            <CalculatorResultTrustPanel
-              assumptions={[
-                `TFSA room is estimated from eligibility year ${result.eligibleYear}, accrued room, lifetime contributions, and restored withdrawals entered here.`,
-                `Growth uses a ${expectedReturn}% annual return assumption over ${years} years.`,
-                `Next-year room assumes the ${FINANCIAL_YEAR} annual TFSA limit remains ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.tfsaAnnualLimit)}.`,
-              ]}
-              caveats={[
-                'CRA records can lag recent deposits, withdrawals, and transfers.',
-                'Same-year re-contributions can create excess TFSA amounts if other unused room is not available.',
-                'Tax-free growth does not reduce the investment risk of the holdings you choose.',
-              ]}
-              sources={[tfsaOfficialSources[0], tfsaOfficialSources[1], tfsaOfficialSources[2]]}
-              nextLinks={[
-                { label: 'Read the TFSA contribution room guide', href: '/blog/tfsa-contribution-room-canada-2026' },
-                { label: 'Compare TFSA, RRSP, and FHSA priority', href: '/tools/account-decision-tool' },
-              ]}
-            />
             <CalculatorResultGuidance
               whatThisResultMeans={`This result may help you compare TFSA room safety and tax-free growth before deciding whether the next ${formatCurrency(asNumber(annualContribution))} belongs in a TFSA, RRSP, or FHSA.`}
               assumptions={[
@@ -438,14 +398,6 @@ export default function TFSACalculator() {
                 'CRA My Account can lag recent deposits, withdrawals, and transfers. Keep your own TFSA records.',
                 'TFSA rules can change yearly, and overcontributions can trigger a 1% monthly tax on the excess.',
                 'A tax-free account does not make a risky investment safer or a high yield more sustainable.',
-              ]}
-            />
-            <RelatedTools
-              trackingContext="tfsa_result_related"
-              tools={[
-                { title: 'Account Decision Tool', href: '/tools/account-decision-tool', body: 'Compare whether TFSA, RRSP, or FHSA should receive the next contribution.' },
-                { title: 'RRSP Calculator', href: '/tools/rrsp-calculator', body: 'Test whether the deduction and refund assumptions are strong enough to beat TFSA flexibility.' },
-                { title: 'TFSA contribution room guide', href: '/blog/tfsa-contribution-room-canada-2026', body: 'Review contribution-room rules, withdrawals, and common CRA timing mistakes.' },
               ]}
             />
             <NextStepLinks
@@ -823,34 +775,6 @@ export default function TFSACalculator() {
         title="Official TFSA sources to verify"
         intro="Use these CRA references to confirm contribution room, withdrawal timing, and excess-contribution rules before making a real TFSA contribution."
         sources={tfsaOfficialSources}
-      />
-
-      <ReferenceSection
-        eyebrow="Source shell"
-        title="Primary references to refresh when TFSA rules change"
-        intro="When annual limits or CRA guidance change, update the shared finance config first, then re-check these sources."
-        references={[
-          {
-            label: 'CRA TFSA overview',
-            body: 'Primary source for annual limits, withdrawals, and general TFSA eligibility rules.',
-            href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account.html',
-          },
-          {
-            label: 'CRA TFSA contributions page',
-            body: 'Use this to verify room rules, contribution timing, and over-contribution treatment.',
-            href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/contributions.html',
-          },
-          {
-            label: 'CRA excess TFSA tax guidance',
-            body: 'Important when the scenario involves same-year re-contributions or possible excess amounts.',
-            href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/tax-payable-tfsa.html',
-          },
-          {
-            label: 'Local config to update',
-            body: 'Refresh TFSA annual limits and assumptions in src/config/financial.js when the new tax year is known.',
-          },
-        ]}
-        note="Manual review needed each year: confirm TFSA annual limits, any CRA guidance updates, and related account-comparison content."
       />
 
       <FAQ includeSchema={false} items={TFSA_FAQS} />

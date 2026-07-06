@@ -7,6 +7,7 @@ import OfficialSourceNote from '../../components/OfficialSourceNote';
 import InlineSourceTrust from '../../components/InlineSourceTrust';
 import SurfaceTrackedLink from '../../components/SurfaceTrackedLink';
 import ProgressiveDisclosure from '../../components/ProgressiveDisclosure';
+import CalculatorDecisionCheck from '../../components/CalculatorDecisionCheck';
 import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   dividendTaxOfficialSources,
@@ -258,10 +259,6 @@ const guideSections = [
     body: 'Security ratings require valuation, filings analysis, personal objectives, and suitability review. This page intentionally stops before that line. It helps organize Canadian planning context, then sends readers to official sources, fund documents, filings, and qualified professionals for personal decisions.',
   },
 ];
-
-function optionLabel(groupId, value) {
-  return inputGroups.find((group) => group.id === groupId)?.options.find(([optionValue]) => optionValue === value)?.[1] || value;
-}
 
 function buildResult(inputs) {
   const shortTimeline = inputs.horizon === 'under-2' || inputs.horizon === '2-5';
@@ -527,6 +524,7 @@ export default function InvestmentFitFramework() {
                 note="Registered-account and investment-income rules should be checked against CRA guidance before making personal decisions."
                 sources={[tfsaOfficialSources[0], dividendTaxOfficialSources[0]]}
               />
+              <CalculatorDecisionCheck className="mt-4" />
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">

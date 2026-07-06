@@ -7,6 +7,7 @@ import SourceNote from "./SourceNote";
 import CalculatorResultGuidance from "./CalculatorResultGuidance";
 import RelatedContent from "./RelatedContent";
 import MobileCalculateBar from "./MobileCalculateBar";
+import CalculatorDecisionCheck from "./CalculatorDecisionCheck";
 
 export function fmtCAD(value, options = {}) {
   return Number(value || 0).toLocaleString("en-CA", {
@@ -87,6 +88,7 @@ export default function CalculatorLayout({
             />
           </div>
           <div className="mt-8">{children}</div>
+          <CalculatorDecisionCheck className="mt-8" />
         </div>
 
         <aside id="calculator-results" className="scroll-mt-24 space-y-4 lg:sticky lg:top-24 lg:self-start">

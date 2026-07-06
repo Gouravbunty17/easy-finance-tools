@@ -18,12 +18,13 @@ import ToolByline from '../../components/ToolByline';
 import ActionableNextSteps from '../../components/ActionableNextSteps';
 import EducationalDisclaimer from '../../components/EducationalDisclaimer';
 import ReferenceSection from '../../components/ReferenceSection';
+import CalculatorDecisionCheck from '../../components/CalculatorDecisionCheck';
 import {
   CONTENT_LAST_REVIEWED,
   DATA_SNAPSHOT_LABEL,
   DEFAULT_ASSUMPTIONS,
   GIC_COMPOUNDING_OPTIONS,
-  GIC_SAMPLE_PRODUCTS,
+  GIC_PLANNING_SCENARIOS,
   getGicMaturityValue,
 } from '../../config/financial';
 
@@ -223,6 +224,7 @@ export default function GICCalculator() {
           <div className="mt-6">
             <EducationalDisclaimer />
           </div>
+          <CalculatorDecisionCheck className="mt-4" />
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <MetricCard label="Maturity value" value={formatCurrency(result.maturityValue)} hint={`${term} year term at ${formatPercent(rate)}.`} tone="primary" />
@@ -245,7 +247,7 @@ export default function GICCalculator() {
               <table className="min-w-full text-left text-sm">
                 <thead className="bg-slate-50 dark:bg-slate-900/60">
                   <tr>
-                    <th className="px-4 py-3 font-semibold text-slate-600 dark:text-slate-300">Example</th>
+                    <th className="px-4 py-3 font-semibold text-slate-600 dark:text-slate-300">Planning scenario</th>
                     <th className="px-4 py-3 font-semibold text-slate-600 dark:text-slate-300">Rate</th>
                     <th className="px-4 py-3 font-semibold text-slate-600 dark:text-slate-300">Term</th>
                     <th className="px-4 py-3 font-semibold text-slate-600 dark:text-slate-300">Why it matters</th>
@@ -253,7 +255,7 @@ export default function GICCalculator() {
                   </tr>
                 </thead>
                 <tbody>
-                  {GIC_SAMPLE_PRODUCTS.map((product) => (
+                  {GIC_PLANNING_SCENARIOS.map((product) => (
                     <tr key={product.id} className="border-t border-slate-100 dark:border-slate-700">
                       <td className="px-4 py-3">
                         <p className="font-semibold text-slate-700 dark:text-slate-200">{product.label}</p>
@@ -427,7 +429,7 @@ export default function GICCalculator() {
       />
 
       <ReferenceSection
-        title="Source and reference shell"
+        title="Sources and limitations"
         intro="Use these checks before turning the example row into a real deposit decision or a published content update."
         references={[
           {

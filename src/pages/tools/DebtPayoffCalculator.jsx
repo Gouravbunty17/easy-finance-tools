@@ -4,6 +4,7 @@ import SEO from "../../components/SEO";
 import FAQ from "../../components/FAQ";
 import MethodologyPanel from "../../components/MethodologyPanel";
 import ToolPageSchema from "../../components/ToolPageSchema";
+import CalculatorDecisionCheck from "../../components/CalculatorDecisionCheck";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -126,6 +127,7 @@ export default function DebtPayoffCalculator() {
           Compare avalanche and snowball repayment strategies for Canadian credit cards, lines of credit, loans, and other balances. This calculator is for people who want a clear payoff order, a monthly payment target, and an estimate of interest saved without treating the result as financial advice.
         </p>
       </div>
+      <CalculatorDecisionCheck className="mb-8" />
 
       <div className="mb-6 space-y-3">
         {debts.map((debt) => (

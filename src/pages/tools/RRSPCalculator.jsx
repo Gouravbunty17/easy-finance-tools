@@ -831,7 +831,7 @@ export default function RRSPCalculator() {
       />
 
       <ReferenceSection
-        eyebrow="Source shell"
+        eyebrow="Source review"
         title="Primary references to refresh when RRSP rules change"
         intro="When annual RRSP limits or deduction-deadline details change, update the shared finance config first, then re-check these sources."
         references={[

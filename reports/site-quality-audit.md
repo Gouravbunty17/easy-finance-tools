@@ -1,6 +1,6 @@
 # EasyFinanceTools Site Quality Audit
 
-Generated: 2026-07-06T05:51:40.393Z
+Generated: 2026-07-06T07:08:29.110Z
 
 ## Executive Summary
 
@@ -103,14 +103,14 @@ This static audit does not replace Lighthouse field or lab testing. It checks th
 
 | Largest built asset |Size KB |
 | --- |--- |
-| index-B6KpocO4.js |234.4 |
+| index-5epifG6p.js |234.5 |
 | chart-BtZhsaeM.js |202.8 |
-| index-C6gKtNPW.css |94.9 |
+| index-Dpr_0Mw3.css |95 |
 | decisionSupportArticles-iWGLvogy.js |73.6 |
-| Blog-ipJBE8MJ.js |44.5 |
-| DividendCalculator-DcdasK5r.js |44.2 |
-| InvestingGuideArticlePage-Cm2VX8nj.js |41.4 |
-| TopicHub-Dd0l0mC3.js |40.5 |
+| Blog-CrveqfF_.js |44.5 |
+| DividendCalculator-rpVR1K0S.js |44.3 |
+| InvestingGuideArticlePage-BR8f0cI6.js |41.4 |
+| TopicHub-BqDdLiOt.js |40.5 |
 
 Recommended CWV follow-up: run mobile Lighthouse on `/`, `/tools`, `/tools/account-decision-tool`, `/tools/tfsa-calculator`, and the top Canadian Investing Accounts article after deployment. Focus on unused JS, image dimensions, lazy loading, and route-level chunking before changing content.
 

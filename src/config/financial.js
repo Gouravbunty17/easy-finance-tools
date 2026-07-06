@@ -158,10 +158,10 @@ export const GIC_COMPOUNDING_OPTIONS = [
   { label: 'Monthly', value: 12 },
 ];
 
-export const GIC_SAMPLE_PRODUCTS = [
+export const GIC_PLANNING_SCENARIOS = [
   { id: 'eq-1yr', label: 'EQ 1-year', issuer: 'EQ Bank', rate: 3.75, term: 1, frequency: 2, notes: 'Short-term parking for a near-term goal.' },
   { id: 'oaken-2yr', label: 'Oaken 2-year', issuer: 'Oaken Financial', rate: 4.1, term: 2, frequency: 2, notes: 'Useful when you want more yield without a very long lock-up.' },
-  { id: 'steinbach-3yr', label: 'Steinbach 3-year', issuer: 'Steinbach Credit Union', rate: 4.25, term: 3, frequency: 2, notes: 'Example of a longer term that can reward patience.' },
+  { id: 'steinbach-3yr', label: 'Steinbach 3-year', issuer: 'Steinbach Credit Union', rate: 4.25, term: 3, frequency: 2, notes: 'Longer terms can reward patience, but they reduce flexibility.' },
   { id: 'big-bank-1yr', label: 'Big bank 1-year', issuer: 'Illustrative major bank', rate: 2.5, term: 1, frequency: 2, notes: 'Helpful reminder that convenience and rate are often a tradeoff.' },
 ];
 

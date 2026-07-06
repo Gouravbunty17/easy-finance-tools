@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T05:51:40.398Z",
+  "generatedAt": "2026-07-06T07:08:29.112Z",
   "routeCount": 129,
   "indexableRouteCount": 84,
   "noindexRouteCount": 45,
@@ -1345,7 +1345,7 @@
       "canonical": "https://easyfinancetools.com/tools/income-tax-calculator",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 1272,
+      "wordCount": 1494,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -1402,7 +1402,7 @@
       "canonical": "https://easyfinancetools.com/tools/compound-interest-calculator",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 2634,
+      "wordCount": 2856,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -1450,7 +1450,7 @@
         "/tools/savings-goal",
         "/tools/tfsa-calculator"
       ],
-      "inboundLinks": 27,
+      "inboundLinks": 28,
       "critical": [],
       "warnings": [],
       "opportunities": []
@@ -1526,7 +1526,7 @@
       "canonical": "https://easyfinancetools.com/tools/investment-fit-framework",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 2338,
+      "wordCount": 2560,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -1569,7 +1569,7 @@
         "/tools/rrsp-calculator",
         "/tools/tfsa-calculator"
       ],
-      "inboundLinks": 10,
+      "inboundLinks": 12,
       "critical": [],
       "warnings": [],
       "opportunities": []
@@ -1645,7 +1645,7 @@
       "canonical": "https://easyfinancetools.com/tools/tfsa-calculator",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 3194,
+      "wordCount": 2773,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -1670,13 +1670,9 @@
         "/about",
         "/affiliate-disclosure",
         "/blog",
-        "/blog/tfsa-contribution-room-calculator",
-        "/blog/tfsa-contribution-room-canada-2026",
-        "/blog/tfsa-overcontribution-penalties-canada",
         "/blog/tfsa-vs-rrsp-canada-2026",
         "/blog/tfsa-vs-rrsp-vs-fhsa-canada",
         "/blog/tfsa-withdrawal-recontribution-rules-canada",
-        "/blog/tfsa-withdrawal-rules-canada-2026",
         "/contact",
         "/corrections",
         "/disclaimer",
@@ -1708,7 +1704,7 @@
       "canonical": "https://easyfinancetools.com/tools/rrsp-calculator",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 3304,
+      "wordCount": 3243,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -1832,7 +1828,7 @@
       "canonical": "https://easyfinancetools.com/tools/budget-tracker",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 415,
+      "wordCount": 775,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -1857,6 +1853,7 @@
         "/about",
         "/affiliate-disclosure",
         "/blog",
+        "/blog/emergency-fund-canada",
         "/contact",
         "/corrections",
         "/disclaimer",
@@ -1867,11 +1864,13 @@
         "/terms",
         "/tools",
         "/tools/account-decision-tool",
+        "/tools/debt-payoff",
         "/tools/dividend-calculator",
         "/tools/rrsp-calculator",
+        "/tools/savings-goal",
         "/tools/tfsa-calculator"
       ],
-      "inboundLinks": 4,
+      "inboundLinks": 5,
       "critical": [],
       "warnings": [],
       "opportunities": []
@@ -1888,7 +1887,7 @@
       "canonical": "https://easyfinancetools.com/tools/investment-tracker",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 627,
+      "wordCount": 987,
       "schemaTypes": [
         "BreadcrumbList",
         "ContactPoint",
@@ -1920,6 +1919,8 @@
         "/terms",
         "/tools",
         "/tools/account-decision-tool",
+        "/tools/budget-tracker",
+        "/tools/compound-interest-calculator",
         "/tools/dividend-calculator",
         "/tools/rrsp-calculator",
         "/tools/tfsa-calculator"
@@ -1941,7 +1942,7 @@
       "canonical": "https://easyfinancetools.com/tools/fhsa-calculator",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 2582,
+      "wordCount": 2739,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2002,7 +2003,7 @@
       "canonical": "https://easyfinancetools.com/tools/mortgage-calculator",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 2550,
+      "wordCount": 2772,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2063,7 +2064,7 @@
       "canonical": "https://easyfinancetools.com/tools/rent-vs-buy",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 1410,
+      "wordCount": 1631,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2122,7 +2123,7 @@
       "canonical": "https://easyfinancetools.com/tools/capital-gains-tax",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 1186,
+      "wordCount": 1408,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2181,7 +2182,7 @@
       "canonical": "https://easyfinancetools.com/tools/cpp-oas-estimator",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 1061,
+      "wordCount": 1283,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2299,7 +2300,7 @@
       "canonical": "https://easyfinancetools.com/tools/tip-calculator",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 601,
+      "wordCount": 823,
       "schemaTypes": [
         "BreadcrumbList",
         "ContactPoint",
@@ -2355,7 +2356,7 @@
       "canonical": "https://easyfinancetools.com/tools/gst-hst-calculator",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 1143,
+      "wordCount": 1365,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2416,7 +2417,7 @@
       "canonical": "https://easyfinancetools.com/tools/salary-to-hourly-calculator",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 1156,
+      "wordCount": 1378,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2477,7 +2478,7 @@
       "canonical": "https://easyfinancetools.com/tools/cad-usd-converter",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 1042,
+      "wordCount": 1264,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2538,7 +2539,7 @@
       "canonical": "https://easyfinancetools.com/tools/inflation-calculator",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 979,
+      "wordCount": 1201,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2599,7 +2600,7 @@
       "canonical": "https://easyfinancetools.com/tools/mortgage-affordability-calculator",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 2234,
+      "wordCount": 2455,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2661,7 +2662,7 @@
       "canonical": "https://easyfinancetools.com/tools/gic-calculator",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 1390,
+      "wordCount": 1612,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2719,7 +2720,7 @@
       "canonical": "https://easyfinancetools.com/tools/debt-payoff",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 1048,
+      "wordCount": 1270,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2762,7 +2763,7 @@
         "/tools/savings-goal",
         "/tools/tfsa-calculator"
       ],
-      "inboundLinks": 3,
+      "inboundLinks": 4,
       "critical": [],
       "warnings": [],
       "opportunities": []
@@ -2779,7 +2780,7 @@
       "canonical": "https://easyfinancetools.com/tools/savings-goal",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 1116,
+      "wordCount": 1338,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -2821,7 +2822,7 @@
         "/tools/rrsp-calculator",
         "/tools/tfsa-calculator"
       ],
-      "inboundLinks": 8,
+      "inboundLinks": 9,
       "critical": [],
       "warnings": [],
       "opportunities": []
@@ -2838,7 +2839,7 @@
       "canonical": "https://easyfinancetools.com/tools/net-pay-calculator",
       "robots": "noindex,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 1183,
+      "wordCount": 1405,
       "schemaTypes": [
         "Answer",
         "BreadcrumbList",
@@ -3407,7 +3408,7 @@
         "/tools/tfsa-calculator",
         "/topics/tfsa"
       ],
-      "inboundLinks": 16,
+      "inboundLinks": 15,
       "critical": [],
       "warnings": [],
       "opportunities": []
@@ -3424,7 +3425,7 @@
       "canonical": "https://easyfinancetools.com/blog/tfsa-contribution-room-calculator",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 2025,
+      "wordCount": 1970,
       "schemaTypes": [
         "Answer",
         "Article",
@@ -3465,7 +3466,7 @@
         "/tools/rrsp-calculator",
         "/tools/tfsa-calculator"
       ],
-      "inboundLinks": 7,
+      "inboundLinks": 5,
       "critical": [],
       "warnings": [],
       "opportunities": [
@@ -3525,7 +3526,7 @@
         "/tools/tfsa-calculator",
         "/topics/tfsa"
       ],
-      "inboundLinks": 6,
+      "inboundLinks": 5,
       "critical": [],
       "warnings": [],
       "opportunities": []
@@ -3584,7 +3585,7 @@
         "/tools/tfsa-calculator",
         "/topics/tfsa"
       ],
-      "inboundLinks": 4,
+      "inboundLinks": 3,
       "critical": [],
       "warnings": [],
       "opportunities": []
@@ -3762,7 +3763,7 @@
         "/tools/tfsa-calculator",
         "/topics/fhsa"
       ],
-      "inboundLinks": 8,
+      "inboundLinks": 7,
       "critical": [],
       "warnings": [],
       "opportunities": []
@@ -3779,7 +3780,7 @@
       "canonical": "https://easyfinancetools.com/blog/tfsa-vs-rrsp-vs-fhsa-canada",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 2745,
+      "wordCount": 2661,
       "schemaTypes": [
         "Answer",
         "Article",
@@ -3804,8 +3805,6 @@
         "/about",
         "/affiliate-disclosure",
         "/blog",
-        "/blog/fhsa-rules-canada-2026",
-        "/blog/tfsa-contribution-room-calculator",
         "/blog/tfsa-vs-rrsp-canada-2026",
         "/contact",
         "/corrections",
@@ -5329,7 +5328,7 @@
         "/tools/savings-goal",
         "/tools/tfsa-calculator"
       ],
-      "inboundLinks": 3,
+      "inboundLinks": 4,
       "critical": [],
       "warnings": [],
       "opportunities": [
@@ -6185,7 +6184,7 @@
       "canonical": "https://easyfinancetools.com/blog/what-are-cdrs-canada",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 3635,
+      "wordCount": 3638,
       "schemaTypes": [
         "Answer",
         "Article",
@@ -6224,6 +6223,7 @@
         "/tools",
         "/tools/account-decision-tool",
         "/tools/dividend-calculator",
+        "/tools/investment-fit-framework",
         "/tools/rrsp-calculator",
         "/tools/tfsa-calculator"
       ],
@@ -6285,6 +6285,7 @@
         "/tools",
         "/tools/account-decision-tool",
         "/tools/dividend-calculator",
+        "/tools/investment-fit-framework",
         "/tools/rrsp-calculator",
         "/tools/tfsa-calculator"
       ],
@@ -7692,35 +7693,35 @@
   ],
   "largestAssets": [
     {
-      "file": "index-B6KpocO4.js",
-      "sizeKb": 234.4
+      "file": "index-5epifG6p.js",
+      "sizeKb": 234.5
     },
     {
       "file": "chart-BtZhsaeM.js",
       "sizeKb": 202.8
     },
     {
-      "file": "index-C6gKtNPW.css",
-      "sizeKb": 94.9
+      "file": "index-Dpr_0Mw3.css",
+      "sizeKb": 95
     },
     {
       "file": "decisionSupportArticles-iWGLvogy.js",
       "sizeKb": 73.6
     },
     {
-      "file": "Blog-ipJBE8MJ.js",
+      "file": "Blog-CrveqfF_.js",
       "sizeKb": 44.5
     },
     {
-      "file": "DividendCalculator-DcdasK5r.js",
-      "sizeKb": 44.2
+      "file": "DividendCalculator-rpVR1K0S.js",
+      "sizeKb": 44.3
     },
     {
-      "file": "InvestingGuideArticlePage-Cm2VX8nj.js",
+      "file": "InvestingGuideArticlePage-BR8f0cI6.js",
       "sizeKb": 41.4
     },
     {
-      "file": "TopicHub-Dd0l0mC3.js",
+      "file": "TopicHub-BqDdLiOt.js",
       "sizeKb": 40.5
     }
   ]

@@ -9,6 +9,7 @@ import OfficialSourceNote from "../../components/OfficialSourceNote";
 import CalculatorCaseStudy from "../../components/CalculatorCaseStudy";
 import InlineSourceTrust from "../../components/InlineSourceTrust";
 import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from "../../components/ToolTrustBlocks";
+import CalculatorDecisionCheck from "../../components/CalculatorDecisionCheck";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
@@ -179,6 +180,7 @@ export default function CapitalGainsTaxCalculator() {
         body="Capital-gains inclusion rules, loss use, and registered-account treatment can change. Check CRA guidance before treating this as a filing number."
         sources={[dividendTaxOfficialSources[2], taxOfficialSources[0]]}
       />
+      <CalculatorDecisionCheck className="mb-8" />
 
       <div className="mb-8 grid gap-4 md:grid-cols-3">
         {[

@@ -29,6 +29,7 @@ import CalculatorResultGuidance from '../../components/CalculatorResultGuidance'
 import RelatedContent from '../../components/RelatedContent';
 import ContributorReviewBox from '../../components/ContributorReviewBox';
 import SourceVerificationBlock from '../../components/SourceVerificationBlock';
+import CalculatorDecisionCheck from '../../components/CalculatorDecisionCheck';
 import { StressTestYourInputs, WhatCanBreakThisEstimate, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
@@ -337,6 +338,7 @@ export default function MortgageCalculator() {
               checked={["Mortgage payment and stress-test caveats", "CMHC insurance source reference", "Closing-cost limitation wording", "Related affordability links"]}
               limitations={["Final approval depends on lender underwriting, credit profile, property details, and current product rules.", "The calculator does not replace a lender quote, mortgage broker review, or legal closing-cost statement."]}
             />
+            <CalculatorDecisionCheck className="mt-4" />
           </div>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -668,7 +670,7 @@ export default function MortgageCalculator() {
       />
 
       <ReferenceSection
-        title="Source and review shell"
+        title="Sources and review notes"
         intro="These are the first places to verify if you are using the result for a real purchase decision or a content update."
         references={[
           {

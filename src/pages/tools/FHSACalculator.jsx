@@ -32,6 +32,7 @@ import CalculatorResultGuidance from '../../components/CalculatorResultGuidance'
 import RelatedContent from '../../components/RelatedContent';
 import ContributorReviewBox from '../../components/ContributorReviewBox';
 import SourceVerificationBlock from '../../components/SourceVerificationBlock';
+import CalculatorDecisionCheck from '../../components/CalculatorDecisionCheck';
 import YouTubeSupportSection from '../../components/YouTubeSupportSection';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
@@ -195,6 +196,7 @@ export default function FHSACalculator() {
               checked={["FHSA eligibility source references", "Annual and lifetime room caveats", "Qualifying withdrawal limitations", "Home-purchase timeline warnings"]}
               limitations={["First-time home buyer status and qualifying withdrawal rules must be verified before acting.", "The projection does not determine whether a volatile investment fits a short home timeline."]}
             />
+            <CalculatorDecisionCheck className="mt-4" />
             <YouTubeSupportSection
               className="mt-4"
               videoTitle="FHSA tax savings and first-home rules explained"
@@ -648,7 +650,7 @@ export default function FHSACalculator() {
       />
 
       <ReferenceSection
-        eyebrow="Source shell"
+        eyebrow="Source review"
         title="Primary references to refresh when FHSA rules change"
         intro="This section is meant to keep the page maintainable. When limits, age rules, or qualifying-withdrawal rules change, refresh the constants file and then re-check these sources."
         references={[

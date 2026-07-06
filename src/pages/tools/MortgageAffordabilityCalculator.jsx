@@ -29,6 +29,7 @@ import PrivacyNote from '../../components/PrivacyNote';
 import CalculatorResultTrustPanel from '../../components/CalculatorResultTrustPanel';
 import CalculatorResultGuidance from '../../components/CalculatorResultGuidance';
 import RelatedContent from '../../components/RelatedContent';
+import CalculatorDecisionCheck from '../../components/CalculatorDecisionCheck';
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from '../../components/ToolTrustBlocks';
 import {
   CONTENT_LAST_REVIEWED,
@@ -266,6 +267,7 @@ export default function MortgageAffordabilityCalculator() {
             body="Mortgage qualification depends on stress-test rules, lender underwriting, insured-mortgage requirements, and borrower details. Verify against official consumer and regulator guidance."
             sources={mortgageOfficialSources}
           />
+          <CalculatorDecisionCheck className="mt-4" />
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <MetricCard
@@ -602,7 +604,7 @@ export default function MortgageAffordabilityCalculator() {
       />
 
       <ReferenceSection
-        title="Source and reference shell"
+        title="Sources and limitations"
         intro="Use these checkpoints when you want to turn the estimate into a real pre-approval conversation or a production content update."
         references={[
           {
