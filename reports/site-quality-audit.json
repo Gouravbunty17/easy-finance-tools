@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-06T10:09:32.357Z",
+  "generatedAt": "2026-07-12T07:02:44.354Z",
   "routeCount": 129,
   "indexableRouteCount": 84,
   "noindexRouteCount": 45,
@@ -32,7 +32,7 @@
       "canonical": "https://easyfinancetools.com/",
       "robots": "index,follow,max-image-preview:large",
       "h1Count": 1,
-      "wordCount": 1041,
+      "wordCount": 1894,
       "schemaTypes": [
         "Answer",
         "ContactPoint",
@@ -7693,15 +7693,15 @@
   ],
   "largestAssets": [
     {
-      "file": "index-SRVkgeZn.js",
-      "sizeKb": 234.5
+      "file": "index-DjurUBIf.js",
+      "sizeKb": 243
     },
     {
       "file": "chart-BtZhsaeM.js",
       "sizeKb": 202.8
     },
     {
-      "file": "index-Dpr_0Mw3.css",
+      "file": "index-DE7tQuMM.css",
       "sizeKb": 95
     },
     {
@@ -7709,19 +7709,19 @@
       "sizeKb": 73.6
     },
     {
-      "file": "Blog-DmJGMSaP.js",
+      "file": "Blog-75J5sQ0X.js",
       "sizeKb": 44.5
     },
     {
-      "file": "DividendCalculator-BqnVyyaa.js",
+      "file": "DividendCalculator-Ds2KQcxZ.js",
       "sizeKb": 44.3
     },
     {
-      "file": "InvestingGuideArticlePage-BiDUgEyv.js",
+      "file": "InvestingGuideArticlePage-DV256pQy.js",
       "sizeKb": 41.4
     },
     {
-      "file": "TopicHub-aUtEAKid.js",
+      "file": "TopicHub-BGCFqHzz.js",
       "sizeKb": 40.5
     }
   ]

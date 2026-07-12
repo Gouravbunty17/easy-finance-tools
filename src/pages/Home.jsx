@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import SurfaceTrackedLink from '../components/SurfaceTrackedLink';
 import FAQSchema from '../components/FAQSchema';
@@ -6,6 +7,7 @@ import ProgressiveDisclosure from '../components/ProgressiveDisclosure';
 import DecisionFramework from '../components/DecisionFramework';
 import TrustStrip from '../components/TrustStrip';
 import AffiliateDisclosureBox from '../components/AffiliateDisclosureBox';
+import PageDisclaimer from '../components/PageDisclaimer';
 
 function IconBase({ children, className = '', ...props }) {
   return (
@@ -249,6 +251,82 @@ function SectionHeader({ eyebrow, title, body }) {
   );
 }
 
+function HomepageAccountFramework() {
+  return (
+    <section className="border-b border-slate-100 bg-white px-4 py-16 dark:border-slate-800 dark:bg-gray-950 md:py-20">
+      <div className="mx-auto max-w-6xl">
+        {/* Evergreen homepage account-framework content. Review every 6–12 months against current CRA and cross-border tax rules. */}
+        <div className="max-w-4xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">Canadian investing account framework</p>
+          <h2 className="mt-3 text-3xl font-bold leading-tight text-primary dark:text-accent md:text-4xl">
+            How to think about Canadian investing accounts
+          </h2>
+          <div className="mt-6 space-y-5 text-base leading-8 text-slate-700 dark:text-slate-300">
+            <p>
+              Most Canadian investing questions are not really about investments. They are about accounts. Before anyone should compare ETFs or debate dividend stocks, there is an earlier decision that matters more: which account the money goes into. The same $10,000 can grow tax-free, tax-deferred, or fully taxed depending entirely on whether it sits in a TFSA, an RRSP, an FHSA, or a regular non-registered account. Getting that choice right is usually worth more than picking a slightly better fund.
+            </p>
+            <p>
+              The problem is that most information about these accounts comes from institutions that sell them. A bank&apos;s TFSA page will explain what a TFSA is, but it will rarely explain that U.S. dividend-paying investments can be less tax-efficient in a TFSA because of unrecoverable U.S. withholding tax on dividends. An RRSP page will promote the tax deduction without dwelling on the repayment obligations of the Home Buyers&apos; Plan, or what withdrawals do to your taxable income in retirement. The information is accurate but incomplete, because the institution&apos;s goal is an opened account, not necessarily the right one.
+            </p>
+            <p>
+              This site exists to handle that earlier decision honestly. Every calculator and guide here is built around the same question: given your situation, which account should this money go into, and what are the tradeoffs you are accepting?
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+          <div className="max-w-4xl space-y-10">
+            <section aria-labelledby="account-version-heading">
+              <h3 id="account-version-heading" className="text-2xl font-bold text-primary dark:text-accent">The one-paragraph version of each account</h3>
+              <p className="mt-4 text-base leading-8 text-slate-700 dark:text-slate-300">
+                A TFSA shelters growth and withdrawals from Canadian tax, making it the default choice for many people&apos;s first investing dollars, with the important limitation that U.S. dividend income may still be subject to unrecoverable U.S. withholding tax. The <Link to="/tools/tfsa-calculator" className="font-semibold text-primary underline underline-offset-4 dark:text-emerald-300">TFSA calculator</Link> can help test room, withdrawals, and growth assumptions. An RRSP gives you a tax deduction now in exchange for taxable withdrawals later, which generally makes it more valuable when your marginal tax rate at contribution is higher than it will be when the money is withdrawn. An FHSA combines a contribution deduction with tax-free qualifying withdrawals for a first home purchase, making it especially valuable for eligible people who realistically expect to buy a home. A non-registered account has no comparable tax shelter, but it also has fewer contribution and withdrawal restrictions, and usually becomes more relevant after registered-account room has been used.
+              </p>
+            </section>
+
+            <section aria-labelledby="account-order-heading">
+              <h3 id="account-order-heading" className="text-2xl font-bold text-primary dark:text-accent">The order most people should think in</h3>
+              <p className="mt-4 text-base leading-8 text-slate-700 dark:text-slate-300">
+                For many eligible first-time home buyers, a useful starting framework is FHSA first, TFSA second, RRSP third, because FHSA room is limited, the TFSA remains flexible for other goals, and the value of an RRSP deduction depends heavily on the contributor&apos;s current and future tax rates. The <Link to="/tools/fhsa-calculator" className="font-semibold text-primary underline underline-offset-4 dark:text-emerald-300">FHSA calculator</Link> helps test the first-home side of that decision. For someone who already owns a home, the framework often begins with a TFSA and then adds RRSP contributions when the available tax deduction becomes sufficiently valuable. These are starting points, not universal rules; the <Link to="/blog/tfsa-vs-rrsp-vs-fhsa-canada" className="font-semibold text-primary underline underline-offset-4 dark:text-emerald-300">TFSA vs RRSP vs FHSA guide</Link> explains how the order can change.
+              </p>
+            </section>
+
+            <section aria-labelledby="calculator-difference-heading">
+              <h3 id="calculator-difference-heading" className="text-2xl font-bold text-primary dark:text-accent">What the calculators here do differently</h3>
+              <p className="mt-4 text-base leading-8 text-slate-700 dark:text-slate-300">
+                Every tool on this site is built for Canadian rules specifically: CRA contribution limits, federal and provincial tax brackets, withholding-tax treatment, and program details such as Home Buyers&apos; Plan repayment requirements. The results are educational estimates, not financial advice, and each calculator explains its assumptions and links to the official source material it relies on, so users can verify the rules rather than simply take the result at face value. If the account order is still unclear, start with the <Link to="/tools/account-decision-tool" className="font-semibold text-primary underline underline-offset-4 dark:text-emerald-300">Account Decision Tool</Link>.
+              </p>
+            </section>
+
+            <aside className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-sm leading-7 text-emerald-950 dark:border-emerald-800/70 dark:bg-emerald-950/20 dark:text-emerald-100" aria-label="Our approach">
+              <p className="font-bold text-primary dark:text-accent">Our approach</p>
+              <p className="mt-2">
+                Every tool on EasyFinanceTools follows the same four-step framework: Tradeoff → Calculation → Context → Action. The goal is not simply to produce a number; it is to help users understand what that number means and how it fits into a financial decision.
+              </p>
+            </aside>
+
+            <section aria-labelledby="founder-skepticism-heading">
+              <h3 id="founder-skepticism-heading" className="text-2xl font-bold text-primary dark:text-accent">Who runs this, and why you should be skeptical</h3>
+              <p className="mt-4 text-base leading-8 text-slate-700 dark:text-slate-300">
+                EasyFinanceTools is independently built and maintained by Gourav Kumar, a programmer based in the Greater Toronto Area (GTA), Canada, with a strong interest in investing and financial education. Gourav is not a licensed financial advisor, accountant, or tax professional. It is not owned by a bank, brokerage, or investment fund. That independence is the point: the site does not earn a commission merely because one registered account is presented as more suitable than another. But it also means users should treat every calculator and guide as a framework to verify, not a final answer. Where the site earns referral fees, those relationships are clearly disclosed and should not change the account or strategy conclusions presented. For decisions involving significant money, users should consider consulting a qualified professional who can assess their complete circumstances.
+              </p>
+              <p className="mt-4 text-base leading-8 text-slate-700 dark:text-slate-300">
+                If you&apos;re ready to apply these ideas, start with the calculator that matches your decision.
+              </p>
+            </section>
+          </div>
+
+          <aside className="h-fit rounded-3xl border border-slate-200 bg-slate-50 p-5 text-sm leading-7 text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">Decision-first, not product-first</p>
+            <p className="mt-3">
+              Account choice affects taxes, flexibility, withdrawal timing, and what official rules need to be checked before the investment itself becomes the main question.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-white dark:bg-gray-950">
@@ -292,6 +370,28 @@ export default function Home() {
           </div>
           <TrustStrip className="mt-10 max-w-5xl bg-white/95 text-slate-900 dark:bg-slate-900/90" />
         </div>
+      </section>
+
+      <HomepageAccountFramework />
+
+      <div className="mx-auto max-w-6xl px-4 py-8">
+        <PageDisclaimer />
+      </div>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <AffiliateDisclosureBox
+          title="Wealthsimple referral link"
+          body="Referral links, where present, are shown after the educational decision context. They should not change the ordering of tools, examples, assumptions, or guidance."
+        >
+          <a
+            href="https://www.wealthsimple.com/en-ca"
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            className="inline-flex rounded-xl border border-amber-300 bg-white px-4 py-2 text-sm font-bold text-primary transition hover:border-amber-500 hover:text-secondary dark:border-amber-800 dark:bg-slate-900 dark:text-amber-100"
+          >
+            Review provider details
+          </a>
+        </AffiliateDisclosureBox>
       </section>
 
       <section id="start-with-goal" className="mx-auto max-w-6xl px-4 py-16">
@@ -389,40 +489,25 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-900">
-            <div className="flex items-start gap-3">
-              <ShieldCheckIcon className="mt-1 h-6 w-6 shrink-0 text-emerald-700 dark:text-emerald-300" aria-hidden="true" />
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Methodology and trust</p>
-                <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Quietly transparent, not overexplained</h2>
-                <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-                  Core tools are educational estimates with visible assumptions, privacy-aware calculation patterns, and official-source references where Canadian rules matter.
-                </p>
-                <div className="mt-5 flex flex-wrap gap-3">
-                  <SurfaceTrackedLink to="/methodology" eventName="homepage_trust_click" ctaLabel="methodology" trackingParams={{ section: 'trust' }} className="rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white transition hover:bg-secondary">
-                    Read methodology
-                  </SurfaceTrackedLink>
-                  <SurfaceTrackedLink to="/editorial-standards" eventName="homepage_trust_click" ctaLabel="editorial_standards" trackingParams={{ section: 'trust' }} className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-bold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:text-accent">
-                    Editorial standards
-                  </SurfaceTrackedLink>
-                </div>
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-900">
+          <div className="flex items-start gap-3">
+            <ShieldCheckIcon className="mt-1 h-6 w-6 shrink-0 text-emerald-700 dark:text-emerald-300" aria-hidden="true" />
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Methodology and trust</p>
+              <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Quietly transparent, not overexplained</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+                Core tools are educational estimates with visible assumptions, privacy-aware calculation patterns, and official-source references where Canadian rules matter.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <SurfaceTrackedLink to="/methodology" eventName="homepage_trust_click" ctaLabel="methodology" trackingParams={{ section: 'trust' }} className="rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white transition hover:bg-secondary">
+                  Read methodology
+                </SurfaceTrackedLink>
+                <SurfaceTrackedLink to="/editorial-standards" eventName="homepage_trust_click" ctaLabel="editorial_standards" trackingParams={{ section: 'trust' }} className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-bold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:text-accent">
+                  Editorial standards
+                </SurfaceTrackedLink>
               </div>
             </div>
           </div>
-          <AffiliateDisclosureBox
-            title="Subtle referral disclosure"
-            body="Referral links, where present, are shown after the educational decision context. They should not change the ordering of tools, examples, assumptions, or guidance."
-          >
-            <a
-              href="https://www.wealthsimple.com/en-ca"
-              target="_blank"
-              rel="noopener noreferrer sponsored"
-              className="inline-flex rounded-xl border border-amber-300 bg-white px-4 py-2 text-sm font-bold text-primary transition hover:border-amber-500 hover:text-secondary dark:border-amber-800 dark:bg-slate-900 dark:text-amber-100"
-            >
-              Review provider details
-            </a>
-          </AffiliateDisclosureBox>
         </div>
       </section>
 
