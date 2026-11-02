@@ -126,7 +126,7 @@ export default function CapitalGainsTaxCalculator() {
   const gainPct = purchasePriceValue > 0 ? ((gain / purchasePriceValue) * 100).toFixed(1) : 0;
 
   return (
-    <section className="mx-auto max-w-5xl px-4 py-12">
+    <section className="eft-calculator-page eft-workspace mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="Capital Gains Tax Calculator Canada 2026 | Stocks, Crypto & Property"
         description="Estimate Canadian capital gains tax for stocks, ETFs, crypto, rental property, or business shares. Compare taxable gains, tax owed, and after-tax proceeds."
@@ -322,7 +322,7 @@ export default function CapitalGainsTaxCalculator() {
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      <section className="eft-surface mt-10 p-5 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Inputs explained</p>
         <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What each capital gains input changes</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -358,7 +358,7 @@ export default function CapitalGainsTaxCalculator() {
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      <section className="eft-surface mt-10 p-5 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Common mistakes</p>
         <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Capital gains planning is sensitive to records and account type</h2>
         <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">

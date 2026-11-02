@@ -223,8 +223,8 @@ export default function MortgageAffordabilityCalculator() {
       {
         label: 'Estimated max home price',
         data: result.sensitivityValues,
-        borderColor: '#00557a',
-        backgroundColor: 'rgba(0, 85, 122, 0.12)',
+        borderColor: '#137B70',
+        backgroundColor: 'rgba(19, 123, 112, 0.12)',
         fill: true,
         tension: 0.25,
         pointRadius: 3,
@@ -233,7 +233,7 @@ export default function MortgageAffordabilityCalculator() {
   };
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-12">
+    <main className="eft-calculator-page eft-workspace mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="Mortgage Affordability Decision Tool Canada 2026"
         description="Estimate an affordable home price in Canada using stress-test rules, debt ratios, property tax, and other housing-cost assumptions for 2026 planning."
@@ -251,7 +251,7 @@ export default function MortgageAffordabilityCalculator() {
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             Home-buying qualification workflow
           </div>
-          <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">Mortgage affordability and approval-range planner</h1>
+          <h1 className="eft-display text-4xl text-primary dark:text-white md:text-5xl">Mortgage affordability and approval-range planner</h1>
           <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against lender stress-test assumptions" />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             Use this page to estimate a realistic home-price ceiling after debt ratios, property taxes, condo fees, and the mortgage stress test all have their say.
@@ -487,7 +487,7 @@ export default function MortgageAffordabilityCalculator() {
             />
           </div>
 
-          <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-10 p-5 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">2026 affordability checklist</p>
             <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the result as a planning boundary, not a spending target</h2>
             <div className="mt-6 grid gap-4 md:grid-cols-2">

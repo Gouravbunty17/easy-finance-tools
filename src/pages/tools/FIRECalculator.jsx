@@ -188,7 +188,7 @@ export default function FIRECalculator() {
   const fireNumberLine = allChartData.map(() => calc.fireNumber);
 
   return (
-    <section className="mx-auto max-w-5xl px-4 py-12">
+    <section className="eft-calculator-page eft-workspace mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="FIRE Calculator Canada 2026 | Financial Independence Number"
         description="Estimate your Canadian FIRE number, retirement age, savings rate, withdrawal rate, CPP, OAS, inflation, and portfolio drawdown scenarios."
@@ -505,7 +505,7 @@ export default function FIRECalculator() {
         limitation="This does not model exact account withdrawal order, tax brackets, health spending, insurance needs, future CPP/OAS rules, or sequence-of-returns volatility."
       />
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      <section className="eft-surface mt-10 p-5 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Inputs explained</p>
         <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What changes the FIRE number</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -541,7 +541,7 @@ export default function FIRECalculator() {
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      <section className="eft-surface mt-10 p-5 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Common mistakes</p>
         <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Small assumption errors can move the retirement date</h2>
         <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">

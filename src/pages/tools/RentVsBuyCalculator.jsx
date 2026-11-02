@@ -250,8 +250,8 @@ export default function RentVsBuyCalculator() {
       {
         label: 'Owner net worth after selling costs',
         data: result.ownerNetWorthLine,
-        borderColor: '#00557a',
-        backgroundColor: 'rgba(0, 85, 122, 0.12)',
+        borderColor: '#137B70',
+        backgroundColor: 'rgba(19, 123, 112, 0.12)',
         fill: false,
         tension: 0.3,
         pointRadius: 2,
@@ -269,7 +269,7 @@ export default function RentVsBuyCalculator() {
   };
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-12">
+    <main className="eft-calculator-page eft-workspace mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="Rent vs Buy Decision Tool Canada 2026"
         description="Compare renting and buying in Canada using mortgage costs, home appreciation, rent inflation, and invested savings assumptions for 2026 planning."
@@ -287,7 +287,7 @@ export default function RentVsBuyCalculator() {
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             Housing decision workflow
           </div>
-          <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">Rent vs buy planner for Canadian housing choices</h1>
+          <h1 className="eft-display text-4xl text-primary dark:text-white md:text-5xl">Rent vs buy planner for Canadian housing choices</h1>
           <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed for housing-assumption clarity" />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             This page compares the ownership path against a renter who invests the upfront cash and any monthly savings, so the answer is about tradeoffs and timing rather than ideology.
@@ -366,7 +366,7 @@ export default function RentVsBuyCalculator() {
             </div>
           </div>
 
-          <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-10 p-5 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">2026 rent-vs-buy checklist</p>
             <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the comparison to test your timeline, not your identity</h2>
             <div className="mt-6 grid gap-4 md:grid-cols-2">

@@ -151,7 +151,7 @@ export default function CompoundInterestCalculator() {
   };
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12">
+    <section className="eft-calculator-page eft-workspace mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="Compound Interest Calculator Canada | See Your Investment Growth"
         description="Calculate compound interest, monthly contributions, TFSA-style growth, and future value in Canada. Free calculator with fees and inflation built in."
@@ -170,7 +170,7 @@ export default function CompoundInterestCalculator() {
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             Investing and savings
           </div>
-          <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">
+          <h1 className="eft-display text-4xl text-primary dark:text-white md:text-5xl">
             Compound Interest Calculator Canada
           </h1>
           <ToolByline />
@@ -328,7 +328,7 @@ export default function CompoundInterestCalculator() {
             </div>
           </div>
 
-          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-8 p-5 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Compound interest in a TFSA</p>
             <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Why the TFSA version of the same growth plan can matter more</h2>
             <div className="mt-4 space-y-4 text-sm leading-7 text-slate-600 dark:text-slate-300">
@@ -629,7 +629,7 @@ export default function CompoundInterestCalculator() {
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      <section className="eft-surface mt-10 p-5 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">FAQ</p>
         <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Compound interest calculator questions</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
@@ -642,7 +642,7 @@ export default function CompoundInterestCalculator() {
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      <section className="eft-surface mt-10 p-5 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Related tools and guides</p>
         <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Turn the projection into a Canadian account decision</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4">

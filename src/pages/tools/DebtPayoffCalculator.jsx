@@ -108,7 +108,7 @@ export default function DebtPayoffCalculator() {
   };
 
   return (
-    <section className="mx-auto max-w-4xl px-4 py-12">
+    <section className="eft-calculator-page eft-workspace mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="Debt Payoff Calculator Canada | Avalanche vs Snowball"
         description="Compare debt payoff plans in Canada using avalanche and snowball methods. Estimate payoff time, total interest, extra payments, and priority order."
@@ -355,7 +355,7 @@ export default function DebtPayoffCalculator() {
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      <section className="eft-surface mt-10 p-5 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Inputs explained</p>
         <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What each debt input changes</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -391,7 +391,7 @@ export default function DebtPayoffCalculator() {
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      <section className="eft-surface mt-10 p-5 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Common mistakes</p>
         <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Debt payoff estimates depend on payment discipline</h2>
         <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">

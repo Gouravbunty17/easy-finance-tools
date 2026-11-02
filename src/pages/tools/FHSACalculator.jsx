@@ -156,7 +156,7 @@ export default function FHSACalculator() {
   };
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-12">
+    <main className="eft-calculator-page eft-workspace mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="FHSA Calculator Canada 2026: Tax Savings, Room & Down Payment"
         description="Estimate FHSA room, tax savings, and down-payment growth in minutes with Canadian eligibility caveats and account-comparison next steps."
@@ -175,7 +175,7 @@ export default function FHSACalculator() {
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             FHSA planning for Canadian investors
           </div>
-          <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">FHSA Calculator Canada 2026 — Tax Savings & Down-Payment Planner</h1>
+          <h1 className="eft-display text-4xl text-primary dark:text-white md:text-5xl">FHSA Calculator Canada 2026 — Tax Savings & Down-Payment Planner</h1>
           <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against CRA account rules" />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             Use this free Canadian FHSA calculator to estimate your 2026 tax savings, project the down-payment balance you can build in a First Home Savings Account, and decide whether the FHSA fits ahead of your TFSA or RRSP path. No sign-up.
@@ -245,7 +245,7 @@ export default function FHSACalculator() {
             </StressTestYourInputs>
           </div>
 
-          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-8 p-5 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Interpretation</p>
             <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What this scenario means in plain English</h2>
             <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">{result.interpretation}</p>
@@ -375,7 +375,7 @@ export default function FHSACalculator() {
             />
           </div>
 
-          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-8 p-5 sm:p-7">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Output</p>
