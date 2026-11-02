@@ -1,87 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
 import { SITEWIDE_FINANCIAL_DISCLAIMER } from "./PageDisclaimer";
 
+const columns = [
+  {title:"Explore tools",links:[["Income Tax","/tools/income-tax-calculator"],["TFSA Calculator","/tools/tfsa-calculator"],["RRSP Calculator","/tools/rrsp-calculator"],["Mortgage Calculator","/tools/mortgage-calculator"],["Portfolio Analyzer","/tools/portfolio-analyzer"],["All calculators","/tools"]]},
+  {title:"Learn & verify",links:[["Canadian guides","/blog"],["Methodology","/methodology"],["Editorial standards","/editorial-standards"],["Founder transparency","/founder-transparency"],["Corrections","/corrections"]]},
+  {title:"About & legal",links:[["About","/about"],["Contact","/contact"],["Privacy","/privacy"],["Terms","/terms"],["Affiliate disclosure","/affiliate-disclosure"],["Full disclaimer","/disclaimer"]]},
+];
 export default function Footer() {
-  return (
-    <>
-      <footer className="bg-primary text-white mt-auto">
-      <div className="max-w-5xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <p className="text-xl font-bold mb-3 text-accent">EasyFinanceTools</p>
-            <p className="text-blue-100 text-sm">
-              Canadian financial decision tools with source-linked assumptions. No sign-up required.
-            </p>
-            <p className="mt-3 text-sm text-blue-100">
-              Founder-operated by Gourav Kumar in Canada. Educational planning support only, not licensed financial advice.
-            </p>
-          </div>
-          <div>
-            <p className="font-bold mb-3 text-white">Tools</p>
-            <ul className="space-y-2 text-blue-100 text-sm">
-              <li><Link to="/tools/tfsa-calculator" className="hover:text-white">TFSA Calculator</Link></li>
-              <li><Link to="/tools/rrsp-calculator" className="hover:text-white">RRSP Calculator</Link></li>
-              <li><Link to="/tools/dividend-calculator" className="hover:text-white">Dividend Calculator</Link></li>
-              <li><Link to="/tools/account-decision-tool" className="hover:text-white">Account Decision Tool</Link></li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-bold mb-3 text-white">Company</p>
-            <ul className="space-y-2 text-blue-100 text-sm">
-              <li><Link to="/about" className="hover:text-white">About</Link></li>
-              <li><Link to="/founder-transparency" className="hover:text-white">Founder Transparency</Link></li>
-              <li><Link to="/blog" className="hover:text-white">Blog</Link></li>
-              <li><Link to="/contact" className="hover:text-white">Contact</Link></li>
-              <li><Link to="/methodology" className="hover:text-white">Methodology</Link></li>
-              <li><Link to="/editorial-standards" className="hover:text-white">Editorial Standards</Link></li>
-              <li><Link to="/affiliate-disclosure" className="hover:text-white">Affiliate Disclosure</Link></li>
-              <li><Link to="/corrections" className="hover:text-white">Corrections / Report Error</Link></li>
-              <li><Link to="/disclaimer" className="hover:text-white">Disclaimer</Link></li>
-              <li><Link to="/terms" className="hover:text-white">Terms</Link></li>
-              <li><Link to="/privacy" className="hover:text-white">Privacy Policy</Link></li>
-            </ul>
-          </div>
+  return <footer className="mt-auto bg-[#071A32] text-white" role="contentinfo">
+    <div className="mx-auto max-w-7xl px-4 pb-8 pt-14 sm:px-6 lg:px-8">
+      <div className="grid gap-10 border-b border-white/10 pb-12 lg:grid-cols-[1.25fr_2fr]">
+        <div>
+          <div className="inline-flex rounded-2xl bg-white px-4 py-3"><Logo size="md" /></div>
+          <h2 className="mt-6 max-w-xs text-[27px] font-extrabold leading-tight tracking-tight">Financial clarity starts with a better question.</h2>
+          <p className="mt-4 max-w-sm text-sm leading-7 text-slate-300">Independent, source-linked Canadian calculators and decision guides. No login required. Educational only—not licensed financial advice.</p>
+          <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#28766F] bg-[#123D42] px-3 py-2 text-xs font-semibold text-[#9CF2DE]"><span className="h-2 w-2 rounded-full bg-[#65D6BC]" />Built for Canadians</span>
         </div>
-
-        <div className="mb-8 rounded-2xl border border-blue-800 bg-white/5 p-4 text-sm text-blue-100">
-          <p className="font-semibold text-white">Financial disclaimer</p>
-          <p className="mt-2">
-            {SITEWIDE_FINANCIAL_DISCLAIMER}
-          </p>
-          <p className="mt-2">
-            Tool outputs are educational estimates based on current assumptions, published limits, and visible methodology on each calculator page. We do not store calculator inputs in our database or use them for newsletter targeting. Some pages may contain referral links, and any partner relationship should be disclosed near the relevant callout.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <Link to="/methodology" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
-              Read methodology
-            </Link>
-            <Link to="/founder-transparency" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
-              Founder transparency
-            </Link>
-            <Link to="/editorial-standards" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
-              Editorial standards
-            </Link>
-            <Link to="/affiliate-disclosure" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
-              Affiliate disclosure
-            </Link>
-            <Link to="/corrections" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
-              Corrections / report error
-            </Link>
-            <Link to="/disclaimer" className="rounded-lg border border-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
-              Full disclaimer
-            </Link>
-          </div>
-        </div>
-
-        <div className="border-t border-blue-800 pt-6 text-center text-blue-100 text-sm">
-          <p>Copyright 2026 EasyFinanceTools. All rights reserved.</p>
-          <p className="mt-1">Built in Canada for Canadian savers, investors, and households.</p>
-          <p className="mt-1">Independent Canadian finance tools and education, with assumptions and sources shown where they matter.</p>
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+          {columns.map(column=><nav key={column.title} aria-label={column.title}>
+            <h3 className="text-xs font-extrabold uppercase tracking-[.15em] text-[#6DDFC8]">{column.title}</h3>
+            <ul className="mt-5 space-y-3">{column.links.map(([name,to])=><li key={to}><Link to={to} className="text-sm text-slate-300 transition hover:text-white hover:underline hover:underline-offset-4">{name}</Link></li>)}</ul>
+          </nav>)}
         </div>
       </div>
-    </footer>
-    </>
-  );
+      <div className="mt-7 rounded-2xl border border-white/10 bg-white/[.04] p-5 text-xs leading-6 text-slate-300">
+        <p className="mb-2 font-bold text-white">Important financial disclaimer</p>
+        <p>{SITEWIDE_FINANCIAL_DISCLAIMER}</p>
+        <p className="mt-2">The calculators use simplified assumptions and can be wrong for your circumstances. Verify tax, account, eligibility and lender rules with the relevant authority. Referral links, if present, are disclosed near the offer.</p>
+      </div>
+      <div className="mt-7 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row sm:justify-between">
+        <span>© 2026 EasyFinanceTools. All rights reserved.</span>
+        <span>Independently developed in Canada · Privacy-conscious planning</span>
+      </div>
+    </div>
+  </footer>;
 }
-

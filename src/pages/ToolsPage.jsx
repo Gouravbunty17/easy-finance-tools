@@ -242,7 +242,7 @@ export default function ToolsPage() {
   const count = visibleCategories.reduce((sum, category) => sum + category.tools.length, 0);
 
   return (
-    <main className="bg-white dark:bg-gray-950" aria-labelledby="tools-page-title">
+    <main className="eft-shell" aria-labelledby="tools-page-title">
       <SEO
         title="Canadian Finance Tools by Decision | EasyFinanceTools"
         description="Browse Canadian TFSA, RRSP, FHSA, dividend, mortgage, retirement, tax, and account decision tools organized by financial goal. No login required."
@@ -250,14 +250,14 @@ export default function ToolsPage() {
       />
       <FAQSchema faqs={toolHubFaqs} />
 
-      <section className="border-b border-slate-200 bg-slate-950 px-4 py-16 text-white dark:border-slate-800">
+      <section className="eft-hero px-4 py-14 text-white md:py-[76px]">
         <div className="mx-auto max-w-6xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-200">Decision tool library</p>
-          <h1 id="tools-page-title" className="mt-3 max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
-            Canadian finance tools organized by the decision they support
+          <span className="eft-hero-badge">THE CANADIAN TOOL LIBRARY</span>
+          <h1 id="tools-page-title" className="eft-display mt-5 max-w-4xl text-4xl text-white md:text-[58px]">
+            Every money question. One clear starting point.
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-blue-100">
-            Choose a goal, run the relevant calculator, then follow the next educational step only when it clarifies the tradeoff.
+            Pick a goal, open a calculator, and understand the assumptions behind your result. No account, no sales pressure, just Canadian financial planning tools.
           </p>
           <TrustStrip className="mt-8 max-w-5xl bg-white/95 text-slate-900 dark:bg-slate-900/90" />
         </div>
@@ -278,7 +278,7 @@ export default function ToolsPage() {
                     eventName="tools_goal_router_click"
                     ctaLabel={`goal_${slug(item.title)}`}
                     trackingParams={{ section: "tools_goal_router", destination_type: "tool" }}
-                    className="group rounded-2xl border border-slate-200 bg-slate-50 p-4 transition hover:-translate-y-0.5 hover:border-emerald-300 hover:bg-white hover:shadow-sm dark:border-slate-700 dark:bg-slate-900"
+                    className="eft-tool-card group p-4"
                   >
                     <Icon className="h-5 w-5 text-emerald-700 dark:text-emerald-300" aria-hidden="true" />
                     <span className="mt-3 block font-bold text-primary dark:text-accent">{item.title}</span>
@@ -293,14 +293,14 @@ export default function ToolsPage() {
           </div>
         </div>
 
-        <div className="mt-10 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-900">
+        <div className="eft-surface mt-10 p-4 sm:p-5">
           <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto]">
             <input
               type="search"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Search TFSA, RRSP, dividend, mortgage, retirement..."
-              className="focus-ring w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder-slate-400 dark:border-slate-700 dark:bg-gray-800 dark:text-white"
+              className="focus-ring w-full rounded-2xl border  px-4 py-3 text-sm text-slate-900 placeholder-slate-400 dark:border-slate-700 dark:bg-gray-800 dark:text-white"
               aria-label="Search Canadian finance tools"
             />
             <div role="status" aria-live="polite" className="rounded-2xl bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
@@ -347,8 +347,8 @@ export default function ToolsPage() {
                       eventName="tools_card_click"
                       ctaLabel={`tool_${slug(tool.name)}`}
                       trackingParams={{ section: "categorized_tools", tool_category: category.title, destination_type: "tool" }}
-                      className={`group rounded-3xl border p-5 transition hover:-translate-y-1 hover:border-emerald-300 hover:shadow-lg dark:border-slate-700 dark:bg-gray-900 ${
-                        tool.muted ? "border-dashed border-slate-300 bg-slate-50/70" : "border-slate-200 bg-white"
+                      className={`eft-tool-card group p-5 sm:p-6 ${
+                        tool.muted ? "!border-dashed !bg-slate-50/70" : "border-slate-200 bg-white"
                       }`}
                     >
                       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -361,9 +361,9 @@ export default function ToolsPage() {
                           {tool.status}
                         </span>
                       </div>
-                      <p className="mt-4 text-sm font-semibold text-slate-700 dark:text-slate-200">Who it helps</p>
+                      <p className="mt-4 text-xs font-bold uppercase tracking-[.11em] text-secondary">Who it helps</p>
                       <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{tool.who}</p>
-                      <p className="mt-4 text-sm font-semibold text-slate-700 dark:text-slate-200">Decision it supports</p>
+                      <p className="mt-4 text-xs font-bold uppercase tracking-[.11em] text-secondary">What you can decide</p>
                       <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{tool.decision}</p>
                       <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-secondary dark:text-emerald-300">
                         Open tool

@@ -8,6 +8,7 @@ import DecisionFramework from '../components/DecisionFramework';
 import TrustStrip from '../components/TrustStrip';
 import AffiliateDisclosureBox from '../components/AffiliateDisclosureBox';
 import PageDisclaimer from '../components/PageDisclaimer';
+import { ChartBarIcon } from '@heroicons/react/24/outline';
 
 function IconBase({ children, className = '', ...props }) {
   return (
@@ -335,7 +336,7 @@ function HomepageAccountFramework() {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white dark:bg-gray-950">
+    <main className="eft-shell">
       <SEO
         title="Canadian Financial Decision Tools | EasyFinanceTools"
         description="Make better Canadian money decisions with free TFSA, RRSP, FHSA, dividend, mortgage, retirement, and account decision tools. No login required."
@@ -343,52 +344,102 @@ export default function Home() {
       />
       <FAQSchema faqs={HOME_FAQS} />
 
-      <section className="hero-home relative overflow-hidden bg-slate-950 px-4 py-16 text-white md:py-24">
-        <div className="relative mx-auto max-w-6xl">
-          <div className="max-w-4xl">
-            <p className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-100">
-              Canadian decision-support platform
-            </p>
-            <h1 className="mt-6 text-4xl font-bold leading-tight md:text-6xl">
-              Make better Canadian money decisions
-            </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-blue-100">
-              Free Canadian calculators, account guides, and decision tools for TFSA, RRSP, FHSA, dividends, mortgages, and retirement.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#start-with-goal"
-                className="focus-ring inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-base font-bold text-primary transition hover:bg-emerald-50"
-              >
-                Start with your goal
-                <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
-              </a>
-              <SurfaceTrackedLink
-                to="/tools"
-                eventName="homepage_cta_click"
-                ctaLabel="hero_browse_all_tools"
-                trackingParams={{ section: 'hero', destination_type: 'hub' }}
-                className="focus-ring rounded-xl border border-white/25 px-5 py-3 text-base font-bold text-white transition hover:bg-white/10"
-              >
-                Browse all tools
-              </SurfaceTrackedLink>
+      <section className="eft-hero px-4 pb-14 pt-14 text-white sm:pb-20 sm:pt-20">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.02fr)_minmax(390px,.98fr)] lg:gap-12">
+            <div className="max-w-[660px]">
+              <span className="eft-hero-badge"><span className="h-2 w-2 rounded-full bg-[#55E5BF]" aria-hidden="true"/> MADE FOR CANADIAN MONEY DECISIONS</span>
+              <h1 className="eft-display mt-7 text-4xl text-white sm:text-5xl lg:text-[65px]">
+                Your finances.<br/><span className="text-[#65E0C4]">Clearer decisions.</span>
+              </h1>
+              <p className="mt-6 max-w-xl text-base leading-8 text-slate-200 sm:text-lg">
+                Simple, powerful calculators for taxes, investing, mortgages, and financial freedom. Built around Canadian rules, with real context—not financial guesswork.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <SurfaceTrackedLink to="/tools" eventName="homepage_cta_click" ctaLabel="hero_explore_tools"
+                  trackingParams={{section:"hero",destination_type:"hub"}}
+                  className="eft-brand-button !bg-[#60DABF] !text-[#092941] hover:!bg-[#A0F0DF]">
+                  Explore calculators <ArrowRightIcon className="h-5 w-5" aria-hidden="true"/>
+                </SurfaceTrackedLink>
+                <a href="#start-with-goal" className="focus-ring inline-flex min-h-12 items-center justify-center rounded-xl border border-white/25 px-5 text-sm font-bold text-white hover:bg-white/10">
+                  Find my starting point
+                </a>
+              </div>
+              <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-slate-300">
+                <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#60DABF]"/>No account required</span>
+                <span aria-hidden="true" className="text-slate-600">/</span>
+                <span>Source-linked assumptions</span>
+                <span aria-hidden="true" className="text-slate-600">/</span>
+                <span>Educational estimates</span>
+              </div>
+            </div>
+
+            <div className="eft-dashboard-frame overflow-hidden p-4 sm:p-6" aria-label="Finance tools preview">
+              <div className="flex items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[.13em] text-[#137B70]">YOUR PLANNING WORKSPACE</p>
+                  <h2 className="mt-1 text-xl font-extrabold tracking-tight text-[#0B2447]">Make the next decision count</h2>
+                </div>
+                <div className="rounded-xl bg-[#EBF8F4] p-3 text-[#137B70]" aria-hidden="true">
+                  <ChartBarIcon className="h-6 w-6"/>
+                </div>
+              </div>
+              <p className="mt-4 text-xs text-slate-500">Published 2026 national reference amounts · personal eligibility varies</p>
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                <div className="eft-dashboard-mini">
+                  <p className="text-xs font-medium text-slate-500">TFSA annual limit</p>
+                  <p className="eft-metric mt-2 text-[27px] font-extrabold text-[#0B2447]">$7,000</p>
+                  <span className="mt-2 inline-block rounded-full bg-[#E4F6F0] px-2.5 py-1 text-[11px] font-semibold text-[#0D6D60]">2026</span>
+                </div>
+                <div className="eft-dashboard-mini">
+                  <p className="text-xs font-medium text-slate-500">RRSP dollar ceiling</p>
+                  <p className="eft-metric mt-2 text-[27px] font-extrabold text-[#0B2447]">$33,810</p>
+                  <span className="mt-2 inline-block rounded-full bg-[#FFF4E4] px-2.5 py-1 text-[11px] font-semibold text-[#976224]">2026</span>
+                </div>
+              </div>
+              <div className="mt-4 rounded-2xl border border-[#DFE8F0] bg-[#F8FAFC] p-4">
+                <div className="mb-4 flex items-center justify-between">
+                  <p className="text-sm font-bold text-[#0B2447]">Choose what to explore</p>
+                  <span className="rounded-full bg-white px-2.5 py-1 text-[11px] font-semibold text-slate-500">3 paths</span>
+                </div>
+                {[
+                  {title:"Plan your tax",desc:"Income & deductions",href:"/tools/income-tax-calculator"},
+                  {title:"Build your portfolio",desc:"Holdings & allocation",href:"/tools/portfolio-analyzer"},
+                  {title:"Compare mortgages",desc:"Payments & interest",href:"/tools/mortgage-calculator"}
+                ].map((item,index)=>(
+                  <SurfaceTrackedLink key={item.href} to={item.href}
+                    eventName="homepage_quick_start_click" ctaLabel={`workspace_path_${index+1}`}
+                    trackingParams={{section:"hero_dashboard",destination_type:"tool"}}
+                    className="group mt-2 flex min-h-14 items-center justify-between rounded-xl border border-[#E3EAF2] bg-white px-3 py-2 transition hover:border-[#65B8AC] hover:shadow-sm">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#E8F5F1] text-sm font-extrabold text-[#137B70]">{index+1}</div>
+                      <div><span className="block text-sm font-bold text-[#0B2447]">{item.title}</span><span className="block text-xs text-slate-500">{item.desc}</span></div>
+                    </div>
+                    <ArrowRightIcon className="h-4 w-4 text-[#137B70]" aria-hidden="true"/>
+                  </SurfaceTrackedLink>
+                ))}
+              </div>
+              <p className="mt-3 text-xs leading-5 text-slate-500">Illustrative planning preview only. Limits are not your personal contribution room; verify with CRA.</p>
             </div>
           </div>
-          <div className="mt-8 max-w-5xl" aria-label="Popular calculators">
-            <p className="text-xs font-bold uppercase tracking-[0.17em] text-emerald-200">Jump straight into a calculator</p>
-            <div className="mt-3 grid gap-3 sm:grid-cols-3">
-              {QUICK_START_TOOLS.map((tool) => (
+
+          <div className="mt-12 border-t border-white/10 pt-6" aria-label="Popular calculators">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="text-xs font-bold uppercase tracking-[.15em] text-[#92E9D5]">Go directly to a calculator</p>
+              <span className="text-xs text-slate-400">A useful answer starts with the right question</span>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              {QUICK_START_TOOLS.map((tool)=>(
                 <SurfaceTrackedLink key={tool.href} to={tool.href}
                   eventName="homepage_quick_start_click" ctaLabel={tool.ctaLabel}
-                  trackingParams={{ section: 'hero_quick_start', destination_type: 'tool' }}
-                  className="focus-ring group flex min-h-16 items-center justify-between gap-3 rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white transition hover:bg-white/20">
-                  <span><span className="block font-bold">{tool.title}</span><span className="mt-1 block text-xs text-blue-100">{tool.detail}</span></span>
-                  <ArrowRightIcon className="h-5 w-5 shrink-0" aria-hidden="true" />
+                  trackingParams={{section:"hero_quick_start",destination_type:"tool"}}
+                  className="group flex min-h-[78px] items-center justify-between gap-3 rounded-2xl border border-white/15 bg-white/[.07] px-5 py-3 text-white transition hover:border-[#76D9C5] hover:bg-white/[.13]">
+                  <span><span className="block text-base font-bold">{tool.title}</span><span className="mt-1 block text-xs text-slate-300">{tool.detail}</span></span>
+                  <ArrowRightIcon className="h-5 w-5 shrink-0 text-[#83E1CD]" aria-hidden="true"/>
                 </SurfaceTrackedLink>
               ))}
             </div>
           </div>
-          <TrustStrip className="mt-8 max-w-5xl bg-white/95 text-slate-900 dark:bg-slate-900/90" />
         </div>
       </section>
 
@@ -408,9 +459,9 @@ export default function Home() {
                 eventName="homepage_goal_router_click"
                 ctaLabel={goal.ctaLabel}
                 trackingParams={{ section: 'goal_router', destination_type: goal.href.startsWith('/blog') ? 'article' : 'tool' }}
-                className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-emerald-300 hover:shadow-lg dark:border-slate-800 dark:bg-gray-900"
+                className="eft-tool-card group p-6"
               >
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 transition group-hover:bg-emerald-600 group-hover:text-white dark:bg-emerald-950/40 dark:text-emerald-300">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#E8F6F2] text-secondary transition group-hover:bg-secondary group-hover:text-white dark:bg-[#194137] dark:text-[#71E8D0]">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <h3 className="mt-5 text-xl font-bold text-primary dark:text-accent">{goal.title}</h3>
@@ -440,7 +491,7 @@ export default function Home() {
                 eventName="homepage_featured_tool_click"
                 ctaLabel={tool.ctaLabel}
                 trackingParams={{ section: 'featured_tools', destination_type: 'tool' }}
-                className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-secondary hover:shadow-lg dark:border-slate-700 dark:bg-gray-900"
+                className="eft-tool-card group p-6"
               >
                 <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-secondary dark:bg-slate-800 dark:text-emerald-300">
                   {tool.badge}
@@ -490,7 +541,7 @@ export default function Home() {
                 eventName="homepage_guide_click"
                 ctaLabel={guide.ctaLabel}
                 trackingParams={{ section: 'guide_highlights', destination_type: 'article' }}
-                className="rounded-3xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-0.5 hover:border-secondary hover:bg-white hover:shadow-sm dark:border-slate-700 dark:bg-gray-900"
+                className="eft-tool-card p-5"
               >
                 <h3 className="text-lg font-bold text-primary dark:text-accent">{guide.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{guide.body}</p>
