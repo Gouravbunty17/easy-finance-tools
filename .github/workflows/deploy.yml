@@ -28,3 +28,7 @@ jobs:
         run: npm test
       - name: Build and prerender website
         run: npm run build
+      - name: Audit indexability, canonical URLs and structured data
+        run: npm run audit:seo
+      - name: Generate site quality report
+        run: npm run audit:site-quality
