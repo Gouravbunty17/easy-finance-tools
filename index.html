@@ -152,7 +152,8 @@
         gtag('js', new Date());
         gtag('config', 'G-3KQXRRRQFK', {
           page_title: document.title,
-          page_location: window.location.href,
+          // Never send URL search parameters or hash fragments (may contain private inputs).
+          page_location: window.location.origin + window.location.pathname,
           send_page_view: true
         });
       };

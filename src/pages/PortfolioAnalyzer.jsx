@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
+import { trackEvent, trackToolStart } from "../lib/analytics";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import {
@@ -49,9 +50,17 @@ export default function PortfolioAnalyzer() {
   const [demo, setDemo] = useState(false);
   const [importError, setImportError] = useState("");
   const [showTemplate, setShowTemplate] = useState(false);
+  const hasTrackedStart = useRef(false);
+  const inputMethod = useRef("manual");
+  const startOnce = (method) => {
+    if (hasTrackedStart.current) return;
+    hasTrackedStart.current = true;
+    trackToolStart("portfolio_analyzer", { entry_point: method });
+  };
   const analysis = useMemo(()=>confirmed?analyzePortfolio(confirmed):null,[confirmed]);
   const currentValidation = useMemo(()=>validatePortfolioHoldings(rows),[rows]);
   const changeRow=(index,key,value)=>{
+    startOnce("manual");
     setRows(old=>old.map((r,i)=>{
       if(i!==index)return r;
       // Never silently assume 1 USD = 1 CAD when a visitor changes currency.
@@ -61,12 +70,16 @@ export default function PortfolioAnalyzer() {
     setConfirmed(null); setDemo(false);
   };
   const loadDemo=()=>{
+    startOnce("demo");
+    inputMethod.current = "demo";
+    trackEvent("portfolio_report_view", { tool_name:"portfolio_analyzer", analysis_mode:"demo" });
     const copy=DEMO_PORTFOLIO.map(h=>({...h}));
     setRows(copy); setConfirmed(copy); setDemo(true); setImportError("");
   };
   async function importCsv(event) {
     const file=event.target.files?.[0];
     if(!file)return;
+    startOnce("csv"); inputMethod.current = "csv";
     setConfirmed(null); setDemo(false); setImportError("");
     try{
       if(!file.name.toLowerCase().endsWith(".csv"))throw new Error("Only CSV files are supported. Screenshot extraction is not available yet.");
@@ -81,17 +94,20 @@ export default function PortfolioAnalyzer() {
       }));
       const result=validatePortfolioHoldings(normalized);
       setRows(normalized);
+      trackEvent("portfolio_import_result", { tool_name:"portfolio_analyzer", method:"csv", outcome: result.errors.length?"invalid":"success" });
       if(result.errors.length)setImportError("Review the highlighted import errors below. No analysis is performed until all fields are valid.");
-    }catch(err){setImportError(err?.message||"The CSV could not be read.");}
+    }catch(err){trackEvent("portfolio_import_result", { tool_name:"portfolio_analyzer", method:"csv", outcome:"invalid" });setImportError(err?.message||"The CSV could not be read.");}
     event.target.value="";
   }
   function confirmAnalysis() {
     const result=validatePortfolioHoldings(rows);
     if(!rows.length || result.errors.length){setConfirmed(null);setImportError(result.errors.join(" · ")||"Add at least one holding.");return;}
+    startOnce(inputMethod.current);
+    trackEvent("portfolio_report_view", { tool_name:"portfolio_analyzer", analysis_mode:inputMethod.current });
     setConfirmed(result.valid.map(h=>({...h})));
     setDemo(false);setImportError("");
   }
-  const clear=()=>{setRows([blank()]);setConfirmed(null);setDemo(false);setImportError("");};
+  const clear=()=>{setRows([blank()]);setConfirmed(null);setDemo(false);setImportError("");inputMethod.current="manual";};
   return <main className="mx-auto max-w-6xl px-4 py-10">
     <SEO title="Canadian Portfolio Analyzer | Manual & CSV Portfolio Breakdown" description="Private Canadian portfolio breakdown by account, currency, geography, asset type, and user-entered dividend income. No sign-in required." canonical="https://easyfinancetools.com/tools/portfolio-analyzer" noindex />
     <section className="rounded-3xl bg-gradient-to-br from-slate-950 via-sky-950 to-slate-900 p-7 text-white sm:p-10">
@@ -114,7 +130,7 @@ export default function PortfolioAnalyzer() {
         <label htmlFor="portfolio-csv" className="flex min-h-11 cursor-pointer items-center rounded-xl border-2 border-sky-600 px-5 py-3 text-sm font-bold text-primary dark:text-sky-300">Import CSV (on-device)
           <input id="portfolio-csv" aria-label="Import a portfolio CSV file" type="file" accept=".csv,text/csv" onChange={importCsv} className="sr-only" />
         </label>
-        <button type="button" onClick={()=>{setRows(old=>old.length>=200?old:[...old,blank()]);setConfirmed(null);setDemo(false);}} className="min-h-11 rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold dark:border-slate-600">+ Add holding</button>
+        <button type="button" onClick={()=>{startOnce("manual");inputMethod.current="manual";setRows(old=>old.length>=200?old:[...old,blank()]);setConfirmed(null);setDemo(false);}} className="min-h-11 rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold dark:border-slate-600">+ Add holding</button>
         <button type="button" onClick={clear} className="min-h-11 rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold dark:border-slate-600">Clear</button>
       </div>
       <button type="button" onClick={()=>setShowTemplate(v=>!v)} aria-expanded={showTemplate} className="mt-4 text-sm font-semibold text-sky-700 underline dark:text-sky-300">{showTemplate?"Hide":"Show"} CSV column template</button>

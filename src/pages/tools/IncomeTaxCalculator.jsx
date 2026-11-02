@@ -10,7 +10,7 @@ import ToolPageSchema from "../../components/ToolPageSchema";
 import InlineSourceTrust from "../../components/InlineSourceTrust";
 import { StressTestYourInputs, WhenThisToolIsWeakest, WhyThisToolExists } from "../../components/ToolTrustBlocks";
 import CalculatorDecisionCheck from "../../components/CalculatorDecisionCheck";
-import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
+import { trackEvent, trackToolStart } from "../../lib/analytics";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 import { taxOfficialSources } from "../../config/officialSources";
@@ -122,6 +122,8 @@ export default function IncomeTaxCalculator() {
   const trackStartOnce = () => {
     if (hasTrackedStart) return;
     trackToolStart("income_tax_calculator", { entry_point: "input_interaction" });
+    // Results update immediately in this calculator: count first engaged view once, not every keystroke.
+    trackEvent("tool_result_view", { tool_name: "income_tax_calculator", method: "live_preview" });
     setHasTrackedStart(true);
   };
 
@@ -193,7 +195,7 @@ export default function IncomeTaxCalculator() {
         </p>
       </div>
 
-      <div className="mb-6"><TaxYearReference year={referenceYear} onChange={setReferenceYear} /></div>
+      <div className="mb-6"><TaxYearReference year={referenceYear} onChange={year=>{trackStartOnce();setReferenceYear(year);}} /></div>
       <div className="grid md:grid-cols-2 gap-8">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 space-y-5">
           <h2 className="text-xl font-bold text-primary dark:text-accent">Your income details</h2>
@@ -202,7 +204,7 @@ export default function IncomeTaxCalculator() {
             <label className="block text-sm font-medium mb-1">Annual Employment Income</label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">$</span>
-              <input type="number" className="w-full pl-8 pr-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600 text-lg font-semibold" value={income} onChange={(e) => { trackStartOnce(); setIncome(parseNumericInput(e.target.value)); trackToolCalculate("income_tax_calculator", { action: "income_change" }); }} min={0} max={2000000} />
+              <input type="number" className="w-full pl-8 pr-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600 text-lg font-semibold" value={income} onChange={(e) => { trackStartOnce(); setIncome(parseNumericInput(e.target.value)); }} min={0} max={2000000} />
             </div>
             <p className="text-xs text-gray-500 mt-2">Use annual gross employment income before tax. If you are just testing, try your salary before bonuses.</p>
           </div>
@@ -218,13 +220,13 @@ export default function IncomeTaxCalculator() {
             <label className="block text-sm font-medium mb-1">RRSP Contribution</label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">$</span>
-              <input type="number" className="w-full pl-8 pr-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600" value={rrsp} onChange={(e) => { trackStartOnce(); setRrsp(parseNumericInput(e.target.value)); trackToolCalculate("income_tax_calculator", { action: "rrsp_change" }); }} min={0} />
+              <input type="number" className="w-full pl-8 pr-4 py-3 border rounded-xl dark:bg-gray-900 dark:border-gray-600" value={rrsp} onChange={(e) => { trackStartOnce(); setRrsp(parseNumericInput(e.target.value)); }} min={0} />
             </div>
             <p className="text-xs text-gray-500 mt-2">Each RRSP dollar reduces taxable income before income tax is calculated.</p>
           </div>
 
           <div className="flex items-center gap-3">
-            <input type="checkbox" id="selfEmployed" checked={selfEmployed} onChange={(e) => { trackStartOnce(); setSelfEmployed(e.target.checked); trackToolCalculate("income_tax_calculator", { action: "self_employed_toggle", enabled: e.target.checked }); }} className="w-5 h-5 accent-primary" />
+            <input type="checkbox" id="selfEmployed" checked={selfEmployed} onChange={(e) => { trackStartOnce(); setSelfEmployed(e.target.checked); }} className="w-5 h-5 accent-primary" />
             <label htmlFor="selfEmployed" className="text-sm font-medium cursor-pointer">Self-employed estimate (no EI, double CPP)</label>
           </div>
 
@@ -302,7 +304,7 @@ export default function IncomeTaxCalculator() {
         <h2 className="text-xl font-bold text-primary dark:text-accent">Side-by-side RRSP deduction comparison · 2026 tax assumptions</h2>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Uses the same income and province. The 2027 selector above changes published reference limits only; these calculations stay on the verified 2026 model.</p>
         <label htmlFor="comparison-rrsp" className="mt-4 block text-sm font-semibold">Scenario B: RRSP deduction (CAD)</label>
-        <input id="comparison-rrsp" type="number" min="0" value={comparisonRrsp} onChange={e=>setComparisonRrsp(parseNumericInput(e.target.value))} className="mt-2 w-full rounded-lg border border-slate-300 p-3 dark:border-slate-600 dark:bg-slate-900" />
+        <input id="comparison-rrsp" type="number" min="0" value={comparisonRrsp} onChange={e=>{trackStartOnce();setComparisonRrsp(parseNumericInput(e.target.value));}} className="mt-2 w-full rounded-lg border border-slate-300 p-3 dark:border-slate-600 dark:bg-slate-900" />
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-900"><p className="text-sm text-slate-500">Scenario A · no RRSP deduction</p><p className="mt-2 text-2xl font-bold">{fmt(compareTax(0))} tax</p></div>
           <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-900"><p className="text-sm text-slate-500">Scenario B · {fmt(asNumber(comparisonRrsp))} deduction</p><p className="mt-2 text-2xl font-bold">{fmt(compareTax(comparisonRrsp))} tax</p></div>
