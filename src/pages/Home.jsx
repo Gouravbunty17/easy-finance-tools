@@ -8,7 +8,6 @@ import DecisionFramework from '../components/DecisionFramework';
 import TrustStrip from '../components/TrustStrip';
 import AffiliateDisclosureBox from '../components/AffiliateDisclosureBox';
 import PageDisclaimer from '../components/PageDisclaimer';
-import { ChartBarIcon } from '@heroicons/react/24/outline';
 
 function IconBase({ children, className = '', ...props }) {
   return (
