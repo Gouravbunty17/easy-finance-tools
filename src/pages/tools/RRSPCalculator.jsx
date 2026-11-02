@@ -43,9 +43,9 @@ import {
   RRIF_MINIMUM_RATES,
   RRSP_RULES,
   getEstimatedMarginalTaxRate,
-  getRrspAnnualLimit,
 } from '../../config/financial';
 import { rrspOfficialSources } from '../../config/officialSources';
+import { getRrspDollarLimit } from '../../lib/taxYearReference.mjs';
 import { asNumber, parseNumericInput } from '../../lib/numericInputs';
 
 ChartJS.register(CategoryScale, Filler, Legend, LineElement, LinearScale, PointElement, Tooltip);
@@ -130,6 +130,7 @@ function ScenarioInput({ label, value, onChange, type = 'number', step, min, max
 }
 
 export default function RRSPCalculator() {
+  const [contributionYear, setContributionYear] = useState(2026);
   const [province, setProvince] = useState(DEFAULT_ASSUMPTIONS.rrsp.province);
   const [taxableIncome, setTaxableIncome] = useState(String(DEFAULT_ASSUMPTIONS.rrsp.taxableIncome));
   const [availableRoomNow, setAvailableRoomNow] = useState(String(DEFAULT_ASSUMPTIONS.rrsp.availableRoomNow));
@@ -153,7 +154,7 @@ export default function RRSPCalculator() {
     const safeSpouseIncome = asNumber(spouseIncome);
     const currentRate = getEstimatedMarginalTaxRate(province, safeTaxableIncome);
     const retirementRate = getEstimatedMarginalTaxRate(province, safeRetirementIncome);
-    const baseAnnualLimit = Math.round(getRrspAnnualLimit(safeTaxableIncome));
+    const baseAnnualLimit = Math.round(Math.min(safeTaxableIncome * 0.18, getRrspDollarLimit(contributionYear)));
     const roomThisYear = Math.max(0, safeAvailableRoomNow);
     const yearlyContributionTarget = Math.max(0, safeAnnualContribution);
     const yearlyContributionUsedYearOne = Math.min(yearlyContributionTarget, roomThisYear);
@@ -253,7 +254,7 @@ export default function RRSPCalculator() {
       chartValues,
       yearlyBreakdown,
     };
-  }, [annualContribution, availableRoomNow, currentBalance, expectedReturn, province, reinvestRefund, retirementIncome, spouseIncome, taxableIncome, useSpousalComparison, yearsToRetirement]);
+  }, [annualContribution, availableRoomNow, contributionYear, currentBalance, expectedReturn, province, reinvestRefund, retirementIncome, spouseIncome, taxableIncome, useSpousalComparison, yearsToRetirement]);
 
   const chartData = {
     labels: result.chartLabels,
@@ -296,6 +297,11 @@ export default function RRSPCalculator() {
             Use this page to estimate the value of the RRSP deduction, project a retirement balance, and decide whether the RRSP should beat the TFSA or FHSA for the next contribution.
           </p>
 
+          <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
+            <label htmlFor="rrsp-year" className="block text-sm font-bold text-primary dark:text-accent">Contribution year · published CRA RRSP dollar ceiling</label>
+            <select id="rrsp-year" value={contributionYear} onChange={e=>setContributionYear(Number(e.target.value))} className="mt-2 w-full rounded-lg border border-slate-300 p-3 dark:border-slate-600 dark:bg-slate-900"><option value={2026}>2026 · $33,810</option><option value={2027}>2027 · $35,390</option></select>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Personal RRSP room must come from your CRA Notice of Assessment, not this national ceiling. Refund and marginal-rate estimates use 2026 bracket proxies{contributionYear === 2027 ? " even when the 2027 ceiling is selected, because 2027 tax brackets are not confirmed here." : "."}</p>
+          </div>
           <div className="mt-6">
             <EducationalDisclaimer />
             <OfficialSourceNote

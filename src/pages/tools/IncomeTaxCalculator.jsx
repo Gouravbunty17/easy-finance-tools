@@ -14,6 +14,7 @@ import { trackToolCalculate, trackToolStart } from "../../lib/analytics";
 import SurfaceTrackedLink from "../../components/SurfaceTrackedLink";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 import { taxOfficialSources } from "../../config/officialSources";
+import TaxYearReference from "../../components/TaxYearReference";
 
 const PROVINCES = [
   { code: "AB", name: "Alberta" },
@@ -110,6 +111,8 @@ const FAQS = [
 ];
 
 export default function IncomeTaxCalculator() {
+  const [referenceYear, setReferenceYear] = useState(2026);
+  const [comparisonRrsp, setComparisonRrsp] = useState(10000);
   const [income, setIncome] = useState(85000);
   const [province, setProvince] = useState("ON");
   const [rrsp, setRrsp] = useState(0);
@@ -161,6 +164,11 @@ export default function IncomeTaxCalculator() {
     };
   }, [incomeValue, province, rrspValue, selfEmployed]);
 
+  const compareTax = (deduction) => {
+    const taxable = Math.max(0, incomeValue - Math.max(0, asNumber(deduction)));
+    const provincial = PROVINCIAL[province];
+    return calcTax(taxable, FEDERAL.brackets, getFederalBasicPersonalAmount(taxable)) + calcTax(taxable, provincial.brackets, provincial.basicPersonal);
+  };
   const provinceName = PROVINCES.find((p) => p.code === province)?.name || "Province";
 
   return (
@@ -185,6 +193,7 @@ export default function IncomeTaxCalculator() {
         </p>
       </div>
 
+      <div className="mb-6"><TaxYearReference year={referenceYear} onChange={setReferenceYear} /></div>
       <div className="grid md:grid-cols-2 gap-8">
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 space-y-5">
           <h2 className="text-xl font-bold text-primary dark:text-accent">Your income details</h2>
@@ -289,6 +298,17 @@ export default function IncomeTaxCalculator() {
         </div>
       </div>
 
+      <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-gray-800">
+        <h2 className="text-xl font-bold text-primary dark:text-accent">Side-by-side RRSP deduction comparison · 2026 tax assumptions</h2>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Uses the same income and province. The 2027 selector above changes published reference limits only; these calculations stay on the verified 2026 model.</p>
+        <label htmlFor="comparison-rrsp" className="mt-4 block text-sm font-semibold">Scenario B: RRSP deduction (CAD)</label>
+        <input id="comparison-rrsp" type="number" min="0" value={comparisonRrsp} onChange={e=>setComparisonRrsp(parseNumericInput(e.target.value))} className="mt-2 w-full rounded-lg border border-slate-300 p-3 dark:border-slate-600 dark:bg-slate-900" />
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-900"><p className="text-sm text-slate-500">Scenario A · no RRSP deduction</p><p className="mt-2 text-2xl font-bold">{fmt(compareTax(0))} tax</p></div>
+          <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-900"><p className="text-sm text-slate-500">Scenario B · {fmt(asNumber(comparisonRrsp))} deduction</p><p className="mt-2 text-2xl font-bold">{fmt(compareTax(comparisonRrsp))} tax</p></div>
+        </div>
+        <p className="mt-3 text-sm">Estimated income-tax difference: <strong>{fmt(Math.max(0, compareTax(0)-compareTax(comparisonRrsp)))}</strong>. Verify individual contribution room. RRSP contributions use cash now and withdrawals are taxable later. Employer payroll, surtaxes, and credits are simplified.</p>
+      </section>
       <div className="mt-8 bg-white dark:bg-gray-800 rounded-2xl shadow p-6">
         <h3 className="font-bold text-lg text-primary dark:text-accent mb-4">Where your income goes</h3>
         <div className="space-y-3">
