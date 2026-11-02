@@ -210,6 +210,7 @@ export default function MortgageCalculator() {
   const [homePrice, setHomePrice] = useState(String(DEFAULT_ASSUMPTIONS.mortgage.homePrice));
   const [downPayment, setDownPayment] = useState(String(DEFAULT_ASSUMPTIONS.mortgage.downPayment));
   const [rate, setRate] = useState(String(DEFAULT_ASSUMPTIONS.mortgage.rate));
+  const [alternativeRate, setAlternativeRate] = useState("6.1");
   const [amortization, setAmortization] = useState(DEFAULT_ASSUMPTIONS.mortgage.amortization);
   const [frequency, setFrequency] = useState(DEFAULT_ASSUMPTIONS.mortgage.frequency);
   const [province, setProvince] = useState(DEFAULT_ASSUMPTIONS.mortgage.province);
@@ -275,6 +276,11 @@ export default function MortgageCalculator() {
       finalMonthlyBuffer: Math.max(0, stressPayment - baseMonthlyPayment),
     };
   }, [amortization, downPayment, extraMonthlyPayment, frequency, homePrice, province, rate]);
+
+  // Same insured balance and amortization; rate alone changes in this side-by-side comparison.
+  const alternativeMonthly = getMortgagePayment(result.insuredMortgage, Math.max(0, asNumber(alternativeRate)), Math.max(5, asNumber(amortization, 25)) * 12);
+  const alternativeInterest = simulateMortgage(result.insuredMortgage, Math.max(0, asNumber(alternativeRate)), alternativeMonthly, Math.max(5, asNumber(amortization, 25)) * 12).totalInterest;
+  const comparisonBaseInterest = result.standardSchedule.totalInterest;
 
   const chartData = {
     labels: result.standardSchedule.labels,
@@ -366,6 +372,26 @@ export default function MortgageCalculator() {
               tone="success"
             />
           </div>
+
+          <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+            <h2 className="text-xl font-bold text-primary dark:text-accent">Compare two mortgage rates</h2>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Both scenarios use the same principal and amortization, with standard monthly payments and no prepayments. Taxes, insurance, closing costs and renewal changes are excluded from this comparison.</p>
+            <label htmlFor="alternative-mortgage-rate" className="mt-4 block text-sm font-semibold">Scenario B annual mortgage interest rate (%)</label>
+            <input id="alternative-mortgage-rate" value={alternativeRate} type="number" min="0" max="30" step="0.1" onChange={e=>setAlternativeRate(parseNumericInput(e.target.value))} className="mt-2 w-full max-w-xs rounded-lg border border-slate-300 p-3 dark:border-slate-600 dark:bg-slate-900" />
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-900">
+                <p className="text-xs font-semibold uppercase text-slate-500">Scenario A · {Number(asNumber(rate)).toFixed(2)}%</p>
+                <p className="mt-2 text-2xl font-bold text-primary dark:text-accent">{formatCurrency(result.baseMonthlyPayment)}/month</p>
+                <p className="mt-2 text-sm">Lifetime interest: {formatCurrency(comparisonBaseInterest)}</p>
+              </div>
+              <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-900">
+                <p className="text-xs font-semibold uppercase text-slate-500">Scenario B · {Number(asNumber(alternativeRate)).toFixed(2)}%</p>
+                <p className="mt-2 text-2xl font-bold text-primary dark:text-accent">{formatCurrency(alternativeMonthly)}/month</p>
+                <p className="mt-2 text-sm">Lifetime interest: {formatCurrency(alternativeInterest)}</p>
+              </div>
+            </div>
+            <p className="mt-4 text-sm font-semibold">Scenario B monthly payment difference: {formatCurrency(alternativeMonthly - result.baseMonthlyPayment)} (signed difference) · Lifetime interest difference: {formatCurrency(alternativeInterest - comparisonBaseInterest)}.</p>
+          </section>
 
           <InlineSourceTrust
             label="Mortgage rule references"
