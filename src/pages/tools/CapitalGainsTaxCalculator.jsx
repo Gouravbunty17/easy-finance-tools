@@ -14,11 +14,12 @@ import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 import { dividendTaxOfficialSources, taxOfficialSources } from "../../config/officialSources";
+import { estimateCapitalGainsTax } from "../../lib/canadianTaxMath.mjs";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const FAQS = [
-  { q: "What is the inclusion rate?", a: "In this calculator, gains up to $250,000 use a 50% inclusion rate, while the amount above that threshold uses a higher inclusion rate. This page is a planning estimate and should be verified against current CRA guidance." },
+  { q: "What is the inclusion rate?", a: "The inclusion rate for capital gains is 50% in 2026, including gains above $250,000. The proposed higher rate was cancelled in March 2025." },
   { q: "What if I have a capital loss?", a: "A capital loss does not create capital gains tax in the year of the loss. It may be usable against capital gains subject to the applicable tax rules." },
   { q: "Does a TFSA avoid capital gains tax?", a: "Qualified gains inside a TFSA are generally tax-free, which is why the calculator shows $0 tax when the TFSA toggle is enabled." },
   { q: "Does this handle every capital gains rule?", a: "No. It simplifies many details, especially around business shares, rental property, crypto recordkeeping, and loss carry rules." },
@@ -49,20 +50,7 @@ function getMarginalRate(province, income) {
 }
 
 function calcTax(gain, income, province) {
-  if (gain <= 0) return { taxableGain: 0, taxOwed: 0, inclusionRate: 0.5 };
-  const marginalRate = getMarginalRate(province, income);
-  if (gain <= 250000) {
-    const taxableGain = gain * 0.5;
-    return { taxableGain: Math.round(taxableGain), taxOwed: Math.round(taxableGain * marginalRate), inclusionRate: 0.5 };
-  }
-  const first = 250000 * 0.5;
-  const rest = (gain - 250000) * (2 / 3);
-  const taxableGain = first + rest;
-  return {
-    taxableGain: Math.round(taxableGain),
-    taxOwed: Math.round(taxableGain * marginalRate),
-    inclusionRate: taxableGain / gain,
-  };
+  return estimateCapitalGainsTax(gain, getMarginalRate(province, income));
 }
 
 const ASSET_TYPES = [
@@ -80,7 +68,6 @@ const PROVINCES = [
   ["SK", "Saskatchewan"], ["YT", "Yukon"],
 ];
 
-const LCGE_LIMIT = 1250000;
 
 export default function CapitalGainsTaxCalculator() {
   const [assetType, setAssetType] = useState("stocks");
@@ -106,21 +93,14 @@ export default function CapitalGainsTaxCalculator() {
     }
 
     const isQSBC = assetType === "business";
-    const exemptionApplied = isQSBC ? Math.min(gain, LCGE_LIMIT) : 0;
+    // QSBC/LCGE eligibility cannot be inferred from asset category alone.
+    const exemptionApplied = 0;
     const taxableCapitalGain = Math.max(0, gain - exemptionApplied);
     const marginalRate = getMarginalRate(province, incomeValue);
     const { taxableGain, taxOwed, inclusionRate } = calcTax(taxableCapitalGain, incomeValue, province);
     const afterTaxProceeds = salePriceValue - taxOwed;
     const effectiveRate = gain > 0 ? (taxOwed / gain) * 100 : 0;
     const tfsaSaving = taxOwed;
-
-    const splitYears = gain > 250000 ? 2 : null;
-    let splitTax = null;
-    if (splitYears) {
-      const halfGain = gain / 2;
-      const { taxOwed: t1 } = calcTax(halfGain, incomeValue, province);
-      splitTax = t1 * 2;
-    }
 
     setResult({
       tfsa: false,
@@ -136,9 +116,6 @@ export default function CapitalGainsTaxCalculator() {
       tfsaSaving,
       isQSBC,
       exemptionApplied: Math.round(exemptionApplied),
-      splitYears,
-      splitTax: splitTax ? Math.round(splitTax) : null,
-      splitSaving: splitTax ? Math.round(taxOwed - splitTax) : null,
       salePrice: salePriceValue,
       purchasePrice: purchasePriceValue,
       expenses: expensesValue,
@@ -171,7 +148,7 @@ export default function CapitalGainsTaxCalculator() {
 
       <div className="mb-8 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/20">
         <p className="text-sm text-amber-800 dark:text-amber-300">
-          <strong>Important:</strong> This calculator applies a simplified two-tier inclusion-rate model for planning. Confirm current tax rules and timing with CRA guidance or a qualified tax professional before filing or selling.
+          <strong>Important:</strong> This calculator uses the 50% capital-gains inclusion rate in effect in 2026. The proposed higher rate was cancelled. Tax estimates remain approximate: verify your real tax bracket and asset-specific rules.
         </p>
       </div>
 
@@ -318,8 +295,7 @@ export default function CapitalGainsTaxCalculator() {
                 <h2 className="mb-3 text-lg font-bold text-primary dark:text-accent">Planning Notes</h2>
                 <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                   <li>If this asset were held in a <strong>TFSA</strong>, the modeled tax saved would be about <strong>{fmtCurrency(result.tfsaSaving)}</strong>.</li>
-                  {result.splitYears && result.splitSaving && <li>Spreading a large sale across multiple years could reduce tax in some cases. This simplified model estimates a difference of about <strong>{fmtCurrency(result.splitSaving)}</strong>.</li>}
-                  {result.isQSBC && <li>This scenario applies a simplified <strong>LCGE</strong> adjustment of up to {fmtCurrency(LCGE_LIMIT)} for qualifying business shares.</li>}
+                  {result.isQSBC && <li>The lifetime capital gains exemption is not automatically applied. Qualified business-share eligibility requires individual verification.</li>}
                   <li>Crypto, rental property, and business-share sales can involve additional reporting or separate tax issues not shown here.</li>
                 </ul>
               </div>
@@ -405,10 +381,10 @@ export default function CapitalGainsTaxCalculator() {
 
       <MethodologyPanel
         title="Methodology: how this capital gains calculator works"
-        summary="This page estimates the gain after transaction costs, applies a simplified inclusion-rate model, and then multiplies the taxable portion by an estimated combined marginal tax rate for the selected province."
+        summary="This page estimates the gain after transaction costs, includes 50% in taxable income under current rules, and applies an approximate marginal rate. It does not compute a full progressive tax return."
         assumptions={[
           "The income entered is used only to estimate a marginal tax rate for planning.",
-          "Gains up to $250,000 use a 50% inclusion rate in this model, while gains above that threshold use a blended higher inclusion rate.",
+          "All gains use a 50% inclusion rate under current rules; the proposed higher rate was cancelled.",
           "QSBC, rental property, crypto, and loss-use rules are simplified materially.",
           "This calculator does not replace tax filing software or professional advice.",
         ]}
@@ -427,7 +403,7 @@ export default function CapitalGainsTaxCalculator() {
           "Adjusted cost base: $50,000",
           "Sale price: $100,000 and selling costs: $500",
         ]}
-        result="The taxable portion is estimated using the calculator's current capital-gains model and the selected marginal-rate assumption."
+        result="The taxable portion is 50% of the gain; tax uses an approximate marginal rate rather than a full progressive calculation."
         interpretation="The result is useful for deciding whether the sale is material enough to review before year-end, especially if other gains, losses, or income changes are also in play."
         limitation="This does not model every adjusted-cost-base issue, superficial loss rule, crypto recordkeeping issue, principal-residence rule, or business-share exemption detail."
       />
