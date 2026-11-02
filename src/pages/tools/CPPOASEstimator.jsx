@@ -182,7 +182,7 @@ export default function CPPOASEstimator() {
           </div>
 
           <div className="rounded-xl border border-gray-200 bg-slate-50 p-4 text-sm text-slate-700 dark:border-gray-700 dark:bg-slate-900/60 dark:text-slate-300">
-            Use My Service Canada for official records. The 2026 CPP earnings ceilings are $74,600 and $85,000. OAS uses the Oct–Dec 2026 maximum. GIS is excluded. These are current-dollar illustrations, not forecasts.
+            Use My Service Canada for official records. The 2026 CPP earnings ceilings are {fmtCurrency(YMPE_2026)} and {fmtCurrency(YAMPE_2026)}. OAS uses the Oct–Dec 2026 maximum. GIS is excluded. These are current-dollar illustrations, not forecasts.
           </div>
 
           <button onClick={calculate} className="w-full rounded-xl bg-primary py-4 text-lg font-bold text-white transition-colors hover:bg-secondary">
