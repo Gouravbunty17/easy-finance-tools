@@ -303,17 +303,18 @@ export default function ToolsPage() {
               className="focus-ring w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder-slate-400 dark:border-slate-700 dark:bg-gray-800 dark:text-white"
               aria-label="Search Canadian finance tools"
             />
-            <div className="rounded-2xl bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+            <div role="status" aria-live="polite" className="rounded-2xl bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
               {count} matching tools
             </div>
           </div>
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-4 -mx-1 flex gap-2 overflow-x-auto px-1 pb-2 sm:flex-wrap sm:overflow-visible" aria-label="Tool categories">
             {["All", ...TOOL_CATEGORIES.map((category) => category.title)].map((category) => (
               <button
                 key={category}
                 type="button"
                 onClick={() => setActiveCategory(category)}
-                className={`focus-ring rounded-full border px-4 py-2 text-xs font-bold transition ${
+                aria-pressed={activeCategory === category}
+                className={`focus-ring min-h-11 shrink-0 rounded-full border px-4 py-2 text-xs font-bold transition ${
                   activeCategory === category
                     ? "border-primary bg-primary text-white"
                     : "border-slate-200 bg-white text-slate-600 hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"

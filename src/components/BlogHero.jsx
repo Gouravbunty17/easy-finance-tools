@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ArticleImage from "./ArticleImage";
 import { getArticleMedia } from "../pages/blog/articleMedia";
+import SurfaceTrackedLink from "./SurfaceTrackedLink";
+import { articleTopicLink } from "../lib/articleTopicLink.mjs";
 
 export default function BlogHero({
   icon,
@@ -20,6 +22,7 @@ export default function BlogHero({
   const media = slug ? getArticleMedia(slug) : null;
   const hasPhotoBackground = Boolean(media?.image && !media.image.endsWith(".svg") && media.heroLayout !== "card");
   const [imageAvailable, setImageAvailable] = useState(Boolean(headshotUrl));
+  const topic = articleTopicLink(category);
 
   return (
     <section
@@ -42,6 +45,13 @@ export default function BlogHero({
             <div className="mb-5 inline-flex rounded-full bg-white/15 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">
               {category}
             </div>
+            {topic && <div className="-mt-2 mb-4">
+              <SurfaceTrackedLink to={topic.href} eventName="article_topic_hub_click" ctaLabel={`topic_${topic.slug}`}
+                trackingParams={{section:"article_hero",destination_type:"topic"}}
+                className="inline-flex min-h-11 items-center rounded-lg border border-white/25 px-3 py-2 text-sm font-semibold text-white/95 hover:bg-white/15">
+                Explore {topic.title} topic hub
+              </SurfaceTrackedLink>
+            </div>}
 
             <h1 className={`${hasPhotoBackground ? "max-w-4xl" : "max-w-3xl"} text-3xl font-bold leading-tight text-white drop-shadow md:text-5xl`}>
               {title}

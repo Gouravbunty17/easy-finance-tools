@@ -154,14 +154,14 @@ export default function Header({ onOpenSearch }) {
               <button
                 onClick={openSearch}
                 aria-label="Open search"
-                className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
+                className="focus-ring flex h-11 w-11 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
               >
                 <SearchIcon size={18} />
               </button>
               <button
                 onClick={() => setIsDark(!isDark)}
                 aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-                className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
+                className="focus-ring flex h-11 w-11 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
               >
                 {isDark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
               </button>
@@ -169,7 +169,7 @@ export default function Header({ onOpenSearch }) {
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
                 aria-expanded={isOpen}
-                className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
+                className="focus-ring flex h-11 w-11 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
               >
                 {isOpen ? <CloseIcon size={22} /> : <MenuIcon size={22} />}
               </button>

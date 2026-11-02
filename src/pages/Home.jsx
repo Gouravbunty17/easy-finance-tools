@@ -195,6 +195,12 @@ const FEATURED_TOOLS = [
   },
 ];
 
+const QUICK_START_TOOLS = [
+  { title: 'Income tax', detail: '2026 tax by province', href: '/tools/income-tax-calculator', ctaLabel: 'quick_income_tax' },
+  { title: 'TFSA', detail: 'Contribution room and growth', href: '/tools/tfsa-calculator', ctaLabel: 'quick_tfsa' },
+  { title: 'Mortgage', detail: 'Payments and rate scenarios', href: '/tools/mortgage-calculator', ctaLabel: 'quick_mortgage' },
+];
+
 const GUIDE_HIGHLIGHTS = [
   {
     title: 'TFSA vs RRSP vs FHSA',
@@ -368,30 +374,22 @@ export default function Home() {
               </SurfaceTrackedLink>
             </div>
           </div>
-          <TrustStrip className="mt-10 max-w-5xl bg-white/95 text-slate-900 dark:bg-slate-900/90" />
+          <div className="mt-8 max-w-5xl" aria-label="Popular calculators">
+            <p className="text-xs font-bold uppercase tracking-[0.17em] text-emerald-200">Jump straight into a calculator</p>
+            <div className="mt-3 grid gap-3 sm:grid-cols-3">
+              {QUICK_START_TOOLS.map((tool) => (
+                <SurfaceTrackedLink key={tool.href} to={tool.href}
+                  eventName="homepage_quick_start_click" ctaLabel={tool.ctaLabel}
+                  trackingParams={{ section: 'hero_quick_start', destination_type: 'tool' }}
+                  className="focus-ring group flex min-h-16 items-center justify-between gap-3 rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white transition hover:bg-white/20">
+                  <span><span className="block font-bold">{tool.title}</span><span className="mt-1 block text-xs text-blue-100">{tool.detail}</span></span>
+                  <ArrowRightIcon className="h-5 w-5 shrink-0" aria-hidden="true" />
+                </SurfaceTrackedLink>
+              ))}
+            </div>
+          </div>
+          <TrustStrip className="mt-8 max-w-5xl bg-white/95 text-slate-900 dark:bg-slate-900/90" />
         </div>
-      </section>
-
-      <HomepageAccountFramework />
-
-      <div className="mx-auto max-w-6xl px-4 py-8">
-        <PageDisclaimer />
-      </div>
-
-      <section className="mx-auto max-w-6xl px-4 pb-12">
-        <AffiliateDisclosureBox
-          title="Wealthsimple referral link"
-          body="Referral links, where present, are shown after the educational decision context. They should not change the ordering of tools, examples, assumptions, or guidance."
-        >
-          <a
-            href="https://www.wealthsimple.com/en-ca"
-            target="_blank"
-            rel="noopener noreferrer sponsored"
-            className="inline-flex rounded-xl border border-amber-300 bg-white px-4 py-2 text-sm font-bold text-primary transition hover:border-amber-500 hover:text-secondary dark:border-amber-800 dark:bg-slate-900 dark:text-amber-100"
-          >
-            Review provider details
-          </a>
-        </AffiliateDisclosureBox>
       </section>
 
       <section id="start-with-goal" className="mx-auto max-w-6xl px-4 py-16">
@@ -457,6 +455,20 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      <HomepageAccountFramework />
+
+      <div className="mx-auto max-w-6xl px-4 py-8"><PageDisclaimer /></div>
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <AffiliateDisclosureBox title="Editorial independence and future partnerships"
+          body="If verified paid referral partnerships are added, links will be clearly disclosed. No paid referral offer is currently featured here; educational tool ordering and assumptions do not depend on commissions.">
+          <SurfaceTrackedLink to="/affiliate-disclosure" eventName="homepage_trust_click"
+            ctaLabel="affiliate_disclosure" trackingParams={{section:'partner_transparency',destination_type:'page'}}
+            className="inline-flex min-h-11 items-center rounded-xl border border-amber-300 bg-white px-4 py-2 text-sm font-bold text-primary dark:bg-slate-900 dark:text-amber-100">
+            How partnerships are disclosed
+          </SurfaceTrackedLink>
+        </AffiliateDisclosureBox>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16">
