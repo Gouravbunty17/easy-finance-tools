@@ -10,29 +10,63 @@ import {
 
 const cad = n => new Intl.NumberFormat("en-CA", { style:"currency", currency:"CAD", maximumFractionDigits:0 }).format(n);
 const pct = n => Number(n).toFixed(1) + "%";
-const inputClass = "mt-1 w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:ring-2 focus:ring-sky-500 dark:border-slate-600 dark:bg-slate-900 dark:text-white";
+const inputClass = "mt-1 w-full min-w-0 rounded-xl border border-slate-300 bg-white px-3.5 py-3 text-sm font-medium text-slate-900 focus:border-secondary focus:ring-2 focus:ring-secondary/20 dark:border-slate-600 dark:bg-slate-900 dark:text-white";
 const blank = () => ({
   ticker:"", shares:"", price:"", currency:"CAD", cadPerUnit:"1",
   account:"TFSA", sector:"Unknown / diversified", region:"Unknown / mixed", assetType:"Stock",
   annualDistributionPerShare:"", costBasisCad:"", specifiedForeignProperty:false
 });
 function Allocation({ title, rows, total }) {
-  return <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-gray-800">
+  return <section className="eft-surface p-5 sm:p-6">
     <h3 className="text-lg font-bold text-primary dark:text-accent">{title}</h3>
-    <div className="mt-4 space-y-4">
+    <div className="mt-5 space-y-4">
       {rows.map(({label,value})=><div key={label}>
         <div className="flex justify-between gap-3 text-sm"><span className="text-slate-700 dark:text-slate-200">{label}</span><span className="font-semibold">{pct(value/total*100)} · {cad(value)}</span></div>
-        <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-700"><div className="h-full rounded-full bg-sky-600" style={{width:pct(value/total*100)}} /></div>
+        <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-700"><div className="eft-allocation-fill h-full rounded-full" style={{width:pct(value/total*100)}} /></div>
       </div>)}
     </div>
   </section>;
 }
-function Stat({ label, value, detail }) {
-  return <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-gray-800">
-    <p className="text-sm text-slate-500 dark:text-slate-400">{label}</p>
-    <p className="mt-2 text-2xl font-bold text-primary dark:text-accent">{value}</p>
-    {detail && <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">{detail}</p>}
+function Stat({ label, value, detail, standout = false }) {
+  return <div className={`eft-kpi-card ${standout ? "is-highlighted" : ""}`}>
+    <p className={`text-xs font-bold uppercase tracking-[.11em] ${standout ? "text-[#A8EBD9]" : "text-slate-500 dark:text-slate-400"}`}>{label}</p>
+    <p className={`eft-metric mt-3 break-words text-[24px] font-extrabold sm:text-[28px] ${standout ? "text-white" : "text-primary dark:text-white"}`}>{value}</p>
+    {detail && <p className={`mt-2 text-xs leading-5 ${standout ? "text-slate-300" : "text-slate-500 dark:text-slate-400"}`}>{detail}</p>}
   </div>;
+}
+const allocationColors = ["#137B70", "#0B2447", "#E7AB57", "#53B8A7", "#7898B4", "#C98C49", "#6F728B", "#9ADCCE"];
+function AccountDonut({ allocations, total }) {
+  let progress = 0;
+  const circumference = 2 * Math.PI * 43;
+  const slices = allocations.map((item, i) => {
+    const portion = total > 0 ? Math.min(1, item.value / total) : 0;
+    const slice = { ...item, color: allocationColors[i % allocationColors.length], length: portion * circumference, start: progress * circumference };
+    progress += portion;
+    return slice;
+  });
+  return <section className="eft-surface grid items-center gap-7 p-5 sm:p-7 lg:grid-cols-[260px_1fr]" aria-label="Account allocation visualization">
+    <div className="mx-auto w-full max-w-[245px]">
+      <svg viewBox="0 0 120 120" role="img" aria-label="Account values represented as a proportion of total portfolio value" className="w-full">
+        <circle cx="60" cy="60" r="43" fill="none" stroke="#E9EFF5" strokeWidth="16"/>
+        {slices.map((slice,i)=><circle key={i} cx="60" cy="60" r="43" fill="none" stroke={slice.color} strokeWidth="16"
+          strokeDasharray={`${slice.length} ${circumference - slice.length}`} strokeDashoffset={-slice.start}
+          transform="rotate(-90 60 60)" />)}
+        <text x="60" y="56" textAnchor="middle" fontSize="8" fontWeight="700" fill="currentColor">YOUR</text>
+        <text x="60" y="68" textAnchor="middle" fontSize="8" fontWeight="700" fill="currentColor">ACCOUNTS</text>
+      </svg>
+    </div>
+    <div>
+      <span className="eft-eyebrow">ACCOUNT ALLOCATION</span>
+      <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-primary dark:text-white">See where your money sits</h3>
+      <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">Based entirely on the account labels and position values you entered. Does not indicate investment quality or account eligibility.</p>
+      <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+        {slices.map((slice,i)=><li key={i} className="flex items-center gap-3 rounded-xl border border-slate-100 p-3 dark:border-slate-700">
+          <span className="h-3 w-3 shrink-0 rounded-full" style={{backgroundColor:slice.color}}/>
+          <div><span className="block text-xs font-semibold text-slate-500">{slice.label}</span><span className="block text-base font-extrabold text-primary dark:text-white">{pct(slice.value / total * 100)}</span></div>
+        </li>)}
+      </ul>
+    </div>
+  </section>;
 }
 function EditorField({ name, value, onChange, type="text", placeholder="", step }) {
   return <label className="block text-xs font-semibold text-slate-600 dark:text-slate-300">{name}
@@ -108,22 +142,42 @@ export default function PortfolioAnalyzer() {
     setDemo(false);setImportError("");
   }
   const clear=()=>{setRows([blank()]);setConfirmed(null);setDemo(false);setImportError("");inputMethod.current="manual";};
-  return <main className="mx-auto max-w-6xl px-4 py-10">
+  return <main className="eft-workspace pb-16">
     <SEO title="Canadian Portfolio Analyzer | Manual & CSV Portfolio Breakdown" description="Private Canadian portfolio breakdown by account, currency, geography, asset type, and user-entered dividend income. No sign-in required." canonical="https://easyfinancetools.com/tools/portfolio-analyzer" noindex />
-    <section className="rounded-3xl bg-gradient-to-br from-slate-950 via-sky-950 to-slate-900 p-7 text-white sm:p-10">
-      <p className="text-xs font-bold uppercase tracking-widest text-sky-200">Public beta · manual and CSV analysis</p>
-      <h1 className="mt-3 text-3xl font-bold tracking-tight sm:text-5xl">Canadian Portfolio Analyzer</h1>
-      <p className="mt-4 max-w-3xl text-lg text-slate-200">Understand your holdings at a glance: account allocation, CAD/USD mix, reported geography, sectors, position concentration, and estimated distribution income from your own entries.</p>
-      <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold">{["No brokerage login", "No holdings stored or uploaded", "Educational only", "No portfolio score"].map(x=><span key={x} className="rounded-full border border-white/20 px-3 py-2">{x}</span>)}</div>
-      <p className="mt-5 text-sm text-slate-200">Information is provided for education, not investment advice. EasyFinanceTools is not a registered investment dealer or advisor. Seek a registered professional for personal financial advice.</p>
+    <section className="eft-hero px-4 pb-16 pt-14 text-white sm:pt-20">
+      <div className="mx-auto grid max-w-7xl items-center gap-9 lg:grid-cols-[1.15fr_.85fr]">
+        <div>
+          <span className="eft-hero-badge">PORTFOLIO ANALYZER · PUBLIC BETA</span>
+          <h1 className="eft-display mt-6 max-w-3xl text-4xl text-white sm:text-[58px]">Your investments.<br/><span className="text-[#6DDFC8]">A clearer picture.</span></h1>
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-200">See the account, currency, sector and position breakdown of your holdings. Your numbers stay in your browser.</p>
+          <div className="mt-7 flex flex-wrap gap-2 text-xs font-bold">
+            {["Local CSV import", "No brokerage login", "No saved portfolios", "No investment score"].map(x=><span key={x} className="rounded-full border border-white/20 bg-white/[.06] px-3 py-2">{x}</span>)}
+          </div>
+          <a href="#portfolio-holdings" className="eft-brand-button mt-8 !bg-[#60DABF] !text-[#092941] hover:!bg-[#A0F0DF]">Start analysis <span aria-hidden="true">→</span></a>
+        </div>
+        <div className="eft-dashboard-frame p-5 text-[#0B2447] sm:p-6">
+          <p className="text-xs font-extrabold uppercase tracking-[.15em] text-[#137B70]">HOW IT WORKS</p>
+          <h2 className="mt-2 text-2xl font-extrabold tracking-tight">Three steps. One useful report.</h2>
+          <ol className="mt-5 space-y-3">
+            {[["01", "Add holdings", "Enter positions or import a CSV locally."], ["02", "Check the details", "Review account, FX and price inputs."], ["03", "Explore your allocation", "See descriptive portfolio metrics without ratings."]].map(([num,title,detail])=>(
+              <li key={num} className="flex items-center gap-3 rounded-xl border border-[#E0E9F0] bg-[#F8FAFC] p-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E1F4EF] text-sm font-extrabold text-[#137B70]">{num}</span>
+                <span><span className="block text-sm font-extrabold">{title}</span><span className="mt-0.5 block text-xs leading-5 text-slate-500">{detail}</span></span>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-4 text-xs leading-5 text-slate-500">Educational analysis only. No personalized buy/sell recommendations.</p>
+        </div>
+      </div>
     </section>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6">
 
-    <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950 dark:border-amber-900 dark:bg-amber-950/20 dark:text-amber-100">
+    <div className="mt-7 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950 dark:border-amber-900 dark:bg-amber-950/20 dark:text-amber-100">
       <strong>Scope of this beta:</strong> Manual entries and CSV files are processed in your browser memory, not uploaded. Screenshot extraction, brokerage-specific CSV conversions, live quote lookups, ETF constituent overlap, and automated sector enrichment are not available. Your sector and geography selections describe your entries, not the ETF's underlying holdings. No analysis is retained when this page closes.
     </div>
 
-    <section aria-label="Portfolio input" className="mt-8 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-gray-800 sm:p-7">
-      <h2 className="text-2xl font-bold text-primary dark:text-accent">1. Enter or import holdings</h2>
+    <section id="portfolio-holdings" aria-label="Portfolio input" className="eft-surface mt-8 scroll-mt-28 p-5 sm:p-7">
+      <span className="eft-eyebrow">STEP 01 · INPUT</span><h2 className="mt-2 text-2xl font-extrabold tracking-tight text-primary dark:text-white">Enter or import holdings</h2>
       <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">For accounts at Wealthsimple, Questrade, IBKR, RBC Direct, TD Direct, Scotia iTRADE, BMO InvestorLine, CIBC Investor's Edge, Disnat or other brokers: use manual entry or convert to the CSV template below. Native broker exports are not automatically supported.</p>
       <div className="mt-5 flex flex-wrap gap-3">
         <button type="button" onClick={loadDemo} className="min-h-11 rounded-xl bg-primary px-5 py-3 text-sm font-bold text-white">Try Demo Portfolio</button>
@@ -141,12 +195,12 @@ export default function PortfolioAnalyzer() {
     </section>
 
     <section className="mt-6" aria-label="Review holdings">
-      <h2 className="text-2xl font-bold text-primary dark:text-accent">2. Review and confirm your holdings</h2>
+      <span className="eft-eyebrow">STEP 02 · REVIEW</span><h2 className="mt-2 text-2xl font-extrabold tracking-tight text-primary dark:text-white">Review and confirm your holdings</h2>
       <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Every entry remains editable before analysis. Price and annual distribution values are not fetched. FX conversion is entered manually; no currency data is transmitted.</p>
       <div className="mt-5 grid gap-4">
-        {rows.map((holding,index)=><article key={index} className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-gray-800 sm:p-6">
+        {rows.map((holding,index)=><article key={index} className="eft-surface p-4 sm:p-6">
           <div className="mb-4 flex items-center justify-between gap-3"><h3 className="font-bold text-primary dark:text-accent">Holding {index+1}{holding.ticker?" · "+holding.ticker:""}</h3><button type="button" onClick={()=>{setRows(old=>old.filter((_,i)=>i!==index));setConfirmed(null);setDemo(false);}} className="rounded-lg px-3 py-2 text-sm font-semibold text-red-700 underline dark:text-red-300">Remove</button></div>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <EditorField name="Ticker or label" value={holding.ticker} onChange={v=>changeRow(index,"ticker",v)} placeholder="e.g. XEQT" />
             <EditorField name="Shares / units" value={holding.shares} onChange={v=>changeRow(index,"shares",v)} type="number" step="any" />
             <EditorField name="Price per unit" value={holding.price} onChange={v=>changeRow(index,"price",v)} type="number" step="any" />
@@ -158,7 +212,7 @@ export default function PortfolioAnalyzer() {
             <EditorSelect name="Region (user-reported)" value={holding.region} choices={PORTFOLIO_REGIONS} onChange={v=>changeRow(index,"region",v)} />
             <EditorField name="Annual distribution per unit (optional)" value={holding.annualDistributionPerShare} onChange={v=>changeRow(index,"annualDistributionPerShare",v)} type="number" step="any" />
             <EditorField name="Cost basis CAD (optional)" value={holding.costBasisCad} onChange={v=>changeRow(index,"costBasisCad",v)} type="number" step="any" />
-            <label className="col-span-2 flex items-center gap-2 rounded-xl border border-slate-200 p-3 text-xs dark:border-slate-700">
+            <label className="flex items-center gap-3 rounded-xl border border-slate-200 p-3 text-xs dark:border-slate-700 sm:col-span-2">
               <input type="checkbox" checked={Boolean(holding.specifiedForeignProperty)} onChange={e=>changeRow(index,"specifiedForeignProperty",e.target.checked)} />
               Mark as specified foreign property (taxable account only; verify CRA definition)
             </label>
@@ -166,37 +220,38 @@ export default function PortfolioAnalyzer() {
         </article>)}
       </div>
       {currentValidation.errors.length>0&&<div className="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950 dark:border-amber-900 dark:bg-amber-950/20 dark:text-amber-100"><p className="font-bold">Fields to review</p><ul className="mt-2 list-disc pl-5">{currentValidation.errors.slice(0,8).map((err,i)=><li key={i}>{err}</li>)}</ul></div>}
-      <button type="button" onClick={confirmAnalysis} disabled={!rows.length||currentValidation.errors.length>0} className="mt-5 min-h-12 w-full rounded-xl bg-primary px-5 py-3 text-base font-bold text-white disabled:cursor-not-allowed disabled:opacity-40">Confirm holdings and analyze</button>
+      <button type="button" onClick={confirmAnalysis} disabled={!rows.length||currentValidation.errors.length>0} className="eft-brand-button mt-5 w-full disabled:cursor-not-allowed disabled:opacity-40">Confirm holdings and analyze</button>
     </section>
 
-    {analysis?.errors?.length===0&&<section className="mt-10 space-y-6" aria-label="Portfolio analysis results" aria-live="polite">
-      <div><p className="text-xs font-bold uppercase tracking-widest text-sky-700 dark:text-sky-300">3. Confirmed portfolio breakdown</p><h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Your analysis {demo?"(demo data)":""}</h2><p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Values are in CAD and based solely on your edited inputs; no live market data or ETF holdings data is fetched.</p></div>
+    {analysis?.errors?.length===0&&<section className="mt-12 space-y-6" aria-label="Portfolio analysis results" aria-live="polite">
+      <div><span className="eft-eyebrow">STEP 03 · REPORT</span><h2 className="mt-2 text-3xl font-bold text-primary dark:text-accent">Your analysis {demo?"(demo data)":""}</h2><p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Values are in CAD and based solely on your edited inputs; no live market data or ETF holdings data is fetched.</p></div>
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <Stat label="Estimated market value" value={cad(analysis.totalValueCad)} detail="Sum of units × prices × manual FX" />
+        <Stat label="Estimated market value" value={cad(analysis.totalValueCad)} detail="Sum of units × prices × manual FX" standout />
         <Stat label="Positions" value={String(analysis.count)} detail="Each entered holding row" />
         <Stat label="Top five as % of value" value={pct(analysis.top5Pct)} detail="Purely descriptive, no rating" />
         <Stat label="Positions under 1%" value={String(analysis.tinyPositions)} detail="Of total market value" />
       </div>
+      <AccountDonut allocations={analysis.account} total={analysis.totalValueCad} />
       <div className="grid gap-4 md:grid-cols-2"><Allocation title="Accounts" rows={analysis.account} total={analysis.totalValueCad}/><Allocation title="Currencies (quoted denomination)" rows={analysis.currency} total={analysis.totalValueCad}/><Allocation title="Asset classes (user-reported)" rows={analysis.assetType} total={analysis.totalValueCad}/><Allocation title="Geography (user-reported)" rows={analysis.region} total={analysis.totalValueCad}/><Allocation title="Sectors (user-reported)" rows={analysis.sector} total={analysis.totalValueCad}/></div>
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-gray-800">
+      <section className="eft-surface p-5 sm:p-6">
         <h3 className="text-xl font-bold text-primary dark:text-accent">Position concentration</h3>
         <p className="mt-2 text-sm">Largest individual stock: {analysis.biggestSingleStock===null?"Not available (no stock positions)":pct(analysis.biggestSingleStock)}. This is a position percentage, not a rating.</p>
         <div className="mt-4 space-y-3">{analysis.top5.map((h,i)=><div key={i} className="flex justify-between gap-4 border-b border-slate-100 py-2 text-sm dark:border-slate-700"><span>{h.ticker} · {h.account}</span><strong>{cad(h.valueCad)} · {pct(h.valueCad/analysis.totalValueCad*100)}</strong></div>)}</div>
         {analysis.duplicateTickers.length>0&&<p className="mt-3 text-sm">Ticker appearing in multiple rows: {analysis.duplicateTickers.join(", ")}. These entries are not automatically combined.</p>}
       </section>
       <section className="grid gap-4 md:grid-cols-2">
-        <article className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-gray-800">
+        <article className="eft-surface p-5 sm:p-6">
           <h3 className="text-lg font-bold text-primary dark:text-accent">Dividend and distribution inputs</h3>
           <p className="mt-3 text-2xl font-bold">{cad(analysis.annualIncomeCad)} / year</p>
           <p className="mt-2 text-sm">Coverage: {analysis.knownIncomePositions} of {analysis.count} holding(s) have annual distributions entered. {analysis.allIncomeEntered?"This is the total based on entered distributions.":"This is an incomplete subtotal, NOT a portfolio yield."}</p>
           <p className="mt-2 text-sm">Indicative income / portfolio value: {pct(analysis.annualIncomeCad/analysis.totalValueCad*100)} (entered annual amounts divided by current entered values; not a verified TTM yield). Distribution type and eligible-dividend tax status are not inferred.</p>
         </article>
-        <article className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-gray-800">
+        <article className="eft-surface p-5 sm:p-6">
           <h3 className="text-lg font-bold text-primary dark:text-accent">ETF issuer overlap</h3>
           <p className="mt-3 text-sm leading-6">Not calculated. Underlying constituent datasets from issuers are not connected in this beta; a ticker match or sector label is not evidence of actual ETF constituent overlap. No overlap percentage is invented.</p>
         </article>
       </section>
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-gray-800">
+      <section className="eft-surface p-5 sm:p-6">
         <h3 className="text-lg font-bold text-primary dark:text-accent">Canadian account and tax context</h3>
         <div className="mt-4 space-y-4 text-sm leading-6">
           {analysis.flaggedUsInTfsa.length>0?<p><strong>U.S. dividend exposure in TFSA:</strong> {analysis.flaggedUsInTfsa.map(h=>h.ticker).join(", ")}. U.S.-source dividends in TFSAs may face U.S. withholding tax; exact treatment depends on the security and fund structure. No tax amount is calculated.</p>:<p>No TFSA U.S.-source dividend positions were identifiable from your entered region and distribution data. This does not rule out indirect exposure through ETFs.</p>}
@@ -205,12 +260,13 @@ export default function PortfolioAnalyzer() {
         </div>
         <p className="mt-4 text-xs text-slate-500">Official references: <a className="underline" href="https://www.canada.ca/en/revenue-agency/services/forms-publications/forms/t1135.html" target="_blank" rel="noreferrer">CRA T1135</a> · <a className="underline" href="https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account.html" target="_blank" rel="noreferrer">CRA TFSA</a>.</p>
       </section>
-      <section className="rounded-2xl bg-slate-50 p-5 text-sm dark:bg-slate-800">
+      <section className="eft-surface p-5 text-sm">
         <h3 className="text-lg font-bold text-primary dark:text-accent">Further resources</h3>
         <p className="mt-2">Educational analysis only. No purchase recommendations or broker offers are included.</p>
         <div className="mt-3 flex flex-wrap gap-4">{[["TFSA calculator","/tools/tfsa-calculator"],["RRSP calculator","/tools/rrsp-calculator"],["Dividend calculator","/tools/dividend-calculator"],["Account decision tool","/tools/account-decision-tool"]].map(([label,to])=><Link key={to} to={to} className="font-semibold text-sky-700 underline dark:text-sky-300">{label}</Link>)}</div>
       </section>
     </section>}
     <p className="mt-8 text-xs leading-6 text-slate-500">Privacy: entries are processed locally in memory and are cleared on page close or reload. They are not uploaded by this feature, and it does not create a user account, saved portfolio or report database. General page-view analytics and web-host logs may still operate as described in our <Link className="underline" to="/privacy">privacy policy</Link>.</p>
+    </div>
   </main>;
 }
