@@ -52,7 +52,12 @@ export default function PortfolioAnalyzer() {
   const analysis = useMemo(()=>confirmed?analyzePortfolio(confirmed):null,[confirmed]);
   const currentValidation = useMemo(()=>validatePortfolioHoldings(rows),[rows]);
   const changeRow=(index,key,value)=>{
-    setRows(old=>old.map((r,i)=>i===index?{...r,[key]:value}:r));
+    setRows(old=>old.map((r,i)=>{
+      if(i!==index)return r;
+      // Never silently assume 1 USD = 1 CAD when a visitor changes currency.
+      if(key==="currency")return {...r, currency:value, cadPerUnit:value==="CAD"?"1":""};
+      return {...r,[key]:value};
+    }));
     setConfirmed(null); setDemo(false);
   };
   const loadDemo=()=>{
