@@ -13,7 +13,7 @@ export default function Footer() {
     <div className="mx-auto max-w-7xl px-4 pb-8 pt-14 sm:px-6 lg:px-8">
       <div className="grid gap-10 border-b border-white/10 pb-12 lg:grid-cols-[1.25fr_2fr]">
         <div>
-          <div className="inline-flex rounded-2xl bg-white px-4 py-3"><Logo size="md" /></div>
+          <div className="inline-flex rounded-2xl bg-white px-4 py-3 dark:bg-[#142C43]"><Logo size="md" /></div>
           <h2 className="mt-6 max-w-xs text-[27px] font-extrabold leading-tight tracking-tight">Financial clarity starts with a better question.</h2>
           <p className="mt-4 max-w-sm text-sm leading-7 text-slate-300">Independent, source-linked Canadian calculators and decision guides. No login required. Educational only—not licensed financial advice.</p>
           <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#28766F] bg-[#123D42] px-3 py-2 text-xs font-semibold text-[#9CF2DE]"><span className="h-2 w-2 rounded-full bg-[#65D6BC]" />Built for Canadians</span>
