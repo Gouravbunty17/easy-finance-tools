@@ -277,8 +277,8 @@ export function useDividendCalculatorModel(initialValues = {}) {
       {
         label: 'Annual dividend income',
         data: results.rows.map((row) => Math.round(row.afterTaxIncome)),
-        borderColor: '#00557a',
-        backgroundColor: 'rgba(0, 85, 122, 0.12)',
+        borderColor: '#137B70',
+        backgroundColor: 'rgba(19, 123, 112, 0.12)',
         fill: true,
         tension: 0.3,
         pointRadius: 2,
@@ -286,7 +286,7 @@ export function useDividendCalculatorModel(initialValues = {}) {
       {
         label: 'Portfolio value',
         data: results.rows.map((row) => Math.round(row.balance)),
-        borderColor: '#22c55e',
+        borderColor: '#E7AB57',
         backgroundColor: 'transparent',
         tension: 0.3,
         pointRadius: 2,
@@ -561,7 +561,7 @@ export default function DividendCalculator() {
   } = model;
 
   return (
-    <main className="mx-auto max-w-6xl overflow-x-hidden px-4 py-12">
+    <main className="eft-calculator-page eft-workspace mx-auto max-w-7xl overflow-x-hidden px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="Dividend Calculator Canada 2026: Income, Yield & DRIP"
         description="Free Canadian dividend calculator. Estimate annual income, monthly dividends, and DRIP growth for ETFs in TFSA, RRSP, or non-registered accounts."
@@ -580,7 +580,7 @@ export default function DividendCalculator() {
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             Canadian ETF income planning
           </div>
-          <h1 className="break-words text-3xl font-bold leading-tight text-primary dark:text-accent sm:text-4xl md:text-5xl">ETF income and dividend simulator</h1>
+          <h1 className="eft-display break-words text-3xl text-primary dark:text-white sm:text-4xl md:text-5xl">ETF income and dividend simulator</h1>
           <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed for planning assumptions" />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             Compare popular Canadian dividend ETFs, test a custom yield assumption, and see how much capital and reinvestment it may take to reach practical income goals inside a TFSA or taxable account.
@@ -632,7 +632,7 @@ export default function DividendCalculator() {
             />
           </div>
 
-          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-8 p-5 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Interpretation</p>
             <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What the simulator is telling you</h2>
             <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">{results.interpretation}</p>
@@ -671,7 +671,7 @@ export default function DividendCalculator() {
             </StressTestYourInputs>
           </div>
 
-          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-8 p-5 sm:p-7">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Output</p>
@@ -713,7 +713,7 @@ export default function DividendCalculator() {
             </div>
           </section>
 
-          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-8 p-5 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Income goals</p>
             <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">How much capital is needed for common monthly targets?</h2>
             <div className="mt-5 grid gap-4 md:grid-cols-3">

@@ -263,8 +263,8 @@ export default function RRSPCalculator() {
         label: 'Projected RRSP balance',
         data: result.chartValues,
         fill: true,
-        backgroundColor: 'rgba(34, 197, 94, 0.12)',
-        borderColor: '#22c55e',
+        backgroundColor: 'rgba(231, 171, 87, 0.12)',
+        borderColor: '#E7AB57',
         tension: 0.3,
         pointRadius: 3,
       },
@@ -272,7 +272,7 @@ export default function RRSPCalculator() {
   };
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-12">
+    <main className="eft-calculator-page eft-workspace mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="RRSP Calculator Canada 2026: Refund, Deduction Room & Retirement"
         description="Estimate RRSP refund value, deduction-room impact, and retirement tradeoffs in minutes with Canadian caveats and source-linked next steps."
@@ -291,7 +291,7 @@ export default function RRSPCalculator() {
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             RRSP planning for Canadian investors
           </div>
-          <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">RRSP refund and retirement-income planner</h1>
+          <h1 className="eft-display text-4xl font-extrabold text-primary dark:text-white md:text-5xl">RRSP refund and retirement-income planner</h1>
           <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against CRA RRSP rules" />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             Use this page to estimate the value of the RRSP deduction, project a retirement balance, and decide whether the RRSP should beat the TFSA or FHSA for the next contribution.
@@ -364,7 +364,7 @@ export default function RRSPCalculator() {
             </StressTestYourInputs>
           </div>
 
-          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-8 p-5 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Interpretation</p>
             <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What the RRSP scenario means in plain English</h2>
             <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">{result.interpretation}</p>
@@ -469,7 +469,7 @@ export default function RRSPCalculator() {
             />
           </div>
 
-          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-8 p-5 sm:p-7">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Output</p>
@@ -786,7 +786,7 @@ export default function RRSPCalculator() {
         </aside>
       </div>
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      <section className="eft-surface mt-10 p-5 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
         <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Read the RRSP result as refund value plus future tax tradeoff</h2>
         <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">

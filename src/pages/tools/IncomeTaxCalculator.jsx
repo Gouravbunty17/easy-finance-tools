@@ -174,7 +174,7 @@ export default function IncomeTaxCalculator() {
   const provinceName = PROVINCES.find((p) => p.code === province)?.name || "Province";
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
+    <div className="eft-calculator-page eft-workspace mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="Canadian Income Tax Calculator 2026 - All Provinces"
         description="Free 2026 Canadian income tax calculator. Estimate federal and provincial income tax, CPP, EI, take-home pay, and marginal versus effective tax rate."
@@ -188,7 +188,7 @@ export default function IncomeTaxCalculator() {
       />
 
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-3">Canadian Income Tax Calculator 2026</h1>
+        <h1 className="eft-display mb-3 text-4xl text-primary dark:text-white sm:text-5xl">Canadian Income Tax Calculator 2026</h1>
         <ToolByline />
         <p className="mt-3 text-lg text-gray-600 dark:text-gray-300">
           Estimate take-home pay after federal tax, provincial tax, CPP, and EI for any province or territory in Canada.

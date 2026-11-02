@@ -264,3 +264,25 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]) { cursor: poi
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
 }
+
+
+/* Responsive workspaces for the existing advanced calculators. */
+.eft-calculator-page { min-width:0; }
+.eft-calculator-page > :where(.rounded-3xl, .rounded-2xl, section) { scroll-margin-top:90px; }
+.eft-calculator-page :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+  border-color: #CBD7E3;
+  box-shadow: 0 1px 2px rgba(11,36,71,.025);
+}
+.eft-calculator-page :where(input:not([type="checkbox"]):not([type="radio"]),select,textarea):focus-visible {
+  border-color:#137B70; outline-color:#137B70;
+}
+.eft-calculator-page :where(canvas) { max-width:100%; }
+.eft-calculator-page :where(.rounded-3xl.border.bg-white,.rounded-2xl.shadow) {
+  box-shadow: var(--eft-soft-shadow);
+}
+.eft-calculator-page :where(h2) { letter-spacing:-.025em; }
+.eft-calculator-page :where([class*="text-3xl"].font-bold) { font-variant-numeric:tabular-nums; }
+@media (max-width: 640px) {
+  .eft-calculator-page :where(table) { font-size:.875rem; }
+  .eft-calculator-page :where(.grid) { min-width:0; }
+}

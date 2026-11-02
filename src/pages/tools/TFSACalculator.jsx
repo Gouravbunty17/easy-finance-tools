@@ -239,8 +239,8 @@ export default function TFSACalculator() {
         label: 'Projected TFSA balance',
         data: result.chartValues,
         fill: true,
-        backgroundColor: 'rgba(0, 85, 122, 0.12)',
-        borderColor: '#00557a',
+        backgroundColor: 'rgba(19, 123, 112, 0.12)',
+        borderColor: '#137B70',
         tension: 0.3,
         pointRadius: 3,
       },
@@ -248,7 +248,7 @@ export default function TFSACalculator() {
   };
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-12">
+    <main className="eft-calculator-page eft-workspace mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="TFSA Calculator Canada 2026: Room, Growth & Account Fit"
         description="Estimate TFSA room, carryforward, withdrawals, and tax-free growth in minutes with 2026 Canadian limits and source-linked caveats."
@@ -267,7 +267,7 @@ export default function TFSACalculator() {
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             TFSA planning for Canadian investors
           </div>
-          <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">TFSA room and tax-free growth planner</h1>
+          <h1 className="eft-display text-4xl font-extrabold text-primary dark:text-white md:text-5xl">TFSA room and tax-free growth planner</h1>
           <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against CRA TFSA rules" />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             Use this page to estimate available TFSA room, model tax-free growth, and decide whether the TFSA should get the next contribution before you move into ETFs, dividend income, or RRSP comparisons.
@@ -319,7 +319,7 @@ export default function TFSACalculator() {
             </StressTestYourInputs>
           </div>
 
-          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-8 p-5 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Interpretation</p>
             <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What the TFSA scenario means in plain English</h2>
             <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">{result.interpretation}</p>
@@ -492,7 +492,7 @@ export default function TFSACalculator() {
             />
           </div>
 
-          <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-8 p-5 sm:p-7">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Output</p>
@@ -727,7 +727,7 @@ export default function TFSACalculator() {
         </aside>
       </div>
 
-      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+      <section className="eft-surface mt-10 p-5 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
         <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Read the TFSA result as room first, growth second</h2>
         <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">

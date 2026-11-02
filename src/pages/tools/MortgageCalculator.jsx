@@ -296,8 +296,8 @@ export default function MortgageCalculator() {
       {
         label: 'Your balance path',
         data: result.activeSchedule.values,
-        borderColor: '#00557a',
-        backgroundColor: 'rgba(0, 85, 122, 0.12)',
+        borderColor: '#137B70',
+        backgroundColor: 'rgba(19, 123, 112, 0.12)',
         fill: true,
         tension: 0.3,
         pointRadius: 2,
@@ -306,7 +306,7 @@ export default function MortgageCalculator() {
   };
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-12">
+    <main className="eft-calculator-page eft-workspace mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="Mortgage Calculator Canada 2026: Payments, CMHC & Stress Test"
         description="Free Canadian mortgage calculator. Estimate monthly payments, CMHC premiums, closing costs, stress-test pressure, and payoff tradeoffs for 2026."
@@ -324,7 +324,7 @@ export default function MortgageCalculator() {
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             Mortgage planning for Canadian buyers
           </div>
-          <h1 className="text-4xl font-bold text-primary dark:text-accent md:text-5xl">Mortgage payment and ownership-cost planner</h1>
+          <h1 className="eft-display text-4xl font-extrabold text-primary dark:text-white md:text-5xl">Mortgage payment and ownership-cost planner</h1>
           <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against Canadian mortgage rules" />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             This page helps you move from "can I handle the payment?" to "what does this home actually cost once CMHC, closing costs, and rate risk are included?"
@@ -373,7 +373,7 @@ export default function MortgageCalculator() {
             />
           </div>
 
-          <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-6 p-5 sm:p-7">
             <h2 className="text-xl font-bold text-primary dark:text-accent">Compare two mortgage rates</h2>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Both scenarios use the same principal and amortization, with standard monthly payments and no prepayments. Taxes, insurance, closing costs and renewal changes are excluded from this comparison.</p>
             <label htmlFor="alternative-mortgage-rate" className="mt-4 block text-sm font-semibold">Scenario B annual mortgage interest rate (%)</label>
@@ -536,7 +536,7 @@ export default function MortgageCalculator() {
             />
           </div>
 
-          <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+          <section className="eft-surface mt-10 p-5 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">2026 mortgage checklist</p>
             <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Use the payment result as a decision checkpoint</h2>
             <div className="mt-6 grid gap-4 md:grid-cols-2">
