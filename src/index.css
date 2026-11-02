@@ -8,7 +8,7 @@ html {
 }
 
 body {
-  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   @apply bg-slate-50 text-slate-900 antialiased dark:bg-gray-950 dark:text-white;
 }
 
@@ -21,7 +21,7 @@ textarea {
 }
 
 ::selection {
-  background: rgba(0, 51, 102, 0.18);
+  background: rgba(19, 123, 112, 0.22);
 }
 
 .surface-card {
@@ -138,4 +138,129 @@ select:-webkit-autofill {
   -webkit-text-fill-color: #ffffff;
   box-shadow: 0 0 0 1000px #1f2937 inset;
   caret-color: #ffffff;
+}
+
+
+/* Finance Tools 2.0 — shared brand tokens and accessible primitives.
+   Opt-in classes avoid disturbing the calculation code and old article markup. */
+:root {
+  --eft-navy: #0B2447;
+  --eft-navy-deep: #071A32;
+  --eft-teal: #137B70;
+  --eft-teal-bright: #43C5AE;
+  --eft-gold: #E7AB57;
+  --eft-cloud: #F5F7FA;
+  --eft-ink: #172B46;
+  --eft-border: #DFE6EF;
+  --eft-soft-shadow: 0 15px 45px rgba(11, 36, 71, 0.07);
+  --eft-lift-shadow: 0 20px 50px rgba(11, 36, 71, 0.12);
+}
+
+html { scroll-padding-top: 86px; }
+body { background-color: var(--eft-cloud); }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled), [role="button"]:not([aria-disabled="true"]) { cursor: pointer; }
+:where(a, button, input, select, textarea, [role="button"]):focus-visible {
+  outline: 3px solid #137B70;
+  outline-offset: 3px;
+}
+:where(.dark) :where(a, button, input, select, textarea, [role="button"]):focus-visible {
+  outline-color: #64E5CD;
+}
+:where(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+  max-width: 100%;
+  border-radius: 12px;
+}
+:where(input:not([type="checkbox"]):not([type="radio"]), select, textarea):focus-visible {
+  border-color: var(--eft-teal);
+}
+::selection { color: #071A32; background-color: #B8F3E7; }
+
+.eft-shell { min-height: 100vh; background: var(--eft-cloud); }
+.dark .eft-shell { background: #081526; }
+.eft-surface {
+  border: 1px solid var(--eft-border);
+  border-radius: 24px;
+  background: #FFF;
+  box-shadow: var(--eft-soft-shadow);
+}
+.dark .eft-surface { background: #142438; border-color: #2A4058; }
+.eft-eyebrow { color: var(--eft-teal); font-size: 0.75rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.eft-display { font-weight: 800; letter-spacing: -.045em; line-height: 1.09; }
+.eft-metric { font-variant-numeric: tabular-nums; letter-spacing: -.04em; }
+.eft-brand-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; gap: .5rem; border-radius: 13px;
+  background: var(--eft-teal); color: white; font-weight: 750;
+  padding: .7rem 1.3rem; box-shadow: 0 8px 22px rgba(19,123,112,.16);
+  transition: background-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.eft-brand-button:hover { background: #0D645B; transform: translateY(-1px); box-shadow: 0 14px 24px rgba(19,123,112,.20); }
+.eft-outline-button {
+  display: inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  min-height:48px; padding:.7rem 1.3rem; border:1px solid #C9D5E2;
+  border-radius:13px; background:white; color:var(--eft-navy); font-weight:750;
+}
+.eft-outline-button:hover { border-color:var(--eft-teal); background:#F4FAF8; }
+.eft-hero {
+  position: relative; isolation:isolate; overflow:hidden;
+  background:
+    radial-gradient(ellipse 50% 65% at 92% 18%, rgba(50,181,165,.18), transparent 72%),
+    radial-gradient(ellipse 40% 55% at 13% 92%, rgba(231,171,87,.08), transparent 75%),
+    linear-gradient(125deg, #071A32 0%, #0B2447 60%, #173858 100%);
+}
+.eft-hero::before {
+  content: ""; position:absolute; inset:0; pointer-events:none;
+  opacity: .13;
+  background-image: linear-gradient(rgba(255,255,255,.17) 1px, transparent 1px), linear-gradient(90deg,rgba(255,255,255,.17) 1px,transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(90deg,transparent 25%, black 100%);
+}
+.eft-hero > * { position:relative; z-index:1; }
+.eft-hero-badge {
+  display:inline-flex; align-items:center; gap:.5rem;
+  border:1px solid rgba(133,235,212,.26);
+  border-radius:99px; background:rgba(41,183,162,.13);
+  padding:.5rem .85rem; color:#C1FFEE; font-size:.75rem; font-weight:750;
+  letter-spacing:.09em; text-transform:uppercase;
+}
+.eft-dashboard-frame {
+  border:1px solid rgba(255,255,255,.15); border-radius:26px;
+  background:rgba(255,255,255,.98); color:var(--eft-navy);
+  box-shadow: 0 32px 85px rgba(1, 15, 32, .30);
+}
+.eft-dashboard-mini {
+  border:1px solid #E2E8F0; border-radius:15px;
+  background:linear-gradient(145deg,#fff,#F7FAFC); padding:1rem;
+}
+.eft-kpi-card {
+  border:1px solid #E0E7EF; background:#fff; border-radius:20px;
+  padding:1.25rem; box-shadow:0 6px 25px rgba(11,36,71,.04);
+}
+.dark .eft-kpi-card { background:#142438; border-color:#294058; }
+.eft-kpi-card.is-highlighted { background:var(--eft-navy); color:#fff; border-color:var(--eft-navy); }
+.eft-tool-card {
+  display:block; border:1px solid #DDE6EF; border-radius:22px; background:#FFF;
+  box-shadow:0 6px 22px rgba(11,36,71,.04);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.eft-tool-card:hover { transform:translateY(-3px); border-color:#A9D7D0; box-shadow:var(--eft-lift-shadow); }
+.dark .eft-tool-card { background:#142438; border-color:#294058; }
+.eft-nav-active { background:#EAF7F4; color:#0C685F; }
+.dark .eft-nav-active { background:#20473F; color:#BCF5E8; }
+.eft-workspace { background:linear-gradient(180deg,#F2F6FA,#F7F9FC 36%,#FFF 100%); }
+.dark .eft-workspace { background:linear-gradient(180deg,#0D1E30,#081526 100%); }
+.eft-workspace :where(canvas) { max-width:100%; }
+.eft-workspace :where(.eft-result-value) { font-variant-numeric:tabular-nums; letter-spacing:-.035em; }
+.eft-allocation-fill { background: linear-gradient(90deg,#137B70,#47BFAE); }
+.eft-section-divider { height:1px; background:linear-gradient(90deg,transparent,#DFE6EF,transparent); }
+
+@media(max-width:640px) {
+  .eft-display { letter-spacing:-.035em; }
+  .eft-dashboard-frame { border-radius:20px; }
+  .eft-surface { border-radius:18px; }
+  .eft-tool-card:hover { transform:none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
 }

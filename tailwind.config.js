@@ -8,14 +8,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#003366',
-        secondary: '#00557a',
-        accent: '#FFD700',
-        neutralDark: '#343A40',
-        neutralLight: '#F8F9FA',
+        primary: '#0B2447',
+        secondary: '#137B70',
+        accent: '#E7AB57',
+        neutralDark: '#182B40',
+        neutralLight: '#F5F7FA',
+        financeNavy: '#0B2447',
+        financeTeal: '#137B70',
+        financeGold: '#E7AB57',
+        financeCloud: '#F5F7FA',
       },
       fontFamily: {
-        sans: ['Segoe UI', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
         serif: ['Georgia', 'Times New Roman', 'serif'],
       },
     },

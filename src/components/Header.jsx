@@ -1,217 +1,54 @@
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 
-const navLinks = [
-  { name: "Tools", path: "/tools" },
-  { name: "Blog", path: "/blog" },
-  { name: "About", path: "/about" },
-];
-
-function IconBase({ children, size = 18 }) {
-  return (
-    <svg
-      aria-hidden="true"
-      fill="none"
-      height={size}
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
-      width={size}
-    >
-      {children}
-    </svg>
-  );
+const navLinks = [{ name: "Calculators", path: "/tools" }, { name: "Guides", path: "/blog" }, { name: "About", path: "/about" }];
+function Icon({ name, size = 19 }) {
+  const shared={stroke:"currentColor",strokeWidth:"1.85",strokeLinecap:"round",strokeLinejoin:"round",fill:"none"};
+  if(name==="search") return <svg {...shared} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg>;
+  if(name==="sun") return <svg {...shared} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>;
+  if(name==="moon") return <svg {...shared} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 14.9A8.8 8.8 0 0 1 9.1 3.6 8.9 8.9 0 1 0 20.4 14.9Z"/></svg>;
+  if(name==="menu") return <svg {...shared} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>;
+  if(name==="close") return <svg {...shared} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg>;
+  return null;
 }
-
-function SearchIcon({ size }) {
-  return (
-    <IconBase size={size}>
-      <circle cx="11" cy="11" r="8" />
-      <line x1="21" x2="16.65" y1="21" y2="16.65" />
-    </IconBase>
-  );
-}
-
-function MoonIcon({ size }) {
-  return (
-    <IconBase size={size}>
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-    </IconBase>
-  );
-}
-
-function SunIcon({ size }) {
-  return (
-    <IconBase size={size}>
-      <circle cx="12" cy="12" r="5" />
-      <line x1="12" x2="12" y1="1" y2="3" />
-      <line x1="12" x2="12" y1="21" y2="23" />
-      <line x1="4.22" x2="5.64" y1="4.22" y2="5.64" />
-      <line x1="18.36" x2="19.78" y1="18.36" y2="19.78" />
-      <line x1="1" x2="3" y1="12" y2="12" />
-      <line x1="21" x2="23" y1="12" y2="12" />
-      <line x1="4.22" x2="5.64" y1="19.78" y2="18.36" />
-      <line x1="18.36" x2="19.78" y1="5.64" y2="4.22" />
-    </IconBase>
-  );
-}
-
-function MenuIcon({ size }) {
-  return (
-    <IconBase size={size}>
-      <line x1="3" x2="21" y1="12" y2="12" />
-      <line x1="3" x2="21" y1="6" y2="6" />
-      <line x1="3" x2="21" y1="18" y2="18" />
-    </IconBase>
-  );
-}
-
-function CloseIcon({ size }) {
-  return (
-    <IconBase size={size}>
-      <line x1="18" x2="6" y1="6" y2="18" />
-      <line x1="6" x2="18" y1="6" y2="18" />
-    </IconBase>
-  );
-}
-
 export default function Header({ onOpenSearch }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
-  const [themeReady, setThemeReady] = useState(false);
-
-  useEffect(() => {
-    setIsDark(localStorage.getItem("theme") === "dark");
-    setThemeReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!themeReady) return;
-
-    const html = document.documentElement;
-    if (isDark) {
-      html.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      html.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDark, themeReady]);
-
-  const openSearch = () => {
-    onOpenSearch?.();
-  };
-
+  const location=useLocation();
+  const [open,setOpen]=useState(false),[dark,setDark]=useState(false),[ready,setReady]=useState(false);
+  useEffect(()=>{setDark(localStorage.getItem("theme")==="dark");setReady(true);},[]);
+  useEffect(()=>{if(!ready)return;document.documentElement.classList.toggle("dark",dark);localStorage.setItem("theme",dark?"dark":"light");},[ready,dark]);
+  useEffect(()=>{setOpen(false);},[location.pathname]);
+  useEffect(()=>{if(!open)return;const onEsc=e=>{if(e.key==="Escape")setOpen(false);};window.addEventListener("keydown",onEsc);return()=>window.removeEventListener("keydown",onEsc);},[open]);
+  const openSearch=()=>{setOpen(false);onOpenSearch?.();};
+  const navClass=({isActive})=>`focus-ring flex min-h-11 items-center rounded-xl px-4 text-sm font-bold transition ${isActive?"eft-nav-active":"text-slate-600 hover:bg-slate-100 hover:text-primary dark:text-slate-300 dark:hover:bg-slate-800"}`;
   return (
-    <>
-      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-950/95">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="flex h-16 items-center justify-between">
-            <Logo size="sm" />
-
-            <nav className="hidden items-center gap-6 md:flex">
-              {navLinks.map((link) => (
-                <NavLink
-                  key={link.name}
-                  to={link.path}
-                  className={({ isActive }) =>
-                    `text-sm font-semibold transition-colors ${
-                      isActive ? "text-primary dark:text-accent" : "text-gray-600 hover:text-secondary dark:text-gray-300"
-                    }`
-                  }
-                >
-                  {link.name}
-                </NavLink>
-              ))}
-
-              <button
-                onClick={openSearch}
-                className="focus-ring flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
-                title="Quick search (Ctrl+K)"
-              >
-                <SearchIcon size={13} />
-                <span className="hidden lg:inline">Search</span>
-                <kbd className="hidden rounded bg-white px-1 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-200 lg:inline">Ctrl+K</kbd>
-              </button>
-
-              <NavLink to="/contact" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0a4c89]">
-                Contact
-              </NavLink>
-
-              <button
-                onClick={() => setIsDark(!isDark)}
-                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-                className="focus-ring rounded-lg bg-gray-100 p-2 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-              >
-                {isDark ? <SunIcon size={16} /> : <MoonIcon size={16} />}
-              </button>
-            </nav>
-
-            <div className="flex items-center gap-2 md:hidden">
-              <button
-                onClick={openSearch}
-                aria-label="Open search"
-                className="focus-ring flex h-11 w-11 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
-              >
-                <SearchIcon size={18} />
-              </button>
-              <button
-                onClick={() => setIsDark(!isDark)}
-                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-                className="focus-ring flex h-11 w-11 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
-              >
-                {isDark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
-              </button>
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-                aria-expanded={isOpen}
-                className="focus-ring flex h-11 w-11 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
-              >
-                {isOpen ? <CloseIcon size={22} /> : <MenuIcon size={22} />}
-              </button>
-            </div>
-          </div>
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl dark:border-slate-800 dark:bg-[#0B1D32]/95" role="banner">
+      <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+        <Logo size="sm" />
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
+          {navLinks.map(link=><NavLink key={link.path} to={link.path} className={navClass}>{link.name}</NavLink>)}
+        </nav>
+        <div className="hidden items-center gap-2 md:flex">
+          <button type="button" onClick={openSearch} aria-label="Search calculators and guides" title="Search (Ctrl+K)" className="focus-ring flex min-h-11 items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm font-medium text-slate-600 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
+            <Icon name="search" size={17}/><span>Search</span><kbd className="ml-1 rounded-md border border-slate-200 bg-white px-2 py-0.5 text-xs dark:border-slate-600 dark:bg-slate-900">⌘ K</kbd>
+          </button>
+          <button type="button" onClick={()=>setDark(x=>!x)} aria-label={dark?"Switch to light mode":"Switch to dark mode"} className="focus-ring flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"><Icon name={dark?"sun":"moon"}/></button>
+          <Link to="/tools" className="eft-brand-button ml-1 text-sm">Explore tools <span aria-hidden="true">→</span></Link>
         </div>
-
-        {isOpen && (
-          <div className="border-t bg-white px-4 py-4 dark:border-gray-800 dark:bg-gray-950 md:hidden">
-            <nav className="flex flex-col gap-3">
-              {navLinks.map((link) => (
-                <NavLink
-                  key={link.name}
-                  to={link.path}
-                  onClick={() => setIsOpen(false)}
-                  className={({ isActive }) =>
-                    `rounded-lg px-3 py-2 text-sm font-semibold ${
-                      isActive ? "bg-blue-50 text-primary dark:bg-slate-800 dark:text-accent" : "text-gray-600 dark:text-gray-300"
-                    }`
-                  }
-                >
-                  {link.name}
-                </NavLink>
-              ))}
-              <button
-                onClick={() => {
-                  setIsOpen(false);
-                  openSearch();
-                }}
-                className="rounded-lg border border-gray-200 px-3 py-2 text-left text-sm font-semibold text-gray-600 dark:border-gray-700 dark:text-gray-300"
-              >
-                Search tools and guides
-              </button>
-              <NavLink to="/contact" onClick={() => setIsOpen(false)} className="rounded-lg bg-primary px-3 py-2 text-center text-sm font-semibold text-white">
-                Contact
-              </NavLink>
-            </nav>
-          </div>
-        )}
-      </header>
-
-    </>
+        <div className="flex items-center gap-1 md:hidden">
+          <button type="button" onClick={openSearch} aria-label="Search calculators and guides" className="focus-ring flex h-11 w-11 items-center justify-center rounded-xl text-slate-700 hover:bg-slate-100 dark:text-white dark:hover:bg-slate-800"><Icon name="search"/></button>
+          <button type="button" onClick={()=>setDark(x=>!x)} aria-label={dark?"Switch to light mode":"Switch to dark mode"} className="focus-ring flex h-11 w-11 items-center justify-center rounded-xl text-slate-700 hover:bg-slate-100 dark:text-white dark:hover:bg-slate-800"><Icon name={dark?"sun":"moon"}/></button>
+          <button type="button" aria-controls="eft-mobile-navigation" aria-expanded={open} aria-label={open?"Close navigation menu":"Open navigation menu"} onClick={()=>setOpen(x=>!x)} className="focus-ring flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-slate-700 dark:border-slate-700 dark:text-white"><Icon name={open?"close":"menu"} size={24}/></button>
+        </div>
+      </div>
+      {open && <nav id="eft-mobile-navigation" aria-label="Mobile navigation" className="border-t border-slate-200 bg-white px-4 py-4 shadow-xl dark:border-slate-800 dark:bg-[#0B1D32] md:hidden">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2">
+          {navLinks.map(link=><NavLink key={link.path} to={link.path} className={navClass}>{link.name}</NavLink>)}
+          <Link to="/contact" className="focus-ring flex min-h-11 items-center rounded-xl px-4 text-sm font-bold text-slate-600 dark:text-slate-200">Contact</Link>
+          <button type="button" onClick={openSearch} className="focus-ring flex min-h-11 items-center gap-2 rounded-xl border border-slate-200 px-4 text-left text-sm font-semibold dark:border-slate-700"><Icon name="search"/> Search tools and guides</button>
+          <Link to="/tools" className="eft-brand-button mt-1" onClick={()=>setOpen(false)}>Start with a calculator <span aria-hidden="true">→</span></Link>
+        </div>
+      </nav>}
+    </header>
   );
 }
-
