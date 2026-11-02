@@ -1,4 +1,6 @@
 ﻿export const FINANCIAL_YEAR = 2026;
+// Verified against CRA publications on 2026-11-03. Do not roll forward 2027 TFSA limits until CRA publishes them.
+export const CRA_RULES_LAST_VERIFIED = '2026-11-03';
 export const CONTENT_LAST_REVIEWED = 'April 22, 2026';
 export const DATA_SNAPSHOT_LABEL = 'Illustrative planning snapshot for April 2026';
 
@@ -8,6 +10,8 @@ export const REGISTERED_ACCOUNT_LIMITS = {
   fhsaMaxCarryforward: 8000,
   tfsaAnnualLimit: 7000,
   rrspMaxContribution2026: 33810,
+  rrspMaxContribution2027: 35390,
+  rrspMaxContribution2028: 36390,
 };
 
 export const DEFAULT_ASSUMPTIONS = {
@@ -146,6 +150,10 @@ export const TFSA_ANNUAL_LIMITS = {
 export const RRSP_RULES = {
   annualEarnedIncomeRate: 0.18,
   maxContribution2026: 33810,
+  maxContribution2027: 35390,
+  maxContribution2028: 36390,
+  // Last day of the first-60-days window for 2026 tax-year deductions.
+  deductionDeadlineFor2026TaxYear: 'March 1, 2027',
   deductionDeadlineLabel: 'March 2, 2026',
   homeBuyersPlanWithdrawalLimit: 60000,
   homeBuyersPlanRepaymentYears: 15,

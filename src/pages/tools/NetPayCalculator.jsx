@@ -9,16 +9,16 @@ import { taxOfficialSources } from "../../config/officialSources";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 
 const CPP_RATE = 0.0595;
-const CPP_MAX_PENSIONABLE = 71300;
+const CPP_MAX_PENSIONABLE = 74600;
 const CPP_EXEMPTION = 3500;
 const CPP_MAX = (CPP_MAX_PENSIONABLE - CPP_EXEMPTION) * CPP_RATE;
 const CPP2_RATE = 0.04;
-const CPP2_CEILING = 81900;
+const CPP2_CEILING = 85000;
 const CPP2_MAX = (CPP2_CEILING - CPP_MAX_PENSIONABLE) * CPP2_RATE;
-const EI_RATE = 0.0166;
-const EI_MAX_INSURABLE = 63200;
+const EI_RATE = 0.0163;
+const EI_MAX_INSURABLE = 68900;
 const EI_MAX = EI_MAX_INSURABLE * EI_RATE;
-const FEDERAL_BASIC = 16129;
+const FEDERAL_BASIC = 16452;
 
 const FEDERAL_BRACKETS = [
   { min: 0, max: 58523, rate: 0.14 },
@@ -29,19 +29,19 @@ const FEDERAL_BRACKETS = [
 ];
 
 const PROV = {
-  AB: { label: "Alberta", r: [{ t: 148269, r: 0.1 }, { t: 177922, r: 0.12 }, { t: 237230, r: 0.13 }, { t: 355845, r: 0.14 }, { t: Infinity, r: 0.15 }], bp: 21003 },
-  BC: { label: "British Columbia", r: [{ t: 45654, r: 0.0506 }, { t: 91310, r: 0.077 }, { t: 104835, r: 0.105 }, { t: 127299, r: 0.1229 }, { t: 172602, r: 0.147 }, { t: 240716, r: 0.168 }, { t: Infinity, r: 0.205 }], bp: 11981 },
-  MB: { label: "Manitoba", r: [{ t: 47000, r: 0.108 }, { t: 100000, r: 0.1275 }, { t: Infinity, r: 0.174 }], bp: 15780 },
-  NB: { label: "New Brunswick", r: [{ t: 47715, r: 0.094 }, { t: 95431, r: 0.14 }, { t: 176756, r: 0.16 }, { t: Infinity, r: 0.195 }], bp: 12458 },
-  NL: { label: "Newfoundland and Labrador", r: [{ t: 43198, r: 0.087 }, { t: 86395, r: 0.145 }, { t: 154244, r: 0.158 }, { t: 215943, r: 0.178 }, { t: Infinity, r: 0.198 }], bp: 10818 },
-  NS: { label: "Nova Scotia", r: [{ t: 29590, r: 0.0879 }, { t: 59180, r: 0.1495 }, { t: 93000, r: 0.1667 }, { t: 150000, r: 0.175 }, { t: Infinity, r: 0.21 }], bp: 8481 },
-  NT: { label: "Northwest Territories", r: [{ t: 50597, r: 0.059 }, { t: 101198, r: 0.086 }, { t: 164525, r: 0.122 }, { t: Infinity, r: 0.1405 }], bp: 16593 },
-  NU: { label: "Nunavut", r: [{ t: 53268, r: 0.04 }, { t: 106537, r: 0.07 }, { t: 173205, r: 0.09 }, { t: Infinity, r: 0.115 }], bp: 17925 },
-  ON: { label: "Ontario", r: [{ t: 51446, r: 0.0505 }, { t: 102894, r: 0.0915 }, { t: 150000, r: 0.1116 }, { t: 220000, r: 0.1216 }, { t: Infinity, r: 0.1316 }], bp: 11865 },
-  PE: { label: "Prince Edward Island", r: [{ t: 32656, r: 0.0965 }, { t: 64313, r: 0.1363 }, { t: 105000, r: 0.166 }, { t: 140000, r: 0.18 }, { t: Infinity, r: 0.167 }], bp: 12000 },
+  AB: { label: "Alberta", r: [{ t: 61200, r: 0.08 }, { t: 154259, r: 0.1 }, { t: 185111, r: 0.12 }, { t: 246813, r: 0.13 }, { t: 370220, r: 0.14 }, { t: Infinity, r: 0.15 }], bp: 22769 },
+  BC: { label: "British Columbia", r: [{ t: 50363, r: 0.056 }, { t: 100728, r: 0.077 }, { t: 115648, r: 0.105 }, { t: 140430, r: 0.1229 }, { t: 190405, r: 0.147 }, { t: 265545, r: 0.168 }, { t: Infinity, r: 0.205 }], bp: 13216 },
+  MB: { label: "Manitoba", r: [{ t: 47564, r: 0.108 }, { t: 101200, r: 0.1275 }, { t: Infinity, r: 0.174 }], bp: 15780 },
+  NB: { label: "New Brunswick", r: [{ t: 52333, r: 0.094 }, { t: 104666, r: 0.14 }, { t: 193861, r: 0.16 }, { t: Infinity, r: 0.195 }], bp: 13664 },
+  NL: { label: "Newfoundland and Labrador", r: [{ t: 44678, r: 0.087 }, { t: 89354, r: 0.145 }, { t: 159528, r: 0.158 }, { t: 223340, r: 0.178 }, { t: 285319, r: 0.198 }, { t: 570638, r: 0.208 }, { t: 1141275, r: 0.213 }, { t: Infinity, r: 0.218 }], bp: 13094 },
+  NS: { label: "Nova Scotia", r: [{ t: 30995, r: 0.0879 }, { t: 61991, r: 0.1495 }, { t: 97417, r: 0.1667 }, { t: 157124, r: 0.175 }, { t: Infinity, r: 0.21 }], bp: 11932 },
+  NT: { label: "Northwest Territories", r: [{ t: 53003, r: 0.059 }, { t: 106009, r: 0.086 }, { t: 172346, r: 0.122 }, { t: Infinity, r: 0.1405 }], bp: 18198 },
+  NU: { label: "Nunavut", r: [{ t: 55801, r: 0.04 }, { t: 111602, r: 0.07 }, { t: 181439, r: 0.09 }, { t: Infinity, r: 0.115 }], bp: 19659 },
+  ON: { label: "Ontario", r: [{ t: 53891, r: 0.0505 }, { t: 107785, r: 0.0915 }, { t: 150000, r: 0.1116 }, { t: 220000, r: 0.1216 }, { t: Infinity, r: 0.1316 }], bp: 12989 },
+  PE: { label: "Prince Edward Island", r: [{ t: 33928, r: 0.095 }, { t: 65820, r: 0.1347 }, { t: 106890, r: 0.166 }, { t: 142520, r: 0.1762 }, { t: 200000, r: 0.19 }, { t: Infinity, r: 0.2 }], bp: 15000 },
   QC: { label: "Quebec", r: [{ t: 53255, r: 0.14 }, { t: 106495, r: 0.19 }, { t: 129590, r: 0.24 }, { t: Infinity, r: 0.2575 }], bp: 17183 },
-  SK: { label: "Saskatchewan", r: [{ t: 49720, r: 0.105 }, { t: 142058, r: 0.125 }, { t: Infinity, r: 0.145 }], bp: 17661 },
-  YT: { label: "Yukon", r: [{ t: 57375, r: 0.064 }, { t: 114750, r: 0.09 }, { t: 500000, r: 0.109 }, { t: Infinity, r: 0.15 }], bp: 15705 },
+  SK: { label: "Saskatchewan", r: [{ t: 54532, r: 0.105 }, { t: 155805, r: 0.125 }, { t: Infinity, r: 0.145 }], bp: 20381 },
+  YT: { label: "Yukon", r: [{ t: 58523, r: 0.064 }, { t: 117045, r: 0.09 }, { t: 181440, r: 0.109 }, { t: 500000, r: 0.128 }, { t: Infinity, r: 0.15 }], bp: 16452 },
 };
 
 const PAY_FREQS = [
@@ -82,13 +82,20 @@ function calcBracketTax(income, brackets, basicPersonal) {
   return Math.max(0, tax - basicPersonal * brackets[0].r);
 }
 
+function getFederalBasicPersonalAmount(netIncome) {
+  const income = Math.max(0, Number(netIncome) || 0);
+  if (income <= 181440) return 16452;
+  if (income >= 258482) return 14829;
+  return 16452 - ((income - 181440) * 1623) / 77042;
+}
+
 function calcFedTax(income) {
   let tax = 0;
   for (const bracket of FEDERAL_BRACKETS) {
     if (income <= bracket.min) break;
     tax += (Math.min(income, bracket.max) - bracket.min) * bracket.rate;
   }
-  return Math.max(0, tax - FEDERAL_BASIC * FEDERAL_BRACKETS[0].rate);
+  return Math.max(0, tax - getFederalBasicPersonalAmount(income) * FEDERAL_BRACKETS[0].rate);
 }
 
 export default function NetPayCalculator() {
@@ -111,7 +118,8 @@ export default function NetPayCalculator() {
     const provTax = calcBracketTax(taxableIncome, provincial.r, provincial.bp);
     const cpp = Math.min(Math.max(0, annualGross - CPP_EXEMPTION) * CPP_RATE, CPP_MAX);
     const cpp2 = Math.min(Math.max(0, annualGross - CPP_MAX_PENSIONABLE) * CPP2_RATE, CPP2_MAX);
-    const ei = Math.min(annualGross * EI_RATE, EI_MAX);
+    const eiRate = province === "QC" ? 0.013 : EI_RATE;
+    const ei = Math.min(annualGross * eiRate, EI_MAX_INSURABLE * eiRate);
     const otherAnnual = asNumber(otherDeductions) * asNumber(payFreq, 26);
     const totalAnnualDeductions = fedTax + provTax + cpp + cpp2 + ei + annualRRSP + otherAnnual;
     const annualNet = annualGross - totalAnnualDeductions;
@@ -166,7 +174,7 @@ export default function NetPayCalculator() {
         { href: "/tools/salary-to-hourly-calculator", title: "Salary to hourly calculator", body: "Convert gross salary first if you are comparing offers or freelance rates." },
         { href: "/tools/rrsp-calculator", title: "RRSP calculator", body: "Compare whether RRSP contributions should be part of the next paycheque plan." },
       ]}
-      footerNote="Educational estimate only. Employer-specific payroll rules, benefits, taxable benefits, and local credits can change your real pay stub."
+      footerNote="Educational estimate only. Employer-specific payroll rules, surtaxes, credits, and benefits can change a real pay stub. Quebec results are especially approximate because QPP/QPIP and Quebec-specific federal tax treatment are not fully modelled."
     >
       <OfficialSourceNote
         title="Source check for payroll estimates"

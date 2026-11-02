@@ -15,7 +15,7 @@ const FAQS = [
   },
   {
     q: "What is the basic personal amount for 2026?",
-    a: "The federal basic personal amount (BPA) for 2026 is approximately $16,129. This is a non-refundable tax credit that reduces your federal tax by 15% of that amount, or roughly $2,419. It reduces your tax by the same dollar amount regardless of your income bracket.",
+    a: "The maximum federal basic personal amount for 2026 is $16,452. At the 14% lowest federal rate, the maximum credit from that amount is approximately $2,303. The BPA gradually falls to $14,829 at higher net incomes. It is a non-refundable credit, not a taxable-income deduction.",
   },
   {
     q: "How do I find my actual marginal tax rate in Canada?",
@@ -27,16 +27,16 @@ const FAQS = [
   },
   {
     q: "What are the 2026 Canadian federal income tax brackets?",
-    a: "The 2026 federal brackets are: 15% on income up to $57,375; 20.5% on $57,375–$114,750; 26% on $114,750–$158,519; 29% on $158,519–$220,000; and 33% on income over $220,000. Each rate applies only to the income within that bracket, not your entire income.",
+    a: "The 2026 federal brackets are: 14% up to $58,523; 20.5% on $58,523–$117,045; 26% on $117,045–$181,440; 29% on $181,440–$258,482; and 33% above $258,482. Each rate applies only to the income within that bracket, not your entire income.",
   },
 ];
 
 const federalBrackets = [
-  { range: "$0 – $57,375", rate: "15%", on: "First $57,375" },
-  { range: "$57,375 – $114,750", rate: "20.5%", on: "Next $57,375" },
-  { range: "$114,750 – $158,519", rate: "26%", on: "Next $43,769" },
-  { range: "$158,519 – $220,000", rate: "29%", on: "Next $61,481" },
-  { range: "Over $220,000", rate: "33%", on: "Amounts above $220,000" },
+  { range: "$0 – $58,523", rate: "14%", on: "First $58,523" },
+  { range: "$58,523 – $117,045", rate: "20.5%", on: "Next $58,522" },
+  { range: "$117,045 – $181,440", rate: "26%", on: "Next $64,395" },
+  { range: "$181,440 – $258,482", rate: "29%", on: "Next $77,042" },
+  { range: "Over $258,482", rate: "33%", on: "Amounts above $258,482" },
 ];
 
 const provincialTopRates = [
@@ -48,14 +48,14 @@ const provincialTopRates = [
   { province: "Saskatchewan", topRate: "14.5%", combined: "47.5%" },
   { province: "Nova Scotia", topRate: "21%", combined: "54%" },
   { province: "New Brunswick", topRate: "19.5%", combined: "52.5%" },
-  { province: "Prince Edward Island", topRate: "18.75%", combined: "51.75%" },
-  { province: "Newfoundland", topRate: "21.3%", combined: "54.8%" },
+  { province: "Prince Edward Island", topRate: "20%", combined: "53%" },
+  { province: "Newfoundland and Labrador", topRate: "21.8%", combined: "54.8%" },
 ];
 
 const workedExample = [
-  { bracket: "First $57,375", rate: "15%", tax: "$8,606" },
-  { bracket: "Next $42,625 ($100K – $57,375)", rate: "20.5%", tax: "$8,738" },
-  { bracket: "Total federal tax", rate: "", tax: "$17,344" },
+  { bracket: "First $58,523", rate: "14%", tax: "$8,193" },
+  { bracket: "Next $41,477 ($100K – $58,523)", rate: "20.5%", tax: "$8,503" },
+  { bracket: "Gross federal tax, before credits", rate: "", tax: "$16,696" },
 ];
 
 export default function CanadianTaxBrackets2026() {
@@ -72,7 +72,7 @@ export default function CanadianTaxBrackets2026() {
         description="2026 Canadian federal and provincial income tax brackets explained. Marginal vs effective rates, worked examples, and a free tax calculator."
         url="https://easyfinancetools.com/blog/canadian-tax-brackets-2026"
         datePublished="2026-03-29"
-        dateModified="2026-04-07"
+        dateModified="2026-11-03"
       />
       <FAQSchema faqs={FAQS} />
 
@@ -88,10 +88,10 @@ export default function CanadianTaxBrackets2026() {
       <section className="mx-auto max-w-3xl px-4 py-12">
         <TLDRBox
           headline="What are the Canadian tax brackets for 2026?"
-          answer="Canada uses a progressive income tax system — each bracket rate applies only to income within that range. Federal rates run from 15% on the first $57,375 up to 33% on income over $220,000. Provincial tax is added on top. Your effective (average) rate is always lower than your marginal (top bracket) rate."
+          answer="Canada uses a progressive income tax system — each bracket rate applies only to income within that range. Federal rates run from 14% on the first $58,523 up to 33% on income over $258,482. Provincial tax is added on top. Your effective (average) rate is always lower than your marginal (top bracket) rate."
           points={[
-            "2026 federal bottom bracket: 15% on income up to $57,375",
-            "2026 federal top bracket: 33% on income over $220,000",
+            "2026 federal bottom bracket: 14% on income up to $58,523",
+            "2026 federal top bracket: 33% on income over $258,482",
             "Combined top rates (federal + provincial) range from ~47.5% (SK) to ~54.8% (NL)",
             "RRSP contributions reduce taxable income at your marginal rate — the higher your bracket, the more valuable they are",
           ]}
@@ -107,7 +107,7 @@ export default function CanadianTaxBrackets2026() {
             Every Canadian taxpayer pays federal income tax using the same bracket structure, regardless of province. Provincial tax is calculated separately and added on top. The key insight is that your marginal rate — the rate on your next dollar of income — only applies to the portion of income that falls inside that bracket. Lower income earned in lower brackets is always taxed at the lower rate.
           </p>
           <p>
-            For example, if you earn $100,000 in 2026, you do not pay 20.5% on the full amount. You pay 15% on the first $57,375, and then 20.5% only on the remaining $42,625 above that threshold. This is a fundamental point many Canadians misunderstand when thinking about pay raises or bonuses.
+            For example, if you earn $100,000 in 2026, you do not pay 20.5% on the full amount. You pay 14% on the first $58,523, and then 20.5% only on the remaining $41,477 above that threshold. This is a fundamental point many Canadians misunderstand when thinking about pay raises or bonuses.
           </p>
 
           <h2>2026 federal income tax brackets</h2>
@@ -142,7 +142,7 @@ export default function CanadianTaxBrackets2026() {
 
           <h2>Worked example: $100,000 income in 2026</h2>
           <p>
-            Here is how the federal calculation breaks down for someone earning $100,000 in taxable income. This assumes no deductions other than the basic personal amount (approximately $16,129 in 2026), which reduces your taxable income before brackets are applied.
+            Here is how the federal calculation breaks down for someone earning $100,000 in taxable income. This assumes $100,000 of taxable income before non-refundable credits. The federal basic personal amount is a tax credit, not a deduction from taxable income.
           </p>
 
           <div className="not-prose my-6 rounded-xl border border-blue-200 bg-blue-50 p-5 dark:border-blue-800 dark:bg-blue-900/20">
@@ -171,7 +171,7 @@ export default function CanadianTaxBrackets2026() {
           </div>
 
           <p>
-            After applying the basic personal amount credit (which reduces federal tax by roughly $2,419 at the 15% credit rate), the actual federal tax owing on $100,000 is approximately $14,900–$15,300 before provincial tax, CPP, and EI. Take-home pay will also reflect any other credits or deductions you are eligible for.
+            The 2026 maximum federal basic personal amount of $16,452 produces an approximately $2,303 non-refundable credit at the 14% credit rate. That reduces the illustrated $16,696 gross federal tax to about $14,393, before other credits, provincial tax, CPP, or EI. The BPA phases down for higher net incomes.
           </p>
 
           <h2>Marginal rate vs effective rate — and why it matters</h2>
@@ -179,7 +179,7 @@ export default function CanadianTaxBrackets2026() {
             Your <strong>marginal rate</strong> is the rate applied to your last dollar of income — the top bracket you fall into. Your <strong>effective rate</strong> is your total tax bill divided by your total income.
           </p>
           <p>
-            Someone earning $100,000 has a marginal federal rate of 20.5%, but their effective federal rate is considerably lower — around 15–16% — because most of their income is taxed at 15%. The marginal rate tells you how much of a raise you actually keep. The effective rate tells you your average tax burden.
+            Someone earning $100,000 has a marginal federal rate of 20.5%, but their effective federal rate is considerably lower — around 14.4% after the maximum basic personal amount credit in this simplified example — because income is taxed progressively. The marginal rate tells you how much of a raise you actually keep. The effective rate tells you your average tax burden.
           </p>
           <p>
             This distinction matters enormously for RRSP planning. Every dollar contributed to an RRSP reduces taxable income at your <em>marginal</em> rate. If your marginal combined rate (federal + provincial) is 40%, a $10,000 RRSP contribution saves you approximately $4,000 in tax. That refund can then be reinvested in a TFSA, compounding the benefit.
@@ -217,7 +217,7 @@ export default function CanadianTaxBrackets2026() {
             Federal and provincial income tax are not the only deductions on a Canadian paycheque. Most employees also pay into the Canada Pension Plan (CPP) and Employment Insurance (EI). These are not income tax, but they reduce your take-home pay in similar ways.
           </p>
           <p>
-            For 2026, CPP contributions apply on earnings between the Year's Basic Exemption ($3,500) and the Year's Maximum Pensionable Earnings (approximately $73,200). The contribution rate for employees is 5.95% up to the first YMPE ceiling, plus an additional CPP2 contribution of 4% on earnings between that ceiling and a second ceiling (approximately $81,900). EI premiums in 2026 are approximately 1.64% on insurable earnings up to roughly $65,700.
+            For 2026, CPP contributions use a $3,500 basic exemption and a $74,600 maximum pensionable earnings ceiling. The employee rate is 5.95% up to that ceiling, plus CPP2 of 4% on pensionable earnings between $74,600 and $85,000. Outside Quebec, EI premiums are 1.63% on insurable earnings up to $68,900; Quebec has its own EI rate and pension arrangements.
           </p>
           <p>
             These amounts are deductible or eligible for tax credits on your return, so their impact is partially offset, but they are important to factor in when estimating actual take-home pay from a salary.
@@ -238,7 +238,7 @@ export default function CanadianTaxBrackets2026() {
               <strong>RRSP withdrawals are fully taxable.</strong> Strategic planning involves contributing during high-income years and withdrawing in lower-income retirement years to stay in a lower bracket overall. This is the classic RRSP "bracket arbitrage."
             </li>
             <li>
-              <strong>Capital gains are taxed at 50% inclusion (below $250,000).</strong> Only half of a capital gain is added to taxable income. For gains above $250,000 realized in a single year, the inclusion rate rises to two-thirds. This makes the effective capital gains rate significantly lower than ordinary income at most brackets.
+              <strong>The general capital gains inclusion rate remains one-half.</strong> The proposed increase to two-thirds for certain gains was cancelled in March 2025. Capital gains rules can have exemptions and special cases, so verify the treatment of your particular disposition.
             </li>
             <li>
               <strong>Eligible dividends receive a dividend tax credit.</strong> This credit partially offsets provincial and federal tax on dividends paid by Canadian corporations, making dividend income more tax-efficient than interest income in non-registered accounts.
@@ -259,6 +259,7 @@ export default function CanadianTaxBrackets2026() {
           <h2>Tax planning tips for 2026</h2>
           <ul>
             <li>Check your Notice of Assessment from CRA — it shows your available RRSP room carried forward.</li>
+            <li>CRA dollar ceilings: $33,810 for 2026, $35,390 for 2027, and the newly announced $36,390 for 2028. Your individual deduction room can differ.</li>
             <li>RRSP contributions made before March 2, 2026 count for the 2025 tax year. Contributions from January 1 to March 2 can be applied to either 2025 or 2026.</li>
             <li>If you expect a materially higher income in 2026, consider saving RRSP room for a contribution next year when the deduction is worth more.</li>
             <li>Use the TFSA for savings and investments when your RRSP room is limited, when your income is lower, or when you value flexibility over the immediate deduction.</li>
@@ -299,7 +300,7 @@ export default function CanadianTaxBrackets2026() {
 
           <h3>What is the basic personal amount for 2026?</h3>
           <p>
-            The federal basic personal amount (BPA) for 2026 is approximately $16,129. This is a non-refundable tax credit that reduces your federal tax by 15% of that amount, or roughly $2,419. Most provinces have a separate provincial BPA. Because it is a credit and not a deduction, it reduces your tax by the same dollar amount regardless of your income bracket.
+            The maximum federal basic personal amount (BPA) for 2026 is $16,452, producing a credit of about $2,303 at the 14% rate. It phases down to $14,829 at higher net incomes. Each province generally has a separate provincial BPA. The BPA is a non-refundable credit, not a deduction from taxable income.
           </p>
 
           <h3>How do I find my actual marginal rate?</h3>
@@ -319,10 +320,11 @@ export default function CanadianTaxBrackets2026() {
               "Federal bracket thresholds reflect 2026 indexed amounts as published by CRA.",
               "Provincial top rates are approximate and reflect 2025–2026 figures. Some provinces may have updated rates not yet reflected here.",
               "Worked examples simplify CPP, EI, and credit interactions for illustration only.",
-              "Capital gains inclusion rates reflect announced changes; verify current rules with CRA as legislation can be subject to parliamentary review.",
+              "The proposed two-thirds capital gains inclusion increase was cancelled in March 2025; the general inclusion rate remains one-half.",
             ]}
             sources={[
-              { label: "CRA: Tax rates on income", href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/payroll-deductions-contributions/income-tax/federal-provincial-territorial-tax-rates-income-earned-canada.html" },
+              { label: "CRA: 2026 federal and provincial brackets", href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html" },
+              { label: "CRA: 2026 federal BPA calculation", href: "https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4127-payroll-deductions-formulas/t4127-jan/t4127-jan-payroll-deductions-formulas-computer-programs.html" },
               { label: "CRA: RRSP deduction limit", href: "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans/contributing-a-rrsp-prpp/whats-your-rrsp-prpp-deduction-limit.html" },
             ]}
           />

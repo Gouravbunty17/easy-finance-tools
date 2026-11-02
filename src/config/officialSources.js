@@ -18,6 +18,11 @@ export const tfsaOfficialSources = [
 
 export const rrspOfficialSources = [
   {
+    label: 'CRA: 2026–2028 registered savings limits',
+    body: 'CRA annual dollar limits for registered plans, including the newly announced 2028 RRSP ceiling.',
+    href: 'https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/whats-new.html',
+  },
+  {
     label: 'CRA: RRSPs and related plans',
     body: 'Official RRSP rules, deduction room, contributions, withdrawals, and related plan guidance.',
     href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/rrsps-related-plans.html',
@@ -76,6 +81,16 @@ export const mortgageOfficialSources = [
 ];
 
 export const taxOfficialSources = [
+  {
+    label: 'CRA: 2026 income tax rates and brackets',
+    body: 'Official 2026 federal and provincial or territorial brackets and marginal rates.',
+    href: 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html',
+  },
+  {
+    label: 'CRA: 2026 payroll deduction formulas',
+    body: 'CRA federal basic personal amount calculations, including income-tested phase-out.',
+    href: 'https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4127-payroll-deductions-formulas/t4127-jan/t4127-jan-payroll-deductions-formulas-computer-programs.html',
+  },
   {
     label: 'CRA: Canadian income tax rates',
     body: 'Federal and provincial or territorial income tax rate reference for individuals.',

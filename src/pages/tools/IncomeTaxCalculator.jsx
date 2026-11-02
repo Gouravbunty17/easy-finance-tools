@@ -39,24 +39,31 @@ const FEDERAL = {
     { min: 181440, max: 258482, rate: 0.29 },
     { min: 258482, max: Infinity, rate: 0.33 },
   ],
-  basicPersonal: 16129,
+  basicPersonal: 16452,
 };
 
 const PROVINCIAL = {
-  AB: { brackets: [{ min: 0, max: 148269, rate: 0.1 }, { min: 148269, max: 177922, rate: 0.12 }, { min: 177922, max: 237230, rate: 0.13 }, { min: 237230, max: 355845, rate: 0.14 }, { min: 355845, max: Infinity, rate: 0.15 }], basicPersonal: 21003 },
-  BC: { brackets: [{ min: 0, max: 45654, rate: 0.0506 }, { min: 45654, max: 91310, rate: 0.077 }, { min: 91310, max: 104835, rate: 0.105 }, { min: 104835, max: 127299, rate: 0.1229 }, { min: 127299, max: 172602, rate: 0.147 }, { min: 172602, max: 240716, rate: 0.168 }, { min: 240716, max: Infinity, rate: 0.205 }], basicPersonal: 11981 },
-  MB: { brackets: [{ min: 0, max: 47000, rate: 0.108 }, { min: 47000, max: 100000, rate: 0.1275 }, { min: 100000, max: Infinity, rate: 0.174 }], basicPersonal: 15780 },
-  NB: { brackets: [{ min: 0, max: 47715, rate: 0.094 }, { min: 47715, max: 95431, rate: 0.14 }, { min: 95431, max: 176756, rate: 0.16 }, { min: 176756, max: Infinity, rate: 0.195 }], basicPersonal: 12458 },
-  NL: { brackets: [{ min: 0, max: 43198, rate: 0.087 }, { min: 43198, max: 86395, rate: 0.145 }, { min: 86395, max: 154244, rate: 0.158 }, { min: 154244, max: 215943, rate: 0.178 }, { min: 215943, max: 275870, rate: 0.198 }, { min: 275870, max: 551739, rate: 0.208 }, { min: 551739, max: Infinity, rate: 0.213 }], basicPersonal: 10818 },
-  NS: { brackets: [{ min: 0, max: 29590, rate: 0.0879 }, { min: 29590, max: 59180, rate: 0.1495 }, { min: 59180, max: 93000, rate: 0.1667 }, { min: 93000, max: 150000, rate: 0.175 }, { min: 150000, max: Infinity, rate: 0.21 }], basicPersonal: 8481 },
-  NT: { brackets: [{ min: 0, max: 50597, rate: 0.059 }, { min: 50597, max: 101198, rate: 0.086 }, { min: 101198, max: 164525, rate: 0.122 }, { min: 164525, max: Infinity, rate: 0.1405 }], basicPersonal: 16593 },
-  NU: { brackets: [{ min: 0, max: 53268, rate: 0.04 }, { min: 53268, max: 106537, rate: 0.07 }, { min: 106537, max: 173205, rate: 0.09 }, { min: 173205, max: Infinity, rate: 0.115 }], basicPersonal: 17925 },
-  ON: { brackets: [{ min: 0, max: 51446, rate: 0.0505 }, { min: 51446, max: 102894, rate: 0.0915 }, { min: 102894, max: 150000, rate: 0.1116 }, { min: 150000, max: 220000, rate: 0.1216 }, { min: 220000, max: Infinity, rate: 0.1316 }], basicPersonal: 11865 },
-  PE: { brackets: [{ min: 0, max: 32656, rate: 0.0965 }, { min: 32656, max: 64313, rate: 0.1363 }, { min: 64313, max: 105000, rate: 0.166 }, { min: 105000, max: 140000, rate: 0.18 }, { min: 140000, max: Infinity, rate: 0.167 }], basicPersonal: 12000 },
+  AB: { brackets: [{ min: 0, max: 61200, rate: 0.08 }, { min: 61200, max: 154259, rate: 0.1 }, { min: 154259, max: 185111, rate: 0.12 }, { min: 185111, max: 246813, rate: 0.13 }, { min: 246813, max: 370220, rate: 0.14 }, { min: 370220, max: Infinity, rate: 0.15 }], basicPersonal: 22769 },
+  BC: { brackets: [{ min: 0, max: 50363, rate: 0.056 }, { min: 50363, max: 100728, rate: 0.077 }, { min: 100728, max: 115648, rate: 0.105 }, { min: 115648, max: 140430, rate: 0.1229 }, { min: 140430, max: 190405, rate: 0.147 }, { min: 190405, max: 265545, rate: 0.168 }, { min: 265545, max: Infinity, rate: 0.205 }], basicPersonal: 13216 },
+  MB: { brackets: [{ min: 0, max: 47564, rate: 0.108 }, { min: 47564, max: 101200, rate: 0.1275 }, { min: 101200, max: Infinity, rate: 0.174 }], basicPersonal: 15780 },
+  NB: { brackets: [{ min: 0, max: 52333, rate: 0.094 }, { min: 52333, max: 104666, rate: 0.14 }, { min: 104666, max: 193861, rate: 0.16 }, { min: 193861, max: Infinity, rate: 0.195 }], basicPersonal: 13664 },
+  NL: { brackets: [{ min: 0, max: 44678, rate: 0.087 }, { min: 44678, max: 89354, rate: 0.145 }, { min: 89354, max: 159528, rate: 0.158 }, { min: 159528, max: 223340, rate: 0.178 }, { min: 223340, max: 285319, rate: 0.198 }, { min: 285319, max: 570638, rate: 0.208 }, { min: 570638, max: 1141275, rate: 0.213 }, { min: 1141275, max: Infinity, rate: 0.218 }], basicPersonal: 13094 },
+  NS: { brackets: [{ min: 0, max: 30995, rate: 0.0879 }, { min: 30995, max: 61991, rate: 0.1495 }, { min: 61991, max: 97417, rate: 0.1667 }, { min: 97417, max: 157124, rate: 0.175 }, { min: 157124, max: Infinity, rate: 0.21 }], basicPersonal: 11932 },
+  NT: { brackets: [{ min: 0, max: 53003, rate: 0.059 }, { min: 53003, max: 106009, rate: 0.086 }, { min: 106009, max: 172346, rate: 0.122 }, { min: 172346, max: Infinity, rate: 0.1405 }], basicPersonal: 18198 },
+  NU: { brackets: [{ min: 0, max: 55801, rate: 0.04 }, { min: 55801, max: 111602, rate: 0.07 }, { min: 111602, max: 181439, rate: 0.09 }, { min: 181439, max: Infinity, rate: 0.115 }], basicPersonal: 19659 },
+  ON: { brackets: [{ min: 0, max: 53891, rate: 0.0505 }, { min: 53891, max: 107785, rate: 0.0915 }, { min: 107785, max: 150000, rate: 0.1116 }, { min: 150000, max: 220000, rate: 0.1216 }, { min: 220000, max: Infinity, rate: 0.1316 }], basicPersonal: 12989 },
+  PE: { brackets: [{ min: 0, max: 33928, rate: 0.095 }, { min: 33928, max: 65820, rate: 0.1347 }, { min: 65820, max: 106890, rate: 0.166 }, { min: 106890, max: 142520, rate: 0.1762 }, { min: 142520, max: 200000, rate: 0.19 }, { min: 200000, max: Infinity, rate: 0.2 }], basicPersonal: 15000 },
   QC: { brackets: [{ min: 0, max: 53255, rate: 0.14 }, { min: 53255, max: 106495, rate: 0.19 }, { min: 106495, max: 129590, rate: 0.24 }, { min: 129590, max: Infinity, rate: 0.2575 }], basicPersonal: 17183 },
-  SK: { brackets: [{ min: 0, max: 49720, rate: 0.105 }, { min: 49720, max: 142058, rate: 0.125 }, { min: 142058, max: Infinity, rate: 0.145 }], basicPersonal: 17661 },
-  YT: { brackets: [{ min: 0, max: 57375, rate: 0.064 }, { min: 57375, max: 114750, rate: 0.09 }, { min: 114750, max: 500000, rate: 0.109 }, { min: 500000, max: Infinity, rate: 0.15 }], basicPersonal: 15705 },
+  SK: { brackets: [{ min: 0, max: 54532, rate: 0.105 }, { min: 54532, max: 155805, rate: 0.125 }, { min: 155805, max: Infinity, rate: 0.145 }], basicPersonal: 20381 },
+  YT: { brackets: [{ min: 0, max: 58523, rate: 0.064 }, { min: 58523, max: 117045, rate: 0.09 }, { min: 117045, max: 181440, rate: 0.109 }, { min: 181440, max: 500000, rate: 0.128 }, { min: 500000, max: Infinity, rate: 0.15 }], basicPersonal: 16452 },
 };
+
+function getFederalBasicPersonalAmount(netIncome) {
+  const income = Math.max(0, Number(netIncome) || 0);
+  if (income <= 181440) return 16452;
+  if (income >= 258482) return 14829;
+  return 16452 - ((income - 181440) * 1623) / 77042;
+}
 
 function calcTax(income, brackets, basicPersonal) {
   let tax = 0;
@@ -71,18 +78,18 @@ function calcTax(income, brackets, basicPersonal) {
 
 function calcCPP(income) {
   const exemption = 3500;
-  const ceiling = 71300;
+  const ceiling = 74600;
   const rate = 0.0595;
-  const ceiling2 = 81900;
+  const ceiling2 = 85000;
   const rate2 = 0.04;
   const base = Math.max(0, Math.min(income, ceiling) - exemption) * rate;
   const enhanced = Math.max(0, Math.min(income, ceiling2) - ceiling) * rate2;
-  return Math.min(base + enhanced, 4454.1);
+  return Math.min(base + enhanced, 4646.45);
 }
 
-function calcEI(income) {
-  const rate = 0.0164;
-  const max = 63200;
+function calcEI(income, province) {
+  const rate = province === "QC" ? 0.013 : 0.0163;
+  const max = 68900;
   return Math.min(income, max) * rate;
 }
 
@@ -95,7 +102,7 @@ function pct(n) {
 }
 
 const FAQS = [
-  { q: "How accurate is this Canadian income tax calculator?", a: "This calculator uses estimated 2026 federal and provincial tax brackets and standard CPP and EI assumptions. It is a useful approximation for salary income, but not a substitute for a full tax return." },
+  { q: "How accurate is this Canadian income tax calculator?", a: "This calculator uses 2026 CRA tax brackets and standard CPP/EI assumptions. It does not model every credit, provincial surtax, or Quebec QPP/QPIP rule, so results are estimates, not a substitute for a full tax return." },
   { q: "Does this calculator include CPP and EI deductions?", a: "Yes. It estimates CPP contributions and EI premiums based on the income entered, with a self-employed toggle that removes EI and doubles CPP exposure." },
   { q: "What is the difference between marginal and effective tax rate?", a: "Marginal rate is the tax rate on your next dollar of income. Effective rate is total deductions divided by total income. They are not the same, and a higher marginal bracket does not mean all income is taxed at that top rate." },
   { q: "Does this calculator work for self-employed income?", a: "It provides a directional estimate for self-employed users by removing EI and doubling CPP, but it does not model every business deduction or filing nuance." },
@@ -121,15 +128,15 @@ export default function IncomeTaxCalculator() {
   const results = useMemo(() => {
     const taxableIncome = Math.max(0, incomeValue - rrspValue);
     const prov = PROVINCIAL[province];
-    const federalTax = calcTax(taxableIncome, FEDERAL.brackets, FEDERAL.basicPersonal);
+    const federalTax = calcTax(taxableIncome, FEDERAL.brackets, getFederalBasicPersonalAmount(taxableIncome));
     const provTax = calcTax(taxableIncome, prov.brackets, prov.basicPersonal);
-    const cpp = selfEmployed ? Math.min(calcCPP(incomeValue) * 2, 8068.2) : calcCPP(incomeValue);
-    const ei = selfEmployed ? 0 : calcEI(incomeValue);
+    const cpp = selfEmployed ? Math.min(calcCPP(incomeValue) * 2, 9292.9) : calcCPP(incomeValue);
+    const ei = selfEmployed ? 0 : calcEI(incomeValue, province);
     const totalDeductions = federalTax + provTax + cpp + ei;
     const takeHome = incomeValue - totalDeductions;
     const effectiveRate = incomeValue > 0 ? totalDeductions / incomeValue : 0;
 
-    let marginalFederal = 0.15;
+    let marginalFederal = 0.14;
     for (const bracket of FEDERAL.brackets) {
       if (taxableIncome > bracket.min) marginalFederal = bracket.rate;
     }
