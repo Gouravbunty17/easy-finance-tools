@@ -23,6 +23,7 @@ import {
 } from "chart.js";
 import { asNumber, parseNumericInput } from "../../lib/numericInputs";
 import { retirementOfficialSources } from "../../config/officialSources";
+import { MAX_CPP_65, YMPE_2026, YAMPE_2026, OAS_MONTHLY_65, OAS_CLAWBACK_MIN, estimateCPP, estimateOAS, oasClawback } from "../../lib/retirementEstimates.mjs";
 
 ChartJS.register(BarElement, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -30,54 +31,11 @@ const FAQS = [
   { q: "Is this my official CPP amount?", a: "No. This estimator is directional only. Your official CPP amount depends on your real contribution history and Service Canada records." },
   { q: "Does this estimate OAS clawback?", a: "Yes. It applies a simplified recovery-tax check based on the retirement income entered." },
   { q: "Should I delay CPP or OAS?", a: "It depends on longevity expectations, health, taxable income, and other retirement assets. This page shows tradeoffs, not a one-size-fits-all answer." },
-  { q: "Does this include GIS?", a: "Yes, but only as a rough eligibility and amount indicator. GIS rules are more nuanced than this model." },
+  { q: "Does this include GIS?", a: "No. GIS is excluded because income and household eligibility cannot be determined from these inputs. Use the official OAS benefits estimator." },
 ];
-
-const MAX_CPP_65 = 1433;
-const MAX_CPP2_65 = 61;
-const YMPE_2026 = 71300;
-const YMPE2_2026 = 81900;
-const OAS_MONTHLY_65 = 762;
-const OAS_CLAWBACK_MIN = 93454;
-const GIS_SINGLE_MAX = 1072;
-const GIS_COUPLE_MAX = 645;
-const CPP_EARLY_MONTHLY = 0.006;
-const CPP_LATE_MONTHLY = 0.007;
-const OAS_DEFER_MONTHLY = 0.006;
 
 function fmtCurrency(value) {
   return new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 }).format(value);
-}
-
-function estimateCPP(yearsContributed, avgIncome, retirementAge) {
-  const dropoutYears = Math.floor(yearsContributed * 0.17);
-  const effectiveYears = Math.max(0, yearsContributed - dropoutYears);
-  const maxEffectiveYears = 36;
-  const incomeFraction = Math.min(avgIncome / YMPE_2026, 1.0);
-  const yearFraction = Math.min(effectiveYears / maxEffectiveYears, 1.0);
-  const baseCPP = Math.round(MAX_CPP_65 * incomeFraction * yearFraction);
-  const cpp2Fraction = avgIncome > YMPE_2026 ? Math.min((avgIncome - YMPE_2026) / (YMPE2_2026 - YMPE_2026), 1.0) * yearFraction : 0;
-  const cpp2 = Math.round(MAX_CPP2_65 * cpp2Fraction);
-  const totalCPPAt65 = baseCPP + cpp2;
-  const monthsDiff = (retirementAge - 65) * 12;
-  const adjusted = monthsDiff < 0 ? Math.round(totalCPPAt65 * (1 + CPP_EARLY_MONTHLY * monthsDiff)) : Math.round(totalCPPAt65 * (1 + CPP_LATE_MONTHLY * monthsDiff));
-  return { baseCPP, cpp2, totalAt65: totalCPPAt65, adjusted: Math.max(0, adjusted) };
-}
-
-function estimateOAS(yearsInCanada, collectAge) {
-  const fraction = Math.min(yearsInCanada / 40, 1.0);
-  const baseOAS = Math.round(OAS_MONTHLY_65 * fraction);
-  const monthsDeferred = Math.max(0, (collectAge - 65) * 12);
-  const adjusted = Math.round(baseOAS * (1 + OAS_DEFER_MONTHLY * monthsDeferred));
-  return { baseOAS, adjusted };
-}
-
-function oasClawback(retirementIncome, oasMonthly) {
-  if (retirementIncome <= OAS_CLAWBACK_MIN) return { clawback: 0, netOAS: oasMonthly };
-  const annualOAS = oasMonthly * 12;
-  const clawAmount = Math.min(annualOAS, (retirementIncome - OAS_CLAWBACK_MIN) * 0.15);
-  const netOAS = Math.max(0, Math.round((annualOAS - clawAmount) / 12));
-  return { clawback: Math.round(clawAmount / 12), netOAS };
 }
 
 export default function CPPOASEstimator() {
@@ -88,7 +46,6 @@ export default function CPPOASEstimator() {
   const [avgIncome, setAvgIncome] = useState(75000);
   const [yearsCanada, setYearsCanada] = useState(35);
   const [retirementIncome, setRetirementIncome] = useState(50000);
-  const [maritalStatus, setMaritalStatus] = useState("single");
   const [result, setResult] = useState(null);
   const currentAgeValue = asNumber(currentAge);
   const yearsContribValue = asNumber(yearsContrib);
@@ -104,10 +61,8 @@ export default function CPPOASEstimator() {
     const cpp = estimateCPP(totalYears, avgIncomeValue, retirementAge);
     const oas = estimateOAS(totalYearsCA, oasAge);
     const { clawback, netOAS } = oasClawback(retirementIncomeValue, oas.adjusted);
-    const gisThreshold = maritalStatus === "single" ? 22056 : 29136;
-    const gisEligible = retirementIncomeValue < gisThreshold;
-    const gisAmount = gisEligible ? (maritalStatus === "single" ? GIS_SINGLE_MAX : GIS_COUPLE_MAX) : 0;
-    const totalMonthly = cpp.adjusted + netOAS + gisAmount;
+    // GIS is excluded; max benefit is not the personal entitlement.
+    const totalMonthly = cpp.adjusted + netOAS;
     const totalAnnual = totalMonthly * 12;
 
     const scenarios = [60, 65, 67, 70].map((age) => ({ age, cpp: estimateCPP(totalYears, avgIncomeValue, age).adjusted }));
@@ -132,8 +87,6 @@ export default function CPPOASEstimator() {
       oas,
       netOAS,
       clawback,
-      gisEligible,
-      gisAmount,
       totalMonthly,
       totalAnnual,
       scenarios,
@@ -178,8 +131,8 @@ export default function CPPOASEstimator() {
 
       <div className="mb-8 grid gap-4 md:grid-cols-4">
         {[
-          { label: "Max CPP at 65", value: `$${MAX_CPP_65}/mo`, sub: "2026 estimate" },
-          { label: "OAS at 65", value: `$${OAS_MONTHLY_65}/mo`, sub: "2026 estimate" },
+          { label: "Max CPP at 65", value: `${MAX_CPP_65.toLocaleString("en-CA", { minimumFractionDigits: 2 })}/mo`, sub: "January 2026 official maximum" },
+          { label: "OAS at 65", value: `${OAS_MONTHLY_65.toFixed(2)}/mo`, sub: "Oct–Dec 2026 maximum" },
           { label: "Early CPP at 60", value: "-36%", sub: "vs 65 in this model" },
           { label: "Late CPP at 70", value: "+42%", sub: "vs 65 in this model" },
         ].map((item) => (
@@ -201,7 +154,7 @@ export default function CPPOASEstimator() {
             <div>
               <label className="mb-1 block text-sm font-semibold">CPP Start Age</label>
               <select value={retirementAge} onChange={(e) => setRetirementAge(parseInt(e.target.value))} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800">
-                {[55, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70].map((age) => <option key={age} value={age}>{age}</option>)}
+                {[60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70].map((age) => <option key={age} value={age}>{age}</option>)}
               </select>
             </div>
             <div>
@@ -223,20 +176,13 @@ export default function CPPOASEstimator() {
               </select>
             </div>
             <div>
-              <label className="mb-1 block text-sm font-semibold">Expected Retirement Income ($/yr)</label>
+              <label className="mb-1 block text-sm font-semibold">Estimated Net World Income ($/yr, incl. OAS)</label>
               <input type="number" value={retirementIncome} onChange={(e) => setRetirementIncome(parseNumericInput(e.target.value))} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800" />
-            </div>
-            <div>
-              <label className="mb-1 block text-sm font-semibold">Marital Status</label>
-              <select value={maritalStatus} onChange={(e) => setMaritalStatus(e.target.value)} className="focus-ring w-full rounded-lg border-2 border-gray-200 p-3 dark:border-gray-600 dark:bg-gray-800">
-                <option value="single">Single / Widowed</option>
-                <option value="couple">Married / Common-Law</option>
-              </select>
             </div>
           </div>
 
           <div className="rounded-xl border border-gray-200 bg-slate-50 p-4 text-sm text-slate-700 dark:border-gray-700 dark:bg-slate-900/60 dark:text-slate-300">
-            Use your My Service Canada account for official records. This page works best as a scenario planner for collection age and clawback risk.
+            Use My Service Canada for official records. The 2026 CPP earnings ceilings are $74,600 and $85,000. OAS uses the Oct–Dec 2026 maximum. GIS is excluded. These are current-dollar illustrations, not forecasts.
           </div>
 
           <button onClick={calculate} className="w-full rounded-xl bg-primary py-4 text-lg font-bold text-white transition-colors hover:bg-secondary">
@@ -248,7 +194,7 @@ export default function CPPOASEstimator() {
           {result && (
             <>
               <div className="rounded-2xl bg-gradient-to-r from-blue-700 to-blue-900 p-8 text-center text-white">
-                <p className="text-sm font-semibold uppercase tracking-wide text-blue-200">Estimated Monthly Government Income</p>
+                <p className="text-sm font-semibold uppercase tracking-wide text-blue-200">Estimated Monthly CPP + OAS (GIS excluded)</p>
                 <p className="mt-2 text-5xl font-bold">${result.totalMonthly.toLocaleString()}/mo</p>
                 <p className="mt-2 text-sm text-blue-200">${result.totalAnnual.toLocaleString()}/year</p>
               </div>
@@ -257,7 +203,7 @@ export default function CPPOASEstimator() {
                 {[
                   { label: `CPP at ${retirementAge}`, value: `$${result.cpp.adjusted.toLocaleString()}/mo` },
                   { label: "Net OAS", value: `$${result.netOAS.toLocaleString()}/mo` },
-                  { label: "GIS", value: result.gisAmount > 0 ? `$${result.gisAmount.toLocaleString()}/mo` : "Not modeled" },
+                  { label: "GIS", value: "Not included" },
                   { label: "OAS clawback", value: result.clawback > 0 ? `-$${result.clawback.toLocaleString()}/mo` : "None" },
                 ].map((item) => (
                   <div key={item.label} className="surface-card p-4">
@@ -300,8 +246,8 @@ export default function CPPOASEstimator() {
                 <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                   <li>Age 60 vs 65 break-even: <strong>{result.breakEven60vs65 ? `about age ${Math.round(65 + result.breakEven60vs65 / 12)}` : "not available"}</strong></li>
                   <li>Age 65 vs 70 break-even: <strong>{result.breakEven65vs70 ? `about age ${Math.round(70 + result.breakEven65vs70 / 12)}` : "not available"}</strong></li>
-                  <li>If your retirement income exceeds <strong>${OAS_CLAWBACK_MIN.toLocaleString()}</strong>, OAS clawback may apply.</li>
-                  <li>TFSA withdrawals usually do not count toward the OAS clawback income calculation.</li>
+                  <li>If 2026 net world income exceeds <strong>${OAS_CLAWBACK_MIN.toLocaleString()}</strong>, OAS recovery tax may apply in the July 2027–June 2028 recovery period.</li>
+                  <li>TFSA withdrawals usually do not count toward OAS recovery income. Actual recovery periods use prior-year income.</li>
                 </ul>
               </div>
             </>
@@ -314,7 +260,7 @@ export default function CPPOASEstimator() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">What this calculator does</p>
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Estimate the public-pension layer of retirement income</h2>
           <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            This estimator models CPP, OAS, rough OAS clawback, and rough GIS context using simplified Canadian retirement assumptions. It helps you see how start age, contribution years, average income, and residency years can affect the monthly income layer that may support RRSP, TFSA, pension, and non-registered savings.
+            This estimator models CPP, OAS, and rough OAS recovery tax using simplified Canadian retirement assumptions. GIS is excluded. It helps you see how start age, contribution years, average income, and residency years can affect the monthly income layer that may support RRSP, TFSA, pension, and non-registered savings.
           </p>
         </div>
 
@@ -322,7 +268,7 @@ export default function CPPOASEstimator() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use it</p>
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Enter work history, residency, and retirement income</h2>
           <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            Use your My Service Canada records if you have them. Enter current age, CPP start age, contribution years, average employment income, years in Canada after age 18, OAS start age, retirement income, and marital status, then compare the output against your own records.
+            Use your My Service Canada records if you have them. Enter current age, CPP start age, contribution years, average employment income, years in Canada after age 18, OAS start age, net world income, then compare the output against your own records.
           </p>
         </div>
       </section>
@@ -333,7 +279,7 @@ export default function CPPOASEstimator() {
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           {[
             ["CPP start age", "Starting before 65 reduces the modeled monthly amount; starting after 65 increases it in this simplified model."],
-            ["Contribution years and average income", "These estimate how close your CPP history is to the maximum pensionable earnings path."],
+            ["Contribution years and average income", "These provide a rough proxy. Enhanced contributions on income from $74,600 to $85,000 are not separately modeled."],
             ["Years in Canada after 18", "OAS is modeled from residency years, capped at the full-residency assumption."],
             ["Expected retirement income", "Used to estimate whether OAS clawback or rough GIS eligibility may be relevant."],
           ].map(([title, body]) => (
@@ -367,10 +313,10 @@ export default function CPPOASEstimator() {
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Common mistakes</p>
         <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Official records matter more than estimates</h2>
         <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-          <li>- Assuming the maximum CPP amount applies without checking your actual contribution history.</li>
+          <li>- Assuming the maximum CPP amount applies without checking contribution history; the second CPP earnings ceiling is not modeled separately.</li>
           <li>- Forgetting that OAS eligibility depends on residency rules and can differ for partial pensions.</li>
           <li>- Ignoring OAS clawback when retirement income is high.</li>
-          <li>- Using GIS estimates without checking detailed household-income eligibility rules.</li>
+          <li>- Treating GIS as automatically payable; this calculator excludes it.</li>
         </ul>
       </section>
 
@@ -388,7 +334,7 @@ export default function CPPOASEstimator() {
       <section className="mt-10 rounded-3xl border border-amber-200 bg-amber-50 p-6 dark:border-amber-800 dark:bg-amber-900/20">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-300">Disclaimer</p>
         <p className="mt-3 text-sm leading-7 text-amber-800 dark:text-amber-200">
-          This estimator is educational and simplified. Your official CPP, OAS, GIS, tax, and clawback results depend on Service Canada records, CRA income definitions, residency history, and current program rules.
+          This is a simplified current-dollar estimate. CPP + OAS totals exclude GIS and taxes other than the modeled OAS recovery tax. Actual benefits depend on lifetime earnings, residency, income and future payment rates.
         </p>
       </section>
 
@@ -398,12 +344,12 @@ export default function CPPOASEstimator() {
         assumptions={[
           "CPP is estimated using simplified earnings and contribution-year fractions rather than your official statement of contributions.",
           "OAS is estimated based on years in Canada after age 18 and optional deferral.",
-          "Clawback and GIS handling are directional only and do not replace official eligibility rules.",
+          "OAS recovery uses the $95,323 threshold for 2026 income (July 2027–June 2028 recovery period); GIS is excluded.",
           "All numbers here should be checked against Service Canada before making a retirement decision.",
         ]}
         sources={[
           { label: "Government of Canada: CPP overview", href: "https://www.canada.ca/en/services/benefits/publicpensions/cpp.html" },
-          { label: "Government of Canada: OAS overview", href: "https://www.canada.ca/en/services/benefits/publicpensions/cpp/old-age-security.html" },
+          { label: "Government of Canada: OAS overview", href: "https://www.canada.ca/en/services/benefits/publicpensions/old-age-security.html" },
         ]}
         note="Educational estimate only. Use My Service Canada for your actual contribution history and official benefit projections."
       />
