@@ -37,7 +37,7 @@ export default function Header({ onOpenSearch }) {
         </div>
         <div className="flex items-center gap-1 md:hidden">
           <button type="button" onClick={openSearch} aria-label="Search calculators and guides" className="focus-ring flex h-11 w-11 items-center justify-center rounded-xl text-slate-700 hover:bg-slate-100 dark:text-white dark:hover:bg-slate-800"><Icon name="search"/></button>
-          <button type="button" onClick={()=>setDark(x=>!x)} aria-label={dark?"Switch to light mode":"Switch to dark mode"} className="focus-ring flex h-11 w-11 items-center justify-center rounded-xl text-slate-700 hover:bg-slate-100 dark:text-white dark:hover:bg-slate-800"><Icon name={dark?"sun":"moon"}/></button>
+          <button type="button" onClick={()=>setDark(x=>!x)} aria-label={dark?"Switch to light mode":"Switch to dark mode"} className="focus-ring hidden h-11 w-11 items-center justify-center rounded-xl text-slate-700 hover:bg-slate-100 dark:text-white dark:hover:bg-slate-800 sm:flex"><Icon name={dark?"sun":"moon"}/></button>
           <button type="button" aria-controls="eft-mobile-navigation" aria-expanded={open} aria-label={open?"Close navigation menu":"Open navigation menu"} onClick={()=>setOpen(x=>!x)} className="focus-ring flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-slate-700 dark:border-slate-700 dark:text-white"><Icon name={open?"close":"menu"} size={24}/></button>
         </div>
       </div>
@@ -46,6 +46,7 @@ export default function Header({ onOpenSearch }) {
           {navLinks.map(link=><NavLink key={link.path} to={link.path} className={navClass}>{link.name}</NavLink>)}
           <Link to="/contact" className="focus-ring flex min-h-11 items-center rounded-xl px-4 text-sm font-bold text-slate-600 dark:text-slate-200">Contact</Link>
           <button type="button" onClick={openSearch} className="focus-ring flex min-h-11 items-center gap-2 rounded-xl border border-slate-200 px-4 text-left text-sm font-semibold dark:border-slate-700"><Icon name="search"/> Search tools and guides</button>
+          <button type="button" onClick={()=>setDark(x=>!x)} className="focus-ring flex min-h-11 items-center gap-3 rounded-xl px-4 text-sm font-semibold text-slate-600 dark:text-slate-200 sm:hidden"><Icon name={dark?"sun":"moon"} />{dark?"Light appearance":"Dark appearance"}</button>
           <Link to="/tools" className="eft-brand-button mt-1" onClick={()=>setOpen(false)}>Start with a calculator <span aria-hidden="true">→</span></Link>
         </div>
       </nav>}

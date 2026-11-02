@@ -14,7 +14,7 @@ export default function Logo({ size = "md" }) {
         <path d="M14 31V35M22 29V35M30 25V35" stroke="#E7AB57" strokeOpacity=".9" strokeWidth="2" strokeLinecap="round"/>
       </svg>
       <span className="flex min-w-0 flex-col leading-tight">
-        <span className={`${large ? "text-[23px]" : "text-[18px] sm:text-[19px]"} whitespace-nowrap font-extrabold tracking-[-0.065em] text-primary dark:text-white`}>
+        <span className={`${large ? "text-[23px]" : "text-[15px] sm:text-[19px]"} whitespace-nowrap font-extrabold tracking-[-0.065em] text-primary dark:text-white`}>
           Easy<span className="text-secondary dark:text-[#6BE3CA]">Finance</span>Tools
         </span>
         <span className="mt-0.5 text-[9px] font-bold uppercase tracking-[.17em] text-slate-500 dark:text-slate-400">
