@@ -22,7 +22,7 @@ export default function PrivacyPolicy() {
         robots={isLegacyPrivacyPath ? "noindex,follow,max-image-preview:large" : undefined}
       />
       <h1 className="text-4xl font-bold text-primary dark:text-accent mb-2">Privacy Policy</h1>
-      <p className="text-gray-500 mb-10">Last updated: April 28, 2026</p>
+      <p className="text-gray-500 mb-10">Last updated: November 3, 2026</p>
 
       <div className="prose dark:prose-invert max-w-none">
         <p>
@@ -32,6 +32,8 @@ export default function PrivacyPolicy() {
           <strong>The short version:</strong> numbers you type into a calculator never leave your browser. We do not have user accounts, we do not sell data, and the only routine data collected is standard web analytics and server logs needed to run and improve the Site.
         </p>
 
+        <h2>Portfolio Analyzer beta and CSV privacy</h2>
+        <p>The Portfolio Analyzer beta processes manually entered holdings and selected CSV files entirely in your browser. It does not transmit, retain or store your holdings on EasyFinanceTools servers, and does not use browser local storage for portfolios. File content is discarded when you close or reload the page. Screenshot uploads, server-side extraction and live brokerage connections are not enabled. The tool has no account or login requirement. Its page URL and ordinary analytics events may still be logged, but portfolio contents are not sent to analytics.</p>
         <h2>1. Who we are and how to contact us</h2>
         <p>
           EasyFinanceTools is an independent Canadian website operated and edited by <strong>Gourav Kumar</strong> from <strong>Brampton, Ontario, Canada</strong>. Ontario law and Canadian federal privacy law are the primary frameworks that apply to the Site. Read more on the <Link to="/about" className="text-secondary">About page</Link>.

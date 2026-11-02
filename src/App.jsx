@@ -54,7 +54,7 @@ const GICCalculator = lazyWithPreload(() => import('./pages/tools/GICCalculator'
 const DebtPayoffCalculator = lazyWithPreload(() => import('./pages/tools/DebtPayoffCalculator'));
 const SavingsGoalCalculator = lazyWithPreload(() => import('./pages/tools/SavingsGoalCalculator'));
 const NetPayCalculator = lazyWithPreload(() => import('./pages/tools/NetPayCalculator'));
-const PortfolioAnalyzerFoundation = lazyWithPreload(() => import('./pages/tools/PortfolioAnalyzerFoundation'));
+const PortfolioAnalyzerFoundation = lazyWithPreload(() => import('./pages/PortfolioAnalyzer'));
 
 const WeeklyDividendETFs = lazyWithPreload(() => import('./pages/blog/weekly-dividend-etfs'));
 const FiveHundredMonthDividendCanada = lazyWithPreload(() => import('./pages/blog/500-month-dividend-canada'));

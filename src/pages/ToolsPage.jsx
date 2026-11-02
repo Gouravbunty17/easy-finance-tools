@@ -62,6 +62,13 @@ const TOOL_CATEGORIES = [
     icon: ChartBarIcon,
     tools: [
       {
+        name: "Canadian Portfolio Analyzer (Beta)",
+        href: "/tools/portfolio-analyzer",
+        who: "Canadian investors checking manual or CSV holdings without sending portfolio data to a server.",
+        decision: "Understand account, sector, currency and position concentration using entered data.",
+        status: "Live beta",
+      },
+      {
         name: "Investment Fit Framework",
         href: "/tools/investment-fit-framework",
         who: "Investors checking account location, yield, concentration, and timeline risk.",

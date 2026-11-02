@@ -73,7 +73,7 @@ export const TOOL_ROUTES = [
   { route: "/tools/debt-payoff", sourcePath: "src/pages/tools/DebtPayoffCalculator.jsx", group: "tools" },
   { route: "/tools/savings-goal", sourcePath: "src/pages/tools/SavingsGoalCalculator.jsx", group: "tools" },
   { route: "/tools/net-pay-calculator", sourcePath: "src/pages/tools/NetPayCalculator.jsx", group: "tools" },
-  { route: "/tools/portfolio-analyzer", sourcePath: "src/pages/tools/PortfolioAnalyzerFoundation.jsx", group: "tools" },
+  { route: "/tools/portfolio-analyzer", sourcePath: "src/pages/PortfolioAnalyzer.jsx", group: "tools" },
 ];
 
 export const BLOG_ROUTES = [
