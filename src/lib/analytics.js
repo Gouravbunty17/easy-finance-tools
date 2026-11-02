@@ -1,18 +1,22 @@
+import { safePagePath, sanitizeEventParams } from "./analyticsSafety.mjs";
+
 function getPageContext() {
   if (typeof window === "undefined") return {};
 
   return {
-    page_location: window.location.href,
-    page_path: `${window.location.pathname}${window.location.search}${window.location.hash}`,
+    page_location: window.location.origin + safePagePath(window.location.pathname),
+    page_path: safePagePath(window.location.pathname),
   };
 }
 
 export function trackEvent(eventName, params = {}) {
   if (typeof window === "undefined") return;
+  if (typeof eventName !== "string" || !/^[a-z][a-z0-9_]{1,63}$/.test(eventName)) return;
 
+  // Override even caller-supplied page URLs; query/hash may contain personal data.
   const payload = {
+    ...sanitizeEventParams(params),
     ...getPageContext(),
-    ...params,
   };
 
   if (typeof window.gtag === "function") {

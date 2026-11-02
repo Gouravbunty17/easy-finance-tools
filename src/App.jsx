@@ -272,12 +272,9 @@ function useSpaPageTracking() {
       return;
     }
 
-    trackPageView({
-      page_title: document.title,
-      page_location: window.location.href,
-      page_path: `${location.pathname}${location.search}${location.hash}`,
-    });
-  }, [location.pathname, location.search, location.hash]);
+    // Page location is constructed and query/fragment-stripped by analytics.js.
+    trackPageView({ page_title: document.title });
+  }, [location.pathname]);
 }
 
 export default function App() {
