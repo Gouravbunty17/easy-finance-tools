@@ -11,5 +11,5 @@ export function getTaxYearReference(year) {
 export function getRrspDollarLimit(year) { return getTaxYearReference(year).rrspDollarLimit; }
 export function estimateEiPremium(earnings, year, isQuebec = false) {
   const rules = getTaxYearReference(year);
-  return Math.min(Math.max(0, earnings), rules.eiInsurableMax) * (isQuebec ? rules.eiQuebecRate : rules.eiRate);
+  return Math.round(Math.min(Math.max(0, earnings), rules.eiInsurableMax) * (isQuebec ? rules.eiQuebecRate : rules.eiRate) * 100) / 100;
 }

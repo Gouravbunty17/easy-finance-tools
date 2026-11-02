@@ -15,14 +15,6 @@ const blank = () => ({
   account:"TFSA", sector:"Unknown / diversified", region:"Unknown / mixed", assetType:"Stock",
   annualDistributionPerShare:"", costBasisCad:"", specifiedForeignProperty:false
 });
-const fields = [
-  { key:"ticker", label:"Ticker or label", placeholder:"e.g. VFV" },
-  { key:"shares", label:"Units / shares", type:"number", step:"any", placeholder:"e.g. 15" },
-  { key:"price", label:"Price per unit (selected currency)", type:"number", step:"any", placeholder:"e.g. 100" },
-  { key:"cadPerUnit", label:"CAD for 1 unit of currency (USD FX)", type:"number", step:"any", placeholder:"CAD: 1; USD: manual FX" },
-  { key:"annualDistributionPerShare", label:"Annual distribution per unit (optional)", type:"number", step:"any", placeholder:"No yield assumed if blank" },
-  { key:"costBasisCad", label:"Adjusted cost basis in CAD (optional)", type:"number", step:"any", placeholder:"For foreign property note" }
-];
 function Allocation({ title, rows, total }) {
   return <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-gray-800">
     <h3 className="text-lg font-bold text-primary dark:text-accent">{title}</h3>
