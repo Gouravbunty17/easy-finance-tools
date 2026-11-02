@@ -124,7 +124,7 @@ export default function BudgetTracker() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12">
+    <div className="eft-calculator-page eft-workspace mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="Budget Tracker Canada 2026 — Free Monthly Budget Calculator"
         description="Free Canadian budget tracker with 50/30/20 analysis, spending breakdown charts, emergency fund calculator, and savings-rate score. No sign-up."
@@ -138,7 +138,7 @@ export default function BudgetTracker() {
       />
 
       <div className="mb-6">
-        <h1 className="text-4xl font-bold text-primary dark:text-accent mb-2">Budget Tracker</h1>
+        <h1 className="eft-display mb-2 text-4xl text-primary dark:text-white">Budget Tracker</h1>
         <p className="text-gray-600 dark:text-gray-300">Track your monthly spending, see where your money goes, and optimize your savings rate.</p>
       </div>
       <OfficialSourceNote

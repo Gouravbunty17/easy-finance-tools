@@ -479,7 +479,7 @@ export default function AICostCalculator() {
       />
       <FAQSchema faqs={FAQS} />
 
-      <main className="bg-white text-slate-900 dark:bg-gray-950 dark:text-slate-100">
+      <main className="eft-workspace text-slate-900 dark:text-slate-100">
         <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
             <div>
@@ -706,7 +706,7 @@ export default function AICostCalculator() {
                 />
               </div>
 
-              <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+              <section className="eft-surface p-5 sm:p-7">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">Cost breakdown</p>
@@ -738,7 +738,7 @@ export default function AICostCalculator() {
                 </div>
               </section>
 
-              <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+              <section className="eft-surface p-5 sm:p-7">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">Model comparison</p>
                 <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Compare provider pricing assumptions</h2>
                 <div className="mt-5 overflow-x-auto">
@@ -767,7 +767,7 @@ export default function AICostCalculator() {
                 </div>
               </section>
 
-              <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+              <section className="eft-surface p-5 sm:p-7">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary dark:text-emerald-300">Scale stress test</p>
                 <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">What changes as usage grows?</h2>
                 <div className="mt-5 overflow-x-auto">

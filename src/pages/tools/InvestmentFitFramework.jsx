@@ -453,7 +453,7 @@ export default function InvestmentFitFramework() {
   ];
 
   return (
-    <main>
+    <main className="eft-workspace">
       <SEO
         title="Canadian Investment Fit Framework"
         description="Evaluate how an investment may fit inside TFSA, RRSP, FHSA, taxable, or long-term planning contexts using educational, non-advisory Canadian account and risk factors."
@@ -513,7 +513,7 @@ export default function InvestmentFitFramework() {
           </section>
 
           <section className="space-y-5">
-            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+            <div className="eft-surface p-5 sm:p-7">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">Educational result</p>
               <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">{result.headline}</h2>
               <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
@@ -551,7 +551,7 @@ export default function InvestmentFitFramework() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
+            <div className="eft-surface p-5 sm:p-7">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-secondary">Main risk flags</p>
               <div className="mt-4 grid gap-3">
                 {result.riskFlags.map((flag) => (

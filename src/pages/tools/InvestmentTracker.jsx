@@ -112,7 +112,7 @@ export default function InvestmentTracker() {
   const netWorthColor = calc.netWorth >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400';
 
   return (
-    <section className="max-w-5xl mx-auto px-4 py-12">
+    <section className="eft-calculator-page eft-workspace mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="Net Worth Calculator Canada 2026 — Asset & Debt Tracker"
         description="Free Canadian net worth calculator. Track TFSA, RRSP, FHSA, real estate, and debt with breakdowns and projection charts. No sign-up."

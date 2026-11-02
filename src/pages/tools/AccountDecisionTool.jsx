@@ -589,7 +589,7 @@ export default function AccountDecisionTool() {
   };
 
   return (
-    <main className="overflow-x-hidden bg-white text-slate-900 dark:bg-gray-950 dark:text-white">
+    <main className="eft-workspace overflow-x-hidden text-slate-900 dark:text-white">
       <SEO
         title="TFSA vs RRSP vs FHSA Decision Tool Canada 2026 | Easy Finance Tools"
         description="Answer a few questions to compare TFSA, RRSP, and FHSA contribution priorities for Canadian investors in 2026. Educational tool only."
