@@ -114,7 +114,7 @@
     }
     </script>
 
-    <!-- Structured Data: WebSite + Sitelinks Searchbox -->
+    <!-- Structured Data: WebSite / site name (no unsupported sitelinks search box) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -125,15 +125,7 @@
       "url": "https://easyfinancetools.com",
       "description": "Free Canadian finance calculators and plain-English guides for TFSA, RRSP, FHSA, dividend income, mortgage, and tax planning.",
       "publisher": { "@id": "https://easyfinancetools.com/#organization" },
-      "inLanguage": "en-CA",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://easyfinancetools.com/tools?q={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      }
+      "inLanguage": "en-CA"
     }
     </script>
 
