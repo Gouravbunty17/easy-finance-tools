@@ -198,6 +198,26 @@ const DECISION_PROMPTS = [
   { title: "Estimate affordability", href: "/tools/mortgage-affordability-calculator", icon: HomeModernIcon },
 ];
 
+const CORE_CALCULATOR_PATHS = [
+  { name: "Canadian income tax calculator", job: "Estimate federal and provincial taxes using 2026 planning assumptions.", href: "/tools/income-tax-calculator", badge: "Taxes" },
+  { name: "TFSA calculator", job: "Explore contribution room, withdrawal timing, and possible tax-free growth.", href: "/tools/tfsa-calculator", badge: "Registered accounts" },
+  { name: "RRSP calculator", job: "Compare a deduction, indicative refund, and retirement contributions.", href: "/tools/rrsp-calculator", badge: "Registered accounts" },
+  { name: "Mortgage payment calculator", job: "Compare rates, payment amounts, amortization and borrowing costs.", href: "/tools/mortgage-calculator", badge: "Housing" },
+  { name: "FHSA calculator", job: "Model eligible first-home savings and related contribution scenarios.", href: "/tools/fhsa-calculator", badge: "First home" },
+  { name: "Dividend income calculator", job: "Explore annual yield, estimated monthly cash flow and DRIP scenarios.", href: "/tools/dividend-calculator", badge: "Investing" },
+  { name: "Mortgage affordability calculator", job: "Pressure-test home buying against income, debt and lender constraints.", href: "/tools/mortgage-affordability-calculator", badge: "Housing" },
+  { name: "Compound interest calculator", job: "Compare contributions, return assumptions and long-term growth.", href: "/tools/compound-interest-calculator", badge: "Savings" },
+];
+
+const FINANCE_TOPIC_PATHS = [
+  { name: "TFSA rules and guides", href: "/topics/tfsa" },
+  { name: "RRSP tax planning guides", href: "/topics/rrsp" },
+  { name: "FHSA and first-home guides", href: "/topics/fhsa" },
+  { name: "Dividend investing guides", href: "/topics/dividends" },
+  { name: "Canadian mortgage guides", href: "/topics/mortgages" },
+  { name: "Retirement planning guides", href: "/topics/retirement" },
+];
+
 const toolHubFaqs = [
   {
     q: "Which tool should I start with?",
@@ -244,8 +264,8 @@ export default function ToolsPage() {
   return (
     <main className="eft-shell" aria-labelledby="tools-page-title">
       <SEO
-        title="Canadian Finance Tools by Decision | EasyFinanceTools"
-        description="Browse Canadian TFSA, RRSP, FHSA, dividend, mortgage, retirement, tax, and account decision tools organized by financial goal. No login required."
+        title="Free Canadian Financial Calculators | 2026 Planning Tools"
+        description="Find free Canadian calculators for TFSA, RRSP, FHSA, income tax, mortgages, dividends and retirement. Compare scenarios with clear assumptions. No signup."
         canonical="https://easyfinancetools.com/tools"
       />
       <FAQSchema faqs={toolHubFaqs} />
@@ -254,12 +274,34 @@ export default function ToolsPage() {
         <div className="mx-auto max-w-6xl">
           <span className="eft-hero-badge">THE CANADIAN TOOL LIBRARY</span>
           <h1 id="tools-page-title" className="eft-display mt-5 max-w-4xl text-4xl text-white md:text-[58px]">
-            Every money question. One clear starting point.
+            Free Canadian financial calculators for your next decision.
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-blue-100">
-            Pick a goal, open a calculator, and understand the assumptions behind your result. No account, no sales pressure, just Canadian financial planning tools.
+            Estimate tax, contribution growth, mortgage payments and investing income. Choose a relevant calculator first, then review the Canadian assumptions behind each result.
           </p>
           <TrustStrip className="mt-8 max-w-5xl bg-white/95 text-slate-900 dark:bg-slate-900/90" />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pt-12" aria-labelledby="calculator-shortcuts-title">
+        <p className="eft-eyebrow">Find your calculator</p>
+        <h2 id="calculator-shortcuts-title" className="mt-2 text-3xl font-extrabold tracking-tight text-primary dark:text-white sm:text-4xl">Start with the number you need</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">These are the main Canadian finance calculators. Each explains the assumptions behind its output, so you can compare options rather than treat a projected number as a guarantee.</p>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {CORE_CALCULATOR_PATHS.map((item) => (
+            <SurfaceTrackedLink
+              key={item.href}
+              to={item.href}
+              eventName="tools_core_calculator_click"
+              ctaLabel={`core_${slug(item.name)}`}
+              trackingParams={{section:"calculator_shortcuts",destination_type:"tool"}}
+              className="eft-tool-card group flex h-full flex-col p-5">
+              <span className="text-[11px] font-bold uppercase tracking-[.12em] text-secondary">{item.badge}</span>
+              <h3 className="mt-3 text-base font-extrabold leading-6 text-primary dark:text-white">{item.name}</h3>
+              <p className="mt-2 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.job}</p>
+              <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-secondary">Open calculator <ArrowRightIcon className="h-4 w-4" aria-hidden="true"/></span>
+            </SurfaceTrackedLink>
+          ))}
         </div>
       </section>
 
@@ -300,7 +342,7 @@ export default function ToolsPage() {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Search TFSA, RRSP, dividend, mortgage, retirement..."
-              className="focus-ring w-full rounded-2xl border  px-4 py-3 text-sm text-slate-900 placeholder-slate-400 dark:border-slate-700 dark:bg-gray-800 dark:text-white"
+              className="focus-ring w-full rounded-2xl border border-slate-300 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 dark:border-slate-700 dark:bg-gray-800 dark:text-white"
               aria-label="Search Canadian finance tools"
             />
             <div role="status" aria-live="polite" className="rounded-2xl bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
@@ -376,6 +418,22 @@ export default function ToolsPage() {
             );
           })}
         </div>
+
+        <section className="mt-14 border-t border-slate-200 pt-10 dark:border-slate-700" aria-labelledby="finance-topic-links-title">
+          <p className="eft-eyebrow">Beyond the result</p>
+          <h2 id="finance-topic-links-title" className="mt-2 text-2xl font-extrabold tracking-tight text-primary dark:text-white">Learn the rules behind the calculators</h2>
+          <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">Canadian account rules and mortgage assumptions are not interchangeable. Use these topic hubs for source-linked explanations and related calculators.</p>
+          <nav aria-label="Canadian finance topic guides" className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {FINANCE_TOPIC_PATHS.map((topic) => (
+              <SurfaceTrackedLink key={topic.href} to={topic.href} eventName="tools_topic_hub_click"
+                ctaLabel={`topic_${topic.href.split("/").pop()}`}
+                trackingParams={{section:"learning_paths",destination_type:"topic"}}
+                className="flex min-h-14 items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-primary hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-white">
+                {topic.name}<ArrowRightIcon className="h-4 w-4" aria-hidden="true"/>
+              </SurfaceTrackedLink>
+            ))}
+          </nav>
+        </section>
 
         {count === 0 ? (
           <div className="mt-12 rounded-3xl border border-slate-200 bg-slate-50 p-8 text-center dark:border-slate-700 dark:bg-slate-900">

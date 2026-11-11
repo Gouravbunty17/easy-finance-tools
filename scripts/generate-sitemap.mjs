@@ -2,175 +2,30 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { INDEXABLE_SITE_ROUTES, SITE_URL } from "./site-routes.mjs";
 
-const PROJECT_ROOT = process.cwd();
-const OUTPUT_PATH = path.join(PROJECT_ROOT, "public", "sitemap.xml");
-
-function normalizeSiteUrl(route) {
-  if (route === "/") return `${SITE_URL}/`;
-  return `${SITE_URL}${route}`;
-}
-
-const CHANGEFREQ_OVERRIDES = {
-  "/": "weekly",
-  "/tools": "weekly",
-  "/blog": "weekly",
-  "/blog/investing": "weekly",
-  "/topics/tfsa": "weekly",
-  "/topics/rrsp": "weekly",
-  "/topics/fhsa": "weekly",
-  "/topics/dividends": "weekly",
-  "/topics/mortgages": "weekly",
-  "/topics/retirement": "weekly",
-  "/about": "monthly",
-  "/founder-transparency": "monthly",
-  "/contact": "monthly",
-  "/methodology": "monthly",
-  "/editorial-standards": "monthly",
-  "/privacy-policy": "yearly",
-  "/terms": "yearly",
-  "/tools/cad-usd-converter": "weekly",
-};
-
-const PRIORITY_OVERRIDES = {
-  "/": "1.0",
-  "/tools": "0.9",
-  "/blog": "0.9",
-  "/blog/investing": "0.85",
-  "/topics/tfsa": "0.85",
-  "/topics/rrsp": "0.85",
-  "/topics/fhsa": "0.85",
-  "/topics/dividends": "0.85",
-  "/topics/mortgages": "0.85",
-  "/topics/retirement": "0.85",
-  "/about": "0.5",
-  "/founder-transparency": "0.5",
-  "/contact": "0.4",
-  "/methodology": "0.4",
-  "/editorial-standards": "0.4",
-  "/privacy-policy": "0.3",
-  "/terms": "0.3",
-  "/tools/tfsa-calculator": "0.9",
-  "/blog/tfsa-contribution-room-calculator": "0.9",
-  "/blog/tfsa-withdrawal-rules-canada-2026": "0.85",
-  "/blog/tfsa-overcontribution-penalties-canada": "0.85",
-  "/tools/rrsp-calculator": "0.9",
-  "/tools/fhsa-calculator": "0.9",
-  "/tools/dividend-calculator": "0.9",
-  "/tools/income-tax-calculator": "0.9",
-  "/tools/mortgage-calculator": "0.9",
-  "/tools/compound-interest-calculator": "0.8",
-  "/tools/account-decision-tool": "0.9",
-  "/tools/investment-fit-framework": "0.8",
-  "/tools/mortgage-affordability-calculator": "0.8",
-  "/tools/rent-vs-buy": "0.8",
-  "/tools/capital-gains-tax": "0.8",
-  "/tools/cpp-oas-estimator": "0.8",
-  "/tools/fire-calculator": "0.8",
-  "/tools/gic-calculator": "0.8",
-  "/tools/budget-tracker": "0.8",
-  "/tools/investment-tracker": "0.8",
-  "/tools/debt-payoff": "0.7",
-  "/tools/savings-goal": "0.7",
-  "/tools/net-pay-calculator": "0.7",
-  "/tools/salary-to-hourly-calculator": "0.7",
-  "/tools/gst-hst-calculator": "0.7",
-  "/tools/cad-usd-converter": "0.7",
-  "/tools/inflation-calculator": "0.7",
-  "/tools/tip-calculator": "0.6",
-  "/blog/tfsa-vs-rrsp-canada-2026": "0.85",
-  "/blog/how-to-choose-etfs-canada": "0.85",
-  "/blog/tfsa-investing-mistakes-canada": "0.85",
-  "/blog/what-is-a-dividend-etf-canada": "0.8",
-  "/blog/drip-strategy-canada": "0.8",
-  "/blog/covered-call-etfs-canada-explained": "0.8",
-  "/blog/fhsa-calculator-canada-2026": "0.85",
-  "/blog/how-to-start-investing-canada-2026": "0.85",
-  "/blog/canadian-tax-brackets-2026": "0.85",
-  "/blog/tfsa-vs-rrsp-2026": "0.8",
-  "/blog/fhsa-vs-rrsp-down-payment-canada-2026": "0.8",
-  "/blog/how-to-use-fhsa-canada": "0.8",
-  "/blog/how-to-invest-in-canada-beginners-2026": "0.8",
-  "/blog/how-much-tfsa-room-2026": "0.8",
-  "/blog/best-etfs-for-tfsa-canada-2026": "0.8",
-  "/blog/best-tfsa-brokers-canada": "0.8",
-  "/blog/best-rrsp-accounts-canada": "0.8",
-  "/blog/best-investing-apps-canada": "0.8",
-  "/blog/wealthsimple-vs-questrade-canada": "0.8",
-  "/blog/best-hisa-canada-2026": "0.8",
-  "/blog/rrsp-deadline-2026": "0.8",
-  "/blog/cpp-payment-dates-2026": "0.8",
-  "/blog/oas-payment-dates-2026": "0.8",
-  "/blog/canada-child-benefit-2026": "0.8",
-  "/blog/best-dividend-investing-platforms-canada": "0.7",
-  "/blog/best-gic-rates-canada-2026": "0.7",
-  "/blog/500-month-dividend-canada": "0.7",
-  "/blog/weekly-dividend-etfs": "0.7",
-  "/blog/emergency-fund-canada": "0.7",
-  "/blog/pay-off-mortgage-faster-canada": "0.7",
-  "/blog/pay-debt-vs-invest-canada": "0.8",
-  "/blog/rent-vs-buy-canada": "0.8",
-  "/blog/should-you-drip-dividends-canada": "0.8",
-  "/blog/when-rrsp-makes-sense-canada": "0.8",
-  "/blog/mortgage-affordability-reality-check-canada": "0.8",
-};
-
-function toIsoDate(date) {
-  return date.toISOString().slice(0, 10);
-}
-
-function getChangefreq(entry) {
-  return CHANGEFREQ_OVERRIDES[entry.route] || "monthly";
-}
-
-function getPriority(entry) {
-  if (PRIORITY_OVERRIDES[entry.route]) {
-    return PRIORITY_OVERRIDES[entry.route];
+// Google uses lastmod only if it reflects substantive changes to individual pages.
+// Build-system file mtimes change during deploys, so they are NOT content update dates.
+// Emit only canonical indexable URLs until verified page-level modification dates exist.
+export function generateSitemapXml(routes, siteOrigin = SITE_URL) {
+  const urls = new Set();
+  for (const entry of routes) {
+    const route = entry?.route;
+    if (typeof route !== "string" || !/^\/(?:[a-z0-9-]+\/?)*$/.test(route)) {
+      throw new Error("Invalid sitemap route");
+    }
+    const clean = route === "/" ? "/" : route.replace(/\/+$/, "");
+    urls.add(`${siteOrigin}${clean}`);
   }
-
-  if (entry.group === "tools") return "0.7";
-  if (entry.group === "blog") return "0.7";
-  if (entry.group === "topics") return "0.75";
-  return "0.5";
-}
-
-async function getLastModified(sourcePath) {
-  const absolutePath = path.join(PROJECT_ROOT, sourcePath);
-  const stats = await fs.stat(absolutePath);
-  return toIsoDate(stats.mtime);
-}
-
-async function buildSitemap() {
-  const entries = await Promise.all(
-    INDEXABLE_SITE_ROUTES.map(async (entry) => ({
-      loc: normalizeSiteUrl(entry.route),
-      lastmod: await getLastModified(entry.sourcePath),
-      changefreq: getChangefreq(entry),
-      priority: getPriority(entry),
-    })),
-  );
-
-  const xml = [
+  return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    ...entries.map(
-      (entry) => [
-        "  <url>",
-        `    <loc>${entry.loc}</loc>`,
-        `    <lastmod>${entry.lastmod}</lastmod>`,
-        `    <changefreq>${entry.changefreq}</changefreq>`,
-        `    <priority>${entry.priority}</priority>`,
-        "  </url>",
-      ].join("\n"),
-    ),
-    "</urlset>",
-    "",
+    ...[...urls].map(url => `  <url>\n    <loc>${url}</loc>\n  </url>`),
+    '</urlset>',
+    '',
   ].join("\n");
-
-  await fs.writeFile(OUTPUT_PATH, xml, "utf8");
-  console.log(`Generated sitemap with ${entries.length} URLs at ${OUTPUT_PATH}`);
 }
-
-buildSitemap().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+if (process.argv[1] && path.resolve(process.argv[1]) === new URL(import.meta.url).pathname) {
+  const outputPath = path.join(process.cwd(), "public", "sitemap.xml");
+  fs.writeFile(outputPath, generateSitemapXml(INDEXABLE_SITE_ROUTES), "utf8")
+    .then(() => console.log(`Generated sitemap with ${INDEXABLE_SITE_ROUTES.length} canonical URLs at ${outputPath}`))
+    .catch(err => {console.error(err);process.exitCode=1;});
+}

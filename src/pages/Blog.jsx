@@ -5,6 +5,15 @@ import SurfaceTrackedLink from "../components/SurfaceTrackedLink";
 import TopicClusterMap from "../components/TopicClusterMap";
 import NewsletterSection from "../components/NewsletterSection";
 
+const BLOG_TOPIC_HUBS = [
+  {name:"TFSA",href:"/topics/tfsa"},
+  {name:"RRSP",href:"/topics/rrsp"},
+  {name:"FHSA",href:"/topics/fhsa"},
+  {name:"Mortgage",href:"/topics/mortgages"},
+  {name:"Dividends",href:"/topics/dividends"},
+  {name:"Retirement",href:"/topics/retirement"},
+];
+
 const categoryStyle = {
   Retirement: { gradient: "from-purple-500 to-purple-700", icon: "CA" },
   Tax: { gradient: "from-orange-500 to-red-600", icon: "Tax" },
@@ -666,8 +675,8 @@ export default function Blog() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Canadian Financial Decision Guides"
-        description="Read Canadian guides for TFSA, RRSP, FHSA, dividend income, ETFs, tax, mortgage, and account decisions before using the calculators."
+        title="Canadian Personal Finance Guides | TFSA, RRSP & Mortgages"
+        description="Plain-language Canadian personal finance guides on TFSA, RRSP, FHSA, ETFs, dividend income, taxes and mortgages, with calculators and source links."
         canonical="https://easyfinancetools.com/blog"
       />
 
@@ -676,12 +685,24 @@ export default function Blog() {
           <div className="mb-4 inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-blue-100">
             Guides and explainers
           </div>
-          <h1 className="text-4xl font-bold md:text-5xl">Canadian financial decision guides</h1>
+          <h1 className="text-4xl font-bold md:text-5xl">Canadian personal finance guides</h1>
           <p className="mx-auto mt-4 max-w-3xl text-lg text-blue-100">
             Education-first Canadian finance guides for tax, savings, registered accounts, retirement, ETFs, and household planning decisions.
           </p>
         </div>
       </section>
+
+      <nav className="mx-auto max-w-6xl px-4 pt-8" aria-label="Browse Canadian financial topics">
+        <span className="text-xs font-bold uppercase tracking-[.12em] text-secondary">Browse guides by financial topic</span>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {BLOG_TOPIC_HUBS.map((hub)=>(
+            <SurfaceTrackedLink key={hub.href} to={hub.href} eventName="blog_topic_hub_click"
+              ctaLabel={`topic_${hub.name.toLowerCase()}`}
+              trackingParams={{section:"blog_topic_shortcuts",destination_type:"topic"}}
+              className="inline-flex min-h-11 items-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-bold text-primary transition hover:border-secondary hover:text-secondary dark:border-slate-700 dark:bg-slate-900 dark:text-white">{hub.name} guides</SurfaceTrackedLink>
+          ))}
+        </div>
+      </nav>
 
       <section className="mx-auto max-w-6xl px-4 py-12">
         <div className="mb-8 grid gap-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(360px,0.92fr)]">

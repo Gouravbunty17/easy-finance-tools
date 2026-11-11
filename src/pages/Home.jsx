@@ -337,8 +337,8 @@ export default function Home() {
   return (
     <main className="eft-shell">
       <SEO
-        title="Canadian Financial Decision Tools | EasyFinanceTools"
-        description="Make better Canadian money decisions with free TFSA, RRSP, FHSA, dividend, mortgage, retirement, and account decision tools. No login required."
+        title="Free Canadian Financial Calculators | TFSA, RRSP & Mortgage"
+        description="Free Canadian finance calculators for 2026: estimate TFSA growth, RRSP tax savings, mortgage payments, dividend income and income tax. No signup required."
         canonical="https://easyfinancetools.com/"
       />
       <FAQSchema faqs={HOME_FAQS} />
@@ -347,12 +347,12 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.02fr)_minmax(390px,.98fr)] lg:gap-12">
             <div className="max-w-[660px]">
-              <span className="eft-hero-badge"><span className="h-2 w-2 rounded-full bg-[#55E5BF]" aria-hidden="true"/> MADE FOR CANADIAN MONEY DECISIONS</span>
+              <span className="eft-hero-badge"><span className="h-2 w-2 rounded-full bg-[#55E5BF]" aria-hidden="true"/> FREE CANADIAN FINANCIAL CALCULATORS</span>
               <h1 className="eft-display mt-7 text-4xl text-white sm:text-5xl lg:text-[65px]">
                 Your finances.<br/><span className="text-[#65E0C4]">Clearer decisions.</span>
               </h1>
               <p className="mt-6 max-w-xl text-base leading-8 text-slate-200 sm:text-lg">
-                Simple, powerful calculators for taxes, investing, mortgages, and financial freedom. Built around Canadian rules, with real context—not financial guesswork.
+                Free Canadian financial calculators for TFSA, RRSP, FHSA, income tax, dividends and mortgages. Compare real planning scenarios with clear assumptions and official-source links.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <SurfaceTrackedLink to="/tools" eventName="homepage_cta_click" ctaLabel="hero_explore_tools"
