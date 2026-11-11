@@ -10,6 +10,8 @@ test("WebSite schema does not advertise unsupported nonfunctional search route",
   assert.equal(title,ogTitle);
   assert.equal(title,twitterTitle);
   assert.doesNotMatch(html,/"@type": "SearchAction"/);
+  // A single English-language site must not claim the homepage is the alternate of every calculator page.
+  assert.doesNotMatch(html,/hreflang=/);
   const fragments=[...html.matchAll(/<script type="application\/ld\+json">\s*([\s\S]*?)<\/script>/g)];
   assert.ok(fragments.length >= 3);
   fragments.forEach(([,json])=>assert.doesNotThrow(()=>JSON.parse(json)));

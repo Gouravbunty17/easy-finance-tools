@@ -16,7 +16,8 @@ Primary domain: https://easyfinancetools.com/
 3. **Article discovery:** The Blog index now has fast topic navigation to those six hubs.
 4. **Accurate sitemap:** Removed auto-generated file mtime as a fake last-modified timestamp. Sitemap now contains only canonical indexable URL locations. Do not add lastmod until actual editorial update dates are reliably recorded per URL.
 5. **Schema accuracy:** Removed obsolete sitelinks search box SearchAction that points at an unsupported /tools?q= search URL. Kept WebSite entity for supported site name data.
-6. **Verification:** Added automated sitemap regression test; existing CI covers prerender, technical SEO, financial calculators, site quality.
+6. **International URL hygiene:** Removed hard-coded homepage hreflang tags inherited by all prerendered routes. There are no separate translated or regional-equivalent pages; the document retains en-CA language metadata.
+7. **Verification:** Added automated sitemap and head-metadata regression tests; existing CI covers prerender, technical SEO, financial calculators, site quality.
 
 ## What was not established
 
