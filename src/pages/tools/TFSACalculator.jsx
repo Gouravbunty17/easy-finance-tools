@@ -287,6 +287,15 @@ export default function TFSACalculator() {
 
           <div className="mt-6 space-y-5">
             <ScenarioInput
+              label="Planned annual contribution"
+              value={annualContribution}
+              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
+              min={0}
+              step={500}
+              suffix="CAD"
+              helpText={`Current annual TFSA limit: ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.tfsaAnnualLimit)}.`}
+            />
+            <ScenarioInput
               label="Birth year"
               value={birthYear}
               onChange={(event) => setBirthYear(parseNumericInput(event.target.value, { integer: true }))}
@@ -302,15 +311,6 @@ export default function TFSACalculator() {
               max={FINANCIAL_YEAR}
               step={1}
               helpText="TFSA room starts from the later of age 18 or Canadian tax residency."
-            />
-            <ScenarioInput
-              label="Planned annual contribution"
-              value={annualContribution}
-              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
-              min={0}
-              step={500}
-              suffix="CAD"
-              helpText={`Current annual TFSA limit: ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.tfsaAnnualLimit)}.`}
             />
             <ScenarioInput
               label="Current TFSA balance"
