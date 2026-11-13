@@ -42,3 +42,5 @@ jobs:
         run: npm run audit:seo
       - name: Generate site quality report
         run: npm run audit:site-quality
+      - name: Verify live canonical host redirects and page tags
+        run: npm run verify:canonical

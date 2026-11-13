@@ -13,6 +13,7 @@ const CASES = [
   {slug:"tfsa",path:"/tools/tfsa-calculator",input:"#tfsa-planned-annual-contribution",value:"1500",result:"#tfsa-quick-results",advanced:"More tax-context options",advancedField:"#tfsa-province"},
   {slug:"rrsp",path:"/tools/rrsp-calculator",input:"#rrsp-planned-annual-contribution",value:"1500",result:"#rrsp-quick-results",advanced:"Retirement projections",advancedField:"#rrsp-current-rrsp-balance"},
   {slug:"mortgage",path:"/tools/mortgage-calculator",input:"#mortgage-home-price",value:"450000",result:"#mortgage-quick-results",advanced:"More payment options",advancedField:"#mortgage-payment-frequency"},
+  {slug:"fhsa",path:"/tools/fhsa-calculator",input:"#fhsa-planned-annual-contribution",value:"1500",result:"#fhsa-quick-results"},
   {slug:"income-tax",path:"/tools/income-tax-calculator",input:'input[type="number"]',value:"112000",result:"#income-tax-quick-results",advanced:"Published 2026 / 2027 limits",advancedField:"#tax-year-reference"}
 ];
 async function sendFile(req,res) {
