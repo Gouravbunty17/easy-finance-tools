@@ -418,7 +418,7 @@ export default function TFSACalculator() {
             />
           </div>
           <p className="mt-4 text-xs leading-6 text-slate-600 dark:text-slate-300">This is not CRA-confirmed room. Reconcile recent deposits, withdrawals and residency against your records.</p>
-          <a href="#tfsa-in-depth" className="focus-ring mt-4 inline-flex min-h-11 items-center text-sm font-bold text-secondary hover:underline">See detailed projection and sources ↓</a>
+          <a href="#tfsa-projection-chart" className="focus-ring mt-4 inline-flex min-h-11 items-center text-sm font-bold text-secondary hover:underline">Jump to your growth chart ↓</a>
         </div>
       </section>
       <section id="tfsa-in-depth" className="mt-10 scroll-mt-24" aria-label="TFSA methodology and detailed analysis">
@@ -627,7 +627,7 @@ export default function TFSACalculator() {
             />
           </div>
 
-          <section className="eft-surface mt-8 p-5 sm:p-7">
+          <section id="tfsa-projection-chart" className="eft-surface scroll-mt-24 mt-8 p-5 sm:p-7">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Output</p>
