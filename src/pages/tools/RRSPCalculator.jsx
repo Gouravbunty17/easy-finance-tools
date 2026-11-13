@@ -314,6 +314,16 @@ export default function RRSPCalculator() {
           </p>
 
           <div className="mt-6 space-y-5">
+            <ScenarioInput
+              label="Planned annual contribution"
+              value={annualContribution}
+              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
+              min={0}
+              step={500}
+              suffix="CAD"
+              helpText={`Base annual limit estimate at this income: ${formatCurrency(result.baseAnnualLimit)}.`}
+            />
+
             <div>
               <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Province</label>
               <select
@@ -343,16 +353,6 @@ export default function RRSPCalculator() {
               suffix="CAD"
               helpText="Best taken from your latest Notice of Assessment."
             />
-            <ScenarioInput
-              label="Planned annual contribution"
-              value={annualContribution}
-              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
-              min={0}
-              step={500}
-              suffix="CAD"
-              helpText={`Base annual limit estimate at this income: ${formatCurrency(result.baseAnnualLimit)}.`}
-            />
-
             <details className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900">
               <summary className="cursor-pointer text-sm font-bold text-primary dark:text-white">Retirement projections and spousal options</summary>
               <div className="mt-4 space-y-5">
