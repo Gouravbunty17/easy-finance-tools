@@ -474,7 +474,7 @@ export default function RRSPCalculator() {
             />
           </div>
           <p className="mt-4 text-xs leading-6 text-slate-600 dark:text-slate-300">This is a simplified deduction estimate, not a promised CRA refund. Your available room comes from your Notice of Assessment. Selecting 2027 changes the national RRSP ceiling, not these 2026 tax assumptions.</p>
-          <a href="#rrsp-in-depth" className="focus-ring mt-4 inline-flex min-h-11 items-center text-sm font-bold text-secondary hover:underline">See the full retirement analysis and sources ↓</a>
+          <a href="#rrsp-projection-chart" className="focus-ring mt-4 inline-flex min-h-11 items-center text-sm font-bold text-secondary hover:underline">Jump to the retirement chart ↓</a>
         </div>
       </section>
       <section id="rrsp-in-depth" className="mt-10 scroll-mt-24" aria-label="RRSP methodology and detailed analysis">
@@ -631,7 +631,7 @@ export default function RRSPCalculator() {
             />
           </div>
 
-          <section className="eft-surface mt-8 p-5 sm:p-7">
+          <section id="rrsp-projection-chart" className="eft-surface scroll-mt-24 mt-8 p-5 sm:p-7">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Output</p>
