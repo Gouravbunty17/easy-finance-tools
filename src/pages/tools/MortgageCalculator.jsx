@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from 'react';
+import TrackedLink from '../../components/TrackedLink';
+import useCalculatorEngagement from '../../hooks/useCalculatorEngagement';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -215,6 +217,7 @@ export default function MortgageCalculator() {
   const [frequency, setFrequency] = useState(DEFAULT_ASSUMPTIONS.mortgage.frequency);
   const [province, setProvince] = useState(DEFAULT_ASSUMPTIONS.mortgage.province);
   const [extraMonthlyPayment, setExtraMonthlyPayment] = useState(String(DEFAULT_ASSUMPTIONS.mortgage.extraMonthlyPayment));
+  useCalculatorEngagement('mortgage_calculator', [homePrice, downPayment, rate, amortization, frequency, province, extraMonthlyPayment, alternativeRate]);
 
   const result = useMemo(() => {
     const safeHomePrice = Math.max(0, asNumber(homePrice));
@@ -309,7 +312,7 @@ export default function MortgageCalculator() {
     <main className="eft-calculator-page eft-workspace mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
       <SEO
         title="Mortgage Calculator Canada 2026: Payments, CMHC & Stress Test"
-        description="Free Canadian mortgage calculator. Estimate monthly payments, CMHC premiums, closing costs, stress-test pressure, and payoff tradeoffs for 2026."
+        description="Free Canadian mortgage payment calculator for 2026. Compare monthly or biweekly payments, down payments, CMHC insurance, closing costs and rate stress tests."
         canonical="https://easyfinancetools.com/tools/mortgage-calculator"
       />
       <ToolPageSchema
@@ -429,9 +432,35 @@ export default function MortgageCalculator() {
       <section id="mortgage-in-depth" className="mt-10 scroll-mt-24" aria-label="Mortgage methodology and detailed analysis">
         <div className="mb-6 border-b border-slate-200 pb-5 dark:border-slate-700">
           <p className="eft-eyebrow">UNDERSTAND YOUR PAYMENT</p>
-          <h2 className="mt-1 text-2xl font-extrabold text-primary dark:text-white">Rate comparisons, assumptions, and deeper analysis</h2>
+          <h2 className="mt-1 text-2xl font-extrabold text-primary dark:text-white">Down payments, mortgage insurance and rate comparisons</h2>
           <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against Canadian mortgage rules" />
         </div>
+        <section aria-labelledby="mortgage-helpful-questions" className="eft-surface mb-6 p-5 sm:p-7">
+          <p className="eft-eyebrow">BEYOND THE PAYMENT</p>
+          <h3 id="mortgage-helpful-questions" className="mt-2 text-xl font-extrabold text-primary dark:text-white">How much mortgage can you afford in Canada?</h3>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+            A mortgage payment estimate tells you what the borrowed amount may cost; it does not tell you what a lender will approve.
+            Compare your down payment, debt payments, property taxes and other housing costs before choosing a home price.
+          </p>
+          <div className="mt-5 grid gap-3 md:grid-cols-3">
+            <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+              <h4 className="font-bold text-primary dark:text-white">CMHC insurance and down payment</h4>
+              <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">If you put down less than 20% on an eligible purchase, mortgage default insurance usually applies. This tool includes a simplified premium in the loan estimate.</p>
+              <TrackedLink articleSlug="mortgage_calculator" ctaLabel="cmhc_to_fhsa" to="/tools/fhsa-calculator" className="mt-3 inline-block text-sm font-bold text-secondary hover:underline">Plan a first-home down payment →</TrackedLink>
+            </div>
+            <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+              <h4 className="font-bold text-primary dark:text-white">Mortgage qualification versus payment</h4>
+              <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">The stress-test figure is a planning benchmark, not preapproval. Income, debts, property costs and lender policy can change your available borrowing amount.</p>
+              <TrackedLink articleSlug="mortgage_calculator" ctaLabel="payment_to_affordability" to="/tools/mortgage-affordability-calculator" className="mt-3 inline-block text-sm font-bold text-secondary hover:underline">Check mortgage affordability →</TrackedLink>
+            </div>
+            <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+              <h4 className="font-bold text-primary dark:text-white">Biweekly payments and prepayments</h4>
+              <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">Changing payment frequency or making permitted extra payments can reduce interest, but the impact depends on your mortgage terms and allowed prepayment privileges.</p>
+              <TrackedLink articleSlug="mortgage_calculator" ctaLabel="calculator_to_prepayment_guide" to="/blog/pay-off-mortgage-faster-canada" className="mt-3 inline-block text-sm font-bold text-secondary hover:underline">Read the prepayment guide →</TrackedLink>
+            </div>
+          </div>
+          <p className="mt-4 text-xs text-slate-500 dark:text-slate-400">This calculator omits some municipal taxes and rebates, property-tax cash flow and lender-specific fees. Confirm figures with your lender and local authorities.</p>
+        </section>
           <div className="mt-6">
             <EducationalDisclaimer />
             <OfficialSourceNote

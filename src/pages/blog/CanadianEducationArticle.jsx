@@ -1,6 +1,7 @@
 ﻿import React from "react";
 import { Link } from "react-router-dom";
 import SEO from "../../components/SEO";
+import TrackedLink from "../../components/TrackedLink";
 import BlogHero from "../../components/BlogHero";
 import TLDRBox from "../../components/TLDRBox";
 import ArticleSchema from "../../components/ArticleSchema";
@@ -215,6 +216,19 @@ export default function CanadianEducationArticle({ article }) {
           <UpdatedForRulesBadge />
         </div>
         <TLDRBox headline={article.shortAnswerHeadline} answer={article.shortAnswer} points={article.keyPoints} />
+        {article.quickTools?.length ? (
+          <nav aria-label="Compare the registered-account calculators" className="my-8 rounded-2xl border border-[#A8DDD1] bg-[#F0FAF7] p-5 dark:border-emerald-900 dark:bg-emerald-950/20">
+            <h2 className="text-lg font-bold text-primary dark:text-white">Test the accounts with your own numbers</h2>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">A rule of thumb is not personalized advice. Compare the contribution room, deduction and savings timeline relevant to your goal.</p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              {article.quickTools.map(tool => (
+                <TrackedLink key={tool.href} articleSlug={article.slug} ctaLabel={`quick_tool_${tool.href.split("/").pop()}`} to={tool.href} className="block rounded-xl border border-[#C4E1D9] bg-white p-4 text-sm font-bold text-primary hover:border-secondary dark:border-emerald-900 dark:bg-slate-900 dark:text-white">
+                  {tool.label}<span className="mt-1 block text-xs font-normal leading-5 text-slate-500 dark:text-slate-400">{tool.description}</span>
+                </TrackedLink>
+              ))}
+            </div>
+          </nav>
+        ) : null}
 
         <section className="mb-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">How to use this guide</p>

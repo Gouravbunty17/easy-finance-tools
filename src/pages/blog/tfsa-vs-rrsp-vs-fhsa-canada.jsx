@@ -4,8 +4,8 @@ import CanadianEducationArticle from "./CanadianEducationArticle";
 const article = {
   slug: "tfsa-vs-rrsp-vs-fhsa-canada",
   title: "TFSA vs RRSP vs FHSA: Which Account Should Canadians Use First?",
-  seoTitle: "TFSA vs RRSP vs FHSA: Which Account Should Get Your Next Dollar?",
-  metaDescription: "Compare TFSA, RRSP, and FHSA in minutes with a Canadian decision framework, 2026 rule context, and source-linked account tradeoffs.",
+  seoTitle: "FHSA vs TFSA vs RRSP in Canada (2026): Which First?",
+  metaDescription: "FHSA vs TFSA, FHSA vs RRSP and TFSA vs RRSP in Canada: compare 2026 rules, eligible first-home withdrawals, flexibility and tax deductions.",
   canonical: "https://easyfinancetools.com/blog/tfsa-vs-rrsp-vs-fhsa-canada",
   category: "TFSA | RRSP | FHSA",
   icon: "3AC",
@@ -37,6 +37,11 @@ const article = {
       { label: "FHSA rules guide", href: "/blog/fhsa-rules-canada-2026", body: "Verify first-home eligibility and limits." },
     ],
   },
+  quickTools: [
+    { label: "FHSA calculator", href: "/tools/fhsa-calculator", description: "Estimate your deduction and first-home contribution room." },
+    { label: "TFSA calculator", href: "/tools/tfsa-calculator", description: "Check room and tax-free savings projections." },
+    { label: "RRSP calculator", href: "/tools/rrsp-calculator", description: "Model a current deduction and retirement tradeoffs." },
+  ],
   intro: [
     "TFSA vs RRSP used to be the main Canadian account decision. The FHSA changed that for first-time home buyers. Now the better question is not simply which account is best, but which account should get the next dollar based on the job of the money.",
     "This guide compares TFSA, RRSP, and FHSA priorities using plain-language rules, Canadian examples, and practical mistakes to avoid. It does not tell you what to buy or promise that one account is always best.",
@@ -56,6 +61,20 @@ const article = {
           ["RRSP", "Higher current tax rate and retirement saving", "Withdrawals are generally taxable"],
         ],
       },
+    },
+    {
+      heading: "FHSA versus TFSA when the home timeline is uncertain",
+      paragraphs: [
+        "The FHSA is intended for eligible first-home plans and offers a potential deduction plus a qualifying tax-free home withdrawal. The TFSA offers broader flexibility and does not depend on qualifying for a home withdrawal.",
+        "If the home decision is unsettled, compare the FHSA opening and closure rules against TFSA withdrawal-room restoration. Check your own CRA room and first-time home buyer status before making either contribution.",
+      ],
+    },
+    {
+      heading: "FHSA versus RRSP for a down payment",
+      paragraphs: [
+        "Both accounts can offer a contribution deduction, but the withdrawal rules differ. An eligible FHSA qualifying withdrawal is tax-free; an RRSP Home Buyers Plan withdrawal has its own qualification and repayment requirements.",
+        "Neither account automatically wins for every buyer. Compare actual FHSA participation room, RRSP deduction room, the expected purchase date and the consequences if the purchase does not happen.",
+      ],
     },
     {
       heading: "When FHSA should come first",

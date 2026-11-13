@@ -86,6 +86,13 @@ export default function PayOffMortgageFasterCanada() {
             "Never over-prepay beyond your allowance — penalties can erase all your savings",
           ]}
         />
+        <div className="not-prose mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#B8DCD4] bg-[#F0FAF7] p-5 dark:border-emerald-900 dark:bg-emerald-950/20">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[.13em] text-secondary">Try your actual mortgage numbers</p>
+            <p className="mt-1 text-sm text-slate-700 dark:text-slate-300">Use a payment and prepayment scenario before assuming an extra-payment strategy will save you money.</p>
+          </div>
+          <TrackedLink articleSlug="pay-off-mortgage-faster-canada" ctaLabel="prepayment_guide_top_calculator" to="/tools/mortgage-calculator" className="eft-brand-button">Open mortgage calculator →</TrackedLink>
+        </div>
         <div className="not-prose mb-8 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/20">
           <p className="text-sm text-amber-800 dark:text-amber-300">
             <strong>Last updated:</strong> April 20, 2026. Prepayment privileges and penalty rules vary by lender and mortgage product. Always verify your specific allowances in your mortgage agreement before making additional payments.

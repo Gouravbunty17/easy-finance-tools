@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from 'react';
+import useCalculatorEngagement from '../../hooks/useCalculatorEngagement';
+import TrackedLink from '../../components/TrackedLink';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -127,6 +129,7 @@ export default function FHSACalculator() {
   const [annualContribution, setAnnualContribution] = useState(String(DEFAULT_ASSUMPTIONS.fhsa.annualContribution));
   const [expectedReturn, setExpectedReturn] = useState(String(DEFAULT_ASSUMPTIONS.fhsa.expectedReturn));
   const [yearsToPurchase, setYearsToPurchase] = useState(String(DEFAULT_ASSUMPTIONS.fhsa.yearsToPurchase));
+  useCalculatorEngagement('fhsa_calculator', [birthYear, province, income, availableRoomNow, contributedToDate, currentBalance, annualContribution, expectedReturn, yearsToPurchase]);
 
   const result = useMemo(() => calculateFhsaScenario({
     birthYear,
@@ -170,17 +173,161 @@ export default function FHSACalculator() {
       />
       <FAQSchema faqs={FHSA_FAQS} />
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
-        <div>
-          <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
-            FHSA planning for Canadian investors
-          </div>
-          <h1 className="eft-display text-4xl text-primary dark:text-white md:text-5xl">FHSA Calculator Canada 2026 — Tax Savings & Down-Payment Planner</h1>
-          <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against CRA account rules" />
-          <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
-            Use this free Canadian FHSA calculator to estimate your 2026 tax savings, project the down-payment balance you can build in a First Home Savings Account, and decide whether the FHSA fits ahead of your TFSA or RRSP path. No sign-up.
+      <header className="mb-6 max-w-4xl">
+        <span className="eft-eyebrow">FIRST HOME SAVINGS ACCOUNT · CANADA</span>
+        <h1 className="eft-display mt-3 text-3xl font-extrabold text-primary dark:text-white sm:text-4xl">FHSA contribution and tax savings calculator</h1>
+        <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-300">Estimate your FHSA deduction value and down-payment savings using your own income, room and timeline. Check eligibility with CRA before contributing.</p>
+      </header>
+      <a href="#fhsa-quick-results" className="focus-ring mb-4 flex items-center justify-between gap-3 rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-primary dark:border-teal-900 dark:bg-teal-950/40 dark:text-white lg:hidden">
+        <span><span className="block text-xs font-semibold">Estimated deduction value</span><strong className="eft-metric mt-1 block text-xl">{formatCurrency(result.totalTaxSavings)}</strong></span>
+        <span className="shrink-0 font-bold text-secondary">See results ↓</span>
+      </a>
+      <section className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(350px,.84fr)]" aria-label="FHSA calculator inputs and results">
+        <aside className="eft-surface h-fit p-5 sm:p-7">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Input</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Start with your FHSA contribution</h2>
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+            Enter the planning assumptions you know today. This tool is strongest when you treat it as a decision aid, not a final CRA record.
           </p>
 
+          <div className="mt-6 space-y-5">
+            <ScenarioInput
+              label="Planned annual contribution"
+              value={annualContribution}
+              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
+              min={0}
+              max={16000}
+              step={500}
+              suffix="CAD"
+              helpText={`The 2026 annual limit is ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)} before carryforward.`}
+            />
+            <div>
+              <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Province</label>
+              <select
+                value={province}
+                onChange={(event) => setProvince(event.target.value)}
+                className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+              >
+                {CANADIAN_PROVINCES.map((item) => (
+                  <option key={item.value} value={item.value}>{item.label}</option>
+                ))}
+              </select>
+            </div>
+
+            <ScenarioInput
+              label="Annual income"
+              value={income}
+              onChange={(event) => setIncome(parseNumericInput(event.target.value))}
+              min={0}
+              step={1000}
+              suffix="CAD"
+            />
+            <ScenarioInput
+              label="Birth year"
+              value={birthYear}
+              onChange={(event) => setBirthYear(parseNumericInput(event.target.value, { integer: true }))}
+              min={1950}
+              max={2008}
+              step={1}
+            />
+            <ScenarioInput
+              label="Estimated FHSA room available now"
+              value={availableRoomNow}
+              onChange={(event) => setAvailableRoomNow(parseNumericInput(event.target.value))}
+              min={0}
+              max={16000}
+              step={500}
+              suffix="CAD"
+              helpText="Check CRA before making a real contribution."
+            />
+            <ScenarioInput
+              label="Contributions already made"
+              value={contributedToDate}
+              onChange={(event) => setContributedToDate(parseNumericInput(event.target.value))}
+              min={0}
+              max={REGISTERED_ACCOUNT_LIMITS.fhsaLifetimeLimit}
+              step={500}
+              suffix="CAD"
+            />
+            <ScenarioInput
+              label="Current FHSA balance"
+              value={currentBalance}
+              onChange={(event) => setCurrentBalance(parseNumericInput(event.target.value))}
+              min={0}
+              step={500}
+              suffix="CAD"
+            />
+            <ScenarioInput
+              label="Expected annual growth"
+              value={expectedReturn}
+              onChange={(event) => setExpectedReturn(parseNumericInput(event.target.value))}
+              min={0}
+              max={12}
+              step={0.5}
+              suffix="%"
+              helpText="Use a lower number to stress-test a short home-buying timeline."
+            />
+            <ScenarioInput
+              label="Years until purchase"
+              value={yearsToPurchase}
+              onChange={(event) => setYearsToPurchase(parseNumericInput(event.target.value, { integer: true }))}
+              min={1}
+              max={15}
+              step={1}
+              suffix="yrs"
+            />
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-800 dark:bg-blue-900/20">
+            <p className="font-semibold text-blue-800 dark:text-blue-200">Current planning view</p>
+            <ul className="mt-2 space-y-2 text-blue-700 dark:text-blue-300">
+              <li>Estimated current room: {formatCurrency(result.yearOneRoom)}</li>
+              <li>Lifetime room left today: {formatCurrency(result.lifetimeRemainingAtStart)}</li>
+              <li>Lifetime room left after this plan: {formatCurrency(result.lifetimeRemainingAtEnd)}</li>
+            </ul>
+          </div>
+
+          {!result.likelyAgeEligible ? (
+            <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-200">
+              Based on the birth year entered, this scenario may fall outside the usual FHSA age rules. Treat the output as exploratory until eligibility is confirmed.
+            </div>
+          ) : null}
+        </aside>
+        <div id="fhsa-quick-results" className="eft-surface scroll-mt-24 p-5 sm:p-7 lg:sticky lg:top-24" aria-live="polite" aria-label="Estimated FHSA results">
+          <span className="eft-eyebrow">LIVE PLANNING ESTIMATE · 2026</span>
+          <h2 className="mt-2 text-xl font-extrabold text-primary dark:text-white">Tax savings, room and home-fund growth</h2>
+          <div className="mt-4 grid gap-3">
+            <ResultMetric
+              label="Estimated tax savings"
+              value={formatCurrency(result.totalTaxSavings)}
+              hint={`Approximate tax deduction value at a ${Math.round(result.marginalRate * 1000) / 10}% marginal rate.`}
+              tone="success"
+            />
+            <ResultMetric
+              label="Contribution used in year one"
+              value={formatCurrency(result.contributionUsedYearOne)}
+              hint={`Uses ${Math.round(result.annualLimitUsage * 100)}% of the ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)} annual limit.`}
+              tone="primary"
+            />
+            <ResultMetric
+              label="Projected balance at purchase"
+              value={formatCurrency(result.projectedBalance)}
+              hint={`Includes ${formatCurrency(result.projectedGrowth)} of projected growth over ${yearsToPurchase} years.`}
+              tone="warning"
+            />
+          </div>
+          <p className="mt-4 text-xs leading-6 text-slate-600 dark:text-slate-300">These figures are estimates, not verified participation room or a guaranteed refund. Confirm your account opening date, unused room and first-time buyer status.</p>
+          <a href="#fhsa-in-depth" className="focus-ring mt-4 inline-flex min-h-11 items-center text-sm font-bold text-secondary hover:underline">Explore room rules and projections ↓</a>
+        </div>
+      </section>
+      <section id="fhsa-in-depth" className="mt-10 scroll-mt-24" aria-label="FHSA methodology, examples and sources">
+        <div className="mb-6 border-b border-slate-200 pb-4 dark:border-slate-700">
+          <p className="eft-eyebrow">HOW THE FHSA WORKS</p>
+          <h2 className="mt-2 text-2xl font-extrabold text-primary dark:text-white">Understand the limits and tradeoffs</h2>
+          <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against CRA account rules" />
+          <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">The FHSA annual reference is {formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)}, subject to your available participation room and lifetime limit. A qualifying home withdrawal has separate rules.</p>
+          <TrackedLink articleSlug="fhsa_calculator" ctaLabel="fhsa_tool_to_rules_guide" to="/blog/fhsa-calculator-canada-2026" className="mt-2 inline-block text-sm font-bold text-secondary hover:underline">Read the 2026 FHSA room and tax guide →</TrackedLink>
+        </div>
           <div className="mt-6">
             <EducationalDisclaimer />
             <PrivacyNote className="mt-4" />
@@ -206,26 +353,7 @@ export default function FHSACalculator() {
             />
           </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            <ResultMetric
-              label="Estimated tax savings"
-              value={formatCurrency(result.totalTaxSavings)}
-              hint={`Approximate tax deduction value at a ${Math.round(result.marginalRate * 1000) / 10}% marginal rate.`}
-              tone="success"
-            />
-            <ResultMetric
-              label="Contribution used in year one"
-              value={formatCurrency(result.contributionUsedYearOne)}
-              hint={`Uses ${Math.round(result.annualLimitUsage * 100)}% of the ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)} annual limit.`}
-              tone="primary"
-            />
-            <ResultMetric
-              label="Projected balance at purchase"
-              value={formatCurrency(result.projectedBalance)}
-              hint={`Includes ${formatCurrency(result.projectedGrowth)} of projected growth over ${yearsToPurchase} years.`}
-              tone="warning"
-            />
-          </div>
+
 
           <InlineSourceTrust
             label="FHSA room source"
@@ -496,119 +624,7 @@ export default function FHSACalculator() {
               </div>
             </div>
           </section>
-        </div>
-
-        <aside className="surface-card h-fit p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Input</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Build your FHSA scenario</h2>
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            Enter the planning assumptions you know today. This tool is strongest when you treat it as a decision aid, not a final CRA record.
-          </p>
-
-          <div className="mt-6 space-y-5">
-            <div>
-              <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Province</label>
-              <select
-                value={province}
-                onChange={(event) => setProvince(event.target.value)}
-                className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
-              >
-                {CANADIAN_PROVINCES.map((item) => (
-                  <option key={item.value} value={item.value}>{item.label}</option>
-                ))}
-              </select>
-            </div>
-
-            <ScenarioInput
-              label="Annual income"
-              value={income}
-              onChange={(event) => setIncome(parseNumericInput(event.target.value))}
-              min={0}
-              step={1000}
-              suffix="CAD"
-            />
-            <ScenarioInput
-              label="Birth year"
-              value={birthYear}
-              onChange={(event) => setBirthYear(parseNumericInput(event.target.value, { integer: true }))}
-              min={1950}
-              max={2008}
-              step={1}
-            />
-            <ScenarioInput
-              label="Estimated FHSA room available now"
-              value={availableRoomNow}
-              onChange={(event) => setAvailableRoomNow(parseNumericInput(event.target.value))}
-              min={0}
-              max={16000}
-              step={500}
-              suffix="CAD"
-              helpText="Check CRA before making a real contribution."
-            />
-            <ScenarioInput
-              label="Contributions already made"
-              value={contributedToDate}
-              onChange={(event) => setContributedToDate(parseNumericInput(event.target.value))}
-              min={0}
-              max={REGISTERED_ACCOUNT_LIMITS.fhsaLifetimeLimit}
-              step={500}
-              suffix="CAD"
-            />
-            <ScenarioInput
-              label="Current FHSA balance"
-              value={currentBalance}
-              onChange={(event) => setCurrentBalance(parseNumericInput(event.target.value))}
-              min={0}
-              step={500}
-              suffix="CAD"
-            />
-            <ScenarioInput
-              label="Planned annual contribution"
-              value={annualContribution}
-              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
-              min={0}
-              max={16000}
-              step={500}
-              suffix="CAD"
-              helpText={`The 2026 annual limit is ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)} before carryforward.`}
-            />
-            <ScenarioInput
-              label="Expected annual growth"
-              value={expectedReturn}
-              onChange={(event) => setExpectedReturn(parseNumericInput(event.target.value))}
-              min={0}
-              max={12}
-              step={0.5}
-              suffix="%"
-              helpText="Use a lower number to stress-test a short home-buying timeline."
-            />
-            <ScenarioInput
-              label="Years until purchase"
-              value={yearsToPurchase}
-              onChange={(event) => setYearsToPurchase(parseNumericInput(event.target.value, { integer: true }))}
-              min={1}
-              max={15}
-              step={1}
-              suffix="yrs"
-            />
-          </div>
-
-          <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-800 dark:bg-blue-900/20">
-            <p className="font-semibold text-blue-800 dark:text-blue-200">Current planning view</p>
-            <ul className="mt-2 space-y-2 text-blue-700 dark:text-blue-300">
-              <li>Estimated current room: {formatCurrency(result.yearOneRoom)}</li>
-              <li>Lifetime room left today: {formatCurrency(result.lifetimeRemainingAtStart)}</li>
-              <li>Lifetime room left after this plan: {formatCurrency(result.lifetimeRemainingAtEnd)}</li>
-            </ul>
-          </div>
-
-          {!result.likelyAgeEligible ? (
-            <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-200">
-              Based on the birth year entered, this scenario may fall outside the usual FHSA age rules. Treat the output as exploratory until eligibility is confirmed.
-            </div>
-          ) : null}
-        </aside>
-      </div>
+      </section>
 
       <CalculatorCaseStudy
         title="First-time buyer in Alberta deciding whether to prioritize FHSA"

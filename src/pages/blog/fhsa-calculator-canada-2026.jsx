@@ -144,13 +144,13 @@ export default function FHSACalculatorCanada2026() {
   return (
     <div>
       <SEO
-        title="FHSA Calculator Canada 2026: Limits, Tax Savings & Growth"
-        description="Use this FHSA calculator guide to estimate 2026 contribution room, tax savings, and down-payment growth in Canada before choosing TFSA or RRSP."
+        title="FHSA Contribution Limit & Tax Savings Guide (2026) | Canada"
+        description="Learn 2026 FHSA annual and lifetime limits, unused contribution-room carryforward, tax deductions and qualifying withdrawals. Try the free calculator."
         canonical="https://easyfinancetools.com/blog/fhsa-calculator-canada-2026"
       />
       <ArticleSchema
-        headline="FHSA Calculator Canada: 2026 Limits, Tax Savings, and Growth Guide"
-        description="Estimate your 2026 FHSA tax savings, understand the contribution limits, and compare the FHSA against TFSA and RRSP choices before your next deposit."
+        headline="FHSA Contribution Room and Tax Savings: 2026 Canadian Guide"
+        description="A Canadian FHSA room and tax deduction guide with current reference limits, examples and a separate interactive calculator."
         url="https://easyfinancetools.com/blog/fhsa-calculator-canada-2026"
         datePublished="2026-04-23"
         dateModified="2026-04-26"
@@ -160,13 +160,21 @@ export default function FHSACalculatorCanada2026() {
       <BlogHero
         icon="FHSA"
         category="FHSA | First home"
-        title="FHSA Calculator Canada: 2026 Limits, Tax Savings, and Growth Guide"
+        title="FHSA Contribution Room and Tax Savings: 2026 Canadian Guide"
         date={PAGE_LAST_UPDATED}
         readTime="10 min read"
         gradient="from-emerald-500 to-teal-700"
       />
 
       <section className="mx-auto max-w-5xl px-4 py-12">
+        <nav aria-label="FHSA calculator and account guides" className="mb-6 rounded-2xl border border-[#B4DDD3] bg-[#ECF9F5] p-5 dark:border-[#31665E] dark:bg-[#16392F]">
+          <p className="text-xs font-bold uppercase tracking-[.13em] text-secondary dark:text-[#8DE9D3]">Need the calculation, not the article?</p>
+          <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-200">Enter your province, contribution, FHSA room and home timeline in the dedicated planner. This article explains the rules and examples behind the estimate.</p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <TrackedLink articleSlug="fhsa-calculator-canada-2026" ctaLabel="fhsa_guide_primary_calculator" to="/tools/fhsa-calculator" className="eft-brand-button">Open FHSA calculator →</TrackedLink>
+            <TrackedLink articleSlug="fhsa-calculator-canada-2026" ctaLabel="fhsa_guide_compare_accounts" to="/blog/tfsa-vs-rrsp-vs-fhsa-canada" className="eft-outline-button">Compare FHSA, TFSA and RRSP</TrackedLink>
+          </div>
+        </nav>
         <TLDRBox
           headline="What should an FHSA calculator tell you?"
           answer={`A useful FHSA calculator should show your 2026 contribution room, the value of the deduction at your income level, the projected down-payment balance, and whether the FHSA still beats the TFSA or RRSP for the same dollar. In 2026, the annual FHSA contribution limit is ${formatFhsaCurrency(REGISTERED_ACCOUNT_LIMITS.fhsaAnnualLimit)}, and in Ontario someone earning ${formatFhsaCurrency(EXAMPLE_INPUTS.income)} could see roughly ${formatFhsaCurrency(quickExample.estimatedTaxSavings)} of estimated tax savings from a full-year FHSA contribution.`}
