@@ -323,9 +323,9 @@ export default function MortgageCalculator() {
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             Mortgage planning for Canadian buyers
           </div>
-          <h1 className="eft-display text-4xl font-extrabold text-primary dark:text-white md:text-5xl">Mortgage payment and ownership-cost planner</h1>
+          <h1 className="eft-display text-3xl font-extrabold text-primary dark:text-white sm:text-4xl md:text-5xl">Mortgage payment calculator</h1>
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
-            This page helps you move from "can I handle the payment?" to "what does this home actually cost once CMHC, closing costs, and rate risk are included?"
+            Estimate your payment, interest and closing costs, then compare mortgage rates and stress-test pressure.
           </p>
 
       </header>
@@ -337,7 +337,7 @@ export default function MortgageCalculator() {
         <aside className="eft-surface h-fit p-5 sm:p-7">
           <h2 className="text-xl font-bold text-primary dark:text-accent">Start with your mortgage numbers</h2>
           <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            Start with the purchase price and down payment, then use the extra-payment field to see whether the ownership plan still feels right when you intentionally add margin.
+            Enter the home price, down payment and rate to update the estimate.
           </p>
 
           <div className="mt-6 space-y-5">
