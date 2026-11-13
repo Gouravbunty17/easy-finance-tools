@@ -295,11 +295,7 @@ export default function RRSPCalculator() {
             Estimate deduction benefits, then compare your retirement outlook. Real RRSP room comes from your CRA Notice of Assessment.
           </p>
 
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2 dark:border-slate-700 dark:bg-slate-800">
-            <label htmlFor="rrsp-year" className="text-sm font-bold text-primary dark:text-white">RRSP limit reference year</label>
-            <select id="rrsp-year" value={contributionYear} onChange={e=>setContributionYear(Number(e.target.value))} className="min-h-11 rounded-lg border border-slate-300 px-3 dark:border-slate-600 dark:bg-slate-900"><option value={2026}>2026 · $33,810</option><option value={2027}>2027 · $35,390</option></select>
-          </div>
-          <p className="mt-2 text-xs leading-5 text-slate-600 dark:text-slate-300">Refund estimates use 2026 tax assumptions. The 2027 selection updates only published RRSP ceiling references, not personal room or 2027 brackets.</p>
+
       </header>
       <a href="#rrsp-quick-results" className="focus-ring mb-5 flex items-center justify-between gap-3 rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-primary dark:border-teal-900 dark:bg-teal-950/40 dark:text-white lg:hidden">
         <span><span className="block text-xs font-semibold">Estimated RRSP deduction benefit</span><strong className="eft-metric mt-1 block text-xl">{formatCurrency(result.taxRefundYearOne)}</strong></span>
@@ -324,6 +320,11 @@ export default function RRSPCalculator() {
               helpText={`Base annual limit estimate at this income: ${formatCurrency(result.baseAnnualLimit)}.`}
             />
 
+          <div className="mt-1 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2 dark:border-slate-700 dark:bg-slate-800">
+            <label htmlFor="rrsp-year" className="text-sm font-bold text-primary dark:text-white">RRSP limit reference year</label>
+            <select id="rrsp-year" value={contributionYear} onChange={e=>setContributionYear(Number(e.target.value))} className="min-h-11 rounded-lg border border-slate-300 px-3 dark:border-slate-600 dark:bg-slate-900"><option value={2026}>2026 · $33,810</option><option value={2027}>2027 · $35,390</option></select>
+          </div>
+          <p className="mt-2 text-xs leading-5 text-slate-600 dark:text-slate-300">Refund estimates use 2026 tax assumptions. The 2027 selection updates only published RRSP ceiling references, not personal room or 2027 brackets.</p>
             <div>
               <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Province</label>
               <select
