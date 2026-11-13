@@ -64,6 +64,7 @@ async function visit(browser,scenario,device){
       const b=document.querySelector(result)?.getBoundingClientRect();
       return {inputTop:a?.top,resultLeft:b?.left,inputLeft:a?.left,overflow:Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth)};
     },scenario.input,scenario.result);
+    await page.screenshot({path:path.join(OUT,scenario.slug+"-"+device+"-initial.png"),captureBeyondViewport:false});
     if(metrics.overflow>8)throw new Error("Horizontal overflow: "+metrics.overflow+"px");
     if(mobile && metrics.inputTop>1100)throw new Error("First input buried below mobile viewport: "+metrics.inputTop+"px");
     if(!mobile && metrics.resultLeft <= metrics.inputLeft)throw new Error("Desktop result panel should be to the right of input panel");
