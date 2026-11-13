@@ -423,7 +423,7 @@ export default function MortgageCalculator() {
             />
           </div>
           <p className="mt-4 text-xs leading-6 text-slate-600 dark:text-slate-300">Planning estimate only. Closing costs, qualifying-rate treatment and mortgage insurance depend on lender, province, product and borrower eligibility.</p>
-          <a href="#mortgage-in-depth" className="focus-ring mt-4 inline-flex min-h-11 items-center text-sm font-bold text-secondary hover:underline">Compare rates and see full details ↓</a>
+          <a href="#mortgage-rate-comparison" className="focus-ring mt-4 inline-flex min-h-11 items-center text-sm font-bold text-secondary hover:underline">Compare mortgage rates ↓</a>
         </div>
       </section>
       <section id="mortgage-in-depth" className="mt-10 scroll-mt-24" aria-label="Mortgage methodology and detailed analysis">
@@ -451,7 +451,7 @@ export default function MortgageCalculator() {
 
 
 
-          <section className="eft-surface mt-6 p-5 sm:p-7">
+          <section id="mortgage-rate-comparison" className="eft-surface scroll-mt-24 mt-6 p-5 sm:p-7">
             <h2 className="text-xl font-bold text-primary dark:text-accent">Compare two mortgage rates</h2>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Both scenarios use the same principal and amortization, with standard monthly payments and no prepayments. Taxes, insurance, closing costs and renewal changes are excluded from this comparison.</p>
             <label htmlFor="alternative-mortgage-rate" className="mt-4 block text-sm font-semibold">Scenario B annual mortgage interest rate (%)</label>
