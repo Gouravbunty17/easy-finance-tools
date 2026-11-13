@@ -36,6 +36,15 @@ function chromePath(){
   throw new Error("Chrome not found; supply CHROME_PATH.");
 }
 async function fill(page,selector,value){
+  // Keep the selected input in the visible center of the viewport so the sticky
+  // site header cannot intercept Puppeteer's synthetic click.
+  await page.$eval(selector,el=>el.scrollIntoView({block:"center",inline:"nearest",behavior:"instant"}));
+  const hit=await page.$eval(selector,el=>{
+    const r=el.getBoundingClientRect();
+    const top=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);
+    return top===el || el.contains(top);
+  });
+  if(!hit)throw new Error("Input remains covered after scrolling to center: "+selector);
   await page.click(selector,{clickCount:3});
   await page.keyboard.press("Backspace");
   const state=await page.evaluate(sel=>({
