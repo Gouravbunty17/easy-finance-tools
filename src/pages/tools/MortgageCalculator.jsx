@@ -319,8 +319,7 @@ export default function MortgageCalculator() {
         category="FinanceApplication"
       />
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
-        <div>
+      <header className="mb-7 max-w-4xl">
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             Mortgage planning for Canadian buyers
           </div>
@@ -330,24 +329,76 @@ export default function MortgageCalculator() {
             This page helps you move from "can I handle the payment?" to "what does this home actually cost once CMHC, closing costs, and rate risk are included?"
           </p>
 
-          <div className="mt-6">
-            <EducationalDisclaimer />
-            <OfficialSourceNote
-              body="Mortgage payments, insurance, and qualification context should be checked against official Canadian consumer guidance and lender documents."
-              sources={[mortgageOfficialSources[0], mortgageOfficialSources[2], mortgageOfficialSources[3]]}
-            />
-            <ContributorReviewBox className="mt-4" />
-            <SourceVerificationBlock
-              className="mt-4"
-              lastUpdated={CONTENT_LAST_REVIEWED}
-              sources={[mortgageOfficialSources[0], mortgageOfficialSources[2], mortgageOfficialSources[3]]}
-              checked={["Mortgage payment and stress-test caveats", "CMHC insurance source reference", "Closing-cost limitation wording", "Related affordability links"]}
-              limitations={["Final approval depends on lender underwriting, credit profile, property details, and current product rules.", "The calculator does not replace a lender quote, mortgage broker review, or legal closing-cost statement."]}
-            />
-            <CalculatorDecisionCheck className="mt-4" />
-          </div>
+      </header>
+      <a href="#mortgage-quick-results" className="focus-ring mb-5 flex items-center justify-between gap-3 rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-primary dark:border-teal-900 dark:bg-teal-950/40 dark:text-white lg:hidden">
+        <span><span className="block text-xs font-semibold">{result.frequencyDetails.label} estimate</span><strong className="eft-metric mt-1 block text-xl">{formatCurrency(result.frequencyDetails.scheduledPayment,0)}</strong></span>
+        <span className="shrink-0 font-bold text-secondary">See results ↓</span>
+      </a>
+      <section className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(350px,.84fr)]" aria-label="Mortgage calculator inputs and results">
+        <aside className="eft-surface h-fit p-5 sm:p-7">
+          <h2 className="text-xl font-bold text-primary dark:text-accent">Start with your mortgage numbers</h2>
+          <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
+            Start with the purchase price and down payment, then use the extra-payment field to see whether the ownership plan still feels right when you intentionally add margin.
+          </p>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-6 space-y-5">
+            <InputField label="Home price" value={homePrice} onChange={(event) => setHomePrice(parseNumericInput(event.target.value))} step="1000" min="0" suffix="CAD" />
+            <InputField
+              label="Down payment"
+              value={downPayment}
+              onChange={(event) => setDownPayment(parseNumericInput(event.target.value))}
+              step="1000"
+              min="0"
+              suffix="CAD"
+              helpText="If you are still building the down payment, compare this page with your FHSA and TFSA plan before deciding what is realistic."
+            />
+            <InputField label="Quoted rate" value={rate} onChange={(event) => setRate(parseNumericInput(event.target.value))} step="0.05" min="0" suffix="%" />
+            <SelectField
+              label="Amortization"
+              value={amortization}
+              onChange={(event) => setAmortization(Number(event.target.value))}
+              options={[5, 10, 15, 20, 25, 30].map((item) => ({ value: item, label: `${item} years` }))}
+            />
+            <SelectField
+              label="Province"
+              value={province}
+              onChange={(event) => setProvince(event.target.value)}
+              options={Object.entries(HOUSING_PROVINCE_DETAILS).map(([value, item]) => ({ value, label: item.label }))}
+              helpText="Used for land transfer tax planning. Municipal taxes, rebates, and product-specific rules can still change the real closing number."
+            />
+
+            <details className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900">
+              <summary className="cursor-pointer text-sm font-bold text-primary dark:text-white">More payment options (frequency and prepayments)</summary>
+              <div className="mt-4 space-y-5">
+            <SelectField
+              label="Payment frequency"
+              value={frequency}
+              onChange={(event) => setFrequency(event.target.value)}
+              options={[
+                { value: 'monthly', label: 'Monthly' },
+                { value: 'biweekly', label: 'Bi-weekly' },
+                { value: 'accelerated', label: 'Accelerated bi-weekly' },
+                { value: 'weekly', label: 'Weekly' },
+              ]}
+            />
+            <InputField
+              label="Extra monthly prepayment"
+              value={extraMonthlyPayment}
+              onChange={(event) => setExtraMonthlyPayment(parseNumericInput(event.target.value))}
+              step="50"
+              min="0"
+              suffix="CAD"
+              helpText="Use this for recurring prepayments. Accelerated bi-weekly is modeled separately as one extra monthly payment per year."
+            />
+              </div>
+              <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">Payment frequency and prepayments change the schedule and total interest. Expand to compare them.</p>
+            </details>
+          </div>
+        </aside>
+        <div id="mortgage-quick-results" className="eft-surface scroll-mt-24 p-5 sm:p-7 lg:sticky lg:top-24" aria-label="Estimated mortgage results" aria-live="polite">
+          <p className="eft-eyebrow">LIVE PAYMENT ESTIMATE · CAD</p>
+          <h2 className="mt-2 text-xl font-extrabold text-primary dark:text-white">Payment, borrowing cost, and rate pressure</h2>
+          <div className="mt-4 grid gap-3">
             <MetricCard
               label={result.frequencyDetails.label}
               value={formatCurrency(result.frequencyDetails.scheduledPayment, 0)}
@@ -372,6 +423,33 @@ export default function MortgageCalculator() {
               tone="success"
             />
           </div>
+          <p className="mt-4 text-xs leading-6 text-slate-600 dark:text-slate-300">Planning estimate only. Closing costs, qualifying-rate treatment and mortgage insurance depend on lender, province, product and borrower eligibility.</p>
+          <a href="#mortgage-in-depth" className="focus-ring mt-4 inline-flex min-h-11 items-center text-sm font-bold text-secondary hover:underline">Compare rates and see full details ↓</a>
+        </div>
+      </section>
+      <section id="mortgage-in-depth" className="mt-10 scroll-mt-24" aria-label="Mortgage methodology and detailed analysis">
+        <div className="mb-6 border-b border-slate-200 pb-5 dark:border-slate-700">
+          <p className="eft-eyebrow">UNDERSTAND YOUR PAYMENT</p>
+          <h2 className="mt-1 text-2xl font-extrabold text-primary dark:text-white">Rate comparisons, assumptions, and deeper analysis</h2>
+        </div>
+          <div className="mt-6">
+            <EducationalDisclaimer />
+            <OfficialSourceNote
+              body="Mortgage payments, insurance, and qualification context should be checked against official Canadian consumer guidance and lender documents."
+              sources={[mortgageOfficialSources[0], mortgageOfficialSources[2], mortgageOfficialSources[3]]}
+            />
+            <ContributorReviewBox className="mt-4" />
+            <SourceVerificationBlock
+              className="mt-4"
+              lastUpdated={CONTENT_LAST_REVIEWED}
+              sources={[mortgageOfficialSources[0], mortgageOfficialSources[2], mortgageOfficialSources[3]]}
+              checked={["Mortgage payment and stress-test caveats", "CMHC insurance source reference", "Closing-cost limitation wording", "Related affordability links"]}
+              limitations={["Final approval depends on lender underwriting, credit profile, property details, and current product rules.", "The calculator does not replace a lender quote, mortgage broker review, or legal closing-cost statement."]}
+            />
+            <CalculatorDecisionCheck className="mt-4" />
+          </div>
+
+
 
           <section className="eft-surface mt-6 p-5 sm:p-7">
             <h2 className="text-xl font-bold text-primary dark:text-accent">Compare two mortgage rates</h2>
@@ -600,62 +678,7 @@ export default function MortgageCalculator() {
               </table>
             </div>
           </div>
-        </div>
-
-        <aside className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-gray-800">
-          <h2 className="text-xl font-bold text-primary dark:text-accent">Scenario inputs</h2>
-          <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            Start with the purchase price and down payment, then use the extra-payment field to see whether the ownership plan still feels right when you intentionally add margin.
-          </p>
-
-          <div className="mt-6 space-y-5">
-            <InputField label="Home price" value={homePrice} onChange={(event) => setHomePrice(parseNumericInput(event.target.value))} step="1000" min="0" suffix="CAD" />
-            <InputField
-              label="Down payment"
-              value={downPayment}
-              onChange={(event) => setDownPayment(parseNumericInput(event.target.value))}
-              step="1000"
-              min="0"
-              suffix="CAD"
-              helpText="If you are still building the down payment, compare this page with your FHSA and TFSA plan before deciding what is realistic."
-            />
-            <InputField label="Quoted rate" value={rate} onChange={(event) => setRate(parseNumericInput(event.target.value))} step="0.05" min="0" suffix="%" />
-            <SelectField
-              label="Amortization"
-              value={amortization}
-              onChange={(event) => setAmortization(Number(event.target.value))}
-              options={[5, 10, 15, 20, 25, 30].map((item) => ({ value: item, label: `${item} years` }))}
-            />
-            <SelectField
-              label="Payment frequency"
-              value={frequency}
-              onChange={(event) => setFrequency(event.target.value)}
-              options={[
-                { value: 'monthly', label: 'Monthly' },
-                { value: 'biweekly', label: 'Bi-weekly' },
-                { value: 'accelerated', label: 'Accelerated bi-weekly' },
-                { value: 'weekly', label: 'Weekly' },
-              ]}
-            />
-            <SelectField
-              label="Province"
-              value={province}
-              onChange={(event) => setProvince(event.target.value)}
-              options={Object.entries(HOUSING_PROVINCE_DETAILS).map(([value, item]) => ({ value, label: item.label }))}
-              helpText="Used for land transfer tax planning. Municipal taxes, rebates, and product-specific rules can still change the real closing number."
-            />
-            <InputField
-              label="Extra monthly prepayment"
-              value={extraMonthlyPayment}
-              onChange={(event) => setExtraMonthlyPayment(parseNumericInput(event.target.value))}
-              step="50"
-              min="0"
-              suffix="CAD"
-              helpText="Use this for recurring prepayments. Accelerated bi-weekly is modeled separately as one extra monthly payment per year."
-            />
-          </div>
-        </aside>
-      </div>
+      </section>
 
       <CalculatorCaseStudy
         title="Ontario buyer testing a $650,000 purchase before talking to a lender"
