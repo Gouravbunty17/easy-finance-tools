@@ -286,8 +286,7 @@ export default function RRSPCalculator() {
       />
       <FAQSchema faqs={RRSP_FAQS} />
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
-        <div>
+      <header className="mb-7 max-w-4xl">
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             RRSP planning for Canadian investors
           </div>
@@ -302,6 +301,188 @@ export default function RRSPCalculator() {
             <select id="rrsp-year" value={contributionYear} onChange={e=>setContributionYear(Number(e.target.value))} className="mt-2 w-full rounded-lg border border-slate-300 p-3 dark:border-slate-600 dark:bg-slate-900"><option value={2026}>2026 · $33,810</option><option value={2027}>2027 · $35,390</option></select>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Personal RRSP room must come from your CRA Notice of Assessment, not this national ceiling. Refund and marginal-rate estimates use 2026 bracket proxies{contributionYear === 2027 ? " even when the 2027 ceiling is selected, because 2027 tax brackets are not confirmed here." : "."}</p>
           </div>
+      </header>
+      <a href="#rrsp-quick-results" className="focus-ring mb-5 flex items-center justify-between gap-3 rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-primary dark:border-teal-900 dark:bg-teal-950/40 dark:text-white lg:hidden">
+        <span><span className="block text-xs font-semibold">Estimated RRSP deduction benefit</span><strong className="eft-metric mt-1 block text-xl">{formatCurrency(result.taxRefundYearOne)}</strong></span>
+        <span className="shrink-0 font-bold text-secondary">See results ↓</span>
+      </a>
+      <section className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(350px,.84fr)]" aria-label="RRSP calculator inputs and results">
+        <aside className="eft-surface h-fit p-5 sm:p-7">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">YOUR INPUTS</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Start with your RRSP numbers</h2>
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+            Enter the current deduction and retirement assumptions you know today. This page is strongest when it helps you decide whether the RRSP should beat the TFSA or FHSA for the next contribution.
+          </p>
+
+          <div className="mt-6 space-y-5">
+            <div>
+              <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Province</label>
+              <select
+                value={province}
+                onChange={(event) => setProvince(event.target.value)}
+                className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+              >
+                {CANADIAN_PROVINCES.map((item) => (
+                  <option key={item.value} value={item.value}>{item.label}</option>
+                ))}
+              </select>
+            </div>
+            <ScenarioInput
+              label="Current taxable income"
+              value={taxableIncome}
+              onChange={(event) => setTaxableIncome(parseNumericInput(event.target.value))}
+              min={0}
+              step={1000}
+              suffix="CAD"
+            />
+            <ScenarioInput
+              label="Available RRSP room now"
+              value={availableRoomNow}
+              onChange={(event) => setAvailableRoomNow(parseNumericInput(event.target.value))}
+              min={0}
+              step={500}
+              suffix="CAD"
+              helpText="Best taken from your latest Notice of Assessment."
+            />
+            <ScenarioInput
+              label="Planned annual contribution"
+              value={annualContribution}
+              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
+              min={0}
+              step={500}
+              suffix="CAD"
+              helpText={`Base annual limit estimate at this income: ${formatCurrency(result.baseAnnualLimit)}.`}
+            />
+
+            <details className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900">
+              <summary className="cursor-pointer text-sm font-bold text-primary dark:text-white">Retirement projections and spousal options</summary>
+              <div className="mt-4 space-y-5">
+            <ScenarioInput
+              label="Current RRSP balance"
+              value={currentBalance}
+              onChange={(event) => setCurrentBalance(parseNumericInput(event.target.value))}
+              min={0}
+              step={500}
+              suffix="CAD"
+            />
+            <ScenarioInput
+              label="Expected annual growth"
+              value={expectedReturn}
+              onChange={(event) => setExpectedReturn(parseNumericInput(event.target.value))}
+              min={0}
+              max={12}
+              step={0.5}
+              suffix="%"
+            />
+            <ScenarioInput
+              label="Years to retirement"
+              value={yearsToRetirement}
+              onChange={(event) => setYearsToRetirement(parseNumericInput(event.target.value, { integer: true }))}
+              min={1}
+              max={40}
+              step={1}
+              suffix="yrs"
+            />
+            <ScenarioInput
+              label="Retirement income assumption"
+              value={retirementIncome}
+              onChange={(event) => setRetirementIncome(parseNumericInput(event.target.value))}
+              min={0}
+              step={1000}
+              suffix="CAD"
+              helpText="Used to estimate the withdrawal tax rate later."
+            />
+
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+              <label className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  checked={reinvestRefund}
+                  onChange={(event) => setReinvestRefund(event.target.checked)}
+                  className="mt-1 h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary"
+                />
+                <span>
+                  <span className="block font-semibold text-slate-800 dark:text-slate-100">Reinvest the RRSP refund</span>
+                  <span className="mt-1 block text-sm text-slate-600 dark:text-slate-300">
+                    Turning the refund back into invested capital often matters more than small return tweaks.
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+              <label className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  checked={useSpousalComparison}
+                  onChange={(event) => setUseSpousalComparison(event.target.checked)}
+                  className="mt-1 h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary"
+                />
+                <span>
+                  <span className="block font-semibold text-slate-800 dark:text-slate-100">Compare a spousal RRSP angle</span>
+                  <span className="mt-1 block text-sm text-slate-600 dark:text-slate-300">
+                    Useful when retirement income may be uneven between partners.
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            {useSpousalComparison ? (
+              <ScenarioInput
+                label="Spouse retirement income assumption"
+                value={spouseIncome}
+                onChange={(event) => setSpouseIncome(parseNumericInput(event.target.value))}
+                min={0}
+                step={1000}
+                suffix="CAD"
+              />
+            ) : null}
+              </div>
+              <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">Expand to change growth, timeline, retirement income and spousal assumptions. These influence projected retirement value.</p>
+            </details>
+          </div>
+
+          <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-800 dark:bg-blue-900/20">
+            <p className="font-semibold text-blue-800 dark:text-blue-200">Current planning view</p>
+            <ul className="mt-2 space-y-2 text-blue-700 dark:text-blue-300">
+              <li>Base annual RRSP limit estimate: {formatCurrency(result.baseAnnualLimit)}</li>
+              <li>Current marginal rate: {Math.round(result.currentRate * 1000) / 10}%</li>
+              <li>Retirement-rate assumption: {Math.round(result.retirementRate * 1000) / 10}%</li>
+            </ul>
+          </div>
+        </aside>
+        <div id="rrsp-quick-results" className="eft-surface scroll-mt-24 p-5 sm:p-7 lg:sticky lg:top-24" aria-label="Estimated RRSP results" aria-live="polite">
+          <p className="eft-eyebrow">LIVE SCENARIO · 2026 TAX MODEL</p>
+          <h2 className="mt-2 text-xl font-extrabold text-primary dark:text-white">Estimated refund and retirement tradeoff</h2>
+          <div className="mt-4 grid gap-3">
+            <ResultMetric
+              label="Estimated refund this year"
+              value={formatCurrency(result.taxRefundYearOne)}
+              hint={`Based on a ${Math.round(result.currentRate * 1000) / 10}% marginal-rate estimate.`}
+              tone="primary"
+            />
+            <ResultMetric
+              label={`Projected RRSP balance in ${yearsToRetirement} years`}
+              value={formatCurrency(result.projectedBalance)}
+              hint={`Includes ${formatCurrency(result.projectedGrowth)} of projected growth.`}
+              tone="success"
+            />
+            <ResultMetric
+              label="Simplified after-tax retirement value"
+              value={formatCurrency(result.afterTaxRetirementValue)}
+              hint={`Using a ${Math.round(result.retirementRate * 1000) / 10}% retirement-rate assumption.`}
+              tone="warning"
+            />
+          </div>
+          <p className="mt-4 text-xs leading-6 text-slate-600 dark:text-slate-300">This is a simplified deduction estimate, not a promised CRA refund. Your available room comes from your Notice of Assessment. Selecting 2027 changes the national RRSP ceiling, not these 2026 tax assumptions.</p>
+          <a href="#rrsp-in-depth" className="focus-ring mt-4 inline-flex min-h-11 items-center text-sm font-bold text-secondary hover:underline">See the full retirement analysis and sources ↓</a>
+        </div>
+      </section>
+      <section id="rrsp-in-depth" className="mt-10 scroll-mt-24" aria-label="RRSP methodology and detailed analysis">
+        <div className="mb-6 border-b border-slate-200 pb-5 dark:border-slate-700">
+          <p className="eft-eyebrow">UNDERSTAND YOUR RESULT</p>
+          <h2 className="mt-1 text-2xl font-extrabold text-primary dark:text-white">Assumptions, risks and deeper analysis</h2>
+        </div>
           <div className="mt-6">
             <EducationalDisclaimer />
             <OfficialSourceNote
@@ -325,26 +506,7 @@ export default function RRSPCalculator() {
             />
           </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            <ResultMetric
-              label="Estimated refund this year"
-              value={formatCurrency(result.taxRefundYearOne)}
-              hint={`Based on a ${Math.round(result.currentRate * 1000) / 10}% marginal-rate estimate.`}
-              tone="primary"
-            />
-            <ResultMetric
-              label={`Projected RRSP balance in ${yearsToRetirement} years`}
-              value={formatCurrency(result.projectedBalance)}
-              hint={`Includes ${formatCurrency(result.projectedGrowth)} of projected growth.`}
-              tone="success"
-            />
-            <ResultMetric
-              label="Simplified after-tax retirement value"
-              value={formatCurrency(result.afterTaxRetirementValue)}
-              hint={`Using a ${Math.round(result.retirementRate * 1000) / 10}% retirement-rate assumption.`}
-              tone="warning"
-            />
-          </div>
+
 
           <InlineSourceTrust
             label="RRSP deduction source"
@@ -645,146 +807,7 @@ export default function RRSPCalculator() {
               ) : null}
             </div>
           </section>
-        </div>
-
-        <aside className="surface-card h-fit p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Input</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Build your RRSP scenario</h2>
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            Enter the current deduction and retirement assumptions you know today. This page is strongest when it helps you decide whether the RRSP should beat the TFSA or FHSA for the next contribution.
-          </p>
-
-          <div className="mt-6 space-y-5">
-            <div>
-              <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Province</label>
-              <select
-                value={province}
-                onChange={(event) => setProvince(event.target.value)}
-                className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
-              >
-                {CANADIAN_PROVINCES.map((item) => (
-                  <option key={item.value} value={item.value}>{item.label}</option>
-                ))}
-              </select>
-            </div>
-            <ScenarioInput
-              label="Current taxable income"
-              value={taxableIncome}
-              onChange={(event) => setTaxableIncome(parseNumericInput(event.target.value))}
-              min={0}
-              step={1000}
-              suffix="CAD"
-            />
-            <ScenarioInput
-              label="Available RRSP room now"
-              value={availableRoomNow}
-              onChange={(event) => setAvailableRoomNow(parseNumericInput(event.target.value))}
-              min={0}
-              step={500}
-              suffix="CAD"
-              helpText="Best taken from your latest Notice of Assessment."
-            />
-            <ScenarioInput
-              label="Planned annual contribution"
-              value={annualContribution}
-              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
-              min={0}
-              step={500}
-              suffix="CAD"
-              helpText={`Base annual limit estimate at this income: ${formatCurrency(result.baseAnnualLimit)}.`}
-            />
-            <ScenarioInput
-              label="Current RRSP balance"
-              value={currentBalance}
-              onChange={(event) => setCurrentBalance(parseNumericInput(event.target.value))}
-              min={0}
-              step={500}
-              suffix="CAD"
-            />
-            <ScenarioInput
-              label="Expected annual growth"
-              value={expectedReturn}
-              onChange={(event) => setExpectedReturn(parseNumericInput(event.target.value))}
-              min={0}
-              max={12}
-              step={0.5}
-              suffix="%"
-            />
-            <ScenarioInput
-              label="Years to retirement"
-              value={yearsToRetirement}
-              onChange={(event) => setYearsToRetirement(parseNumericInput(event.target.value, { integer: true }))}
-              min={1}
-              max={40}
-              step={1}
-              suffix="yrs"
-            />
-            <ScenarioInput
-              label="Retirement income assumption"
-              value={retirementIncome}
-              onChange={(event) => setRetirementIncome(parseNumericInput(event.target.value))}
-              min={0}
-              step={1000}
-              suffix="CAD"
-              helpText="Used to estimate the withdrawal tax rate later."
-            />
-
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
-              <label className="flex items-start gap-3">
-                <input
-                  type="checkbox"
-                  checked={reinvestRefund}
-                  onChange={(event) => setReinvestRefund(event.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary"
-                />
-                <span>
-                  <span className="block font-semibold text-slate-800 dark:text-slate-100">Reinvest the RRSP refund</span>
-                  <span className="mt-1 block text-sm text-slate-600 dark:text-slate-300">
-                    Turning the refund back into invested capital often matters more than small return tweaks.
-                  </span>
-                </span>
-              </label>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
-              <label className="flex items-start gap-3">
-                <input
-                  type="checkbox"
-                  checked={useSpousalComparison}
-                  onChange={(event) => setUseSpousalComparison(event.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary"
-                />
-                <span>
-                  <span className="block font-semibold text-slate-800 dark:text-slate-100">Compare a spousal RRSP angle</span>
-                  <span className="mt-1 block text-sm text-slate-600 dark:text-slate-300">
-                    Useful when retirement income may be uneven between partners.
-                  </span>
-                </span>
-              </label>
-            </div>
-
-            {useSpousalComparison ? (
-              <ScenarioInput
-                label="Spouse retirement income assumption"
-                value={spouseIncome}
-                onChange={(event) => setSpouseIncome(parseNumericInput(event.target.value))}
-                min={0}
-                step={1000}
-                suffix="CAD"
-              />
-            ) : null}
-          </div>
-
-          <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-800 dark:bg-blue-900/20">
-            <p className="font-semibold text-blue-800 dark:text-blue-200">Current planning view</p>
-            <ul className="mt-2 space-y-2 text-blue-700 dark:text-blue-300">
-              <li>Base annual RRSP limit estimate: {formatCurrency(result.baseAnnualLimit)}</li>
-              <li>Current marginal rate: {Math.round(result.currentRate * 1000) / 10}%</li>
-              <li>Retirement-rate assumption: {Math.round(result.retirementRate * 1000) / 10}%</li>
-            </ul>
-          </div>
-        </aside>
-      </div>
+      </section>
 
       <section className="eft-surface mt-10 p-5 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
