@@ -324,7 +324,6 @@ export default function MortgageCalculator() {
             Mortgage planning for Canadian buyers
           </div>
           <h1 className="eft-display text-4xl font-extrabold text-primary dark:text-white md:text-5xl">Mortgage payment and ownership-cost planner</h1>
-          <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against Canadian mortgage rules" />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             This page helps you move from "can I handle the payment?" to "what does this home actually cost once CMHC, closing costs, and rate risk are included?"
           </p>
@@ -431,6 +430,7 @@ export default function MortgageCalculator() {
         <div className="mb-6 border-b border-slate-200 pb-5 dark:border-slate-700">
           <p className="eft-eyebrow">UNDERSTAND YOUR PAYMENT</p>
           <h2 className="mt-1 text-2xl font-extrabold text-primary dark:text-white">Rate comparisons, assumptions, and deeper analysis</h2>
+          <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against Canadian mortgage rules" />
         </div>
           <div className="mt-6">
             <EducationalDisclaimer />
