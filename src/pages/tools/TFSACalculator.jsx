@@ -266,9 +266,9 @@ export default function TFSACalculator() {
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             TFSA planning for Canadian investors
           </div>
-          <h1 className="eft-display text-4xl font-extrabold text-primary dark:text-white md:text-5xl">TFSA room and tax-free growth planner</h1>
+          <h1 className="eft-display text-3xl font-extrabold text-primary dark:text-white sm:text-4xl md:text-5xl">TFSA calculator</h1>
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
-            Use this page to estimate available TFSA room, model tax-free growth, and decide whether the TFSA should get the next contribution before you move into ETFs, dividend income, or RRSP comparisons.
+            Estimate contribution room and potential tax-free growth. Confirm your personal room with CRA before contributing.
           </p>
 
       </header>
@@ -281,7 +281,7 @@ export default function TFSACalculator() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">YOUR INPUTS</p>
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Start with your TFSA numbers</h2>
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            Enter the current room and funding assumptions you know today. This page is strongest as a decision aid before you pick holdings or a provider.
+            Start with your planned contribution, then confirm eligibility and past TFSA activity.
           </p>
 
           <div className="mt-6 space-y-5">
