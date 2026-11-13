@@ -267,7 +267,6 @@ export default function TFSACalculator() {
             TFSA planning for Canadian investors
           </div>
           <h1 className="eft-display text-4xl font-extrabold text-primary dark:text-white md:text-5xl">TFSA room and tax-free growth planner</h1>
-          <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against CRA TFSA rules" />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             Use this page to estimate available TFSA room, model tax-free growth, and decide whether the TFSA should get the next contribution before you move into ETFs, dividend income, or RRSP comparisons.
           </p>
@@ -426,6 +425,7 @@ export default function TFSACalculator() {
         <div className="mb-6 border-b border-slate-200 pb-5 dark:border-slate-700">
           <p className="eft-eyebrow">UNDERSTAND YOUR RESULT</p>
           <h2 className="mt-1 text-2xl font-extrabold text-primary dark:text-white">Assumptions, risks and deeper analysis</h2>
+          <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against CRA TFSA rules" />
         </div>
           <div className="mt-6">
             <EducationalDisclaimer />
