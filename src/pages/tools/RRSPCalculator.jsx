@@ -291,7 +291,6 @@ export default function RRSPCalculator() {
             RRSP planning for Canadian investors
           </div>
           <h1 className="eft-display text-4xl font-extrabold text-primary dark:text-white md:text-5xl">RRSP refund and retirement-income planner</h1>
-          <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against CRA RRSP rules" />
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
             Use this page to estimate the value of the RRSP deduction, project a retirement balance, and decide whether the RRSP should beat the TFSA or FHSA for the next contribution.
           </p>
@@ -482,6 +481,7 @@ export default function RRSPCalculator() {
         <div className="mb-6 border-b border-slate-200 pb-5 dark:border-slate-700">
           <p className="eft-eyebrow">UNDERSTAND YOUR RESULT</p>
           <h2 className="mt-1 text-2xl font-extrabold text-primary dark:text-white">Assumptions, risks and deeper analysis</h2>
+          <ToolByline lastUpdated={CONTENT_LAST_REVIEWED} reviewer="Reviewed against CRA RRSP rules" />
         </div>
           <div className="mt-6">
             <EducationalDisclaimer />
