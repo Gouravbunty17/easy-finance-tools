@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "node --test tests/*.test.mjs",
+    "qa:browser": "node scripts/qa-calculator-journeys.mjs",
     "verify:live": "powershell -ExecutionPolicy Bypass -File scripts/verify-live.ps1",
     "audit:seo": "node scripts/technical-seo-audit.mjs",
     "audit:site-quality": "node scripts/site-quality-audit.mjs"
