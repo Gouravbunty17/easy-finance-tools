@@ -188,7 +188,7 @@ export default function IncomeTaxCalculator() {
       />
 
       <div className="mb-8">
-        <h1 className="eft-display mb-3 text-4xl text-primary dark:text-white sm:text-5xl">Canadian Income Tax Calculator 2026</h1>
+        <h1 className="eft-display mb-3 text-3xl text-primary dark:text-white sm:text-4xl md:text-5xl">Income tax calculator</h1>
         <ToolByline />
         <p className="mt-3 text-lg text-gray-600 dark:text-gray-300">
           Estimate take-home pay after federal tax, provincial tax, CPP, and EI for any province or territory in Canada.
