@@ -38,7 +38,13 @@ function chromePath(){
 async function fill(page,selector,value){
   await page.click(selector,{clickCount:3});
   await page.keyboard.press("Backspace");
-  await page.type(selector,value,{delay:15});
+  const state=await page.evaluate(sel=>({
+    url:location.pathname,exists:Boolean(document.querySelector(sel)),
+    focused:document.activeElement?.id||document.activeElement?.tagName||"none",
+    root:document.querySelector("#root")?.textContent?.slice(0,180)||"",
+  }),selector);
+  if(!state.exists)throw new Error("Input disappeared after clearing: "+selector+"; "+JSON.stringify(state));
+  await page.keyboard.type(value,{delay:15});
   await page.$eval(selector,el=>el.blur());
 }
 async function visit(browser,scenario,device){
@@ -80,7 +86,8 @@ async function visit(browser,scenario,device){
       const visible=await page.$eval(scenario.advancedField,el=>el.getBoundingClientRect().height>0);
       if(!visible)throw new Error("Advanced option did not open");
     }
-    await fill(page,scenario.input,scenario.value);
+    try {await fill(page,scenario.input,scenario.value);}
+    catch(err){throw new Error(err.message+"; uncaught errors: "+issues.join(" | "));}
     await page.waitForFunction((selector,prev)=>{
       const el=document.querySelector(selector);return Boolean(el&&el.textContent!==prev);
     },{timeout:10000},scenario.result,before);
