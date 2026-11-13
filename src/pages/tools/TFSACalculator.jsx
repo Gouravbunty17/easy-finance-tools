@@ -262,8 +262,7 @@ export default function TFSACalculator() {
       />
       <FAQSchema faqs={TFSA_FAQS} />
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,420px)]">
-        <div>
+      <header className="mb-7 max-w-4xl">
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             TFSA planning for Canadian investors
           </div>
@@ -273,20 +272,133 @@ export default function TFSACalculator() {
             Use this page to estimate available TFSA room, model tax-free growth, and decide whether the TFSA should get the next contribution before you move into ETFs, dividend income, or RRSP comparisons.
           </p>
 
-          <div className="mt-6">
-            <EducationalDisclaimer />
-            <PrivacyNote className="mt-4" />
-            <ContributorReviewBox className="mt-4" />
-            <SourceVerificationBlock
-              className="mt-4"
-              lastUpdated={CONTENT_LAST_REVIEWED}
-              sources={[tfsaOfficialSources[0], tfsaOfficialSources[1], tfsaOfficialSources[2]]}
-              checked={["2026 TFSA annual limit context", "Withdrawal and recontribution timing", "Overcontribution caveats", "Result guidance and related links"]}
-              limitations={["CRA My Account and your own records remain the final source for personal TFSA room.", "The projection does not model market volatility or product-specific risk."]}
+      </header>
+      <a href="#tfsa-quick-results" className="focus-ring mb-5 flex items-center justify-between gap-3 rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-primary dark:border-teal-900 dark:bg-teal-950/40 dark:text-white lg:hidden">
+        <span><span className="block text-xs font-semibold">Estimated TFSA room</span><strong className="eft-metric mt-1 block text-xl">{formatCurrency(result.estimatedRoomNow)}</strong></span>
+        <span className="shrink-0 font-bold text-secondary">See results ↓</span>
+      </a>
+      <section className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(350px,.84fr)]" aria-label="TFSA calculator inputs and results">
+        <aside className="eft-surface h-fit p-5 sm:p-7">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">YOUR INPUTS</p>
+          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Start with your TFSA numbers</h2>
+          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+            Enter the current room and funding assumptions you know today. This page is strongest as a decision aid before you pick holdings or a provider.
+          </p>
+
+          <div className="mt-6 space-y-5">
+            <ScenarioInput
+              label="Birth year"
+              value={birthYear}
+              onChange={(event) => setBirthYear(parseNumericInput(event.target.value, { integer: true }))}
+              min={1950}
+              max={2008}
+              step={1}
             />
+            <ScenarioInput
+              label="Canadian residency start year"
+              value={residencyYear}
+              onChange={(event) => setResidencyYear(parseNumericInput(event.target.value, { integer: true }))}
+              min={2009}
+              max={FINANCIAL_YEAR}
+              step={1}
+              helpText="TFSA room starts from the later of age 18 or Canadian tax residency."
+            />
+            <ScenarioInput
+              label="Current TFSA balance"
+              value={currentBalance}
+              onChange={(event) => setCurrentBalance(parseNumericInput(event.target.value))}
+              min={0}
+              step={500}
+              suffix="CAD"
+            />
+            <ScenarioInput
+              label="Lifetime contributions made"
+              value={lifetimeContributions}
+              onChange={(event) => setLifetimeContributions(parseNumericInput(event.target.value))}
+              min={0}
+              step={500}
+              suffix="CAD"
+            />
+            <ScenarioInput
+              label="Prior withdrawals already restored to room"
+              value={restoredWithdrawals}
+              onChange={(event) => setRestoredWithdrawals(parseNumericInput(event.target.value))}
+              min={0}
+              step={500}
+              suffix="CAD"
+              helpText="Leave same-year withdrawals out unless the room has already come back."
+            />
+            <ScenarioInput
+              label="Planned annual contribution"
+              value={annualContribution}
+              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
+              min={0}
+              step={500}
+              suffix="CAD"
+              helpText={`Current annual TFSA limit: ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.tfsaAnnualLimit)}.`}
+            />
+            <ScenarioInput
+              label="Expected annual growth"
+              value={expectedReturn}
+              onChange={(event) => setExpectedReturn(parseNumericInput(event.target.value))}
+              min={0}
+              max={12}
+              step={0.5}
+              suffix="%"
+            />
+            <ScenarioInput
+              label="Projection years"
+              value={years}
+              onChange={(event) => setYears(parseNumericInput(event.target.value, { integer: true }))}
+              min={1}
+              max={30}
+              step={1}
+              suffix="yrs"
+            />
+            <details className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900">
+              <summary className="cursor-pointer text-sm font-bold text-primary dark:text-white">More tax-context options (optional)</summary>
+              <div className="mt-4 space-y-5">
+            <div>
+              <label htmlFor="tfsa-province" className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Province</label>
+              <select
+                id="tfsa-province"
+                value={province}
+                onChange={(event) => setProvince(event.target.value)}
+                className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+              >
+                {CANADIAN_PROVINCES.map((item) => (
+                  <option key={item.value} value={item.value}>{item.label}</option>
+                ))}
+              </select>
+            </div>
+            <ScenarioInput
+              label="Taxable income"
+              value={taxableIncome}
+              onChange={(event) => setTaxableIncome(parseNumericInput(event.target.value))}
+              min={0}
+              step={1000}
+              suffix="CAD"
+              helpText="Used only for tax-context interpretation, not for TFSA room itself."
+            />
+
+              </div>
+              <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">Province and income affect tax context, not TFSA room.</p>
+            </details>
           </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
+          <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-800 dark:bg-blue-900/20">
+            <p className="font-semibold text-blue-800 dark:text-blue-200">Current planning view</p>
+            <ul className="mt-2 space-y-2 text-blue-700 dark:text-blue-300">
+              <li>Eligibility year: {result.eligibleYear}</li>
+              <li>Estimated current room: {formatCurrency(result.estimatedRoomNow)}</li>
+              <li>Simplified taxable-account drag context: {formatCurrency(result.taxableContext)} per year on the current balance</li>
+            </ul>
+          </div>
+        </aside>
+        <div id="tfsa-quick-results" className="eft-surface scroll-mt-24 p-5 sm:p-7 lg:sticky lg:top-24" aria-label="Estimated TFSA results" aria-live="polite">
+          <p className="eft-eyebrow">LIVE SCENARIO · 2026</p>
+          <h2 className="mt-2 text-xl font-extrabold text-primary dark:text-white">Results update as you edit</h2>
+          <div className="mt-4 grid gap-3">
             <ResultMetric
               label="Estimated TFSA room now"
               value={formatCurrency(result.estimatedRoomNow)}
@@ -306,6 +418,29 @@ export default function TFSACalculator() {
               tone="warning"
             />
           </div>
+          <p className="mt-4 text-xs leading-6 text-slate-600 dark:text-slate-300">This is not CRA-confirmed room. Reconcile recent deposits, withdrawals and residency against your records.</p>
+          <a href="#tfsa-in-depth" className="focus-ring mt-4 inline-flex min-h-11 items-center text-sm font-bold text-secondary hover:underline">See detailed projection and sources ↓</a>
+        </div>
+      </section>
+      <section id="tfsa-in-depth" className="mt-10 scroll-mt-24" aria-label="TFSA methodology and detailed analysis">
+        <div className="mb-6 border-b border-slate-200 pb-5 dark:border-slate-700">
+          <p className="eft-eyebrow">UNDERSTAND YOUR RESULT</p>
+          <h2 className="mt-1 text-2xl font-extrabold text-primary dark:text-white">Assumptions, risks and deeper analysis</h2>
+        </div>
+          <div className="mt-6">
+            <EducationalDisclaimer />
+            <PrivacyNote className="mt-4" />
+            <ContributorReviewBox className="mt-4" />
+            <SourceVerificationBlock
+              className="mt-4"
+              lastUpdated={CONTENT_LAST_REVIEWED}
+              sources={[tfsaOfficialSources[0], tfsaOfficialSources[1], tfsaOfficialSources[2]]}
+              checked={["2026 TFSA annual limit context", "Withdrawal and recontribution timing", "Overcontribution caveats", "Result guidance and related links"]}
+              limitations={["CRA My Account and your own records remain the final source for personal TFSA room.", "The projection does not model market volatility or product-specific risk."]}
+            />
+          </div>
+
+
 
           <div className="mt-6 grid gap-4 lg:grid-cols-3">
             <WhyThisToolExists>
@@ -613,119 +748,7 @@ export default function TFSACalculator() {
               </div>
             </div>
           </section>
-        </div>
-
-        <aside className="surface-card h-fit p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Input</p>
-          <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Build your TFSA scenario</h2>
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            Enter the current room and funding assumptions you know today. This page is strongest as a decision aid before you pick holdings or a provider.
-          </p>
-
-          <div className="mt-6 space-y-5">
-            <ScenarioInput
-              label="Birth year"
-              value={birthYear}
-              onChange={(event) => setBirthYear(parseNumericInput(event.target.value, { integer: true }))}
-              min={1950}
-              max={2008}
-              step={1}
-            />
-            <ScenarioInput
-              label="Canadian residency start year"
-              value={residencyYear}
-              onChange={(event) => setResidencyYear(parseNumericInput(event.target.value, { integer: true }))}
-              min={2009}
-              max={FINANCIAL_YEAR}
-              step={1}
-              helpText="TFSA room starts from the later of age 18 or Canadian tax residency."
-            />
-            <div>
-              <label htmlFor="tfsa-province" className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">Province</label>
-              <select
-                id="tfsa-province"
-                value={province}
-                onChange={(event) => setProvince(event.target.value)}
-                className="focus-ring w-full rounded-xl border-2 border-slate-200 px-4 py-3 font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
-              >
-                {CANADIAN_PROVINCES.map((item) => (
-                  <option key={item.value} value={item.value}>{item.label}</option>
-                ))}
-              </select>
-            </div>
-            <ScenarioInput
-              label="Taxable income"
-              value={taxableIncome}
-              onChange={(event) => setTaxableIncome(parseNumericInput(event.target.value))}
-              min={0}
-              step={1000}
-              suffix="CAD"
-              helpText="Used only for tax-context interpretation, not for TFSA room itself."
-            />
-            <ScenarioInput
-              label="Current TFSA balance"
-              value={currentBalance}
-              onChange={(event) => setCurrentBalance(parseNumericInput(event.target.value))}
-              min={0}
-              step={500}
-              suffix="CAD"
-            />
-            <ScenarioInput
-              label="Lifetime contributions made"
-              value={lifetimeContributions}
-              onChange={(event) => setLifetimeContributions(parseNumericInput(event.target.value))}
-              min={0}
-              step={500}
-              suffix="CAD"
-            />
-            <ScenarioInput
-              label="Prior withdrawals already restored to room"
-              value={restoredWithdrawals}
-              onChange={(event) => setRestoredWithdrawals(parseNumericInput(event.target.value))}
-              min={0}
-              step={500}
-              suffix="CAD"
-              helpText="Leave same-year withdrawals out unless the room has already come back."
-            />
-            <ScenarioInput
-              label="Planned annual contribution"
-              value={annualContribution}
-              onChange={(event) => setAnnualContribution(parseNumericInput(event.target.value))}
-              min={0}
-              step={500}
-              suffix="CAD"
-              helpText={`Current annual TFSA limit: ${formatCurrency(REGISTERED_ACCOUNT_LIMITS.tfsaAnnualLimit)}.`}
-            />
-            <ScenarioInput
-              label="Expected annual growth"
-              value={expectedReturn}
-              onChange={(event) => setExpectedReturn(parseNumericInput(event.target.value))}
-              min={0}
-              max={12}
-              step={0.5}
-              suffix="%"
-            />
-            <ScenarioInput
-              label="Projection years"
-              value={years}
-              onChange={(event) => setYears(parseNumericInput(event.target.value, { integer: true }))}
-              min={1}
-              max={30}
-              step={1}
-              suffix="yrs"
-            />
-          </div>
-
-          <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-800 dark:bg-blue-900/20">
-            <p className="font-semibold text-blue-800 dark:text-blue-200">Current planning view</p>
-            <ul className="mt-2 space-y-2 text-blue-700 dark:text-blue-300">
-              <li>Eligibility year: {result.eligibleYear}</li>
-              <li>Estimated current room: {formatCurrency(result.estimatedRoomNow)}</li>
-              <li>Simplified taxable-account drag context: {formatCurrency(result.taxableContext)} per year on the current balance</li>
-            </ul>
-          </div>
-        </aside>
-      </div>
+      </section>
 
       <section className="eft-surface mt-10 p-5 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">Example calculation</p>
