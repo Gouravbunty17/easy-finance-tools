@@ -195,7 +195,7 @@ export default function IncomeTaxCalculator() {
         </p>
       </div>
 
-      <div className="mb-6"><TaxYearReference year={referenceYear} onChange={year=>{trackStartOnce();setReferenceYear(year);}} /></div>
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm dark:border-slate-700 dark:bg-slate-800"><span className="font-bold text-primary dark:text-white">Calculation year: 2026</span><a className="font-semibold text-secondary hover:underline" href="#tax-year-reference-details">2026 / 2027 published limits ↓</a></div>
       <a href="#income-tax-quick-results" className="focus-ring mb-5 flex items-center justify-between gap-3 rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-primary dark:border-teal-900 dark:bg-teal-950/40 dark:text-white md:hidden"><span><span className="block text-xs font-semibold">Estimated annual take-home</span><strong className="eft-metric mt-1 block text-xl">{fmt(results.takeHome)}</strong></span><span className="shrink-0 font-bold text-secondary">See results ↓</span></a>
       <section className="grid items-start gap-6 md:grid-cols-2 lg:gap-8" aria-label="Canadian income tax inputs and live results">
         <div className="eft-surface space-y-5 p-5 sm:p-7">
@@ -301,6 +301,11 @@ export default function IncomeTaxCalculator() {
         </div>
       </section>
 
+      <details id="tax-year-reference-details" className="mt-8 scroll-mt-24 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-gray-800">
+        <summary className="cursor-pointer text-sm font-bold text-primary dark:text-white">Published 2026 / 2027 limits and references · optional</summary>
+        <div className="mt-4"><TaxYearReference year={referenceYear} onChange={year=>{trackStartOnce();setReferenceYear(year);}} /></div>
+      </details>
+      
       <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-gray-800">
         <h2 className="text-xl font-bold text-primary dark:text-accent">Side-by-side RRSP deduction comparison · 2026 tax assumptions</h2>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Uses the same income and province. The 2027 selector above changes published reference limits only; these calculations stay on the verified 2026 model.</p>
