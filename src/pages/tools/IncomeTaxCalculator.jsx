@@ -196,8 +196,9 @@ export default function IncomeTaxCalculator() {
       </div>
 
       <div className="mb-6"><TaxYearReference year={referenceYear} onChange={year=>{trackStartOnce();setReferenceYear(year);}} /></div>
-      <div className="grid md:grid-cols-2 gap-8">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 space-y-5">
+      <a href="#income-tax-quick-results" className="focus-ring mb-5 flex items-center justify-between gap-3 rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-primary dark:border-teal-900 dark:bg-teal-950/40 dark:text-white md:hidden"><span><span className="block text-xs font-semibold">Estimated annual take-home</span><strong className="eft-metric mt-1 block text-xl">{fmt(results.takeHome)}</strong></span><span className="shrink-0 font-bold text-secondary">See results ↓</span></a>
+      <section className="grid items-start gap-6 md:grid-cols-2 lg:gap-8" aria-label="Canadian income tax inputs and live results">
+        <div className="eft-surface space-y-5 p-5 sm:p-7">
           <h2 className="text-xl font-bold text-primary dark:text-accent">Your income details</h2>
 
           <div>
@@ -235,14 +236,14 @@ export default function IncomeTaxCalculator() {
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div className="bg-primary text-white rounded-2xl p-6 text-center shadow">
+        <div id="income-tax-quick-results" className="scroll-mt-24 space-y-4" aria-label="Income tax results" aria-live="polite">
+          <div className="rounded-2xl bg-primary p-5 text-center text-white shadow sm:p-7">
             <p className="text-sm font-semibold uppercase tracking-wide opacity-80 mb-1">Annual take-home pay</p>
-            <p className="text-5xl font-bold">{fmt(results.takeHome)}</p>
+            <p className="eft-metric break-words text-4xl font-extrabold sm:text-5xl">{fmt(results.takeHome)}</p>
             <p className="text-sm opacity-70 mt-2">{fmt(Math.round(results.takeHome / 12))}/month • {fmt(Math.round(results.takeHome / 26))}/biweekly</p>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 space-y-3">
+          <div className="eft-surface space-y-3 p-5 sm:p-6">
             <h3 className="font-bold text-lg text-primary dark:text-accent mb-3">Tax breakdown</h3>
             {[
               { label: "Gross income", value: fmt(incomeValue), color: "text-gray-700 dark:text-gray-200" },
@@ -261,7 +262,7 @@ export default function IncomeTaxCalculator() {
             ))}
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6">
+          <div className="eft-surface p-5 sm:p-6">
             <h3 className="font-bold text-lg text-primary dark:text-accent mb-3">Your tax rates</h3>
             <div className="grid grid-cols-2 gap-4">
               {[
@@ -298,7 +299,7 @@ export default function IncomeTaxCalculator() {
             </StressTestYourInputs>
           </div>
         </div>
-      </div>
+      </section>
 
       <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-gray-800">
         <h2 className="text-xl font-bold text-primary dark:text-accent">Side-by-side RRSP deduction comparison · 2026 tax assumptions</h2>
