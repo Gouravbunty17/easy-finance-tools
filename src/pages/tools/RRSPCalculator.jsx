@@ -290,16 +290,16 @@ export default function RRSPCalculator() {
           <div className="mb-5 inline-flex rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary dark:bg-slate-800">
             RRSP planning for Canadian investors
           </div>
-          <h1 className="eft-display text-4xl font-extrabold text-primary dark:text-white md:text-5xl">RRSP refund and retirement-income planner</h1>
+          <h1 className="eft-display text-3xl font-extrabold text-primary dark:text-white sm:text-4xl md:text-5xl">RRSP refund calculator</h1>
           <p className="mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
-            Use this page to estimate the value of the RRSP deduction, project a retirement balance, and decide whether the RRSP should beat the TFSA or FHSA for the next contribution.
+            Estimate deduction benefits, then compare your retirement outlook. Real RRSP room comes from your CRA Notice of Assessment.
           </p>
 
-          <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
-            <label htmlFor="rrsp-year" className="block text-sm font-bold text-primary dark:text-accent">Contribution year · published CRA RRSP dollar ceiling</label>
-            <select id="rrsp-year" value={contributionYear} onChange={e=>setContributionYear(Number(e.target.value))} className="mt-2 w-full rounded-lg border border-slate-300 p-3 dark:border-slate-600 dark:bg-slate-900"><option value={2026}>2026 · $33,810</option><option value={2027}>2027 · $35,390</option></select>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Personal RRSP room must come from your CRA Notice of Assessment, not this national ceiling. Refund and marginal-rate estimates use 2026 bracket proxies{contributionYear === 2027 ? " even when the 2027 ceiling is selected, because 2027 tax brackets are not confirmed here." : "."}</p>
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2 dark:border-slate-700 dark:bg-slate-800">
+            <label htmlFor="rrsp-year" className="text-sm font-bold text-primary dark:text-white">RRSP limit reference year</label>
+            <select id="rrsp-year" value={contributionYear} onChange={e=>setContributionYear(Number(e.target.value))} className="min-h-11 rounded-lg border border-slate-300 px-3 dark:border-slate-600 dark:bg-slate-900"><option value={2026}>2026 · $33,810</option><option value={2027}>2027 · $35,390</option></select>
           </div>
+          <p className="mt-2 text-xs leading-5 text-slate-600 dark:text-slate-300">Refund estimates use 2026 tax assumptions. The 2027 selection updates only published RRSP ceiling references, not personal room or 2027 brackets.</p>
       </header>
       <a href="#rrsp-quick-results" className="focus-ring mb-5 flex items-center justify-between gap-3 rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-primary dark:border-teal-900 dark:bg-teal-950/40 dark:text-white lg:hidden">
         <span><span className="block text-xs font-semibold">Estimated RRSP deduction benefit</span><strong className="eft-metric mt-1 block text-xl">{formatCurrency(result.taxRefundYearOne)}</strong></span>
@@ -310,7 +310,7 @@ export default function RRSPCalculator() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-secondary">YOUR INPUTS</p>
           <h2 className="mt-2 text-2xl font-bold text-primary dark:text-accent">Start with your RRSP numbers</h2>
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-            Enter the current deduction and retirement assumptions you know today. This page is strongest when it helps you decide whether the RRSP should beat the TFSA or FHSA for the next contribution.
+            Start with a contribution amount and your income; refine retirement projections in the optional section.
           </p>
 
           <div className="mt-6 space-y-5">
