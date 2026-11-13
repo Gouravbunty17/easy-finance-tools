@@ -81,7 +81,7 @@ async function visit(browser,scenario,device){
     },scenario.input,scenario.result);
     await page.screenshot({path:path.join(OUT,scenario.slug+"-"+device+"-initial.png"),captureBeyondViewport:false});
     if(metrics.overflow>8)throw new Error("Horizontal overflow: "+metrics.overflow+"px");
-    if(mobile && metrics.inputTop>1100)throw new Error("First input buried below mobile viewport: "+metrics.inputTop+"px");
+    if(mobile && metrics.inputTop>844)throw new Error("Primary input below the first 844px mobile viewport: "+metrics.inputTop+"px");
     if(!mobile && metrics.resultLeft <= metrics.inputLeft)throw new Error("Desktop result panel should be to the right of input panel");
     if(scenario.advanced){
       const summary=await page.$$("summary");
@@ -102,7 +102,7 @@ async function visit(browser,scenario,device){
     },{timeout:10000},scenario.result,before);
     await page.screenshot({path:path.join(OUT,scenario.slug+"-"+device+".png"),captureBeyondViewport:false});
     if(issues.length)throw new Error("Uncaught browser errors: "+issues.slice(0,3).join("; "));
-    console.log("PASS "+scenario.slug+" "+device+": editable input, live results, advanced options, no horizontal overflow");
+    console.log("PASS "+scenario.slug+" "+device+": input at "+Math.round(metrics.inputTop)+"px, live results, advanced options, no horizontal overflow");
   } finally {await page.close();}
 }
 async function main(){
