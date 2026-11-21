@@ -1,6 +1,7 @@
 import React from "react";
 import { shouldNoindexPath } from "../config/qualityRoutes";
 import { SITE_ORIGIN, canonicalizeSiteUrl } from "../config/site";
+import { getLanguageAlternates, isFrenchRoute } from "../config/localizedRoutes.mjs";
 
 export default function SEO({
   title,
@@ -22,6 +23,8 @@ export default function SEO({
       description ||
       "Free Canadian finance calculators for 2026: estimate TFSA growth, RRSP tax savings, mortgage payments, dividend income and income tax. No signup required.";
     const normalizedPath = window.location.pathname === "/" ? "/" : window.location.pathname.replace(/\/+$/, "");
+    const french = isFrenchRoute(normalizedPath);
+    document.documentElement.lang = french ? "fr-CA" : "en-CA";
     const url = canonicalizeSiteUrl(canonical || normalizedPath);
     const robotsValue = shouldNoindexPath(normalizedPath)
       ? "noindex,follow,max-image-preview:large"
@@ -63,6 +66,7 @@ export default function SEO({
     setMeta("og:url", url, true);
     setMeta("og:type", type, true);
     setMeta("og:site_name", siteName, true);
+    setMeta("og:locale", french ? "fr_CA" : "en_CA", true);
     setMeta("og:image", imageUrl, true);
     setMeta("og:image:type", imageType, true);
     setMeta("og:image:width", String(imageWidth), true);
@@ -81,6 +85,15 @@ export default function SEO({
       document.head.appendChild(canonicalEl);
     }
     canonicalEl.setAttribute("href", url);
+    document.querySelectorAll('link[data-eft-hreflang="true"]').forEach(element => element.remove());
+    getLanguageAlternates(normalizedPath).forEach(({language,href}) => {
+      const alternate = document.createElement("link");
+      alternate.rel = "alternate";
+      alternate.hreflang = language;
+      alternate.href = href;
+      alternate.dataset.eftHreflang = "true";
+      document.head.appendChild(alternate);
+    });
 
     document
       .querySelectorAll('script[data-seo-schema="true"]')

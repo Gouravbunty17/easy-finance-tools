@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { isFrenchRoute } from "../config/localizedRoutes.mjs";
 
 export default function Logo({ size = "md" }) {
   const large = size === "lg";
+  const french = isFrenchRoute(useLocation().pathname);
   return (
-    <Link to="/" className="group inline-flex shrink-0 items-center gap-2.5" aria-label="Easy Finance Tools home">
+    <Link to={french?"/fr":"/"} className="group inline-flex shrink-0 items-center gap-2.5" aria-label={french?"Accueil Easy Finance Tools":"Easy Finance Tools home"}>
       <svg aria-hidden="true" focusable="false" width={large ? 52 : 42} height={large ? 52 : 42} viewBox="0 0 48 48" fill="none">
         <rect x="1" y="1" width="46" height="46" rx="13" fill="#0B2447"/>
         <rect x="1.5" y="1.5" width="45" height="45" rx="12.5" stroke="white" strokeOpacity=".2"/>
@@ -18,7 +20,7 @@ export default function Logo({ size = "md" }) {
           Easy<span className="text-secondary dark:text-[#6BE3CA]">Finance</span>Tools
         </span>
         <span className="mt-0.5 text-[9px] font-bold uppercase tracking-[.17em] text-slate-500 dark:text-slate-400">
-          CANADIAN FINANCIAL TOOLS
+          {french?'OUTILS FINANCIERS CANADIENS':'CANADIAN FINANCIAL TOOLS'}
         </span>
       </span>
     </Link>

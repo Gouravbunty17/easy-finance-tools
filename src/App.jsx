@@ -9,6 +9,10 @@ import { lazyWithPreload } from './lib/lazyWithPreload';
 
 // Eagerly loaded - always needed on first paint.
 import Home from './pages/Home';
+import FrenchHome from './pages/fr/FrenchHome';
+import FrenchTools from './pages/fr/FrenchTools';
+import FrenchMortgageCalculator from './pages/fr/FrenchMortgageCalculator';
+import { isFrenchRoute } from './config/localizedRoutes.mjs';
 
 const CommandPalette = lazy(() => import('./components/CommandPalette'));
 
@@ -124,6 +128,9 @@ const CoveredCallETFTaxesCanada = lazyWithPreload(() => import('./pages/blog/cov
 const routeEntries = [
   ['/', Home],
   ['/tools', ToolsPage],
+  ['/fr', FrenchHome],
+  ['/fr/outils', FrenchTools],
+  ['/fr/outils/calculateur-hypothecaire', FrenchMortgageCalculator],
   ['/blog', Blog],
   ['/blog/investing', InvestingCategory],
   ['/topics/tfsa', TopicHub],
@@ -282,6 +289,7 @@ export default function App() {
   const routes = useMemo(() => routeEntries, []);
   const location = useLocation();
   const isToolPage = location.pathname.startsWith('/tools/');
+  const french = isFrenchRoute(location.pathname);
 
   useSpaPageTracking();
 
@@ -317,8 +325,8 @@ export default function App() {
             path="*"
             element={
               <div className="mx-auto max-w-3xl px-4 py-24 text-center">
-                <h1 className="text-4xl font-bold text-primary dark:text-accent">Page not found</h1>
-                <p className="mt-4 text-slate-600 dark:text-slate-300">The page you're looking for doesn't exist.</p>
+                <h1 className="text-4xl font-bold text-primary dark:text-accent">{french ? 'Page introuvable' : 'Page not found'}</h1>
+                <p className="mt-4 text-slate-600 dark:text-slate-300">{french ? 'Cette page n’existe pas.' : 'The page you’re looking for doesn’t exist.'}</p>
               </div>
             }
           />

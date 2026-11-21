@@ -4,6 +4,9 @@ export const SITE_URL = "https://easyfinancetools.com";
 
 export const STATIC_ROUTES = [
   { route: "/", sourcePath: "src/pages/Home.jsx", group: "pages" },
+  { route: "/fr", sourcePath: "src/pages/fr/FrenchHome.jsx", group: "pages" },
+  { route: "/fr/outils", sourcePath: "src/pages/fr/FrenchTools.jsx", group: "pages" },
+  { route: "/fr/outils/calculateur-hypothecaire", sourcePath: "src/pages/fr/FrenchMortgageCalculator.jsx", group: "pages" },
   { route: "/tools", sourcePath: "src/pages/ToolsPage.jsx", group: "pages" },
   { route: "/blog", sourcePath: "src/pages/Blog.jsx", group: "pages" },
   { route: "/blog/investing", sourcePath: "src/pages/InvestingCategory.jsx", group: "pages" },
