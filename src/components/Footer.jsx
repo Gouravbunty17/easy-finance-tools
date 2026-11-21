@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
+import { isFrenchRoute } from "../config/localizedRoutes.mjs";
 import Logo from "./Logo";
 import { SITEWIDE_FINANCIAL_DISCLAIMER } from "./PageDisclaimer";
 
@@ -9,6 +10,29 @@ const columns = [
   {title:"About & legal",links:[["About","/about"],["Contact","/contact"],["Privacy","/privacy"],["Terms","/terms"],["Affiliate disclosure","/affiliate-disclosure"],["Full disclaimer","/disclaimer"]]},
 ];
 export default function Footer() {
+  const french=isFrenchRoute(useLocation().pathname);
+  if (french) return (
+    <footer className="mt-auto bg-[#071A32] text-white" role="contentinfo">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap justify-between gap-8">
+          <div className="max-w-xl">
+            <div className="inline-flex rounded-2xl bg-white px-4 py-3"><Logo size="md" /></div>
+            <h2 className="mt-5 text-2xl font-extrabold">Des outils financiers clairs pour le Canada</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-300">Calculs gratuits, sans inscription. Les résultats sont des estimations éducatives et non des conseils financiers ou hypothécaires personnalisés.</p>
+          </div>
+          <nav aria-label="Liens utiles" className="grid gap-3 text-sm text-slate-300">
+            <Link to="/fr" className="hover:text-white hover:underline">Accueil</Link>
+            <Link to="/fr/outils" className="hover:text-white hover:underline">Calculateurs</Link>
+            <Link to="/fr/outils/calculateur-hypothecaire" className="hover:text-white hover:underline">Calculateur hypothécaire</Link>
+            <Link to="/methodology" hrefLang="en-CA" className="hover:text-white hover:underline">Méthodologie (anglais)</Link>
+            <Link to="/privacy" hrefLang="en-CA" className="hover:text-white hover:underline">Confidentialité (anglais)</Link>
+            <Link to="/disclaimer" hrefLang="en-CA" className="hover:text-white hover:underline">Avis juridique (anglais)</Link>
+          </nav>
+        </div>
+        <p className="mt-8 border-t border-white/10 pt-5 text-xs leading-6 text-slate-400">© 2026 EasyFinanceTools. Vérifiez les règles fiscales et hypothécaires auprès des organismes officiels et les conditions de votre prêteur.</p>
+      </div>
+    </footer>
+  );
   return <footer className="mt-auto bg-[#071A32] text-white" role="contentinfo">
     <div className="mx-auto max-w-7xl px-4 pb-8 pt-14 sm:px-6 lg:px-8">
       <div className="grid gap-10 border-b border-white/10 pb-12 lg:grid-cols-[1.25fr_2fr]">
